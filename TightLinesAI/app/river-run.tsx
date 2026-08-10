@@ -441,8 +441,8 @@ const STEP_CONFIG: Record<
     question: string;
     caption: string;
     icon: keyof typeof Ionicons.glyphMap;
-    requestTitle: string;
-    requestAction: string;
+    requestTitle?: string;
+    requestAction?: string;
   }
 > = {
   1: {
@@ -460,8 +460,6 @@ const STEP_CONFIG: Record<
     question: "Which migration season are you following?",
     caption: "Fall is available now. Planned seasons are marked below.",
     icon: "calendar-outline",
-    requestTitle: "Need another season?",
-    requestAction: "Request a season",
   },
   3: {
     label: "SPECIES",
@@ -1284,7 +1282,7 @@ function SetupView({
         )
         : null}
 
-      {!loading && !error
+      {!loading && !error && config.requestTitle && config.requestAction
         ? (
           <FeedbackCard
             featureName="River Migration Coverage"
@@ -2030,7 +2028,31 @@ function primitiveForTab(
     case "fishability":
       return snapshot.fishability;
     case "activity":
-      return snapshot.activity ?? {
+      if (snapshot.activity) return snapshot.activity;
+      if (snapshot.runStage.label === "Fall entry complete") {
+        return {
+          score: null,
+          label: "Fall entry complete",
+          headline: "PM Steelhead fall-entry Activity is complete.",
+          detail:
+            "Steelhead may remain in the river. This fall-entry model no longer scores their current responsiveness.",
+          tip:
+            "Do not use this completed fall outlook to infer current activity. Check back in early September.",
+        };
+      }
+      if (snapshot.runStage.label === "Fall run complete") {
+        const checkpoint = pmFallReturnCheckpoint(snapshot.runId);
+        return {
+          score: null,
+          label: "Fall run complete",
+          headline: `PM ${checkpoint.species} fall Activity is complete.`,
+          detail:
+            `${checkpoint.species} staging typically begins in ${checkpoint.window}. This Activity model is inactive until then.`,
+          tip:
+            `Check back in ${checkpoint.window} when PM ${checkpoint.species} fall monitoring resumes.`,
+        };
+      }
+      return {
         score: null,
         label: "Not monitoring yet",
         headline: "Daily activity monitoring has not started yet.",
@@ -2042,6 +2064,19 @@ function primitiveForTab(
     case "fish_in_river":
       return snapshot.fishInRiver;
   }
+}
+
+function pmFallReturnCheckpoint(runId: string): {
+  species: string;
+  window: string;
+} {
+  if (runId.includes("_coho")) {
+    return { species: "Coho salmon", window: "late August" };
+  }
+  if (runId.includes("_steelhead")) {
+    return { species: "Steelhead", window: "early September" };
+  }
+  return { species: "Chinook salmon", window: "late July" };
 }
 
 function ActivityBreakdown(

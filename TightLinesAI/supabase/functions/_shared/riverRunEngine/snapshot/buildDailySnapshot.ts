@@ -113,6 +113,7 @@ function requireTimingConfiguration(
     | "conditionsSuggest"
     | "push"
     | "handoff"
+    | "runType"
     | "runStageCopyStrategy"
   >,
 ):
@@ -122,6 +123,7 @@ function requireTimingConfiguration(
     | "conditionsSuggest"
     | "push"
     | "handoff"
+    | "runType"
     | "runStageCopyStrategy"
   >
   & {
@@ -140,6 +142,7 @@ function requireTimingConfiguration(
       | "conditionsSuggest"
       | "push"
       | "handoff"
+      | "runType"
       | "runStageCopyStrategy"
     >
     & {

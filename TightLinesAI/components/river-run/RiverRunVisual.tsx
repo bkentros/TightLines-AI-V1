@@ -292,6 +292,7 @@ export function RiverRunVisual({
                       { color: model.accent },
                     ]}
                   >
+                    {model.scoreIsApproximate ? "≈" : ""}
                     {model.score}
                   </Text>
                   <Text style={styles.presenceIndexMaximum}>/100</Text>

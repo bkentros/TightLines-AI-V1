@@ -175,12 +175,12 @@ Deno.test("Migration Timing stays plain and conservative before its first read",
   });
 
   assertEquals(beforeStaging.label, "Not monitoring yet");
-  assert(beforeStaging.detail.includes("observation window is not active"));
+  assert(beforeStaging.detail.includes("monitoring resumes in late July"));
   assert(beforeStaging.reasonCodes.includes("conditions_monitoring_inactive"));
   assertEquals(beforeStaging.detail.includes("July 28, 2026"), false);
   assertEquals(duringStaging.label, "Evaluating");
   assert(duringStaging.headline.includes("still taking shape"));
-  assert(duringStaging.tip.includes("earliest lower-river holding water"));
+  assert(duringStaging.tip.includes("section named by Migration Stage"));
   assertEquals(duringStaging.nextCheckpointDate, "2026-08-15");
 });
 
@@ -303,9 +303,9 @@ Deno.test("direct Ahead to Delayed checkpoint reversal resolves to Typical", () 
   assert(
     result.reasonCodes.includes("conditions_checkpoint_reversal_tempered"),
   );
-  assert(result.detail.includes("season as a whole"));
-  assert(result.tip.includes("normal river section"));
-  assert(result.tip.includes("established holding water"));
+  assert(result.detail.includes("season-long pattern"));
+  assert(result.tip.includes("section named by Migration Stage"));
+  assert(result.tip.includes("reversal alone"));
 });
 
 Deno.test("peak completion locks timing and switches to underway copy", () => {

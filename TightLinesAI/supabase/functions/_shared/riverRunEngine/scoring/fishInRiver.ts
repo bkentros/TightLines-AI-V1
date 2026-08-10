@@ -37,6 +37,9 @@ export type FishInRiverResult = PrimitiveDisplay & {
   curveDirection: FishInRiverCurveDirection;
   winterHoldingContext: boolean;
   handoffScore?: number;
+  /** Public approximate value; score remains the exact engine value. */
+  displayScore?: number;
+  scoreIsApproximate?: boolean;
 };
 
 export function scoreFishInRiver(
@@ -58,7 +61,38 @@ export function scoreFishInRiver(
   );
   const riverCeiling = run.historicalPresence.maximum * 10;
   const winterHoldingContext = run.runType === "fall_entry" && !!run.handoff &&
+    run.runStageCopyStrategy !== "pere_marquette" &&
     stage === "post_run" && compareLocalDates(localDate, window.endDate) > 0;
+  if (
+    run.runStageCopyStrategy === "pere_marquette" &&
+    run.runType === "fall_entry" &&
+    stage === "post_run"
+  ) {
+    return {
+      score: null,
+      displayScore: undefined,
+      scoreIsApproximate: false,
+      stage,
+      maximum: 100,
+      riverCeiling,
+      historicalRunStrength: opportunity.strength,
+      curveFraction: 0,
+      curveDirection: "outside",
+      winterHoldingContext: false,
+      label: "Fall entry complete",
+      headline: "PM Steelhead fall entry is complete.",
+      detail:
+        "Steelhead may remain in the river. This fall-entry model no longer estimates their current seasonal presence.",
+      tip: `Check back ${
+        seasonalReturnPhrase(window.stagingStartDate.slice(5))
+      } when PM fall movement tracking resumes.`,
+      reasonCodes: [
+        stageReasonCode(stage),
+        "historical_presence_curve",
+      ],
+      copyVersion: RIVER_RUN_COPY_VERSION,
+    };
+  }
   if (winterHoldingContext) {
     const handoffScore = Math.round(
       riverCeiling * run.handoff!.retainedPresenceFraction,
@@ -111,7 +145,14 @@ export function scoreFishInRiver(
     : 0;
   const offseason = compareLocalDates(localDate, window.preRunStartDate) < 0 ||
     compareLocalDates(localDate, window.postRunLateCopyEndDate) > 0;
-  const label = fishInRiverLabel(score, curveFraction, stage, offseason);
+  const baseLabel = fishInRiverLabel(score, curveFraction, stage, offseason);
+  const label = run.runStageCopyStrategy === "pere_marquette" &&
+      baseLabel === "Offseason"
+    ? "Fall run complete"
+    : baseLabel;
+  const displayScore = run.runStageCopyStrategy === "pere_marquette"
+    ? statePreservingDisplayScore(score, riverCeiling, label, stage, offseason)
+    : undefined;
   const curveDirection = resolveCurveDirection({
     run,
     localDate,
@@ -129,6 +170,8 @@ export function scoreFishInRiver(
     species: anglerSpeciesName(run.species),
     opportunity,
     fallEntry: run.runType === "fall_entry",
+    pereMarquette: run.runStageCopyStrategy === "pere_marquette",
+    stagingStart: window.stagingStartDate.slice(5),
   });
   const scopedCopy = run.runStageCopyStrategy === "st_joseph_corridor" &&
       label !== "Offseason"
@@ -142,6 +185,9 @@ export function scoreFishInRiver(
     : copy;
   return {
     score,
+    displayScore,
+    scoreIsApproximate: displayScore != null && score > 0 &&
+      score < riverCeiling,
     stage,
     maximum: 100,
     riverCeiling,
@@ -228,6 +274,8 @@ function fishInRiverCopy(input: {
   species: string;
   opportunity: RunOpportunityCopyContext;
   fallEntry: boolean;
+  pereMarquette: boolean;
+  stagingStart: string;
 }): Pick<PrimitiveDisplay, "headline" | "detail" | "tip"> {
   const {
     label,
@@ -239,6 +287,9 @@ function fishInRiverCopy(input: {
     opportunity,
     fallEntry,
   } = input;
+  if (input.pereMarquette) {
+    return pereMarquetteFishInRiverCopy(input);
+  }
   if (label === "Offseason") {
     return {
       headline: `${species} are outside their river migration season.`,
@@ -311,6 +362,132 @@ function fishInRiverCopy(input: {
       opportunity,
     ),
   };
+}
+
+function pereMarquetteFishInRiverCopy(input: {
+  label: string;
+  score: number;
+  stage: RunStage;
+  direction: FishInRiverCurveDirection;
+  fractionOfRiverMaximum: number;
+  species: string;
+  opportunity: RunOpportunityCopyContext;
+  fallEntry: boolean;
+  stagingStart: string;
+}): Pick<PrimitiveDisplay, "headline" | "detail" | "tip"> {
+  if (input.label === "Offseason" || input.label === "Fall run complete") {
+    return {
+      headline: `The PM ${input.species} fall run is complete.`,
+      detail: `${input.species} staging typically begins ${
+        seasonalReturnPhrase(input.stagingStart)
+      }. This seasonal estimate is inactive until then.`,
+      tip: `Check back ${
+        seasonalReturnPhrase(input.stagingStart)
+      } when the PM fall-run model resumes.`,
+    };
+  }
+  if (input.score === 0 && input.stage === "pre_run") {
+    return {
+      headline:
+        `Dependable ${input.species} presence is not expected in the PM river yet.`,
+      detail:
+        "The seasonal estimate remains at zero. Any fish already in the river would be an early exception.",
+      tip:
+        "Use Migration Stage for nearby staging context. Do not treat one early fish as a dependable river opportunity.",
+    };
+  }
+  if (input.score === 0) {
+    return {
+      headline:
+        `The PM ${input.species} migration no longer has dependable seasonal presence.`,
+      detail:
+        "The seasonal estimate has reached zero. Isolated late fish are not a dependable migration opportunity.",
+      tip:
+        "Do not build a broad river search around isolated late fish. Leave actively spawning fish undisturbed.",
+    };
+  }
+  const direction = input.direction === "rising"
+    ? "building"
+    : input.direction === "falling"
+    ? "declining"
+    : "near its seasonal high";
+  const levelContext = input.direction === "rising"
+    ? "increasing as the fall migration builds"
+    : input.direction === "falling"
+    ? "declining as the fall migration advances"
+    : "near its expected seasonal high";
+  const strength = input.opportunity.strength === "limited"
+    ? "Limited"
+    : input.opportunity.strength === "moderate"
+    ? "Moderate"
+    : "Strong";
+  const scope = input.opportunity.distributionScope === "concentrated"
+    ? "the opportunity concentrates in dependable holding water"
+    : input.opportunity.distributionScope === "sectional"
+    ? "the opportunity centers on dependable river sections"
+    : "the opportunity can extend across broadly accessible water";
+  const strengthAndScope =
+    `For the PM, expected run strength is ${strength}, and ${scope}.`;
+  const relativeLevel = input.label === "High presence"
+    ? "high for this fall migration"
+    : input.label === "Peak presence"
+    ? "at its expected seasonal peak"
+    : `at ${input.label.toLowerCase()}`;
+  return {
+    headline:
+      `${input.species} seasonal presence is ${input.label.toLowerCase()} and ${direction}.`,
+    detail:
+      `Calendar timing places ${input.species} presence ${relativeLevel}, ${levelContext}. ${strengthAndScope} This is not a live fish count or today’s conditions.`,
+    tip:
+      "Use Migration Stage to choose a section. Use Push and Activity for current movement support and responsiveness.",
+  };
+}
+
+function statePreservingDisplayScore(
+  score: number,
+  riverCeiling: number,
+  label: string,
+  stage: RunStage,
+  offseason: boolean,
+): number {
+  if (score === 0 || score === riverCeiling) return score;
+  const candidates = Array.from(
+    { length: Math.floor(riverCeiling / 5) + 1 },
+    (_, index) => index * 5,
+  );
+  if (!candidates.includes(riverCeiling)) candidates.push(riverCeiling);
+  const matching = candidates.filter((candidate) =>
+    fishInRiverLabel(
+      candidate,
+      riverCeiling > 0 ? candidate / riverCeiling : 0,
+      stage,
+      offseason,
+    ) === label
+  );
+  return (matching.length ? matching : candidates).toSorted((a, b) =>
+    Math.abs(a - score) - Math.abs(b - score) || a - b
+  )[0];
+}
+
+function seasonalReturnPhrase(monthDay: string): string {
+  const month = Number(monthDay.slice(0, 2));
+  const day = Number(monthDay.slice(3, 5));
+  const period = day <= 10 ? "in early" : day <= 20 ? "in mid" : "in late";
+  const monthName = [
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December",
+  ][month - 1];
+  return `${period} ${monthName}`;
 }
 
 function resolveCurveDirection(input: {

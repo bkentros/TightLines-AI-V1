@@ -5,6 +5,7 @@ import type {
   PrimitiveDisplay,
   RawFlowTrendSignal,
   RiverRunReasonCode,
+  RunStageCopyStrategy,
 } from "../types.ts";
 import { RIVER_RUN_COPY_VERSION } from "../copy/version.ts";
 import { flowBandReasonCode } from "../metrics/flow.ts";
@@ -25,6 +26,7 @@ export type FishabilityScoreInput = {
   hydraulicPercentChange24h?: number | null;
   flowReasonCodes?: RiverRunReasonCode[];
   localDate?: string;
+  copyStrategy?: RunStageCopyStrategy;
 };
 
 export type FishabilityScoreResult = PrimitiveDisplay & {
@@ -95,6 +97,7 @@ export function scoreFishability(
       flowSignal: input.flowSignal,
       gaugeFreshness: input.gaugeFreshness,
       sourceLabel: input.rules.sourceLabel,
+      copyStrategy: input.copyStrategy,
     }),
     reasonCodes: [...reasonCodes],
     components,
@@ -152,7 +155,11 @@ function fishabilityCopy(input: {
   flowSignal: RawFlowTrendSignal;
   gaugeFreshness: GaugeFreshness;
   sourceLabel: string;
+  copyStrategy?: RunStageCopyStrategy;
 }): Pick<PrimitiveDisplay, "headline" | "detail" | "tip"> {
+  if (input.copyStrategy === "pere_marquette") {
+    return pereMarquetteFishabilityCopy(input);
+  }
   const nilesScoped = input.sourceLabel === "Niles mainstem reach";
   const scopeDetail = nilesScoped
     ? " This flow shape applies to the Niles mainstem reach only; verify the harbor, lower Michigan river, individual tailwaters, and Indiana water directly."
@@ -175,6 +182,87 @@ function fishabilityCopy(input: {
       ? `${baseTip} Apply this recommendation at Niles; recheck water shape and safe access before carrying it to another St. Joseph section.`
       : baseTip,
   };
+}
+
+function pereMarquetteFishabilityCopy(input: {
+  flowBand: FlowBand;
+  flowSignal: RawFlowTrendSignal;
+  gaugeFreshness: GaugeFreshness;
+  sourceLabel: string;
+}): Pick<PrimitiveDisplay, "headline" | "detail" | "tip"> {
+  const headline = input.gaugeFreshness === "stale"
+    ? "The aging Scottville reading limits confidence in Lower river Fishability."
+    : input.flowSignal === "unknown"
+    ? "Scottville flow is workable, but its direction is unknown."
+    : ({
+      very_low: "Very low Scottville flow leaves limited depth and cover.",
+      low: "Low Scottville flow remains workable with less depth and cover.",
+      normal_fishable:
+        "Scottville flow is in a comfortable presentation range.",
+      ideal: "Scottville flow is in its best presentation range.",
+      high_fishable: "High Scottville flow remains fishable in slower water.",
+      very_high:
+        "Very high Scottville flow leaves little controllable presentation water.",
+      blown_out:
+        "Scottville flow is blown out for a dependable presentation plan.",
+    } as Record<FlowBand, string>)[input.flowBand];
+  const bandPoint = ({
+    very_low: "Unusually low flow concentrates useful depth into fewer places.",
+    low: "Lower flow reduces depth and cover across the reach.",
+    normal_fishable:
+      "The flow band supports readable lanes, seams, and holding water.",
+    ideal:
+      "The flow band offers the broadest mix of depth, seams, and presentation control.",
+    high_fishable:
+      "Higher flow pushes useful presentation water toward softer edges.",
+    very_high:
+      "Very high flow compresses controllable water into the slowest protected edges.",
+    blown_out:
+      "Excessive flow overwhelms normal lanes and presentation control.",
+  } as Record<FlowBand, string>)[input.flowBand];
+  const trendPoint = pmFishabilityTrendPoint(
+    input.flowSignal,
+    input.gaugeFreshness,
+  );
+  const scopePoint =
+    "This read applies to the Lower river (Pere Marquette Lake–Scottville), not the full PM.";
+  const tip = input.flowBand === "blown_out"
+    ? "Choose another day and verify current conditions through authoritative local sources."
+    : input.flowBand === "very_high" || input.flowSignal === "sharp_rise"
+    ? "Favor protected margins and short controlled presentations. Choose another day if control is not dependable."
+    : input.flowBand === "very_low"
+    ? "Use the deepest connected water and keep disturbance low."
+    : input.flowBand === "low"
+    ? "Prioritize deeper seams and current breaks with enough cover."
+    : input.flowBand === "high_fishable"
+    ? "Prioritize inside seams, protected edges, and current breaks."
+    : "Cover readable seams and holding water with a controlled presentation.";
+  return {
+    headline,
+    detail: `${bandPoint} ${trendPoint} ${scopePoint}`,
+    tip,
+  };
+}
+
+function pmFishabilityTrendPoint(
+  signal: RawFlowTrendSignal,
+  freshness: GaugeFreshness,
+): string {
+  if (freshness === "stale") {
+    return "The river may have changed since the last Scottville reading.";
+  }
+  return ({
+    stable: "Stable flow should keep presentation lanes consistent.",
+    falling:
+      "Falling flow should sharpen established seams as the reach settles.",
+    rising: "Rising flow is beginning to shift lanes toward softer edges.",
+    meaningful_rise:
+      "A clear rise is moving controllable presentations toward inside seams and current breaks.",
+    sharp_rise:
+      "A fast rise is quickly replacing settled lanes with heavier current.",
+    unknown:
+      "Recent Scottville history cannot show whether presentation water is improving or worsening.",
+  } as Record<RawFlowTrendSignal, string>)[signal];
 }
 
 function fishabilityHeadline(
@@ -419,6 +507,29 @@ function unavailableResult(
   input: FishabilityScoreInput,
   reason: "gauge" | "band",
 ): FishabilityScoreResult {
+  if (input.copyStrategy === "pere_marquette") {
+    return {
+      score: null,
+      label: "Unavailable",
+      headline: reason === "band"
+        ? "Scottville does not have an accepted Fishability band for this read."
+        : "A current Scottville reading is unavailable.",
+      detail: reason === "band"
+        ? "Without accepted local bands, Scottville flow cannot be translated into Lower river presentation conditions."
+        : "Without current Scottville flow and direction, Lower river presentation conditions cannot be determined.",
+      tip:
+        "Do not extend an old or missing Scottville read across the PM. Use current authoritative local information.",
+      reasonCodes: reason === "band"
+        ? [
+          gaugeReasonCode(input.gaugeFreshness),
+          "baseline_missing",
+          ...(input.flowReasonCodes ?? []),
+        ]
+        : [gaugeReasonCode(input.gaugeFreshness)],
+      rulesVersion: input.rules.version,
+      copyVersion: RIVER_RUN_COPY_VERSION,
+    };
+  }
   if (reason === "band") {
     return {
       score: null,

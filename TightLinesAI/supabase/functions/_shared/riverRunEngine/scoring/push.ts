@@ -7,6 +7,7 @@ import type {
   RawRainSignal,
   RawTemperatureTrendSignal,
   RiverRunReasonCode,
+  RunStageCopyStrategy,
   TemperatureSourceType,
 } from "../types.ts";
 import { RIVER_RUN_COPY_VERSION } from "../copy/version.ts";
@@ -65,6 +66,8 @@ export type PushScoreInput = {
   flowReasonCodes?: RiverRunReasonCode[];
   temperatureReasonCodes?: RiverRunReasonCode[];
   localDate?: string;
+  copyStrategy?: RunStageCopyStrategy;
+  monitoringStartDate?: string;
 };
 
 export type PushScoreResult = PrimitiveDisplay & {
@@ -437,6 +440,9 @@ function pushCopy(input: {
   input: PushScoreInput;
   components: PushScoreComponents;
 }): Pick<PrimitiveDisplay, "headline" | "detail" | "tip"> {
+  if (input.input.copyStrategy === "pere_marquette") {
+    return pereMarquettePushCopy(input);
+  }
   const nilesScoped = input.input.rules.hydraulic.sourceLabel ===
     "Niles mainstem reach";
   const detail = [
@@ -458,10 +464,150 @@ function pushCopy(input: {
   };
 }
 
+function pereMarquettePushCopy(input: {
+  label: string;
+  input: PushScoreInput;
+  components: PushScoreComponents;
+}): Pick<PrimitiveDisplay, "headline" | "detail" | "tip"> {
+  const { label, components } = input;
+  const points = [
+    pmHydraulicPoint(input.input, components.hydraulicState),
+    pmTemperaturePoint(input.input, components.temperatureState),
+    pmPushQualification(input.input, components),
+  ].filter((point): point is string => Boolean(point));
+  const headline = components.hydraulicState === "severe_high"
+    ? "Extreme Scottville flow prevents a dependable fresh-movement signal."
+    : components.temperatureState === "migration_barrier"
+    ? "Warm PM water prevents a dependable fresh-movement signal."
+    : components.temperatureState === "cold_holding"
+    ? "Cold PM water limits confidence in continued fall entry."
+    : input.input.gaugeFreshness === "stale"
+    ? "An aging Scottville reading limits confidence in PM fresh movement."
+    : ({
+      Weak: "PM water shows little support for fresh movement.",
+      "No clear push": "PM water does not show a clear fresh-movement signal.",
+      Possible: "PM water offers some support for fresh movement.",
+      Strong: "PM water strongly supports possible fresh movement.",
+      "Very strong":
+        "PM water offers its strongest support for fresh movement.",
+    } as Record<string, string>)[label] ??
+      "A PM fresh-movement read is available.";
+  const tip = components.hydraulicState === "severe_high"
+    ? "Do not chase a movement event. Let Fishability determine whether the Scottville reach offers any practical presentation water."
+    : components.temperatureState === "migration_barrier" ||
+        components.temperatureState === "too_warm"
+    ? "Keep the section named by Migration Stage. Leave fresh-entry travel water secondary until measured temperature improves."
+    : label === "Weak" || label === "No clear push"
+    ? "Keep the section named by Migration Stage. Do not shift lower for a fresh wave this water does not support."
+    : label === "Possible"
+    ? "Keep Migration Stage’s section primary. Add one Lower river travel-water check before returning to established holding water."
+    : "Use Lower river travel water as the fresh-movement check, then return to the section named by Migration Stage.";
+  return {
+    headline,
+    detail: points.slice(0, 3).join(" "),
+    tip,
+  };
+}
+
+function pmHydraulicPoint(
+  input: PushScoreInput,
+  state: PushHydraulicState,
+): string {
+  const trend = ({
+    sharp_rise: "is rising quickly",
+    meaningful_rise: "has made a clear rise",
+    rising: "has started to rise",
+    stable: "is steady without a meaningful rise",
+    falling: "is falling",
+    unknown: "does not have a dependable recent trend",
+  } as Record<RawFlowTrendSignal, string>)[input.flowSignal];
+  const level = state === "low"
+    ? ", while overall flow remains low"
+    : state === "high"
+    ? ", while overall flow is high"
+    : state === "severe_high"
+    ? ", while overall flow is extreme"
+    : "";
+  return `Scottville flow ${trend}${level}.`;
+}
+
+function pmTemperaturePoint(
+  input: PushScoreInput,
+  state: PushTemperatureState,
+): string {
+  const trend = input.temperatureSignal === "strong_cooling"
+    ? " and cooling quickly"
+    : input.temperatureSignal === "cooling"
+    ? " and cooling"
+    : input.temperatureSignal === "warming"
+    ? " but warming"
+    : input.temperatureSignal === "strong_warming"
+    ? " but warming quickly"
+    : "";
+  const stateCopy = ({
+    supportive: "favorable for this migration",
+    transitional_warm: "warmer than preferred",
+    too_warm: "too warm for strong movement support",
+    migration_barrier: "warm enough to block a dependable movement call",
+    cool_plateau: "already cool enough that more cooling adds no credit",
+    cold_active: "cold but still compatible with fall Steelhead movement",
+    cold_holding: "cold enough to favor holding over active fall entry",
+  } as Record<PushTemperatureState, string>)[state];
+  return `Measured water temperature is ${stateCopy}${trend}.`;
+}
+
+function pmPushQualification(
+  input: PushScoreInput,
+  components: PushScoreComponents,
+): string {
+  if (input.gaugeFreshness === "stale") {
+    return "The latest Scottville reading is aging, so confidence is reduced.";
+  }
+  if (input.flowSignal === "unknown") {
+    return "Without a dependable Scottville trend, the model cannot call a clear Push.";
+  }
+  if (input.temperaturePositiveSignalCap === 0) {
+    return "The temperature source is upstream, so its cooling cannot add positive lower-river credit.";
+  }
+  if (input.temperaturePositiveSignalCap != null) {
+    return "The upstream temperature source reduces confidence in Lower river conditions.";
+  }
+  return ({
+    precursor:
+      "Rain is only a precursor because Scottville has not shown enough response.",
+    partial_precursor:
+      "Rain adds limited support while Scottville begins to rise.",
+    absorbed_by_gauge:
+      "Scottville already reflects the rain response, so rain adds no extra credit.",
+    suppressed_high_flow:
+      "Additional rain adds no support while Scottville flow is already high.",
+    dry: "Recent watershed weather shows little rain.",
+    missing: "Watershed rainfall data is unavailable and adds no confidence.",
+    neutral: "Recent watershed rainfall is too light to affect the read.",
+  } as Record<PushRainRole, string>)[components.rainRole];
+}
+
 function inactiveTrackingResult(
   input: PushScoreInput,
 ): PushScoreResult {
   if (input.trackingState === "offseason") {
+    if (input.copyStrategy === "pere_marquette") {
+      const returnPhrase = input.monitoringStartDate
+        ? seasonalReturnPhrase(input.monitoringStartDate.slice(5))
+        : "when Migration Stage enters staging";
+      return {
+        score: null,
+        label: "Offseason",
+        headline: "PM Push is outside its fall movement window.",
+        detail:
+          "Current rain, Scottville flow, and water temperature do not provide an in-season fresh-movement signal for this run.",
+        tip:
+          `Check back ${returnPhrase} when fall movement monitoring resumes.`,
+        reasonCodes: ["push_tracking_offseason"],
+        rulesVersion: input.rules.version,
+        copyVersion: RIVER_RUN_COPY_VERSION,
+      };
+    }
     return {
       score: null,
       label: "Offseason",
@@ -477,6 +623,22 @@ function inactiveTrackingResult(
   }
   if (input.trackingState === "not_started") {
     const fallEntry = input.movementEngineId === "fall_entry_cooling";
+    if (input.copyStrategy === "pere_marquette") {
+      return {
+        score: null,
+        label: "Waiting for migration",
+        headline: fallEntry
+          ? "Dependable PM Steelhead fall entry has not started."
+          : "Dependable PM river entry has not started.",
+        detail:
+          "Rain, Scottville flow, and water temperature are not scored as an in-season movement signal yet.",
+        tip:
+          "Use Migration Stage. Do not move inland because offseason water resembles an in-season Push.",
+        reasonCodes: ["push_tracking_not_started"],
+        rulesVersion: input.rules.version,
+        copyVersion: RIVER_RUN_COPY_VERSION,
+      };
+    }
     return {
       score: null,
       label: "Waiting for migration",
@@ -490,6 +652,23 @@ function inactiveTrackingResult(
         ? "Keep most effort near the lake, harbor, and river-mouth transition. Do not move inland just because rain or cooling resembles an in-season movement event."
         : "Keep the trip in the lake, harbor, and river-mouth zone. Do not move inland just because rain or cooling resembles an in-season movement event.",
       reasonCodes: ["push_tracking_not_started"],
+      rulesVersion: input.rules.version,
+      copyVersion: RIVER_RUN_COPY_VERSION,
+    };
+  }
+  if (
+    input.copyStrategy === "pere_marquette" &&
+    input.movementEngineId === "fall_entry_cooling"
+  ) {
+    return {
+      score: null,
+      label: "Fall entry complete",
+      headline: "PM Steelhead fall-entry Push is complete.",
+      detail:
+        "Current water may affect Steelhead still in the river. This fall model no longer scores fresh-entry support.",
+      tip:
+        "Do not use a muted fall Push as evidence that Steelhead left the river. Check back in early September.",
+      reasonCodes: ["push_tracking_complete"],
       rulesVersion: input.rules.version,
       copyVersion: RIVER_RUN_COPY_VERSION,
     };
@@ -702,6 +881,39 @@ function unavailableResult(input: {
   reasonCodes: RiverRunReasonCode[];
   rules: PushRules;
 }): PushScoreResult {
+  if (input.rules.hydraulic.sourceLabel === "Scottville") {
+    const copy = input.reason === "temperature"
+      ? {
+        headline: "A current measured PM water temperature is unavailable.",
+        detail:
+          "Without measured water temperature, Scottville flow cannot produce a dependable fresh-movement read.",
+        tip:
+          "Keep the section named by Migration Stage. Do not chase a fresh wave until measured temperature returns.",
+      }
+      : input.reason === "gauge"
+      ? {
+        headline: "A current Scottville flow reading is unavailable.",
+        detail:
+          "Without Scottville flow and direction, rain cannot produce a dependable PM fresh-movement read.",
+        tip:
+          "Keep the section named by Migration Stage. Do not treat recent rain as proof of movement.",
+      }
+      : {
+        headline: "This PM run does not have a supported Push model.",
+        detail:
+          "Another species or season’s water response would produce a misleading fresh-movement read.",
+        tip:
+          "Use Migration Stage for seasonal position. Do not borrow another run’s Push pattern.",
+      };
+    return {
+      score: null,
+      label: "Unavailable",
+      ...copy,
+      reasonCodes: [...new Set(input.reasonCodes)],
+      rulesVersion: input.rules.version,
+      copyVersion: RIVER_RUN_COPY_VERSION,
+    };
+  }
   if (input.reason === "temperature") {
     return {
       score: null,
@@ -817,6 +1029,27 @@ function gaugeReasonCode(freshness: GaugeFreshness): RiverRunReasonCode {
 function applyCap(score: number, cap: number, appliedCaps: number[]): number {
   if (score > cap) appliedCaps.push(cap);
   return Math.min(score, cap);
+}
+
+function seasonalReturnPhrase(monthDay: string): string {
+  const month = Number(monthDay.slice(0, 2));
+  const day = Number(monthDay.slice(3, 5));
+  const period = day <= 10 ? "in early" : day <= 20 ? "in mid" : "in late";
+  const monthName = [
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December",
+  ][month - 1];
+  return `${period} ${monthName}`;
 }
 
 function clamp(value: number, min: number, max: number): number {

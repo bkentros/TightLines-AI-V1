@@ -89,11 +89,11 @@ Deno.test("Run Stage uses distinct early and established Building guidance", () 
 
   assertEquals(early.stage, "building");
   assertEquals(established.stage, "building");
-  assert(early.detail.includes("beginning to spread upstream"));
-  assert(established.detail.includes("lower- and middle-river holding water"));
-  assert(established.detail.includes("upper river should remain a secondary"));
-  assert(established.tip.includes("lower- or middle-river holding water"));
-  assert(established.tip.includes("Move into upper sections"));
+  assert(early.detail.includes("Lower river primary"));
+  assert(established.detail.includes("favors the Middle river"));
+  assert(established.detail.includes("Upper river remains a conditional"));
+  assert(established.tip.includes("Begin in the Middle river"));
+  assert(established.tip.includes("direct fish activity"));
 });
 
 Deno.test("staging guidance allows rare early river fish without claiming a run", () => {
@@ -101,9 +101,9 @@ Deno.test("staging guidance allows rare early river fish without claiming a run"
 
   assertEquals(staging.stage, "pre_run");
   assertEquals(staging.stagingContext, true);
-  assert(staging.headline.includes("a few early fish could be in the river"));
+  assert(staging.headline.includes("dependable river entry has not begun"));
   assert(
-    staging.detail.includes("dependable river numbers have not developed"),
+    staging.detail.includes("early exception"),
   );
 });
 
@@ -117,11 +117,11 @@ Deno.test("After-migration copy separates the late tail from the offseason", () 
   assertEquals(offseason.stage, "post_run");
   assertEquals(lateTail.label, "After migration");
   assertEquals(lastLateCopyDay.label, "After migration");
-  assertEquals(offseason.label, "Offseason");
-  assert(lateTail.detail.includes("A few fish may remain"));
-  assert(lastLateCopyDay.detail.includes("A few fish may remain"));
-  assert(offseason.headline.includes("outside their river migration season"));
-  assertEquals(offseason.detail.includes("A few fish may remain"), false);
+  assertEquals(offseason.label, "Fall run complete");
+  assert(lateTail.detail.includes("exceptions"));
+  assert(lastLateCopyDay.detail.includes("exceptions"));
+  assert(offseason.headline.includes("fall run is complete"));
+  assert(offseason.detail.includes("staging typically begins in late July"));
 });
 
 Deno.test("cross-year run window selects active year around snapshot date", () => {
@@ -203,40 +203,24 @@ Deno.test("PM Fish In River keeps a post-peak shoulder and later October tail", 
   assertEquals(entersPeakPresence.curveDirection, "rising");
   assertEquals(justBeyondPeak.score, 98);
   assertEquals(justBeyondPeak.curveDirection, "falling");
-  assert(
-    justBeyondPeak.headline.includes("may be just beyond its usual peak"),
-  );
-  assertEquals(
-    /begun to decline|has just passed/i.test(
-      `${justBeyondPeak.headline} ${justBeyondPeak.detail}`,
-    ),
-    false,
-  );
+  assert(justBeyondPeak.headline.includes("peak presence and declining"));
+  assert(justBeyondPeak.detail.includes("expected seasonal peak"));
   assertEquals(aboveSecondFallingThreshold.score, 92);
   assertEquals(aboveSecondFallingThreshold.label, "Peak presence");
-  assert(
-    aboveSecondFallingThreshold.headline.includes(
-      "near their strongest in-river presence",
-    ),
-  );
+  assert(aboveSecondFallingThreshold.headline.includes("peak presence"));
   assertEquals(belowSecondFallingThreshold.score, 89);
   assertEquals(belowSecondFallingThreshold.label, "High presence");
+  assert(belowSecondFallingThreshold.headline.includes("high presence"));
+  assert(belowSecondFallingThreshold.headline.includes("declining"));
   assert(
-    belowSecondFallingThreshold.headline.includes(
-      "strong Chinook salmon presence across much of the river",
-    ),
+    belowSecondFallingThreshold.detail.includes("high for this fall migration"),
   );
-  assert(
-    belowSecondFallingThreshold.headline.includes(
-      "usual peak window may be easing",
-    ),
-  );
-  assert(belowSecondFallingThreshold.tip.startsWith("Plan around fish"));
+  assert(belowSecondFallingThreshold.tip.startsWith("Use Migration Stage"));
   assertEquals(october8.score, 73);
   assertEquals(october15.score, 53);
   assertEquals(october23.score, 31);
   assertEquals(october23.label, "Limited presence");
-  assert(october23.tip.startsWith("Treat this as a lower-odds"));
+  assert(october23.tip.startsWith("Use Migration Stage"));
   assertEquals(november3.score, 9);
   assertEquals(november7.score, 2);
   assertEquals(november8.score, 0);
@@ -255,11 +239,8 @@ Deno.test("PM Fish In River keeps a post-peak shoulder and later October tail", 
   assertEquals(cappedBelowThreshold.score, 54);
   assertEquals(cappedBelowThreshold.riverCeiling, 60);
   assertEquals(cappedBelowThreshold.label, "High presence");
-  assert(
-    cappedBelowThreshold.headline.includes(
-      "usual peak window may be easing",
-    ),
-  );
+  assert(cappedBelowThreshold.headline.includes("high presence"));
+  assert(cappedBelowThreshold.headline.includes("declining"));
 });
 
 Deno.test("rain missing and dry remain distinct inputs", () => {
@@ -460,7 +441,7 @@ Deno.test("missing gauge makes Push unavailable", () => {
   assertEquals(result.score, null);
   assertEquals(result.label, "Unavailable");
   assert(result.reasonCodes.includes("gauge_missing"));
-  assert(result.tip.includes("do not chase recent rain as proof"));
+  assert(result.tip.includes("Do not treat recent rain as proof"));
 });
 
 Deno.test("warm migration barrier caps Push below Possible", () => {

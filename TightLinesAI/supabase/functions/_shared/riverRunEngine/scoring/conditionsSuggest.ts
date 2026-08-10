@@ -100,6 +100,7 @@ export function scoreConditionsSuggest(input: {
       | "conditionsSuggest"
       | "push"
       | "handoff"
+      | "runType"
       | "runStageCopyStrategy"
     >
     & {
@@ -113,19 +114,24 @@ export function scoreConditionsSuggest(input: {
     input.run,
     input.localDate,
   );
+  const pereMarquette = input.run.runStageCopyStrategy === "pere_marquette";
+  const pmFallEntryComplete = pereMarquette &&
+    input.run.runType === "fall_entry" &&
+    compareLocalDates(input.localDate, checkpointState.window.endDate) > 0;
   const monitoringInactive = compareLocalDates(
         input.localDate,
         checkpointState.window.stagingStartDate,
       ) < 0 ||
     compareLocalDates(
-        input.localDate,
-        checkpointState.window.postRunLateCopyEndDate,
-      ) > 0;
+            input.localDate,
+            checkpointState.window.postRunLateCopyEndDate,
+          ) > 0 && !pmFallEntryComplete;
   if (monitoringInactive) {
     return inactiveResult({
       observationStartDate: checkpointState.window.stagingStartDate,
       nextCheckpointDate: checkpointState.nextCheckpoint?.checkpointDate,
       stJoseph: input.run.runStageCopyStrategy === "st_joseph_corridor",
+      pereMarquette,
     });
   }
   if (!checkpointState.activeCheckpoint) {
@@ -134,6 +140,7 @@ export function scoreConditionsSuggest(input: {
       observationStartDate: checkpointState.window.stagingStartDate,
       nextCheckpointDate: checkpointState.nextCheckpoint?.checkpointDate,
       stJoseph: input.run.runStageCopyStrategy === "st_joseph_corridor",
+      pereMarquette,
     });
   }
 
@@ -180,6 +187,7 @@ export function scoreConditionsSuggest(input: {
       observationStartDate: checkpointState.window.stagingStartDate,
       nextCheckpointDate: checkpointState.nextCheckpoint?.checkpointDate,
       stJoseph: input.run.runStageCopyStrategy === "st_joseph_corridor",
+      pereMarquette,
     });
   }
   if (!checkpointState.complete) return activeResult;
@@ -188,7 +196,9 @@ export function scoreConditionsSuggest(input: {
     mainRunWindowPassed:
       compareLocalDates(input.localDate, checkpointState.window.endDate) > 0,
     winterHoldingHandoff: !!input.run.handoff &&
+      !pereMarquette &&
       compareLocalDates(input.localDate, checkpointState.window.endDate) > 0,
+    pmFallEntryComplete,
   });
 }
 
@@ -196,6 +206,7 @@ function inactiveResult(input: {
   observationStartDate: string;
   nextCheckpointDate?: string;
   stJoseph: boolean;
+  pereMarquette: boolean;
 }): ConditionsSuggestResult {
   return {
     label: "Not monitoring yet",
@@ -214,11 +225,20 @@ function inactiveResult(input: {
     historicalYears: 0,
     sourceDates: [],
     sourceRefreshSlots: {},
-    headline: "Migration Timing is not active right now.",
-    detail:
-      "Timing monitoring begins before the expected river entry, but that seasonal observation window is not active yet.",
+    headline: input.pereMarquette
+      ? "PM Migration Timing is not monitoring yet."
+      : "Migration Timing is not active right now.",
+    detail: input.pereMarquette
+      ? `Season-to-date Scottville flow and M-37 temperature monitoring resumes ${
+        seasonalReturnPhrase(input.observationStartDate.slice(5))
+      }.`
+      : "Timing monitoring begins before the expected river entry, but that seasonal observation window is not active yet.",
     tip: input.stJoseph
       ? "Check Migration Stage for the active St. Joseph species and section. Return to this read when Niles monitoring begins; do not use offseason water changes to justify a corridor trip."
+      : input.pereMarquette
+      ? `Check back ${
+        seasonalReturnPhrase(input.observationStartDate.slice(5))
+      } when PM timing monitoring resumes.`
       : "Check Migration Stage for the current seasonal position and return to Migration Timing when early monitoring begins.",
     reasonCodes: ["conditions_monitoring_inactive"],
     copyVersion: RIVER_RUN_COPY_VERSION,
@@ -279,6 +299,7 @@ function scoreCheckpoint(input: {
 
   if (evidenceGate) {
     return insufficientResult({
+      pereMarquette: input.run.runStageCopyStrategy === "pere_marquette",
       checkpoint: input.checkpoint,
       nextCheckpointDate: input.nextCheckpointDate,
       completedCheckpointCount: input.completedCheckpointCount,
@@ -305,6 +326,7 @@ function scoreCheckpoint(input: {
   );
   if (!summary || summary.transitionCount < 4) {
     return insufficientResult({
+      pereMarquette: input.run.runStageCopyStrategy === "pere_marquette",
       checkpoint: input.checkpoint,
       nextCheckpointDate: input.nextCheckpointDate,
       completedCheckpointCount: input.completedCheckpointCount,
@@ -425,6 +447,7 @@ function scoreCheckpoint(input: {
       signalsStronglyMixed,
       oppositeCheckpointTempered,
       stJoseph: input.run.runStageCopyStrategy === "st_joseph_corridor",
+      pereMarquette: input.run.runStageCopyStrategy === "pere_marquette",
     }),
     reasonCodes: [...reasonCodes],
     copyVersion: RIVER_RUN_COPY_VERSION,
@@ -690,7 +713,9 @@ function conditionsCopy(input: {
   signalsStronglyMixed: boolean;
   oppositeCheckpointTempered: boolean;
   stJoseph: boolean;
+  pereMarquette: boolean;
 }): Pick<PrimitiveDisplay, "headline" | "detail" | "tip"> {
+  if (input.pereMarquette) return pereMarquetteConditionsCopy(input);
   if (input.oppositeCheckpointTempered) {
     return {
       headline:
@@ -745,11 +770,64 @@ function conditionsCopy(input: {
   }
 }
 
+function pereMarquetteConditionsCopy(input: {
+  label: Exclude<ConditionsTimingLabel, "Insufficient evidence">;
+  signalsStronglyMixed: boolean;
+  oppositeCheckpointTempered: boolean;
+}): Pick<PrimitiveDisplay, "headline" | "detail" | "tip"> {
+  if (input.oppositeCheckpointTempered) {
+    return {
+      headline:
+        "PM migration timing remains Typical after a change in direction.",
+      detail:
+        "Recent Scottville flow and M-37 temperature evidence reversed. The season-long pattern does not support changing the prior timing call yet.",
+      tip:
+        "Keep the section named by Migration Stage. Do not shift sections from this reversal alone.",
+    };
+  }
+  if (input.signalsStronglyMixed) {
+    return {
+      headline:
+        "PM migration timing remains Typical because the signals are mixed.",
+      detail:
+        "Scottville river-rise activity and M-37 cooling point in opposite directions. Together they do not support an early or late call.",
+      tip:
+        "Keep the section named by Migration Stage. Use Push only for today’s fresh-movement support.",
+    };
+  }
+  switch (input.label) {
+    case "Ahead":
+      return {
+        headline: "The PM migration is developing earlier than usual.",
+        detail:
+          "Season-to-date Scottville river-rise activity and M-37 cooling are stronger than the usual PM pattern.",
+        tip:
+          "Start one PM section upstream from Migration Stage, capped at the Upper river (Maple Leaf–M-37).",
+      };
+    case "Typical":
+      return {
+        headline: "The PM migration is progressing at its usual seasonal pace.",
+        detail:
+          "Season-to-date Scottville river-rise activity and M-37 cooling are close to the usual PM pattern.",
+        tip: "Keep the PM section named by Migration Stage.",
+      };
+    case "Delayed":
+      return {
+        headline: "The PM migration is developing later than usual.",
+        detail:
+          "Season-to-date Scottville river-rise activity and M-37 cooling are weaker than the usual PM pattern.",
+        tip:
+          "Start one PM section downstream from Migration Stage, capped at the Lower river (Pere Marquette Lake–Scottville).",
+      };
+  }
+}
+
 function awaitingResult(input: {
   observationStarted: boolean;
   observationStartDate: string;
   nextCheckpointDate?: string;
   stJoseph: boolean;
+  pereMarquette: boolean;
 }): ConditionsSuggestResult {
   return {
     label: "Evaluating",
@@ -768,16 +846,22 @@ function awaitingResult(input: {
     historicalYears: 0,
     sourceDates: [],
     sourceRefreshSlots: {},
-    headline: input.observationStarted
+    headline: input.pereMarquette
+      ? "PM Migration Timing is still taking shape."
+      : input.observationStarted
       ? "Migration Timing is still taking shape."
       : "It is too early for a dependable timing read.",
-    detail: input.observationStarted
+    detail: input.pereMarquette
+      ? "Scottville river-rise activity and M-37 cooling do not yet support an Ahead, Typical, or Delayed call."
+      : input.observationStarted
       ? "The early river and temperature pattern is still developing, so an Ahead, Typical, or Delayed call would be premature."
       : "The migration has not developed enough to compare its pace with a typical season.",
     tip: input.stJoseph
       ? input.observationStarted
         ? "Keep the trip around the St. Joseph harbor, mouth, and earliest lower-Michigan holding water. Move toward Berrien Springs or Niles only when Migration Stage or direct fish activity supports it."
         : "Keep the trip in Lake Michigan, the St. Joseph harbor, and river-mouth water. Do not use an incomplete Niles timing read to justify an inland corridor trip."
+      : input.pereMarquette
+      ? "Keep the section named by Migration Stage. Do not shift PM sections until this read has enough evidence."
       : input.observationStarted
       ? "Keep the trip centered on the river mouth and earliest lower-river holding water. Move inland only when Migration Stage advances or direct fish activity supports it."
       : "Keep the trip in the lake, harbor, and river-mouth zone. Do not use Migration Timing to justify an inland river trip before a dependable seasonal pattern exists.",
@@ -802,9 +886,16 @@ function completeResult(input: {
   checkpointResult: CheckpointScore;
   mainRunWindowPassed: boolean;
   winterHoldingHandoff: boolean;
+  pmFallEntryComplete: boolean;
 }): ConditionsSuggestResult {
   const timingLabel = input.checkpointResult.timingLabel;
-  const finalDetail = input.winterHoldingHandoff
+  const finalDetail = input.pmFallEntryComplete
+    ? timingLabel === "Insufficient evidence"
+      ? "The PM fall-entry timing window closed without enough reliable evidence for an early, typical, or delayed call."
+      : `Earlier in fall, PM migration timing was ${
+        timingPhrase(timingLabel)
+      }. The fall-entry timing window is now complete.`
+    : input.winterHoldingHandoff
     ? timingLabel === "Insufficient evidence"
       ? "There was not enough reliable season-long river and temperature information to make an early, normal, or late call. Steelhead presence has now shifted into winter holding, where current activity matters more than fall timing."
       : `Earlier in the season, the migration was moving ${
@@ -822,11 +913,15 @@ function completeResult(input: {
   return {
     ...input.checkpointResult,
     label: "Timing complete",
-    headline: input.mainRunWindowPassed
+    headline: input.pmFallEntryComplete
+      ? "PM fall-entry Migration Timing is complete."
+      : input.mainRunWindowPassed
       ? "This season's Migration Timing read is complete."
       : "The early-season timing read is complete.",
     detail: finalDetail,
-    tip: input.winterHoldingHandoff
+    tip: input.pmFallEntryComplete
+      ? "Do not use completed fall timing to infer current presence or activity. PM fall monitoring resumes in early September."
+      : input.winterHoldingHandoff
       ? "Stop planning around whether fall entry was early or late. Use the winter fishery read to judge current activity and presentation."
       : input.mainRunWindowPassed
       ? "Stop planning around whether the migration was early or late. Fish only the remaining established holding water supported by Fish In River, and treat scattered late fish as exceptions."
@@ -842,6 +937,7 @@ function completeResult(input: {
 }
 
 function insufficientResult(input: {
+  pereMarquette: boolean;
   checkpoint: ConditionsSuggestCheckpoint;
   nextCheckpointDate?: string;
   completedCheckpointCount: number;
@@ -882,7 +978,7 @@ function insufficientResult(input: {
     temperatureSourceId: input.baseline?.temperatureSourceId,
     sourceDates: input.sourceDates,
     sourceRefreshSlots: input.sourceRefreshSlots,
-    ...insufficientCopy(insufficientReason),
+    ...insufficientCopy(insufficientReason, input.pereMarquette),
     reasonCodes: [
       ...new Set([
         ...input.reasonCodes,
@@ -895,12 +991,15 @@ function insufficientResult(input: {
 
 function insufficientCopy(
   reason?: RiverRunReasonCode,
+  pereMarquette = false,
 ): Pick<PrimitiveDisplay, "headline" | "detail" | "tip"> {
   const base = {
-    headline:
-      "There is not enough reliable information for a Migration Timing call.",
-    tip:
-      "Do not move farther upstream or stay lower based on this timing read. Fish the section identified by Migration Stage and begin in its most established holding water; change sections only when direct fish activity or a dependable later read supports it.",
+    headline: pereMarquette
+      ? "There is not enough reliable PM evidence for a Migration Timing call."
+      : "There is not enough reliable information for a Migration Timing call.",
+    tip: pereMarquette
+      ? "Keep the PM section named by Migration Stage. Do not shift upstream or downstream from this timing read."
+      : "Do not move farther upstream or stay lower based on this timing read. Fish the section identified by Migration Stage and begin in its most established holding water; change sections only when direct fish activity or a dependable later read supports it.",
   };
   switch (reason) {
     case "conditions_baseline_missing":
@@ -961,6 +1060,27 @@ function timingPhrase(label: ConditionsTimingLabel): string {
     case "Insufficient evidence":
       return "without a dependable timing call";
   }
+}
+
+function seasonalReturnPhrase(monthDay: string): string {
+  const month = Number(monthDay.slice(0, 2));
+  const day = Number(monthDay.slice(3, 5));
+  const period = day <= 10 ? "in early" : day <= 20 ? "in mid" : "in late";
+  const monthName = [
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December",
+  ][month - 1];
+  return `${period} ${monthName}`;
 }
 
 function datesBetween(startDate: string, endDate: string): string[] {

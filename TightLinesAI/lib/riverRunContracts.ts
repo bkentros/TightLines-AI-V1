@@ -100,6 +100,8 @@ export type RiverRunStage = RiverRunPrimitiveDisplay & {
 };
 
 export type RiverRunFishInRiver = RiverRunPrimitiveDisplay & {
+  displayScore?: number;
+  scoreIsApproximate?: boolean;
   historicalRunStrength?: "limited" | "moderate" | "strong";
   curveFraction?: number;
   curveDirection?: "rising" | "near_peak" | "falling" | "outside";

@@ -128,6 +128,7 @@ function activityGroup(): Group {
     flowBand?: Parameters<typeof scoreActivity>[0]["flowBand"];
     flowSignal?: Parameters<typeof scoreActivity>[0]["flowSignal"];
     temperatureTrend?: Parameters<typeof scoreActivity>[0]["temperatureTrend"];
+    weatherPattern?: "morning_lead";
   }> = [
     {
       id: "staging",
@@ -144,6 +145,14 @@ function activityGroup(): Group {
       date: reviewWindow.startDate,
       temp: 66,
       cloud: 75,
+    },
+    {
+      id: "clear_morning_lead",
+      label: "Building · clear strongest window",
+      date: reviewBaseDate,
+      temp: 58,
+      cloud: 70,
+      weatherPattern: "morning_lead",
     },
     {
       id: "building_high",
@@ -294,12 +303,18 @@ function activityGroup(): Group {
               : 625,
             fishabilityBands: run.fishabilityBands,
             flowSignal: item.flowSignal ?? "stable",
-            hourlyWeather: item.cloud == null ? [] : activityWeather(
-              targetDate,
-              item.cloud,
-              item.radiation,
-              item.precip,
-            ),
+            hourlyWeather: item.cloud == null
+              ? []
+              : item.weatherPattern === "morning_lead"
+              ? activityWeatherWithMorningLead(targetDate)
+              : activityWeather(
+                targetDate,
+                item.cloud,
+                item.radiation,
+                item.precip,
+              ),
+            copyStrategy: run.runStageCopyStrategy,
+            fallEntryComplete: stage.label === "Fall entry complete",
           }) as RiverRunActivity,
         });
       },
@@ -322,6 +337,20 @@ function activityWeather(
     clear_sky_shortwave_w_m2: hour >= 10 && hour <= 16 ? 760 : 180,
     precipitation_in: hour === 7 ? precip : 0,
   }));
+}
+
+function activityWeatherWithMorningLead(localDate: string) {
+  return Array.from({ length: 24 }, (_, hour) => {
+    const morning = hour >= 5 && hour < 9;
+    const evening = hour >= 17 && hour < 21;
+    return {
+      time_local: `${localDate}T${String(hour).padStart(2, "0")}:00`,
+      cloud_cover_pct: morning ? 100 : evening ? 0 : 25,
+      shortwave_w_m2: morning ? 25 : evening ? 180 : 700,
+      clear_sky_shortwave_w_m2: morning || evening ? 180 : 760,
+      precipitation_in: morning ? 0.005 : evening ? 0.08 : 0,
+    };
+  });
 }
 const baseSnapshot = snapshotScenario({
   id: "generated_base",
@@ -607,6 +636,8 @@ function pushGroup(): Group {
     trackingStartDate: reviewWindow.startDate,
     trackingEndDate: reviewWindow.endDate,
     localDate: reviewBaseDate,
+    copyStrategy: run.runStageCopyStrategy,
+    monitoringStartDate: reviewWindow.stagingStartDate,
   };
   const cases = [
     ["weak", "Weak · warm, dry, falling", {
@@ -810,6 +841,7 @@ function fishabilityGroup(): Group {
     hydraulicAbsoluteChange24h: 0,
     hydraulicPercentChange24h: 0,
     localDate: reviewBaseDate,
+    copyStrategy: run.runStageCopyStrategy,
   };
   const cases = [
     ["very_low", "Tough · very low", {
@@ -1080,8 +1112,11 @@ function snapshotScenario(input: {
     scoreFishInRiver(profile, localDate) as RiverRunFishInRiver;
   const conditionsSuggest = input.conditionsSuggest ??
     typicalConditionResultForDate(localDate);
-  const trackingState = runStage.label === "Offseason"
+  const trackingState = runStage.label === "Offseason" ||
+      runStage.label === "Fall run complete"
     ? "offseason"
+    : runStage.label === "Fall entry complete"
+    ? "complete"
     : reviewTrackingState(localDate);
   const push = input.push ?? scorePush({
     ...basePushInput(),
@@ -1467,6 +1502,8 @@ function basePushInput() {
     trackingStartDate: reviewWindow.startDate,
     trackingEndDate: reviewWindow.endDate,
     localDate: reviewBaseDate,
+    copyStrategy: run.runStageCopyStrategy,
+    monitoringStartDate: reviewWindow.stagingStartDate,
   };
 }
 
@@ -1480,6 +1517,7 @@ function baseFishabilityInput() {
     hydraulicAbsoluteChange24h: 0,
     hydraulicPercentChange24h: 0,
     localDate: reviewBaseDate,
+    copyStrategy: run.runStageCopyStrategy,
   };
 }
 

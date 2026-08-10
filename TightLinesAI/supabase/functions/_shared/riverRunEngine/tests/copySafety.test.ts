@@ -79,7 +79,6 @@ const bannedPhrases = [
   /\bhistorical\b/i,
   /\bcfs\b/i,
   /\bvisibility\b/i,
-  /\brun\b/i,
   /\b(?:January|February|March|April|May|June|July|August|September|October|November|December)\s+\d{1,2}\b/i,
   /\b20\d{2}-\d{2}-\d{2}\b/,
 ] as const;
@@ -380,7 +379,7 @@ Deno.test("primitive copy is complete for every reachable label", () => {
       "Tapering",
       "Ending",
       "After migration",
-      "Offseason",
+      "Fall run complete",
     ]),
   );
   assertEquals(
@@ -429,7 +428,7 @@ Deno.test("primitive copy is complete for every reachable label", () => {
       "Moderate presence",
       "Peak presence",
       "Migration complete",
-      "Offseason",
+      "Fall run complete",
     ]),
   );
 

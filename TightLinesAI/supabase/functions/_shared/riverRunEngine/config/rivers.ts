@@ -21,7 +21,7 @@ export const PERE_MARQUETTE_RIVER_PROFILE: RiverProfile = {
       maxAgeHours: 6,
       reachQuality: "good",
       reachNotes:
-        "Official lower-mainstem USGS gauge. Discharge is the sole scored hydraulic metric; gage height is context only.",
+        "Official USGS gauge in the Lower river at Scottville. It is the accepted hydraulic reference for lower-mainstem Fishability and measured river response; it does not directly measure middle- or upper-river fishing shape. Discharge is scored and gage height is context only.",
     },
   ],
   waterTemperatureSources: [
@@ -41,7 +41,7 @@ export const PERE_MARQUETTE_RIVER_PROFILE: RiverProfile = {
       maxRateChangeFPerHour: 3,
       maxPeerDifferenceF: 5,
       reachNotes:
-        "Furthest-downstream audited PMTU water-temperature station, upstream of Scottville. Used as the primary measured-water signal.",
+        "Furthest-downstream audited PMTU water-temperature station, at the approved Middle river/Upper river orientation boundary. It is the primary measured-water signal and must not be described as a lower-river temperature reading.",
       attribution:
         "Pere Marquette Trout Unlimited via Monitor My Watershed, CC BY-SA 4.0.",
     },
@@ -61,7 +61,7 @@ export const PERE_MARQUETTE_RIVER_PROFILE: RiverProfile = {
       maxRateChangeFPerHour: 3,
       maxPeerDifferenceF: 5,
       reachNotes:
-        "Audited upstream measured-water fallback. It must not silently claim lower-river temperature.",
+        "Audited Upper river measured-water fallback at Bowman/60th Street. It must not silently claim Middle or Lower river temperature.",
       attribution:
         "Pere Marquette Trout Unlimited via Monitor My Watershed, CC BY-SA 4.0.",
     },
@@ -81,7 +81,7 @@ export const PERE_MARQUETTE_RIVER_PROFILE: RiverProfile = {
       maxRateChangeFPerHour: 3,
       maxPeerDifferenceF: 5,
       reachNotes:
-        "Upper-mainstem validation and final fallback source. The sensor was repositioned in 2023; water depth is not used.",
+        "Upper river validation and final fallback source at M-37. The sensor was repositioned in 2023; water depth is not used. It must not silently claim Middle or Lower river temperature.",
       attribution:
         "Pere Marquette Trout Unlimited via Monitor My Watershed, CC BY-SA 4.0.",
     },
@@ -94,6 +94,88 @@ export const PERE_MARQUETTE_RIVER_PROFILE: RiverProfile = {
       role: "primary",
     },
   ],
+  foundation: {
+    version: "pere-marquette-foundation-v2",
+    corridorLengthMiles: 67,
+    upstreamTerminus:
+      "The Forks, where the Middle Branch and Little South Branch form the Pere Marquette mainstem, approximately one-half mile upstream of M-37",
+    downstreamTerminus:
+      "The Pere Marquette mainstem mouth at the east end of Pere Marquette Lake; the lake, Ludington harbor, and Lake Michigan are staging context rather than inland-mainstem sections",
+    targetSpecies: ["chinook_salmon", "coho_salmon", "steelhead"],
+    reaches: [
+      {
+        reachId: "pm_lake_harbor_context",
+        displayName:
+          "Pere Marquette Lake, Ludington harbor, and Lake Michigan staging context",
+        order: 1,
+        role: "mouth_context",
+        gaugeRepresented: false,
+        notes:
+          "Pre-run and staging context only. It must not be described as proof that fish have entered the Pere Marquette mainstem.",
+        sourceNotes:
+          "Michigan DNR Pere Marquette Natural River description and Michigan DNR Chinook, Coho, and Steelhead species profiles.",
+      },
+      {
+        reachId: "pm_lower_mainstem",
+        displayName: "Lower river — Pere Marquette Lake to Scottville",
+        order: 2,
+        role: "lower",
+        gaugeRepresented: true,
+        notes:
+          "The Scottville discharge station is the accepted lower-mainstem hydraulic reference. Fishability conclusions belong to this reach and must not be presented as direct measurements of the middle or upper river.",
+        sourceNotes:
+          "USGS 04122500; Michigan DNR Natural Rivers material; Michigan DNR 2011 Pere Marquette River Angler Survey; Ludington-area public river map.",
+      },
+      {
+        reachId: "pm_middle_mainstem",
+        displayName: "Middle river — Scottville to Maple Leaf",
+        order: 3,
+        role: "middle",
+        gaugeRepresented: false,
+        notes:
+          "Includes the Custer, Indian Bridge/Reek Road, and Walhalla corridor. The former Custer sea-lamprey barrier was removed; it is not a current migration limit. Maple Leaf sits at the approved middle-to-upper orientation boundary.",
+        sourceNotes:
+          "Michigan DNR and USFS river maps; Michigan DNR 2011 Pere Marquette River Angler Survey; Great Lakes Fishery Trust Custer Barrier Free Fishing Access completion record; USGS electric-weir review.",
+      },
+      {
+        reachId: "pm_upper_mainstem",
+        displayName: "Upper river — Maple Leaf to M-37",
+        order: 4,
+        role: "upper",
+        gaugeRepresented: false,
+        notes:
+          "Uses M-37 as the recognizable public upstream orientation point. The researched mainstem begins at the Forks about one-half mile upstream, but that technical origin is not used in public section copy. No active mainstem dam or weir was found in the corridor. The Baldwin River Dam is on a tributary and does not define this section.",
+        sourceNotes:
+          "Michigan DNR Natural Rivers description; Monitor My Watershed Maple Leaf, PMTU60-1, and PMTU37-1 station metadata; Michigan DNR Baldwin River Dam grants; Conservation Resource Alliance 2025-2027 work plan.",
+      },
+    ],
+    primaryGaugeReachId: "pm_lower_mainstem",
+    contextualGaugeSiteIds: [],
+    weatherStrategy: {
+      mode: "single_point",
+      primaryWeatherPointId: "pm_baldwin_watershed_weather",
+      basinRepresentation:
+        "Modeled Open-Meteo precipitation near Baldwin in the upper watershed. It is precursor context, not an observed rain gauge, a river response, or proof of conditions in every PM section.",
+      sourceNotes:
+        "Open-Meteo point-weather adapter and the accepted PM Push replay location. Scottville discharge remains the required measured hydraulic response for strong Push language.",
+    },
+    stateRegulations: [
+      {
+        state: "MI",
+        version: "michigan-2026-fishing-regulations-through-2027-03-31",
+        jurisdiction:
+          "Michigan DNR; mainstem Pere Marquette regulations vary across named reaches from M-37 downstream through Old US-31 and the lower river",
+        reminderCopy:
+          "Pere Marquette regulations change by reach. Check the current Michigan fishing regulations and posted boundaries before choosing access, tackle, harvest, or fishing methods.",
+        accessAndSafetyNotes:
+          "River Run section names are orientation ranges, not legal access or safety determinations. Do not infer public entry, wading, boating, or one uniform gear rule from a Lower, Middle, or Upper river recommendation.",
+        sourceNotes:
+          "Michigan DNR 2026 Fishing Regulations, effective through March 31, 2027, and current Michigan Fisheries Orders: https://www.michigan.gov/dnr/things-to-do/fishing/fishing-regulations",
+      },
+    ],
+    evidenceNotes:
+      "Foundation research completed August 9, 2026 and owner wording corrected August 10, 2026 in docs/river_run_pm_copy_foundation.md. The public mainstem model is Lower river (Pere Marquette Lake-Scottville), Middle river (Scottville-Maple Leaf), and Upper river (Maple Leaf-M-37). M-37 is the recognizable public orientation endpoint; the technical mainstem origin at the Forks remains internal geography about one-half mile upstream. The historic Custer electrical sea-lamprey barrier operated with a fishway from 2000-2009 and was later removed; it is not a current barrier. The deteriorating Baldwin River Dam remains a tributary project and must never be described as a Pere Marquette mainstem dam. Scottville flow represents lower-mainstem fishability. Maple Leaf is the primary measured-water-temperature station at the middle/upper boundary; Bowman and M-37 are upstream fallbacks. The Baldwin weather point is modeled upper-watershed context. Current regulations change by reach and must be checked independently before any public access or methods statement. No species timing, presence curve, threshold, or copy determination is changed by this river-level foundation.",
+  },
   conditionRefreshSchedule: {
     activeSlots: [
       "00:00",
@@ -114,7 +196,7 @@ export const PERE_MARQUETTE_RIVER_PROFILE: RiverProfile = {
   },
   supportStatus: "beta",
   gaugeLimitationCopy:
-    "Based on the USGS gauge at Scottville. Conditions can vary by reach.",
+    "Flow and Fishability are based on the Lower river gauge at Scottville. The Middle river (Scottville–Maple Leaf) and Upper river (Maple Leaf–M-37) can differ and are not directly measured by that gauge.",
 };
 
 export const BETSIE_RIVER_PROFILE: RiverProfile = {

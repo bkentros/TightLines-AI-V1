@@ -16,6 +16,7 @@ const BASE_SNAPSHOT = {
   "nextConditionRefreshAt": "2026-10-15T22:00:00.000Z",
   "runStage": {
     "stage": "building",
+    "copyStrategy": "pere_marquette",
     "stagingContext": false,
     "broadBuildingContext": false,
     "winterHoldingContext": false,
@@ -38,14 +39,14 @@ const BASE_SNAPSHOT = {
       "peakToEndDays": 37
     },
     "label": "Building",
-    "headline": "Steelhead are becoming established across much more of the river.",
-    "whereToStart": "Lower- and middle-river holding water from Scottville through Walhalla and Branch first; sample the upper river toward Baldwin/M-37 when direct activity supports it.",
-    "detail": "By this stage, earlier arrivals have had time to reach lower, middle, and upper sections while newer fish continue entering. Fish may be distributed broadly, but the most dependable concentrations are often still in lower- and middle-river holding water.",
-    "tip": "Begin in dependable lower- or middle-river holding water and work deep holes, outside bends, and current breaks. Move into upper sections when direct fish activity or local knowledge supports it, and use Push to decide whether lower travel lanes deserve extra attention.",
+    "headline": "The PM Steelhead run is becoming established in the Middle river.",
+    "detail": "Seasonal timing now favors the Middle river. The Upper river remains a conditional secondary choice.",
+    "tip": "Begin in the Middle river. Add the Upper river only after direct fish activity supports it.",
+    "whereToStart": "Start in the Middle river (Scottville–Maple Leaf). Add the Upper river (Maple Leaf–M-37) only after direct fish activity supports it.",
     "reasonCodes": [
       "stage_building"
     ],
-    "copyVersion": "river-run-copy-v27"
+    "copyVersion": "river-run-copy-v29"
   },
   "conditionsSuggest": {
     "label": "Ahead",
@@ -160,16 +161,16 @@ const BASE_SNAPSHOT = {
       "2026-10-13": "16:00",
       "2026-10-14": "16:00"
     },
-    "headline": "The migration appears to be developing earlier than usual.",
-    "detail": "The river has risen and cooled faster than it normally does by this point in the season.",
-    "tip": "Start one accessible river section farther upstream than you normally would for this date and prioritize established holding water. If Push is Possible or stronger, finish with lower travel lanes.",
+    "headline": "The PM migration is developing earlier than usual.",
+    "detail": "Season-to-date Scottville river-rise activity and M-37 cooling are stronger than the usual PM pattern.",
+    "tip": "Start one PM section upstream from Migration Stage, capped at the Upper river (Maple Leaf–M-37).",
     "reasonCodes": [
       "gauge_fresh",
       "temperature_measured",
       "conditions_checkpoint_building_established",
       "conditions_ahead"
     ],
-    "copyVersion": "river-run-copy-v27",
+    "copyVersion": "river-run-copy-v29",
     "previousCheckpointId": "building_start",
     "previousCheckpointDate": "2026-10-11",
     "previousTimingLabel": "Ahead"
@@ -177,9 +178,9 @@ const BASE_SNAPSHOT = {
   "push": {
     "score": 35,
     "label": "No clear push",
-    "headline": "Today's water does not show a clear signal for a fresh wave of fish.",
-    "detail": "The river is holding steady with no meaningful rise yet. Water temperature is favorable for fall migration and is relatively steady. Recent rainfall has been too light to meaningfully change the river.",
-    "tip": "Fish established holding water from the head through the inside seam and tail. Do not spend the day racing between lower travel lanes for a wave the water does not support.",
+    "headline": "PM water does not show a clear fresh-movement signal.",
+    "detail": "Scottville flow is steady without a meaningful rise. Measured water temperature is favorable for this migration. Recent watershed rainfall is too light to affect the read.",
+    "tip": "Keep the section named by Migration Stage. Do not shift lower for a fresh wave this water does not support.",
     "reasonCodes": [
       "gauge_fresh",
       "push_normal_flow_context",
@@ -198,7 +199,7 @@ const BASE_SNAPSHOT = {
       "appliedCaps": []
     },
     "rulesVersion": "pm-fall-steelhead-push-v1",
-    "copyVersion": "river-run-copy-v27"
+    "copyVersion": "river-run-copy-v29"
   },
   "pushHistory": {
     "status": "none_recorded",
@@ -261,9 +262,9 @@ const BASE_SNAPSHOT = {
   "fishability": {
     "score": 93,
     "label": "Excellent",
-    "headline": "The river is in an excellent range for covering water and presenting effectively.",
-    "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river.",
-    "tip": "Begin on the primary travel lane feeding deep holding water. Work each hole from its head through the inside seam and tail, then keep moving until fish establish a pattern.",
+    "headline": "Scottville flow is in its best presentation range.",
+    "detail": "The flow band offers the broadest mix of depth, seams, and presentation control. Stable flow should keep presentation lanes consistent. This read applies to the Lower river (Pere Marquette Lake–Scottville), not the full PM.",
+    "tip": "Cover readable seams and holding water with a controlled presentation.",
     "reasonCodes": [
       "gauge_fresh",
       "ideal_flow_band"
@@ -274,11 +275,13 @@ const BASE_SNAPSHOT = {
       "appliedCaps": []
     },
     "rulesVersion": "pm-scottville-fishability-v2",
-    "copyVersion": "river-run-copy-v27"
+    "copyVersion": "river-run-copy-v29"
   },
   "activity": null,
   "fishInRiver": {
     "score": 36,
+    "displayScore": 35,
+    "scoreIsApproximate": true,
     "stage": "building",
     "maximum": 100,
     "riverCeiling": 80,
@@ -287,14 +290,14 @@ const BASE_SNAPSHOT = {
     "curveDirection": "rising",
     "winterHoldingContext": false,
     "label": "Moderate presence",
-    "headline": "A meaningful number of Steelhead are likely in the river, with seasonal presence still building.",
-    "detail": "This part of the season usually brings moderate presence, with more fish expected to enter and spread through the river. This is a seasonal estimate, not a live fish count.",
-    "tip": "Plan for a credible river opportunity that is still improving. Stay mobile until direct fish activity gives you a reason to slow down.",
+    "headline": "Steelhead seasonal presence is moderate presence and building.",
+    "detail": "Calendar timing places Steelhead presence at moderate presence, increasing as the fall migration builds. For the PM, expected run strength is Strong, and the opportunity can extend across broadly accessible water. This is not a live fish count or today’s conditions.",
+    "tip": "Use Migration Stage to choose a section. Use Push and Activity for current movement support and responsiveness.",
     "reasonCodes": [
       "stage_building",
       "historical_presence_curve"
     ],
-    "copyVersion": "river-run-copy-v27"
+    "copyVersion": "river-run-copy-v29"
   },
   "gauge": {
     "provider": "USGS",
@@ -367,21 +370,22 @@ const GROUP_SEEDS = [
     "scenarios": [
       {
         "id": "stage_offseason",
-        "label": "True offseason before annual watch",
+        "label": "True offseason after late copy",
         "note": "Canonical production copy",
         "snapshotOverride": {
-          "localDate": "2026-08-14",
-          "progressionSnapshotAt": "2026-08-14T12:00:00.000Z",
-          "conditionRefreshAt": "2026-08-14T20:00:00.000Z",
-          "progressionExpiresAt": "2026-08-14T23:59:59.000Z",
-          "nextConditionRefreshAt": "2026-08-14T22:00:00.000Z",
+          "localDate": "2026-12-25",
+          "progressionSnapshotAt": "2026-12-25T12:00:00.000Z",
+          "conditionRefreshAt": "2026-12-25T20:00:00.000Z",
+          "progressionExpiresAt": "2026-12-25T23:59:59.000Z",
+          "nextConditionRefreshAt": "2026-12-25T22:00:00.000Z",
           "runStage": {
             "stage": "post_run",
+            "copyStrategy": "pere_marquette",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
             "window": {
-              "snapshotDate": "2026-08-14",
+              "snapshotDate": "2026-12-25",
               "preRunStartDate": "2026-08-15",
               "stagingStartDate": "2026-09-01",
               "startDate": "2026-09-20",
@@ -398,65 +402,291 @@ const GROUP_SEEDS = [
               "startToPeakDays": 56,
               "peakToEndDays": 37
             },
-            "label": "Offseason",
-            "headline": "Steelhead are outside their fall-entry season.",
-            "whereToStart": "No dependable PM fall-entry location; use the active winter or spring Steelhead experience instead.",
-            "detail": "This fall model is inactive. It should not be used to infer winter or spring steelhead behavior.",
-            "tip": "Use the active seasonal steelhead experience rather than applying fall-entry guidance outside its window.",
+            "label": "Fall entry complete",
+            "headline": "PM Steelhead fall entry is complete.",
+            "detail": "Steelhead may remain in the river. This fall-entry model no longer scores their current presence or activity.",
+            "tip": "Check back in early September when PM fall movement tracking resumes.",
+            "whereToStart": "There is no active PM starting section in this fall-entry model.",
             "reasonCodes": [
               "stage_post_run",
               "stage_offseason"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "conditionsSuggest": {
-            "label": "Not monitoring yet",
-            "timingLabel": null,
-            "candidateLabel": null,
+            "label": "Timing complete",
+            "timingLabel": "Ahead",
+            "candidateLabel": "Ahead",
+            "checkpointId": "peak_complete",
+            "checkpointDate": "2026-11-21",
+            "cutoffDate": "2026-11-20",
             "observationStartDate": "2026-09-01",
-            "nextCheckpointDate": "2026-09-20",
-            "completedCheckpointCount": 0,
-            "currentIndex": null,
-            "currentPercentile": null,
-            "gaugeResponsePercentile": null,
-            "waterTemperaturePercentile": null,
-            "usableDays": 0,
-            "expectedDays": 0,
-            "coveragePercent": 0,
-            "historicalYears": 0,
-            "sourceDates": [],
-            "sourceRefreshSlots": {},
-            "headline": "Migration Timing is not active right now.",
-            "detail": "Timing monitoring begins before the expected river entry, but that seasonal observation window is not active yet.",
-            "tip": "Check Migration Stage for the current seasonal position and return to Migration Timing when early monitoring begins.",
-            "reasonCodes": [
-              "conditions_monitoring_inactive"
+            "completedCheckpointCount": 5,
+            "currentIndex": 92.5,
+            "currentPercentile": 100,
+            "gaugeResponsePercentile": 100,
+            "waterTemperaturePercentile": 87.5,
+            "usableDays": 81,
+            "expectedDays": 81,
+            "coveragePercent": 1,
+            "historicalYears": 5,
+            "baselineVersion": "pm-fall-steelhead-conditions-v2",
+            "gaugeSiteId": "04122500",
+            "temperatureSourceId": "pm_m37_temperature",
+            "sourceDates": [
+              "2026-09-01",
+              "2026-09-02",
+              "2026-09-03",
+              "2026-09-04",
+              "2026-09-05",
+              "2026-09-06",
+              "2026-09-07",
+              "2026-09-08",
+              "2026-09-09",
+              "2026-09-10",
+              "2026-09-11",
+              "2026-09-12",
+              "2026-09-13",
+              "2026-09-14",
+              "2026-09-15",
+              "2026-09-16",
+              "2026-09-17",
+              "2026-09-18",
+              "2026-09-19",
+              "2026-09-20",
+              "2026-09-21",
+              "2026-09-22",
+              "2026-09-23",
+              "2026-09-24",
+              "2026-09-25",
+              "2026-09-26",
+              "2026-09-27",
+              "2026-09-28",
+              "2026-09-29",
+              "2026-09-30",
+              "2026-10-01",
+              "2026-10-02",
+              "2026-10-03",
+              "2026-10-04",
+              "2026-10-05",
+              "2026-10-06",
+              "2026-10-07",
+              "2026-10-08",
+              "2026-10-09",
+              "2026-10-10",
+              "2026-10-11",
+              "2026-10-12",
+              "2026-10-13",
+              "2026-10-14",
+              "2026-10-15",
+              "2026-10-16",
+              "2026-10-17",
+              "2026-10-18",
+              "2026-10-19",
+              "2026-10-20",
+              "2026-10-21",
+              "2026-10-22",
+              "2026-10-23",
+              "2026-10-24",
+              "2026-10-25",
+              "2026-10-26",
+              "2026-10-27",
+              "2026-10-28",
+              "2026-10-29",
+              "2026-10-30",
+              "2026-10-31",
+              "2026-11-01",
+              "2026-11-02",
+              "2026-11-03",
+              "2026-11-04",
+              "2026-11-05",
+              "2026-11-06",
+              "2026-11-07",
+              "2026-11-08",
+              "2026-11-09",
+              "2026-11-10",
+              "2026-11-11",
+              "2026-11-12",
+              "2026-11-13",
+              "2026-11-14",
+              "2026-11-15",
+              "2026-11-16",
+              "2026-11-17",
+              "2026-11-18",
+              "2026-11-19",
+              "2026-11-20"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "sourceRefreshSlots": {
+              "2026-09-01": "16:00",
+              "2026-09-02": "16:00",
+              "2026-09-03": "16:00",
+              "2026-09-04": "16:00",
+              "2026-09-05": "16:00",
+              "2026-09-06": "16:00",
+              "2026-09-07": "16:00",
+              "2026-09-08": "16:00",
+              "2026-09-09": "16:00",
+              "2026-09-10": "16:00",
+              "2026-09-11": "16:00",
+              "2026-09-12": "16:00",
+              "2026-09-13": "16:00",
+              "2026-09-14": "16:00",
+              "2026-09-15": "16:00",
+              "2026-09-16": "16:00",
+              "2026-09-17": "16:00",
+              "2026-09-18": "16:00",
+              "2026-09-19": "16:00",
+              "2026-09-20": "16:00",
+              "2026-09-21": "16:00",
+              "2026-09-22": "16:00",
+              "2026-09-23": "16:00",
+              "2026-09-24": "16:00",
+              "2026-09-25": "16:00",
+              "2026-09-26": "16:00",
+              "2026-09-27": "16:00",
+              "2026-09-28": "16:00",
+              "2026-09-29": "16:00",
+              "2026-09-30": "16:00",
+              "2026-10-01": "16:00",
+              "2026-10-02": "16:00",
+              "2026-10-03": "16:00",
+              "2026-10-04": "16:00",
+              "2026-10-05": "16:00",
+              "2026-10-06": "16:00",
+              "2026-10-07": "16:00",
+              "2026-10-08": "16:00",
+              "2026-10-09": "16:00",
+              "2026-10-10": "16:00",
+              "2026-10-11": "16:00",
+              "2026-10-12": "16:00",
+              "2026-10-13": "16:00",
+              "2026-10-14": "16:00",
+              "2026-10-15": "16:00",
+              "2026-10-16": "16:00",
+              "2026-10-17": "16:00",
+              "2026-10-18": "16:00",
+              "2026-10-19": "16:00",
+              "2026-10-20": "16:00",
+              "2026-10-21": "16:00",
+              "2026-10-22": "16:00",
+              "2026-10-23": "16:00",
+              "2026-10-24": "16:00",
+              "2026-10-25": "16:00",
+              "2026-10-26": "16:00",
+              "2026-10-27": "16:00",
+              "2026-10-28": "16:00",
+              "2026-10-29": "16:00",
+              "2026-10-30": "16:00",
+              "2026-10-31": "16:00",
+              "2026-11-01": "16:00",
+              "2026-11-02": "16:00",
+              "2026-11-03": "16:00",
+              "2026-11-04": "16:00",
+              "2026-11-05": "16:00",
+              "2026-11-06": "16:00",
+              "2026-11-07": "16:00",
+              "2026-11-08": "16:00",
+              "2026-11-09": "16:00",
+              "2026-11-10": "16:00",
+              "2026-11-11": "16:00",
+              "2026-11-12": "16:00",
+              "2026-11-13": "16:00",
+              "2026-11-14": "16:00",
+              "2026-11-15": "16:00",
+              "2026-11-16": "16:00",
+              "2026-11-17": "16:00",
+              "2026-11-18": "16:00",
+              "2026-11-19": "16:00",
+              "2026-11-20": "16:00"
+            },
+            "headline": "PM fall-entry Migration Timing is complete.",
+            "detail": "Earlier in fall, PM migration timing was earlier than usual. The fall-entry timing window is now complete.",
+            "tip": "Do not use completed fall timing to infer current presence or activity. PM fall monitoring resumes in early September.",
+            "reasonCodes": [
+              "gauge_fresh",
+              "temperature_measured",
+              "conditions_checkpoint_peak_complete",
+              "conditions_ahead",
+              "conditions_timing_complete"
+            ],
+            "copyVersion": "river-run-copy-v29",
+            "previousCheckpointId": "peak_start",
+            "previousCheckpointDate": "2026-11-15",
+            "previousTimingLabel": "Ahead"
           },
           "push": {
             "score": null,
-            "label": "Offseason",
-            "headline": "Push is not active outside the river migration season.",
-            "detail": "Rain, river level, and water temperature can still change, but they do not provide a useful fresh-arrival signal for this species right now.",
-            "tip": "Do not use Push to plan for this species outside its migration season. Follow an active species instead, or return when early monitoring begins.",
+            "label": "Fall entry complete",
+            "headline": "PM Steelhead fall-entry Push is complete.",
+            "detail": "Current water may affect Steelhead still in the river. This fall model no longer scores fresh-entry support.",
+            "tip": "Do not use a muted fall Push as evidence that Steelhead left the river. Check back in early September.",
             "reasonCodes": [
-              "push_tracking_offseason"
+              "push_tracking_complete"
             ],
             "rulesVersion": "pm-fall-steelhead-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "pushHistory": {
-            "status": "not_started",
+            "status": "complete",
             "minimumSupportiveScore": 50,
             "trackingStartDate": "2026-09-20",
             "trackingEndDate": "2026-12-22",
-            "throughDate": "2026-08-14",
+            "throughDate": "2026-12-22",
             "recentDailyReadsStatus": "available",
-            "recentDailyReads": []
+            "recentDailyReads": [
+              {
+                "localDate": "2026-12-22",
+                "status": "no_supportive_window",
+                "score": null,
+                "label": "No supportive window"
+              },
+              {
+                "localDate": "2026-12-21",
+                "status": "no_supportive_window",
+                "score": null,
+                "label": "No supportive window"
+              },
+              {
+                "localDate": "2026-12-20",
+                "status": "supportive_window",
+                "refreshSlot": "08:00",
+                "conditionRefreshAt": "2026-12-20T23:59:00.000Z",
+                "score": 63,
+                "label": "Possible"
+              },
+              {
+                "localDate": "2026-12-19",
+                "status": "no_supportive_window",
+                "score": null,
+                "label": "No supportive window"
+              },
+              {
+                "localDate": "2026-12-18",
+                "status": "supportive_window",
+                "refreshSlot": "20:00",
+                "conditionRefreshAt": "2026-12-18T23:59:00.000Z",
+                "score": 81,
+                "label": "Strong"
+              },
+              {
+                "localDate": "2026-12-17",
+                "status": "supportive_window",
+                "refreshSlot": "16:00",
+                "conditionRefreshAt": "2026-12-17T23:59:00.000Z",
+                "score": 63,
+                "label": "Possible"
+              },
+              {
+                "localDate": "2026-12-16",
+                "status": "no_supportive_window",
+                "score": null,
+                "label": "No supportive window"
+              }
+            ]
           },
           "fishInRiver": {
-            "score": 0,
+            "score": null,
+            "scoreIsApproximate": false,
             "stage": "post_run",
             "maximum": 100,
             "riverCeiling": 80,
@@ -464,21 +694,21 @@ const GROUP_SEEDS = [
             "curveFraction": 0,
             "curveDirection": "outside",
             "winterHoldingContext": false,
-            "label": "Offseason",
-            "headline": "Steelhead are outside their river migration season.",
-            "detail": "A dependable seasonal presence of Steelhead is not expected in the river right now.",
-            "tip": "Do not build a river trip around this species right now. Target a species with an active seasonal window and return as the next migration approaches.",
+            "label": "Fall entry complete",
+            "headline": "PM Steelhead fall entry is complete.",
+            "detail": "Steelhead may remain in the river. This fall-entry model no longer estimates their current seasonal presence.",
+            "tip": "Check back in early September when PM fall movement tracking resumes.",
             "reasonCodes": [
               "stage_post_run",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "gauge": {
             "provider": "USGS",
             "siteId": "04122500",
             "primaryMetric": "flow_cfs",
-            "observedAt": "2026-08-14T19:45:00.000Z",
+            "observedAt": "2026-12-25T19:45:00.000Z",
             "value": 600,
             "band": "ideal",
             "trend": "stable",
@@ -490,7 +720,7 @@ const GROUP_SEEDS = [
             "sourceId": "pmtu_maple_leaf",
             "siteId": "PMTU-MapleLeaf",
             "seriesId": "4939",
-            "observedAt": "2026-08-14T19:30:00.000Z",
+            "observedAt": "2026-12-25T19:30:00.000Z",
             "waterTempF": 60,
             "trend": "steady",
             "sourceType": "same_gauge",
@@ -501,18 +731,11 @@ const GROUP_SEEDS = [
             "sourceId": "pmtu_m37",
             "siteId": "PMTU-M37",
             "seriesId": "3201",
-            "observedAt": "2026-08-14T19:30:00.000Z",
+            "observedAt": "2026-12-25T19:30:00.000Z",
             "waterTempF": 60,
             "trend": "steady",
             "sourceType": "same_gauge",
             "attribution": "Measured water temperature"
-          },
-          "interpretationNote": {
-            "headline": "The river should fish well, but seasonal fish presence is still low.",
-            "detail": "Good flow makes presentations easier, but it does not put fish in the river. Begin in the deepest established holding water and skip broad searches through fast travel lanes as seasonal presence thins.",
-            "reasonCodes": [
-              "good_fishability_low_presence"
-            ]
           }
         }
       },
@@ -528,6 +751,7 @@ const GROUP_SEEDS = [
           "nextConditionRefreshAt": "2026-08-15T22:00:00.000Z",
           "runStage": {
             "stage": "pre_run",
+            "copyStrategy": "pere_marquette",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -550,14 +774,14 @@ const GROUP_SEEDS = [
               "peakToEndDays": 37
             },
             "label": "Before migration",
-            "headline": "Steelhead fall entry has not started yet.",
-            "whereToStart": "Lake Michigan off Ludington, Ludington harbor, and Pere Marquette Lake—not the inland river yet.",
-            "detail": "A dependable fall steelhead presence is not expected in the river this early.",
-            "tip": "Do not build an inland river trip around this species yet. Return when early monitoring begins.",
+            "headline": "The PM Steelhead fall run has not started.",
+            "detail": "Seasonal timing does not support dependable Steelhead presence in the PM river yet.",
+            "tip": "Keep effort in the lake, harbor, and Pere Marquette Lake until staging begins.",
+            "whereToStart": "Stay in Lake Michigan, Ludington harbor, and Pere Marquette Lake. The PM river is not a dependable fall-entry section yet.",
             "reasonCodes": [
               "stage_pre_run"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "conditionsSuggest": {
             "label": "Not monitoring yet",
@@ -576,25 +800,25 @@ const GROUP_SEEDS = [
             "historicalYears": 0,
             "sourceDates": [],
             "sourceRefreshSlots": {},
-            "headline": "Migration Timing is not active right now.",
-            "detail": "Timing monitoring begins before the expected river entry, but that seasonal observation window is not active yet.",
-            "tip": "Check Migration Stage for the current seasonal position and return to Migration Timing when early monitoring begins.",
+            "headline": "PM Migration Timing is not monitoring yet.",
+            "detail": "Season-to-date Scottville flow and M-37 temperature monitoring resumes in early September.",
+            "tip": "Check back in early September when PM timing monitoring resumes.",
             "reasonCodes": [
               "conditions_monitoring_inactive"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "push": {
             "score": null,
             "label": "Waiting for migration",
-            "headline": "Dependable fall entry has not started, so Push is not active yet.",
-            "detail": "An occasional early steelhead is possible, but Push is reserved for the expected entry window, when rain, river level, and water temperature can provide a responsible fresh-movement read.",
-            "tip": "Keep most effort near the lake, harbor, and river-mouth transition. Do not move inland just because rain or cooling resembles an in-season movement event.",
+            "headline": "Dependable PM Steelhead fall entry has not started.",
+            "detail": "Rain, Scottville flow, and water temperature are not scored as an in-season movement signal yet.",
+            "tip": "Use Migration Stage. Do not move inland because offseason water resembles an in-season Push.",
             "reasonCodes": [
               "push_tracking_not_started"
             ],
             "rulesVersion": "pm-fall-steelhead-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "pushHistory": {
             "status": "not_started",
@@ -607,6 +831,8 @@ const GROUP_SEEDS = [
           },
           "fishInRiver": {
             "score": 0,
+            "displayScore": 0,
+            "scoreIsApproximate": false,
             "stage": "pre_run",
             "maximum": 100,
             "riverCeiling": 80,
@@ -615,14 +841,14 @@ const GROUP_SEEDS = [
             "curveDirection": "outside",
             "winterHoldingContext": false,
             "label": "Not expected yet",
-            "headline": "Steelhead are not expected in meaningful numbers yet.",
-            "detail": "Most Steelhead are not expected to have entered the river in dependable numbers. Any fish already present would be early exceptions.",
-            "tip": "Treat this as no dependable in-river opportunity yet. Keep expectations at zero, and do not interpret an isolated early fish as evidence of dependable river presence.",
+            "headline": "Dependable Steelhead presence is not expected in the PM river yet.",
+            "detail": "The seasonal estimate remains at zero. Any fish already in the river would be an early exception.",
+            "tip": "Use Migration Stage for nearby staging context. Do not treat one early fish as a dependable river opportunity.",
             "reasonCodes": [
               "stage_pre_run",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "gauge": {
             "provider": "USGS",
@@ -678,6 +904,7 @@ const GROUP_SEEDS = [
           "nextConditionRefreshAt": "2026-09-01T22:00:00.000Z",
           "runStage": {
             "stage": "pre_run",
+            "copyStrategy": "pere_marquette",
             "stagingContext": true,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -700,15 +927,15 @@ const GROUP_SEEDS = [
               "peakToEndDays": 37
             },
             "label": "Before migration",
-            "headline": "Steelhead may be gathering near the river mouth, and an occasional early fish could enter the lower river.",
-            "whereToStart": "Ludington harbor, Pere Marquette Lake, the river mouth, and one deliberate check of the first deep travel lane in the lower migratory river toward Scottville.",
-            "detail": "An early fish is possible, especially as late September approaches, but dependable fall presence has not developed yet. Treat an isolated catch as an exception, not proof that the river has filled in.",
-            "tip": "Keep most effort near the lake-to-river transition and wait for Fish In River to confirm a dependable seasonal build before committing inland.",
+            "headline": "Steelhead may be staging near the PM mouth, but dependable river entry has not begun.",
+            "detail": "Seasonal timing supports nearby-lake staging. Any Steelhead already in the Lower river would be an early exception.",
+            "tip": "Keep the river check brief. Do not move into the Middle or Upper river from calendar timing alone.",
+            "whereToStart": "Start at Pere Marquette Lake and the river mouth. Add the Lower river (Pere Marquette Lake–Scottville) only for an early-fish check.",
             "reasonCodes": [
               "stage_pre_run",
               "stage_pre_run_staging"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "conditionsSuggest": {
             "label": "Evaluating",
@@ -727,25 +954,25 @@ const GROUP_SEEDS = [
             "historicalYears": 0,
             "sourceDates": [],
             "sourceRefreshSlots": {},
-            "headline": "Migration Timing is still taking shape.",
-            "detail": "The early river and temperature pattern is still developing, so an Ahead, Typical, or Delayed call would be premature.",
-            "tip": "Keep the trip centered on the river mouth and earliest lower-river holding water. Move inland only when Migration Stage advances or direct fish activity supports it.",
+            "headline": "PM Migration Timing is still taking shape.",
+            "detail": "Scottville river-rise activity and M-37 cooling do not yet support an Ahead, Typical, or Delayed call.",
+            "tip": "Keep the section named by Migration Stage. Do not shift PM sections until this read has enough evidence.",
             "reasonCodes": [
               "conditions_checkpoint_evaluating"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "push": {
             "score": null,
             "label": "Waiting for migration",
-            "headline": "Dependable fall entry has not started, so Push is not active yet.",
-            "detail": "An occasional early steelhead is possible, but Push is reserved for the expected entry window, when rain, river level, and water temperature can provide a responsible fresh-movement read.",
-            "tip": "Keep most effort near the lake, harbor, and river-mouth transition. Do not move inland just because rain or cooling resembles an in-season movement event.",
+            "headline": "Dependable PM Steelhead fall entry has not started.",
+            "detail": "Rain, Scottville flow, and water temperature are not scored as an in-season movement signal yet.",
+            "tip": "Use Migration Stage. Do not move inland because offseason water resembles an in-season Push.",
             "reasonCodes": [
               "push_tracking_not_started"
             ],
             "rulesVersion": "pm-fall-steelhead-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "pushHistory": {
             "status": "not_started",
@@ -758,6 +985,8 @@ const GROUP_SEEDS = [
           },
           "fishInRiver": {
             "score": 0,
+            "displayScore": 0,
+            "scoreIsApproximate": false,
             "stage": "pre_run",
             "maximum": 100,
             "riverCeiling": 80,
@@ -766,14 +995,14 @@ const GROUP_SEEDS = [
             "curveDirection": "outside",
             "winterHoldingContext": false,
             "label": "Not expected yet",
-            "headline": "Steelhead are not expected in meaningful numbers yet.",
-            "detail": "Most Steelhead are not expected to have entered the river in dependable numbers. Any fish already present would be early exceptions.",
-            "tip": "Treat this as no dependable in-river opportunity yet. Keep expectations at zero, and do not interpret an isolated early fish as evidence of dependable river presence.",
+            "headline": "Dependable Steelhead presence is not expected in the PM river yet.",
+            "detail": "The seasonal estimate remains at zero. Any fish already in the river would be an early exception.",
+            "tip": "Use Migration Stage for nearby staging context. Do not treat one early fish as a dependable river opportunity.",
             "reasonCodes": [
               "stage_pre_run",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "gauge": {
             "provider": "USGS",
@@ -829,6 +1058,7 @@ const GROUP_SEEDS = [
           "nextConditionRefreshAt": "2026-09-20T22:00:00.000Z",
           "runStage": {
             "stage": "beginning",
+            "copyStrategy": "pere_marquette",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -851,14 +1081,14 @@ const GROUP_SEEDS = [
               "peakToEndDays": 37
             },
             "label": "Beginning",
-            "headline": "The first Steelhead are beginning to enter the river.",
-            "whereToStart": "Lower migratory river from Pere Marquette Lake toward Scottville: travel lanes feeding the first deep bends, resting pockets, and current breaks.",
-            "detail": "Fresh fish may be present, but numbers are still scattered and can arrive in uneven waves before the broader fall fishery develops.",
-            "tip": "Cover lower travel water and its first dependable resting holes, then move upstream only after those entry sections have been checked.",
+            "headline": "Seasonal timing supports the first Steelhead entering the Lower river.",
+            "detail": "This is the opening river phase. Presence is expected to be scattered and uneven.",
+            "tip": "Cover the Lower river first. Move upstream only after direct fish activity supports it.",
+            "whereToStart": "Start in the Lower river (Pere Marquette Lake–Scottville).",
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "conditionsSuggest": {
             "label": "Typical",
@@ -923,16 +1153,16 @@ const GROUP_SEEDS = [
               "2026-09-18": "16:00",
               "2026-09-19": "16:00"
             },
-            "headline": "The migration appears to be progressing at a normal seasonal pace.",
-            "detail": "River rises and cooling are close to what is usually seen by this point in the season.",
-            "tip": "Fish the core river section identified by Migration Stage. Begin where a travel lane feeds established holding water, then adjust presentation—not seasonal location—using Fishability.",
+            "headline": "The PM migration is progressing at its usual seasonal pace.",
+            "detail": "Season-to-date Scottville river-rise activity and M-37 cooling are close to the usual PM pattern.",
+            "tip": "Keep the PM section named by Migration Stage.",
             "reasonCodes": [
               "gauge_fresh",
               "temperature_measured",
               "conditions_checkpoint_river_start",
               "conditions_typical"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -945,6 +1175,8 @@ const GROUP_SEEDS = [
           },
           "fishInRiver": {
             "score": 8,
+            "displayScore": 10,
+            "scoreIsApproximate": true,
             "stage": "beginning",
             "maximum": 100,
             "riverCeiling": 80,
@@ -953,14 +1185,14 @@ const GROUP_SEEDS = [
             "curveDirection": "rising",
             "winterHoldingContext": false,
             "label": "Low presence",
-            "headline": "A small number of Steelhead may be in the river, and seasonal presence is still building.",
-            "detail": "This part of the season usually brings low presence, with more fish expected to enter and spread through the river. This is a seasonal estimate, not a live fish count.",
-            "tip": "Treat this as an early, low-odds river opportunity. Expect scattered results, and use direct fish activity before committing the full day.",
+            "headline": "Steelhead seasonal presence is low presence and building.",
+            "detail": "Calendar timing places Steelhead presence at low presence, increasing as the fall migration builds. For the PM, expected run strength is Strong, and the opportunity can extend across broadly accessible water. This is not a live fish count or today’s conditions.",
+            "tip": "Use Migration Stage to choose a section. Use Push and Activity for current movement support and responsiveness.",
             "reasonCodes": [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "gauge": {
             "provider": "USGS",
@@ -1016,6 +1248,7 @@ const GROUP_SEEDS = [
           "nextConditionRefreshAt": "2026-10-11T22:00:00.000Z",
           "runStage": {
             "stage": "building",
+            "copyStrategy": "pere_marquette",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -1038,14 +1271,14 @@ const GROUP_SEEDS = [
               "peakToEndDays": 37
             },
             "label": "Building",
-            "headline": "More Steelhead are entering and spreading through the river.",
-            "whereToStart": "Lower river around Scottville into the first substantial middle-river holding holes toward Walhalla.",
-            "detail": "Presence is building beyond isolated early fish, although arrivals and concentrations can still be uneven from section to section.",
-            "tip": "Start where lower-river travel water meets the first substantial holding holes, then work into the middle river instead of waiting in one spot.",
+            "headline": "The PM Steelhead run is building beyond its earliest entry phase.",
+            "detail": "Seasonal timing keeps the Lower river primary. Earlier arrivals may begin reaching the Middle river.",
+            "tip": "Start low, then make one Middle river check if direct fish activity supports the move.",
+            "whereToStart": "Start in the Lower river (Pere Marquette Lake–Scottville). Add the Middle river (Scottville–Maple Leaf) after direct fish activity supports the move.",
             "reasonCodes": [
               "stage_building"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "conditionsSuggest": {
             "label": "Ahead",
@@ -1152,16 +1385,16 @@ const GROUP_SEEDS = [
               "2026-10-09": "16:00",
               "2026-10-10": "16:00"
             },
-            "headline": "The migration appears to be developing earlier than usual.",
-            "detail": "The river has risen and cooled faster than it normally does by this point in the season.",
-            "tip": "Start one accessible river section farther upstream than you normally would for this date and prioritize established holding water. If Push is Possible or stronger, finish with lower travel lanes.",
+            "headline": "The PM migration is developing earlier than usual.",
+            "detail": "Season-to-date Scottville river-rise activity and M-37 cooling are stronger than the usual PM pattern.",
+            "tip": "Start one PM section upstream from Migration Stage, capped at the Upper river (Maple Leaf–M-37).",
             "reasonCodes": [
               "gauge_fresh",
               "temperature_measured",
               "conditions_checkpoint_building_start",
               "conditions_ahead"
             ],
-            "copyVersion": "river-run-copy-v27",
+            "copyVersion": "river-run-copy-v29",
             "previousCheckpointId": "river_start",
             "previousCheckpointDate": "2026-09-20",
             "previousTimingLabel": "Typical"
@@ -1226,6 +1459,8 @@ const GROUP_SEEDS = [
           },
           "fishInRiver": {
             "score": 30,
+            "displayScore": 30,
+            "scoreIsApproximate": true,
             "stage": "building",
             "maximum": 100,
             "riverCeiling": 80,
@@ -1234,14 +1469,14 @@ const GROUP_SEEDS = [
             "curveDirection": "rising",
             "winterHoldingContext": false,
             "label": "Limited presence",
-            "headline": "Some Steelhead are likely in the river, but seasonal presence is still developing.",
-            "detail": "This part of the season usually brings limited presence, with more fish expected to enter and spread through the river. This is a seasonal estimate, not a live fish count.",
-            "tip": "Plan for an emerging but uneven river opportunity. Cover water efficiently, and do not assume every promising stop holds fish.",
+            "headline": "Steelhead seasonal presence is limited presence and building.",
+            "detail": "Calendar timing places Steelhead presence at limited presence, increasing as the fall migration builds. For the PM, expected run strength is Strong, and the opportunity can extend across broadly accessible water. This is not a live fish count or today’s conditions.",
+            "tip": "Use Migration Stage to choose a section. Use Push and Activity for current movement support and responsiveness.",
             "reasonCodes": [
               "stage_building",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "gauge": {
             "provider": "USGS",
@@ -1296,6 +1531,7 @@ const GROUP_SEEDS = [
           "nextConditionRefreshAt": "2026-11-01T22:00:00.000Z",
           "runStage": {
             "stage": "building",
+            "copyStrategy": "pere_marquette",
             "stagingContext": false,
             "broadBuildingContext": true,
             "winterHoldingContext": false,
@@ -1318,14 +1554,14 @@ const GROUP_SEEDS = [
               "peakToEndDays": 37
             },
             "label": "Building",
-            "headline": "Steelhead are now broadly established through the accessible river.",
-            "whereToStart": "Middle-river holding water from Scottville through Walhalla and Branch, plus the upper river toward Baldwin/M-37; add lower-river travel lanes when Push supports fresh arrivals.",
-            "detail": "By November, multiple entry periods have given steelhead time to spread through lower, middle, and upper sections wherever passage is open. The upper river is now a primary option, even though dependable concentrations can remain in lower and middle holding water.",
-            "tip": "Choose a middle- or upper-river section and cover its substantial holes, deep bends, and current breaks. Shift extra attention lower only when Push supports a fresh wave entering the river.",
+            "headline": "Seasonal timing supports a broader PM Steelhead distribution.",
+            "detail": "The Middle river is the dependable calendar choice. Earlier arrivals may also occupy the Upper river.",
+            "tip": "Cover one Middle river section completely before comparing the Upper river.",
+            "whereToStart": "Start in the Middle river (Scottville–Maple Leaf). Add the Upper river (Maple Leaf–M-37) when direct fish activity supports it.",
             "reasonCodes": [
               "stage_building"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -1387,6 +1623,8 @@ const GROUP_SEEDS = [
           },
           "fishInRiver": {
             "score": 60,
+            "displayScore": 60,
+            "scoreIsApproximate": true,
             "stage": "building",
             "maximum": 100,
             "riverCeiling": 80,
@@ -1395,14 +1633,14 @@ const GROUP_SEEDS = [
             "curveDirection": "rising",
             "winterHoldingContext": false,
             "label": "High presence",
-            "headline": "Steelhead are likely spread through more of the river as seasonal presence builds toward its strongest point.",
-            "detail": "Seasonal presence is usually elevated relative to the rest of the season, with more fish expected to enter and spread through the river. This is a seasonal estimate, not a live fish count.",
-            "tip": "Treat this as one of the stronger parts of a strong river season. Give each stop a complete pass, but do not mistake this seasonal estimate for a live fish count.",
+            "headline": "Steelhead seasonal presence is high presence and building.",
+            "detail": "Calendar timing places Steelhead presence high for this fall migration, increasing as the fall migration builds. For the PM, expected run strength is Strong, and the opportunity can extend across broadly accessible water. This is not a live fish count or today’s conditions.",
+            "tip": "Use Migration Stage to choose a section. Use Push and Activity for current movement support and responsiveness.",
             "reasonCodes": [
               "stage_building",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "gauge": {
             "provider": "USGS",
@@ -1451,6 +1689,7 @@ const GROUP_SEEDS = [
           "nextConditionRefreshAt": "2026-11-15T22:00:00.000Z",
           "runStage": {
             "stage": "peak",
+            "copyStrategy": "pere_marquette",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -1473,14 +1712,14 @@ const GROUP_SEEDS = [
               "peakToEndDays": 37
             },
             "label": "Peak",
-            "headline": "This is typically the strongest and most dependable fall Steelhead opportunity.",
-            "whereToStart": "Compare substantial holding water in the middle river from Scottville through Walhalla and Branch with the upper river toward Baldwin/M-37; add lower travel lanes on a fresh Push.",
-            "detail": "Multiple waves have had time to spread from lower travel lanes into established middle- and upper-river holding water. Fish can be broadly distributed wherever passage is open.",
-            "tip": "Choose an accessible section and cover each substantial hole from the head through its seams and tail. Let Push decide whether lower travel lanes deserve extra time.",
+            "headline": "This is typically the PM’s strongest Steelhead migration window.",
+            "detail": "Seasonal timing supports the widest dependable Steelhead distribution. It does not confirm fish in every section.",
+            "tip": "Start in the Middle river. Compare the Upper river only after a complete first pass.",
+            "whereToStart": "Start in the Middle river (Scottville–Maple Leaf). Compare the Upper river (Maple Leaf–M-37) when direct fish activity favors it.",
             "reasonCodes": [
               "stage_peak"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "conditionsSuggest": {
             "label": "Ahead",
@@ -1657,16 +1896,16 @@ const GROUP_SEEDS = [
               "2026-11-13": "16:00",
               "2026-11-14": "16:00"
             },
-            "headline": "The migration appears to be developing earlier than usual.",
-            "detail": "The river has risen and cooled faster than it normally does by this point in the season.",
-            "tip": "Start one accessible river section farther upstream than you normally would for this date and prioritize established holding water. If Push is Possible or stronger, finish with lower travel lanes.",
+            "headline": "The PM migration is developing earlier than usual.",
+            "detail": "Season-to-date Scottville river-rise activity and M-37 cooling are stronger than the usual PM pattern.",
+            "tip": "Start one PM section upstream from Migration Stage, capped at the Upper river (Maple Leaf–M-37).",
             "reasonCodes": [
               "gauge_fresh",
               "temperature_measured",
               "conditions_checkpoint_peak_start",
               "conditions_ahead"
             ],
-            "copyVersion": "river-run-copy-v27",
+            "copyVersion": "river-run-copy-v29",
             "previousCheckpointId": "building_established",
             "previousCheckpointDate": "2026-10-15",
             "previousTimingLabel": "Ahead"
@@ -1731,6 +1970,8 @@ const GROUP_SEEDS = [
           },
           "fishInRiver": {
             "score": 80,
+            "displayScore": 80,
+            "scoreIsApproximate": false,
             "stage": "peak",
             "maximum": 100,
             "riverCeiling": 80,
@@ -1739,14 +1980,14 @@ const GROUP_SEEDS = [
             "curveDirection": "near_peak",
             "winterHoldingContext": false,
             "label": "Peak presence",
-            "headline": "Steelhead are likely near their highest seasonal presence in the river.",
-            "detail": "This is the part of the season when in-river presence is usually strongest. The read describes the river as a whole; it does not place fish in a specific pool or confirm a live count.",
-            "tip": "Plan for the strongest seasonal presence this river usually offers, while remembering that this estimate cannot confirm fish at a specific spot or describe today's river conditions.",
+            "headline": "Steelhead seasonal presence is peak presence and near its seasonal high.",
+            "detail": "Calendar timing places Steelhead presence at its expected seasonal peak, near its expected seasonal high. For the PM, expected run strength is Strong, and the opportunity can extend across broadly accessible water. This is not a live fish count or today’s conditions.",
+            "tip": "Use Migration Stage to choose a section. Use Push and Activity for current movement support and responsiveness.",
             "reasonCodes": [
               "stage_peak",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "gauge": {
             "provider": "USGS",
@@ -1802,6 +2043,7 @@ const GROUP_SEEDS = [
           "nextConditionRefreshAt": "2026-12-05T22:00:00.000Z",
           "runStage": {
             "stage": "tapering",
+            "copyStrategy": "pere_marquette",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -1824,14 +2066,14 @@ const GROUP_SEEDS = [
               "peakToEndDays": 37
             },
             "label": "Late fall",
-            "headline": "Steelhead presence remains high as the fall fishery begins shifting toward winter holding.",
-            "whereToStart": "Established middle- and upper-river holes from Walhalla and Branch toward Baldwin/M-37, especially deeper bends and slower edges beside productive current.",
-            "detail": "Fish remain broadly available, but colder water gradually shifts the balance from active upstream movement toward established holding. Fresh arrivals can still occur without defining the whole fishery.",
-            "tip": "Start with dependable holding water. Check lower travel lanes only when Push shows a credible movement signal.",
+            "headline": "PM Steelhead fall entry remains strong but is slowing.",
+            "detail": "Seasonal timing still supports broad fall presence. Colder water makes established holding water more important than new entry.",
+            "tip": "Start in the Middle river. Shift lower only when Push supports fresh movement.",
+            "whereToStart": "Start in the Middle river (Scottville–Maple Leaf). Add the Lower river (Pere Marquette Lake–Scottville) only when Push supports fresh movement.",
             "reasonCodes": [
               "stage_tapering"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "conditionsSuggest": {
             "label": "Timing complete",
@@ -2029,7 +2271,7 @@ const GROUP_SEEDS = [
               "conditions_ahead",
               "conditions_timing_complete"
             ],
-            "copyVersion": "river-run-copy-v27",
+            "copyVersion": "river-run-copy-v29",
             "previousCheckpointId": "peak_start",
             "previousCheckpointDate": "2026-11-15",
             "previousTimingLabel": "Ahead"
@@ -2094,6 +2336,8 @@ const GROUP_SEEDS = [
           },
           "fishInRiver": {
             "score": 79,
+            "displayScore": 80,
+            "scoreIsApproximate": true,
             "stage": "tapering",
             "maximum": 100,
             "riverCeiling": 80,
@@ -2102,14 +2346,14 @@ const GROUP_SEEDS = [
             "curveDirection": "falling",
             "winterHoldingContext": false,
             "label": "Peak presence",
-            "headline": "Steelhead remain near their strongest fall presence as winter holding approaches.",
-            "detail": "The slight decline reflects fewer fresh arrivals—not fish simply leaving the river. This is a seasonal opportunity estimate, not a live fish count.",
-            "tip": "Treat the retained presence as strong, but expect the fishery to be shifting away from fresh fall entry. Verify current river conditions before choosing a presentation.",
+            "headline": "Steelhead seasonal presence is peak presence and declining.",
+            "detail": "Calendar timing places Steelhead presence at its expected seasonal peak, declining as the fall migration advances. For the PM, expected run strength is Strong, and the opportunity can extend across broadly accessible water. This is not a live fish count or today’s conditions.",
+            "tip": "Use Migration Stage to choose a section. Use Push and Activity for current movement support and responsiveness.",
             "reasonCodes": [
               "stage_tapering",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "gauge": {
             "provider": "USGS",
@@ -2158,6 +2402,7 @@ const GROUP_SEEDS = [
           "nextConditionRefreshAt": "2026-12-20T22:00:00.000Z",
           "runStage": {
             "stage": "ending",
+            "copyStrategy": "pere_marquette",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -2180,14 +2425,14 @@ const GROUP_SEEDS = [
               "peakToEndDays": 37
             },
             "label": "Holding transition",
-            "headline": "Steelhead remain strongly present while fall entry transitions toward winter holding.",
-            "whereToStart": "Deep, speed-controlled middle- and upper-river holding water from Walhalla and Branch toward Baldwin/M-37, with nearby feeding current.",
-            "detail": "The fish have not simply left the river. Colder water reduces the importance of fresh upstream movement and increases the importance of where steelhead can hold efficiently through winter.",
-            "tip": "Prioritize deep, speed-controlled holding water and use Push only as a secondary fresh-arrival check. The winter fishery read takes over after this stage.",
+            "headline": "PM Steelhead fall entry is in its final seasonal phase.",
+            "detail": "Steelhead may remain after fall entry ends. This state marks the model boundary, not fish leaving the river.",
+            "tip": "Prioritize established Middle river holding water and use Activity only through the final fall-entry day.",
+            "whereToStart": "Start in the Middle river (Scottville–Maple Leaf). Add the Upper river (Maple Leaf–M-37) only for established late-fall holding water.",
             "reasonCodes": [
               "stage_ending"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "conditionsSuggest": {
             "label": "Timing complete",
@@ -2385,7 +2630,7 @@ const GROUP_SEEDS = [
               "conditions_ahead",
               "conditions_timing_complete"
             ],
-            "copyVersion": "river-run-copy-v27",
+            "copyVersion": "river-run-copy-v29",
             "previousCheckpointId": "peak_start",
             "previousCheckpointDate": "2026-11-15",
             "previousTimingLabel": "Ahead"
@@ -2450,6 +2695,8 @@ const GROUP_SEEDS = [
           },
           "fishInRiver": {
             "score": 71,
+            "displayScore": 70,
+            "scoreIsApproximate": true,
             "stage": "ending",
             "maximum": 100,
             "riverCeiling": 80,
@@ -2458,14 +2705,14 @@ const GROUP_SEEDS = [
             "curveDirection": "falling",
             "winterHoldingContext": false,
             "label": "High presence",
-            "headline": "Steelhead presence remains high as the fall fishery shifts toward winter holding.",
-            "detail": "The slight decline reflects fewer fresh arrivals—not fish simply leaving the river. This is a seasonal opportunity estimate, not a live fish count.",
-            "tip": "Treat the retained presence as strong, but expect the fishery to be shifting away from fresh fall entry. Verify current river conditions before choosing a presentation.",
+            "headline": "Steelhead seasonal presence is high presence and declining.",
+            "detail": "Calendar timing places Steelhead presence high for this fall migration, declining as the fall migration advances. For the PM, expected run strength is Strong, and the opportunity can extend across broadly accessible water. This is not a live fish count or today’s conditions.",
+            "tip": "Use Migration Stage to choose a section. Use Push and Activity for current movement support and responsiveness.",
             "reasonCodes": [
               "stage_ending",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "gauge": {
             "provider": "USGS",
@@ -2514,9 +2761,10 @@ const GROUP_SEEDS = [
           "nextConditionRefreshAt": "2026-12-23T22:00:00.000Z",
           "runStage": {
             "stage": "post_run",
+            "copyStrategy": "pere_marquette",
             "stagingContext": false,
             "broadBuildingContext": false,
-            "winterHoldingContext": true,
+            "winterHoldingContext": false,
             "window": {
               "snapshotDate": "2026-12-23",
               "preRunStartDate": "2026-08-15",
@@ -2535,16 +2783,16 @@ const GROUP_SEEDS = [
               "startToPeakDays": 56,
               "peakToEndDays": 37
             },
-            "label": "Winter holding",
-            "headline": "Steelhead have transitioned from fall entry into winter holding.",
-            "whereToStart": "Deep, slow middle- and upper-river holding water from Walhalla and Branch toward Baldwin/M-37, with nearby current and an easy feeding lane.",
-            "detail": "Fish can remain distributed through the river, but colder water shifts the question from upstream movement to daily activity and feeding position.",
-            "tip": "Open the Winter Holding read for current activity, likely holding water, and presentation guidance. A completed fall-entry read does not mean steelhead have left the river.",
+            "label": "Fall entry complete",
+            "headline": "PM Steelhead fall entry is complete.",
+            "detail": "Steelhead may remain in the river. This fall-entry model no longer scores their current presence or activity.",
+            "tip": "Check back in early September when PM fall movement tracking resumes.",
+            "whereToStart": "There is no active PM starting section in this fall-entry model.",
             "reasonCodes": [
               "stage_post_run",
-              "stage_winter_holding"
+              "stage_offseason"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "conditionsSuggest": {
             "label": "Timing complete",
@@ -2732,9 +2980,9 @@ const GROUP_SEEDS = [
               "2026-11-19": "16:00",
               "2026-11-20": "16:00"
             },
-            "headline": "This season's Migration Timing read is complete.",
-            "detail": "Earlier in the season, the migration was moving earlier than usual. Fall entry has now shifted into winter holding, where current activity matters more than an early-or-late call.",
-            "tip": "Stop planning around whether fall entry was early or late. Use the winter fishery read to judge current activity and presentation.",
+            "headline": "PM fall-entry Migration Timing is complete.",
+            "detail": "Earlier in fall, PM migration timing was earlier than usual. The fall-entry timing window is now complete.",
+            "tip": "Do not use completed fall timing to infer current presence or activity. PM fall monitoring resumes in early September.",
             "reasonCodes": [
               "gauge_fresh",
               "temperature_measured",
@@ -2742,22 +2990,22 @@ const GROUP_SEEDS = [
               "conditions_ahead",
               "conditions_timing_complete"
             ],
-            "copyVersion": "river-run-copy-v27",
+            "copyVersion": "river-run-copy-v29",
             "previousCheckpointId": "peak_start",
             "previousCheckpointDate": "2026-11-15",
             "previousTimingLabel": "Ahead"
           },
           "push": {
             "score": null,
-            "label": "Winter holding",
-            "headline": "The season's fresh-movement read is complete.",
-            "detail": "Steelhead may remain in the river, but the fall-entry signal has handed off to winter holding. Winter activity requires a different water-temperature and feeding read.",
-            "tip": "Use the winter fishery read for activity and presentation decisions. Do not treat a muted Push as evidence that steelhead left the river.",
+            "label": "Fall entry complete",
+            "headline": "PM Steelhead fall-entry Push is complete.",
+            "detail": "Current water may affect Steelhead still in the river. This fall model no longer scores fresh-entry support.",
+            "tip": "Do not use a muted fall Push as evidence that Steelhead left the river. Check back in early September.",
             "reasonCodes": [
               "push_tracking_complete"
             ],
             "rulesVersion": "pm-fall-steelhead-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "pushHistory": {
             "status": "complete",
@@ -2818,25 +3066,24 @@ const GROUP_SEEDS = [
             ]
           },
           "fishInRiver": {
-            "score": 70,
+            "score": null,
+            "scoreIsApproximate": false,
             "stage": "post_run",
             "maximum": 100,
             "riverCeiling": 80,
             "historicalRunStrength": "strong",
-            "curveFraction": 0.875,
+            "curveFraction": 0,
             "curveDirection": "outside",
-            "winterHoldingContext": true,
-            "handoffScore": 70,
-            "label": "Winter holding",
-            "headline": "Steelhead remain strongly present as the fishery shifts into winter holding.",
-            "detail": "Fall entry finished at 70/100. That retained-presence reference stays visible, but it is not a winter activity score; winter opportunity depends on water temperature, feeding activity, and presentation.",
-            "tip": "Open the Winter Holding read for current activity, likely holding water, and presentation guidance. Treat 70/100 as retained seasonal presence—not proof that fish are active today.",
+            "winterHoldingContext": false,
+            "label": "Fall entry complete",
+            "headline": "PM Steelhead fall entry is complete.",
+            "detail": "Steelhead may remain in the river. This fall-entry model no longer estimates their current seasonal presence.",
+            "tip": "Check back in early September when PM fall movement tracking resumes.",
             "reasonCodes": [
               "stage_post_run",
-              "historical_presence_curve",
-              "fish_presence_winter_handoff"
+              "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "gauge": {
             "provider": "USGS",
@@ -2870,13 +3117,6 @@ const GROUP_SEEDS = [
             "trend": "steady",
             "sourceType": "same_gauge",
             "attribution": "Measured water temperature"
-          },
-          "interpretationNote": {
-            "headline": "Steelhead are still in the river, but winter conditions now control the day.",
-            "detail": "The fall-entry period ended with strong retained presence. Use the winter fishery read to judge activity and presentation; Push and Migration Timing are intentionally complete because they answer the wrong question now.",
-            "reasonCodes": [
-              "winter_holding_read_required"
-            ]
           }
         }
       }
@@ -2898,6 +3138,7 @@ const GROUP_SEEDS = [
           "nextConditionRefreshAt": "2026-08-24T22:00:00.000Z",
           "runStage": {
             "stage": "pre_run",
+            "copyStrategy": "pere_marquette",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -2920,14 +3161,14 @@ const GROUP_SEEDS = [
               "peakToEndDays": 37
             },
             "label": "Before migration",
-            "headline": "Steelhead fall entry has not started yet.",
-            "whereToStart": "Lake Michigan off Ludington, Ludington harbor, and Pere Marquette Lake—not the inland river yet.",
-            "detail": "A dependable fall steelhead presence is not expected in the river this early.",
-            "tip": "Do not build an inland river trip around this species yet. Return when early monitoring begins.",
+            "headline": "The PM Steelhead fall run has not started.",
+            "detail": "Seasonal timing does not support dependable Steelhead presence in the PM river yet.",
+            "tip": "Keep effort in the lake, harbor, and Pere Marquette Lake until staging begins.",
+            "whereToStart": "Stay in Lake Michigan, Ludington harbor, and Pere Marquette Lake. The PM river is not a dependable fall-entry section yet.",
             "reasonCodes": [
               "stage_pre_run"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "conditionsSuggest": {
             "label": "Not monitoring yet",
@@ -2946,25 +3187,25 @@ const GROUP_SEEDS = [
             "historicalYears": 0,
             "sourceDates": [],
             "sourceRefreshSlots": {},
-            "headline": "Migration Timing is not active right now.",
-            "detail": "Timing monitoring begins before the expected river entry, but that seasonal observation window is not active yet.",
-            "tip": "Check Migration Stage for the current seasonal position and return to Migration Timing when early monitoring begins.",
+            "headline": "PM Migration Timing is not monitoring yet.",
+            "detail": "Season-to-date Scottville flow and M-37 temperature monitoring resumes in early September.",
+            "tip": "Check back in early September when PM timing monitoring resumes.",
             "reasonCodes": [
               "conditions_monitoring_inactive"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "push": {
             "score": null,
             "label": "Waiting for migration",
-            "headline": "Dependable fall entry has not started, so Push is not active yet.",
-            "detail": "An occasional early steelhead is possible, but Push is reserved for the expected entry window, when rain, river level, and water temperature can provide a responsible fresh-movement read.",
-            "tip": "Keep most effort near the lake, harbor, and river-mouth transition. Do not move inland just because rain or cooling resembles an in-season movement event.",
+            "headline": "Dependable PM Steelhead fall entry has not started.",
+            "detail": "Rain, Scottville flow, and water temperature are not scored as an in-season movement signal yet.",
+            "tip": "Use Migration Stage. Do not move inland because offseason water resembles an in-season Push.",
             "reasonCodes": [
               "push_tracking_not_started"
             ],
             "rulesVersion": "pm-fall-steelhead-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "pushHistory": {
             "status": "not_started",
@@ -2977,6 +3218,8 @@ const GROUP_SEEDS = [
           },
           "fishInRiver": {
             "score": 0,
+            "displayScore": 0,
+            "scoreIsApproximate": false,
             "stage": "pre_run",
             "maximum": 100,
             "riverCeiling": 80,
@@ -2985,14 +3228,14 @@ const GROUP_SEEDS = [
             "curveDirection": "outside",
             "winterHoldingContext": false,
             "label": "Not expected yet",
-            "headline": "Steelhead are not expected in meaningful numbers yet.",
-            "detail": "Most Steelhead are not expected to have entered the river in dependable numbers. Any fish already present would be early exceptions.",
-            "tip": "Treat this as no dependable in-river opportunity yet. Keep expectations at zero, and do not interpret an isolated early fish as evidence of dependable river presence.",
+            "headline": "Dependable Steelhead presence is not expected in the PM river yet.",
+            "detail": "The seasonal estimate remains at zero. Any fish already in the river would be an early exception.",
+            "tip": "Use Migration Stage for nearby staging context. Do not treat one early fish as a dependable river opportunity.",
             "reasonCodes": [
               "stage_pre_run",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "gauge": {
             "provider": "USGS",
@@ -3048,6 +3291,7 @@ const GROUP_SEEDS = [
           "nextConditionRefreshAt": "2026-09-05T22:00:00.000Z",
           "runStage": {
             "stage": "pre_run",
+            "copyStrategy": "pere_marquette",
             "stagingContext": true,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -3070,15 +3314,15 @@ const GROUP_SEEDS = [
               "peakToEndDays": 37
             },
             "label": "Before migration",
-            "headline": "Steelhead may be gathering near the river mouth, and an occasional early fish could enter the lower river.",
-            "whereToStart": "Ludington harbor, Pere Marquette Lake, the river mouth, and one deliberate check of the first deep travel lane in the lower migratory river toward Scottville.",
-            "detail": "An early fish is possible, especially as late September approaches, but dependable fall presence has not developed yet. Treat an isolated catch as an exception, not proof that the river has filled in.",
-            "tip": "Keep most effort near the lake-to-river transition and wait for Fish In River to confirm a dependable seasonal build before committing inland.",
+            "headline": "Steelhead may be staging near the PM mouth, but dependable river entry has not begun.",
+            "detail": "Seasonal timing supports nearby-lake staging. Any Steelhead already in the Lower river would be an early exception.",
+            "tip": "Keep the river check brief. Do not move into the Middle or Upper river from calendar timing alone.",
+            "whereToStart": "Start at Pere Marquette Lake and the river mouth. Add the Lower river (Pere Marquette Lake–Scottville) only for an early-fish check.",
             "reasonCodes": [
               "stage_pre_run",
               "stage_pre_run_staging"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "conditionsSuggest": {
             "label": "Evaluating",
@@ -3097,25 +3341,25 @@ const GROUP_SEEDS = [
             "historicalYears": 0,
             "sourceDates": [],
             "sourceRefreshSlots": {},
-            "headline": "Migration Timing is still taking shape.",
-            "detail": "The early river and temperature pattern is still developing, so an Ahead, Typical, or Delayed call would be premature.",
-            "tip": "Keep the trip centered on the river mouth and earliest lower-river holding water. Move inland only when Migration Stage advances or direct fish activity supports it.",
+            "headline": "PM Migration Timing is still taking shape.",
+            "detail": "Scottville river-rise activity and M-37 cooling do not yet support an Ahead, Typical, or Delayed call.",
+            "tip": "Keep the section named by Migration Stage. Do not shift PM sections until this read has enough evidence.",
             "reasonCodes": [
               "conditions_checkpoint_evaluating"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "push": {
             "score": null,
             "label": "Waiting for migration",
-            "headline": "Dependable fall entry has not started, so Push is not active yet.",
-            "detail": "An occasional early steelhead is possible, but Push is reserved for the expected entry window, when rain, river level, and water temperature can provide a responsible fresh-movement read.",
-            "tip": "Keep most effort near the lake, harbor, and river-mouth transition. Do not move inland just because rain or cooling resembles an in-season movement event.",
+            "headline": "Dependable PM Steelhead fall entry has not started.",
+            "detail": "Rain, Scottville flow, and water temperature are not scored as an in-season movement signal yet.",
+            "tip": "Use Migration Stage. Do not move inland because offseason water resembles an in-season Push.",
             "reasonCodes": [
               "push_tracking_not_started"
             ],
             "rulesVersion": "pm-fall-steelhead-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "pushHistory": {
             "status": "not_started",
@@ -3128,6 +3372,8 @@ const GROUP_SEEDS = [
           },
           "fishInRiver": {
             "score": 0,
+            "displayScore": 0,
+            "scoreIsApproximate": false,
             "stage": "pre_run",
             "maximum": 100,
             "riverCeiling": 80,
@@ -3136,14 +3382,14 @@ const GROUP_SEEDS = [
             "curveDirection": "outside",
             "winterHoldingContext": false,
             "label": "Not expected yet",
-            "headline": "Steelhead are not expected in meaningful numbers yet.",
-            "detail": "Most Steelhead are not expected to have entered the river in dependable numbers. Any fish already present would be early exceptions.",
-            "tip": "Treat this as no dependable in-river opportunity yet. Keep expectations at zero, and do not interpret an isolated early fish as evidence of dependable river presence.",
+            "headline": "Dependable Steelhead presence is not expected in the PM river yet.",
+            "detail": "The seasonal estimate remains at zero. Any fish already in the river would be an early exception.",
+            "tip": "Use Migration Stage for nearby staging context. Do not treat one early fish as a dependable river opportunity.",
             "reasonCodes": [
               "stage_pre_run",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "gauge": {
             "provider": "USGS",
@@ -3199,6 +3445,7 @@ const GROUP_SEEDS = [
           "nextConditionRefreshAt": "2026-09-20T22:00:00.000Z",
           "runStage": {
             "stage": "beginning",
+            "copyStrategy": "pere_marquette",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -3221,14 +3468,14 @@ const GROUP_SEEDS = [
               "peakToEndDays": 37
             },
             "label": "Beginning",
-            "headline": "The first Steelhead are beginning to enter the river.",
-            "whereToStart": "Lower migratory river from Pere Marquette Lake toward Scottville: travel lanes feeding the first deep bends, resting pockets, and current breaks.",
-            "detail": "Fresh fish may be present, but numbers are still scattered and can arrive in uneven waves before the broader fall fishery develops.",
-            "tip": "Cover lower travel water and its first dependable resting holes, then move upstream only after those entry sections have been checked.",
+            "headline": "Seasonal timing supports the first Steelhead entering the Lower river.",
+            "detail": "This is the opening river phase. Presence is expected to be scattered and uneven.",
+            "tip": "Cover the Lower river first. Move upstream only after direct fish activity supports it.",
+            "whereToStart": "Start in the Lower river (Pere Marquette Lake–Scottville).",
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "conditionsSuggest": {
             "label": "Ahead",
@@ -3293,16 +3540,16 @@ const GROUP_SEEDS = [
               "2026-09-18": "16:00",
               "2026-09-19": "16:00"
             },
-            "headline": "The migration appears to be developing earlier than usual.",
-            "detail": "The river has risen and cooled faster than it normally does by this point in the season.",
-            "tip": "Start one accessible river section farther upstream than you normally would for this date and prioritize established holding water. If Push is Possible or stronger, finish with lower travel lanes.",
+            "headline": "The PM migration is developing earlier than usual.",
+            "detail": "Season-to-date Scottville river-rise activity and M-37 cooling are stronger than the usual PM pattern.",
+            "tip": "Start one PM section upstream from Migration Stage, capped at the Upper river (Maple Leaf–M-37).",
             "reasonCodes": [
               "gauge_fresh",
               "temperature_measured",
               "conditions_checkpoint_river_start",
               "conditions_ahead"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -3315,6 +3562,8 @@ const GROUP_SEEDS = [
           },
           "fishInRiver": {
             "score": 8,
+            "displayScore": 10,
+            "scoreIsApproximate": true,
             "stage": "beginning",
             "maximum": 100,
             "riverCeiling": 80,
@@ -3323,14 +3572,14 @@ const GROUP_SEEDS = [
             "curveDirection": "rising",
             "winterHoldingContext": false,
             "label": "Low presence",
-            "headline": "A small number of Steelhead may be in the river, and seasonal presence is still building.",
-            "detail": "This part of the season usually brings low presence, with more fish expected to enter and spread through the river. This is a seasonal estimate, not a live fish count.",
-            "tip": "Treat this as an early, low-odds river opportunity. Expect scattered results, and use direct fish activity before committing the full day.",
+            "headline": "Steelhead seasonal presence is low presence and building.",
+            "detail": "Calendar timing places Steelhead presence at low presence, increasing as the fall migration builds. For the PM, expected run strength is Strong, and the opportunity can extend across broadly accessible water. This is not a live fish count or today’s conditions.",
+            "tip": "Use Migration Stage to choose a section. Use Push and Activity for current movement support and responsiveness.",
             "reasonCodes": [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "gauge": {
             "provider": "USGS",
@@ -3387,6 +3636,7 @@ const GROUP_SEEDS = [
           "nextConditionRefreshAt": "2026-09-20T22:00:00.000Z",
           "runStage": {
             "stage": "beginning",
+            "copyStrategy": "pere_marquette",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -3409,14 +3659,14 @@ const GROUP_SEEDS = [
               "peakToEndDays": 37
             },
             "label": "Beginning",
-            "headline": "The first Steelhead are beginning to enter the river.",
-            "whereToStart": "Lower migratory river from Pere Marquette Lake toward Scottville: travel lanes feeding the first deep bends, resting pockets, and current breaks.",
-            "detail": "Fresh fish may be present, but numbers are still scattered and can arrive in uneven waves before the broader fall fishery develops.",
-            "tip": "Cover lower travel water and its first dependable resting holes, then move upstream only after those entry sections have been checked.",
+            "headline": "Seasonal timing supports the first Steelhead entering the Lower river.",
+            "detail": "This is the opening river phase. Presence is expected to be scattered and uneven.",
+            "tip": "Cover the Lower river first. Move upstream only after direct fish activity supports it.",
+            "whereToStart": "Start in the Lower river (Pere Marquette Lake–Scottville).",
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "conditionsSuggest": {
             "label": "Typical",
@@ -3481,16 +3731,16 @@ const GROUP_SEEDS = [
               "2026-09-18": "16:00",
               "2026-09-19": "16:00"
             },
-            "headline": "The migration appears to be progressing at a normal seasonal pace.",
-            "detail": "River rises and cooling are close to what is usually seen by this point in the season.",
-            "tip": "Fish the core river section identified by Migration Stage. Begin where a travel lane feeds established holding water, then adjust presentation—not seasonal location—using Fishability.",
+            "headline": "The PM migration is progressing at its usual seasonal pace.",
+            "detail": "Season-to-date Scottville river-rise activity and M-37 cooling are close to the usual PM pattern.",
+            "tip": "Keep the PM section named by Migration Stage.",
             "reasonCodes": [
               "gauge_fresh",
               "temperature_measured",
               "conditions_checkpoint_river_start",
               "conditions_typical"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -3503,6 +3753,8 @@ const GROUP_SEEDS = [
           },
           "fishInRiver": {
             "score": 8,
+            "displayScore": 10,
+            "scoreIsApproximate": true,
             "stage": "beginning",
             "maximum": 100,
             "riverCeiling": 80,
@@ -3511,14 +3763,14 @@ const GROUP_SEEDS = [
             "curveDirection": "rising",
             "winterHoldingContext": false,
             "label": "Low presence",
-            "headline": "A small number of Steelhead may be in the river, and seasonal presence is still building.",
-            "detail": "This part of the season usually brings low presence, with more fish expected to enter and spread through the river. This is a seasonal estimate, not a live fish count.",
-            "tip": "Treat this as an early, low-odds river opportunity. Expect scattered results, and use direct fish activity before committing the full day.",
+            "headline": "Steelhead seasonal presence is low presence and building.",
+            "detail": "Calendar timing places Steelhead presence at low presence, increasing as the fall migration builds. For the PM, expected run strength is Strong, and the opportunity can extend across broadly accessible water. This is not a live fish count or today’s conditions.",
+            "tip": "Use Migration Stage to choose a section. Use Push and Activity for current movement support and responsiveness.",
             "reasonCodes": [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "gauge": {
             "provider": "USGS",
@@ -3574,6 +3826,7 @@ const GROUP_SEEDS = [
           "nextConditionRefreshAt": "2026-09-20T22:00:00.000Z",
           "runStage": {
             "stage": "beginning",
+            "copyStrategy": "pere_marquette",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -3596,14 +3849,14 @@ const GROUP_SEEDS = [
               "peakToEndDays": 37
             },
             "label": "Beginning",
-            "headline": "The first Steelhead are beginning to enter the river.",
-            "whereToStart": "Lower migratory river from Pere Marquette Lake toward Scottville: travel lanes feeding the first deep bends, resting pockets, and current breaks.",
-            "detail": "Fresh fish may be present, but numbers are still scattered and can arrive in uneven waves before the broader fall fishery develops.",
-            "tip": "Cover lower travel water and its first dependable resting holes, then move upstream only after those entry sections have been checked.",
+            "headline": "Seasonal timing supports the first Steelhead entering the Lower river.",
+            "detail": "This is the opening river phase. Presence is expected to be scattered and uneven.",
+            "tip": "Cover the Lower river first. Move upstream only after direct fish activity supports it.",
+            "whereToStart": "Start in the Lower river (Pere Marquette Lake–Scottville).",
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "conditionsSuggest": {
             "label": "Delayed",
@@ -3668,16 +3921,16 @@ const GROUP_SEEDS = [
               "2026-09-18": "16:00",
               "2026-09-19": "16:00"
             },
-            "headline": "The migration appears to be developing later than usual.",
-            "detail": "The river has risen and cooled more slowly than it normally does by this point in the season.",
-            "tip": "Start in the lower river and fish the first deep holding water connected to lake-entry travel lanes. Do not assume the middle and upper river have filled in yet.",
+            "headline": "The PM migration is developing later than usual.",
+            "detail": "Season-to-date Scottville river-rise activity and M-37 cooling are weaker than the usual PM pattern.",
+            "tip": "Start one PM section downstream from Migration Stage, capped at the Lower river (Pere Marquette Lake–Scottville).",
             "reasonCodes": [
               "gauge_fresh",
               "temperature_measured",
               "conditions_checkpoint_river_start",
               "conditions_delayed"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -3690,6 +3943,8 @@ const GROUP_SEEDS = [
           },
           "fishInRiver": {
             "score": 8,
+            "displayScore": 10,
+            "scoreIsApproximate": true,
             "stage": "beginning",
             "maximum": 100,
             "riverCeiling": 80,
@@ -3698,14 +3953,14 @@ const GROUP_SEEDS = [
             "curveDirection": "rising",
             "winterHoldingContext": false,
             "label": "Low presence",
-            "headline": "A small number of Steelhead may be in the river, and seasonal presence is still building.",
-            "detail": "This part of the season usually brings low presence, with more fish expected to enter and spread through the river. This is a seasonal estimate, not a live fish count.",
-            "tip": "Treat this as an early, low-odds river opportunity. Expect scattered results, and use direct fish activity before committing the full day.",
+            "headline": "Steelhead seasonal presence is low presence and building.",
+            "detail": "Calendar timing places Steelhead presence at low presence, increasing as the fall migration builds. For the PM, expected run strength is Strong, and the opportunity can extend across broadly accessible water. This is not a live fish count or today’s conditions.",
+            "tip": "Use Migration Stage to choose a section. Use Push and Activity for current movement support and responsiveness.",
             "reasonCodes": [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "gauge": {
             "provider": "USGS",
@@ -3761,6 +4016,7 @@ const GROUP_SEEDS = [
           "nextConditionRefreshAt": "2026-09-20T22:00:00.000Z",
           "runStage": {
             "stage": "beginning",
+            "copyStrategy": "pere_marquette",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -3783,14 +4039,14 @@ const GROUP_SEEDS = [
               "peakToEndDays": 37
             },
             "label": "Beginning",
-            "headline": "The first Steelhead are beginning to enter the river.",
-            "whereToStart": "Lower migratory river from Pere Marquette Lake toward Scottville: travel lanes feeding the first deep bends, resting pockets, and current breaks.",
-            "detail": "Fresh fish may be present, but numbers are still scattered and can arrive in uneven waves before the broader fall fishery develops.",
-            "tip": "Cover lower travel water and its first dependable resting holes, then move upstream only after those entry sections have been checked.",
+            "headline": "Seasonal timing supports the first Steelhead entering the Lower river.",
+            "detail": "This is the opening river phase. Presence is expected to be scattered and uneven.",
+            "tip": "Cover the Lower river first. Move upstream only after direct fish activity supports it.",
+            "whereToStart": "Start in the Lower river (Pere Marquette Lake–Scottville).",
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "conditionsSuggest": {
             "label": "Typical",
@@ -3855,9 +4111,9 @@ const GROUP_SEEDS = [
               "2026-09-18": "16:00",
               "2026-09-19": "16:00"
             },
-            "headline": "The migration still appears to be moving at a normal seasonal pace.",
-            "detail": "River levels and water temperature are pointing in different directions, so neither supports a clear early or late read.",
-            "tip": "Keep the normal distribution plan for the current Migration Stage. Start in established holding water; if Push is Possible or stronger, make lower travel lanes the next stop.",
+            "headline": "PM migration timing remains Typical because the signals are mixed.",
+            "detail": "Scottville river-rise activity and M-37 cooling point in opposite directions. Together they do not support an early or late call.",
+            "tip": "Keep the section named by Migration Stage. Use Push only for today’s fresh-movement support.",
             "reasonCodes": [
               "gauge_fresh",
               "temperature_measured",
@@ -3865,7 +4121,7 @@ const GROUP_SEEDS = [
               "conditions_typical",
               "conditions_signals_mixed"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -3878,6 +4134,8 @@ const GROUP_SEEDS = [
           },
           "fishInRiver": {
             "score": 8,
+            "displayScore": 10,
+            "scoreIsApproximate": true,
             "stage": "beginning",
             "maximum": 100,
             "riverCeiling": 80,
@@ -3886,14 +4144,14 @@ const GROUP_SEEDS = [
             "curveDirection": "rising",
             "winterHoldingContext": false,
             "label": "Low presence",
-            "headline": "A small number of Steelhead may be in the river, and seasonal presence is still building.",
-            "detail": "This part of the season usually brings low presence, with more fish expected to enter and spread through the river. This is a seasonal estimate, not a live fish count.",
-            "tip": "Treat this as an early, low-odds river opportunity. Expect scattered results, and use direct fish activity before committing the full day.",
+            "headline": "Steelhead seasonal presence is low presence and building.",
+            "detail": "Calendar timing places Steelhead presence at low presence, increasing as the fall migration builds. For the PM, expected run strength is Strong, and the opportunity can extend across broadly accessible water. This is not a live fish count or today’s conditions.",
+            "tip": "Use Migration Stage to choose a section. Use Push and Activity for current movement support and responsiveness.",
             "reasonCodes": [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "gauge": {
             "provider": "USGS",
@@ -3949,6 +4207,7 @@ const GROUP_SEEDS = [
           "nextConditionRefreshAt": "2026-10-11T22:00:00.000Z",
           "runStage": {
             "stage": "building",
+            "copyStrategy": "pere_marquette",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -3971,14 +4230,14 @@ const GROUP_SEEDS = [
               "peakToEndDays": 37
             },
             "label": "Building",
-            "headline": "More Steelhead are entering and spreading through the river.",
-            "whereToStart": "Lower river around Scottville into the first substantial middle-river holding holes toward Walhalla.",
-            "detail": "Presence is building beyond isolated early fish, although arrivals and concentrations can still be uneven from section to section.",
-            "tip": "Start where lower-river travel water meets the first substantial holding holes, then work into the middle river instead of waiting in one spot.",
+            "headline": "The PM Steelhead run is building beyond its earliest entry phase.",
+            "detail": "Seasonal timing keeps the Lower river primary. Earlier arrivals may begin reaching the Middle river.",
+            "tip": "Start low, then make one Middle river check if direct fish activity supports the move.",
+            "whereToStart": "Start in the Lower river (Pere Marquette Lake–Scottville). Add the Middle river (Scottville–Maple Leaf) after direct fish activity supports the move.",
             "reasonCodes": [
               "stage_building"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "conditionsSuggest": {
             "label": "Delayed",
@@ -4085,16 +4344,16 @@ const GROUP_SEEDS = [
               "2026-10-09": "16:00",
               "2026-10-10": "16:00"
             },
-            "headline": "The migration appears to be developing later than usual.",
-            "detail": "The river has risen and cooled more slowly than it normally does by this point in the season.",
-            "tip": "Start in the lower river and fish the first deep holding water connected to lake-entry travel lanes. Do not assume the middle and upper river have filled in yet.",
+            "headline": "The PM migration is developing later than usual.",
+            "detail": "Season-to-date Scottville river-rise activity and M-37 cooling are weaker than the usual PM pattern.",
+            "tip": "Start one PM section downstream from Migration Stage, capped at the Lower river (Pere Marquette Lake–Scottville).",
             "reasonCodes": [
               "gauge_fresh",
               "temperature_measured",
               "conditions_checkpoint_building_start",
               "conditions_delayed"
             ],
-            "copyVersion": "river-run-copy-v27",
+            "copyVersion": "river-run-copy-v29",
             "previousCheckpointId": "river_start",
             "previousCheckpointDate": "2026-09-20",
             "previousTimingLabel": "Typical"
@@ -4159,6 +4418,8 @@ const GROUP_SEEDS = [
           },
           "fishInRiver": {
             "score": 30,
+            "displayScore": 30,
+            "scoreIsApproximate": true,
             "stage": "building",
             "maximum": 100,
             "riverCeiling": 80,
@@ -4167,14 +4428,14 @@ const GROUP_SEEDS = [
             "curveDirection": "rising",
             "winterHoldingContext": false,
             "label": "Limited presence",
-            "headline": "Some Steelhead are likely in the river, but seasonal presence is still developing.",
-            "detail": "This part of the season usually brings limited presence, with more fish expected to enter and spread through the river. This is a seasonal estimate, not a live fish count.",
-            "tip": "Plan for an emerging but uneven river opportunity. Cover water efficiently, and do not assume every promising stop holds fish.",
+            "headline": "Steelhead seasonal presence is limited presence and building.",
+            "detail": "Calendar timing places Steelhead presence at limited presence, increasing as the fall migration builds. For the PM, expected run strength is Strong, and the opportunity can extend across broadly accessible water. This is not a live fish count or today’s conditions.",
+            "tip": "Use Migration Stage to choose a section. Use Push and Activity for current movement support and responsiveness.",
             "reasonCodes": [
               "stage_building",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "gauge": {
             "provider": "USGS",
@@ -4223,6 +4484,7 @@ const GROUP_SEEDS = [
           "nextConditionRefreshAt": "2026-11-21T22:00:00.000Z",
           "runStage": {
             "stage": "peak",
+            "copyStrategy": "pere_marquette",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -4245,14 +4507,14 @@ const GROUP_SEEDS = [
               "peakToEndDays": 37
             },
             "label": "Peak",
-            "headline": "This is typically the strongest and most dependable fall Steelhead opportunity.",
-            "whereToStart": "Compare substantial holding water in the middle river from Scottville through Walhalla and Branch with the upper river toward Baldwin/M-37; add lower travel lanes on a fresh Push.",
-            "detail": "Multiple waves have had time to spread from lower travel lanes into established middle- and upper-river holding water. Fish can be broadly distributed wherever passage is open.",
-            "tip": "Choose an accessible section and cover each substantial hole from the head through its seams and tail. Let Push decide whether lower travel lanes deserve extra time.",
+            "headline": "This is typically the PM’s strongest Steelhead migration window.",
+            "detail": "Seasonal timing supports the widest dependable Steelhead distribution. It does not confirm fish in every section.",
+            "tip": "Start in the Middle river. Compare the Upper river only after a complete first pass.",
+            "whereToStart": "Start in the Middle river (Scottville–Maple Leaf). Compare the Upper river (Maple Leaf–M-37) when direct fish activity favors it.",
             "reasonCodes": [
               "stage_peak"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "conditionsSuggest": {
             "label": "Timing complete",
@@ -4450,7 +4712,7 @@ const GROUP_SEEDS = [
               "conditions_ahead",
               "conditions_timing_complete"
             ],
-            "copyVersion": "river-run-copy-v27",
+            "copyVersion": "river-run-copy-v29",
             "previousCheckpointId": "peak_start",
             "previousCheckpointDate": "2026-11-15",
             "previousTimingLabel": "Ahead"
@@ -4515,6 +4777,8 @@ const GROUP_SEEDS = [
           },
           "fishInRiver": {
             "score": 80,
+            "displayScore": 80,
+            "scoreIsApproximate": false,
             "stage": "peak",
             "maximum": 100,
             "riverCeiling": 80,
@@ -4523,14 +4787,14 @@ const GROUP_SEEDS = [
             "curveDirection": "near_peak",
             "winterHoldingContext": false,
             "label": "Peak presence",
-            "headline": "Steelhead are likely near their highest seasonal presence in the river.",
-            "detail": "This is the part of the season when in-river presence is usually strongest. The read describes the river as a whole; it does not place fish in a specific pool or confirm a live count.",
-            "tip": "Plan for the strongest seasonal presence this river usually offers, while remembering that this estimate cannot confirm fish at a specific spot or describe today's river conditions.",
+            "headline": "Steelhead seasonal presence is peak presence and near its seasonal high.",
+            "detail": "Calendar timing places Steelhead presence at its expected seasonal peak, near its expected seasonal high. For the PM, expected run strength is Strong, and the opportunity can extend across broadly accessible water. This is not a live fish count or today’s conditions.",
+            "tip": "Use Migration Stage to choose a section. Use Push and Activity for current movement support and responsiveness.",
             "reasonCodes": [
               "stage_peak",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "gauge": {
             "provider": "USGS",
@@ -4586,9 +4850,10 @@ const GROUP_SEEDS = [
           "nextConditionRefreshAt": "2026-12-23T22:00:00.000Z",
           "runStage": {
             "stage": "post_run",
+            "copyStrategy": "pere_marquette",
             "stagingContext": false,
             "broadBuildingContext": false,
-            "winterHoldingContext": true,
+            "winterHoldingContext": false,
             "window": {
               "snapshotDate": "2026-12-23",
               "preRunStartDate": "2026-08-15",
@@ -4607,16 +4872,16 @@ const GROUP_SEEDS = [
               "startToPeakDays": 56,
               "peakToEndDays": 37
             },
-            "label": "Winter holding",
-            "headline": "Steelhead have transitioned from fall entry into winter holding.",
-            "whereToStart": "Deep, slow middle- and upper-river holding water from Walhalla and Branch toward Baldwin/M-37, with nearby current and an easy feeding lane.",
-            "detail": "Fish can remain distributed through the river, but colder water shifts the question from upstream movement to daily activity and feeding position.",
-            "tip": "Open the Winter Holding read for current activity, likely holding water, and presentation guidance. A completed fall-entry read does not mean steelhead have left the river.",
+            "label": "Fall entry complete",
+            "headline": "PM Steelhead fall entry is complete.",
+            "detail": "Steelhead may remain in the river. This fall-entry model no longer scores their current presence or activity.",
+            "tip": "Check back in early September when PM fall movement tracking resumes.",
+            "whereToStart": "There is no active PM starting section in this fall-entry model.",
             "reasonCodes": [
               "stage_post_run",
-              "stage_winter_holding"
+              "stage_offseason"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "conditionsSuggest": {
             "label": "Timing complete",
@@ -4804,9 +5069,9 @@ const GROUP_SEEDS = [
               "2026-11-19": "16:00",
               "2026-11-20": "16:00"
             },
-            "headline": "This season's Migration Timing read is complete.",
-            "detail": "Earlier in the season, the migration was moving earlier than usual. Fall entry has now shifted into winter holding, where current activity matters more than an early-or-late call.",
-            "tip": "Stop planning around whether fall entry was early or late. Use the winter fishery read to judge current activity and presentation.",
+            "headline": "PM fall-entry Migration Timing is complete.",
+            "detail": "Earlier in fall, PM migration timing was earlier than usual. The fall-entry timing window is now complete.",
+            "tip": "Do not use completed fall timing to infer current presence or activity. PM fall monitoring resumes in early September.",
             "reasonCodes": [
               "gauge_fresh",
               "temperature_measured",
@@ -4814,22 +5079,22 @@ const GROUP_SEEDS = [
               "conditions_ahead",
               "conditions_timing_complete"
             ],
-            "copyVersion": "river-run-copy-v27",
+            "copyVersion": "river-run-copy-v29",
             "previousCheckpointId": "peak_start",
             "previousCheckpointDate": "2026-11-15",
             "previousTimingLabel": "Ahead"
           },
           "push": {
             "score": null,
-            "label": "Winter holding",
-            "headline": "The season's fresh-movement read is complete.",
-            "detail": "Steelhead may remain in the river, but the fall-entry signal has handed off to winter holding. Winter activity requires a different water-temperature and feeding read.",
-            "tip": "Use the winter fishery read for activity and presentation decisions. Do not treat a muted Push as evidence that steelhead left the river.",
+            "label": "Fall entry complete",
+            "headline": "PM Steelhead fall-entry Push is complete.",
+            "detail": "Current water may affect Steelhead still in the river. This fall model no longer scores fresh-entry support.",
+            "tip": "Do not use a muted fall Push as evidence that Steelhead left the river. Check back in early September.",
             "reasonCodes": [
               "push_tracking_complete"
             ],
             "rulesVersion": "pm-fall-steelhead-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "pushHistory": {
             "status": "complete",
@@ -4890,25 +5155,24 @@ const GROUP_SEEDS = [
             ]
           },
           "fishInRiver": {
-            "score": 70,
+            "score": null,
+            "scoreIsApproximate": false,
             "stage": "post_run",
             "maximum": 100,
             "riverCeiling": 80,
             "historicalRunStrength": "strong",
-            "curveFraction": 0.875,
+            "curveFraction": 0,
             "curveDirection": "outside",
-            "winterHoldingContext": true,
-            "handoffScore": 70,
-            "label": "Winter holding",
-            "headline": "Steelhead remain strongly present as the fishery shifts into winter holding.",
-            "detail": "Fall entry finished at 70/100. That retained-presence reference stays visible, but it is not a winter activity score; winter opportunity depends on water temperature, feeding activity, and presentation.",
-            "tip": "Open the Winter Holding read for current activity, likely holding water, and presentation guidance. Treat 70/100 as retained seasonal presence—not proof that fish are active today.",
+            "winterHoldingContext": false,
+            "label": "Fall entry complete",
+            "headline": "PM Steelhead fall entry is complete.",
+            "detail": "Steelhead may remain in the river. This fall-entry model no longer estimates their current seasonal presence.",
+            "tip": "Check back in early September when PM fall movement tracking resumes.",
             "reasonCodes": [
               "stage_post_run",
-              "historical_presence_curve",
-              "fish_presence_winter_handoff"
+              "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "gauge": {
             "provider": "USGS",
@@ -4942,13 +5206,6 @@ const GROUP_SEEDS = [
             "trend": "steady",
             "sourceType": "same_gauge",
             "attribution": "Measured water temperature"
-          },
-          "interpretationNote": {
-            "headline": "Steelhead are still in the river, but winter conditions now control the day.",
-            "detail": "The fall-entry period ended with strong retained presence. Use the winter fishery read to judge activity and presentation; Push and Migration Timing are intentionally complete because they answer the wrong question now.",
-            "reasonCodes": [
-              "winter_holding_read_required"
-            ]
           }
         }
       },
@@ -4964,6 +5221,7 @@ const GROUP_SEEDS = [
           "nextConditionRefreshAt": "2026-11-21T22:00:00.000Z",
           "runStage": {
             "stage": "peak",
+            "copyStrategy": "pere_marquette",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -4986,14 +5244,14 @@ const GROUP_SEEDS = [
               "peakToEndDays": 37
             },
             "label": "Peak",
-            "headline": "This is typically the strongest and most dependable fall Steelhead opportunity.",
-            "whereToStart": "Compare substantial holding water in the middle river from Scottville through Walhalla and Branch with the upper river toward Baldwin/M-37; add lower travel lanes on a fresh Push.",
-            "detail": "Multiple waves have had time to spread from lower travel lanes into established middle- and upper-river holding water. Fish can be broadly distributed wherever passage is open.",
-            "tip": "Choose an accessible section and cover each substantial hole from the head through its seams and tail. Let Push decide whether lower travel lanes deserve extra time.",
+            "headline": "This is typically the PM’s strongest Steelhead migration window.",
+            "detail": "Seasonal timing supports the widest dependable Steelhead distribution. It does not confirm fish in every section.",
+            "tip": "Start in the Middle river. Compare the Upper river only after a complete first pass.",
+            "whereToStart": "Start in the Middle river (Scottville–Maple Leaf). Compare the Upper river (Maple Leaf–M-37) when direct fish activity favors it.",
             "reasonCodes": [
               "stage_peak"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "conditionsSuggest": {
             "label": "Timing complete",
@@ -5187,7 +5445,7 @@ const GROUP_SEEDS = [
               "conditions_checkpoint_peak_complete",
               "conditions_timing_complete"
             ],
-            "copyVersion": "river-run-copy-v27",
+            "copyVersion": "river-run-copy-v29",
             "previousCheckpointId": "peak_start",
             "previousCheckpointDate": "2026-11-15",
             "previousTimingLabel": "Insufficient evidence"
@@ -5252,6 +5510,8 @@ const GROUP_SEEDS = [
           },
           "fishInRiver": {
             "score": 80,
+            "displayScore": 80,
+            "scoreIsApproximate": false,
             "stage": "peak",
             "maximum": 100,
             "riverCeiling": 80,
@@ -5260,14 +5520,14 @@ const GROUP_SEEDS = [
             "curveDirection": "near_peak",
             "winterHoldingContext": false,
             "label": "Peak presence",
-            "headline": "Steelhead are likely near their highest seasonal presence in the river.",
-            "detail": "This is the part of the season when in-river presence is usually strongest. The read describes the river as a whole; it does not place fish in a specific pool or confirm a live count.",
-            "tip": "Plan for the strongest seasonal presence this river usually offers, while remembering that this estimate cannot confirm fish at a specific spot or describe today's river conditions.",
+            "headline": "Steelhead seasonal presence is peak presence and near its seasonal high.",
+            "detail": "Calendar timing places Steelhead presence at its expected seasonal peak, near its expected seasonal high. For the PM, expected run strength is Strong, and the opportunity can extend across broadly accessible water. This is not a live fish count or today’s conditions.",
+            "tip": "Use Migration Stage to choose a section. Use Push and Activity for current movement support and responsiveness.",
             "reasonCodes": [
               "stage_peak",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "gauge": {
             "provider": "USGS",
@@ -5323,6 +5583,7 @@ const GROUP_SEEDS = [
           "nextConditionRefreshAt": "2026-09-20T22:00:00.000Z",
           "runStage": {
             "stage": "beginning",
+            "copyStrategy": "pere_marquette",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -5345,14 +5606,14 @@ const GROUP_SEEDS = [
               "peakToEndDays": 37
             },
             "label": "Beginning",
-            "headline": "The first Steelhead are beginning to enter the river.",
-            "whereToStart": "Lower migratory river from Pere Marquette Lake toward Scottville: travel lanes feeding the first deep bends, resting pockets, and current breaks.",
-            "detail": "Fresh fish may be present, but numbers are still scattered and can arrive in uneven waves before the broader fall fishery develops.",
-            "tip": "Cover lower travel water and its first dependable resting holes, then move upstream only after those entry sections have been checked.",
+            "headline": "Seasonal timing supports the first Steelhead entering the Lower river.",
+            "detail": "This is the opening river phase. Presence is expected to be scattered and uneven.",
+            "tip": "Cover the Lower river first. Move upstream only after direct fish activity supports it.",
+            "whereToStart": "Start in the Lower river (Pere Marquette Lake–Scottville).",
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -5414,15 +5675,15 @@ const GROUP_SEEDS = [
               "2026-09-18": "16:00",
               "2026-09-19": "16:00"
             },
-            "headline": "There is not enough reliable information for a Migration Timing call.",
-            "tip": "Do not move farther upstream or stay lower based on this timing read. Fish the section identified by Migration Stage and begin in its most established holding water; change sections only when direct fish activity or a dependable later read supports it.",
+            "headline": "There is not enough reliable PM evidence for a Migration Timing call.",
+            "tip": "Keep the PM section named by Migration Stage. Do not shift upstream or downstream from this timing read.",
             "detail": "There are not enough dependable past seasons to judge whether this migration is early, normal, or late.",
             "reasonCodes": [
               "conditions_baseline_missing",
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -5435,6 +5696,8 @@ const GROUP_SEEDS = [
           },
           "fishInRiver": {
             "score": 8,
+            "displayScore": 10,
+            "scoreIsApproximate": true,
             "stage": "beginning",
             "maximum": 100,
             "riverCeiling": 80,
@@ -5443,14 +5706,14 @@ const GROUP_SEEDS = [
             "curveDirection": "rising",
             "winterHoldingContext": false,
             "label": "Low presence",
-            "headline": "A small number of Steelhead may be in the river, and seasonal presence is still building.",
-            "detail": "This part of the season usually brings low presence, with more fish expected to enter and spread through the river. This is a seasonal estimate, not a live fish count.",
-            "tip": "Treat this as an early, low-odds river opportunity. Expect scattered results, and use direct fish activity before committing the full day.",
+            "headline": "Steelhead seasonal presence is low presence and building.",
+            "detail": "Calendar timing places Steelhead presence at low presence, increasing as the fall migration builds. For the PM, expected run strength is Strong, and the opportunity can extend across broadly accessible water. This is not a live fish count or today’s conditions.",
+            "tip": "Use Migration Stage to choose a section. Use Push and Activity for current movement support and responsiveness.",
             "reasonCodes": [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "gauge": {
             "provider": "USGS",
@@ -5506,6 +5769,7 @@ const GROUP_SEEDS = [
           "nextConditionRefreshAt": "2026-09-20T22:00:00.000Z",
           "runStage": {
             "stage": "beginning",
+            "copyStrategy": "pere_marquette",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -5528,14 +5792,14 @@ const GROUP_SEEDS = [
               "peakToEndDays": 37
             },
             "label": "Beginning",
-            "headline": "The first Steelhead are beginning to enter the river.",
-            "whereToStart": "Lower migratory river from Pere Marquette Lake toward Scottville: travel lanes feeding the first deep bends, resting pockets, and current breaks.",
-            "detail": "Fresh fish may be present, but numbers are still scattered and can arrive in uneven waves before the broader fall fishery develops.",
-            "tip": "Cover lower travel water and its first dependable resting holes, then move upstream only after those entry sections have been checked.",
+            "headline": "Seasonal timing supports the first Steelhead entering the Lower river.",
+            "detail": "This is the opening river phase. Presence is expected to be scattered and uneven.",
+            "tip": "Cover the Lower river first. Move upstream only after direct fish activity supports it.",
+            "whereToStart": "Start in the Lower river (Pere Marquette Lake–Scottville).",
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -5600,8 +5864,8 @@ const GROUP_SEEDS = [
               "2026-09-18": "16:00",
               "2026-09-19": "16:00"
             },
-            "headline": "There is not enough reliable information for a Migration Timing call.",
-            "tip": "Do not move farther upstream or stay lower based on this timing read. Fish the section identified by Migration Stage and begin in its most established holding water; change sections only when direct fish activity or a dependable later read supports it.",
+            "headline": "There is not enough reliable PM evidence for a Migration Timing call.",
+            "tip": "Keep the PM section named by Migration Stage. Do not shift upstream or downstream from this timing read.",
             "detail": "There are not enough dependable past seasons to judge whether this migration is early, normal, or late.",
             "reasonCodes": [
               "gauge_fresh",
@@ -5610,7 +5874,7 @@ const GROUP_SEEDS = [
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -5623,6 +5887,8 @@ const GROUP_SEEDS = [
           },
           "fishInRiver": {
             "score": 8,
+            "displayScore": 10,
+            "scoreIsApproximate": true,
             "stage": "beginning",
             "maximum": 100,
             "riverCeiling": 80,
@@ -5631,14 +5897,14 @@ const GROUP_SEEDS = [
             "curveDirection": "rising",
             "winterHoldingContext": false,
             "label": "Low presence",
-            "headline": "A small number of Steelhead may be in the river, and seasonal presence is still building.",
-            "detail": "This part of the season usually brings low presence, with more fish expected to enter and spread through the river. This is a seasonal estimate, not a live fish count.",
-            "tip": "Treat this as an early, low-odds river opportunity. Expect scattered results, and use direct fish activity before committing the full day.",
+            "headline": "Steelhead seasonal presence is low presence and building.",
+            "detail": "Calendar timing places Steelhead presence at low presence, increasing as the fall migration builds. For the PM, expected run strength is Strong, and the opportunity can extend across broadly accessible water. This is not a live fish count or today’s conditions.",
+            "tip": "Use Migration Stage to choose a section. Use Push and Activity for current movement support and responsiveness.",
             "reasonCodes": [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "gauge": {
             "provider": "USGS",
@@ -5694,6 +5960,7 @@ const GROUP_SEEDS = [
           "nextConditionRefreshAt": "2026-09-20T22:00:00.000Z",
           "runStage": {
             "stage": "beginning",
+            "copyStrategy": "pere_marquette",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -5716,14 +5983,14 @@ const GROUP_SEEDS = [
               "peakToEndDays": 37
             },
             "label": "Beginning",
-            "headline": "The first Steelhead are beginning to enter the river.",
-            "whereToStart": "Lower migratory river from Pere Marquette Lake toward Scottville: travel lanes feeding the first deep bends, resting pockets, and current breaks.",
-            "detail": "Fresh fish may be present, but numbers are still scattered and can arrive in uneven waves before the broader fall fishery develops.",
-            "tip": "Cover lower travel water and its first dependable resting holes, then move upstream only after those entry sections have been checked.",
+            "headline": "Seasonal timing supports the first Steelhead entering the Lower river.",
+            "detail": "This is the opening river phase. Presence is expected to be scattered and uneven.",
+            "tip": "Cover the Lower river first. Move upstream only after direct fish activity supports it.",
+            "whereToStart": "Start in the Lower river (Pere Marquette Lake–Scottville).",
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -5788,8 +6055,8 @@ const GROUP_SEEDS = [
               "2026-09-18": "16:00",
               "2026-09-19": "16:00"
             },
-            "headline": "There is not enough reliable information for a Migration Timing call.",
-            "tip": "Do not move farther upstream or stay lower based on this timing read. Fish the section identified by Migration Stage and begin in its most established holding water; change sections only when direct fish activity or a dependable later read supports it.",
+            "headline": "There is not enough reliable PM evidence for a Migration Timing call.",
+            "tip": "Keep the PM section named by Migration Stage. Do not shift upstream or downstream from this timing read.",
             "detail": "Some of the long-term comparison data does not line up cleanly with this season, so showing a timing label would be misleading.",
             "reasonCodes": [
               "gauge_fresh",
@@ -5798,7 +6065,7 @@ const GROUP_SEEDS = [
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -5811,6 +6078,8 @@ const GROUP_SEEDS = [
           },
           "fishInRiver": {
             "score": 8,
+            "displayScore": 10,
+            "scoreIsApproximate": true,
             "stage": "beginning",
             "maximum": 100,
             "riverCeiling": 80,
@@ -5819,14 +6088,14 @@ const GROUP_SEEDS = [
             "curveDirection": "rising",
             "winterHoldingContext": false,
             "label": "Low presence",
-            "headline": "A small number of Steelhead may be in the river, and seasonal presence is still building.",
-            "detail": "This part of the season usually brings low presence, with more fish expected to enter and spread through the river. This is a seasonal estimate, not a live fish count.",
-            "tip": "Treat this as an early, low-odds river opportunity. Expect scattered results, and use direct fish activity before committing the full day.",
+            "headline": "Steelhead seasonal presence is low presence and building.",
+            "detail": "Calendar timing places Steelhead presence at low presence, increasing as the fall migration builds. For the PM, expected run strength is Strong, and the opportunity can extend across broadly accessible water. This is not a live fish count or today’s conditions.",
+            "tip": "Use Migration Stage to choose a section. Use Push and Activity for current movement support and responsiveness.",
             "reasonCodes": [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "gauge": {
             "provider": "USGS",
@@ -5882,6 +6151,7 @@ const GROUP_SEEDS = [
           "nextConditionRefreshAt": "2026-09-20T22:00:00.000Z",
           "runStage": {
             "stage": "beginning",
+            "copyStrategy": "pere_marquette",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -5904,14 +6174,14 @@ const GROUP_SEEDS = [
               "peakToEndDays": 37
             },
             "label": "Beginning",
-            "headline": "The first Steelhead are beginning to enter the river.",
-            "whereToStart": "Lower migratory river from Pere Marquette Lake toward Scottville: travel lanes feeding the first deep bends, resting pockets, and current breaks.",
-            "detail": "Fresh fish may be present, but numbers are still scattered and can arrive in uneven waves before the broader fall fishery develops.",
-            "tip": "Cover lower travel water and its first dependable resting holes, then move upstream only after those entry sections have been checked.",
+            "headline": "Seasonal timing supports the first Steelhead entering the Lower river.",
+            "detail": "This is the opening river phase. Presence is expected to be scattered and uneven.",
+            "tip": "Cover the Lower river first. Move upstream only after direct fish activity supports it.",
+            "whereToStart": "Start in the Lower river (Pere Marquette Lake–Scottville).",
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -5976,8 +6246,8 @@ const GROUP_SEEDS = [
               "2026-09-18": "16:00",
               "2026-09-19": "16:00"
             },
-            "headline": "There is not enough reliable information for a Migration Timing call.",
-            "tip": "Do not move farther upstream or stay lower based on this timing read. Fish the section identified by Migration Stage and begin in its most established holding water; change sections only when direct fish activity or a dependable later read supports it.",
+            "headline": "There is not enough reliable PM evidence for a Migration Timing call.",
+            "tip": "Keep the PM section named by Migration Stage. Do not shift upstream or downstream from this timing read.",
             "detail": "Some of the long-term comparison data does not line up cleanly with this season, so showing a timing label would be misleading.",
             "reasonCodes": [
               "gauge_fresh",
@@ -5986,7 +6256,7 @@ const GROUP_SEEDS = [
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -5999,6 +6269,8 @@ const GROUP_SEEDS = [
           },
           "fishInRiver": {
             "score": 8,
+            "displayScore": 10,
+            "scoreIsApproximate": true,
             "stage": "beginning",
             "maximum": 100,
             "riverCeiling": 80,
@@ -6007,14 +6279,14 @@ const GROUP_SEEDS = [
             "curveDirection": "rising",
             "winterHoldingContext": false,
             "label": "Low presence",
-            "headline": "A small number of Steelhead may be in the river, and seasonal presence is still building.",
-            "detail": "This part of the season usually brings low presence, with more fish expected to enter and spread through the river. This is a seasonal estimate, not a live fish count.",
-            "tip": "Treat this as an early, low-odds river opportunity. Expect scattered results, and use direct fish activity before committing the full day.",
+            "headline": "Steelhead seasonal presence is low presence and building.",
+            "detail": "Calendar timing places Steelhead presence at low presence, increasing as the fall migration builds. For the PM, expected run strength is Strong, and the opportunity can extend across broadly accessible water. This is not a live fish count or today’s conditions.",
+            "tip": "Use Migration Stage to choose a section. Use Push and Activity for current movement support and responsiveness.",
             "reasonCodes": [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "gauge": {
             "provider": "USGS",
@@ -6070,6 +6342,7 @@ const GROUP_SEEDS = [
           "nextConditionRefreshAt": "2026-09-20T22:00:00.000Z",
           "runStage": {
             "stage": "beginning",
+            "copyStrategy": "pere_marquette",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -6092,14 +6365,14 @@ const GROUP_SEEDS = [
               "peakToEndDays": 37
             },
             "label": "Beginning",
-            "headline": "The first Steelhead are beginning to enter the river.",
-            "whereToStart": "Lower migratory river from Pere Marquette Lake toward Scottville: travel lanes feeding the first deep bends, resting pockets, and current breaks.",
-            "detail": "Fresh fish may be present, but numbers are still scattered and can arrive in uneven waves before the broader fall fishery develops.",
-            "tip": "Cover lower travel water and its first dependable resting holes, then move upstream only after those entry sections have been checked.",
+            "headline": "Seasonal timing supports the first Steelhead entering the Lower river.",
+            "detail": "This is the opening river phase. Presence is expected to be scattered and uneven.",
+            "tip": "Cover the Lower river first. Move upstream only after direct fish activity supports it.",
+            "whereToStart": "Start in the Lower river (Pere Marquette Lake–Scottville).",
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -6164,8 +6437,8 @@ const GROUP_SEEDS = [
               "2026-09-18": "16:00",
               "2026-09-19": "16:00"
             },
-            "headline": "There is not enough reliable information for a Migration Timing call.",
-            "tip": "Do not move farther upstream or stay lower based on this timing read. Fish the section identified by Migration Stage and begin in its most established holding water; change sections only when direct fish activity or a dependable later read supports it.",
+            "headline": "There is not enough reliable PM evidence for a Migration Timing call.",
+            "tip": "Keep the PM section named by Migration Stage. Do not shift upstream or downstream from this timing read.",
             "detail": "A dependable river-level reading was missing when this seasonal timing read needed it.",
             "reasonCodes": [
               "gauge_fresh",
@@ -6174,7 +6447,7 @@ const GROUP_SEEDS = [
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -6187,6 +6460,8 @@ const GROUP_SEEDS = [
           },
           "fishInRiver": {
             "score": 8,
+            "displayScore": 10,
+            "scoreIsApproximate": true,
             "stage": "beginning",
             "maximum": 100,
             "riverCeiling": 80,
@@ -6195,14 +6470,14 @@ const GROUP_SEEDS = [
             "curveDirection": "rising",
             "winterHoldingContext": false,
             "label": "Low presence",
-            "headline": "A small number of Steelhead may be in the river, and seasonal presence is still building.",
-            "detail": "This part of the season usually brings low presence, with more fish expected to enter and spread through the river. This is a seasonal estimate, not a live fish count.",
-            "tip": "Treat this as an early, low-odds river opportunity. Expect scattered results, and use direct fish activity before committing the full day.",
+            "headline": "Steelhead seasonal presence is low presence and building.",
+            "detail": "Calendar timing places Steelhead presence at low presence, increasing as the fall migration builds. For the PM, expected run strength is Strong, and the opportunity can extend across broadly accessible water. This is not a live fish count or today’s conditions.",
+            "tip": "Use Migration Stage to choose a section. Use Push and Activity for current movement support and responsiveness.",
             "reasonCodes": [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "gauge": {
             "provider": "USGS",
@@ -6258,6 +6533,7 @@ const GROUP_SEEDS = [
           "nextConditionRefreshAt": "2026-09-20T22:00:00.000Z",
           "runStage": {
             "stage": "beginning",
+            "copyStrategy": "pere_marquette",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -6280,14 +6556,14 @@ const GROUP_SEEDS = [
               "peakToEndDays": 37
             },
             "label": "Beginning",
-            "headline": "The first Steelhead are beginning to enter the river.",
-            "whereToStart": "Lower migratory river from Pere Marquette Lake toward Scottville: travel lanes feeding the first deep bends, resting pockets, and current breaks.",
-            "detail": "Fresh fish may be present, but numbers are still scattered and can arrive in uneven waves before the broader fall fishery develops.",
-            "tip": "Cover lower travel water and its first dependable resting holes, then move upstream only after those entry sections have been checked.",
+            "headline": "Seasonal timing supports the first Steelhead entering the Lower river.",
+            "detail": "This is the opening river phase. Presence is expected to be scattered and uneven.",
+            "tip": "Cover the Lower river first. Move upstream only after direct fish activity supports it.",
+            "whereToStart": "Start in the Lower river (Pere Marquette Lake–Scottville).",
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -6352,8 +6628,8 @@ const GROUP_SEEDS = [
               "2026-09-18": "16:00",
               "2026-09-19": "16:00"
             },
-            "headline": "There is not enough reliable information for a Migration Timing call.",
-            "tip": "Do not move farther upstream or stay lower based on this timing read. Fish the section identified by Migration Stage and begin in its most established holding water; change sections only when direct fish activity or a dependable later read supports it.",
+            "headline": "There is not enough reliable PM evidence for a Migration Timing call.",
+            "tip": "Keep the PM section named by Migration Stage. Do not shift upstream or downstream from this timing read.",
             "detail": "A dependable water-temperature reading was missing when this seasonal timing read needed it.",
             "reasonCodes": [
               "gauge_fresh",
@@ -6362,7 +6638,7 @@ const GROUP_SEEDS = [
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -6375,6 +6651,8 @@ const GROUP_SEEDS = [
           },
           "fishInRiver": {
             "score": 8,
+            "displayScore": 10,
+            "scoreIsApproximate": true,
             "stage": "beginning",
             "maximum": 100,
             "riverCeiling": 80,
@@ -6383,14 +6661,14 @@ const GROUP_SEEDS = [
             "curveDirection": "rising",
             "winterHoldingContext": false,
             "label": "Low presence",
-            "headline": "A small number of Steelhead may be in the river, and seasonal presence is still building.",
-            "detail": "This part of the season usually brings low presence, with more fish expected to enter and spread through the river. This is a seasonal estimate, not a live fish count.",
-            "tip": "Treat this as an early, low-odds river opportunity. Expect scattered results, and use direct fish activity before committing the full day.",
+            "headline": "Steelhead seasonal presence is low presence and building.",
+            "detail": "Calendar timing places Steelhead presence at low presence, increasing as the fall migration builds. For the PM, expected run strength is Strong, and the opportunity can extend across broadly accessible water. This is not a live fish count or today’s conditions.",
+            "tip": "Use Migration Stage to choose a section. Use Push and Activity for current movement support and responsiveness.",
             "reasonCodes": [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "gauge": {
             "provider": "USGS",
@@ -6446,6 +6724,7 @@ const GROUP_SEEDS = [
           "nextConditionRefreshAt": "2026-09-20T22:00:00.000Z",
           "runStage": {
             "stage": "beginning",
+            "copyStrategy": "pere_marquette",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -6468,14 +6747,14 @@ const GROUP_SEEDS = [
               "peakToEndDays": 37
             },
             "label": "Beginning",
-            "headline": "The first Steelhead are beginning to enter the river.",
-            "whereToStart": "Lower migratory river from Pere Marquette Lake toward Scottville: travel lanes feeding the first deep bends, resting pockets, and current breaks.",
-            "detail": "Fresh fish may be present, but numbers are still scattered and can arrive in uneven waves before the broader fall fishery develops.",
-            "tip": "Cover lower travel water and its first dependable resting holes, then move upstream only after those entry sections have been checked.",
+            "headline": "Seasonal timing supports the first Steelhead entering the Lower river.",
+            "detail": "This is the opening river phase. Presence is expected to be scattered and uneven.",
+            "tip": "Cover the Lower river first. Move upstream only after direct fish activity supports it.",
+            "whereToStart": "Start in the Lower river (Pere Marquette Lake–Scottville).",
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -6540,8 +6819,8 @@ const GROUP_SEEDS = [
               "2026-09-18": "16:00",
               "2026-09-19": "16:00"
             },
-            "headline": "There is not enough reliable information for a Migration Timing call.",
-            "tip": "Do not move farther upstream or stay lower based on this timing read. Fish the section identified by Migration Stage and begin in its most established holding water; change sections only when direct fish activity or a dependable later read supports it.",
+            "headline": "There is not enough reliable PM evidence for a Migration Timing call.",
+            "tip": "Keep the PM section named by Migration Stage. Do not shift upstream or downstream from this timing read.",
             "detail": "The available river and temperature readings do not line up cleanly with the long-term comparison, so the result stays blank.",
             "reasonCodes": [
               "gauge_fresh",
@@ -6550,7 +6829,7 @@ const GROUP_SEEDS = [
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -6563,6 +6842,8 @@ const GROUP_SEEDS = [
           },
           "fishInRiver": {
             "score": 8,
+            "displayScore": 10,
+            "scoreIsApproximate": true,
             "stage": "beginning",
             "maximum": 100,
             "riverCeiling": 80,
@@ -6571,14 +6852,14 @@ const GROUP_SEEDS = [
             "curveDirection": "rising",
             "winterHoldingContext": false,
             "label": "Low presence",
-            "headline": "A small number of Steelhead may be in the river, and seasonal presence is still building.",
-            "detail": "This part of the season usually brings low presence, with more fish expected to enter and spread through the river. This is a seasonal estimate, not a live fish count.",
-            "tip": "Treat this as an early, low-odds river opportunity. Expect scattered results, and use direct fish activity before committing the full day.",
+            "headline": "Steelhead seasonal presence is low presence and building.",
+            "detail": "Calendar timing places Steelhead presence at low presence, increasing as the fall migration builds. For the PM, expected run strength is Strong, and the opportunity can extend across broadly accessible water. This is not a live fish count or today’s conditions.",
+            "tip": "Use Migration Stage to choose a section. Use Push and Activity for current movement support and responsiveness.",
             "reasonCodes": [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "gauge": {
             "provider": "USGS",
@@ -6634,6 +6915,7 @@ const GROUP_SEEDS = [
           "nextConditionRefreshAt": "2026-09-20T22:00:00.000Z",
           "runStage": {
             "stage": "beginning",
+            "copyStrategy": "pere_marquette",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -6656,14 +6938,14 @@ const GROUP_SEEDS = [
               "peakToEndDays": 37
             },
             "label": "Beginning",
-            "headline": "The first Steelhead are beginning to enter the river.",
-            "whereToStart": "Lower migratory river from Pere Marquette Lake toward Scottville: travel lanes feeding the first deep bends, resting pockets, and current breaks.",
-            "detail": "Fresh fish may be present, but numbers are still scattered and can arrive in uneven waves before the broader fall fishery develops.",
-            "tip": "Cover lower travel water and its first dependable resting holes, then move upstream only after those entry sections have been checked.",
+            "headline": "Seasonal timing supports the first Steelhead entering the Lower river.",
+            "detail": "This is the opening river phase. Presence is expected to be scattered and uneven.",
+            "tip": "Cover the Lower river first. Move upstream only after direct fish activity supports it.",
+            "whereToStart": "Start in the Lower river (Pere Marquette Lake–Scottville).",
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -6713,8 +6995,8 @@ const GROUP_SEEDS = [
               "2026-09-03": "16:00",
               "2026-09-19": "16:00"
             },
-            "headline": "There is not enough reliable information for a Migration Timing call.",
-            "tip": "Do not move farther upstream or stay lower based on this timing read. Fish the section identified by Migration Stage and begin in its most established holding water; change sections only when direct fish activity or a dependable later read supports it.",
+            "headline": "There is not enough reliable PM evidence for a Migration Timing call.",
+            "tip": "Keep the PM section named by Migration Stage. Do not shift upstream or downstream from this timing read.",
             "detail": "Too many days are missing either river level or water temperature to make a dependable seasonal comparison.",
             "reasonCodes": [
               "gauge_fresh",
@@ -6723,7 +7005,7 @@ const GROUP_SEEDS = [
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -6736,6 +7018,8 @@ const GROUP_SEEDS = [
           },
           "fishInRiver": {
             "score": 8,
+            "displayScore": 10,
+            "scoreIsApproximate": true,
             "stage": "beginning",
             "maximum": 100,
             "riverCeiling": 80,
@@ -6744,14 +7028,14 @@ const GROUP_SEEDS = [
             "curveDirection": "rising",
             "winterHoldingContext": false,
             "label": "Low presence",
-            "headline": "A small number of Steelhead may be in the river, and seasonal presence is still building.",
-            "detail": "This part of the season usually brings low presence, with more fish expected to enter and spread through the river. This is a seasonal estimate, not a live fish count.",
-            "tip": "Treat this as an early, low-odds river opportunity. Expect scattered results, and use direct fish activity before committing the full day.",
+            "headline": "Steelhead seasonal presence is low presence and building.",
+            "detail": "Calendar timing places Steelhead presence at low presence, increasing as the fall migration builds. For the PM, expected run strength is Strong, and the opportunity can extend across broadly accessible water. This is not a live fish count or today’s conditions.",
+            "tip": "Use Migration Stage to choose a section. Use Push and Activity for current movement support and responsiveness.",
             "reasonCodes": [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "gauge": {
             "provider": "USGS",
@@ -6809,9 +7093,9 @@ const GROUP_SEEDS = [
           "push": {
             "score": 0,
             "label": "Weak",
-            "headline": "Today's water shows little support for a fresh wave of fish.",
-            "detail": "The river is falling instead of showing a fresh rise. Water temperature remains too warm to support a strong Push but is warming sharply. Recent weather estimates indicate very little rain around the river.",
-            "tip": "Do not build the day around new arrivals while the river remains warm. Start in established holding water at first or last light and leave lower travel lanes secondary.",
+            "headline": "PM water shows little support for fresh movement.",
+            "detail": "Scottville flow is falling. Measured water temperature is too warm for strong movement support but warming quickly. Recent watershed weather shows little rain.",
+            "tip": "Keep the section named by Migration Stage. Leave fresh-entry travel water secondary until measured temperature improves.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
@@ -6831,7 +7115,7 @@ const GROUP_SEEDS = [
               "appliedCaps": []
             },
             "rulesVersion": "pm-fall-steelhead-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           }
         }
       },
@@ -6849,9 +7133,9 @@ const GROUP_SEEDS = [
           "push": {
             "score": 61,
             "label": "Possible",
-            "headline": "Today's water offers some support for fresh fish moving into or through the river.",
-            "detail": "The river has started to rise since yesterday. Water temperature is favorable for fall migration and is cooling. Recent rain around the river adds some support while the river begins to rise.",
-            "tip": "Start in lower-river travel lanes, then fish the first deep resting water immediately upstream. Move to established holding water if those entry routes stay quiet.",
+            "headline": "PM water offers some support for fresh movement.",
+            "detail": "Scottville flow has started to rise. Measured water temperature is favorable for this migration and cooling. Rain adds limited support while Scottville begins to rise.",
+            "tip": "Keep Migration Stage’s section primary. Add one Lower river travel-water check before returning to established holding water.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
@@ -6869,7 +7153,7 @@ const GROUP_SEEDS = [
               "appliedCaps": []
             },
             "rulesVersion": "pm-fall-steelhead-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "pushHistory": {
             "status": "active_now",
@@ -6946,9 +7230,9 @@ const GROUP_SEEDS = [
           "push": {
             "score": 76,
             "label": "Strong",
-            "headline": "Today's river rise and water temperature strongly support the possibility of a fresh wave moving into the river.",
-            "detail": "The river has made a clear rise since yesterday. Water temperature is favorable for fall migration and is cooling. The river has already made a meaningful rise, so that measured response carries the useful movement signal and rainfall adds no separate weight.",
-            "tip": "Begin on lower-river travel lanes and inside seams, then work the first resting holes along that route. Keep moving until fish establish a pattern; the signal still does not prove a wave entered.",
+            "headline": "PM water strongly supports possible fresh movement.",
+            "detail": "Scottville flow has made a clear rise. Measured water temperature is favorable for this migration and cooling. Scottville already reflects the rain response, so rain adds no extra credit.",
+            "tip": "Use Lower river travel water as the fresh-movement check, then return to the section named by Migration Stage.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
@@ -6966,7 +7250,7 @@ const GROUP_SEEDS = [
               "appliedCaps": []
             },
             "rulesVersion": "pm-fall-steelhead-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "pushHistory": {
             "status": "active_now",
@@ -7043,9 +7327,9 @@ const GROUP_SEEDS = [
           "push": {
             "score": 90,
             "label": "Very strong",
-            "headline": "Today's water shows the strongest support for a fresh wave moving into the river.",
-            "detail": "The river is rising quickly, creating conditions fish often use to move. Water temperature is favorable for fall migration and is cooling sharply. The river has already made a meaningful rise, so that measured response carries the useful movement signal and rainfall adds no separate weight.",
-            "tip": "Start low and fish softer travel lanes, newly formed inside seams, and the first resting water above them. Skip any lane Fishability says is too fast or difficult to control.",
+            "headline": "PM water offers its strongest support for fresh movement.",
+            "detail": "Scottville flow is rising quickly. Measured water temperature is favorable for this migration and cooling quickly. Scottville already reflects the rain response, so rain adds no extra credit.",
+            "tip": "Use Lower river travel water as the fresh-movement check, then return to the section named by Migration Stage.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
@@ -7063,7 +7347,7 @@ const GROUP_SEEDS = [
               "appliedCaps": []
             },
             "rulesVersion": "pm-fall-steelhead-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "pushHistory": {
             "status": "active_now",
@@ -7140,9 +7424,9 @@ const GROUP_SEEDS = [
           "push": {
             "score": 51,
             "label": "Possible",
-            "headline": "Today's water offers some support for fresh fish moving into or through the river.",
-            "detail": "The river is holding steady with no meaningful rise yet. Water temperature is favorable for fall migration and is cooling. Recent rain around the river may help, but the river has not responded enough for rain alone to create a strong Push.",
-            "tip": "Start in lower-river travel lanes, then fish the first deep resting water immediately upstream. Move to established holding water if those entry routes stay quiet.",
+            "headline": "PM water offers some support for fresh movement.",
+            "detail": "Scottville flow is steady without a meaningful rise. Measured water temperature is favorable for this migration and cooling. Rain is only a precursor because Scottville has not shown enough response.",
+            "tip": "Keep Migration Stage’s section primary. Add one Lower river travel-water check before returning to established holding water.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
@@ -7161,7 +7445,7 @@ const GROUP_SEEDS = [
               "appliedCaps": []
             },
             "rulesVersion": "pm-fall-steelhead-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "pushHistory": {
             "status": "active_now",
@@ -7238,9 +7522,9 @@ const GROUP_SEEDS = [
           "push": {
             "score": 70,
             "label": "Strong",
-            "headline": "Today's river rise and water temperature strongly support the possibility of a fresh wave moving into the river.",
-            "detail": "The river has made a clear rise since yesterday. Water temperature is favorable for fall migration and is relatively steady. The river has already made a meaningful rise, so that measured response carries the useful movement signal and rainfall adds no separate weight.",
-            "tip": "Begin on lower-river travel lanes and inside seams, then work the first resting holes along that route. Keep moving until fish establish a pattern; the signal still does not prove a wave entered.",
+            "headline": "PM water strongly supports possible fresh movement.",
+            "detail": "Scottville flow has made a clear rise. Measured water temperature is favorable for this migration. Scottville already reflects the rain response, so rain adds no extra credit.",
+            "tip": "Use Lower river travel water as the fresh-movement check, then return to the section named by Migration Stage.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
@@ -7258,7 +7542,7 @@ const GROUP_SEEDS = [
               "appliedCaps": []
             },
             "rulesVersion": "pm-fall-steelhead-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "pushHistory": {
             "status": "active_now",
@@ -7335,9 +7619,9 @@ const GROUP_SEEDS = [
           "push": {
             "score": 47,
             "label": "No clear push",
-            "headline": "The river is rising, but already-high flow keeps this from being a clear fresh-movement signal.",
-            "detail": "The river has started to rise since yesterday. Overall flow is already high. Water temperature is favorable for fall migration and is relatively steady. Additional rain does not improve the read while the river is already high.",
-            "tip": "Fish established holding water from the head through the inside seam and tail. Do not spend the day racing between lower travel lanes for a wave the water does not support.",
+            "headline": "PM water does not show a clear fresh-movement signal.",
+            "detail": "Scottville flow has started to rise, while overall flow is high. Measured water temperature is favorable for this migration. Additional rain adds no support while Scottville flow is already high.",
+            "tip": "Keep the section named by Migration Stage. Do not shift lower for a fresh wave this water does not support.",
             "reasonCodes": [
               "gauge_fresh",
               "push_high_flow_context",
@@ -7355,7 +7639,7 @@ const GROUP_SEEDS = [
               "appliedCaps": []
             },
             "rulesVersion": "pm-fall-steelhead-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           }
         }
       },
@@ -7367,9 +7651,9 @@ const GROUP_SEEDS = [
           "push": {
             "score": 35,
             "label": "No clear push",
-            "headline": "Today's water does not show a clear signal for a fresh wave of fish.",
-            "detail": "The river is holding steady with no meaningful rise yet. Water temperature is favorable for fall migration and is relatively steady. Recent rainfall information is unavailable, so it adds no confidence.",
-            "tip": "Fish established holding water from the head through the inside seam and tail. Do not spend the day racing between lower travel lanes for a wave the water does not support.",
+            "headline": "PM water does not show a clear fresh-movement signal.",
+            "detail": "Scottville flow is steady without a meaningful rise. Measured water temperature is favorable for this migration. Watershed rainfall data is unavailable and adds no confidence.",
+            "tip": "Keep the section named by Migration Stage. Do not shift lower for a fresh wave this water does not support.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
@@ -7388,7 +7672,7 @@ const GROUP_SEEDS = [
               "appliedCaps": []
             },
             "rulesVersion": "pm-fall-steelhead-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           }
         }
       },
@@ -7400,9 +7684,9 @@ const GROUP_SEEDS = [
           "push": {
             "score": 75,
             "label": "Strong",
-            "headline": "Today's river rise and water temperature strongly support the possibility of a fresh wave moving into the river.",
-            "detail": "The river has made a clear rise since yesterday. Water is on the warm side for fall migration and is cooling. Recent rainfall has been too light to meaningfully change the river.",
-            "tip": "Begin on lower-river travel lanes and inside seams, then work the first resting holes along that route. Keep moving until fish establish a pattern; the signal still does not prove a wave entered.",
+            "headline": "PM water strongly supports possible fresh movement.",
+            "detail": "Scottville flow has made a clear rise. Measured water temperature is warmer than preferred and cooling. Recent watershed rainfall is too light to affect the read.",
+            "tip": "Use Lower river travel water as the fresh-movement check, then return to the section named by Migration Stage.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
@@ -7420,7 +7704,7 @@ const GROUP_SEEDS = [
               "appliedCaps": []
             },
             "rulesVersion": "pm-fall-steelhead-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "pushHistory": {
             "status": "active_now",
@@ -7497,9 +7781,9 @@ const GROUP_SEEDS = [
           "push": {
             "score": 62,
             "label": "Possible",
-            "headline": "Today's water offers some support for fresh fish moving into or through the river.",
-            "detail": "The river has made a clear rise since yesterday. Water temperature remains too warm to support a strong Push and is cooling. Recent rainfall has been too light to meaningfully change the river.",
-            "tip": "Do not build the day around new arrivals while the river remains warm. Start in established holding water at first or last light and leave lower travel lanes secondary.",
+            "headline": "PM water offers some support for fresh movement.",
+            "detail": "Scottville flow has made a clear rise. Measured water temperature is too warm for strong movement support and cooling. Recent watershed rainfall is too light to affect the read.",
+            "tip": "Keep the section named by Migration Stage. Leave fresh-entry travel water secondary until measured temperature improves.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
@@ -7518,7 +7802,7 @@ const GROUP_SEEDS = [
               "appliedCaps": []
             },
             "rulesVersion": "pm-fall-steelhead-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "pushHistory": {
             "status": "active_now",
@@ -7595,9 +7879,9 @@ const GROUP_SEEDS = [
           "push": {
             "score": 49,
             "label": "No clear push",
-            "headline": "The river is rising, but warm water prevents a dependable fresh-movement read.",
-            "detail": "The river is rising quickly, creating conditions fish often use to move. Water temperature is warm enough to seriously limit confidence in fresh movement. Recent rainfall has been too light to meaningfully change the river.",
-            "tip": "Do not build the day around new arrivals while the river remains warm. Start in established holding water at first or last light and leave lower travel lanes secondary.",
+            "headline": "Warm PM water prevents a dependable fresh-movement signal.",
+            "detail": "Scottville flow is rising quickly. Measured water temperature is warm enough to block a dependable movement call and cooling quickly. Recent watershed rainfall is too light to affect the read.",
+            "tip": "Keep the section named by Migration Stage. Leave fresh-entry travel water secondary until measured temperature improves.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
@@ -7618,7 +7902,7 @@ const GROUP_SEEDS = [
               ]
             },
             "rulesVersion": "pm-fall-steelhead-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           }
         }
       },
@@ -7630,9 +7914,9 @@ const GROUP_SEEDS = [
           "push": {
             "score": 49,
             "label": "No clear push",
-            "headline": "Steelhead may remain in the river, but water is cold enough to limit a dependable fresh-movement signal.",
-            "detail": "The river has made a clear rise since yesterday. Water is at or below the cold-holding threshold, so active upstream movement is less likely even though steelhead may remain in the river. Recent rainfall has been too light to meaningfully change the river.",
-            "tip": "Do not chase a new wave from this signal. Treat the fish as wintering steelhead and base the day on temperature-driven activity and controlled presentations in dependable holding water.",
+            "headline": "Cold PM water limits confidence in continued fall entry.",
+            "detail": "Scottville flow has made a clear rise. Measured water temperature is cold enough to favor holding over active fall entry and cooling quickly. Recent watershed rainfall is too light to affect the read.",
+            "tip": "Keep the section named by Migration Stage. Do not shift lower for a fresh wave this water does not support.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
@@ -7653,7 +7937,7 @@ const GROUP_SEEDS = [
               ]
             },
             "rulesVersion": "pm-fall-steelhead-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           }
         }
       },
@@ -7665,9 +7949,9 @@ const GROUP_SEEDS = [
           "push": {
             "score": 71,
             "label": "Strong",
-            "headline": "Today's river rise and water temperature strongly support the possibility of a fresh wave moving into the river.",
-            "detail": "The river has made a clear rise since yesterday. Water is cold enough for steelhead movement, but additional cooling increasingly favors slower holding behavior. Recent rainfall has been too light to meaningfully change the river.",
-            "tip": "Begin on lower-river travel lanes and inside seams, then work the first resting holes along that route. Keep moving until fish establish a pattern; the signal still does not prove a wave entered.",
+            "headline": "PM water strongly supports possible fresh movement.",
+            "detail": "Scottville flow has made a clear rise. Measured water temperature is cold but still compatible with fall Steelhead movement. Recent watershed rainfall is too light to affect the read.",
+            "tip": "Use Lower river travel water as the fresh-movement check, then return to the section named by Migration Stage.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
@@ -7685,7 +7969,7 @@ const GROUP_SEEDS = [
               "appliedCaps": []
             },
             "rulesVersion": "pm-fall-steelhead-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "pushHistory": {
             "status": "active_now",
@@ -7762,9 +8046,9 @@ const GROUP_SEEDS = [
           "push": {
             "score": 49,
             "label": "No clear push",
-            "headline": "Steelhead may remain in the river, but water is cold enough to limit a dependable fresh-movement signal.",
-            "detail": "The river has made a clear rise since yesterday. Water is at or below the cold-holding threshold, so active upstream movement is less likely even though steelhead may remain in the river. Recent rainfall has been too light to meaningfully change the river.",
-            "tip": "Do not chase a new wave from this signal. Treat the fish as wintering steelhead and base the day on temperature-driven activity and controlled presentations in dependable holding water.",
+            "headline": "Cold PM water limits confidence in continued fall entry.",
+            "detail": "Scottville flow has made a clear rise. Measured water temperature is cold enough to favor holding over active fall entry and cooling quickly. Recent watershed rainfall is too light to affect the read.",
+            "tip": "Keep the section named by Migration Stage. Do not shift lower for a fresh wave this water does not support.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
@@ -7785,7 +8069,7 @@ const GROUP_SEEDS = [
               ]
             },
             "rulesVersion": "pm-fall-steelhead-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           }
         }
       },
@@ -7797,9 +8081,9 @@ const GROUP_SEEDS = [
           "push": {
             "score": 70,
             "label": "Strong",
-            "headline": "Today's river rise and water temperature strongly support the possibility of a fresh wave moving into the river.",
-            "detail": "The river has made a clear rise since yesterday. Water temperature is favorable for fall migration and is cooling sharply. The temperature reading comes from farther upstream, so cooling there is not treated as proof of lower-river conditions. Recent rainfall has been too light to meaningfully change the river.",
-            "tip": "Begin on lower-river travel lanes and inside seams, then work the first resting holes along that route. Keep moving until fish establish a pattern; the signal still does not prove a wave entered.",
+            "headline": "PM water strongly supports possible fresh movement.",
+            "detail": "Scottville flow has made a clear rise. Measured water temperature is favorable for this migration and cooling quickly. The temperature source is upstream, so its cooling cannot add positive lower-river credit.",
+            "tip": "Use Lower river travel water as the fresh-movement check, then return to the section named by Migration Stage.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
@@ -7817,7 +8101,7 @@ const GROUP_SEEDS = [
               "appliedCaps": []
             },
             "rulesVersion": "pm-fall-steelhead-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "pushHistory": {
             "status": "active_now",
@@ -7894,9 +8178,9 @@ const GROUP_SEEDS = [
           "push": {
             "score": 46,
             "label": "No clear push",
-            "headline": "Today's water does not show a clear signal for a fresh wave of fish.",
-            "detail": "There is not enough recent river-level history to tell whether the river is rising or falling. Water temperature is favorable for fall migration and is cooling. Recent rain around the river may help, but the river has not responded enough for rain alone to create a strong Push. Without a dependable river trend, there is no clear Push.",
-            "tip": "Do not relocate the trip around this Push read. Begin in established holding water, verify the river at the first access, and add travel lanes only after confirming workable conditions.",
+            "headline": "PM water does not show a clear fresh-movement signal.",
+            "detail": "Scottville flow does not have a dependable recent trend. Measured water temperature is favorable for this migration and cooling. Without a dependable Scottville trend, the model cannot call a clear Push.",
+            "tip": "Keep the section named by Migration Stage. Do not shift lower for a fresh wave this water does not support.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
@@ -7916,7 +8200,7 @@ const GROUP_SEEDS = [
               "appliedCaps": []
             },
             "rulesVersion": "pm-fall-steelhead-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           }
         }
       },
@@ -7928,9 +8212,9 @@ const GROUP_SEEDS = [
           "push": {
             "score": 55,
             "label": "Possible",
-            "headline": "The water may support fresh movement, but an aging river reading limits confidence.",
-            "detail": "The river is rising quickly, creating conditions fish often use to move. Water temperature is favorable for fall migration and is cooling sharply. The river has already made a meaningful rise, so that measured response carries the useful movement signal and rainfall adds no separate weight. The latest river-level reading is aging, so confidence is reduced.",
-            "tip": "Do not relocate the trip around this Push read. Begin in established holding water, verify the river at the first access, and add travel lanes only after confirming workable conditions.",
+            "headline": "An aging Scottville reading limits confidence in PM fresh movement.",
+            "detail": "Scottville flow is rising quickly. Measured water temperature is favorable for this migration and cooling quickly. The latest Scottville reading is aging, so confidence is reduced.",
+            "tip": "Keep Migration Stage’s section primary. Add one Lower river travel-water check before returning to established holding water.",
             "reasonCodes": [
               "gauge_stale",
               "push_normal_flow_context",
@@ -7951,7 +8235,7 @@ const GROUP_SEEDS = [
               ]
             },
             "rulesVersion": "pm-fall-steelhead-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "pushHistory": {
             "status": "active_now",
@@ -8028,9 +8312,9 @@ const GROUP_SEEDS = [
           "push": {
             "score": 49,
             "label": "No clear push",
-            "headline": "The river is rising hard, but extreme flow makes this an unreliable fresh-movement read.",
-            "detail": "The river is rising quickly, creating conditions fish often use to move. Overall flow is extremely high. Water temperature is favorable for fall migration and is cooling sharply. Additional rain does not improve the read while the river is already high.",
-            "tip": "Do not chase movement in the main channel. If Fishability remains usable, fish only protected margins, inside turns, and soft current with short controlled presentations.",
+            "headline": "Extreme Scottville flow prevents a dependable fresh-movement signal.",
+            "detail": "Scottville flow is rising quickly, while overall flow is extreme. Measured water temperature is favorable for this migration and cooling quickly. Additional rain adds no support while Scottville flow is already high.",
+            "tip": "Do not chase a movement event. Let Fishability determine whether the Scottville reach offers any practical presentation water.",
             "reasonCodes": [
               "gauge_fresh",
               "push_severe_high_flow_context",
@@ -8051,7 +8335,7 @@ const GROUP_SEEDS = [
               ]
             },
             "rulesVersion": "pm-fall-steelhead-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           }
         }
       },
@@ -8063,14 +8347,14 @@ const GROUP_SEEDS = [
           "push": {
             "score": null,
             "label": "Unavailable",
-            "headline": "There is no dependable Push read without a current river level.",
-            "detail": "The river's response is the most important part of a Push, and the latest level is missing or too old to use.",
-            "tip": "Begin in established holding water and keep lower travel lanes secondary. Check again after the next river update; do not chase recent rain as proof of a fresh wave.",
+            "headline": "A current Scottville flow reading is unavailable.",
+            "detail": "Without Scottville flow and direction, rain cannot produce a dependable PM fresh-movement read.",
+            "tip": "Keep the section named by Migration Stage. Do not treat recent rain as proof of movement.",
             "reasonCodes": [
               "gauge_missing"
             ],
             "rulesVersion": "pm-fall-steelhead-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           }
         }
       },
@@ -8082,15 +8366,15 @@ const GROUP_SEEDS = [
           "push": {
             "score": null,
             "label": "Unavailable",
-            "headline": "There is no dependable Push read without a current water temperature.",
-            "detail": "Water temperature is a critical part of judging whether today's conditions support fresh movement, and that reading is missing.",
-            "tip": "Do not chase a fresh wave from this read. Fish established holding water for the current Migration Stage and check again after the next temperature update.",
+            "headline": "A current measured PM water temperature is unavailable.",
+            "detail": "Without measured water temperature, Scottville flow cannot produce a dependable fresh-movement read.",
+            "tip": "Keep the section named by Migration Stage. Do not chase a fresh wave until measured temperature returns.",
             "reasonCodes": [
               "gauge_fresh",
               "temperature_unavailable"
             ],
             "rulesVersion": "pm-fall-steelhead-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           }
         }
       },
@@ -8102,14 +8386,14 @@ const GROUP_SEEDS = [
           "push": {
             "score": null,
             "label": "Unavailable",
-            "headline": "This species and season do not have a dependable Push read yet.",
-            "detail": "Different migrations respond to water and weather in different ways, so another species' movement pattern would give a misleading result.",
-            "tip": "Fish the river section and holding water identified by Migration Stage and Fish In River. Do not apply another species' rain-and-temperature pattern to this migration.",
+            "headline": "This PM run does not have a supported Push model.",
+            "detail": "Another species or season’s water response would produce a misleading fresh-movement read.",
+            "tip": "Use Migration Stage for seasonal position. Do not borrow another run’s Push pattern.",
             "reasonCodes": [
               "gauge_fresh"
             ],
             "rulesVersion": "pm-fall-steelhead-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           }
         }
       },
@@ -8125,6 +8409,7 @@ const GROUP_SEEDS = [
           "nextConditionRefreshAt": "2026-09-05T22:00:00.000Z",
           "runStage": {
             "stage": "pre_run",
+            "copyStrategy": "pere_marquette",
             "stagingContext": true,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -8147,15 +8432,15 @@ const GROUP_SEEDS = [
               "peakToEndDays": 37
             },
             "label": "Before migration",
-            "headline": "Steelhead may be gathering near the river mouth, and an occasional early fish could enter the lower river.",
-            "whereToStart": "Ludington harbor, Pere Marquette Lake, the river mouth, and one deliberate check of the first deep travel lane in the lower migratory river toward Scottville.",
-            "detail": "An early fish is possible, especially as late September approaches, but dependable fall presence has not developed yet. Treat an isolated catch as an exception, not proof that the river has filled in.",
-            "tip": "Keep most effort near the lake-to-river transition and wait for Fish In River to confirm a dependable seasonal build before committing inland.",
+            "headline": "Steelhead may be staging near the PM mouth, but dependable river entry has not begun.",
+            "detail": "Seasonal timing supports nearby-lake staging. Any Steelhead already in the Lower river would be an early exception.",
+            "tip": "Keep the river check brief. Do not move into the Middle or Upper river from calendar timing alone.",
+            "whereToStart": "Start at Pere Marquette Lake and the river mouth. Add the Lower river (Pere Marquette Lake–Scottville) only for an early-fish check.",
             "reasonCodes": [
               "stage_pre_run",
               "stage_pre_run_staging"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "conditionsSuggest": {
             "label": "Evaluating",
@@ -8174,25 +8459,25 @@ const GROUP_SEEDS = [
             "historicalYears": 0,
             "sourceDates": [],
             "sourceRefreshSlots": {},
-            "headline": "Migration Timing is still taking shape.",
-            "detail": "The early river and temperature pattern is still developing, so an Ahead, Typical, or Delayed call would be premature.",
-            "tip": "Keep the trip centered on the river mouth and earliest lower-river holding water. Move inland only when Migration Stage advances or direct fish activity supports it.",
+            "headline": "PM Migration Timing is still taking shape.",
+            "detail": "Scottville river-rise activity and M-37 cooling do not yet support an Ahead, Typical, or Delayed call.",
+            "tip": "Keep the section named by Migration Stage. Do not shift PM sections until this read has enough evidence.",
             "reasonCodes": [
               "conditions_checkpoint_evaluating"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "push": {
             "score": null,
             "label": "Waiting for migration",
-            "headline": "Dependable fall entry has not started, so Push is not active yet.",
-            "detail": "An occasional early steelhead is possible, but Push is reserved for the expected entry window, when rain, river level, and water temperature can provide a responsible fresh-movement read.",
-            "tip": "Keep most effort near the lake, harbor, and river-mouth transition. Do not move inland just because rain or cooling resembles an in-season movement event.",
+            "headline": "Dependable PM Steelhead fall entry has not started.",
+            "detail": "Rain, Scottville flow, and water temperature are not scored as an in-season movement signal yet.",
+            "tip": "Use Migration Stage. Do not move inland because offseason water resembles an in-season Push.",
             "reasonCodes": [
               "push_tracking_not_started"
             ],
             "rulesVersion": "pm-fall-steelhead-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "pushHistory": {
             "status": "not_started",
@@ -8205,6 +8490,8 @@ const GROUP_SEEDS = [
           },
           "fishInRiver": {
             "score": 0,
+            "displayScore": 0,
+            "scoreIsApproximate": false,
             "stage": "pre_run",
             "maximum": 100,
             "riverCeiling": 80,
@@ -8213,14 +8500,14 @@ const GROUP_SEEDS = [
             "curveDirection": "outside",
             "winterHoldingContext": false,
             "label": "Not expected yet",
-            "headline": "Steelhead are not expected in meaningful numbers yet.",
-            "detail": "Most Steelhead are not expected to have entered the river in dependable numbers. Any fish already present would be early exceptions.",
-            "tip": "Treat this as no dependable in-river opportunity yet. Keep expectations at zero, and do not interpret an isolated early fish as evidence of dependable river presence.",
+            "headline": "Dependable Steelhead presence is not expected in the PM river yet.",
+            "detail": "The seasonal estimate remains at zero. Any fish already in the river would be an early exception.",
+            "tip": "Use Migration Stage for nearby staging context. Do not treat one early fish as a dependable river opportunity.",
             "reasonCodes": [
               "stage_pre_run",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "gauge": {
             "provider": "USGS",
@@ -8276,9 +8563,10 @@ const GROUP_SEEDS = [
           "nextConditionRefreshAt": "2026-12-25T22:00:00.000Z",
           "runStage": {
             "stage": "post_run",
+            "copyStrategy": "pere_marquette",
             "stagingContext": false,
             "broadBuildingContext": false,
-            "winterHoldingContext": true,
+            "winterHoldingContext": false,
             "window": {
               "snapshotDate": "2026-12-25",
               "preRunStartDate": "2026-08-15",
@@ -8297,404 +8585,16 @@ const GROUP_SEEDS = [
               "startToPeakDays": 56,
               "peakToEndDays": 37
             },
-            "label": "Winter holding",
-            "headline": "Steelhead have transitioned from fall entry into winter holding.",
-            "whereToStart": "Deep, slow middle- and upper-river holding water from Walhalla and Branch toward Baldwin/M-37, with nearby current and an easy feeding lane.",
-            "detail": "Fish can remain distributed through the river, but colder water shifts the question from upstream movement to daily activity and feeding position.",
-            "tip": "Open the Winter Holding read for current activity, likely holding water, and presentation guidance. A completed fall-entry read does not mean steelhead have left the river.",
+            "label": "Fall entry complete",
+            "headline": "PM Steelhead fall entry is complete.",
+            "detail": "Steelhead may remain in the river. This fall-entry model no longer scores their current presence or activity.",
+            "tip": "Check back in early September when PM fall movement tracking resumes.",
+            "whereToStart": "There is no active PM starting section in this fall-entry model.",
             "reasonCodes": [
               "stage_post_run",
-              "stage_winter_holding"
+              "stage_offseason"
             ],
-            "copyVersion": "river-run-copy-v27"
-          },
-          "conditionsSuggest": {
-            "label": "Not monitoring yet",
-            "timingLabel": null,
-            "candidateLabel": null,
-            "observationStartDate": "2026-09-01",
-            "completedCheckpointCount": 0,
-            "currentIndex": null,
-            "currentPercentile": null,
-            "gaugeResponsePercentile": null,
-            "waterTemperaturePercentile": null,
-            "usableDays": 0,
-            "expectedDays": 0,
-            "coveragePercent": 0,
-            "historicalYears": 0,
-            "sourceDates": [],
-            "sourceRefreshSlots": {},
-            "headline": "Migration Timing is not active right now.",
-            "detail": "Timing monitoring begins before the expected river entry, but that seasonal observation window is not active yet.",
-            "tip": "Check Migration Stage for the current seasonal position and return to Migration Timing when early monitoring begins.",
-            "reasonCodes": [
-              "conditions_monitoring_inactive"
-            ],
-            "copyVersion": "river-run-copy-v27"
-          },
-          "push": {
-            "score": null,
-            "label": "Offseason",
-            "headline": "Push is not active outside the river migration season.",
-            "detail": "Rain, river level, and water temperature can still change, but they do not provide a useful fresh-arrival signal for this species right now.",
-            "tip": "Do not use Push to plan for this species outside its migration season. Follow an active species instead, or return when early monitoring begins.",
-            "reasonCodes": [
-              "push_tracking_offseason"
-            ],
-            "rulesVersion": "pm-fall-steelhead-push-v1",
-            "copyVersion": "river-run-copy-v27"
-          },
-          "pushHistory": {
-            "status": "complete",
-            "minimumSupportiveScore": 50,
-            "trackingStartDate": "2026-09-20",
-            "trackingEndDate": "2026-12-22",
-            "throughDate": "2026-12-22",
-            "recentDailyReadsStatus": "available",
-            "recentDailyReads": [
-              {
-                "localDate": "2026-12-22",
-                "status": "no_supportive_window",
-                "score": null,
-                "label": "No supportive window"
-              },
-              {
-                "localDate": "2026-12-21",
-                "status": "no_supportive_window",
-                "score": null,
-                "label": "No supportive window"
-              },
-              {
-                "localDate": "2026-12-20",
-                "status": "supportive_window",
-                "refreshSlot": "08:00",
-                "conditionRefreshAt": "2026-12-20T23:59:00.000Z",
-                "score": 63,
-                "label": "Possible"
-              },
-              {
-                "localDate": "2026-12-19",
-                "status": "no_supportive_window",
-                "score": null,
-                "label": "No supportive window"
-              },
-              {
-                "localDate": "2026-12-18",
-                "status": "supportive_window",
-                "refreshSlot": "20:00",
-                "conditionRefreshAt": "2026-12-18T23:59:00.000Z",
-                "score": 81,
-                "label": "Strong"
-              },
-              {
-                "localDate": "2026-12-17",
-                "status": "supportive_window",
-                "refreshSlot": "16:00",
-                "conditionRefreshAt": "2026-12-17T23:59:00.000Z",
-                "score": 63,
-                "label": "Possible"
-              },
-              {
-                "localDate": "2026-12-16",
-                "status": "no_supportive_window",
-                "score": null,
-                "label": "No supportive window"
-              }
-            ]
-          },
-          "fishInRiver": {
-            "score": 70,
-            "stage": "post_run",
-            "maximum": 100,
-            "riverCeiling": 80,
-            "historicalRunStrength": "strong",
-            "curveFraction": 0.875,
-            "curveDirection": "outside",
-            "winterHoldingContext": true,
-            "handoffScore": 70,
-            "label": "Winter holding",
-            "headline": "Steelhead remain strongly present as the fishery shifts into winter holding.",
-            "detail": "Fall entry finished at 70/100. That retained-presence reference stays visible, but it is not a winter activity score; winter opportunity depends on water temperature, feeding activity, and presentation.",
-            "tip": "Open the Winter Holding read for current activity, likely holding water, and presentation guidance. Treat 70/100 as retained seasonal presence—not proof that fish are active today.",
-            "reasonCodes": [
-              "stage_post_run",
-              "historical_presence_curve",
-              "fish_presence_winter_handoff"
-            ],
-            "copyVersion": "river-run-copy-v27"
-          },
-          "gauge": {
-            "provider": "USGS",
-            "siteId": "04122500",
-            "primaryMetric": "flow_cfs",
-            "observedAt": "2026-12-25T19:45:00.000Z",
-            "value": 600,
-            "band": "ideal",
-            "trend": "stable",
-            "absoluteChange24h": 0,
-            "percentChange24h": 0
-          },
-          "waterTemperature": {
-            "provider": "MONITOR_MY_WATERSHED",
-            "sourceId": "pmtu_maple_leaf",
-            "siteId": "PMTU-MapleLeaf",
-            "seriesId": "4939",
-            "observedAt": "2026-12-25T19:30:00.000Z",
-            "waterTempF": 60,
-            "trend": "steady",
-            "sourceType": "same_gauge",
-            "attribution": "Measured water temperature"
-          },
-          "conditionsWaterTemperature": {
-            "provider": "MONITOR_MY_WATERSHED",
-            "sourceId": "pmtu_m37",
-            "siteId": "PMTU-M37",
-            "seriesId": "3201",
-            "observedAt": "2026-12-25T19:30:00.000Z",
-            "waterTempF": 60,
-            "trend": "steady",
-            "sourceType": "same_gauge",
-            "attribution": "Measured water temperature"
-          },
-          "interpretationNote": {
-            "headline": "Steelhead are still in the river, but winter conditions now control the day.",
-            "detail": "The fall-entry period ended with strong retained presence. Use the winter fishery read to judge activity and presentation; Push and Migration Timing are intentionally complete because they answer the wrong question now.",
-            "reasonCodes": [
-              "winter_holding_read_required"
-            ]
-          }
-        }
-      },
-      {
-        "id": "push_first_day",
-        "label": "History · first run day",
-        "note": "Canonical production copy",
-        "snapshotOverride": {
-          "localDate": "2026-09-20",
-          "progressionSnapshotAt": "2026-09-20T12:00:00.000Z",
-          "conditionRefreshAt": "2026-09-20T20:00:00.000Z",
-          "progressionExpiresAt": "2026-09-20T23:59:59.000Z",
-          "nextConditionRefreshAt": "2026-09-20T22:00:00.000Z",
-          "runStage": {
-            "stage": "beginning",
-            "stagingContext": false,
-            "broadBuildingContext": false,
-            "winterHoldingContext": false,
-            "window": {
-              "snapshotDate": "2026-09-20",
-              "preRunStartDate": "2026-08-15",
-              "stagingStartDate": "2026-09-01",
-              "startDate": "2026-09-20",
-              "beginningEndDate": "2026-10-10",
-              "buildingEstablishedStartDate": "2026-10-15",
-              "buildingBroadStartDate": "2026-11-01",
-              "peakStartDate": "2026-11-15",
-              "peakDate": "2026-11-15",
-              "peakEndDate": "2026-12-04",
-              "taperingEndDate": "2026-12-19",
-              "endDate": "2026-12-22",
-              "lateEndDate": "2026-12-23",
-              "postRunLateCopyEndDate": "2026-12-24",
-              "startToPeakDays": 56,
-              "peakToEndDays": 37
-            },
-            "label": "Beginning",
-            "headline": "The first Steelhead are beginning to enter the river.",
-            "whereToStart": "Lower migratory river from Pere Marquette Lake toward Scottville: travel lanes feeding the first deep bends, resting pockets, and current breaks.",
-            "detail": "Fresh fish may be present, but numbers are still scattered and can arrive in uneven waves before the broader fall fishery develops.",
-            "tip": "Cover lower travel water and its first dependable resting holes, then move upstream only after those entry sections have been checked.",
-            "reasonCodes": [
-              "stage_beginning"
-            ],
-            "copyVersion": "river-run-copy-v27"
-          },
-          "conditionsSuggest": {
-            "label": "Typical",
-            "timingLabel": "Typical",
-            "candidateLabel": "Typical",
-            "checkpointId": "river_start",
-            "checkpointDate": "2026-09-20",
-            "cutoffDate": "2026-09-19",
-            "observationStartDate": "2026-09-01",
-            "nextCheckpointDate": "2026-10-11",
-            "completedCheckpointCount": 1,
-            "currentIndex": 45.4,
-            "currentPercentile": 40,
-            "gaugeResponsePercentile": 40,
-            "waterTemperaturePercentile": 49,
-            "usableDays": 19,
-            "expectedDays": 19,
-            "coveragePercent": 1,
-            "historicalYears": 5,
-            "baselineVersion": "pm-fall-steelhead-conditions-v2",
-            "gaugeSiteId": "04122500",
-            "temperatureSourceId": "pm_m37_temperature",
-            "sourceDates": [
-              "2026-09-01",
-              "2026-09-02",
-              "2026-09-03",
-              "2026-09-04",
-              "2026-09-05",
-              "2026-09-06",
-              "2026-09-07",
-              "2026-09-08",
-              "2026-09-09",
-              "2026-09-10",
-              "2026-09-11",
-              "2026-09-12",
-              "2026-09-13",
-              "2026-09-14",
-              "2026-09-15",
-              "2026-09-16",
-              "2026-09-17",
-              "2026-09-18",
-              "2026-09-19"
-            ],
-            "sourceRefreshSlots": {
-              "2026-09-01": "16:00",
-              "2026-09-02": "16:00",
-              "2026-09-03": "16:00",
-              "2026-09-04": "16:00",
-              "2026-09-05": "16:00",
-              "2026-09-06": "16:00",
-              "2026-09-07": "16:00",
-              "2026-09-08": "16:00",
-              "2026-09-09": "16:00",
-              "2026-09-10": "16:00",
-              "2026-09-11": "16:00",
-              "2026-09-12": "16:00",
-              "2026-09-13": "16:00",
-              "2026-09-14": "16:00",
-              "2026-09-15": "16:00",
-              "2026-09-16": "16:00",
-              "2026-09-17": "16:00",
-              "2026-09-18": "16:00",
-              "2026-09-19": "16:00"
-            },
-            "headline": "The migration appears to be progressing at a normal seasonal pace.",
-            "detail": "River rises and cooling are close to what is usually seen by this point in the season.",
-            "tip": "Fish the core river section identified by Migration Stage. Begin where a travel lane feeds established holding water, then adjust presentation—not seasonal location—using Fishability.",
-            "reasonCodes": [
-              "gauge_fresh",
-              "temperature_measured",
-              "conditions_checkpoint_river_start",
-              "conditions_typical"
-            ],
-            "copyVersion": "river-run-copy-v27"
-          },
-          "pushHistory": {
-            "status": "none_recorded",
-            "minimumSupportiveScore": 50,
-            "trackingStartDate": "2026-09-20",
-            "trackingEndDate": "2026-12-22",
-            "throughDate": "2026-09-20",
-            "recentDailyReadsStatus": "available",
-            "recentDailyReads": []
-          },
-          "fishInRiver": {
-            "score": 8,
-            "stage": "beginning",
-            "maximum": 100,
-            "riverCeiling": 80,
-            "historicalRunStrength": "strong",
-            "curveFraction": 0.1,
-            "curveDirection": "rising",
-            "winterHoldingContext": false,
-            "label": "Low presence",
-            "headline": "A small number of Steelhead may be in the river, and seasonal presence is still building.",
-            "detail": "This part of the season usually brings low presence, with more fish expected to enter and spread through the river. This is a seasonal estimate, not a live fish count.",
-            "tip": "Treat this as an early, low-odds river opportunity. Expect scattered results, and use direct fish activity before committing the full day.",
-            "reasonCodes": [
-              "stage_beginning",
-              "historical_presence_curve"
-            ],
-            "copyVersion": "river-run-copy-v27"
-          },
-          "gauge": {
-            "provider": "USGS",
-            "siteId": "04122500",
-            "primaryMetric": "flow_cfs",
-            "observedAt": "2026-09-20T19:45:00.000Z",
-            "value": 600,
-            "band": "ideal",
-            "trend": "stable",
-            "absoluteChange24h": 0,
-            "percentChange24h": 0
-          },
-          "waterTemperature": {
-            "provider": "MONITOR_MY_WATERSHED",
-            "sourceId": "pmtu_maple_leaf",
-            "siteId": "PMTU-MapleLeaf",
-            "seriesId": "4939",
-            "observedAt": "2026-09-20T19:30:00.000Z",
-            "waterTempF": 60,
-            "trend": "steady",
-            "sourceType": "same_gauge",
-            "attribution": "Measured water temperature"
-          },
-          "conditionsWaterTemperature": {
-            "provider": "MONITOR_MY_WATERSHED",
-            "sourceId": "pmtu_m37",
-            "siteId": "PMTU-M37",
-            "seriesId": "3201",
-            "observedAt": "2026-09-20T19:30:00.000Z",
-            "waterTempF": 60,
-            "trend": "steady",
-            "sourceType": "same_gauge",
-            "attribution": "Measured water temperature"
-          },
-          "interpretationNote": {
-            "headline": "The river should fish well, but seasonal fish presence is still low.",
-            "detail": "Good flow makes presentations easier, but it does not put fish in the river. Stay low, fish the first travel lane entering deep resting water, make one complete pass, and move instead of waiting for numbers that have not developed.",
-            "reasonCodes": [
-              "good_fishability_low_presence"
-            ]
-          }
-        }
-      },
-      {
-        "id": "push_complete",
-        "label": "Migration complete",
-        "note": "Canonical production copy",
-        "snapshotOverride": {
-          "localDate": "2026-12-23",
-          "progressionSnapshotAt": "2026-12-23T12:00:00.000Z",
-          "conditionRefreshAt": "2026-12-23T20:00:00.000Z",
-          "progressionExpiresAt": "2026-12-23T23:59:59.000Z",
-          "nextConditionRefreshAt": "2026-12-23T22:00:00.000Z",
-          "runStage": {
-            "stage": "post_run",
-            "stagingContext": false,
-            "broadBuildingContext": false,
-            "winterHoldingContext": true,
-            "window": {
-              "snapshotDate": "2026-12-23",
-              "preRunStartDate": "2026-08-15",
-              "stagingStartDate": "2026-09-01",
-              "startDate": "2026-09-20",
-              "beginningEndDate": "2026-10-10",
-              "buildingEstablishedStartDate": "2026-10-15",
-              "buildingBroadStartDate": "2026-11-01",
-              "peakStartDate": "2026-11-15",
-              "peakDate": "2026-11-15",
-              "peakEndDate": "2026-12-04",
-              "taperingEndDate": "2026-12-19",
-              "endDate": "2026-12-22",
-              "lateEndDate": "2026-12-23",
-              "postRunLateCopyEndDate": "2026-12-24",
-              "startToPeakDays": 56,
-              "peakToEndDays": 37
-            },
-            "label": "Winter holding",
-            "headline": "Steelhead have transitioned from fall entry into winter holding.",
-            "whereToStart": "Deep, slow middle- and upper-river holding water from Walhalla and Branch toward Baldwin/M-37, with nearby current and an easy feeding lane.",
-            "detail": "Fish can remain distributed through the river, but colder water shifts the question from upstream movement to daily activity and feeding position.",
-            "tip": "Open the Winter Holding read for current activity, likely holding water, and presentation guidance. A completed fall-entry read does not mean steelhead have left the river.",
-            "reasonCodes": [
-              "stage_post_run",
-              "stage_winter_holding"
-            ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "conditionsSuggest": {
             "label": "Timing complete",
@@ -8882,9 +8782,9 @@ const GROUP_SEEDS = [
               "2026-11-19": "16:00",
               "2026-11-20": "16:00"
             },
-            "headline": "This season's Migration Timing read is complete.",
-            "detail": "Earlier in the season, the migration was moving earlier than usual. Fall entry has now shifted into winter holding, where current activity matters more than an early-or-late call.",
-            "tip": "Stop planning around whether fall entry was early or late. Use the winter fishery read to judge current activity and presentation.",
+            "headline": "PM fall-entry Migration Timing is complete.",
+            "detail": "Earlier in fall, PM migration timing was earlier than usual. The fall-entry timing window is now complete.",
+            "tip": "Do not use completed fall timing to infer current presence or activity. PM fall monitoring resumes in early September.",
             "reasonCodes": [
               "gauge_fresh",
               "temperature_measured",
@@ -8892,22 +8792,22 @@ const GROUP_SEEDS = [
               "conditions_ahead",
               "conditions_timing_complete"
             ],
-            "copyVersion": "river-run-copy-v27",
+            "copyVersion": "river-run-copy-v29",
             "previousCheckpointId": "peak_start",
             "previousCheckpointDate": "2026-11-15",
             "previousTimingLabel": "Ahead"
           },
           "push": {
             "score": null,
-            "label": "Winter holding",
-            "headline": "The season's fresh-movement read is complete.",
-            "detail": "Steelhead may remain in the river, but the fall-entry signal has handed off to winter holding. Winter activity requires a different water-temperature and feeding read.",
-            "tip": "Use the winter fishery read for activity and presentation decisions. Do not treat a muted Push as evidence that steelhead left the river.",
+            "label": "Offseason",
+            "headline": "PM Push is outside its fall movement window.",
+            "detail": "Current rain, Scottville flow, and water temperature do not provide an in-season fresh-movement signal for this run.",
+            "tip": "Check back in early September when fall movement monitoring resumes.",
             "reasonCodes": [
-              "push_tracking_complete"
+              "push_tracking_offseason"
             ],
             "rulesVersion": "pm-fall-steelhead-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "pushHistory": {
             "status": "complete",
@@ -8968,611 +8868,30 @@ const GROUP_SEEDS = [
             ]
           },
           "fishInRiver": {
-            "score": 70,
+            "score": null,
+            "scoreIsApproximate": false,
             "stage": "post_run",
-            "maximum": 100,
-            "riverCeiling": 80,
-            "historicalRunStrength": "strong",
-            "curveFraction": 0.875,
-            "curveDirection": "outside",
-            "winterHoldingContext": true,
-            "handoffScore": 70,
-            "label": "Winter holding",
-            "headline": "Steelhead remain strongly present as the fishery shifts into winter holding.",
-            "detail": "Fall entry finished at 70/100. That retained-presence reference stays visible, but it is not a winter activity score; winter opportunity depends on water temperature, feeding activity, and presentation.",
-            "tip": "Open the Winter Holding read for current activity, likely holding water, and presentation guidance. Treat 70/100 as retained seasonal presence—not proof that fish are active today.",
-            "reasonCodes": [
-              "stage_post_run",
-              "historical_presence_curve",
-              "fish_presence_winter_handoff"
-            ],
-            "copyVersion": "river-run-copy-v27"
-          },
-          "gauge": {
-            "provider": "USGS",
-            "siteId": "04122500",
-            "primaryMetric": "flow_cfs",
-            "observedAt": "2026-12-23T19:45:00.000Z",
-            "value": 600,
-            "band": "ideal",
-            "trend": "stable",
-            "absoluteChange24h": 0,
-            "percentChange24h": 0
-          },
-          "waterTemperature": {
-            "provider": "MONITOR_MY_WATERSHED",
-            "sourceId": "pmtu_maple_leaf",
-            "siteId": "PMTU-MapleLeaf",
-            "seriesId": "4939",
-            "observedAt": "2026-12-23T19:30:00.000Z",
-            "waterTempF": 60,
-            "trend": "steady",
-            "sourceType": "same_gauge",
-            "attribution": "Measured water temperature"
-          },
-          "conditionsWaterTemperature": {
-            "provider": "MONITOR_MY_WATERSHED",
-            "sourceId": "pmtu_m37",
-            "siteId": "PMTU-M37",
-            "seriesId": "3201",
-            "observedAt": "2026-12-23T19:30:00.000Z",
-            "waterTempF": 60,
-            "trend": "steady",
-            "sourceType": "same_gauge",
-            "attribution": "Measured water temperature"
-          },
-          "interpretationNote": {
-            "headline": "Steelhead are still in the river, but winter conditions now control the day.",
-            "detail": "The fall-entry period ended with strong retained presence. Use the winter fishery read to judge activity and presentation; Push and Migration Timing are intentionally complete because they answer the wrong question now.",
-            "reasonCodes": [
-              "winter_holding_read_required"
-            ]
-          }
-        }
-      }
-    ]
-  },
-  {
-    "id": "fishability",
-    "label": "Fishability",
-    "scenarios": [
-      {
-        "id": "fishability_very_low",
-        "label": "Tough · very low",
-        "note": "Canonical production copy",
-        "snapshotOverride": {
-          "fishability": {
-            "score": 40,
-            "label": "Tough",
-            "headline": "The river is fishable, but very low water will make fish easier to disturb and productive water harder to find.",
-            "detail": "Water is unusually low, reducing cover and concentrating the best depth into fewer places. The low water is holding rather than refilling, so the few deeper slots should remain easy to identify. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river.",
-            "tip": "Fish first or last light. Begin at the deepest shaded holes and slots, approach quietly, and keep foot traffic out of shallow travel lanes.",
-            "reasonCodes": [
-              "gauge_fresh",
-              "very_low_flow_band",
-              "fishability_very_low_cap"
-            ],
-            "components": {
-              "bandBase": 35,
-              "trendModifier": 5,
-              "appliedCaps": []
-            },
-            "rulesVersion": "pm-scottville-fishability-v2",
-            "copyVersion": "river-run-copy-v27"
-          }
-        }
-      },
-      {
-        "id": "fishability_low",
-        "label": "Fishable · low",
-        "note": "Canonical production copy",
-        "snapshotOverride": {
-          "fishability": {
-            "score": 60,
-            "label": "Fishable",
-            "headline": "The river is fishable, but lower water leaves less cover and less room for error.",
-            "detail": "Water is lower than ideal but still workable, with less depth and cover across the river. The lower flow is holding steady, so its limited depth and cover should remain consistent. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river.",
-            "tip": "Start with the deepest connected holding water, then fish shaded outside bends and cover. Approach quietly and make the first pass count.",
-            "reasonCodes": [
-              "gauge_fresh",
-              "low_flow_band"
-            ],
-            "components": {
-              "bandBase": 55,
-              "trendModifier": 5,
-              "appliedCaps": []
-            },
-            "rulesVersion": "pm-scottville-fishability-v2",
-            "copyVersion": "river-run-copy-v27"
-          }
-        }
-      },
-      {
-        "id": "fishability_normal",
-        "label": "Good · normal",
-        "note": "Canonical production copy",
-        "snapshotOverride": {
-          "fishability": {
-            "score": 75,
-            "label": "Good",
-            "headline": "The river is in a comfortable, fishable range with a manageable pace.",
-            "detail": "Flow is in a dependable working range with a useful mix of travel lanes, seams, and holding water. The steady flow should keep travel lanes, seams, and holding water easy to read from one pass to the next. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river.",
-            "tip": "Start where a main travel lane enters the first established hole. Fish the head, inside seam, and tail in order, then move to the next piece of holding water.",
-            "reasonCodes": [
-              "gauge_fresh",
-              "normal_flow_band"
-            ],
-            "components": {
-              "bandBase": 70,
-              "trendModifier": 5,
-              "appliedCaps": []
-            },
-            "rulesVersion": "pm-scottville-fishability-v2",
-            "copyVersion": "river-run-copy-v27"
-          }
-        }
-      },
-      {
-        "id": "fishability_ideal",
-        "label": "Excellent · ideal",
-        "note": "Canonical production copy",
-        "snapshotOverride": {}
-      },
-      {
-        "id": "fishability_high",
-        "label": "Fishable · high",
-        "note": "Canonical production copy",
-        "snapshotOverride": {
-          "fishability": {
-            "score": 73,
-            "label": "Good",
-            "headline": "The river is fishable, but higher flow is moving at a faster pace and narrowing the easiest water.",
-            "detail": "Higher flow is pushing more current through the main channel, but softer edges and protected lanes remain workable. The higher flow is not climbing, so softer edges beside the main current should remain well defined. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river.",
-            "tip": "Start tight to the bank on inside bends and below current-breaking cover. Shorten the presentation and keep it in the slower edge instead of forcing the main flow.",
-            "reasonCodes": [
-              "gauge_fresh",
-              "high_fishable_flow_band"
-            ],
-            "components": {
-              "bandBase": 68,
-              "trendModifier": 5,
-              "appliedCaps": []
-            },
-            "rulesVersion": "pm-scottville-fishability-v2",
-            "copyVersion": "river-run-copy-v27"
-          }
-        }
-      },
-      {
-        "id": "fishability_very_high",
-        "label": "Tough · very high",
-        "note": "Canonical production copy",
-        "snapshotOverride": {
-          "fishability": {
-            "score": 45,
-            "label": "Tough",
-            "headline": "The river is running very high, leaving fewer practical places to fish effectively.",
-            "detail": "Very high flow is reducing access and the amount of water where a presentation can be controlled. The river is not climbing quickly, but practical fishing water remains compressed into the slowest edges. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river.",
-            "tip": "Fish only bank-side soft pockets, protected inside turns, and current breaks. Make short controlled presentations and skip every main-channel lane.",
-            "reasonCodes": [
-              "gauge_fresh",
-              "very_high_flow_band"
-            ],
-            "components": {
-              "bandBase": 40,
-              "trendModifier": 5,
-              "appliedCaps": []
-            },
-            "rulesVersion": "pm-scottville-fishability-v2",
-            "copyVersion": "river-run-copy-v27"
-          }
-        }
-      },
-      {
-        "id": "fishability_blown",
-        "label": "Poor · blown out",
-        "note": "Canonical production copy",
-        "snapshotOverride": {
-          "fishability": {
-            "score": 20,
-            "label": "Poor",
-            "headline": "The river is too high and unsettled for a dependable fishing recommendation.",
-            "detail": "Excessive flow is overwhelming normal holding water and making access and presentation unreliable. The river is not climbing quickly, but it must fall substantially before normal holding lanes and presentation control return. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river.",
-            "tip": "Choose a lower-water day for the better fishing opportunity. If you fish now, stay tight to protected banks, slow inside turns, and the downstream side of major current breaks; keep presentations short and leave the main flow alone.",
-            "reasonCodes": [
-              "gauge_fresh",
-              "blown_out_flow_band",
-              "fishability_blown_out_cap"
-            ],
-            "components": {
-              "bandBase": 15,
-              "trendModifier": 5,
-              "appliedCaps": []
-            },
-            "rulesVersion": "pm-scottville-fishability-v2",
-            "copyVersion": "river-run-copy-v27"
-          }
-        }
-      },
-      {
-        "id": "fishability_falling",
-        "label": "Trend · falling",
-        "note": "Canonical production copy",
-        "snapshotOverride": {
-          "fishability": {
-            "score": 90,
-            "label": "Excellent",
-            "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The river is settling, which should sharpen seams and make established holding water easier to read. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river.",
-            "tip": "Begin on the primary seam feeding deep holding water. Work each hole from head to tail, giving the deeper downstream half one final pass as the river settles.",
-            "reasonCodes": [
-              "gauge_fresh",
-              "ideal_flow_band"
-            ],
-            "components": {
-              "bandBase": 88,
-              "trendModifier": 2,
-              "appliedCaps": []
-            },
-            "rulesVersion": "pm-scottville-fishability-v2",
-            "copyVersion": "river-run-copy-v27"
-          }
-        }
-      },
-      {
-        "id": "fishability_rising",
-        "label": "Trend · early rise",
-        "note": "Canonical production copy",
-        "snapshotOverride": {
-          "fishability": {
-            "score": 88,
-            "label": "Excellent",
-            "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The early rise is adding pace and depth, with inside seams and the upstream edges of holes changing first. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river.",
-            "tip": "Begin on the soft inside edge of the primary travel lane, then fish the first deep resting hole above it. Recheck that edge as added depth changes the lane.",
-            "reasonCodes": [
-              "gauge_fresh",
-              "ideal_flow_band"
-            ],
-            "components": {
-              "bandBase": 88,
-              "trendModifier": 0,
-              "appliedCaps": []
-            },
-            "rulesVersion": "pm-scottville-fishability-v2",
-            "copyVersion": "river-run-copy-v27"
-          }
-        }
-      },
-      {
-        "id": "fishability_meaningful",
-        "label": "Trend · meaningful rise",
-        "note": "Canonical production copy",
-        "snapshotOverride": {
-          "fishability": {
-            "score": 60,
-            "label": "Fishable",
-            "headline": "The river is fishable, but rising water and faster current are narrowing the easiest places to present a bait.",
-            "detail": "Higher flow is pushing more current through the main channel, but softer edges and protected lanes remain workable. The rising water is pushing hard through the main channel and compressing practical fishing water along protected edges. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river.",
-            "tip": "Fish only protected margins, inside bends, and the downstream side of major current breaks. Leave the main-channel current alone while the rise continues.",
-            "reasonCodes": [
-              "gauge_fresh",
-              "high_fishable_flow_band"
-            ],
-            "components": {
-              "bandBase": 68,
-              "trendModifier": -8,
-              "appliedCaps": []
-            },
-            "rulesVersion": "pm-scottville-fishability-v2",
-            "copyVersion": "river-run-copy-v27"
-          }
-        }
-      },
-      {
-        "id": "fishability_sharp",
-        "label": "Trend · sharp rise",
-        "note": "Canonical production copy",
-        "snapshotOverride": {
-          "fishability": {
-            "score": 40,
-            "label": "Tough",
-            "headline": "The river is rising fast, and usable fishing water is shifting toward slower margins and current breaks.",
-            "detail": "Higher flow is pushing more current through the main channel, but softer edges and protected lanes remain workable. The fast rise is forcing usable fishing water out of the main flow and into the slowest protected margins. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river.",
-            "tip": "Leave the main channel alone. Fish newly formed soft margins, inside bends, and the downstream side of current breaks with short controlled presentations.",
-            "reasonCodes": [
-              "gauge_fresh",
-              "high_fishable_flow_band",
-              "fishability_sharp_rise_high_cap"
-            ],
-            "components": {
-              "bandBase": 68,
-              "trendModifier": -20,
-              "appliedCaps": [
-                40
-              ]
-            },
-            "rulesVersion": "pm-scottville-fishability-v2",
-            "copyVersion": "river-run-copy-v27"
-          }
-        }
-      },
-      {
-        "id": "fishability_unknown",
-        "label": "Trend · unresolved",
-        "note": "Canonical production copy",
-        "snapshotOverride": {
-          "fishability": {
-            "score": 69,
-            "label": "Fishable",
-            "headline": "The river appears fishable, but its direction is unclear, so confidence is limited.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. There is not enough recent information to tell whether the river is rising or falling, which lowers confidence in the read. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river.",
-            "tip": "Start at a bank-side inside bend or soft seam where the full presentation stays under control. Skip faster water until the river's direction is verified.",
-            "reasonCodes": [
-              "gauge_fresh",
-              "ideal_flow_band",
-              "fishability_unknown_trend_cap"
-            ],
-            "components": {
-              "bandBase": 88,
-              "trendModifier": -10,
-              "appliedCaps": [
-                69
-              ]
-            },
-            "rulesVersion": "pm-scottville-fishability-v2",
-            "copyVersion": "river-run-copy-v27"
-          }
-        }
-      },
-      {
-        "id": "fishability_stale",
-        "label": "Gauge · stale",
-        "note": "Canonical production copy",
-        "snapshotOverride": {
-          "fishability": {
-            "score": 55,
-            "label": "Fishable",
-            "headline": "The last river reading was fishable, but it is aging and may no longer describe the water accurately.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. Because the latest reading is aging, the river may have changed since it was reported. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river.",
-            "tip": "Do not choose a reach from this reading alone. Check the water at the first access, and begin only in bank-side water where you can control the entire presentation.",
-            "reasonCodes": [
-              "gauge_stale",
-              "ideal_flow_band",
-              "fishability_stale_gauge_cap"
-            ],
-            "components": {
-              "bandBase": 88,
-              "trendModifier": 5,
-              "appliedCaps": [
-                55
-              ]
-            },
-            "rulesVersion": "pm-scottville-fishability-v2",
-            "copyVersion": "river-run-copy-v27"
-          }
-        }
-      },
-      {
-        "id": "fishability_unavailable_gauge",
-        "label": "Unavailable · gauge",
-        "note": "Canonical production copy",
-        "snapshotOverride": {
-          "fishability": {
-            "score": null,
-            "label": "Unavailable",
-            "headline": "There is no dependable Fishability read right now.",
-            "detail": "A recent river-level reading is missing, so current flow and direction cannot be judged responsibly.",
-            "tip": "Do not plan from the last known level. Check again after the next update, and verify the river at the first access before choosing where or how to fish.",
-            "reasonCodes": [
-              "gauge_missing"
-            ],
-            "rulesVersion": "pm-scottville-fishability-v2",
-            "copyVersion": "river-run-copy-v27"
-          }
-        }
-      },
-      {
-        "id": "fishability_unavailable_band",
-        "label": "Unavailable · river bands",
-        "note": "Canonical production copy",
-        "snapshotOverride": {
-          "fishability": {
-            "score": null,
-            "label": "Unavailable",
-            "headline": "This river does not have a dependable Fishability read yet.",
-            "detail": "River flow affects each river differently, and there is not enough local knowledge to translate today's water into a responsible fishing recommendation.",
-            "tip": "Do not use this card to choose fishing water. Rely on direct observation and verified local river guidance; FinFindr will not borrow another river's idea of low, ideal, or high flow.",
-            "reasonCodes": [
-              "gauge_fresh",
-              "baseline_missing"
-            ],
-            "rulesVersion": "pm-scottville-fishability-v2",
-            "copyVersion": "river-run-copy-v27"
-          }
-        }
-      }
-    ]
-  },
-  {
-    "id": "activity",
-    "label": "Activity Outlook",
-    "scenarios": [
-      {
-        "id": "activity_staging",
-        "label": "Staging · conditional early fish",
-        "note": "Canonical production copy",
-        "snapshotOverride": {
-          "localDate": "2026-09-01",
-          "progressionSnapshotAt": "2026-09-01T12:00:00.000Z",
-          "conditionRefreshAt": "2026-09-01T20:00:00.000Z",
-          "progressionExpiresAt": "2026-09-01T23:59:59.000Z",
-          "nextConditionRefreshAt": "2026-09-01T22:00:00.000Z",
-          "runStage": {
-            "stage": "pre_run",
-            "stagingContext": true,
-            "broadBuildingContext": false,
-            "winterHoldingContext": false,
-            "window": {
-              "snapshotDate": "2026-09-01",
-              "preRunStartDate": "2026-08-15",
-              "stagingStartDate": "2026-09-01",
-              "startDate": "2026-09-20",
-              "beginningEndDate": "2026-10-10",
-              "buildingEstablishedStartDate": "2026-10-15",
-              "buildingBroadStartDate": "2026-11-01",
-              "peakStartDate": "2026-11-15",
-              "peakDate": "2026-11-15",
-              "peakEndDate": "2026-12-04",
-              "taperingEndDate": "2026-12-19",
-              "endDate": "2026-12-22",
-              "lateEndDate": "2026-12-23",
-              "postRunLateCopyEndDate": "2026-12-24",
-              "startToPeakDays": 56,
-              "peakToEndDays": 37
-            },
-            "label": "Before migration",
-            "headline": "Steelhead may be gathering near the river mouth, and an occasional early fish could enter the lower river.",
-            "whereToStart": "Ludington harbor, Pere Marquette Lake, the river mouth, and one deliberate check of the first deep travel lane in the lower migratory river toward Scottville.",
-            "detail": "An early fish is possible, especially as late September approaches, but dependable fall presence has not developed yet. Treat an isolated catch as an exception, not proof that the river has filled in.",
-            "tip": "Keep most effort near the lake-to-river transition and wait for Fish In River to confirm a dependable seasonal build before committing inland.",
-            "reasonCodes": [
-              "stage_pre_run",
-              "stage_pre_run_staging"
-            ],
-            "copyVersion": "river-run-copy-v27"
-          },
-          "conditionsSuggest": {
-            "label": "Evaluating",
-            "timingLabel": null,
-            "candidateLabel": null,
-            "observationStartDate": "2026-09-01",
-            "nextCheckpointDate": "2026-09-20",
-            "completedCheckpointCount": 0,
-            "currentIndex": null,
-            "currentPercentile": null,
-            "gaugeResponsePercentile": null,
-            "waterTemperaturePercentile": null,
-            "usableDays": 0,
-            "expectedDays": 0,
-            "coveragePercent": 0,
-            "historicalYears": 0,
-            "sourceDates": [],
-            "sourceRefreshSlots": {},
-            "headline": "Migration Timing is still taking shape.",
-            "detail": "The early river and temperature pattern is still developing, so an Ahead, Typical, or Delayed call would be premature.",
-            "tip": "Keep the trip centered on the river mouth and earliest lower-river holding water. Move inland only when Migration Stage advances or direct fish activity supports it.",
-            "reasonCodes": [
-              "conditions_checkpoint_evaluating"
-            ],
-            "copyVersion": "river-run-copy-v27"
-          },
-          "push": {
-            "score": null,
-            "label": "Waiting for migration",
-            "headline": "Dependable fall entry has not started, so Push is not active yet.",
-            "detail": "An occasional early steelhead is possible, but Push is reserved for the expected entry window, when rain, river level, and water temperature can provide a responsible fresh-movement read.",
-            "tip": "Keep most effort near the lake, harbor, and river-mouth transition. Do not move inland just because rain or cooling resembles an in-season movement event.",
-            "reasonCodes": [
-              "push_tracking_not_started"
-            ],
-            "rulesVersion": "pm-fall-steelhead-push-v1",
-            "copyVersion": "river-run-copy-v27"
-          },
-          "pushHistory": {
-            "status": "not_started",
-            "minimumSupportiveScore": 50,
-            "trackingStartDate": "2026-09-20",
-            "trackingEndDate": "2026-12-22",
-            "throughDate": "2026-09-01",
-            "recentDailyReadsStatus": "available",
-            "recentDailyReads": []
-          },
-          "activity": {
-            "score": 20,
-            "maximum": 100,
-            "label": "Reserved",
-            "headline": "Today’s Steelhead activity outlook is reserved.",
-            "detail": "Fish may respond selectively, with important environmental limitations. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Water temperature limits responsiveness. Dependable river presence has not begun. The score applies only to a sparse early Steelhead that may already have entered. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
-            "tip": "Start with 5–9 AM. If conditions change, favor the window that best combines workable light with measured water temperature.",
-            "reasonCodes": [
-              "activity_confidence_full",
-              "activity_today",
-              "activity_conditional_presence",
-              "activity_warm_water_cap"
-            ],
-            "rulesVersion": "pm-fall-steelhead-activity-v2",
-            "targetDate": "2026-09-01",
-            "targetDayLabel": "Today",
-            "confidence": "Full",
-            "conditionalPresence": true,
-            "blocks": [
-              {
-                "id": "05-09",
-                "label": "5–9 AM",
-                "score": 20,
-                "activityLabel": "Reserved",
-                "positiveDriver": "Clouds or lower light make this window more favorable.",
-                "limitingFactor": "Water temperature limits responsiveness.",
-                "cloudCoverPct": 80,
-                "precipitationIn": 0.01
-              },
-              {
-                "id": "09-13",
-                "label": "9 AM–1 PM",
-                "score": 18,
-                "activityLabel": "Inactive",
-                "positiveDriver": "The river level and its recent change are favorable.",
-                "limitingFactor": "Water temperature limits responsiveness.",
-                "cloudCoverPct": 80,
-                "precipitationIn": 0
-              },
-              {
-                "id": "13-17",
-                "label": "1–5 PM",
-                "score": 18,
-                "activityLabel": "Inactive",
-                "positiveDriver": "The river level and its recent change are favorable.",
-                "limitingFactor": "Water temperature limits responsiveness.",
-                "cloudCoverPct": 80,
-                "precipitationIn": 0
-              },
-              {
-                "id": "17-21",
-                "label": "5–9 PM",
-                "score": 20,
-                "activityLabel": "Reserved",
-                "positiveDriver": "Clouds or lower light make this window more favorable.",
-                "limitingFactor": "Water temperature limits responsiveness.",
-                "cloudCoverPct": 80,
-                "precipitationIn": 0
-              }
-            ]
-          },
-          "fishInRiver": {
-            "score": 0,
-            "stage": "pre_run",
             "maximum": 100,
             "riverCeiling": 80,
             "historicalRunStrength": "strong",
             "curveFraction": 0,
             "curveDirection": "outside",
             "winterHoldingContext": false,
-            "label": "Not expected yet",
-            "headline": "Steelhead are not expected in meaningful numbers yet.",
-            "detail": "Most Steelhead are not expected to have entered the river in dependable numbers. Any fish already present would be early exceptions.",
-            "tip": "Treat this as no dependable in-river opportunity yet. Keep expectations at zero, and do not interpret an isolated early fish as evidence of dependable river presence.",
+            "label": "Fall entry complete",
+            "headline": "PM Steelhead fall entry is complete.",
+            "detail": "Steelhead may remain in the river. This fall-entry model no longer estimates their current seasonal presence.",
+            "tip": "Check back in early September when PM fall movement tracking resumes.",
             "reasonCodes": [
-              "stage_pre_run",
+              "stage_post_run",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "gauge": {
             "provider": "USGS",
             "siteId": "04122500",
             "primaryMetric": "flow_cfs",
-            "observedAt": "2026-09-01T19:45:00.000Z",
+            "observedAt": "2026-12-25T19:45:00.000Z",
             "value": 600,
             "band": "ideal",
             "trend": "stable",
@@ -9584,7 +8903,7 @@ const GROUP_SEEDS = [
             "sourceId": "pmtu_maple_leaf",
             "siteId": "PMTU-MapleLeaf",
             "seriesId": "4939",
-            "observedAt": "2026-09-01T19:30:00.000Z",
+            "observedAt": "2026-12-25T19:30:00.000Z",
             "waterTempF": 60,
             "trend": "steady",
             "sourceType": "same_gauge",
@@ -9595,24 +8914,17 @@ const GROUP_SEEDS = [
             "sourceId": "pmtu_m37",
             "siteId": "PMTU-M37",
             "seriesId": "3201",
-            "observedAt": "2026-09-01T19:30:00.000Z",
+            "observedAt": "2026-12-25T19:30:00.000Z",
             "waterTempF": 60,
             "trend": "steady",
             "sourceType": "same_gauge",
             "attribution": "Measured water temperature"
-          },
-          "interpretationNote": {
-            "headline": "The river should fish well, but seasonal fish presence is still low.",
-            "detail": "Good flow makes presentations easier, but it does not put fish in the river. Stay low, fish the first travel lane entering deep resting water, make one complete pass, and move instead of waiting for numbers that have not developed.",
-            "reasonCodes": [
-              "good_fishability_low_presence"
-            ]
           }
         }
       },
       {
-        "id": "activity_beginning_warm",
-        "label": "Beginning · temperature response",
+        "id": "push_first_day",
+        "label": "History · first run day",
         "note": "Canonical production copy",
         "snapshotOverride": {
           "localDate": "2026-09-20",
@@ -9622,6 +8934,7 @@ const GROUP_SEEDS = [
           "nextConditionRefreshAt": "2026-09-20T22:00:00.000Z",
           "runStage": {
             "stage": "beginning",
+            "copyStrategy": "pere_marquette",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -9644,14 +8957,14 @@ const GROUP_SEEDS = [
               "peakToEndDays": 37
             },
             "label": "Beginning",
-            "headline": "The first Steelhead are beginning to enter the river.",
-            "whereToStart": "Lower migratory river from Pere Marquette Lake toward Scottville: travel lanes feeding the first deep bends, resting pockets, and current breaks.",
-            "detail": "Fresh fish may be present, but numbers are still scattered and can arrive in uneven waves before the broader fall fishery develops.",
-            "tip": "Cover lower travel water and its first dependable resting holes, then move upstream only after those entry sections have been checked.",
+            "headline": "Seasonal timing supports the first Steelhead entering the Lower river.",
+            "detail": "This is the opening river phase. Presence is expected to be scattered and uneven.",
+            "tip": "Cover the Lower river first. Move upstream only after direct fish activity supports it.",
+            "whereToStart": "Start in the Lower river (Pere Marquette Lake–Scottville).",
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "conditionsSuggest": {
             "label": "Typical",
@@ -9716,16 +9029,1161 @@ const GROUP_SEEDS = [
               "2026-09-18": "16:00",
               "2026-09-19": "16:00"
             },
-            "headline": "The migration appears to be progressing at a normal seasonal pace.",
-            "detail": "River rises and cooling are close to what is usually seen by this point in the season.",
-            "tip": "Fish the core river section identified by Migration Stage. Begin where a travel lane feeds established holding water, then adjust presentation—not seasonal location—using Fishability.",
+            "headline": "The PM migration is progressing at its usual seasonal pace.",
+            "detail": "Season-to-date Scottville river-rise activity and M-37 cooling are close to the usual PM pattern.",
+            "tip": "Keep the PM section named by Migration Stage.",
             "reasonCodes": [
               "gauge_fresh",
               "temperature_measured",
               "conditions_checkpoint_river_start",
               "conditions_typical"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
+          },
+          "pushHistory": {
+            "status": "none_recorded",
+            "minimumSupportiveScore": 50,
+            "trackingStartDate": "2026-09-20",
+            "trackingEndDate": "2026-12-22",
+            "throughDate": "2026-09-20",
+            "recentDailyReadsStatus": "available",
+            "recentDailyReads": []
+          },
+          "fishInRiver": {
+            "score": 8,
+            "displayScore": 10,
+            "scoreIsApproximate": true,
+            "stage": "beginning",
+            "maximum": 100,
+            "riverCeiling": 80,
+            "historicalRunStrength": "strong",
+            "curveFraction": 0.1,
+            "curveDirection": "rising",
+            "winterHoldingContext": false,
+            "label": "Low presence",
+            "headline": "Steelhead seasonal presence is low presence and building.",
+            "detail": "Calendar timing places Steelhead presence at low presence, increasing as the fall migration builds. For the PM, expected run strength is Strong, and the opportunity can extend across broadly accessible water. This is not a live fish count or today’s conditions.",
+            "tip": "Use Migration Stage to choose a section. Use Push and Activity for current movement support and responsiveness.",
+            "reasonCodes": [
+              "stage_beginning",
+              "historical_presence_curve"
+            ],
+            "copyVersion": "river-run-copy-v29"
+          },
+          "gauge": {
+            "provider": "USGS",
+            "siteId": "04122500",
+            "primaryMetric": "flow_cfs",
+            "observedAt": "2026-09-20T19:45:00.000Z",
+            "value": 600,
+            "band": "ideal",
+            "trend": "stable",
+            "absoluteChange24h": 0,
+            "percentChange24h": 0
+          },
+          "waterTemperature": {
+            "provider": "MONITOR_MY_WATERSHED",
+            "sourceId": "pmtu_maple_leaf",
+            "siteId": "PMTU-MapleLeaf",
+            "seriesId": "4939",
+            "observedAt": "2026-09-20T19:30:00.000Z",
+            "waterTempF": 60,
+            "trend": "steady",
+            "sourceType": "same_gauge",
+            "attribution": "Measured water temperature"
+          },
+          "conditionsWaterTemperature": {
+            "provider": "MONITOR_MY_WATERSHED",
+            "sourceId": "pmtu_m37",
+            "siteId": "PMTU-M37",
+            "seriesId": "3201",
+            "observedAt": "2026-09-20T19:30:00.000Z",
+            "waterTempF": 60,
+            "trend": "steady",
+            "sourceType": "same_gauge",
+            "attribution": "Measured water temperature"
+          },
+          "interpretationNote": {
+            "headline": "The river should fish well, but seasonal fish presence is still low.",
+            "detail": "Good flow makes presentations easier, but it does not put fish in the river. Stay low, fish the first travel lane entering deep resting water, make one complete pass, and move instead of waiting for numbers that have not developed.",
+            "reasonCodes": [
+              "good_fishability_low_presence"
+            ]
+          }
+        }
+      },
+      {
+        "id": "push_complete",
+        "label": "Migration complete",
+        "note": "Canonical production copy",
+        "snapshotOverride": {
+          "localDate": "2026-12-23",
+          "progressionSnapshotAt": "2026-12-23T12:00:00.000Z",
+          "conditionRefreshAt": "2026-12-23T20:00:00.000Z",
+          "progressionExpiresAt": "2026-12-23T23:59:59.000Z",
+          "nextConditionRefreshAt": "2026-12-23T22:00:00.000Z",
+          "runStage": {
+            "stage": "post_run",
+            "copyStrategy": "pere_marquette",
+            "stagingContext": false,
+            "broadBuildingContext": false,
+            "winterHoldingContext": false,
+            "window": {
+              "snapshotDate": "2026-12-23",
+              "preRunStartDate": "2026-08-15",
+              "stagingStartDate": "2026-09-01",
+              "startDate": "2026-09-20",
+              "beginningEndDate": "2026-10-10",
+              "buildingEstablishedStartDate": "2026-10-15",
+              "buildingBroadStartDate": "2026-11-01",
+              "peakStartDate": "2026-11-15",
+              "peakDate": "2026-11-15",
+              "peakEndDate": "2026-12-04",
+              "taperingEndDate": "2026-12-19",
+              "endDate": "2026-12-22",
+              "lateEndDate": "2026-12-23",
+              "postRunLateCopyEndDate": "2026-12-24",
+              "startToPeakDays": 56,
+              "peakToEndDays": 37
+            },
+            "label": "Fall entry complete",
+            "headline": "PM Steelhead fall entry is complete.",
+            "detail": "Steelhead may remain in the river. This fall-entry model no longer scores their current presence or activity.",
+            "tip": "Check back in early September when PM fall movement tracking resumes.",
+            "whereToStart": "There is no active PM starting section in this fall-entry model.",
+            "reasonCodes": [
+              "stage_post_run",
+              "stage_offseason"
+            ],
+            "copyVersion": "river-run-copy-v29"
+          },
+          "conditionsSuggest": {
+            "label": "Timing complete",
+            "timingLabel": "Ahead",
+            "candidateLabel": "Ahead",
+            "checkpointId": "peak_complete",
+            "checkpointDate": "2026-11-21",
+            "cutoffDate": "2026-11-20",
+            "observationStartDate": "2026-09-01",
+            "completedCheckpointCount": 5,
+            "currentIndex": 92.5,
+            "currentPercentile": 100,
+            "gaugeResponsePercentile": 100,
+            "waterTemperaturePercentile": 87.5,
+            "usableDays": 81,
+            "expectedDays": 81,
+            "coveragePercent": 1,
+            "historicalYears": 5,
+            "baselineVersion": "pm-fall-steelhead-conditions-v2",
+            "gaugeSiteId": "04122500",
+            "temperatureSourceId": "pm_m37_temperature",
+            "sourceDates": [
+              "2026-09-01",
+              "2026-09-02",
+              "2026-09-03",
+              "2026-09-04",
+              "2026-09-05",
+              "2026-09-06",
+              "2026-09-07",
+              "2026-09-08",
+              "2026-09-09",
+              "2026-09-10",
+              "2026-09-11",
+              "2026-09-12",
+              "2026-09-13",
+              "2026-09-14",
+              "2026-09-15",
+              "2026-09-16",
+              "2026-09-17",
+              "2026-09-18",
+              "2026-09-19",
+              "2026-09-20",
+              "2026-09-21",
+              "2026-09-22",
+              "2026-09-23",
+              "2026-09-24",
+              "2026-09-25",
+              "2026-09-26",
+              "2026-09-27",
+              "2026-09-28",
+              "2026-09-29",
+              "2026-09-30",
+              "2026-10-01",
+              "2026-10-02",
+              "2026-10-03",
+              "2026-10-04",
+              "2026-10-05",
+              "2026-10-06",
+              "2026-10-07",
+              "2026-10-08",
+              "2026-10-09",
+              "2026-10-10",
+              "2026-10-11",
+              "2026-10-12",
+              "2026-10-13",
+              "2026-10-14",
+              "2026-10-15",
+              "2026-10-16",
+              "2026-10-17",
+              "2026-10-18",
+              "2026-10-19",
+              "2026-10-20",
+              "2026-10-21",
+              "2026-10-22",
+              "2026-10-23",
+              "2026-10-24",
+              "2026-10-25",
+              "2026-10-26",
+              "2026-10-27",
+              "2026-10-28",
+              "2026-10-29",
+              "2026-10-30",
+              "2026-10-31",
+              "2026-11-01",
+              "2026-11-02",
+              "2026-11-03",
+              "2026-11-04",
+              "2026-11-05",
+              "2026-11-06",
+              "2026-11-07",
+              "2026-11-08",
+              "2026-11-09",
+              "2026-11-10",
+              "2026-11-11",
+              "2026-11-12",
+              "2026-11-13",
+              "2026-11-14",
+              "2026-11-15",
+              "2026-11-16",
+              "2026-11-17",
+              "2026-11-18",
+              "2026-11-19",
+              "2026-11-20"
+            ],
+            "sourceRefreshSlots": {
+              "2026-09-01": "16:00",
+              "2026-09-02": "16:00",
+              "2026-09-03": "16:00",
+              "2026-09-04": "16:00",
+              "2026-09-05": "16:00",
+              "2026-09-06": "16:00",
+              "2026-09-07": "16:00",
+              "2026-09-08": "16:00",
+              "2026-09-09": "16:00",
+              "2026-09-10": "16:00",
+              "2026-09-11": "16:00",
+              "2026-09-12": "16:00",
+              "2026-09-13": "16:00",
+              "2026-09-14": "16:00",
+              "2026-09-15": "16:00",
+              "2026-09-16": "16:00",
+              "2026-09-17": "16:00",
+              "2026-09-18": "16:00",
+              "2026-09-19": "16:00",
+              "2026-09-20": "16:00",
+              "2026-09-21": "16:00",
+              "2026-09-22": "16:00",
+              "2026-09-23": "16:00",
+              "2026-09-24": "16:00",
+              "2026-09-25": "16:00",
+              "2026-09-26": "16:00",
+              "2026-09-27": "16:00",
+              "2026-09-28": "16:00",
+              "2026-09-29": "16:00",
+              "2026-09-30": "16:00",
+              "2026-10-01": "16:00",
+              "2026-10-02": "16:00",
+              "2026-10-03": "16:00",
+              "2026-10-04": "16:00",
+              "2026-10-05": "16:00",
+              "2026-10-06": "16:00",
+              "2026-10-07": "16:00",
+              "2026-10-08": "16:00",
+              "2026-10-09": "16:00",
+              "2026-10-10": "16:00",
+              "2026-10-11": "16:00",
+              "2026-10-12": "16:00",
+              "2026-10-13": "16:00",
+              "2026-10-14": "16:00",
+              "2026-10-15": "16:00",
+              "2026-10-16": "16:00",
+              "2026-10-17": "16:00",
+              "2026-10-18": "16:00",
+              "2026-10-19": "16:00",
+              "2026-10-20": "16:00",
+              "2026-10-21": "16:00",
+              "2026-10-22": "16:00",
+              "2026-10-23": "16:00",
+              "2026-10-24": "16:00",
+              "2026-10-25": "16:00",
+              "2026-10-26": "16:00",
+              "2026-10-27": "16:00",
+              "2026-10-28": "16:00",
+              "2026-10-29": "16:00",
+              "2026-10-30": "16:00",
+              "2026-10-31": "16:00",
+              "2026-11-01": "16:00",
+              "2026-11-02": "16:00",
+              "2026-11-03": "16:00",
+              "2026-11-04": "16:00",
+              "2026-11-05": "16:00",
+              "2026-11-06": "16:00",
+              "2026-11-07": "16:00",
+              "2026-11-08": "16:00",
+              "2026-11-09": "16:00",
+              "2026-11-10": "16:00",
+              "2026-11-11": "16:00",
+              "2026-11-12": "16:00",
+              "2026-11-13": "16:00",
+              "2026-11-14": "16:00",
+              "2026-11-15": "16:00",
+              "2026-11-16": "16:00",
+              "2026-11-17": "16:00",
+              "2026-11-18": "16:00",
+              "2026-11-19": "16:00",
+              "2026-11-20": "16:00"
+            },
+            "headline": "PM fall-entry Migration Timing is complete.",
+            "detail": "Earlier in fall, PM migration timing was earlier than usual. The fall-entry timing window is now complete.",
+            "tip": "Do not use completed fall timing to infer current presence or activity. PM fall monitoring resumes in early September.",
+            "reasonCodes": [
+              "gauge_fresh",
+              "temperature_measured",
+              "conditions_checkpoint_peak_complete",
+              "conditions_ahead",
+              "conditions_timing_complete"
+            ],
+            "copyVersion": "river-run-copy-v29",
+            "previousCheckpointId": "peak_start",
+            "previousCheckpointDate": "2026-11-15",
+            "previousTimingLabel": "Ahead"
+          },
+          "push": {
+            "score": null,
+            "label": "Fall entry complete",
+            "headline": "PM Steelhead fall-entry Push is complete.",
+            "detail": "Current water may affect Steelhead still in the river. This fall model no longer scores fresh-entry support.",
+            "tip": "Do not use a muted fall Push as evidence that Steelhead left the river. Check back in early September.",
+            "reasonCodes": [
+              "push_tracking_complete"
+            ],
+            "rulesVersion": "pm-fall-steelhead-push-v1",
+            "copyVersion": "river-run-copy-v29"
+          },
+          "pushHistory": {
+            "status": "complete",
+            "minimumSupportiveScore": 50,
+            "trackingStartDate": "2026-09-20",
+            "trackingEndDate": "2026-12-22",
+            "throughDate": "2026-12-22",
+            "recentDailyReadsStatus": "available",
+            "recentDailyReads": [
+              {
+                "localDate": "2026-12-22",
+                "status": "no_supportive_window",
+                "score": null,
+                "label": "No supportive window"
+              },
+              {
+                "localDate": "2026-12-21",
+                "status": "no_supportive_window",
+                "score": null,
+                "label": "No supportive window"
+              },
+              {
+                "localDate": "2026-12-20",
+                "status": "supportive_window",
+                "refreshSlot": "08:00",
+                "conditionRefreshAt": "2026-12-20T23:59:00.000Z",
+                "score": 63,
+                "label": "Possible"
+              },
+              {
+                "localDate": "2026-12-19",
+                "status": "no_supportive_window",
+                "score": null,
+                "label": "No supportive window"
+              },
+              {
+                "localDate": "2026-12-18",
+                "status": "supportive_window",
+                "refreshSlot": "20:00",
+                "conditionRefreshAt": "2026-12-18T23:59:00.000Z",
+                "score": 81,
+                "label": "Strong"
+              },
+              {
+                "localDate": "2026-12-17",
+                "status": "supportive_window",
+                "refreshSlot": "16:00",
+                "conditionRefreshAt": "2026-12-17T23:59:00.000Z",
+                "score": 63,
+                "label": "Possible"
+              },
+              {
+                "localDate": "2026-12-16",
+                "status": "no_supportive_window",
+                "score": null,
+                "label": "No supportive window"
+              }
+            ]
+          },
+          "fishInRiver": {
+            "score": null,
+            "scoreIsApproximate": false,
+            "stage": "post_run",
+            "maximum": 100,
+            "riverCeiling": 80,
+            "historicalRunStrength": "strong",
+            "curveFraction": 0,
+            "curveDirection": "outside",
+            "winterHoldingContext": false,
+            "label": "Fall entry complete",
+            "headline": "PM Steelhead fall entry is complete.",
+            "detail": "Steelhead may remain in the river. This fall-entry model no longer estimates their current seasonal presence.",
+            "tip": "Check back in early September when PM fall movement tracking resumes.",
+            "reasonCodes": [
+              "stage_post_run",
+              "historical_presence_curve"
+            ],
+            "copyVersion": "river-run-copy-v29"
+          },
+          "gauge": {
+            "provider": "USGS",
+            "siteId": "04122500",
+            "primaryMetric": "flow_cfs",
+            "observedAt": "2026-12-23T19:45:00.000Z",
+            "value": 600,
+            "band": "ideal",
+            "trend": "stable",
+            "absoluteChange24h": 0,
+            "percentChange24h": 0
+          },
+          "waterTemperature": {
+            "provider": "MONITOR_MY_WATERSHED",
+            "sourceId": "pmtu_maple_leaf",
+            "siteId": "PMTU-MapleLeaf",
+            "seriesId": "4939",
+            "observedAt": "2026-12-23T19:30:00.000Z",
+            "waterTempF": 60,
+            "trend": "steady",
+            "sourceType": "same_gauge",
+            "attribution": "Measured water temperature"
+          },
+          "conditionsWaterTemperature": {
+            "provider": "MONITOR_MY_WATERSHED",
+            "sourceId": "pmtu_m37",
+            "siteId": "PMTU-M37",
+            "seriesId": "3201",
+            "observedAt": "2026-12-23T19:30:00.000Z",
+            "waterTempF": 60,
+            "trend": "steady",
+            "sourceType": "same_gauge",
+            "attribution": "Measured water temperature"
+          }
+        }
+      }
+    ]
+  },
+  {
+    "id": "fishability",
+    "label": "Fishability",
+    "scenarios": [
+      {
+        "id": "fishability_very_low",
+        "label": "Tough · very low",
+        "note": "Canonical production copy",
+        "snapshotOverride": {
+          "fishability": {
+            "score": 40,
+            "label": "Tough",
+            "headline": "Very low Scottville flow leaves limited depth and cover.",
+            "detail": "Unusually low flow concentrates useful depth into fewer places. Stable flow should keep presentation lanes consistent. This read applies to the Lower river (Pere Marquette Lake–Scottville), not the full PM.",
+            "tip": "Use the deepest connected water and keep disturbance low.",
+            "reasonCodes": [
+              "gauge_fresh",
+              "very_low_flow_band",
+              "fishability_very_low_cap"
+            ],
+            "components": {
+              "bandBase": 35,
+              "trendModifier": 5,
+              "appliedCaps": []
+            },
+            "rulesVersion": "pm-scottville-fishability-v2",
+            "copyVersion": "river-run-copy-v29"
+          }
+        }
+      },
+      {
+        "id": "fishability_low",
+        "label": "Fishable · low",
+        "note": "Canonical production copy",
+        "snapshotOverride": {
+          "fishability": {
+            "score": 60,
+            "label": "Fishable",
+            "headline": "Low Scottville flow remains workable with less depth and cover.",
+            "detail": "Lower flow reduces depth and cover across the reach. Stable flow should keep presentation lanes consistent. This read applies to the Lower river (Pere Marquette Lake–Scottville), not the full PM.",
+            "tip": "Prioritize deeper seams and current breaks with enough cover.",
+            "reasonCodes": [
+              "gauge_fresh",
+              "low_flow_band"
+            ],
+            "components": {
+              "bandBase": 55,
+              "trendModifier": 5,
+              "appliedCaps": []
+            },
+            "rulesVersion": "pm-scottville-fishability-v2",
+            "copyVersion": "river-run-copy-v29"
+          }
+        }
+      },
+      {
+        "id": "fishability_normal",
+        "label": "Good · normal",
+        "note": "Canonical production copy",
+        "snapshotOverride": {
+          "fishability": {
+            "score": 75,
+            "label": "Good",
+            "headline": "Scottville flow is in a comfortable presentation range.",
+            "detail": "The flow band supports readable lanes, seams, and holding water. Stable flow should keep presentation lanes consistent. This read applies to the Lower river (Pere Marquette Lake–Scottville), not the full PM.",
+            "tip": "Cover readable seams and holding water with a controlled presentation.",
+            "reasonCodes": [
+              "gauge_fresh",
+              "normal_flow_band"
+            ],
+            "components": {
+              "bandBase": 70,
+              "trendModifier": 5,
+              "appliedCaps": []
+            },
+            "rulesVersion": "pm-scottville-fishability-v2",
+            "copyVersion": "river-run-copy-v29"
+          }
+        }
+      },
+      {
+        "id": "fishability_ideal",
+        "label": "Excellent · ideal",
+        "note": "Canonical production copy",
+        "snapshotOverride": {}
+      },
+      {
+        "id": "fishability_high",
+        "label": "Fishable · high",
+        "note": "Canonical production copy",
+        "snapshotOverride": {
+          "fishability": {
+            "score": 73,
+            "label": "Good",
+            "headline": "High Scottville flow remains fishable in slower water.",
+            "detail": "Higher flow pushes useful presentation water toward softer edges. Stable flow should keep presentation lanes consistent. This read applies to the Lower river (Pere Marquette Lake–Scottville), not the full PM.",
+            "tip": "Prioritize inside seams, protected edges, and current breaks.",
+            "reasonCodes": [
+              "gauge_fresh",
+              "high_fishable_flow_band"
+            ],
+            "components": {
+              "bandBase": 68,
+              "trendModifier": 5,
+              "appliedCaps": []
+            },
+            "rulesVersion": "pm-scottville-fishability-v2",
+            "copyVersion": "river-run-copy-v29"
+          }
+        }
+      },
+      {
+        "id": "fishability_very_high",
+        "label": "Tough · very high",
+        "note": "Canonical production copy",
+        "snapshotOverride": {
+          "fishability": {
+            "score": 45,
+            "label": "Tough",
+            "headline": "Very high Scottville flow leaves little controllable presentation water.",
+            "detail": "Very high flow compresses controllable water into the slowest protected edges. Stable flow should keep presentation lanes consistent. This read applies to the Lower river (Pere Marquette Lake–Scottville), not the full PM.",
+            "tip": "Favor protected margins and short controlled presentations. Choose another day if control is not dependable.",
+            "reasonCodes": [
+              "gauge_fresh",
+              "very_high_flow_band"
+            ],
+            "components": {
+              "bandBase": 40,
+              "trendModifier": 5,
+              "appliedCaps": []
+            },
+            "rulesVersion": "pm-scottville-fishability-v2",
+            "copyVersion": "river-run-copy-v29"
+          }
+        }
+      },
+      {
+        "id": "fishability_blown",
+        "label": "Poor · blown out",
+        "note": "Canonical production copy",
+        "snapshotOverride": {
+          "fishability": {
+            "score": 20,
+            "label": "Poor",
+            "headline": "Scottville flow is blown out for a dependable presentation plan.",
+            "detail": "Excessive flow overwhelms normal lanes and presentation control. Stable flow should keep presentation lanes consistent. This read applies to the Lower river (Pere Marquette Lake–Scottville), not the full PM.",
+            "tip": "Choose another day and verify current conditions through authoritative local sources.",
+            "reasonCodes": [
+              "gauge_fresh",
+              "blown_out_flow_band",
+              "fishability_blown_out_cap"
+            ],
+            "components": {
+              "bandBase": 15,
+              "trendModifier": 5,
+              "appliedCaps": []
+            },
+            "rulesVersion": "pm-scottville-fishability-v2",
+            "copyVersion": "river-run-copy-v29"
+          }
+        }
+      },
+      {
+        "id": "fishability_falling",
+        "label": "Trend · falling",
+        "note": "Canonical production copy",
+        "snapshotOverride": {
+          "fishability": {
+            "score": 90,
+            "label": "Excellent",
+            "headline": "Scottville flow is in its best presentation range.",
+            "detail": "The flow band offers the broadest mix of depth, seams, and presentation control. Falling flow should sharpen established seams as the reach settles. This read applies to the Lower river (Pere Marquette Lake–Scottville), not the full PM.",
+            "tip": "Cover readable seams and holding water with a controlled presentation.",
+            "reasonCodes": [
+              "gauge_fresh",
+              "ideal_flow_band"
+            ],
+            "components": {
+              "bandBase": 88,
+              "trendModifier": 2,
+              "appliedCaps": []
+            },
+            "rulesVersion": "pm-scottville-fishability-v2",
+            "copyVersion": "river-run-copy-v29"
+          }
+        }
+      },
+      {
+        "id": "fishability_rising",
+        "label": "Trend · early rise",
+        "note": "Canonical production copy",
+        "snapshotOverride": {
+          "fishability": {
+            "score": 88,
+            "label": "Excellent",
+            "headline": "Scottville flow is in its best presentation range.",
+            "detail": "The flow band offers the broadest mix of depth, seams, and presentation control. Rising flow is beginning to shift lanes toward softer edges. This read applies to the Lower river (Pere Marquette Lake–Scottville), not the full PM.",
+            "tip": "Cover readable seams and holding water with a controlled presentation.",
+            "reasonCodes": [
+              "gauge_fresh",
+              "ideal_flow_band"
+            ],
+            "components": {
+              "bandBase": 88,
+              "trendModifier": 0,
+              "appliedCaps": []
+            },
+            "rulesVersion": "pm-scottville-fishability-v2",
+            "copyVersion": "river-run-copy-v29"
+          }
+        }
+      },
+      {
+        "id": "fishability_meaningful",
+        "label": "Trend · meaningful rise",
+        "note": "Canonical production copy",
+        "snapshotOverride": {
+          "fishability": {
+            "score": 60,
+            "label": "Fishable",
+            "headline": "High Scottville flow remains fishable in slower water.",
+            "detail": "Higher flow pushes useful presentation water toward softer edges. A clear rise is moving controllable presentations toward inside seams and current breaks. This read applies to the Lower river (Pere Marquette Lake–Scottville), not the full PM.",
+            "tip": "Prioritize inside seams, protected edges, and current breaks.",
+            "reasonCodes": [
+              "gauge_fresh",
+              "high_fishable_flow_band"
+            ],
+            "components": {
+              "bandBase": 68,
+              "trendModifier": -8,
+              "appliedCaps": []
+            },
+            "rulesVersion": "pm-scottville-fishability-v2",
+            "copyVersion": "river-run-copy-v29"
+          }
+        }
+      },
+      {
+        "id": "fishability_sharp",
+        "label": "Trend · sharp rise",
+        "note": "Canonical production copy",
+        "snapshotOverride": {
+          "fishability": {
+            "score": 40,
+            "label": "Tough",
+            "headline": "High Scottville flow remains fishable in slower water.",
+            "detail": "Higher flow pushes useful presentation water toward softer edges. A fast rise is quickly replacing settled lanes with heavier current. This read applies to the Lower river (Pere Marquette Lake–Scottville), not the full PM.",
+            "tip": "Favor protected margins and short controlled presentations. Choose another day if control is not dependable.",
+            "reasonCodes": [
+              "gauge_fresh",
+              "high_fishable_flow_band",
+              "fishability_sharp_rise_high_cap"
+            ],
+            "components": {
+              "bandBase": 68,
+              "trendModifier": -20,
+              "appliedCaps": [
+                40
+              ]
+            },
+            "rulesVersion": "pm-scottville-fishability-v2",
+            "copyVersion": "river-run-copy-v29"
+          }
+        }
+      },
+      {
+        "id": "fishability_unknown",
+        "label": "Trend · unresolved",
+        "note": "Canonical production copy",
+        "snapshotOverride": {
+          "fishability": {
+            "score": 69,
+            "label": "Fishable",
+            "headline": "Scottville flow is workable, but its direction is unknown.",
+            "detail": "The flow band offers the broadest mix of depth, seams, and presentation control. Recent Scottville history cannot show whether presentation water is improving or worsening. This read applies to the Lower river (Pere Marquette Lake–Scottville), not the full PM.",
+            "tip": "Cover readable seams and holding water with a controlled presentation.",
+            "reasonCodes": [
+              "gauge_fresh",
+              "ideal_flow_band",
+              "fishability_unknown_trend_cap"
+            ],
+            "components": {
+              "bandBase": 88,
+              "trendModifier": -10,
+              "appliedCaps": [
+                69
+              ]
+            },
+            "rulesVersion": "pm-scottville-fishability-v2",
+            "copyVersion": "river-run-copy-v29"
+          }
+        }
+      },
+      {
+        "id": "fishability_stale",
+        "label": "Gauge · stale",
+        "note": "Canonical production copy",
+        "snapshotOverride": {
+          "fishability": {
+            "score": 55,
+            "label": "Fishable",
+            "headline": "The aging Scottville reading limits confidence in Lower river Fishability.",
+            "detail": "The flow band offers the broadest mix of depth, seams, and presentation control. The river may have changed since the last Scottville reading. This read applies to the Lower river (Pere Marquette Lake–Scottville), not the full PM.",
+            "tip": "Cover readable seams and holding water with a controlled presentation.",
+            "reasonCodes": [
+              "gauge_stale",
+              "ideal_flow_band",
+              "fishability_stale_gauge_cap"
+            ],
+            "components": {
+              "bandBase": 88,
+              "trendModifier": 5,
+              "appliedCaps": [
+                55
+              ]
+            },
+            "rulesVersion": "pm-scottville-fishability-v2",
+            "copyVersion": "river-run-copy-v29"
+          }
+        }
+      },
+      {
+        "id": "fishability_unavailable_gauge",
+        "label": "Unavailable · gauge",
+        "note": "Canonical production copy",
+        "snapshotOverride": {
+          "fishability": {
+            "score": null,
+            "label": "Unavailable",
+            "headline": "A current Scottville reading is unavailable.",
+            "detail": "Without current Scottville flow and direction, Lower river presentation conditions cannot be determined.",
+            "tip": "Do not extend an old or missing Scottville read across the PM. Use current authoritative local information.",
+            "reasonCodes": [
+              "gauge_missing"
+            ],
+            "rulesVersion": "pm-scottville-fishability-v2",
+            "copyVersion": "river-run-copy-v29"
+          }
+        }
+      },
+      {
+        "id": "fishability_unavailable_band",
+        "label": "Unavailable · river bands",
+        "note": "Canonical production copy",
+        "snapshotOverride": {
+          "fishability": {
+            "score": null,
+            "label": "Unavailable",
+            "headline": "Scottville does not have an accepted Fishability band for this read.",
+            "detail": "Without accepted local bands, Scottville flow cannot be translated into Lower river presentation conditions.",
+            "tip": "Do not extend an old or missing Scottville read across the PM. Use current authoritative local information.",
+            "reasonCodes": [
+              "gauge_fresh",
+              "baseline_missing"
+            ],
+            "rulesVersion": "pm-scottville-fishability-v2",
+            "copyVersion": "river-run-copy-v29"
+          }
+        }
+      }
+    ]
+  },
+  {
+    "id": "activity",
+    "label": "Activity Outlook",
+    "scenarios": [
+      {
+        "id": "activity_staging",
+        "label": "Staging · conditional early fish",
+        "note": "Canonical production copy",
+        "snapshotOverride": {
+          "localDate": "2026-09-01",
+          "progressionSnapshotAt": "2026-09-01T12:00:00.000Z",
+          "conditionRefreshAt": "2026-09-01T20:00:00.000Z",
+          "progressionExpiresAt": "2026-09-01T23:59:59.000Z",
+          "nextConditionRefreshAt": "2026-09-01T22:00:00.000Z",
+          "runStage": {
+            "stage": "pre_run",
+            "copyStrategy": "pere_marquette",
+            "stagingContext": true,
+            "broadBuildingContext": false,
+            "winterHoldingContext": false,
+            "window": {
+              "snapshotDate": "2026-09-01",
+              "preRunStartDate": "2026-08-15",
+              "stagingStartDate": "2026-09-01",
+              "startDate": "2026-09-20",
+              "beginningEndDate": "2026-10-10",
+              "buildingEstablishedStartDate": "2026-10-15",
+              "buildingBroadStartDate": "2026-11-01",
+              "peakStartDate": "2026-11-15",
+              "peakDate": "2026-11-15",
+              "peakEndDate": "2026-12-04",
+              "taperingEndDate": "2026-12-19",
+              "endDate": "2026-12-22",
+              "lateEndDate": "2026-12-23",
+              "postRunLateCopyEndDate": "2026-12-24",
+              "startToPeakDays": 56,
+              "peakToEndDays": 37
+            },
+            "label": "Before migration",
+            "headline": "Steelhead may be staging near the PM mouth, but dependable river entry has not begun.",
+            "detail": "Seasonal timing supports nearby-lake staging. Any Steelhead already in the Lower river would be an early exception.",
+            "tip": "Keep the river check brief. Do not move into the Middle or Upper river from calendar timing alone.",
+            "whereToStart": "Start at Pere Marquette Lake and the river mouth. Add the Lower river (Pere Marquette Lake–Scottville) only for an early-fish check.",
+            "reasonCodes": [
+              "stage_pre_run",
+              "stage_pre_run_staging"
+            ],
+            "copyVersion": "river-run-copy-v29"
+          },
+          "conditionsSuggest": {
+            "label": "Evaluating",
+            "timingLabel": null,
+            "candidateLabel": null,
+            "observationStartDate": "2026-09-01",
+            "nextCheckpointDate": "2026-09-20",
+            "completedCheckpointCount": 0,
+            "currentIndex": null,
+            "currentPercentile": null,
+            "gaugeResponsePercentile": null,
+            "waterTemperaturePercentile": null,
+            "usableDays": 0,
+            "expectedDays": 0,
+            "coveragePercent": 0,
+            "historicalYears": 0,
+            "sourceDates": [],
+            "sourceRefreshSlots": {},
+            "headline": "PM Migration Timing is still taking shape.",
+            "detail": "Scottville river-rise activity and M-37 cooling do not yet support an Ahead, Typical, or Delayed call.",
+            "tip": "Keep the section named by Migration Stage. Do not shift PM sections until this read has enough evidence.",
+            "reasonCodes": [
+              "conditions_checkpoint_evaluating"
+            ],
+            "copyVersion": "river-run-copy-v29"
+          },
+          "push": {
+            "score": null,
+            "label": "Waiting for migration",
+            "headline": "Dependable PM Steelhead fall entry has not started.",
+            "detail": "Rain, Scottville flow, and water temperature are not scored as an in-season movement signal yet.",
+            "tip": "Use Migration Stage. Do not move inland because offseason water resembles an in-season Push.",
+            "reasonCodes": [
+              "push_tracking_not_started"
+            ],
+            "rulesVersion": "pm-fall-steelhead-push-v1",
+            "copyVersion": "river-run-copy-v29"
+          },
+          "pushHistory": {
+            "status": "not_started",
+            "minimumSupportiveScore": 50,
+            "trackingStartDate": "2026-09-20",
+            "trackingEndDate": "2026-12-22",
+            "throughDate": "2026-09-01",
+            "recentDailyReadsStatus": "available",
+            "recentDailyReads": []
+          },
+          "activity": {
+            "score": 20,
+            "maximum": 100,
+            "label": "Reserved",
+            "headline": "Today’s PM outlook is reserved, but dependable Steelhead presence has not begun.",
+            "detail": "Steelhead may respond selectively under the current limitations. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. This outlook applies only to an early Steelhead already in the PM river.",
+            "tip": "Fish one short test in 5–9 AM or 5–9 PM. Leave if direct response does not support the outlook.",
+            "reasonCodes": [
+              "activity_confidence_full",
+              "activity_today",
+              "activity_conditional_presence",
+              "activity_warm_water_cap"
+            ],
+            "rulesVersion": "pm-fall-steelhead-activity-v2",
+            "targetDate": "2026-09-01",
+            "targetDayLabel": "Today",
+            "confidence": "Full",
+            "conditionalPresence": true,
+            "blocks": [
+              {
+                "id": "05-09",
+                "label": "5–9 AM",
+                "score": 20,
+                "activityLabel": "Reserved",
+                "positiveDriver": "Clouds or lower light make this window more favorable.",
+                "limitingFactor": "Water temperature limits responsiveness.",
+                "cloudCoverPct": 80,
+                "precipitationIn": 0.01
+              },
+              {
+                "id": "09-13",
+                "label": "9 AM–1 PM",
+                "score": 18,
+                "activityLabel": "Inactive",
+                "positiveDriver": "The river level and its recent change are favorable.",
+                "limitingFactor": "Water temperature limits responsiveness.",
+                "cloudCoverPct": 80,
+                "precipitationIn": 0
+              },
+              {
+                "id": "13-17",
+                "label": "1–5 PM",
+                "score": 18,
+                "activityLabel": "Inactive",
+                "positiveDriver": "The river level and its recent change are favorable.",
+                "limitingFactor": "Water temperature limits responsiveness.",
+                "cloudCoverPct": 80,
+                "precipitationIn": 0
+              },
+              {
+                "id": "17-21",
+                "label": "5–9 PM",
+                "score": 20,
+                "activityLabel": "Reserved",
+                "positiveDriver": "Clouds or lower light make this window more favorable.",
+                "limitingFactor": "Water temperature limits responsiveness.",
+                "cloudCoverPct": 80,
+                "precipitationIn": 0
+              }
+            ],
+            "copyVersion": "river-run-copy-v29"
+          },
+          "fishInRiver": {
+            "score": 0,
+            "displayScore": 0,
+            "scoreIsApproximate": false,
+            "stage": "pre_run",
+            "maximum": 100,
+            "riverCeiling": 80,
+            "historicalRunStrength": "strong",
+            "curveFraction": 0,
+            "curveDirection": "outside",
+            "winterHoldingContext": false,
+            "label": "Not expected yet",
+            "headline": "Dependable Steelhead presence is not expected in the PM river yet.",
+            "detail": "The seasonal estimate remains at zero. Any fish already in the river would be an early exception.",
+            "tip": "Use Migration Stage for nearby staging context. Do not treat one early fish as a dependable river opportunity.",
+            "reasonCodes": [
+              "stage_pre_run",
+              "historical_presence_curve"
+            ],
+            "copyVersion": "river-run-copy-v29"
+          },
+          "gauge": {
+            "provider": "USGS",
+            "siteId": "04122500",
+            "primaryMetric": "flow_cfs",
+            "observedAt": "2026-09-01T19:45:00.000Z",
+            "value": 600,
+            "band": "ideal",
+            "trend": "stable",
+            "absoluteChange24h": 0,
+            "percentChange24h": 0
+          },
+          "waterTemperature": {
+            "provider": "MONITOR_MY_WATERSHED",
+            "sourceId": "pmtu_maple_leaf",
+            "siteId": "PMTU-MapleLeaf",
+            "seriesId": "4939",
+            "observedAt": "2026-09-01T19:30:00.000Z",
+            "waterTempF": 60,
+            "trend": "steady",
+            "sourceType": "same_gauge",
+            "attribution": "Measured water temperature"
+          },
+          "conditionsWaterTemperature": {
+            "provider": "MONITOR_MY_WATERSHED",
+            "sourceId": "pmtu_m37",
+            "siteId": "PMTU-M37",
+            "seriesId": "3201",
+            "observedAt": "2026-09-01T19:30:00.000Z",
+            "waterTempF": 60,
+            "trend": "steady",
+            "sourceType": "same_gauge",
+            "attribution": "Measured water temperature"
+          },
+          "interpretationNote": {
+            "headline": "The river should fish well, but seasonal fish presence is still low.",
+            "detail": "Good flow makes presentations easier, but it does not put fish in the river. Stay low, fish the first travel lane entering deep resting water, make one complete pass, and move instead of waiting for numbers that have not developed.",
+            "reasonCodes": [
+              "good_fishability_low_presence"
+            ]
+          }
+        }
+      },
+      {
+        "id": "activity_beginning_warm",
+        "label": "Beginning · temperature response",
+        "note": "Canonical production copy",
+        "snapshotOverride": {
+          "localDate": "2026-09-20",
+          "progressionSnapshotAt": "2026-09-20T12:00:00.000Z",
+          "conditionRefreshAt": "2026-09-20T20:00:00.000Z",
+          "progressionExpiresAt": "2026-09-20T23:59:59.000Z",
+          "nextConditionRefreshAt": "2026-09-20T22:00:00.000Z",
+          "runStage": {
+            "stage": "beginning",
+            "copyStrategy": "pere_marquette",
+            "stagingContext": false,
+            "broadBuildingContext": false,
+            "winterHoldingContext": false,
+            "window": {
+              "snapshotDate": "2026-09-20",
+              "preRunStartDate": "2026-08-15",
+              "stagingStartDate": "2026-09-01",
+              "startDate": "2026-09-20",
+              "beginningEndDate": "2026-10-10",
+              "buildingEstablishedStartDate": "2026-10-15",
+              "buildingBroadStartDate": "2026-11-01",
+              "peakStartDate": "2026-11-15",
+              "peakDate": "2026-11-15",
+              "peakEndDate": "2026-12-04",
+              "taperingEndDate": "2026-12-19",
+              "endDate": "2026-12-22",
+              "lateEndDate": "2026-12-23",
+              "postRunLateCopyEndDate": "2026-12-24",
+              "startToPeakDays": 56,
+              "peakToEndDays": 37
+            },
+            "label": "Beginning",
+            "headline": "Seasonal timing supports the first Steelhead entering the Lower river.",
+            "detail": "This is the opening river phase. Presence is expected to be scattered and uneven.",
+            "tip": "Cover the Lower river first. Move upstream only after direct fish activity supports it.",
+            "whereToStart": "Start in the Lower river (Pere Marquette Lake–Scottville).",
+            "reasonCodes": [
+              "stage_beginning"
+            ],
+            "copyVersion": "river-run-copy-v29"
+          },
+          "conditionsSuggest": {
+            "label": "Typical",
+            "timingLabel": "Typical",
+            "candidateLabel": "Typical",
+            "checkpointId": "river_start",
+            "checkpointDate": "2026-09-20",
+            "cutoffDate": "2026-09-19",
+            "observationStartDate": "2026-09-01",
+            "nextCheckpointDate": "2026-10-11",
+            "completedCheckpointCount": 1,
+            "currentIndex": 45.4,
+            "currentPercentile": 40,
+            "gaugeResponsePercentile": 40,
+            "waterTemperaturePercentile": 49,
+            "usableDays": 19,
+            "expectedDays": 19,
+            "coveragePercent": 1,
+            "historicalYears": 5,
+            "baselineVersion": "pm-fall-steelhead-conditions-v2",
+            "gaugeSiteId": "04122500",
+            "temperatureSourceId": "pm_m37_temperature",
+            "sourceDates": [
+              "2026-09-01",
+              "2026-09-02",
+              "2026-09-03",
+              "2026-09-04",
+              "2026-09-05",
+              "2026-09-06",
+              "2026-09-07",
+              "2026-09-08",
+              "2026-09-09",
+              "2026-09-10",
+              "2026-09-11",
+              "2026-09-12",
+              "2026-09-13",
+              "2026-09-14",
+              "2026-09-15",
+              "2026-09-16",
+              "2026-09-17",
+              "2026-09-18",
+              "2026-09-19"
+            ],
+            "sourceRefreshSlots": {
+              "2026-09-01": "16:00",
+              "2026-09-02": "16:00",
+              "2026-09-03": "16:00",
+              "2026-09-04": "16:00",
+              "2026-09-05": "16:00",
+              "2026-09-06": "16:00",
+              "2026-09-07": "16:00",
+              "2026-09-08": "16:00",
+              "2026-09-09": "16:00",
+              "2026-09-10": "16:00",
+              "2026-09-11": "16:00",
+              "2026-09-12": "16:00",
+              "2026-09-13": "16:00",
+              "2026-09-14": "16:00",
+              "2026-09-15": "16:00",
+              "2026-09-16": "16:00",
+              "2026-09-17": "16:00",
+              "2026-09-18": "16:00",
+              "2026-09-19": "16:00"
+            },
+            "headline": "The PM migration is progressing at its usual seasonal pace.",
+            "detail": "Season-to-date Scottville river-rise activity and M-37 cooling are close to the usual PM pattern.",
+            "tip": "Keep the PM section named by Migration Stage.",
+            "reasonCodes": [
+              "gauge_fresh",
+              "temperature_measured",
+              "conditions_checkpoint_river_start",
+              "conditions_typical"
+            ],
+            "copyVersion": "river-run-copy-v29"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -9740,9 +10198,9 @@ const GROUP_SEEDS = [
             "score": 20,
             "maximum": 100,
             "label": "Reserved",
-            "headline": "Today’s Steelhead activity outlook is reserved.",
-            "detail": "Fish may respond selectively, with important environmental limitations. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Water temperature limits responsiveness. Early fall Steelhead are entering with energy reserves intact. This score describes feeding or aggressive responsiveness for fish already in the river, not fresh movement. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
-            "tip": "Start with 5–9 AM. If conditions change, favor the window that best combines workable light with measured water temperature.",
+            "headline": "Today’s PM Steelhead responsiveness is reserved if fish are present.",
+            "detail": "Steelhead may respond selectively under the current limitations. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Full confidence uses current Scottville flow, measured PM temperature, and hourly weather.",
+            "tip": "Fish one short test in 5–9 AM or 5–9 PM. Leave if direct response does not support the outlook.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -9795,10 +10253,13 @@ const GROUP_SEEDS = [
                 "cloudCoverPct": 75,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v29"
           },
           "fishInRiver": {
             "score": 8,
+            "displayScore": 10,
+            "scoreIsApproximate": true,
             "stage": "beginning",
             "maximum": 100,
             "riverCeiling": 80,
@@ -9807,14 +10268,14 @@ const GROUP_SEEDS = [
             "curveDirection": "rising",
             "winterHoldingContext": false,
             "label": "Low presence",
-            "headline": "A small number of Steelhead may be in the river, and seasonal presence is still building.",
-            "detail": "This part of the season usually brings low presence, with more fish expected to enter and spread through the river. This is a seasonal estimate, not a live fish count.",
-            "tip": "Treat this as an early, low-odds river opportunity. Expect scattered results, and use direct fish activity before committing the full day.",
+            "headline": "Steelhead seasonal presence is low presence and building.",
+            "detail": "Calendar timing places Steelhead presence at low presence, increasing as the fall migration builds. For the PM, expected run strength is Strong, and the opportunity can extend across broadly accessible water. This is not a live fish count or today’s conditions.",
+            "tip": "Use Migration Stage to choose a section. Use Push and Activity for current movement support and responsiveness.",
             "reasonCodes": [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "gauge": {
             "provider": "USGS",
@@ -9859,6 +10320,74 @@ const GROUP_SEEDS = [
         }
       },
       {
+        "id": "activity_clear_morning_lead",
+        "label": "Building · clear strongest window",
+        "note": "Canonical production copy",
+        "snapshotOverride": {
+          "activity": {
+            "score": 75,
+            "maximum": 100,
+            "label": "Active",
+            "headline": "Today’s PM Steelhead responsiveness is active if fish are present.",
+            "detail": "Conditions support a meaningful Steelhead response if fish are present. 5–9 AM is strongest because the measured water temperature is favorable for steelhead. Full confidence uses current Scottville flow, measured PM temperature, and hourly weather.",
+            "tip": "Begin with 5–9 AM. Re-rank the blocks if light or weather changes materially.",
+            "reasonCodes": [
+              "activity_confidence_full",
+              "activity_today",
+              "activity_run_present"
+            ],
+            "rulesVersion": "pm-fall-steelhead-activity-v2",
+            "targetDate": "2026-10-15",
+            "targetDayLabel": "Today",
+            "confidence": "Full",
+            "conditionalPresence": false,
+            "blocks": [
+              {
+                "id": "05-09",
+                "label": "5–9 AM",
+                "score": 82,
+                "activityLabel": "Highly active",
+                "positiveDriver": "The measured water temperature is favorable for Steelhead.",
+                "limitingFactor": "Rain adds little extra cover.",
+                "cloudCoverPct": 100,
+                "precipitationIn": 0.02
+              },
+              {
+                "id": "09-13",
+                "label": "9 AM–1 PM",
+                "score": 68,
+                "activityLabel": "Active",
+                "positiveDriver": "The measured water temperature is favorable for Steelhead.",
+                "limitingFactor": "Brighter conditions are the main limitation.",
+                "cloudCoverPct": 25,
+                "precipitationIn": 0
+              },
+              {
+                "id": "13-17",
+                "label": "1–5 PM",
+                "score": 68,
+                "activityLabel": "Active",
+                "positiveDriver": "The measured water temperature is favorable for Steelhead.",
+                "limitingFactor": "Brighter conditions are the main limitation.",
+                "cloudCoverPct": 25,
+                "precipitationIn": 0
+              },
+              {
+                "id": "17-21",
+                "label": "5–9 PM",
+                "score": 72,
+                "activityLabel": "Active",
+                "positiveDriver": "The measured water temperature is favorable for Steelhead.",
+                "limitingFactor": "Heavier precipitation can unsettle presentation.",
+                "cloudCoverPct": 0,
+                "precipitationIn": 0.32
+              }
+            ],
+            "copyVersion": "river-run-copy-v29"
+          }
+        }
+      },
+      {
         "id": "activity_building_high",
         "label": "Building · highly active",
         "note": "Canonical production copy",
@@ -9867,9 +10396,9 @@ const GROUP_SEEDS = [
             "score": 77,
             "maximum": 100,
             "label": "Active",
-            "headline": "Today’s Steelhead activity outlook is active.",
-            "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 AM: The measured water temperature is favorable for Steelhead. The main limitation: Rain adds little extra cover. Steelhead are becoming more established through the river. The score describes feeding or aggressive responsiveness, while movement and abundance remain separate reads. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
-            "tip": "Start with 5–9 AM. If conditions change, favor the window that best combines workable light with measured water temperature.",
+            "headline": "Today’s PM Steelhead responsiveness is active if fish are present.",
+            "detail": "Conditions support a meaningful Steelhead response if fish are present. 5–9 AM and 1–5 PM are the leading windows, but neither has a clear advantage. Full confidence uses current Scottville flow, measured PM temperature, and hourly weather.",
+            "tip": "Choose between 5–9 AM and 1–5 PM using actual light and access. Neither has a dependable advantage.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -9921,7 +10450,8 @@ const GROUP_SEEDS = [
                 "cloudCoverPct": 100,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v29"
           }
         }
       },
@@ -9937,6 +10467,7 @@ const GROUP_SEEDS = [
           "nextConditionRefreshAt": "2026-11-15T22:00:00.000Z",
           "runStage": {
             "stage": "peak",
+            "copyStrategy": "pere_marquette",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -9959,14 +10490,14 @@ const GROUP_SEEDS = [
               "peakToEndDays": 37
             },
             "label": "Peak",
-            "headline": "This is typically the strongest and most dependable fall Steelhead opportunity.",
-            "whereToStart": "Compare substantial holding water in the middle river from Scottville through Walhalla and Branch with the upper river toward Baldwin/M-37; add lower travel lanes on a fresh Push.",
-            "detail": "Multiple waves have had time to spread from lower travel lanes into established middle- and upper-river holding water. Fish can be broadly distributed wherever passage is open.",
-            "tip": "Choose an accessible section and cover each substantial hole from the head through its seams and tail. Let Push decide whether lower travel lanes deserve extra time.",
+            "headline": "This is typically the PM’s strongest Steelhead migration window.",
+            "detail": "Seasonal timing supports the widest dependable Steelhead distribution. It does not confirm fish in every section.",
+            "tip": "Start in the Middle river. Compare the Upper river only after a complete first pass.",
+            "whereToStart": "Start in the Middle river (Scottville–Maple Leaf). Compare the Upper river (Maple Leaf–M-37) when direct fish activity favors it.",
             "reasonCodes": [
               "stage_peak"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "conditionsSuggest": {
             "label": "Ahead",
@@ -10143,16 +10674,16 @@ const GROUP_SEEDS = [
               "2026-11-13": "16:00",
               "2026-11-14": "16:00"
             },
-            "headline": "The migration appears to be developing earlier than usual.",
-            "detail": "The river has risen and cooled faster than it normally does by this point in the season.",
-            "tip": "Start one accessible river section farther upstream than you normally would for this date and prioritize established holding water. If Push is Possible or stronger, finish with lower travel lanes.",
+            "headline": "The PM migration is developing earlier than usual.",
+            "detail": "Season-to-date Scottville river-rise activity and M-37 cooling are stronger than the usual PM pattern.",
+            "tip": "Start one PM section upstream from Migration Stage, capped at the Upper river (Maple Leaf–M-37).",
             "reasonCodes": [
               "gauge_fresh",
               "temperature_measured",
               "conditions_checkpoint_peak_start",
               "conditions_ahead"
             ],
-            "copyVersion": "river-run-copy-v27",
+            "copyVersion": "river-run-copy-v29",
             "previousCheckpointId": "building_established",
             "previousCheckpointDate": "2026-10-15",
             "previousTimingLabel": "Ahead"
@@ -10219,9 +10750,9 @@ const GROUP_SEEDS = [
             "score": 78,
             "maximum": 100,
             "label": "Active",
-            "headline": "Today’s Steelhead activity outlook is active.",
-            "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 AM: The measured water temperature is favorable for Steelhead. The main limitation: Rain adds little extra cover. Broad fall presence can make Steelhead easier to locate, but this score measures feeding or aggressive responsiveness rather than how many fish are present. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
-            "tip": "Start with 5–9 AM. If conditions change, favor the window that best combines workable light with measured water temperature.",
+            "headline": "Today’s PM Steelhead responsiveness is active if fish are present.",
+            "detail": "Conditions support a meaningful Steelhead response if fish are present. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Full confidence uses current Scottville flow, measured PM temperature, and hourly weather.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light and access. Neither has a dependable advantage.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -10273,10 +10804,13 @@ const GROUP_SEEDS = [
                 "cloudCoverPct": 75,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v29"
           },
           "fishInRiver": {
             "score": 80,
+            "displayScore": 80,
+            "scoreIsApproximate": false,
             "stage": "peak",
             "maximum": 100,
             "riverCeiling": 80,
@@ -10285,14 +10819,14 @@ const GROUP_SEEDS = [
             "curveDirection": "near_peak",
             "winterHoldingContext": false,
             "label": "Peak presence",
-            "headline": "Steelhead are likely near their highest seasonal presence in the river.",
-            "detail": "This is the part of the season when in-river presence is usually strongest. The read describes the river as a whole; it does not place fish in a specific pool or confirm a live count.",
-            "tip": "Plan for the strongest seasonal presence this river usually offers, while remembering that this estimate cannot confirm fish at a specific spot or describe today's river conditions.",
+            "headline": "Steelhead seasonal presence is peak presence and near its seasonal high.",
+            "detail": "Calendar timing places Steelhead presence at its expected seasonal peak, near its expected seasonal high. For the PM, expected run strength is Strong, and the opportunity can extend across broadly accessible water. This is not a live fish count or today’s conditions.",
+            "tip": "Use Migration Stage to choose a section. Use Push and Activity for current movement support and responsiveness.",
             "reasonCodes": [
               "stage_peak",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "gauge": {
             "provider": "USGS",
@@ -10345,9 +10879,9 @@ const GROUP_SEEDS = [
             "score": 18,
             "maximum": 100,
             "label": "Inactive",
-            "headline": "Today’s Steelhead activity outlook is inactive.",
-            "detail": "Conditions provide little environmental support for an aggressive response. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Water temperature limits responsiveness. Steelhead are becoming more established through the river. The score describes feeding or aggressive responsiveness, while movement and abundance remain separate reads. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
-            "tip": "Start with 5–9 AM. If conditions change, favor the window that best combines workable light with measured water temperature.",
+            "headline": "Today’s PM Steelhead responsiveness is inactive if fish are present.",
+            "detail": "No time block broadly supports an aggressive Steelhead response. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Full confidence uses current Scottville flow, measured PM temperature, and hourly weather.",
+            "tip": "Treat every block as unfavorable. If you fish, limit the test to 5–9 AM or 5–9 PM.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -10400,7 +10934,8 @@ const GROUP_SEEDS = [
                 "cloudCoverPct": 15,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v29"
           }
         }
       },
@@ -10416,6 +10951,7 @@ const GROUP_SEEDS = [
           "nextConditionRefreshAt": "2026-11-15T22:00:00.000Z",
           "runStage": {
             "stage": "peak",
+            "copyStrategy": "pere_marquette",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -10438,14 +10974,14 @@ const GROUP_SEEDS = [
               "peakToEndDays": 37
             },
             "label": "Peak",
-            "headline": "This is typically the strongest and most dependable fall Steelhead opportunity.",
-            "whereToStart": "Compare substantial holding water in the middle river from Scottville through Walhalla and Branch with the upper river toward Baldwin/M-37; add lower travel lanes on a fresh Push.",
-            "detail": "Multiple waves have had time to spread from lower travel lanes into established middle- and upper-river holding water. Fish can be broadly distributed wherever passage is open.",
-            "tip": "Choose an accessible section and cover each substantial hole from the head through its seams and tail. Let Push decide whether lower travel lanes deserve extra time.",
+            "headline": "This is typically the PM’s strongest Steelhead migration window.",
+            "detail": "Seasonal timing supports the widest dependable Steelhead distribution. It does not confirm fish in every section.",
+            "tip": "Start in the Middle river. Compare the Upper river only after a complete first pass.",
+            "whereToStart": "Start in the Middle river (Scottville–Maple Leaf). Compare the Upper river (Maple Leaf–M-37) when direct fish activity favors it.",
             "reasonCodes": [
               "stage_peak"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "conditionsSuggest": {
             "label": "Ahead",
@@ -10622,16 +11158,16 @@ const GROUP_SEEDS = [
               "2026-11-13": "16:00",
               "2026-11-14": "16:00"
             },
-            "headline": "The migration appears to be developing earlier than usual.",
-            "detail": "The river has risen and cooled faster than it normally does by this point in the season.",
-            "tip": "Start one accessible river section farther upstream than you normally would for this date and prioritize established holding water. If Push is Possible or stronger, finish with lower travel lanes.",
+            "headline": "The PM migration is developing earlier than usual.",
+            "detail": "Season-to-date Scottville river-rise activity and M-37 cooling are stronger than the usual PM pattern.",
+            "tip": "Start one PM section upstream from Migration Stage, capped at the Upper river (Maple Leaf–M-37).",
             "reasonCodes": [
               "gauge_fresh",
               "temperature_measured",
               "conditions_checkpoint_peak_start",
               "conditions_ahead"
             ],
-            "copyVersion": "river-run-copy-v27",
+            "copyVersion": "river-run-copy-v29",
             "previousCheckpointId": "building_established",
             "previousCheckpointDate": "2026-10-15",
             "previousTimingLabel": "Ahead"
@@ -10698,9 +11234,9 @@ const GROUP_SEEDS = [
             "score": 8,
             "maximum": 100,
             "label": "Inactive",
-            "headline": "Today’s Steelhead activity outlook is inactive.",
-            "detail": "Conditions provide little environmental support for an aggressive response. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Water temperature limits responsiveness. Broad fall presence can make Steelhead easier to locate, but this score measures feeding or aggressive responsiveness rather than how many fish are present. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
-            "tip": "Start with 5–9 AM. If conditions change, favor the window that best combines workable light with measured water temperature.",
+            "headline": "Today’s PM Steelhead responsiveness is inactive if fish are present.",
+            "detail": "No time block broadly supports an aggressive Steelhead response. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Full confidence uses current Scottville flow, measured PM temperature, and hourly weather.",
+            "tip": "Treat every block as unfavorable. If you fish, limit the test to 5–9 AM or 5–9 PM.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -10753,10 +11289,13 @@ const GROUP_SEEDS = [
                 "cloudCoverPct": 5,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v29"
           },
           "fishInRiver": {
             "score": 80,
+            "displayScore": 80,
+            "scoreIsApproximate": false,
             "stage": "peak",
             "maximum": 100,
             "riverCeiling": 80,
@@ -10765,14 +11304,14 @@ const GROUP_SEEDS = [
             "curveDirection": "near_peak",
             "winterHoldingContext": false,
             "label": "Peak presence",
-            "headline": "Steelhead are likely near their highest seasonal presence in the river.",
-            "detail": "This is the part of the season when in-river presence is usually strongest. The read describes the river as a whole; it does not place fish in a specific pool or confirm a live count.",
-            "tip": "Plan for the strongest seasonal presence this river usually offers, while remembering that this estimate cannot confirm fish at a specific spot or describe today's river conditions.",
+            "headline": "Steelhead seasonal presence is peak presence and near its seasonal high.",
+            "detail": "Calendar timing places Steelhead presence at its expected seasonal peak, near its expected seasonal high. For the PM, expected run strength is Strong, and the opportunity can extend across broadly accessible water. This is not a live fish count or today’s conditions.",
+            "tip": "Use Migration Stage to choose a section. Use Push and Activity for current movement support and responsiveness.",
             "reasonCodes": [
               "stage_peak",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "gauge": {
             "provider": "USGS",
@@ -10828,6 +11367,7 @@ const GROUP_SEEDS = [
           "nextConditionRefreshAt": "2026-11-15T22:00:00.000Z",
           "runStage": {
             "stage": "peak",
+            "copyStrategy": "pere_marquette",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -10850,14 +11390,14 @@ const GROUP_SEEDS = [
               "peakToEndDays": 37
             },
             "label": "Peak",
-            "headline": "This is typically the strongest and most dependable fall Steelhead opportunity.",
-            "whereToStart": "Compare substantial holding water in the middle river from Scottville through Walhalla and Branch with the upper river toward Baldwin/M-37; add lower travel lanes on a fresh Push.",
-            "detail": "Multiple waves have had time to spread from lower travel lanes into established middle- and upper-river holding water. Fish can be broadly distributed wherever passage is open.",
-            "tip": "Choose an accessible section and cover each substantial hole from the head through its seams and tail. Let Push decide whether lower travel lanes deserve extra time.",
+            "headline": "This is typically the PM’s strongest Steelhead migration window.",
+            "detail": "Seasonal timing supports the widest dependable Steelhead distribution. It does not confirm fish in every section.",
+            "tip": "Start in the Middle river. Compare the Upper river only after a complete first pass.",
+            "whereToStart": "Start in the Middle river (Scottville–Maple Leaf). Compare the Upper river (Maple Leaf–M-37) when direct fish activity favors it.",
             "reasonCodes": [
               "stage_peak"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "conditionsSuggest": {
             "label": "Ahead",
@@ -11034,16 +11574,16 @@ const GROUP_SEEDS = [
               "2026-11-13": "16:00",
               "2026-11-14": "16:00"
             },
-            "headline": "The migration appears to be developing earlier than usual.",
-            "detail": "The river has risen and cooled faster than it normally does by this point in the season.",
-            "tip": "Start one accessible river section farther upstream than you normally would for this date and prioritize established holding water. If Push is Possible or stronger, finish with lower travel lanes.",
+            "headline": "The PM migration is developing earlier than usual.",
+            "detail": "Season-to-date Scottville river-rise activity and M-37 cooling are stronger than the usual PM pattern.",
+            "tip": "Start one PM section upstream from Migration Stage, capped at the Upper river (Maple Leaf–M-37).",
             "reasonCodes": [
               "gauge_fresh",
               "temperature_measured",
               "conditions_checkpoint_peak_start",
               "conditions_ahead"
             ],
-            "copyVersion": "river-run-copy-v27",
+            "copyVersion": "river-run-copy-v29",
             "previousCheckpointId": "building_established",
             "previousCheckpointDate": "2026-10-15",
             "previousTimingLabel": "Ahead"
@@ -11110,9 +11650,9 @@ const GROUP_SEEDS = [
             "score": 2,
             "maximum": 100,
             "label": "Inactive",
-            "headline": "Today’s Steelhead activity outlook is inactive.",
-            "detail": "Conditions provide little environmental support for an aggressive response. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Water temperature limits responsiveness. Broad fall presence can make Steelhead easier to locate, but this score measures feeding or aggressive responsiveness rather than how many fish are present. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
-            "tip": "Start with 5–9 AM. If conditions change, favor the window that best combines workable light with measured water temperature.",
+            "headline": "Today’s PM Steelhead responsiveness is inactive if fish are present.",
+            "detail": "No time block broadly supports an aggressive Steelhead response. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Full confidence uses current Scottville flow, measured PM temperature, and hourly weather.",
+            "tip": "Treat every block as unfavorable. If you fish, limit the test to 5–9 AM or 5–9 PM.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -11166,10 +11706,13 @@ const GROUP_SEEDS = [
                 "cloudCoverPct": 0,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v29"
           },
           "fishInRiver": {
             "score": 80,
+            "displayScore": 80,
+            "scoreIsApproximate": false,
             "stage": "peak",
             "maximum": 100,
             "riverCeiling": 80,
@@ -11178,14 +11721,14 @@ const GROUP_SEEDS = [
             "curveDirection": "near_peak",
             "winterHoldingContext": false,
             "label": "Peak presence",
-            "headline": "Steelhead are likely near their highest seasonal presence in the river.",
-            "detail": "This is the part of the season when in-river presence is usually strongest. The read describes the river as a whole; it does not place fish in a specific pool or confirm a live count.",
-            "tip": "Plan for the strongest seasonal presence this river usually offers, while remembering that this estimate cannot confirm fish at a specific spot or describe today's river conditions.",
+            "headline": "Steelhead seasonal presence is peak presence and near its seasonal high.",
+            "detail": "Calendar timing places Steelhead presence at its expected seasonal peak, near its expected seasonal high. For the PM, expected run strength is Strong, and the opportunity can extend across broadly accessible water. This is not a live fish count or today’s conditions.",
+            "tip": "Use Migration Stage to choose a section. Use Push and Activity for current movement support and responsiveness.",
             "reasonCodes": [
               "stage_peak",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "gauge": {
             "provider": "USGS",
@@ -11241,6 +11784,7 @@ const GROUP_SEEDS = [
           "nextConditionRefreshAt": "2026-12-05T22:00:00.000Z",
           "runStage": {
             "stage": "tapering",
+            "copyStrategy": "pere_marquette",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -11263,14 +11807,14 @@ const GROUP_SEEDS = [
               "peakToEndDays": 37
             },
             "label": "Late fall",
-            "headline": "Steelhead presence remains high as the fall fishery begins shifting toward winter holding.",
-            "whereToStart": "Established middle- and upper-river holes from Walhalla and Branch toward Baldwin/M-37, especially deeper bends and slower edges beside productive current.",
-            "detail": "Fish remain broadly available, but colder water gradually shifts the balance from active upstream movement toward established holding. Fresh arrivals can still occur without defining the whole fishery.",
-            "tip": "Start with dependable holding water. Check lower travel lanes only when Push shows a credible movement signal.",
+            "headline": "PM Steelhead fall entry remains strong but is slowing.",
+            "detail": "Seasonal timing still supports broad fall presence. Colder water makes established holding water more important than new entry.",
+            "tip": "Start in the Middle river. Shift lower only when Push supports fresh movement.",
+            "whereToStart": "Start in the Middle river (Scottville–Maple Leaf). Add the Lower river (Pere Marquette Lake–Scottville) only when Push supports fresh movement.",
             "reasonCodes": [
               "stage_tapering"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "conditionsSuggest": {
             "label": "Timing complete",
@@ -11468,7 +12012,7 @@ const GROUP_SEEDS = [
               "conditions_ahead",
               "conditions_timing_complete"
             ],
-            "copyVersion": "river-run-copy-v27",
+            "copyVersion": "river-run-copy-v29",
             "previousCheckpointId": "peak_start",
             "previousCheckpointDate": "2026-11-15",
             "previousTimingLabel": "Ahead"
@@ -11535,9 +12079,9 @@ const GROUP_SEEDS = [
             "score": 88,
             "maximum": 100,
             "label": "Highly active",
-            "headline": "Today’s Steelhead activity outlook is highly active.",
-            "detail": "Conditions strongly favor a response from Steelhead that are present and capable of reacting. The strongest window is 5–9 AM: The measured water temperature is favorable for Steelhead. The main limitation: Rain adds little extra cover. As late fall progresses, Steelhead often become more selective and less willing to move far for a presentation. The fish remain alive and are transitioning toward winter holding; actual responsiveness still depends strongly on water temperature and river conditions. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
-            "tip": "Compare the four time windows, but expect a shorter response in cold water and keep the result separate from the winter holding outlook.",
+            "headline": "Today’s PM Steelhead responsiveness is highly active if fish are present.",
+            "detail": "Conditions strongly support Steelhead responsiveness if fish are present. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Cold late-fall water can shorten response windows without meaning Steelhead have left the river.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light and access. Neither has a dependable advantage.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -11589,10 +12133,13 @@ const GROUP_SEEDS = [
                 "cloudCoverPct": 95,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v29"
           },
           "fishInRiver": {
             "score": 79,
+            "displayScore": 80,
+            "scoreIsApproximate": true,
             "stage": "tapering",
             "maximum": 100,
             "riverCeiling": 80,
@@ -11601,14 +12148,14 @@ const GROUP_SEEDS = [
             "curveDirection": "falling",
             "winterHoldingContext": false,
             "label": "Peak presence",
-            "headline": "Steelhead remain near their strongest fall presence as winter holding approaches.",
-            "detail": "The slight decline reflects fewer fresh arrivals—not fish simply leaving the river. This is a seasonal opportunity estimate, not a live fish count.",
-            "tip": "Treat the retained presence as strong, but expect the fishery to be shifting away from fresh fall entry. Verify current river conditions before choosing a presentation.",
+            "headline": "Steelhead seasonal presence is peak presence and declining.",
+            "detail": "Calendar timing places Steelhead presence at its expected seasonal peak, declining as the fall migration advances. For the PM, expected run strength is Strong, and the opportunity can extend across broadly accessible water. This is not a live fish count or today’s conditions.",
+            "tip": "Use Migration Stage to choose a section. Use Push and Activity for current movement support and responsiveness.",
             "reasonCodes": [
               "stage_tapering",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "gauge": {
             "provider": "USGS",
@@ -11657,6 +12204,7 @@ const GROUP_SEEDS = [
           "nextConditionRefreshAt": "2026-12-20T22:00:00.000Z",
           "runStage": {
             "stage": "ending",
+            "copyStrategy": "pere_marquette",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -11679,14 +12227,14 @@ const GROUP_SEEDS = [
               "peakToEndDays": 37
             },
             "label": "Holding transition",
-            "headline": "Steelhead remain strongly present while fall entry transitions toward winter holding.",
-            "whereToStart": "Deep, speed-controlled middle- and upper-river holding water from Walhalla and Branch toward Baldwin/M-37, with nearby feeding current.",
-            "detail": "The fish have not simply left the river. Colder water reduces the importance of fresh upstream movement and increases the importance of where steelhead can hold efficiently through winter.",
-            "tip": "Prioritize deep, speed-controlled holding water and use Push only as a secondary fresh-arrival check. The winter fishery read takes over after this stage.",
+            "headline": "PM Steelhead fall entry is in its final seasonal phase.",
+            "detail": "Steelhead may remain after fall entry ends. This state marks the model boundary, not fish leaving the river.",
+            "tip": "Prioritize established Middle river holding water and use Activity only through the final fall-entry day.",
+            "whereToStart": "Start in the Middle river (Scottville–Maple Leaf). Add the Upper river (Maple Leaf–M-37) only for established late-fall holding water.",
             "reasonCodes": [
               "stage_ending"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "conditionsSuggest": {
             "label": "Timing complete",
@@ -11884,7 +12432,7 @@ const GROUP_SEEDS = [
               "conditions_ahead",
               "conditions_timing_complete"
             ],
-            "copyVersion": "river-run-copy-v27",
+            "copyVersion": "river-run-copy-v29",
             "previousCheckpointId": "peak_start",
             "previousCheckpointDate": "2026-11-15",
             "previousTimingLabel": "Ahead"
@@ -11951,9 +12499,9 @@ const GROUP_SEEDS = [
             "score": 88,
             "maximum": 100,
             "label": "Highly active",
-            "headline": "Today’s Steelhead activity outlook is highly active.",
-            "detail": "Conditions strongly favor a response from Steelhead that are present and capable of reacting. The strongest window is 5–9 AM: The measured water temperature is favorable for Steelhead. The main limitation: Rain adds little extra cover. These Steelhead remain alive in the river as they transition into winter holding. Their responsiveness follows measured water temperature and current conditions rather than a terminal biological decline. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
-            "tip": "Compare the four time windows, but expect a shorter response in cold water and keep the result separate from the winter holding outlook.",
+            "headline": "Today’s PM Steelhead responsiveness is highly active if fish are present.",
+            "detail": "Conditions strongly support Steelhead responsiveness if fish are present. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Cold late-fall water can shorten response windows without meaning Steelhead have left the river.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light and access. Neither has a dependable advantage.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -12005,10 +12553,13 @@ const GROUP_SEEDS = [
                 "cloudCoverPct": 95,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v29"
           },
           "fishInRiver": {
             "score": 71,
+            "displayScore": 70,
+            "scoreIsApproximate": true,
             "stage": "ending",
             "maximum": 100,
             "riverCeiling": 80,
@@ -12017,14 +12568,14 @@ const GROUP_SEEDS = [
             "curveDirection": "falling",
             "winterHoldingContext": false,
             "label": "High presence",
-            "headline": "Steelhead presence remains high as the fall fishery shifts toward winter holding.",
-            "detail": "The slight decline reflects fewer fresh arrivals—not fish simply leaving the river. This is a seasonal opportunity estimate, not a live fish count.",
-            "tip": "Treat the retained presence as strong, but expect the fishery to be shifting away from fresh fall entry. Verify current river conditions before choosing a presentation.",
+            "headline": "Steelhead seasonal presence is high presence and declining.",
+            "detail": "Calendar timing places Steelhead presence high for this fall migration, declining as the fall migration advances. For the PM, expected run strength is Strong, and the opportunity can extend across broadly accessible water. This is not a live fish count or today’s conditions.",
+            "tip": "Use Migration Stage to choose a section. Use Push and Activity for current movement support and responsiveness.",
             "reasonCodes": [
               "stage_ending",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "gauge": {
             "provider": "USGS",
@@ -12073,9 +12624,10 @@ const GROUP_SEEDS = [
           "nextConditionRefreshAt": "2026-12-23T22:00:00.000Z",
           "runStage": {
             "stage": "post_run",
+            "copyStrategy": "pere_marquette",
             "stagingContext": false,
             "broadBuildingContext": false,
-            "winterHoldingContext": true,
+            "winterHoldingContext": false,
             "window": {
               "snapshotDate": "2026-12-23",
               "preRunStartDate": "2026-08-15",
@@ -12094,16 +12646,16 @@ const GROUP_SEEDS = [
               "startToPeakDays": 56,
               "peakToEndDays": 37
             },
-            "label": "Winter holding",
-            "headline": "Steelhead have transitioned from fall entry into winter holding.",
-            "whereToStart": "Deep, slow middle- and upper-river holding water from Walhalla and Branch toward Baldwin/M-37, with nearby current and an easy feeding lane.",
-            "detail": "Fish can remain distributed through the river, but colder water shifts the question from upstream movement to daily activity and feeding position.",
-            "tip": "Open the Winter Holding read for current activity, likely holding water, and presentation guidance. A completed fall-entry read does not mean steelhead have left the river.",
+            "label": "Fall entry complete",
+            "headline": "PM Steelhead fall entry is complete.",
+            "detail": "Steelhead may remain in the river. This fall-entry model no longer scores their current presence or activity.",
+            "tip": "Check back in early September when PM fall movement tracking resumes.",
+            "whereToStart": "There is no active PM starting section in this fall-entry model.",
             "reasonCodes": [
               "stage_post_run",
-              "stage_winter_holding"
+              "stage_offseason"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "conditionsSuggest": {
             "label": "Timing complete",
@@ -12291,9 +12843,9 @@ const GROUP_SEEDS = [
               "2026-11-19": "16:00",
               "2026-11-20": "16:00"
             },
-            "headline": "This season's Migration Timing read is complete.",
-            "detail": "Earlier in the season, the migration was moving earlier than usual. Fall entry has now shifted into winter holding, where current activity matters more than an early-or-late call.",
-            "tip": "Stop planning around whether fall entry was early or late. Use the winter fishery read to judge current activity and presentation.",
+            "headline": "PM fall-entry Migration Timing is complete.",
+            "detail": "Earlier in fall, PM migration timing was earlier than usual. The fall-entry timing window is now complete.",
+            "tip": "Do not use completed fall timing to infer current presence or activity. PM fall monitoring resumes in early September.",
             "reasonCodes": [
               "gauge_fresh",
               "temperature_measured",
@@ -12301,22 +12853,22 @@ const GROUP_SEEDS = [
               "conditions_ahead",
               "conditions_timing_complete"
             ],
-            "copyVersion": "river-run-copy-v27",
+            "copyVersion": "river-run-copy-v29",
             "previousCheckpointId": "peak_start",
             "previousCheckpointDate": "2026-11-15",
             "previousTimingLabel": "Ahead"
           },
           "push": {
             "score": null,
-            "label": "Winter holding",
-            "headline": "The season's fresh-movement read is complete.",
-            "detail": "Steelhead may remain in the river, but the fall-entry signal has handed off to winter holding. Winter activity requires a different water-temperature and feeding read.",
-            "tip": "Use the winter fishery read for activity and presentation decisions. Do not treat a muted Push as evidence that steelhead left the river.",
+            "label": "Fall entry complete",
+            "headline": "PM Steelhead fall-entry Push is complete.",
+            "detail": "Current water may affect Steelhead still in the river. This fall model no longer scores fresh-entry support.",
+            "tip": "Do not use a muted fall Push as evidence that Steelhead left the river. Check back in early September.",
             "reasonCodes": [
               "push_tracking_complete"
             ],
             "rulesVersion": "pm-fall-steelhead-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "pushHistory": {
             "status": "complete",
@@ -12377,85 +12929,42 @@ const GROUP_SEEDS = [
             ]
           },
           "activity": {
-            "score": 88,
+            "score": null,
             "maximum": 100,
-            "label": "Highly active",
-            "headline": "Today’s Steelhead activity outlook is highly active.",
-            "detail": "Conditions strongly favor a response from Steelhead that are present and capable of reacting. The strongest window is 5–9 AM: The measured water temperature is favorable for Steelhead. The main limitation: Rain adds little extra cover. Steelhead remain alive in winter holding after the fall-entry period. Use the dedicated winter read when available; this score only describes current responsiveness. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
-            "tip": "Compare the four time windows, but expect a shorter response in cold water and keep the result separate from the winter holding outlook.",
+            "label": "Fall entry complete",
+            "headline": "PM Steelhead fall-entry Activity is complete.",
+            "detail": "Steelhead may remain in the river. This fall-entry model no longer scores their current responsiveness.",
+            "tip": "Do not use this completed fall outlook to infer current activity. Check back in early September.",
             "reasonCodes": [
-              "activity_confidence_full",
-              "activity_today",
-              "activity_run_present"
+              "activity_fall_entry_complete"
             ],
             "rulesVersion": "pm-fall-steelhead-activity-v2",
             "targetDate": "2026-12-23",
             "targetDayLabel": "Today",
-            "confidence": "Full",
+            "confidence": "Limited",
             "conditionalPresence": false,
-            "blocks": [
-              {
-                "id": "05-09",
-                "label": "5–9 AM",
-                "score": 90,
-                "activityLabel": "Highly active",
-                "positiveDriver": "The measured water temperature is favorable for Steelhead.",
-                "limitingFactor": "Rain adds little extra cover.",
-                "cloudCoverPct": 95,
-                "precipitationIn": 0.01
-              },
-              {
-                "id": "09-13",
-                "label": "9 AM–1 PM",
-                "score": 84,
-                "activityLabel": "Highly active",
-                "positiveDriver": "The measured water temperature is favorable for Steelhead.",
-                "limitingFactor": "Rain adds little extra cover.",
-                "cloudCoverPct": 95,
-                "precipitationIn": 0
-              },
-              {
-                "id": "13-17",
-                "label": "1–5 PM",
-                "score": 83,
-                "activityLabel": "Highly active",
-                "positiveDriver": "The measured water temperature is favorable for Steelhead.",
-                "limitingFactor": "Rain adds little extra cover.",
-                "cloudCoverPct": 95,
-                "precipitationIn": 0
-              },
-              {
-                "id": "17-21",
-                "label": "5–9 PM",
-                "score": 88,
-                "activityLabel": "Highly active",
-                "positiveDriver": "The measured water temperature is favorable for Steelhead.",
-                "limitingFactor": "Rain adds little extra cover.",
-                "cloudCoverPct": 95,
-                "precipitationIn": 0
-              }
-            ]
+            "blocks": [],
+            "copyVersion": "river-run-copy-v29"
           },
           "fishInRiver": {
-            "score": 70,
+            "score": null,
+            "scoreIsApproximate": false,
             "stage": "post_run",
             "maximum": 100,
             "riverCeiling": 80,
             "historicalRunStrength": "strong",
-            "curveFraction": 0.875,
+            "curveFraction": 0,
             "curveDirection": "outside",
-            "winterHoldingContext": true,
-            "handoffScore": 70,
-            "label": "Winter holding",
-            "headline": "Steelhead remain strongly present as the fishery shifts into winter holding.",
-            "detail": "Fall entry finished at 70/100. That retained-presence reference stays visible, but it is not a winter activity score; winter opportunity depends on water temperature, feeding activity, and presentation.",
-            "tip": "Open the Winter Holding read for current activity, likely holding water, and presentation guidance. Treat 70/100 as retained seasonal presence—not proof that fish are active today.",
+            "winterHoldingContext": false,
+            "label": "Fall entry complete",
+            "headline": "PM Steelhead fall entry is complete.",
+            "detail": "Steelhead may remain in the river. This fall-entry model no longer estimates their current seasonal presence.",
+            "tip": "Check back in early September when PM fall movement tracking resumes.",
             "reasonCodes": [
               "stage_post_run",
-              "historical_presence_curve",
-              "fish_presence_winter_handoff"
+              "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "gauge": {
             "provider": "USGS",
@@ -12489,13 +12998,6 @@ const GROUP_SEEDS = [
             "trend": "steady",
             "sourceType": "same_gauge",
             "attribution": "Measured water temperature"
-          },
-          "interpretationNote": {
-            "headline": "Steelhead are still in the river, but winter conditions now control the day.",
-            "detail": "The fall-entry period ended with strong retained presence. Use the winter fishery read to judge activity and presentation; Push and Migration Timing are intentionally complete because they answer the wrong question now.",
-            "reasonCodes": [
-              "winter_holding_read_required"
-            ]
           }
         }
       },
@@ -12508,9 +13010,9 @@ const GROUP_SEEDS = [
             "score": 60,
             "maximum": 100,
             "label": "Active",
-            "headline": "Tomorrow’s Steelhead activity outlook is active.",
-            "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 AM: The measured water temperature is favorable for Steelhead. The main limitation: Rain adds little extra cover. Steelhead are becoming more established through the river. The score describes feeding or aggressive responsiveness, while movement and abundance remain separate reads. One important reading is unavailable or comes from tomorrow’s forecast, so the outlook is kept conservative.",
-            "tip": "Start with 5–9 AM. If conditions change, favor the window that best combines workable light with measured water temperature.",
+            "headline": "Tomorrow’s PM Steelhead responsiveness is active if fish are present.",
+            "detail": "Conditions support a meaningful Steelhead response if fish are present. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Confidence is Moderate because one key input is missing or this is tomorrow’s outlook.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light and access. Neither has a dependable advantage.",
             "reasonCodes": [
               "activity_confidence_moderate",
               "activity_tomorrow",
@@ -12562,7 +13064,8 @@ const GROUP_SEEDS = [
                 "cloudCoverPct": 85,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v29"
           }
         }
       },
@@ -12575,9 +13078,9 @@ const GROUP_SEEDS = [
             "score": 54,
             "maximum": 100,
             "label": "Moderate",
-            "headline": "Today’s Steelhead activity outlook is moderate.",
-            "detail": "Some useful factors are present, but the response window is mixed. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Measured water temperature is unavailable. Steelhead are becoming more established through the river. The score describes feeding or aggressive responsiveness, while movement and abundance remain separate reads. One important reading is unavailable or comes from tomorrow’s forecast, so the outlook is kept conservative.",
-            "tip": "Start with 5–9 AM. If conditions change, favor the window that best combines workable light with measured water temperature.",
+            "headline": "Today’s PM Steelhead responsiveness is moderate if fish are present.",
+            "detail": "Conditions offer mixed support for Steelhead responsiveness. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Confidence is Moderate because one key input is missing or this is tomorrow’s outlook.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light and access. Neither has a dependable advantage.",
             "reasonCodes": [
               "activity_confidence_moderate",
               "activity_today",
@@ -12629,7 +13132,8 @@ const GROUP_SEEDS = [
                 "cloudCoverPct": 80,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v29"
           }
         }
       },
@@ -12642,9 +13146,9 @@ const GROUP_SEEDS = [
             "score": 48,
             "maximum": 100,
             "label": "Moderate",
-            "headline": "Today’s Steelhead activity outlook is moderate.",
-            "detail": "Some useful factors are present, but the response window is mixed. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Measured water temperature is unavailable. Steelhead are becoming more established through the river. The score describes feeding or aggressive responsiveness, while movement and abundance remain separate reads. Several important readings are unavailable, so treat this as a limited outlook.",
-            "tip": "Start with 5–9 AM. If conditions change, favor the window that best combines workable light with measured water temperature.",
+            "headline": "Today’s PM Steelhead responsiveness is moderate if fish are present.",
+            "detail": "Conditions offer mixed support for Steelhead responsiveness. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Confidence is Limited because several key inputs are unavailable.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light and access. Neither has a dependable advantage.",
             "reasonCodes": [
               "activity_confidence_limited",
               "activity_today",
@@ -12696,7 +13200,8 @@ const GROUP_SEEDS = [
                 "cloudCoverPct": 80,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v29"
           }
         }
       },
@@ -12709,9 +13214,9 @@ const GROUP_SEEDS = [
             "score": 55,
             "maximum": 100,
             "label": "Moderate",
-            "headline": "Today’s Steelhead activity outlook is moderate.",
-            "detail": "Some useful factors are present, but the response window is mixed. The strongest window is 5–9 AM: The measured water temperature is favorable for Steelhead. The main limitation: Hourly light and weather data are unavailable. Steelhead are becoming more established through the river. The score describes feeding or aggressive responsiveness, while movement and abundance remain separate reads. Several important readings are unavailable, so treat this as a limited outlook.",
-            "tip": "Start with 5–9 AM. If conditions change, favor the window that best combines workable light with measured water temperature.",
+            "headline": "Today’s PM Steelhead responsiveness is moderate if fish are present.",
+            "detail": "Conditions offer mixed support for Steelhead responsiveness. Hourly light and weather data are unavailable, so no time block can be separated. Confidence is Limited because several key inputs are unavailable.",
+            "tip": "Choose the block that best fits current access. Hourly conditions cannot separate the windows.",
             "reasonCodes": [
               "activity_confidence_limited",
               "activity_today",
@@ -12763,7 +13268,8 @@ const GROUP_SEEDS = [
                 "cloudCoverPct": null,
                 "precipitationIn": null
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v29"
           }
         }
       },
@@ -12776,9 +13282,9 @@ const GROUP_SEEDS = [
             "score": 1,
             "maximum": 100,
             "label": "Inactive",
-            "headline": "Today’s Steelhead activity outlook is inactive.",
-            "detail": "Conditions provide little environmental support for an aggressive response. The strongest window is 5–9 AM: The river level and its recent change are favorable. The main limitation: Water temperature limits responsiveness. Steelhead are becoming more established through the river. The score describes feeding or aggressive responsiveness, while movement and abundance remain separate reads. Several important readings are unavailable, so treat this as a limited outlook.",
-            "tip": "Start with 5–9 AM. If conditions change, favor the window that best combines workable light with measured water temperature.",
+            "headline": "Today’s PM Steelhead responsiveness is inactive if fish are present.",
+            "detail": "No time block broadly supports an aggressive Steelhead response. Hourly light and weather data are unavailable, so no time block can be separated. Confidence is Limited because several key inputs are unavailable.",
+            "tip": "Treat every block as unfavorable. Keep presentations conservative and continue only if direct fish response supports it.",
             "reasonCodes": [
               "activity_confidence_limited",
               "activity_today",
@@ -12832,7 +13338,8 @@ const GROUP_SEEDS = [
                 "cloudCoverPct": null,
                 "precipitationIn": null
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v29"
           }
         }
       }
@@ -12843,8 +13350,8 @@ const GROUP_SEEDS = [
     "label": "Fish In River",
     "scenarios": [
       {
-        "id": "fish_in_river_post_run_offseason",
-        "label": "0 / 100 · Outside",
+        "id": "fish_in_river_fall_entry_complete_outside",
+        "label": "null / 100 · Outside",
         "note": "Canonical production copy",
         "snapshotOverride": {
           "localDate": "2026-08-14",
@@ -12854,6 +13361,7 @@ const GROUP_SEEDS = [
           "nextConditionRefreshAt": "2026-08-14T22:00:00.000Z",
           "runStage": {
             "stage": "post_run",
+            "copyStrategy": "pere_marquette",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -12875,16 +13383,16 @@ const GROUP_SEEDS = [
               "startToPeakDays": 56,
               "peakToEndDays": 37
             },
-            "label": "Offseason",
-            "headline": "Steelhead are outside their fall-entry season.",
-            "whereToStart": "No dependable PM fall-entry location; use the active winter or spring Steelhead experience instead.",
-            "detail": "This fall model is inactive. It should not be used to infer winter or spring steelhead behavior.",
-            "tip": "Use the active seasonal steelhead experience rather than applying fall-entry guidance outside its window.",
+            "label": "Fall entry complete",
+            "headline": "PM Steelhead fall entry is complete.",
+            "detail": "Steelhead may remain in the river. This fall-entry model no longer scores their current presence or activity.",
+            "tip": "Check back in early September when PM fall movement tracking resumes.",
+            "whereToStart": "There is no active PM starting section in this fall-entry model.",
             "reasonCodes": [
               "stage_post_run",
               "stage_offseason"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "conditionsSuggest": {
             "label": "Not monitoring yet",
@@ -12903,25 +13411,25 @@ const GROUP_SEEDS = [
             "historicalYears": 0,
             "sourceDates": [],
             "sourceRefreshSlots": {},
-            "headline": "Migration Timing is not active right now.",
-            "detail": "Timing monitoring begins before the expected river entry, but that seasonal observation window is not active yet.",
-            "tip": "Check Migration Stage for the current seasonal position and return to Migration Timing when early monitoring begins.",
+            "headline": "PM Migration Timing is not monitoring yet.",
+            "detail": "Season-to-date Scottville flow and M-37 temperature monitoring resumes in early September.",
+            "tip": "Check back in early September when PM timing monitoring resumes.",
             "reasonCodes": [
               "conditions_monitoring_inactive"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "push": {
             "score": null,
-            "label": "Offseason",
-            "headline": "Push is not active outside the river migration season.",
-            "detail": "Rain, river level, and water temperature can still change, but they do not provide a useful fresh-arrival signal for this species right now.",
-            "tip": "Do not use Push to plan for this species outside its migration season. Follow an active species instead, or return when early monitoring begins.",
+            "label": "Fall entry complete",
+            "headline": "PM Steelhead fall-entry Push is complete.",
+            "detail": "Current water may affect Steelhead still in the river. This fall model no longer scores fresh-entry support.",
+            "tip": "Do not use a muted fall Push as evidence that Steelhead left the river. Check back in early September.",
             "reasonCodes": [
-              "push_tracking_offseason"
+              "push_tracking_complete"
             ],
             "rulesVersion": "pm-fall-steelhead-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "pushHistory": {
             "status": "not_started",
@@ -12933,7 +13441,8 @@ const GROUP_SEEDS = [
             "recentDailyReads": []
           },
           "fishInRiver": {
-            "score": 0,
+            "score": null,
+            "scoreIsApproximate": false,
             "stage": "post_run",
             "maximum": 100,
             "riverCeiling": 80,
@@ -12941,15 +13450,15 @@ const GROUP_SEEDS = [
             "curveFraction": 0,
             "curveDirection": "outside",
             "winterHoldingContext": false,
-            "label": "Offseason",
-            "headline": "Steelhead are outside their river migration season.",
-            "detail": "A dependable seasonal presence of Steelhead is not expected in the river right now.",
-            "tip": "Do not build a river trip around this species right now. Target a species with an active seasonal window and return as the next migration approaches.",
+            "label": "Fall entry complete",
+            "headline": "PM Steelhead fall entry is complete.",
+            "detail": "Steelhead may remain in the river. This fall-entry model no longer estimates their current seasonal presence.",
+            "tip": "Check back in early September when PM fall movement tracking resumes.",
             "reasonCodes": [
               "stage_post_run",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "gauge": {
             "provider": "USGS",
@@ -12983,13 +13492,6 @@ const GROUP_SEEDS = [
             "trend": "steady",
             "sourceType": "same_gauge",
             "attribution": "Measured water temperature"
-          },
-          "interpretationNote": {
-            "headline": "The river should fish well, but seasonal fish presence is still low.",
-            "detail": "Good flow makes presentations easier, but it does not put fish in the river. Begin in the deepest established holding water and skip broad searches through fast travel lanes as seasonal presence thins.",
-            "reasonCodes": [
-              "good_fishability_low_presence"
-            ]
           }
         }
       },
@@ -13005,6 +13507,7 @@ const GROUP_SEEDS = [
           "nextConditionRefreshAt": "2026-08-15T22:00:00.000Z",
           "runStage": {
             "stage": "pre_run",
+            "copyStrategy": "pere_marquette",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -13027,14 +13530,14 @@ const GROUP_SEEDS = [
               "peakToEndDays": 37
             },
             "label": "Before migration",
-            "headline": "Steelhead fall entry has not started yet.",
-            "whereToStart": "Lake Michigan off Ludington, Ludington harbor, and Pere Marquette Lake—not the inland river yet.",
-            "detail": "A dependable fall steelhead presence is not expected in the river this early.",
-            "tip": "Do not build an inland river trip around this species yet. Return when early monitoring begins.",
+            "headline": "The PM Steelhead fall run has not started.",
+            "detail": "Seasonal timing does not support dependable Steelhead presence in the PM river yet.",
+            "tip": "Keep effort in the lake, harbor, and Pere Marquette Lake until staging begins.",
+            "whereToStart": "Stay in Lake Michigan, Ludington harbor, and Pere Marquette Lake. The PM river is not a dependable fall-entry section yet.",
             "reasonCodes": [
               "stage_pre_run"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "conditionsSuggest": {
             "label": "Not monitoring yet",
@@ -13053,25 +13556,25 @@ const GROUP_SEEDS = [
             "historicalYears": 0,
             "sourceDates": [],
             "sourceRefreshSlots": {},
-            "headline": "Migration Timing is not active right now.",
-            "detail": "Timing monitoring begins before the expected river entry, but that seasonal observation window is not active yet.",
-            "tip": "Check Migration Stage for the current seasonal position and return to Migration Timing when early monitoring begins.",
+            "headline": "PM Migration Timing is not monitoring yet.",
+            "detail": "Season-to-date Scottville flow and M-37 temperature monitoring resumes in early September.",
+            "tip": "Check back in early September when PM timing monitoring resumes.",
             "reasonCodes": [
               "conditions_monitoring_inactive"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "push": {
             "score": null,
             "label": "Waiting for migration",
-            "headline": "Dependable fall entry has not started, so Push is not active yet.",
-            "detail": "An occasional early steelhead is possible, but Push is reserved for the expected entry window, when rain, river level, and water temperature can provide a responsible fresh-movement read.",
-            "tip": "Keep most effort near the lake, harbor, and river-mouth transition. Do not move inland just because rain or cooling resembles an in-season movement event.",
+            "headline": "Dependable PM Steelhead fall entry has not started.",
+            "detail": "Rain, Scottville flow, and water temperature are not scored as an in-season movement signal yet.",
+            "tip": "Use Migration Stage. Do not move inland because offseason water resembles an in-season Push.",
             "reasonCodes": [
               "push_tracking_not_started"
             ],
             "rulesVersion": "pm-fall-steelhead-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "pushHistory": {
             "status": "not_started",
@@ -13084,6 +13587,8 @@ const GROUP_SEEDS = [
           },
           "fishInRiver": {
             "score": 0,
+            "displayScore": 0,
+            "scoreIsApproximate": false,
             "stage": "pre_run",
             "maximum": 100,
             "riverCeiling": 80,
@@ -13092,14 +13597,14 @@ const GROUP_SEEDS = [
             "curveDirection": "outside",
             "winterHoldingContext": false,
             "label": "Not expected yet",
-            "headline": "Steelhead are not expected in meaningful numbers yet.",
-            "detail": "Most Steelhead are not expected to have entered the river in dependable numbers. Any fish already present would be early exceptions.",
-            "tip": "Treat this as no dependable in-river opportunity yet. Keep expectations at zero, and do not interpret an isolated early fish as evidence of dependable river presence.",
+            "headline": "Dependable Steelhead presence is not expected in the PM river yet.",
+            "detail": "The seasonal estimate remains at zero. Any fish already in the river would be an early exception.",
+            "tip": "Use Migration Stage for nearby staging context. Do not treat one early fish as a dependable river opportunity.",
             "reasonCodes": [
               "stage_pre_run",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "gauge": {
             "provider": "USGS",
@@ -13155,6 +13660,7 @@ const GROUP_SEEDS = [
           "nextConditionRefreshAt": "2026-09-20T22:00:00.000Z",
           "runStage": {
             "stage": "beginning",
+            "copyStrategy": "pere_marquette",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -13177,14 +13683,14 @@ const GROUP_SEEDS = [
               "peakToEndDays": 37
             },
             "label": "Beginning",
-            "headline": "The first Steelhead are beginning to enter the river.",
-            "whereToStart": "Lower migratory river from Pere Marquette Lake toward Scottville: travel lanes feeding the first deep bends, resting pockets, and current breaks.",
-            "detail": "Fresh fish may be present, but numbers are still scattered and can arrive in uneven waves before the broader fall fishery develops.",
-            "tip": "Cover lower travel water and its first dependable resting holes, then move upstream only after those entry sections have been checked.",
+            "headline": "Seasonal timing supports the first Steelhead entering the Lower river.",
+            "detail": "This is the opening river phase. Presence is expected to be scattered and uneven.",
+            "tip": "Cover the Lower river first. Move upstream only after direct fish activity supports it.",
+            "whereToStart": "Start in the Lower river (Pere Marquette Lake–Scottville).",
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "conditionsSuggest": {
             "label": "Typical",
@@ -13249,16 +13755,16 @@ const GROUP_SEEDS = [
               "2026-09-18": "16:00",
               "2026-09-19": "16:00"
             },
-            "headline": "The migration appears to be progressing at a normal seasonal pace.",
-            "detail": "River rises and cooling are close to what is usually seen by this point in the season.",
-            "tip": "Fish the core river section identified by Migration Stage. Begin where a travel lane feeds established holding water, then adjust presentation—not seasonal location—using Fishability.",
+            "headline": "The PM migration is progressing at its usual seasonal pace.",
+            "detail": "Season-to-date Scottville river-rise activity and M-37 cooling are close to the usual PM pattern.",
+            "tip": "Keep the PM section named by Migration Stage.",
             "reasonCodes": [
               "gauge_fresh",
               "temperature_measured",
               "conditions_checkpoint_river_start",
               "conditions_typical"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -13271,6 +13777,8 @@ const GROUP_SEEDS = [
           },
           "fishInRiver": {
             "score": 8,
+            "displayScore": 10,
+            "scoreIsApproximate": true,
             "stage": "beginning",
             "maximum": 100,
             "riverCeiling": 80,
@@ -13279,14 +13787,14 @@ const GROUP_SEEDS = [
             "curveDirection": "rising",
             "winterHoldingContext": false,
             "label": "Low presence",
-            "headline": "A small number of Steelhead may be in the river, and seasonal presence is still building.",
-            "detail": "This part of the season usually brings low presence, with more fish expected to enter and spread through the river. This is a seasonal estimate, not a live fish count.",
-            "tip": "Treat this as an early, low-odds river opportunity. Expect scattered results, and use direct fish activity before committing the full day.",
+            "headline": "Steelhead seasonal presence is low presence and building.",
+            "detail": "Calendar timing places Steelhead presence at low presence, increasing as the fall migration builds. For the PM, expected run strength is Strong, and the opportunity can extend across broadly accessible water. This is not a live fish count or today’s conditions.",
+            "tip": "Use Migration Stage to choose a section. Use Push and Activity for current movement support and responsiveness.",
             "reasonCodes": [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "gauge": {
             "provider": "USGS",
@@ -13342,6 +13850,7 @@ const GROUP_SEEDS = [
           "nextConditionRefreshAt": "2026-10-02T22:00:00.000Z",
           "runStage": {
             "stage": "beginning",
+            "copyStrategy": "pere_marquette",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -13364,14 +13873,14 @@ const GROUP_SEEDS = [
               "peakToEndDays": 37
             },
             "label": "Beginning",
-            "headline": "The first Steelhead are beginning to enter the river.",
-            "whereToStart": "Lower migratory river from Pere Marquette Lake toward Scottville: travel lanes feeding the first deep bends, resting pockets, and current breaks.",
-            "detail": "Fresh fish may be present, but numbers are still scattered and can arrive in uneven waves before the broader fall fishery develops.",
-            "tip": "Cover lower travel water and its first dependable resting holes, then move upstream only after those entry sections have been checked.",
+            "headline": "Seasonal timing supports the first Steelhead entering the Lower river.",
+            "detail": "This is the opening river phase. Presence is expected to be scattered and uneven.",
+            "tip": "Cover the Lower river first. Move upstream only after direct fish activity supports it.",
+            "whereToStart": "Start in the Lower river (Pere Marquette Lake–Scottville).",
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "conditionsSuggest": {
             "label": "Typical",
@@ -13436,16 +13945,16 @@ const GROUP_SEEDS = [
               "2026-09-18": "16:00",
               "2026-09-19": "16:00"
             },
-            "headline": "The migration appears to be progressing at a normal seasonal pace.",
-            "detail": "River rises and cooling are close to what is usually seen by this point in the season.",
-            "tip": "Fish the core river section identified by Migration Stage. Begin where a travel lane feeds established holding water, then adjust presentation—not seasonal location—using Fishability.",
+            "headline": "The PM migration is progressing at its usual seasonal pace.",
+            "detail": "Season-to-date Scottville river-rise activity and M-37 cooling are close to the usual PM pattern.",
+            "tip": "Keep the PM section named by Migration Stage.",
             "reasonCodes": [
               "gauge_fresh",
               "temperature_measured",
               "conditions_checkpoint_river_start",
               "conditions_typical"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -13507,6 +14016,8 @@ const GROUP_SEEDS = [
           },
           "fishInRiver": {
             "score": 17,
+            "displayScore": 20,
+            "scoreIsApproximate": true,
             "stage": "beginning",
             "maximum": 100,
             "riverCeiling": 80,
@@ -13515,14 +14026,14 @@ const GROUP_SEEDS = [
             "curveDirection": "rising",
             "winterHoldingContext": false,
             "label": "Limited presence",
-            "headline": "Some Steelhead are likely in the river, but seasonal presence is still developing.",
-            "detail": "This part of the season usually brings limited presence, with more fish expected to enter and spread through the river. This is a seasonal estimate, not a live fish count.",
-            "tip": "Plan for an emerging but uneven river opportunity. Cover water efficiently, and do not assume every promising stop holds fish.",
+            "headline": "Steelhead seasonal presence is limited presence and building.",
+            "detail": "Calendar timing places Steelhead presence at limited presence, increasing as the fall migration builds. For the PM, expected run strength is Strong, and the opportunity can extend across broadly accessible water. This is not a live fish count or today’s conditions.",
+            "tip": "Use Migration Stage to choose a section. Use Push and Activity for current movement support and responsiveness.",
             "reasonCodes": [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "gauge": {
             "provider": "USGS",
@@ -13578,6 +14089,7 @@ const GROUP_SEEDS = [
           "nextConditionRefreshAt": "2026-10-13T22:00:00.000Z",
           "runStage": {
             "stage": "building",
+            "copyStrategy": "pere_marquette",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -13600,14 +14112,14 @@ const GROUP_SEEDS = [
               "peakToEndDays": 37
             },
             "label": "Building",
-            "headline": "More Steelhead are entering and spreading through the river.",
-            "whereToStart": "Lower river around Scottville into the first substantial middle-river holding holes toward Walhalla.",
-            "detail": "Presence is building beyond isolated early fish, although arrivals and concentrations can still be uneven from section to section.",
-            "tip": "Start where lower-river travel water meets the first substantial holding holes, then work into the middle river instead of waiting in one spot.",
+            "headline": "The PM Steelhead run is building beyond its earliest entry phase.",
+            "detail": "Seasonal timing keeps the Lower river primary. Earlier arrivals may begin reaching the Middle river.",
+            "tip": "Start low, then make one Middle river check if direct fish activity supports the move.",
+            "whereToStart": "Start in the Lower river (Pere Marquette Lake–Scottville). Add the Middle river (Scottville–Maple Leaf) after direct fish activity supports the move.",
             "reasonCodes": [
               "stage_building"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "conditionsSuggest": {
             "label": "Ahead",
@@ -13714,16 +14226,16 @@ const GROUP_SEEDS = [
               "2026-10-09": "16:00",
               "2026-10-10": "16:00"
             },
-            "headline": "The migration appears to be developing earlier than usual.",
-            "detail": "The river has risen and cooled faster than it normally does by this point in the season.",
-            "tip": "Start one accessible river section farther upstream than you normally would for this date and prioritize established holding water. If Push is Possible or stronger, finish with lower travel lanes.",
+            "headline": "The PM migration is developing earlier than usual.",
+            "detail": "Season-to-date Scottville river-rise activity and M-37 cooling are stronger than the usual PM pattern.",
+            "tip": "Start one PM section upstream from Migration Stage, capped at the Upper river (Maple Leaf–M-37).",
             "reasonCodes": [
               "gauge_fresh",
               "temperature_measured",
               "conditions_checkpoint_building_start",
               "conditions_ahead"
             ],
-            "copyVersion": "river-run-copy-v27",
+            "copyVersion": "river-run-copy-v29",
             "previousCheckpointId": "river_start",
             "previousCheckpointDate": "2026-09-20",
             "previousTimingLabel": "Typical"
@@ -13788,6 +14300,8 @@ const GROUP_SEEDS = [
           },
           "fishInRiver": {
             "score": 33,
+            "displayScore": 35,
+            "scoreIsApproximate": true,
             "stage": "building",
             "maximum": 100,
             "riverCeiling": 80,
@@ -13796,14 +14310,14 @@ const GROUP_SEEDS = [
             "curveDirection": "rising",
             "winterHoldingContext": false,
             "label": "Moderate presence",
-            "headline": "A meaningful number of Steelhead are likely in the river, with seasonal presence still building.",
-            "detail": "This part of the season usually brings moderate presence, with more fish expected to enter and spread through the river. This is a seasonal estimate, not a live fish count.",
-            "tip": "Plan for a credible river opportunity that is still improving. Stay mobile until direct fish activity gives you a reason to slow down.",
+            "headline": "Steelhead seasonal presence is moderate presence and building.",
+            "detail": "Calendar timing places Steelhead presence at moderate presence, increasing as the fall migration builds. For the PM, expected run strength is Strong, and the opportunity can extend across broadly accessible water. This is not a live fish count or today’s conditions.",
+            "tip": "Use Migration Stage to choose a section. Use Push and Activity for current movement support and responsiveness.",
             "reasonCodes": [
               "stage_building",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "gauge": {
             "provider": "USGS",
@@ -13852,6 +14366,7 @@ const GROUP_SEEDS = [
           "nextConditionRefreshAt": "2026-10-24T22:00:00.000Z",
           "runStage": {
             "stage": "building",
+            "copyStrategy": "pere_marquette",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -13874,14 +14389,14 @@ const GROUP_SEEDS = [
               "peakToEndDays": 37
             },
             "label": "Building",
-            "headline": "Steelhead are becoming established across much more of the river.",
-            "whereToStart": "Lower- and middle-river holding water from Scottville through Walhalla and Branch first; sample the upper river toward Baldwin/M-37 when direct activity supports it.",
-            "detail": "By this stage, earlier arrivals have had time to reach lower, middle, and upper sections while newer fish continue entering. Fish may be distributed broadly, but the most dependable concentrations are often still in lower- and middle-river holding water.",
-            "tip": "Begin in dependable lower- or middle-river holding water and work deep holes, outside bends, and current breaks. Move into upper sections when direct fish activity or local knowledge supports it, and use Push to decide whether lower travel lanes deserve extra attention.",
+            "headline": "The PM Steelhead run is becoming established in the Middle river.",
+            "detail": "Seasonal timing now favors the Middle river. The Upper river remains a conditional secondary choice.",
+            "tip": "Begin in the Middle river. Add the Upper river only after direct fish activity supports it.",
+            "whereToStart": "Start in the Middle river (Scottville–Maple Leaf). Add the Upper river (Maple Leaf–M-37) only after direct fish activity supports it.",
             "reasonCodes": [
               "stage_building"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -13943,6 +14458,8 @@ const GROUP_SEEDS = [
           },
           "fishInRiver": {
             "score": 49,
+            "displayScore": 50,
+            "scoreIsApproximate": true,
             "stage": "building",
             "maximum": 100,
             "riverCeiling": 80,
@@ -13951,14 +14468,14 @@ const GROUP_SEEDS = [
             "curveDirection": "rising",
             "winterHoldingContext": false,
             "label": "High presence",
-            "headline": "Steelhead are likely spread through more of the river as seasonal presence builds toward its strongest point.",
-            "detail": "Seasonal presence is usually elevated relative to the rest of the season, with more fish expected to enter and spread through the river. This is a seasonal estimate, not a live fish count.",
-            "tip": "Treat this as one of the stronger parts of a strong river season. Give each stop a complete pass, but do not mistake this seasonal estimate for a live fish count.",
+            "headline": "Steelhead seasonal presence is high presence and building.",
+            "detail": "Calendar timing places Steelhead presence high for this fall migration, increasing as the fall migration builds. For the PM, expected run strength is Strong, and the opportunity can extend across broadly accessible water. This is not a live fish count or today’s conditions.",
+            "tip": "Use Migration Stage to choose a section. Use Push and Activity for current movement support and responsiveness.",
             "reasonCodes": [
               "stage_building",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "gauge": {
             "provider": "USGS",
@@ -14007,6 +14524,7 @@ const GROUP_SEEDS = [
           "nextConditionRefreshAt": "2026-11-04T22:00:00.000Z",
           "runStage": {
             "stage": "building",
+            "copyStrategy": "pere_marquette",
             "stagingContext": false,
             "broadBuildingContext": true,
             "winterHoldingContext": false,
@@ -14029,14 +14547,14 @@ const GROUP_SEEDS = [
               "peakToEndDays": 37
             },
             "label": "Building",
-            "headline": "Steelhead are now broadly established through the accessible river.",
-            "whereToStart": "Middle-river holding water from Scottville through Walhalla and Branch, plus the upper river toward Baldwin/M-37; add lower-river travel lanes when Push supports fresh arrivals.",
-            "detail": "By November, multiple entry periods have given steelhead time to spread through lower, middle, and upper sections wherever passage is open. The upper river is now a primary option, even though dependable concentrations can remain in lower and middle holding water.",
-            "tip": "Choose a middle- or upper-river section and cover its substantial holes, deep bends, and current breaks. Shift extra attention lower only when Push supports a fresh wave entering the river.",
+            "headline": "Seasonal timing supports a broader PM Steelhead distribution.",
+            "detail": "The Middle river is the dependable calendar choice. Earlier arrivals may also occupy the Upper river.",
+            "tip": "Cover one Middle river section completely before comparing the Upper river.",
+            "whereToStart": "Start in the Middle river (Scottville–Maple Leaf). Add the Upper river (Maple Leaf–M-37) when direct fish activity supports it.",
             "reasonCodes": [
               "stage_building"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -14098,6 +14616,8 @@ const GROUP_SEEDS = [
           },
           "fishInRiver": {
             "score": 64,
+            "displayScore": 65,
+            "scoreIsApproximate": true,
             "stage": "building",
             "maximum": 100,
             "riverCeiling": 80,
@@ -14106,14 +14626,14 @@ const GROUP_SEEDS = [
             "curveDirection": "rising",
             "winterHoldingContext": false,
             "label": "High presence",
-            "headline": "Steelhead are likely spread through more of the river as seasonal presence builds toward its strongest point.",
-            "detail": "The migration is approaching its strongest seasonal point, and fish are likely distributed through more of the river. This is a seasonal estimate, not a live fish count.",
-            "tip": "Treat this as one of the stronger parts of a strong river season. Give each stop a complete pass, but do not mistake this seasonal estimate for a live fish count.",
+            "headline": "Steelhead seasonal presence is high presence and building.",
+            "detail": "Calendar timing places Steelhead presence high for this fall migration, increasing as the fall migration builds. For the PM, expected run strength is Strong, and the opportunity can extend across broadly accessible water. This is not a live fish count or today’s conditions.",
+            "tip": "Use Migration Stage to choose a section. Use Push and Activity for current movement support and responsiveness.",
             "reasonCodes": [
               "stage_building",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "gauge": {
             "provider": "USGS",
@@ -14162,6 +14682,7 @@ const GROUP_SEEDS = [
           "nextConditionRefreshAt": "2026-11-10T22:00:00.000Z",
           "runStage": {
             "stage": "building",
+            "copyStrategy": "pere_marquette",
             "stagingContext": false,
             "broadBuildingContext": true,
             "winterHoldingContext": false,
@@ -14184,14 +14705,14 @@ const GROUP_SEEDS = [
               "peakToEndDays": 37
             },
             "label": "Building",
-            "headline": "Steelhead are now broadly established through the accessible river.",
-            "whereToStart": "Middle-river holding water from Scottville through Walhalla and Branch, plus the upper river toward Baldwin/M-37; add lower-river travel lanes when Push supports fresh arrivals.",
-            "detail": "By November, multiple entry periods have given steelhead time to spread through lower, middle, and upper sections wherever passage is open. The upper river is now a primary option, even though dependable concentrations can remain in lower and middle holding water.",
-            "tip": "Choose a middle- or upper-river section and cover its substantial holes, deep bends, and current breaks. Shift extra attention lower only when Push supports a fresh wave entering the river.",
+            "headline": "Seasonal timing supports a broader PM Steelhead distribution.",
+            "detail": "The Middle river is the dependable calendar choice. Earlier arrivals may also occupy the Upper river.",
+            "tip": "Cover one Middle river section completely before comparing the Upper river.",
+            "whereToStart": "Start in the Middle river (Scottville–Maple Leaf). Add the Upper river (Maple Leaf–M-37) when direct fish activity supports it.",
             "reasonCodes": [
               "stage_building"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -14253,6 +14774,8 @@ const GROUP_SEEDS = [
           },
           "fishInRiver": {
             "score": 73,
+            "displayScore": 75,
+            "scoreIsApproximate": true,
             "stage": "building",
             "maximum": 100,
             "riverCeiling": 80,
@@ -14261,14 +14784,14 @@ const GROUP_SEEDS = [
             "curveDirection": "rising",
             "winterHoldingContext": false,
             "label": "Peak presence",
-            "headline": "Steelhead are likely spread through more of the river as seasonal presence builds toward its strongest point.",
-            "detail": "The migration is approaching its strongest seasonal point, and fish are likely distributed through more of the river. This is a seasonal estimate, not a live fish count.",
-            "tip": "Treat this as one of the stronger parts of a strong river season. Give each stop a complete pass, but do not mistake this seasonal estimate for a live fish count.",
+            "headline": "Steelhead seasonal presence is peak presence and building.",
+            "detail": "Calendar timing places Steelhead presence at its expected seasonal peak, increasing as the fall migration builds. For the PM, expected run strength is Strong, and the opportunity can extend across broadly accessible water. This is not a live fish count or today’s conditions.",
+            "tip": "Use Migration Stage to choose a section. Use Push and Activity for current movement support and responsiveness.",
             "reasonCodes": [
               "stage_building",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "gauge": {
             "provider": "USGS",
@@ -14317,6 +14840,7 @@ const GROUP_SEEDS = [
           "nextConditionRefreshAt": "2026-11-15T22:00:00.000Z",
           "runStage": {
             "stage": "peak",
+            "copyStrategy": "pere_marquette",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -14339,14 +14863,14 @@ const GROUP_SEEDS = [
               "peakToEndDays": 37
             },
             "label": "Peak",
-            "headline": "This is typically the strongest and most dependable fall Steelhead opportunity.",
-            "whereToStart": "Compare substantial holding water in the middle river from Scottville through Walhalla and Branch with the upper river toward Baldwin/M-37; add lower travel lanes on a fresh Push.",
-            "detail": "Multiple waves have had time to spread from lower travel lanes into established middle- and upper-river holding water. Fish can be broadly distributed wherever passage is open.",
-            "tip": "Choose an accessible section and cover each substantial hole from the head through its seams and tail. Let Push decide whether lower travel lanes deserve extra time.",
+            "headline": "This is typically the PM’s strongest Steelhead migration window.",
+            "detail": "Seasonal timing supports the widest dependable Steelhead distribution. It does not confirm fish in every section.",
+            "tip": "Start in the Middle river. Compare the Upper river only after a complete first pass.",
+            "whereToStart": "Start in the Middle river (Scottville–Maple Leaf). Compare the Upper river (Maple Leaf–M-37) when direct fish activity favors it.",
             "reasonCodes": [
               "stage_peak"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "conditionsSuggest": {
             "label": "Ahead",
@@ -14523,16 +15047,16 @@ const GROUP_SEEDS = [
               "2026-11-13": "16:00",
               "2026-11-14": "16:00"
             },
-            "headline": "The migration appears to be developing earlier than usual.",
-            "detail": "The river has risen and cooled faster than it normally does by this point in the season.",
-            "tip": "Start one accessible river section farther upstream than you normally would for this date and prioritize established holding water. If Push is Possible or stronger, finish with lower travel lanes.",
+            "headline": "The PM migration is developing earlier than usual.",
+            "detail": "Season-to-date Scottville river-rise activity and M-37 cooling are stronger than the usual PM pattern.",
+            "tip": "Start one PM section upstream from Migration Stage, capped at the Upper river (Maple Leaf–M-37).",
             "reasonCodes": [
               "gauge_fresh",
               "temperature_measured",
               "conditions_checkpoint_peak_start",
               "conditions_ahead"
             ],
-            "copyVersion": "river-run-copy-v27",
+            "copyVersion": "river-run-copy-v29",
             "previousCheckpointId": "building_established",
             "previousCheckpointDate": "2026-10-15",
             "previousTimingLabel": "Ahead"
@@ -14597,6 +15121,8 @@ const GROUP_SEEDS = [
           },
           "fishInRiver": {
             "score": 80,
+            "displayScore": 80,
+            "scoreIsApproximate": false,
             "stage": "peak",
             "maximum": 100,
             "riverCeiling": 80,
@@ -14605,14 +15131,14 @@ const GROUP_SEEDS = [
             "curveDirection": "near_peak",
             "winterHoldingContext": false,
             "label": "Peak presence",
-            "headline": "Steelhead are likely near their highest seasonal presence in the river.",
-            "detail": "This is the part of the season when in-river presence is usually strongest. The read describes the river as a whole; it does not place fish in a specific pool or confirm a live count.",
-            "tip": "Plan for the strongest seasonal presence this river usually offers, while remembering that this estimate cannot confirm fish at a specific spot or describe today's river conditions.",
+            "headline": "Steelhead seasonal presence is peak presence and near its seasonal high.",
+            "detail": "Calendar timing places Steelhead presence at its expected seasonal peak, near its expected seasonal high. For the PM, expected run strength is Strong, and the opportunity can extend across broadly accessible water. This is not a live fish count or today’s conditions.",
+            "tip": "Use Migration Stage to choose a section. Use Push and Activity for current movement support and responsiveness.",
             "reasonCodes": [
               "stage_peak",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "gauge": {
             "provider": "USGS",
@@ -14668,6 +15194,7 @@ const GROUP_SEEDS = [
           "nextConditionRefreshAt": "2026-12-05T22:00:00.000Z",
           "runStage": {
             "stage": "tapering",
+            "copyStrategy": "pere_marquette",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -14690,14 +15217,14 @@ const GROUP_SEEDS = [
               "peakToEndDays": 37
             },
             "label": "Late fall",
-            "headline": "Steelhead presence remains high as the fall fishery begins shifting toward winter holding.",
-            "whereToStart": "Established middle- and upper-river holes from Walhalla and Branch toward Baldwin/M-37, especially deeper bends and slower edges beside productive current.",
-            "detail": "Fish remain broadly available, but colder water gradually shifts the balance from active upstream movement toward established holding. Fresh arrivals can still occur without defining the whole fishery.",
-            "tip": "Start with dependable holding water. Check lower travel lanes only when Push shows a credible movement signal.",
+            "headline": "PM Steelhead fall entry remains strong but is slowing.",
+            "detail": "Seasonal timing still supports broad fall presence. Colder water makes established holding water more important than new entry.",
+            "tip": "Start in the Middle river. Shift lower only when Push supports fresh movement.",
+            "whereToStart": "Start in the Middle river (Scottville–Maple Leaf). Add the Lower river (Pere Marquette Lake–Scottville) only when Push supports fresh movement.",
             "reasonCodes": [
               "stage_tapering"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "conditionsSuggest": {
             "label": "Timing complete",
@@ -14895,7 +15422,7 @@ const GROUP_SEEDS = [
               "conditions_ahead",
               "conditions_timing_complete"
             ],
-            "copyVersion": "river-run-copy-v27",
+            "copyVersion": "river-run-copy-v29",
             "previousCheckpointId": "peak_start",
             "previousCheckpointDate": "2026-11-15",
             "previousTimingLabel": "Ahead"
@@ -14960,6 +15487,8 @@ const GROUP_SEEDS = [
           },
           "fishInRiver": {
             "score": 79,
+            "displayScore": 80,
+            "scoreIsApproximate": true,
             "stage": "tapering",
             "maximum": 100,
             "riverCeiling": 80,
@@ -14968,14 +15497,14 @@ const GROUP_SEEDS = [
             "curveDirection": "falling",
             "winterHoldingContext": false,
             "label": "Peak presence",
-            "headline": "Steelhead remain near their strongest fall presence as winter holding approaches.",
-            "detail": "The slight decline reflects fewer fresh arrivals—not fish simply leaving the river. This is a seasonal opportunity estimate, not a live fish count.",
-            "tip": "Treat the retained presence as strong, but expect the fishery to be shifting away from fresh fall entry. Verify current river conditions before choosing a presentation.",
+            "headline": "Steelhead seasonal presence is peak presence and declining.",
+            "detail": "Calendar timing places Steelhead presence at its expected seasonal peak, declining as the fall migration advances. For the PM, expected run strength is Strong, and the opportunity can extend across broadly accessible water. This is not a live fish count or today’s conditions.",
+            "tip": "Use Migration Stage to choose a section. Use Push and Activity for current movement support and responsiveness.",
             "reasonCodes": [
               "stage_tapering",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "gauge": {
             "provider": "USGS",
@@ -15024,6 +15553,7 @@ const GROUP_SEEDS = [
           "nextConditionRefreshAt": "2026-12-20T22:00:00.000Z",
           "runStage": {
             "stage": "ending",
+            "copyStrategy": "pere_marquette",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -15046,14 +15576,14 @@ const GROUP_SEEDS = [
               "peakToEndDays": 37
             },
             "label": "Holding transition",
-            "headline": "Steelhead remain strongly present while fall entry transitions toward winter holding.",
-            "whereToStart": "Deep, speed-controlled middle- and upper-river holding water from Walhalla and Branch toward Baldwin/M-37, with nearby feeding current.",
-            "detail": "The fish have not simply left the river. Colder water reduces the importance of fresh upstream movement and increases the importance of where steelhead can hold efficiently through winter.",
-            "tip": "Prioritize deep, speed-controlled holding water and use Push only as a secondary fresh-arrival check. The winter fishery read takes over after this stage.",
+            "headline": "PM Steelhead fall entry is in its final seasonal phase.",
+            "detail": "Steelhead may remain after fall entry ends. This state marks the model boundary, not fish leaving the river.",
+            "tip": "Prioritize established Middle river holding water and use Activity only through the final fall-entry day.",
+            "whereToStart": "Start in the Middle river (Scottville–Maple Leaf). Add the Upper river (Maple Leaf–M-37) only for established late-fall holding water.",
             "reasonCodes": [
               "stage_ending"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "conditionsSuggest": {
             "label": "Timing complete",
@@ -15251,7 +15781,7 @@ const GROUP_SEEDS = [
               "conditions_ahead",
               "conditions_timing_complete"
             ],
-            "copyVersion": "river-run-copy-v27",
+            "copyVersion": "river-run-copy-v29",
             "previousCheckpointId": "peak_start",
             "previousCheckpointDate": "2026-11-15",
             "previousTimingLabel": "Ahead"
@@ -15316,6 +15846,8 @@ const GROUP_SEEDS = [
           },
           "fishInRiver": {
             "score": 71,
+            "displayScore": 70,
+            "scoreIsApproximate": true,
             "stage": "ending",
             "maximum": 100,
             "riverCeiling": 80,
@@ -15324,14 +15856,14 @@ const GROUP_SEEDS = [
             "curveDirection": "falling",
             "winterHoldingContext": false,
             "label": "High presence",
-            "headline": "Steelhead presence remains high as the fall fishery shifts toward winter holding.",
-            "detail": "The slight decline reflects fewer fresh arrivals—not fish simply leaving the river. This is a seasonal opportunity estimate, not a live fish count.",
-            "tip": "Treat the retained presence as strong, but expect the fishery to be shifting away from fresh fall entry. Verify current river conditions before choosing a presentation.",
+            "headline": "Steelhead seasonal presence is high presence and declining.",
+            "detail": "Calendar timing places Steelhead presence high for this fall migration, declining as the fall migration advances. For the PM, expected run strength is Strong, and the opportunity can extend across broadly accessible water. This is not a live fish count or today’s conditions.",
+            "tip": "Use Migration Stage to choose a section. Use Push and Activity for current movement support and responsiveness.",
             "reasonCodes": [
               "stage_ending",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "gauge": {
             "provider": "USGS",
@@ -15369,384 +15901,6 @@ const GROUP_SEEDS = [
         }
       },
       {
-        "id": "fish_in_river_winter_holding_outside",
-        "label": "70 / 100 · Outside",
-        "note": "Canonical production copy",
-        "snapshotOverride": {
-          "localDate": "2026-12-23",
-          "progressionSnapshotAt": "2026-12-23T12:00:00.000Z",
-          "conditionRefreshAt": "2026-12-23T20:00:00.000Z",
-          "progressionExpiresAt": "2026-12-23T23:59:59.000Z",
-          "nextConditionRefreshAt": "2026-12-23T22:00:00.000Z",
-          "runStage": {
-            "stage": "post_run",
-            "stagingContext": false,
-            "broadBuildingContext": false,
-            "winterHoldingContext": true,
-            "window": {
-              "snapshotDate": "2026-12-23",
-              "preRunStartDate": "2026-08-15",
-              "stagingStartDate": "2026-09-01",
-              "startDate": "2026-09-20",
-              "beginningEndDate": "2026-10-10",
-              "buildingEstablishedStartDate": "2026-10-15",
-              "buildingBroadStartDate": "2026-11-01",
-              "peakStartDate": "2026-11-15",
-              "peakDate": "2026-11-15",
-              "peakEndDate": "2026-12-04",
-              "taperingEndDate": "2026-12-19",
-              "endDate": "2026-12-22",
-              "lateEndDate": "2026-12-23",
-              "postRunLateCopyEndDate": "2026-12-24",
-              "startToPeakDays": 56,
-              "peakToEndDays": 37
-            },
-            "label": "Winter holding",
-            "headline": "Steelhead have transitioned from fall entry into winter holding.",
-            "whereToStart": "Deep, slow middle- and upper-river holding water from Walhalla and Branch toward Baldwin/M-37, with nearby current and an easy feeding lane.",
-            "detail": "Fish can remain distributed through the river, but colder water shifts the question from upstream movement to daily activity and feeding position.",
-            "tip": "Open the Winter Holding read for current activity, likely holding water, and presentation guidance. A completed fall-entry read does not mean steelhead have left the river.",
-            "reasonCodes": [
-              "stage_post_run",
-              "stage_winter_holding"
-            ],
-            "copyVersion": "river-run-copy-v27"
-          },
-          "conditionsSuggest": {
-            "label": "Timing complete",
-            "timingLabel": "Ahead",
-            "candidateLabel": "Ahead",
-            "checkpointId": "peak_complete",
-            "checkpointDate": "2026-11-21",
-            "cutoffDate": "2026-11-20",
-            "observationStartDate": "2026-09-01",
-            "completedCheckpointCount": 5,
-            "currentIndex": 92.5,
-            "currentPercentile": 100,
-            "gaugeResponsePercentile": 100,
-            "waterTemperaturePercentile": 87.5,
-            "usableDays": 81,
-            "expectedDays": 81,
-            "coveragePercent": 1,
-            "historicalYears": 5,
-            "baselineVersion": "pm-fall-steelhead-conditions-v2",
-            "gaugeSiteId": "04122500",
-            "temperatureSourceId": "pm_m37_temperature",
-            "sourceDates": [
-              "2026-09-01",
-              "2026-09-02",
-              "2026-09-03",
-              "2026-09-04",
-              "2026-09-05",
-              "2026-09-06",
-              "2026-09-07",
-              "2026-09-08",
-              "2026-09-09",
-              "2026-09-10",
-              "2026-09-11",
-              "2026-09-12",
-              "2026-09-13",
-              "2026-09-14",
-              "2026-09-15",
-              "2026-09-16",
-              "2026-09-17",
-              "2026-09-18",
-              "2026-09-19",
-              "2026-09-20",
-              "2026-09-21",
-              "2026-09-22",
-              "2026-09-23",
-              "2026-09-24",
-              "2026-09-25",
-              "2026-09-26",
-              "2026-09-27",
-              "2026-09-28",
-              "2026-09-29",
-              "2026-09-30",
-              "2026-10-01",
-              "2026-10-02",
-              "2026-10-03",
-              "2026-10-04",
-              "2026-10-05",
-              "2026-10-06",
-              "2026-10-07",
-              "2026-10-08",
-              "2026-10-09",
-              "2026-10-10",
-              "2026-10-11",
-              "2026-10-12",
-              "2026-10-13",
-              "2026-10-14",
-              "2026-10-15",
-              "2026-10-16",
-              "2026-10-17",
-              "2026-10-18",
-              "2026-10-19",
-              "2026-10-20",
-              "2026-10-21",
-              "2026-10-22",
-              "2026-10-23",
-              "2026-10-24",
-              "2026-10-25",
-              "2026-10-26",
-              "2026-10-27",
-              "2026-10-28",
-              "2026-10-29",
-              "2026-10-30",
-              "2026-10-31",
-              "2026-11-01",
-              "2026-11-02",
-              "2026-11-03",
-              "2026-11-04",
-              "2026-11-05",
-              "2026-11-06",
-              "2026-11-07",
-              "2026-11-08",
-              "2026-11-09",
-              "2026-11-10",
-              "2026-11-11",
-              "2026-11-12",
-              "2026-11-13",
-              "2026-11-14",
-              "2026-11-15",
-              "2026-11-16",
-              "2026-11-17",
-              "2026-11-18",
-              "2026-11-19",
-              "2026-11-20"
-            ],
-            "sourceRefreshSlots": {
-              "2026-09-01": "16:00",
-              "2026-09-02": "16:00",
-              "2026-09-03": "16:00",
-              "2026-09-04": "16:00",
-              "2026-09-05": "16:00",
-              "2026-09-06": "16:00",
-              "2026-09-07": "16:00",
-              "2026-09-08": "16:00",
-              "2026-09-09": "16:00",
-              "2026-09-10": "16:00",
-              "2026-09-11": "16:00",
-              "2026-09-12": "16:00",
-              "2026-09-13": "16:00",
-              "2026-09-14": "16:00",
-              "2026-09-15": "16:00",
-              "2026-09-16": "16:00",
-              "2026-09-17": "16:00",
-              "2026-09-18": "16:00",
-              "2026-09-19": "16:00",
-              "2026-09-20": "16:00",
-              "2026-09-21": "16:00",
-              "2026-09-22": "16:00",
-              "2026-09-23": "16:00",
-              "2026-09-24": "16:00",
-              "2026-09-25": "16:00",
-              "2026-09-26": "16:00",
-              "2026-09-27": "16:00",
-              "2026-09-28": "16:00",
-              "2026-09-29": "16:00",
-              "2026-09-30": "16:00",
-              "2026-10-01": "16:00",
-              "2026-10-02": "16:00",
-              "2026-10-03": "16:00",
-              "2026-10-04": "16:00",
-              "2026-10-05": "16:00",
-              "2026-10-06": "16:00",
-              "2026-10-07": "16:00",
-              "2026-10-08": "16:00",
-              "2026-10-09": "16:00",
-              "2026-10-10": "16:00",
-              "2026-10-11": "16:00",
-              "2026-10-12": "16:00",
-              "2026-10-13": "16:00",
-              "2026-10-14": "16:00",
-              "2026-10-15": "16:00",
-              "2026-10-16": "16:00",
-              "2026-10-17": "16:00",
-              "2026-10-18": "16:00",
-              "2026-10-19": "16:00",
-              "2026-10-20": "16:00",
-              "2026-10-21": "16:00",
-              "2026-10-22": "16:00",
-              "2026-10-23": "16:00",
-              "2026-10-24": "16:00",
-              "2026-10-25": "16:00",
-              "2026-10-26": "16:00",
-              "2026-10-27": "16:00",
-              "2026-10-28": "16:00",
-              "2026-10-29": "16:00",
-              "2026-10-30": "16:00",
-              "2026-10-31": "16:00",
-              "2026-11-01": "16:00",
-              "2026-11-02": "16:00",
-              "2026-11-03": "16:00",
-              "2026-11-04": "16:00",
-              "2026-11-05": "16:00",
-              "2026-11-06": "16:00",
-              "2026-11-07": "16:00",
-              "2026-11-08": "16:00",
-              "2026-11-09": "16:00",
-              "2026-11-10": "16:00",
-              "2026-11-11": "16:00",
-              "2026-11-12": "16:00",
-              "2026-11-13": "16:00",
-              "2026-11-14": "16:00",
-              "2026-11-15": "16:00",
-              "2026-11-16": "16:00",
-              "2026-11-17": "16:00",
-              "2026-11-18": "16:00",
-              "2026-11-19": "16:00",
-              "2026-11-20": "16:00"
-            },
-            "headline": "This season's Migration Timing read is complete.",
-            "detail": "Earlier in the season, the migration was moving earlier than usual. Fall entry has now shifted into winter holding, where current activity matters more than an early-or-late call.",
-            "tip": "Stop planning around whether fall entry was early or late. Use the winter fishery read to judge current activity and presentation.",
-            "reasonCodes": [
-              "gauge_fresh",
-              "temperature_measured",
-              "conditions_checkpoint_peak_complete",
-              "conditions_ahead",
-              "conditions_timing_complete"
-            ],
-            "copyVersion": "river-run-copy-v27",
-            "previousCheckpointId": "peak_start",
-            "previousCheckpointDate": "2026-11-15",
-            "previousTimingLabel": "Ahead"
-          },
-          "push": {
-            "score": null,
-            "label": "Winter holding",
-            "headline": "The season's fresh-movement read is complete.",
-            "detail": "Steelhead may remain in the river, but the fall-entry signal has handed off to winter holding. Winter activity requires a different water-temperature and feeding read.",
-            "tip": "Use the winter fishery read for activity and presentation decisions. Do not treat a muted Push as evidence that steelhead left the river.",
-            "reasonCodes": [
-              "push_tracking_complete"
-            ],
-            "rulesVersion": "pm-fall-steelhead-push-v1",
-            "copyVersion": "river-run-copy-v27"
-          },
-          "pushHistory": {
-            "status": "complete",
-            "minimumSupportiveScore": 50,
-            "trackingStartDate": "2026-09-20",
-            "trackingEndDate": "2026-12-22",
-            "throughDate": "2026-12-22",
-            "recentDailyReadsStatus": "available",
-            "recentDailyReads": [
-              {
-                "localDate": "2026-12-22",
-                "status": "no_supportive_window",
-                "score": null,
-                "label": "No supportive window"
-              },
-              {
-                "localDate": "2026-12-21",
-                "status": "no_supportive_window",
-                "score": null,
-                "label": "No supportive window"
-              },
-              {
-                "localDate": "2026-12-20",
-                "status": "supportive_window",
-                "refreshSlot": "08:00",
-                "conditionRefreshAt": "2026-12-20T23:59:00.000Z",
-                "score": 63,
-                "label": "Possible"
-              },
-              {
-                "localDate": "2026-12-19",
-                "status": "no_supportive_window",
-                "score": null,
-                "label": "No supportive window"
-              },
-              {
-                "localDate": "2026-12-18",
-                "status": "supportive_window",
-                "refreshSlot": "20:00",
-                "conditionRefreshAt": "2026-12-18T23:59:00.000Z",
-                "score": 81,
-                "label": "Strong"
-              },
-              {
-                "localDate": "2026-12-17",
-                "status": "supportive_window",
-                "refreshSlot": "16:00",
-                "conditionRefreshAt": "2026-12-17T23:59:00.000Z",
-                "score": 63,
-                "label": "Possible"
-              },
-              {
-                "localDate": "2026-12-16",
-                "status": "no_supportive_window",
-                "score": null,
-                "label": "No supportive window"
-              }
-            ]
-          },
-          "fishInRiver": {
-            "score": 70,
-            "stage": "post_run",
-            "maximum": 100,
-            "riverCeiling": 80,
-            "historicalRunStrength": "strong",
-            "curveFraction": 0.875,
-            "curveDirection": "outside",
-            "winterHoldingContext": true,
-            "handoffScore": 70,
-            "label": "Winter holding",
-            "headline": "Steelhead remain strongly present as the fishery shifts into winter holding.",
-            "detail": "Fall entry finished at 70/100. That retained-presence reference stays visible, but it is not a winter activity score; winter opportunity depends on water temperature, feeding activity, and presentation.",
-            "tip": "Open the Winter Holding read for current activity, likely holding water, and presentation guidance. Treat 70/100 as retained seasonal presence—not proof that fish are active today.",
-            "reasonCodes": [
-              "stage_post_run",
-              "historical_presence_curve",
-              "fish_presence_winter_handoff"
-            ],
-            "copyVersion": "river-run-copy-v27"
-          },
-          "gauge": {
-            "provider": "USGS",
-            "siteId": "04122500",
-            "primaryMetric": "flow_cfs",
-            "observedAt": "2026-12-23T19:45:00.000Z",
-            "value": 600,
-            "band": "ideal",
-            "trend": "stable",
-            "absoluteChange24h": 0,
-            "percentChange24h": 0
-          },
-          "waterTemperature": {
-            "provider": "MONITOR_MY_WATERSHED",
-            "sourceId": "pmtu_maple_leaf",
-            "siteId": "PMTU-MapleLeaf",
-            "seriesId": "4939",
-            "observedAt": "2026-12-23T19:30:00.000Z",
-            "waterTempF": 60,
-            "trend": "steady",
-            "sourceType": "same_gauge",
-            "attribution": "Measured water temperature"
-          },
-          "conditionsWaterTemperature": {
-            "provider": "MONITOR_MY_WATERSHED",
-            "sourceId": "pmtu_m37",
-            "siteId": "PMTU-M37",
-            "seriesId": "3201",
-            "observedAt": "2026-12-23T19:30:00.000Z",
-            "waterTempF": 60,
-            "trend": "steady",
-            "sourceType": "same_gauge",
-            "attribution": "Measured water temperature"
-          },
-          "interpretationNote": {
-            "headline": "Steelhead are still in the river, but winter conditions now control the day.",
-            "detail": "The fall-entry period ended with strong retained presence. Use the winter fishery read to judge activity and presentation; Push and Migration Timing are intentionally complete because they answer the wrong question now.",
-            "reasonCodes": [
-              "winter_holding_read_required"
-            ]
-          }
-        }
-      },
-      {
         "id": "fish_in_river_moderate_cap",
         "label": "QA only · moderate sectional run · 60 / 100",
         "note": "Canonical production copy",
@@ -15758,6 +15912,7 @@ const GROUP_SEEDS = [
           "nextConditionRefreshAt": "2026-11-15T22:00:00.000Z",
           "runStage": {
             "stage": "peak",
+            "copyStrategy": "pere_marquette",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -15780,14 +15935,14 @@ const GROUP_SEEDS = [
               "peakToEndDays": 37
             },
             "label": "Peak",
-            "headline": "This is typically the strongest and most dependable fall Steelhead opportunity.",
-            "whereToStart": "Compare substantial holding water in the middle river from Scottville through Walhalla and Branch with the upper river toward Baldwin/M-37; add lower travel lanes on a fresh Push.",
-            "detail": "Multiple waves have had time to spread from lower travel lanes into established middle- and upper-river holding water. Fish can be broadly distributed wherever passage is open.",
-            "tip": "Choose an accessible section and cover each substantial hole from the head through its seams and tail. Let Push decide whether lower travel lanes deserve extra time.",
+            "headline": "This is typically the PM’s strongest Steelhead migration window.",
+            "detail": "Seasonal timing supports the widest dependable Steelhead distribution. It does not confirm fish in every section.",
+            "tip": "Start in the Middle river. Compare the Upper river only after a complete first pass.",
+            "whereToStart": "Start in the Middle river (Scottville–Maple Leaf). Compare the Upper river (Maple Leaf–M-37) when direct fish activity favors it.",
             "reasonCodes": [
               "stage_peak"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "conditionsSuggest": {
             "label": "Ahead",
@@ -15964,16 +16119,16 @@ const GROUP_SEEDS = [
               "2026-11-13": "16:00",
               "2026-11-14": "16:00"
             },
-            "headline": "The migration appears to be developing earlier than usual.",
-            "detail": "The river has risen and cooled faster than it normally does by this point in the season.",
-            "tip": "Start one accessible river section farther upstream than you normally would for this date and prioritize established holding water. If Push is Possible or stronger, finish with lower travel lanes.",
+            "headline": "The PM migration is developing earlier than usual.",
+            "detail": "Season-to-date Scottville river-rise activity and M-37 cooling are stronger than the usual PM pattern.",
+            "tip": "Start one PM section upstream from Migration Stage, capped at the Upper river (Maple Leaf–M-37).",
             "reasonCodes": [
               "gauge_fresh",
               "temperature_measured",
               "conditions_checkpoint_peak_start",
               "conditions_ahead"
             ],
-            "copyVersion": "river-run-copy-v27",
+            "copyVersion": "river-run-copy-v29",
             "previousCheckpointId": "building_established",
             "previousCheckpointDate": "2026-10-15",
             "previousTimingLabel": "Ahead"
@@ -16038,6 +16193,8 @@ const GROUP_SEEDS = [
           },
           "fishInRiver": {
             "score": 60,
+            "displayScore": 60,
+            "scoreIsApproximate": false,
             "stage": "peak",
             "maximum": 100,
             "riverCeiling": 60,
@@ -16046,14 +16203,14 @@ const GROUP_SEEDS = [
             "curveDirection": "near_peak",
             "winterHoldingContext": false,
             "label": "Peak presence",
-            "headline": "Steelhead are likely near their highest seasonal presence in the river.",
-            "detail": "This is the part of the season when in-river presence is usually strongest. Fish are most likely distributed through several dependable river sections. The read does not place fish in a specific pool or confirm a live count.",
-            "tip": "Plan for a dependable but potentially uneven river opportunity near its seasonal high point. Confirm fish activity before committing the full day.",
+            "headline": "Steelhead seasonal presence is peak presence and near its seasonal high.",
+            "detail": "Calendar timing places Steelhead presence at its expected seasonal peak, near its expected seasonal high. For the PM, expected run strength is Moderate, and the opportunity centers on dependable river sections. This is not a live fish count or today’s conditions.",
+            "tip": "Use Migration Stage to choose a section. Use Push and Activity for current movement support and responsiveness.",
             "reasonCodes": [
               "stage_peak",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "gauge": {
             "provider": "USGS",
@@ -16111,6 +16268,8 @@ const GROUP_SEEDS = [
           "runId": "qa_moderate_opportunity",
           "fishInRiver": {
             "score": 27,
+            "displayScore": 25,
+            "scoreIsApproximate": true,
             "stage": "building",
             "maximum": 100,
             "riverCeiling": 60,
@@ -16119,14 +16278,14 @@ const GROUP_SEEDS = [
             "curveDirection": "rising",
             "winterHoldingContext": false,
             "label": "Moderate presence",
-            "headline": "A meaningful seasonal presence of Steelhead is likely in the river and still building.",
-            "detail": "This part of the season usually brings moderate presence, with more fish expected to enter and become established through several dependable river sections. This is a seasonal estimate, not a live fish count.",
-            "tip": "Plan for a credible river opportunity that is still improving. Stay mobile until direct fish activity gives you a reason to slow down.",
+            "headline": "Steelhead seasonal presence is moderate presence and building.",
+            "detail": "Calendar timing places Steelhead presence at moderate presence, increasing as the fall migration builds. For the PM, expected run strength is Moderate, and the opportunity centers on dependable river sections. This is not a live fish count or today’s conditions.",
+            "tip": "Use Migration Stage to choose a section. Use Push and Activity for current movement support and responsiveness.",
             "reasonCodes": [
               "stage_building",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           }
         }
       },
@@ -16143,6 +16302,7 @@ const GROUP_SEEDS = [
           "nextConditionRefreshAt": "2026-11-15T22:00:00.000Z",
           "runStage": {
             "stage": "peak",
+            "copyStrategy": "pere_marquette",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -16165,14 +16325,14 @@ const GROUP_SEEDS = [
               "peakToEndDays": 37
             },
             "label": "Peak",
-            "headline": "This is typically the strongest and most dependable fall Steelhead opportunity.",
-            "whereToStart": "Compare substantial holding water in the middle river from Scottville through Walhalla and Branch with the upper river toward Baldwin/M-37; add lower travel lanes on a fresh Push.",
-            "detail": "Multiple waves have had time to spread from lower travel lanes into established middle- and upper-river holding water. Fish can be broadly distributed wherever passage is open.",
-            "tip": "Choose an accessible section and cover each substantial hole from the head through its seams and tail. Let Push decide whether lower travel lanes deserve extra time.",
+            "headline": "This is typically the PM’s strongest Coho window, within a moderate river-specific run.",
+            "detail": "Seasonal timing supports the PM’s core Steelhead sections. Concentrations may remain uneven between them.",
+            "tip": "Start in the Middle river. Compare the Upper river only after a complete first pass.",
+            "whereToStart": "Start in the Middle river (Scottville–Maple Leaf). Compare the Upper river (Maple Leaf–M-37) when direct fish activity favors it.",
             "reasonCodes": [
               "stage_peak"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "conditionsSuggest": {
             "label": "Ahead",
@@ -16349,16 +16509,16 @@ const GROUP_SEEDS = [
               "2026-11-13": "16:00",
               "2026-11-14": "16:00"
             },
-            "headline": "The migration appears to be developing earlier than usual.",
-            "detail": "The river has risen and cooled faster than it normally does by this point in the season.",
-            "tip": "Start one accessible river section farther upstream than you normally would for this date and prioritize established holding water. If Push is Possible or stronger, finish with lower travel lanes.",
+            "headline": "The PM migration is developing earlier than usual.",
+            "detail": "Season-to-date Scottville river-rise activity and M-37 cooling are stronger than the usual PM pattern.",
+            "tip": "Start one PM section upstream from Migration Stage, capped at the Upper river (Maple Leaf–M-37).",
             "reasonCodes": [
               "gauge_fresh",
               "temperature_measured",
               "conditions_checkpoint_peak_start",
               "conditions_ahead"
             ],
-            "copyVersion": "river-run-copy-v27",
+            "copyVersion": "river-run-copy-v29",
             "previousCheckpointId": "building_established",
             "previousCheckpointDate": "2026-10-15",
             "previousTimingLabel": "Ahead"
@@ -16423,6 +16583,8 @@ const GROUP_SEEDS = [
           },
           "fishInRiver": {
             "score": 60,
+            "displayScore": 60,
+            "scoreIsApproximate": false,
             "stage": "peak",
             "maximum": 100,
             "riverCeiling": 60,
@@ -16431,14 +16593,14 @@ const GROUP_SEEDS = [
             "curveDirection": "near_peak",
             "winterHoldingContext": false,
             "label": "Peak presence",
-            "headline": "Steelhead are likely near their highest seasonal presence in the river.",
-            "detail": "This is the part of the season when in-river presence is usually strongest. Fish are most likely distributed through several dependable river sections. The read does not place fish in a specific pool or confirm a live count.",
-            "tip": "Plan for a dependable but potentially uneven river opportunity near its seasonal high point. Confirm fish activity before committing the full day.",
+            "headline": "Steelhead seasonal presence is peak presence and near its seasonal high.",
+            "detail": "Calendar timing places Steelhead presence at its expected seasonal peak, near its expected seasonal high. For the PM, expected run strength is Moderate, and the opportunity centers on dependable river sections. This is not a live fish count or today’s conditions.",
+            "tip": "Use Migration Stage to choose a section. Use Push and Activity for current movement support and responsiveness.",
             "reasonCodes": [
               "stage_peak",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "gauge": {
             "provider": "USGS",
@@ -16495,6 +16657,7 @@ const GROUP_SEEDS = [
           "nextConditionRefreshAt": "2026-12-09T22:00:00.000Z",
           "runStage": {
             "stage": "tapering",
+            "copyStrategy": "pere_marquette",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -16517,14 +16680,14 @@ const GROUP_SEEDS = [
               "peakToEndDays": 37
             },
             "label": "Late fall",
-            "headline": "Steelhead presence remains high as the fall fishery begins shifting toward winter holding.",
-            "whereToStart": "Established middle- and upper-river holes from Walhalla and Branch toward Baldwin/M-37, especially deeper bends and slower edges beside productive current.",
-            "detail": "Fish remain broadly available, but colder water gradually shifts the balance from active upstream movement toward established holding. Fresh arrivals can still occur without defining the whole fishery.",
-            "tip": "Start with dependable holding water. Check lower travel lanes only when Push shows a credible movement signal.",
+            "headline": "PM Steelhead fall entry remains strong but is slowing.",
+            "detail": "Seasonal timing still supports broad fall presence. Colder water makes established holding water more important than new entry.",
+            "tip": "Start in the Middle river. Shift lower only when Push supports fresh movement.",
+            "whereToStart": "Start in the Middle river (Scottville–Maple Leaf). Add the Lower river (Pere Marquette Lake–Scottville) only when Push supports fresh movement.",
             "reasonCodes": [
               "stage_tapering"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "conditionsSuggest": {
             "label": "Timing complete",
@@ -16722,7 +16885,7 @@ const GROUP_SEEDS = [
               "conditions_ahead",
               "conditions_timing_complete"
             ],
-            "copyVersion": "river-run-copy-v27",
+            "copyVersion": "river-run-copy-v29",
             "previousCheckpointId": "peak_start",
             "previousCheckpointDate": "2026-11-15",
             "previousTimingLabel": "Ahead"
@@ -16787,6 +16950,8 @@ const GROUP_SEEDS = [
           },
           "fishInRiver": {
             "score": 58,
+            "displayScore": 60,
+            "scoreIsApproximate": true,
             "stage": "tapering",
             "maximum": 100,
             "riverCeiling": 60,
@@ -16795,14 +16960,14 @@ const GROUP_SEEDS = [
             "curveDirection": "falling",
             "winterHoldingContext": false,
             "label": "Peak presence",
-            "headline": "Steelhead remain near their strongest fall presence as winter holding approaches.",
-            "detail": "The slight decline reflects fewer fresh arrivals—not fish simply leaving the river. This is a seasonal opportunity estimate, not a live fish count.",
-            "tip": "Treat the retained presence as strong, but expect the fishery to be shifting away from fresh fall entry. Verify current river conditions before choosing a presentation.",
+            "headline": "Steelhead seasonal presence is peak presence and declining.",
+            "detail": "Calendar timing places Steelhead presence at its expected seasonal peak, declining as the fall migration advances. For the PM, expected run strength is Moderate, and the opportunity centers on dependable river sections. This is not a live fish count or today’s conditions.",
+            "tip": "Use Migration Stage to choose a section. Use Push and Activity for current movement support and responsiveness.",
             "reasonCodes": [
               "stage_tapering",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "gauge": {
             "provider": "USGS",
@@ -16852,9 +17017,10 @@ const GROUP_SEEDS = [
           "nextConditionRefreshAt": "2026-12-23T22:00:00.000Z",
           "runStage": {
             "stage": "post_run",
+            "copyStrategy": "pere_marquette",
             "stagingContext": false,
             "broadBuildingContext": false,
-            "winterHoldingContext": true,
+            "winterHoldingContext": false,
             "window": {
               "snapshotDate": "2026-12-23",
               "preRunStartDate": "2026-08-15",
@@ -16873,16 +17039,16 @@ const GROUP_SEEDS = [
               "startToPeakDays": 56,
               "peakToEndDays": 37
             },
-            "label": "Winter holding",
-            "headline": "Steelhead have transitioned from fall entry into winter holding.",
-            "whereToStart": "Deep, slow middle- and upper-river holding water from Walhalla and Branch toward Baldwin/M-37, with nearby current and an easy feeding lane.",
-            "detail": "Fish can remain distributed through the river, but colder water shifts the question from upstream movement to daily activity and feeding position.",
-            "tip": "Open the Winter Holding read for current activity, likely holding water, and presentation guidance. A completed fall-entry read does not mean steelhead have left the river.",
+            "label": "Fall entry complete",
+            "headline": "PM Steelhead fall entry is complete.",
+            "detail": "Steelhead may remain in the river. This fall-entry model no longer scores their current presence or activity.",
+            "tip": "Check back in early September when PM fall movement tracking resumes.",
+            "whereToStart": "There is no active PM starting section in this fall-entry model.",
             "reasonCodes": [
               "stage_post_run",
-              "stage_winter_holding"
+              "stage_offseason"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "conditionsSuggest": {
             "label": "Timing complete",
@@ -17070,9 +17236,9 @@ const GROUP_SEEDS = [
               "2026-11-19": "16:00",
               "2026-11-20": "16:00"
             },
-            "headline": "This season's Migration Timing read is complete.",
-            "detail": "Earlier in the season, the migration was moving earlier than usual. Fall entry has now shifted into winter holding, where current activity matters more than an early-or-late call.",
-            "tip": "Stop planning around whether fall entry was early or late. Use the winter fishery read to judge current activity and presentation.",
+            "headline": "PM fall-entry Migration Timing is complete.",
+            "detail": "Earlier in fall, PM migration timing was earlier than usual. The fall-entry timing window is now complete.",
+            "tip": "Do not use completed fall timing to infer current presence or activity. PM fall monitoring resumes in early September.",
             "reasonCodes": [
               "gauge_fresh",
               "temperature_measured",
@@ -17080,22 +17246,22 @@ const GROUP_SEEDS = [
               "conditions_ahead",
               "conditions_timing_complete"
             ],
-            "copyVersion": "river-run-copy-v27",
+            "copyVersion": "river-run-copy-v29",
             "previousCheckpointId": "peak_start",
             "previousCheckpointDate": "2026-11-15",
             "previousTimingLabel": "Ahead"
           },
           "push": {
             "score": null,
-            "label": "Winter holding",
-            "headline": "The season's fresh-movement read is complete.",
-            "detail": "Steelhead may remain in the river, but the fall-entry signal has handed off to winter holding. Winter activity requires a different water-temperature and feeding read.",
-            "tip": "Use the winter fishery read for activity and presentation decisions. Do not treat a muted Push as evidence that steelhead left the river.",
+            "label": "Fall entry complete",
+            "headline": "PM Steelhead fall-entry Push is complete.",
+            "detail": "Current water may affect Steelhead still in the river. This fall model no longer scores fresh-entry support.",
+            "tip": "Do not use a muted fall Push as evidence that Steelhead left the river. Check back in early September.",
             "reasonCodes": [
               "push_tracking_complete"
             ],
             "rulesVersion": "pm-fall-steelhead-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "pushHistory": {
             "status": "complete",
@@ -17156,25 +17322,24 @@ const GROUP_SEEDS = [
             ]
           },
           "fishInRiver": {
-            "score": 53,
+            "score": null,
+            "scoreIsApproximate": false,
             "stage": "post_run",
             "maximum": 100,
             "riverCeiling": 60,
             "historicalRunStrength": "moderate",
-            "curveFraction": 0.875,
+            "curveFraction": 0,
             "curveDirection": "outside",
-            "winterHoldingContext": true,
-            "handoffScore": 53,
-            "label": "Winter holding",
-            "headline": "Steelhead remain strongly present as the fishery shifts into winter holding.",
-            "detail": "Fall entry finished at 53/100. That retained-presence reference stays visible, but it is not a winter activity score; winter opportunity depends on water temperature, feeding activity, and presentation.",
-            "tip": "Open the Winter Holding read for current activity, likely holding water, and presentation guidance. Treat 53/100 as retained seasonal presence—not proof that fish are active today.",
+            "winterHoldingContext": false,
+            "label": "Fall entry complete",
+            "headline": "PM Steelhead fall entry is complete.",
+            "detail": "Steelhead may remain in the river. This fall-entry model no longer estimates their current seasonal presence.",
+            "tip": "Check back in early September when PM fall movement tracking resumes.",
             "reasonCodes": [
               "stage_post_run",
-              "historical_presence_curve",
-              "fish_presence_winter_handoff"
+              "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "gauge": {
             "provider": "USGS",
@@ -17208,13 +17373,6 @@ const GROUP_SEEDS = [
             "trend": "steady",
             "sourceType": "same_gauge",
             "attribution": "Measured water temperature"
-          },
-          "interpretationNote": {
-            "headline": "Steelhead are still in the river, but winter conditions now control the day.",
-            "detail": "The fall-entry period ended with strong retained presence. Use the winter fishery read to judge activity and presentation; Push and Migration Timing are intentionally complete because they answer the wrong question now.",
-            "reasonCodes": [
-              "winter_holding_read_required"
-            ]
           }
         }
       },
@@ -17231,6 +17389,7 @@ const GROUP_SEEDS = [
           "nextConditionRefreshAt": "2026-11-14T22:00:00.000Z",
           "runStage": {
             "stage": "building",
+            "copyStrategy": "pere_marquette",
             "stagingContext": false,
             "broadBuildingContext": true,
             "winterHoldingContext": false,
@@ -17253,14 +17412,14 @@ const GROUP_SEEDS = [
               "peakToEndDays": 37
             },
             "label": "Building",
-            "headline": "Steelhead are now broadly established through the accessible river.",
-            "whereToStart": "Middle-river holding water from Scottville through Walhalla and Branch, plus the upper river toward Baldwin/M-37; add lower-river travel lanes when Push supports fresh arrivals.",
-            "detail": "By November, multiple entry periods have given steelhead time to spread through lower, middle, and upper sections wherever passage is open. The upper river is now a primary option, even though dependable concentrations can remain in lower and middle holding water.",
-            "tip": "Choose a middle- or upper-river section and cover its substantial holes, deep bends, and current breaks. Shift extra attention lower only when Push supports a fresh wave entering the river.",
+            "headline": "Seasonal timing supports a broader PM Steelhead distribution.",
+            "detail": "The Middle river is the dependable calendar choice. Earlier arrivals may also occupy the Upper river.",
+            "tip": "Cover one Middle river section completely before comparing the Upper river.",
+            "whereToStart": "Start in the Middle river (Scottville–Maple Leaf). Add the Upper river (Maple Leaf–M-37) when direct fish activity supports it.",
             "reasonCodes": [
               "stage_building"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -17322,6 +17481,8 @@ const GROUP_SEEDS = [
           },
           "fishInRiver": {
             "score": 59,
+            "displayScore": 60,
+            "scoreIsApproximate": true,
             "stage": "building",
             "maximum": 100,
             "riverCeiling": 60,
@@ -17330,14 +17491,14 @@ const GROUP_SEEDS = [
             "curveDirection": "rising",
             "winterHoldingContext": false,
             "label": "Peak presence",
-            "headline": "Steelhead are likely present through more dependable river sections as seasonal presence builds toward its strongest point.",
-            "detail": "The migration is approaching its strongest seasonal point, and fish are likely distributed through several dependable river sections. This is a seasonal estimate, not a live fish count.",
-            "tip": "Treat this as one of the stronger parts of this river's moderate seasonal opportunity. Give each stop a complete pass, but do not mistake this seasonal estimate for a live fish count.",
+            "headline": "Steelhead seasonal presence is peak presence and building.",
+            "detail": "Calendar timing places Steelhead presence at its expected seasonal peak, increasing as the fall migration builds. For the PM, expected run strength is Moderate, and the opportunity centers on dependable river sections. This is not a live fish count or today’s conditions.",
+            "tip": "Use Migration Stage to choose a section. Use Push and Activity for current movement support and responsiveness.",
             "reasonCodes": [
               "stage_building",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "gauge": {
             "provider": "USGS",
@@ -17387,6 +17548,7 @@ const GROUP_SEEDS = [
           "nextConditionRefreshAt": "2026-11-15T22:00:00.000Z",
           "runStage": {
             "stage": "peak",
+            "copyStrategy": "pere_marquette",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -17409,14 +17571,14 @@ const GROUP_SEEDS = [
               "peakToEndDays": 37
             },
             "label": "Peak",
-            "headline": "This is typically the strongest and most dependable fall Steelhead opportunity.",
-            "whereToStart": "Compare substantial holding water in the middle river from Scottville through Walhalla and Branch with the upper river toward Baldwin/M-37; add lower travel lanes on a fresh Push.",
-            "detail": "Multiple waves have had time to spread from lower travel lanes into established middle- and upper-river holding water. Fish can be broadly distributed wherever passage is open.",
-            "tip": "Choose an accessible section and cover each substantial hole from the head through its seams and tail. Let Push decide whether lower travel lanes deserve extra time.",
+            "headline": "This is typically the PM’s strongest Coho window, within a moderate river-specific run.",
+            "detail": "Seasonal timing supports the PM’s core Steelhead sections. Concentrations may remain uneven between them.",
+            "tip": "Start in the Middle river. Compare the Upper river only after a complete first pass.",
+            "whereToStart": "Start in the Middle river (Scottville–Maple Leaf). Compare the Upper river (Maple Leaf–M-37) when direct fish activity favors it.",
             "reasonCodes": [
               "stage_peak"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "conditionsSuggest": {
             "label": "Ahead",
@@ -17593,16 +17755,16 @@ const GROUP_SEEDS = [
               "2026-11-13": "16:00",
               "2026-11-14": "16:00"
             },
-            "headline": "The migration appears to be developing earlier than usual.",
-            "detail": "The river has risen and cooled faster than it normally does by this point in the season.",
-            "tip": "Start one accessible river section farther upstream than you normally would for this date and prioritize established holding water. If Push is Possible or stronger, finish with lower travel lanes.",
+            "headline": "The PM migration is developing earlier than usual.",
+            "detail": "Season-to-date Scottville river-rise activity and M-37 cooling are stronger than the usual PM pattern.",
+            "tip": "Start one PM section upstream from Migration Stage, capped at the Upper river (Maple Leaf–M-37).",
             "reasonCodes": [
               "gauge_fresh",
               "temperature_measured",
               "conditions_checkpoint_peak_start",
               "conditions_ahead"
             ],
-            "copyVersion": "river-run-copy-v27",
+            "copyVersion": "river-run-copy-v29",
             "previousCheckpointId": "building_established",
             "previousCheckpointDate": "2026-10-15",
             "previousTimingLabel": "Ahead"
@@ -17667,6 +17829,8 @@ const GROUP_SEEDS = [
           },
           "fishInRiver": {
             "score": 60,
+            "displayScore": 60,
+            "scoreIsApproximate": false,
             "stage": "peak",
             "maximum": 100,
             "riverCeiling": 60,
@@ -17675,14 +17839,14 @@ const GROUP_SEEDS = [
             "curveDirection": "near_peak",
             "winterHoldingContext": false,
             "label": "Peak presence",
-            "headline": "Steelhead are likely near their highest seasonal presence in the river.",
-            "detail": "This is the part of the season when in-river presence is usually strongest. Fish are most likely distributed through several dependable river sections. The read does not place fish in a specific pool or confirm a live count.",
-            "tip": "Plan for a dependable but potentially uneven river opportunity near its seasonal high point. Confirm fish activity before committing the full day.",
+            "headline": "Steelhead seasonal presence is peak presence and near its seasonal high.",
+            "detail": "Calendar timing places Steelhead presence at its expected seasonal peak, near its expected seasonal high. For the PM, expected run strength is Moderate, and the opportunity centers on dependable river sections. This is not a live fish count or today’s conditions.",
+            "tip": "Use Migration Stage to choose a section. Use Push and Activity for current movement support and responsiveness.",
             "reasonCodes": [
               "stage_peak",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "gauge": {
             "provider": "USGS",
@@ -17739,6 +17903,7 @@ const GROUP_SEEDS = [
           "nextConditionRefreshAt": "2026-12-06T22:00:00.000Z",
           "runStage": {
             "stage": "tapering",
+            "copyStrategy": "pere_marquette",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -17761,14 +17926,14 @@ const GROUP_SEEDS = [
               "peakToEndDays": 37
             },
             "label": "Late fall",
-            "headline": "Steelhead presence remains high as the fall fishery begins shifting toward winter holding.",
-            "whereToStart": "Established middle- and upper-river holes from Walhalla and Branch toward Baldwin/M-37, especially deeper bends and slower edges beside productive current.",
-            "detail": "Fish remain broadly available, but colder water gradually shifts the balance from active upstream movement toward established holding. Fresh arrivals can still occur without defining the whole fishery.",
-            "tip": "Start with dependable holding water. Check lower travel lanes only when Push shows a credible movement signal.",
+            "headline": "PM Steelhead fall entry remains strong but is slowing.",
+            "detail": "Seasonal timing still supports broad fall presence. Colder water makes established holding water more important than new entry.",
+            "tip": "Start in the Middle river. Shift lower only when Push supports fresh movement.",
+            "whereToStart": "Start in the Middle river (Scottville–Maple Leaf). Add the Lower river (Pere Marquette Lake–Scottville) only when Push supports fresh movement.",
             "reasonCodes": [
               "stage_tapering"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "conditionsSuggest": {
             "label": "Timing complete",
@@ -17966,7 +18131,7 @@ const GROUP_SEEDS = [
               "conditions_ahead",
               "conditions_timing_complete"
             ],
-            "copyVersion": "river-run-copy-v27",
+            "copyVersion": "river-run-copy-v29",
             "previousCheckpointId": "peak_start",
             "previousCheckpointDate": "2026-11-15",
             "previousTimingLabel": "Ahead"
@@ -18031,6 +18196,8 @@ const GROUP_SEEDS = [
           },
           "fishInRiver": {
             "score": 59,
+            "displayScore": 60,
+            "scoreIsApproximate": true,
             "stage": "tapering",
             "maximum": 100,
             "riverCeiling": 60,
@@ -18039,14 +18206,14 @@ const GROUP_SEEDS = [
             "curveDirection": "falling",
             "winterHoldingContext": false,
             "label": "Peak presence",
-            "headline": "Steelhead remain near their strongest fall presence as winter holding approaches.",
-            "detail": "The slight decline reflects fewer fresh arrivals—not fish simply leaving the river. This is a seasonal opportunity estimate, not a live fish count.",
-            "tip": "Treat the retained presence as strong, but expect the fishery to be shifting away from fresh fall entry. Verify current river conditions before choosing a presentation.",
+            "headline": "Steelhead seasonal presence is peak presence and declining.",
+            "detail": "Calendar timing places Steelhead presence at its expected seasonal peak, declining as the fall migration advances. For the PM, expected run strength is Moderate, and the opportunity centers on dependable river sections. This is not a live fish count or today’s conditions.",
+            "tip": "Use Migration Stage to choose a section. Use Push and Activity for current movement support and responsiveness.",
             "reasonCodes": [
               "stage_tapering",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "gauge": {
             "provider": "USGS",
@@ -18091,6 +18258,8 @@ const GROUP_SEEDS = [
           "runId": "qa_limited_opportunity",
           "fishInRiver": {
             "score": 14,
+            "displayScore": 15,
+            "scoreIsApproximate": true,
             "stage": "building",
             "maximum": 100,
             "riverCeiling": 30,
@@ -18099,14 +18268,14 @@ const GROUP_SEEDS = [
             "curveDirection": "rising",
             "winterHoldingContext": false,
             "label": "Moderate presence",
-            "headline": "A smaller number of Steelhead are likely in the river, with this limited seasonal presence still building toward its high point.",
-            "detail": "This part of the season usually brings moderate presence, with a smaller number of fish expected to enter and occupy its most dependable water. This is a seasonal estimate, not a live fish count.",
-            "tip": "Plan for an improving but still limited river opportunity. Stay mobile, and require direct fish activity before slowing down.",
+            "headline": "Steelhead seasonal presence is moderate presence and building.",
+            "detail": "Calendar timing places Steelhead presence at moderate presence, increasing as the fall migration builds. For the PM, expected run strength is Limited, and the opportunity concentrates in dependable holding water. This is not a live fish count or today’s conditions.",
+            "tip": "Use Migration Stage to choose a section. Use Push and Activity for current movement support and responsiveness.",
             "reasonCodes": [
               "stage_building",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           }
         }
       },
@@ -18123,6 +18292,7 @@ const GROUP_SEEDS = [
           "nextConditionRefreshAt": "2026-11-15T22:00:00.000Z",
           "runStage": {
             "stage": "peak",
+            "copyStrategy": "pere_marquette",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -18145,14 +18315,14 @@ const GROUP_SEEDS = [
               "peakToEndDays": 37
             },
             "label": "Peak",
-            "headline": "This is typically the strongest and most dependable fall Steelhead opportunity.",
-            "whereToStart": "Compare substantial holding water in the middle river from Scottville through Walhalla and Branch with the upper river toward Baldwin/M-37; add lower travel lanes on a fresh Push.",
-            "detail": "Multiple waves have had time to spread from lower travel lanes into established middle- and upper-river holding water. Fish can be broadly distributed wherever passage is open.",
-            "tip": "Choose an accessible section and cover each substantial hole from the head through its seams and tail. Let Push decide whether lower travel lanes deserve extra time.",
+            "headline": "This is typically the PM’s strongest Steelhead window, within a Limited river-specific run.",
+            "detail": "Seasonal timing favors the most dependable Steelhead holding water. Expected distribution is concentrated and uneven.",
+            "tip": "Start in the Middle river. Compare the Upper river only after a complete first pass.",
+            "whereToStart": "Start in the Middle river (Scottville–Maple Leaf). Compare the Upper river (Maple Leaf–M-37) when direct fish activity favors it.",
             "reasonCodes": [
               "stage_peak"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "conditionsSuggest": {
             "label": "Ahead",
@@ -18329,16 +18499,16 @@ const GROUP_SEEDS = [
               "2026-11-13": "16:00",
               "2026-11-14": "16:00"
             },
-            "headline": "The migration appears to be developing earlier than usual.",
-            "detail": "The river has risen and cooled faster than it normally does by this point in the season.",
-            "tip": "Start one accessible river section farther upstream than you normally would for this date and prioritize established holding water. If Push is Possible or stronger, finish with lower travel lanes.",
+            "headline": "The PM migration is developing earlier than usual.",
+            "detail": "Season-to-date Scottville river-rise activity and M-37 cooling are stronger than the usual PM pattern.",
+            "tip": "Start one PM section upstream from Migration Stage, capped at the Upper river (Maple Leaf–M-37).",
             "reasonCodes": [
               "gauge_fresh",
               "temperature_measured",
               "conditions_checkpoint_peak_start",
               "conditions_ahead"
             ],
-            "copyVersion": "river-run-copy-v27",
+            "copyVersion": "river-run-copy-v29",
             "previousCheckpointId": "building_established",
             "previousCheckpointDate": "2026-10-15",
             "previousTimingLabel": "Ahead"
@@ -18403,6 +18573,8 @@ const GROUP_SEEDS = [
           },
           "fishInRiver": {
             "score": 30,
+            "displayScore": 30,
+            "scoreIsApproximate": false,
             "stage": "peak",
             "maximum": 100,
             "riverCeiling": 30,
@@ -18411,14 +18583,14 @@ const GROUP_SEEDS = [
             "curveDirection": "near_peak",
             "winterHoldingContext": false,
             "label": "Peak presence",
-            "headline": "Steelhead are likely near their highest seasonal presence in the river, although the overall opportunity remains limited.",
-            "detail": "This is the part of the season when in-river presence is usually strongest. Even at that high point, the overall seasonal opportunity remains limited. The read does not place fish in a specific pool or confirm a live count.",
-            "tip": "Treat this as the best part of this river's limited seasonal opportunity, not a high-abundance fishery. Require direct fish activity before committing more time.",
+            "headline": "Steelhead seasonal presence is peak presence and near its seasonal high.",
+            "detail": "Calendar timing places Steelhead presence at its expected seasonal peak, near its expected seasonal high. For the PM, expected run strength is Limited, and the opportunity concentrates in dependable holding water. This is not a live fish count or today’s conditions.",
+            "tip": "Use Migration Stage to choose a section. Use Push and Activity for current movement support and responsiveness.",
             "reasonCodes": [
               "stage_peak",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "gauge": {
             "provider": "USGS",
@@ -18475,6 +18647,7 @@ const GROUP_SEEDS = [
           "nextConditionRefreshAt": "2026-12-09T22:00:00.000Z",
           "runStage": {
             "stage": "tapering",
+            "copyStrategy": "pere_marquette",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -18497,14 +18670,14 @@ const GROUP_SEEDS = [
               "peakToEndDays": 37
             },
             "label": "Late fall",
-            "headline": "Steelhead presence remains high as the fall fishery begins shifting toward winter holding.",
-            "whereToStart": "Established middle- and upper-river holes from Walhalla and Branch toward Baldwin/M-37, especially deeper bends and slower edges beside productive current.",
-            "detail": "Fish remain broadly available, but colder water gradually shifts the balance from active upstream movement toward established holding. Fresh arrivals can still occur without defining the whole fishery.",
-            "tip": "Start with dependable holding water. Check lower travel lanes only when Push shows a credible movement signal.",
+            "headline": "PM Steelhead fall entry remains strong but is slowing.",
+            "detail": "Seasonal timing still supports broad fall presence. Colder water makes established holding water more important than new entry.",
+            "tip": "Start in the Middle river. Shift lower only when Push supports fresh movement.",
+            "whereToStart": "Start in the Middle river (Scottville–Maple Leaf). Add the Lower river (Pere Marquette Lake–Scottville) only when Push supports fresh movement.",
             "reasonCodes": [
               "stage_tapering"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "conditionsSuggest": {
             "label": "Timing complete",
@@ -18702,7 +18875,7 @@ const GROUP_SEEDS = [
               "conditions_ahead",
               "conditions_timing_complete"
             ],
-            "copyVersion": "river-run-copy-v27",
+            "copyVersion": "river-run-copy-v29",
             "previousCheckpointId": "peak_start",
             "previousCheckpointDate": "2026-11-15",
             "previousTimingLabel": "Ahead"
@@ -18767,6 +18940,8 @@ const GROUP_SEEDS = [
           },
           "fishInRiver": {
             "score": 29,
+            "displayScore": 30,
+            "scoreIsApproximate": true,
             "stage": "tapering",
             "maximum": 100,
             "riverCeiling": 30,
@@ -18775,14 +18950,14 @@ const GROUP_SEEDS = [
             "curveDirection": "falling",
             "winterHoldingContext": false,
             "label": "Peak presence",
-            "headline": "Steelhead remain near their strongest fall presence as winter holding approaches.",
-            "detail": "The slight decline reflects fewer fresh arrivals—not fish simply leaving the river. This is a seasonal opportunity estimate, not a live fish count.",
-            "tip": "Treat the retained presence as strong, but expect the fishery to be shifting away from fresh fall entry. Verify current river conditions before choosing a presentation.",
+            "headline": "Steelhead seasonal presence is peak presence and declining.",
+            "detail": "Calendar timing places Steelhead presence at its expected seasonal peak, declining as the fall migration advances. For the PM, expected run strength is Limited, and the opportunity concentrates in dependable holding water. This is not a live fish count or today’s conditions.",
+            "tip": "Use Migration Stage to choose a section. Use Push and Activity for current movement support and responsiveness.",
             "reasonCodes": [
               "stage_tapering",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "gauge": {
             "provider": "USGS",
@@ -18832,9 +19007,10 @@ const GROUP_SEEDS = [
           "nextConditionRefreshAt": "2026-12-23T22:00:00.000Z",
           "runStage": {
             "stage": "post_run",
+            "copyStrategy": "pere_marquette",
             "stagingContext": false,
             "broadBuildingContext": false,
-            "winterHoldingContext": true,
+            "winterHoldingContext": false,
             "window": {
               "snapshotDate": "2026-12-23",
               "preRunStartDate": "2026-08-15",
@@ -18853,16 +19029,16 @@ const GROUP_SEEDS = [
               "startToPeakDays": 56,
               "peakToEndDays": 37
             },
-            "label": "Winter holding",
-            "headline": "Steelhead have transitioned from fall entry into winter holding.",
-            "whereToStart": "Deep, slow middle- and upper-river holding water from Walhalla and Branch toward Baldwin/M-37, with nearby current and an easy feeding lane.",
-            "detail": "Fish can remain distributed through the river, but colder water shifts the question from upstream movement to daily activity and feeding position.",
-            "tip": "Open the Winter Holding read for current activity, likely holding water, and presentation guidance. A completed fall-entry read does not mean steelhead have left the river.",
+            "label": "Fall entry complete",
+            "headline": "PM Steelhead fall entry is complete.",
+            "detail": "Steelhead may remain in the river. This fall-entry model no longer scores their current presence or activity.",
+            "tip": "Check back in early September when PM fall movement tracking resumes.",
+            "whereToStart": "There is no active PM starting section in this fall-entry model.",
             "reasonCodes": [
               "stage_post_run",
-              "stage_winter_holding"
+              "stage_offseason"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "conditionsSuggest": {
             "label": "Timing complete",
@@ -19050,9 +19226,9 @@ const GROUP_SEEDS = [
               "2026-11-19": "16:00",
               "2026-11-20": "16:00"
             },
-            "headline": "This season's Migration Timing read is complete.",
-            "detail": "Earlier in the season, the migration was moving earlier than usual. Fall entry has now shifted into winter holding, where current activity matters more than an early-or-late call.",
-            "tip": "Stop planning around whether fall entry was early or late. Use the winter fishery read to judge current activity and presentation.",
+            "headline": "PM fall-entry Migration Timing is complete.",
+            "detail": "Earlier in fall, PM migration timing was earlier than usual. The fall-entry timing window is now complete.",
+            "tip": "Do not use completed fall timing to infer current presence or activity. PM fall monitoring resumes in early September.",
             "reasonCodes": [
               "gauge_fresh",
               "temperature_measured",
@@ -19060,22 +19236,22 @@ const GROUP_SEEDS = [
               "conditions_ahead",
               "conditions_timing_complete"
             ],
-            "copyVersion": "river-run-copy-v27",
+            "copyVersion": "river-run-copy-v29",
             "previousCheckpointId": "peak_start",
             "previousCheckpointDate": "2026-11-15",
             "previousTimingLabel": "Ahead"
           },
           "push": {
             "score": null,
-            "label": "Winter holding",
-            "headline": "The season's fresh-movement read is complete.",
-            "detail": "Steelhead may remain in the river, but the fall-entry signal has handed off to winter holding. Winter activity requires a different water-temperature and feeding read.",
-            "tip": "Use the winter fishery read for activity and presentation decisions. Do not treat a muted Push as evidence that steelhead left the river.",
+            "label": "Fall entry complete",
+            "headline": "PM Steelhead fall-entry Push is complete.",
+            "detail": "Current water may affect Steelhead still in the river. This fall model no longer scores fresh-entry support.",
+            "tip": "Do not use a muted fall Push as evidence that Steelhead left the river. Check back in early September.",
             "reasonCodes": [
               "push_tracking_complete"
             ],
             "rulesVersion": "pm-fall-steelhead-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "pushHistory": {
             "status": "complete",
@@ -19136,25 +19312,24 @@ const GROUP_SEEDS = [
             ]
           },
           "fishInRiver": {
-            "score": 26,
+            "score": null,
+            "scoreIsApproximate": false,
             "stage": "post_run",
             "maximum": 100,
             "riverCeiling": 30,
             "historicalRunStrength": "limited",
-            "curveFraction": 0.875,
+            "curveFraction": 0,
             "curveDirection": "outside",
-            "winterHoldingContext": true,
-            "handoffScore": 26,
-            "label": "Winter holding",
-            "headline": "Steelhead remain strongly present as the fishery shifts into winter holding.",
-            "detail": "Fall entry finished at 26/100. That retained-presence reference stays visible, but it is not a winter activity score; winter opportunity depends on water temperature, feeding activity, and presentation.",
-            "tip": "Open the Winter Holding read for current activity, likely holding water, and presentation guidance. Treat 26/100 as retained seasonal presence—not proof that fish are active today.",
+            "winterHoldingContext": false,
+            "label": "Fall entry complete",
+            "headline": "PM Steelhead fall entry is complete.",
+            "detail": "Steelhead may remain in the river. This fall-entry model no longer estimates their current seasonal presence.",
+            "tip": "Check back in early September when PM fall movement tracking resumes.",
             "reasonCodes": [
               "stage_post_run",
-              "historical_presence_curve",
-              "fish_presence_winter_handoff"
+              "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "gauge": {
             "provider": "USGS",
@@ -19188,13 +19363,6 @@ const GROUP_SEEDS = [
             "trend": "steady",
             "sourceType": "same_gauge",
             "attribution": "Measured water temperature"
-          },
-          "interpretationNote": {
-            "headline": "Steelhead are still in the river, but winter conditions now control the day.",
-            "detail": "The fall-entry period ended with strong retained presence. Use the winter fishery read to judge activity and presentation; Push and Migration Timing are intentionally complete because they answer the wrong question now.",
-            "reasonCodes": [
-              "winter_holding_read_required"
-            ]
           }
         }
       },
@@ -19211,6 +19379,7 @@ const GROUP_SEEDS = [
           "nextConditionRefreshAt": "2026-11-14T22:00:00.000Z",
           "runStage": {
             "stage": "building",
+            "copyStrategy": "pere_marquette",
             "stagingContext": false,
             "broadBuildingContext": true,
             "winterHoldingContext": false,
@@ -19233,14 +19402,14 @@ const GROUP_SEEDS = [
               "peakToEndDays": 37
             },
             "label": "Building",
-            "headline": "Steelhead are now broadly established through the accessible river.",
-            "whereToStart": "Middle-river holding water from Scottville through Walhalla and Branch, plus the upper river toward Baldwin/M-37; add lower-river travel lanes when Push supports fresh arrivals.",
-            "detail": "By November, multiple entry periods have given steelhead time to spread through lower, middle, and upper sections wherever passage is open. The upper river is now a primary option, even though dependable concentrations can remain in lower and middle holding water.",
-            "tip": "Choose a middle- or upper-river section and cover its substantial holes, deep bends, and current breaks. Shift extra attention lower only when Push supports a fresh wave entering the river.",
+            "headline": "Seasonal timing supports a broader PM Steelhead distribution.",
+            "detail": "The Middle river is the dependable calendar choice. Earlier arrivals may also occupy the Upper river.",
+            "tip": "Cover one Middle river section completely before comparing the Upper river.",
+            "whereToStart": "Start in the Middle river (Scottville–Maple Leaf). Add the Upper river (Maple Leaf–M-37) when direct fish activity supports it.",
             "reasonCodes": [
               "stage_building"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -19302,6 +19471,8 @@ const GROUP_SEEDS = [
           },
           "fishInRiver": {
             "score": 29,
+            "displayScore": 30,
+            "scoreIsApproximate": true,
             "stage": "building",
             "maximum": 100,
             "riverCeiling": 30,
@@ -19310,14 +19481,14 @@ const GROUP_SEEDS = [
             "curveDirection": "rising",
             "winterHoldingContext": false,
             "label": "Peak presence",
-            "headline": "Steelhead are likely filling more of the river's dependable holding water as seasonal presence builds toward its strongest point.",
-            "detail": "The migration is approaching its strongest seasonal point, but its limited opportunity is most likely within a smaller set of dependable holding areas. This is a seasonal estimate, not a live fish count.",
-            "tip": "Treat this as one of the better parts of the season, while remembering that this river's overall opportunity remains limited. Give each stop a complete pass, but do not mistake this seasonal estimate for a live fish count.",
+            "headline": "Steelhead seasonal presence is peak presence and building.",
+            "detail": "Calendar timing places Steelhead presence at its expected seasonal peak, increasing as the fall migration builds. For the PM, expected run strength is Limited, and the opportunity concentrates in dependable holding water. This is not a live fish count or today’s conditions.",
+            "tip": "Use Migration Stage to choose a section. Use Push and Activity for current movement support and responsiveness.",
             "reasonCodes": [
               "stage_building",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "gauge": {
             "provider": "USGS",
@@ -19367,6 +19538,7 @@ const GROUP_SEEDS = [
           "nextConditionRefreshAt": "2026-11-15T22:00:00.000Z",
           "runStage": {
             "stage": "peak",
+            "copyStrategy": "pere_marquette",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -19389,14 +19561,14 @@ const GROUP_SEEDS = [
               "peakToEndDays": 37
             },
             "label": "Peak",
-            "headline": "This is typically the strongest and most dependable fall Steelhead opportunity.",
-            "whereToStart": "Compare substantial holding water in the middle river from Scottville through Walhalla and Branch with the upper river toward Baldwin/M-37; add lower travel lanes on a fresh Push.",
-            "detail": "Multiple waves have had time to spread from lower travel lanes into established middle- and upper-river holding water. Fish can be broadly distributed wherever passage is open.",
-            "tip": "Choose an accessible section and cover each substantial hole from the head through its seams and tail. Let Push decide whether lower travel lanes deserve extra time.",
+            "headline": "This is typically the PM’s strongest Steelhead window, within a Limited river-specific run.",
+            "detail": "Seasonal timing favors the most dependable Steelhead holding water. Expected distribution is concentrated and uneven.",
+            "tip": "Start in the Middle river. Compare the Upper river only after a complete first pass.",
+            "whereToStart": "Start in the Middle river (Scottville–Maple Leaf). Compare the Upper river (Maple Leaf–M-37) when direct fish activity favors it.",
             "reasonCodes": [
               "stage_peak"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "conditionsSuggest": {
             "label": "Ahead",
@@ -19573,16 +19745,16 @@ const GROUP_SEEDS = [
               "2026-11-13": "16:00",
               "2026-11-14": "16:00"
             },
-            "headline": "The migration appears to be developing earlier than usual.",
-            "detail": "The river has risen and cooled faster than it normally does by this point in the season.",
-            "tip": "Start one accessible river section farther upstream than you normally would for this date and prioritize established holding water. If Push is Possible or stronger, finish with lower travel lanes.",
+            "headline": "The PM migration is developing earlier than usual.",
+            "detail": "Season-to-date Scottville river-rise activity and M-37 cooling are stronger than the usual PM pattern.",
+            "tip": "Start one PM section upstream from Migration Stage, capped at the Upper river (Maple Leaf–M-37).",
             "reasonCodes": [
               "gauge_fresh",
               "temperature_measured",
               "conditions_checkpoint_peak_start",
               "conditions_ahead"
             ],
-            "copyVersion": "river-run-copy-v27",
+            "copyVersion": "river-run-copy-v29",
             "previousCheckpointId": "building_established",
             "previousCheckpointDate": "2026-10-15",
             "previousTimingLabel": "Ahead"
@@ -19647,6 +19819,8 @@ const GROUP_SEEDS = [
           },
           "fishInRiver": {
             "score": 30,
+            "displayScore": 30,
+            "scoreIsApproximate": false,
             "stage": "peak",
             "maximum": 100,
             "riverCeiling": 30,
@@ -19655,14 +19829,14 @@ const GROUP_SEEDS = [
             "curveDirection": "near_peak",
             "winterHoldingContext": false,
             "label": "Peak presence",
-            "headline": "Steelhead are likely near their highest seasonal presence in the river, although the overall opportunity remains limited.",
-            "detail": "This is the part of the season when in-river presence is usually strongest. Even at that high point, the overall seasonal opportunity remains limited. The read does not place fish in a specific pool or confirm a live count.",
-            "tip": "Treat this as the best part of this river's limited seasonal opportunity, not a high-abundance fishery. Require direct fish activity before committing more time.",
+            "headline": "Steelhead seasonal presence is peak presence and near its seasonal high.",
+            "detail": "Calendar timing places Steelhead presence at its expected seasonal peak, near its expected seasonal high. For the PM, expected run strength is Limited, and the opportunity concentrates in dependable holding water. This is not a live fish count or today’s conditions.",
+            "tip": "Use Migration Stage to choose a section. Use Push and Activity for current movement support and responsiveness.",
             "reasonCodes": [
               "stage_peak",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "gauge": {
             "provider": "USGS",
@@ -19719,6 +19893,7 @@ const GROUP_SEEDS = [
           "nextConditionRefreshAt": "2026-12-06T22:00:00.000Z",
           "runStage": {
             "stage": "tapering",
+            "copyStrategy": "pere_marquette",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -19741,14 +19916,14 @@ const GROUP_SEEDS = [
               "peakToEndDays": 37
             },
             "label": "Late fall",
-            "headline": "Steelhead presence remains high as the fall fishery begins shifting toward winter holding.",
-            "whereToStart": "Established middle- and upper-river holes from Walhalla and Branch toward Baldwin/M-37, especially deeper bends and slower edges beside productive current.",
-            "detail": "Fish remain broadly available, but colder water gradually shifts the balance from active upstream movement toward established holding. Fresh arrivals can still occur without defining the whole fishery.",
-            "tip": "Start with dependable holding water. Check lower travel lanes only when Push shows a credible movement signal.",
+            "headline": "PM Steelhead fall entry remains strong but is slowing.",
+            "detail": "Seasonal timing still supports broad fall presence. Colder water makes established holding water more important than new entry.",
+            "tip": "Start in the Middle river. Shift lower only when Push supports fresh movement.",
+            "whereToStart": "Start in the Middle river (Scottville–Maple Leaf). Add the Lower river (Pere Marquette Lake–Scottville) only when Push supports fresh movement.",
             "reasonCodes": [
               "stage_tapering"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "conditionsSuggest": {
             "label": "Timing complete",
@@ -19946,7 +20121,7 @@ const GROUP_SEEDS = [
               "conditions_ahead",
               "conditions_timing_complete"
             ],
-            "copyVersion": "river-run-copy-v27",
+            "copyVersion": "river-run-copy-v29",
             "previousCheckpointId": "peak_start",
             "previousCheckpointDate": "2026-11-15",
             "previousTimingLabel": "Ahead"
@@ -20011,6 +20186,8 @@ const GROUP_SEEDS = [
           },
           "fishInRiver": {
             "score": 30,
+            "displayScore": 30,
+            "scoreIsApproximate": false,
             "stage": "tapering",
             "maximum": 100,
             "riverCeiling": 30,
@@ -20019,14 +20196,14 @@ const GROUP_SEEDS = [
             "curveDirection": "falling",
             "winterHoldingContext": false,
             "label": "Peak presence",
-            "headline": "Steelhead remain near their strongest fall presence as winter holding approaches.",
-            "detail": "The slight decline reflects fewer fresh arrivals—not fish simply leaving the river. This is a seasonal opportunity estimate, not a live fish count.",
-            "tip": "Treat the retained presence as strong, but expect the fishery to be shifting away from fresh fall entry. Verify current river conditions before choosing a presentation.",
+            "headline": "Steelhead seasonal presence is peak presence and declining.",
+            "detail": "Calendar timing places Steelhead presence at its expected seasonal peak, declining as the fall migration advances. For the PM, expected run strength is Limited, and the opportunity concentrates in dependable holding water. This is not a live fish count or today’s conditions.",
+            "tip": "Use Migration Stage to choose a section. Use Push and Activity for current movement support and responsiveness.",
             "reasonCodes": [
               "stage_tapering",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "gauge": {
             "provider": "USGS",
@@ -20077,9 +20254,9 @@ const GROUP_SEEDS = [
           "push": {
             "score": 75,
             "label": "Strong",
-            "headline": "Today's river rise and water temperature strongly support the possibility of a fresh wave moving into the river.",
-            "detail": "The river has made a clear rise since yesterday. Water is on the warm side for fall migration and is cooling. The river has already made a meaningful rise, so that measured response carries the useful movement signal and rainfall adds no separate weight.",
-            "tip": "Begin on lower-river travel lanes and inside seams, then work the first resting holes along that route. Keep moving until fish establish a pattern; the signal still does not prove a wave entered.",
+            "headline": "PM water strongly supports possible fresh movement.",
+            "detail": "Scottville flow has made a clear rise. Measured water temperature is warmer than preferred and cooling. Scottville already reflects the rain response, so rain adds no extra credit.",
+            "tip": "Use Lower river travel water as the fresh-movement check, then return to the section named by Migration Stage.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
@@ -20097,7 +20274,7 @@ const GROUP_SEEDS = [
               "appliedCaps": []
             },
             "rulesVersion": "pm-fall-steelhead-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "pushHistory": {
             "status": "active_now",
@@ -20167,9 +20344,9 @@ const GROUP_SEEDS = [
           "fishability": {
             "score": 45,
             "label": "Tough",
-            "headline": "The river is running very high, leaving fewer practical places to fish effectively.",
-            "detail": "Very high flow is reducing access and the amount of water where a presentation can be controlled. The river is not climbing quickly, but practical fishing water remains compressed into the slowest edges. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river.",
-            "tip": "Fish only bank-side soft pockets, protected inside turns, and current breaks. Make short controlled presentations and skip every main-channel lane.",
+            "headline": "Very high Scottville flow leaves little controllable presentation water.",
+            "detail": "Very high flow compresses controllable water into the slowest protected edges. Stable flow should keep presentation lanes consistent. This read applies to the Lower river (Pere Marquette Lake–Scottville), not the full PM.",
+            "tip": "Favor protected margins and short controlled presentations. Choose another day if control is not dependable.",
             "reasonCodes": [
               "gauge_fresh",
               "very_high_flow_band"
@@ -20180,7 +20357,7 @@ const GROUP_SEEDS = [
               "appliedCaps": []
             },
             "rulesVersion": "pm-scottville-fishability-v2",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "interpretationNote": {
             "headline": "Fresh movement looks possible, but the river may be difficult to fish.",
@@ -20203,6 +20380,7 @@ const GROUP_SEEDS = [
           "nextConditionRefreshAt": "2026-11-15T22:00:00.000Z",
           "runStage": {
             "stage": "peak",
+            "copyStrategy": "pere_marquette",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -20225,14 +20403,14 @@ const GROUP_SEEDS = [
               "peakToEndDays": 37
             },
             "label": "Peak",
-            "headline": "This is typically the strongest and most dependable fall Steelhead opportunity.",
-            "whereToStart": "Compare substantial holding water in the middle river from Scottville through Walhalla and Branch with the upper river toward Baldwin/M-37; add lower travel lanes on a fresh Push.",
-            "detail": "Multiple waves have had time to spread from lower travel lanes into established middle- and upper-river holding water. Fish can be broadly distributed wherever passage is open.",
-            "tip": "Choose an accessible section and cover each substantial hole from the head through its seams and tail. Let Push decide whether lower travel lanes deserve extra time.",
+            "headline": "This is typically the PM’s strongest Steelhead migration window.",
+            "detail": "Seasonal timing supports the widest dependable Steelhead distribution. It does not confirm fish in every section.",
+            "tip": "Start in the Middle river. Compare the Upper river only after a complete first pass.",
+            "whereToStart": "Start in the Middle river (Scottville–Maple Leaf). Compare the Upper river (Maple Leaf–M-37) when direct fish activity favors it.",
             "reasonCodes": [
               "stage_peak"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "conditionsSuggest": {
             "label": "Ahead",
@@ -20409,16 +20587,16 @@ const GROUP_SEEDS = [
               "2026-11-13": "16:00",
               "2026-11-14": "16:00"
             },
-            "headline": "The migration appears to be developing earlier than usual.",
-            "detail": "The river has risen and cooled faster than it normally does by this point in the season.",
-            "tip": "Start one accessible river section farther upstream than you normally would for this date and prioritize established holding water. If Push is Possible or stronger, finish with lower travel lanes.",
+            "headline": "The PM migration is developing earlier than usual.",
+            "detail": "Season-to-date Scottville river-rise activity and M-37 cooling are stronger than the usual PM pattern.",
+            "tip": "Start one PM section upstream from Migration Stage, capped at the Upper river (Maple Leaf–M-37).",
             "reasonCodes": [
               "gauge_fresh",
               "temperature_measured",
               "conditions_checkpoint_peak_start",
               "conditions_ahead"
             ],
-            "copyVersion": "river-run-copy-v27",
+            "copyVersion": "river-run-copy-v29",
             "previousCheckpointId": "building_established",
             "previousCheckpointDate": "2026-10-15",
             "previousTimingLabel": "Ahead"
@@ -20426,9 +20604,9 @@ const GROUP_SEEDS = [
           "push": {
             "score": 0,
             "label": "Weak",
-            "headline": "Today's water shows little support for a fresh wave of fish.",
-            "detail": "The river is falling instead of showing a fresh rise. Water temperature remains too warm to support a strong Push but is warming sharply. Recent weather estimates indicate very little rain around the river.",
-            "tip": "Do not build the day around new arrivals while the river remains warm. Start in established holding water at first or last light and leave lower travel lanes secondary.",
+            "headline": "PM water shows little support for fresh movement.",
+            "detail": "Scottville flow is falling. Measured water temperature is too warm for strong movement support but warming quickly. Recent watershed weather shows little rain.",
+            "tip": "Keep the section named by Migration Stage. Leave fresh-entry travel water secondary until measured temperature improves.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
@@ -20448,7 +20626,7 @@ const GROUP_SEEDS = [
               "appliedCaps": []
             },
             "rulesVersion": "pm-fall-steelhead-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -20510,6 +20688,8 @@ const GROUP_SEEDS = [
           },
           "fishInRiver": {
             "score": 80,
+            "displayScore": 80,
+            "scoreIsApproximate": false,
             "stage": "peak",
             "maximum": 100,
             "riverCeiling": 80,
@@ -20518,14 +20698,14 @@ const GROUP_SEEDS = [
             "curveDirection": "near_peak",
             "winterHoldingContext": false,
             "label": "Peak presence",
-            "headline": "Steelhead are likely near their highest seasonal presence in the river.",
-            "detail": "This is the part of the season when in-river presence is usually strongest. The read describes the river as a whole; it does not place fish in a specific pool or confirm a live count.",
-            "tip": "Plan for the strongest seasonal presence this river usually offers, while remembering that this estimate cannot confirm fish at a specific spot or describe today's river conditions.",
+            "headline": "Steelhead seasonal presence is peak presence and near its seasonal high.",
+            "detail": "Calendar timing places Steelhead presence at its expected seasonal peak, near its expected seasonal high. For the PM, expected run strength is Strong, and the opportunity can extend across broadly accessible water. This is not a live fish count or today’s conditions.",
+            "tip": "Use Migration Stage to choose a section. Use Push and Activity for current movement support and responsiveness.",
             "reasonCodes": [
               "stage_peak",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "gauge": {
             "provider": "USGS",
@@ -20581,6 +20761,7 @@ const GROUP_SEEDS = [
           "nextConditionRefreshAt": "2026-09-20T22:00:00.000Z",
           "runStage": {
             "stage": "beginning",
+            "copyStrategy": "pere_marquette",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -20603,14 +20784,14 @@ const GROUP_SEEDS = [
               "peakToEndDays": 37
             },
             "label": "Beginning",
-            "headline": "The first Steelhead are beginning to enter the river.",
-            "whereToStart": "Lower migratory river from Pere Marquette Lake toward Scottville: travel lanes feeding the first deep bends, resting pockets, and current breaks.",
-            "detail": "Fresh fish may be present, but numbers are still scattered and can arrive in uneven waves before the broader fall fishery develops.",
-            "tip": "Cover lower travel water and its first dependable resting holes, then move upstream only after those entry sections have been checked.",
+            "headline": "Seasonal timing supports the first Steelhead entering the Lower river.",
+            "detail": "This is the opening river phase. Presence is expected to be scattered and uneven.",
+            "tip": "Cover the Lower river first. Move upstream only after direct fish activity supports it.",
+            "whereToStart": "Start in the Lower river (Pere Marquette Lake–Scottville).",
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "conditionsSuggest": {
             "label": "Typical",
@@ -20675,16 +20856,16 @@ const GROUP_SEEDS = [
               "2026-09-18": "16:00",
               "2026-09-19": "16:00"
             },
-            "headline": "The migration appears to be progressing at a normal seasonal pace.",
-            "detail": "River rises and cooling are close to what is usually seen by this point in the season.",
-            "tip": "Fish the core river section identified by Migration Stage. Begin where a travel lane feeds established holding water, then adjust presentation—not seasonal location—using Fishability.",
+            "headline": "The PM migration is progressing at its usual seasonal pace.",
+            "detail": "Season-to-date Scottville river-rise activity and M-37 cooling are close to the usual PM pattern.",
+            "tip": "Keep the PM section named by Migration Stage.",
             "reasonCodes": [
               "gauge_fresh",
               "temperature_measured",
               "conditions_checkpoint_river_start",
               "conditions_typical"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -20698,9 +20879,9 @@ const GROUP_SEEDS = [
           "fishability": {
             "score": 75,
             "label": "Good",
-            "headline": "The river is in a comfortable, fishable range with a manageable pace.",
-            "detail": "Flow is in a dependable working range with a useful mix of travel lanes, seams, and holding water. The steady flow should keep travel lanes, seams, and holding water easy to read from one pass to the next. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river.",
-            "tip": "Start where a main travel lane enters the first established hole. Fish the head, inside seam, and tail in order, then move to the next piece of holding water.",
+            "headline": "Scottville flow is in a comfortable presentation range.",
+            "detail": "The flow band supports readable lanes, seams, and holding water. Stable flow should keep presentation lanes consistent. This read applies to the Lower river (Pere Marquette Lake–Scottville), not the full PM.",
+            "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
               "normal_flow_band"
@@ -20711,10 +20892,12 @@ const GROUP_SEEDS = [
               "appliedCaps": []
             },
             "rulesVersion": "pm-scottville-fishability-v2",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "fishInRiver": {
             "score": 8,
+            "displayScore": 10,
+            "scoreIsApproximate": true,
             "stage": "beginning",
             "maximum": 100,
             "riverCeiling": 80,
@@ -20723,14 +20906,14 @@ const GROUP_SEEDS = [
             "curveDirection": "rising",
             "winterHoldingContext": false,
             "label": "Low presence",
-            "headline": "A small number of Steelhead may be in the river, and seasonal presence is still building.",
-            "detail": "This part of the season usually brings low presence, with more fish expected to enter and spread through the river. This is a seasonal estimate, not a live fish count.",
-            "tip": "Treat this as an early, low-odds river opportunity. Expect scattered results, and use direct fish activity before committing the full day.",
+            "headline": "Steelhead seasonal presence is low presence and building.",
+            "detail": "Calendar timing places Steelhead presence at low presence, increasing as the fall migration builds. For the PM, expected run strength is Strong, and the opportunity can extend across broadly accessible water. This is not a live fish count or today’s conditions.",
+            "tip": "Use Migration Stage to choose a section. Use Push and Activity for current movement support and responsiveness.",
             "reasonCodes": [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "gauge": {
             "provider": "USGS",
@@ -20786,6 +20969,7 @@ const GROUP_SEEDS = [
           "nextConditionRefreshAt": "2026-11-15T22:00:00.000Z",
           "runStage": {
             "stage": "peak",
+            "copyStrategy": "pere_marquette",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -20808,14 +20992,14 @@ const GROUP_SEEDS = [
               "peakToEndDays": 37
             },
             "label": "Peak",
-            "headline": "This is typically the strongest and most dependable fall Steelhead opportunity.",
-            "whereToStart": "Compare substantial holding water in the middle river from Scottville through Walhalla and Branch with the upper river toward Baldwin/M-37; add lower travel lanes on a fresh Push.",
-            "detail": "Multiple waves have had time to spread from lower travel lanes into established middle- and upper-river holding water. Fish can be broadly distributed wherever passage is open.",
-            "tip": "Choose an accessible section and cover each substantial hole from the head through its seams and tail. Let Push decide whether lower travel lanes deserve extra time.",
+            "headline": "This is typically the PM’s strongest Steelhead migration window.",
+            "detail": "Seasonal timing supports the widest dependable Steelhead distribution. It does not confirm fish in every section.",
+            "tip": "Start in the Middle river. Compare the Upper river only after a complete first pass.",
+            "whereToStart": "Start in the Middle river (Scottville–Maple Leaf). Compare the Upper river (Maple Leaf–M-37) when direct fish activity favors it.",
             "reasonCodes": [
               "stage_peak"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "conditionsSuggest": {
             "label": "Delayed",
@@ -20992,16 +21176,16 @@ const GROUP_SEEDS = [
               "2026-11-13": "16:00",
               "2026-11-14": "16:00"
             },
-            "headline": "The migration appears to be developing later than usual.",
-            "detail": "The river has risen and cooled more slowly than it normally does by this point in the season.",
-            "tip": "Start in the lower river and fish the first deep holding water connected to lake-entry travel lanes. Do not assume the middle and upper river have filled in yet.",
+            "headline": "The PM migration is developing later than usual.",
+            "detail": "Season-to-date Scottville river-rise activity and M-37 cooling are weaker than the usual PM pattern.",
+            "tip": "Start one PM section downstream from Migration Stage, capped at the Lower river (Pere Marquette Lake–Scottville).",
             "reasonCodes": [
               "gauge_fresh",
               "temperature_measured",
               "conditions_checkpoint_peak_start",
               "conditions_delayed"
             ],
-            "copyVersion": "river-run-copy-v27",
+            "copyVersion": "river-run-copy-v29",
             "previousCheckpointId": "building_established",
             "previousCheckpointDate": "2026-10-15",
             "previousTimingLabel": "Delayed"
@@ -21009,9 +21193,9 @@ const GROUP_SEEDS = [
           "push": {
             "score": 75,
             "label": "Strong",
-            "headline": "Today's river rise and water temperature strongly support the possibility of a fresh wave moving into the river.",
-            "detail": "The river has made a clear rise since yesterday. Water is on the warm side for fall migration and is cooling. The river has already made a meaningful rise, so that measured response carries the useful movement signal and rainfall adds no separate weight.",
-            "tip": "Begin on lower-river travel lanes and inside seams, then work the first resting holes along that route. Keep moving until fish establish a pattern; the signal still does not prove a wave entered.",
+            "headline": "PM water strongly supports possible fresh movement.",
+            "detail": "Scottville flow has made a clear rise. Measured water temperature is warmer than preferred and cooling. Scottville already reflects the rain response, so rain adds no extra credit.",
+            "tip": "Use Lower river travel water as the fresh-movement check, then return to the section named by Migration Stage.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
@@ -21029,7 +21213,7 @@ const GROUP_SEEDS = [
               "appliedCaps": []
             },
             "rulesVersion": "pm-fall-steelhead-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "pushHistory": {
             "status": "active_now",
@@ -21098,6 +21282,8 @@ const GROUP_SEEDS = [
           },
           "fishInRiver": {
             "score": 80,
+            "displayScore": 80,
+            "scoreIsApproximate": false,
             "stage": "peak",
             "maximum": 100,
             "riverCeiling": 80,
@@ -21106,14 +21292,14 @@ const GROUP_SEEDS = [
             "curveDirection": "near_peak",
             "winterHoldingContext": false,
             "label": "Peak presence",
-            "headline": "Steelhead are likely near their highest seasonal presence in the river.",
-            "detail": "This is the part of the season when in-river presence is usually strongest. The read describes the river as a whole; it does not place fish in a specific pool or confirm a live count.",
-            "tip": "Plan for the strongest seasonal presence this river usually offers, while remembering that this estimate cannot confirm fish at a specific spot or describe today's river conditions.",
+            "headline": "Steelhead seasonal presence is peak presence and near its seasonal high.",
+            "detail": "Calendar timing places Steelhead presence at its expected seasonal peak, near its expected seasonal high. For the PM, expected run strength is Strong, and the opportunity can extend across broadly accessible water. This is not a live fish count or today’s conditions.",
+            "tip": "Use Migration Stage to choose a section. Use Push and Activity for current movement support and responsiveness.",
             "reasonCodes": [
               "stage_peak",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "gauge": {
             "provider": "USGS",
@@ -21178,26 +21364,26 @@ const GROUP_SEEDS = [
           "push": {
             "score": null,
             "label": "Unavailable",
-            "headline": "There is no dependable Push read without a current river level.",
-            "detail": "The river's response is the most important part of a Push, and the latest level is missing or too old to use.",
-            "tip": "Begin in established holding water and keep lower travel lanes secondary. Check again after the next river update; do not chase recent rain as proof of a fresh wave.",
+            "headline": "A current Scottville flow reading is unavailable.",
+            "detail": "Without Scottville flow and direction, rain cannot produce a dependable PM fresh-movement read.",
+            "tip": "Keep the section named by Migration Stage. Do not treat recent rain as proof of movement.",
             "reasonCodes": [
               "gauge_missing"
             ],
             "rulesVersion": "pm-fall-steelhead-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "fishability": {
             "score": null,
             "label": "Unavailable",
-            "headline": "There is no dependable Fishability read right now.",
-            "detail": "A recent river-level reading is missing, so current flow and direction cannot be judged responsibly.",
-            "tip": "Do not plan from the last known level. Check again after the next update, and verify the river at the first access before choosing where or how to fish.",
+            "headline": "A current Scottville reading is unavailable.",
+            "detail": "Without current Scottville flow and direction, Lower river presentation conditions cannot be determined.",
+            "tip": "Do not extend an old or missing Scottville read across the PM. Use current authoritative local information.",
             "reasonCodes": [
               "gauge_missing"
             ],
             "rulesVersion": "pm-scottville-fishability-v2",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "gauge": null,
           "weather": null,

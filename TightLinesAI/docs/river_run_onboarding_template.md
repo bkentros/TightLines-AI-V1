@@ -1,5 +1,11 @@
 # River Run River/Run Onboarding Template
 
+> **Required companion standard:** Read
+> `docs/river_run_copy_model.md` completely before researching geography,
+> barriers, public river sections, or state copy. That document controls River
+> Run copy and geography when this older calibration checklist conflicts with
+> it.
+
 Use this checklist for every new river/run/species combination. Movement-engine
 code is reused; river facts and run calibration are configured.
 
@@ -21,6 +27,9 @@ Enter:
 - One or more audited measured-water sources. A river without a viable source is
   not eligible for River Run.
 - Reach-limitation copy.
+- Proposed public Lower/Middle/Upper section definitions and exact named
+  endpoints. Review these with the product owner before copy implementation;
+  technically correct but unfamiliar landmarks are not acceptable boundaries.
 
 Never average raw discharge or gage-height readings across gauges. Optional
 gauges can participate only after each is normalized against its own metric,
@@ -93,11 +102,12 @@ Research and enter:
   thresholds but never replace them.
 - Confirm every configured primitive label maps to the correct qualitative
   meter stop, including unavailable/waiting states. Confirm Fish In River uses
-  an absolute public 0–100 seasonal presence index, places the current marker
-  at the numeric index, visibly marks and masks above the river/species ceiling,
-  and always displays the configured historical run-strength tier: Limited for
-  maximum 1–3, Moderate for 4–7, or Strong for 8–10. Relative presence states
-  must say `for this run`.
+  an absolute public 0–100 seasonal presence index, visibly marks and masks
+  above the river/species ceiling, and places the current marker at the
+  state-preserving rounded public value while retaining the exact raw score for
+  engine logic. Always display the configured historical run-strength tier:
+  Limited for maximum 1–3, Moderate for 4–7, or Strong for 8–10. Relative
+  presence states must say `for this run`.
 - Research/source notes.
 
 Staging context must never raise Fish In River before the river start.
@@ -137,9 +147,11 @@ Staging context must never raise Fish In River before the river start.
    history. Verify every Fishability band, cap, score label, and copy branch,
    including Strong Push plus Tough/Poor Fishability.
 7. Review scores, labels, copy, reason codes, and interpretation together.
-   Confirm Run Stage, Run Timing, Push, and Fish In River all expose neutral
-   offseason placeholders; Fishability remains current but explicitly
-   conditional on migratory fish being present.
+   Confirm terminal and offseason behavior follows the River Run Copy Model:
+   fall-spawn runs use `Fall run complete` with their species-specific return
+   checkpoint; fall-entry runs without an implemented handoff use `Fall entry
+   complete` with no current presence or Activity score. Fishability remains
+   current but explicitly scoped and separate from seasonal abundance.
 8. Publish atomically; the previous revision becomes archived.
 9. Deploy hidden and observe live transitions before public enablement.
 
@@ -147,6 +159,8 @@ Staging context must never raise Fish In River before the river start.
 
 A new combination is not complete until:
 
+- The product owner approved the recognizable public section definitions
+  before state copy was implemented.
 - Every primitive has deterministic unavailable/insufficient behavior.
 - No primitive contradicts another without an interpretation note.
 - Lower Fish In River caps cannot reach a stronger river's maximum.

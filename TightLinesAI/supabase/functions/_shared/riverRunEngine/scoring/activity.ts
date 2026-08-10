@@ -6,8 +6,10 @@ import type {
   RawFlowTrendSignal,
   RawTemperatureTrendSignal,
   RunStage,
+  RunStageCopyStrategy,
   WeatherFreshness,
 } from "../types.ts";
+import { RIVER_RUN_COPY_VERSION } from "../copy/version.ts";
 
 export type ActivityConfidence = "Full" | "Moderate" | "Limited";
 
@@ -44,6 +46,7 @@ export type ActivityResult = {
   confidence: ActivityConfidence;
   conditionalPresence: boolean;
   blocks: ActivityBlock[];
+  copyVersion: string;
 };
 
 const BLOCKS = [
@@ -68,7 +71,31 @@ export function scoreActivity(input: {
   fishabilityBands?: FishabilityBands;
   flowSignal: RawFlowTrendSignal;
   hourlyWeather: ActivityWeatherHour[];
+  copyStrategy?: RunStageCopyStrategy;
+  fallEntryComplete?: boolean;
 }): ActivityResult {
+  if (input.fallEntryComplete) {
+    return {
+      score: null,
+      maximum: 100,
+      label: "Fall entry complete",
+      headline: "PM Steelhead fall-entry Activity is complete.",
+      detail:
+        "Steelhead may remain in the river. This fall-entry model no longer scores their current responsiveness.",
+      tip:
+        "Do not use this completed fall outlook to infer current activity. Check back in early September.",
+      reasonCodes: ["activity_fall_entry_complete"],
+      rulesVersion: input.rules.version,
+      targetDate: input.targetDate,
+      targetDayLabel: input.targetDate !== input.requestDate
+        ? "Tomorrow"
+        : "Today",
+      confidence: "Limited",
+      conditionalPresence: false,
+      blocks: [],
+      copyVersion: RIVER_RUN_COPY_VERSION,
+    };
+  }
   const species = activitySpecies(input.rules.profile);
   const weatherOnly = input.rules.dataMode === "weather_only";
   const tomorrow = input.targetDate !== input.requestDate;
@@ -305,7 +332,11 @@ export function scoreActivity(input: {
     tomorrow,
     confidence,
     bestBlock: sorted[0],
+    secondBlock: sorted[1],
     weatherOnly,
+    pereMarquette: input.copyStrategy === "pere_marquette",
+    hasWeather,
+    blocksSeparated: hasWeather && sorted[0].score - sorted[1].score >= 3,
   });
   return {
     score,
@@ -337,6 +368,7 @@ export function scoreActivity(input: {
     confidence,
     conditionalPresence,
     blocks,
+    copyVersion: RIVER_RUN_COPY_VERSION,
   };
 }
 
@@ -350,8 +382,13 @@ function activityCopy(input: {
   tomorrow: boolean;
   confidence: ActivityConfidence;
   bestBlock: ActivityBlock;
+  secondBlock: ActivityBlock;
   weatherOnly: boolean;
+  pereMarquette: boolean;
+  hasWeather: boolean;
+  blocksSeparated: boolean;
 }) {
+  if (input.pereMarquette) return pereMarquetteActivityCopy(input);
   const species = activitySpecies(input.profile);
   const day = input.tomorrow ? "Tomorrow’s" : "Today’s";
   const confidence = input.weatherOnly
@@ -413,6 +450,96 @@ function activityCopy(input: {
       `${interpretation} ${bestWindow} ${lifecycle}${scope}${earlySeasonScope} ${confidence}`,
     tip,
   };
+}
+
+function pereMarquetteActivityCopy(input: {
+  profile: ActivityRules["profile"];
+  label: string;
+  stage: RunStage;
+  conditionalPresence: boolean;
+  tomorrow: boolean;
+  confidence: ActivityConfidence;
+  bestBlock: ActivityBlock;
+  secondBlock: ActivityBlock;
+  weatherOnly: boolean;
+  hasWeather: boolean;
+  blocksSeparated: boolean;
+}): Pick<ActivityResult, "headline" | "detail" | "tip"> {
+  const species = activitySpecies(input.profile);
+  const day = input.tomorrow ? "Tomorrow’s" : "Today’s";
+  const headline = input.conditionalPresence
+    ? `${day} PM outlook is ${input.label.toLowerCase()}, but dependable ${species} presence has not begun.`
+    : `${day} PM ${species} responsiveness is ${input.label.toLowerCase()} if fish are present.`;
+  const interpretation = ({
+    "Highly active":
+      `Conditions strongly support ${species} responsiveness if fish are present.`,
+    Active:
+      `Conditions support a meaningful ${species} response if fish are present.`,
+    Moderate: `Conditions offer mixed support for ${species} responsiveness.`,
+    Reserved:
+      `${species} may respond selectively under the current limitations.`,
+    Inactive:
+      `No time block broadly supports an aggressive ${species} response.`,
+  } as Record<string, string>)[input.label] ??
+    `The current environment provides a conditional ${species} responsiveness outlook.`;
+  const blockPoint = input.blocksSeparated
+    ? pmStrongestBlockPoint(input.bestBlock)
+    : input.hasWeather
+    ? `${input.bestBlock.label} and ${input.secondBlock.label} are the leading windows, but neither has a clear advantage.`
+    : "Hourly light and weather data are unavailable, so no time block can be separated.";
+  const lifecycle = pmActivityLifecyclePoint(input.profile, input.stage);
+  const confidence = input.weatherOnly
+    ? "Confidence is Limited because river level and measured water temperature are unavailable."
+    : input.confidence === "Full"
+    ? "Full confidence uses current Scottville flow, measured PM temperature, and hourly weather."
+    : input.confidence === "Moderate"
+    ? "Confidence is Moderate because one key input is missing or this is tomorrow’s outlook."
+    : "Confidence is Limited because several key inputs are unavailable.";
+  const thirdPoint = lifecycle ??
+    (input.conditionalPresence
+      ? `This outlook applies only to an early ${species} already in the PM river.`
+      : confidence);
+  const tip = input.label === "Inactive"
+    ? input.blocksSeparated
+      ? `Treat every block as unfavorable. Use ${input.bestBlock.label} only as the least constrained window.`
+      : input.hasWeather
+      ? `Treat every block as unfavorable. If you fish, limit the test to ${input.bestBlock.label} or ${input.secondBlock.label}.`
+      : "Treat every block as unfavorable. Keep presentations conservative and continue only if direct fish response supports it."
+    : input.label === "Reserved"
+    ? input.blocksSeparated
+      ? `Begin with ${input.bestBlock.label}, but leave quickly if direct fish response does not support the outlook.`
+      : input.hasWeather
+      ? `Fish one short test in ${input.bestBlock.label} or ${input.secondBlock.label}. Leave if direct response does not support the outlook.`
+      : "Fish one short, controlled window and leave if direct response does not support the outlook."
+    : input.blocksSeparated
+    ? `Begin with ${input.bestBlock.label}. Re-rank the blocks if light or weather changes materially.`
+    : input.hasWeather
+    ? `Choose between ${input.bestBlock.label} and ${input.secondBlock.label} using actual light and access. Neither has a dependable advantage.`
+    : "Choose the block that best fits current access. Hourly conditions cannot separate the windows.";
+  return {
+    headline,
+    detail: [interpretation, blockPoint, thirdPoint].join(" "),
+    tip,
+  };
+}
+
+function pmStrongestBlockPoint(block: ActivityBlock): string {
+  const driver = block.positiveDriver.toLowerCase().replace(/[.!?]+$/, "");
+  return `${block.label} is strongest because ${driver}.`;
+}
+
+function pmActivityLifecyclePoint(
+  profile: ActivityRules["profile"],
+  stage: RunStage,
+): string | null {
+  if (stage !== "tapering" && stage !== "ending" && stage !== "post_run") {
+    return null;
+  }
+  if (profile === "steelhead_feeding") {
+    return "Cold late-fall water can shorten response windows without meaning Steelhead have left the river.";
+  }
+  const species = activitySpecies(profile);
+  return `Late-run ${species} condition varies widely, so individual fish may respond above or below this outlook.`;
 }
 
 function weatherOnlyTip(

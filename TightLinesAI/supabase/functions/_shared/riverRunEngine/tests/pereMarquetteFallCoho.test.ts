@@ -100,7 +100,7 @@ Deno.test("PM Fall Coho reuses river hydraulics and not species timing", () => {
 
 Deno.test("PM Fall Coho stage boundaries cover September through December", () => {
   const expected = [
-    ["2026-08-14", "Offseason"],
+    ["2026-08-14", "Fall run complete"],
     ["2026-08-15", "Before migration"],
     ["2026-09-01", "Beginning"],
     ["2026-09-21", "Building"],
@@ -109,7 +109,7 @@ Deno.test("PM Fall Coho stage boundaries cover September through December", () =
     ["2026-11-21", "Ending"],
     ["2026-12-01", "After migration"],
     ["2027-01-02", "After migration"],
-    ["2027-01-03", "Offseason"],
+    ["2027-01-03", "Fall run complete"],
   ] as const;
 
   for (const [localDate, label] of expected) {
@@ -119,7 +119,7 @@ Deno.test("PM Fall Coho stage boundaries cover September through December", () =
 
 Deno.test("PM Fall Coho presence follows its 60-point river ceiling", () => {
   const expected = [
-    ["2026-08-14", 0, "Offseason"],
+    ["2026-08-14", 0, "Fall run complete"],
     ["2026-08-15", 0, "Not expected yet"],
     ["2026-09-01", 6, "Low presence"],
     ["2026-09-15", 12, "Low presence"],
@@ -131,7 +131,7 @@ Deno.test("PM Fall Coho presence follows its 60-point river ceiling", () => {
     ["2026-12-15", 12, "Low presence"],
     ["2026-12-27", 5, "Low presence"],
     ["2026-12-31", 0, "Migration complete"],
-    ["2027-01-03", 0, "Offseason"],
+    ["2027-01-03", 0, "Fall run complete"],
   ] as const;
 
   for (const [localDate, score, label] of expected) {
@@ -140,6 +140,18 @@ Deno.test("PM Fall Coho presence follows its 60-point river ceiling", () => {
     assertEquals(result.score, score, localDate);
     assertEquals(result.label, label, localDate);
   }
+});
+
+Deno.test("PM Coho publishes rounded approximate presence without changing its state", () => {
+  const rising = scoreFishInRiver(run, "2026-09-01");
+  assertEquals(rising.score, 6);
+  assertEquals(rising.displayScore, 5);
+  assertEquals(rising.scoreIsApproximate, true);
+  assertEquals(rising.label, "Low presence");
+
+  const peak = scoreFishInRiver(run, "2026-10-20");
+  assertEquals(peak.displayScore, 60);
+  assertEquals(peak.scoreIsApproximate, false);
 });
 
 Deno.test("PM Fall Coho Migration Timing has five dedicated checkpoints", () => {

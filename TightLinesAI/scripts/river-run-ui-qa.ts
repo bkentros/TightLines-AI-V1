@@ -405,8 +405,36 @@ assert.match(
 assert.match(
   riverRunScreen,
   /<FeedbackCard[\s\S]*?featureName="River Migration Coverage"[\s\S]*?variant="request"[\s\S]*?compact[\s\S]*?title=\{config\.requestTitle\}/,
-  "Every setup step must expose the compact coverage-request route",
+  "Supported setup steps must expose the compact coverage-request route",
 );
+assert.match(
+  riverRunScreen,
+  /\{!loading && !error\s*\?\s*\(\s*<View style=\{styles\.actionsRow\}>/,
+  "Every setup step must keep Back and Continue controls independent of request-card availability",
+);
+assert.match(
+  riverRunScreen,
+  /\{!loading && !error && config\.requestTitle && config\.requestAction\s*\?\s*\(\s*<FeedbackCard/,
+  "Coverage request cards must render only for configured request categories",
+);
+assert.doesNotMatch(
+  riverRunScreen,
+  /Need another season\?|Request a season/,
+  "The season step must not request coverage for already-planned seasons",
+);
+for (
+  const requestLabel of [
+    "Request a state",
+    "Request a species",
+    "Request a river",
+  ]
+) {
+  assert.match(
+    riverRunScreen,
+    new RegExp(requestLabel),
+    `${requestLabel} coverage action must remain available`,
+  );
+}
 assert.match(
   riverRunScreen,
   /choice\.id === "steelhead"[\s\S]*?speciesChoiceImageSteelhead/,
@@ -431,7 +459,7 @@ const anglerFacingFeatureSources = [
 ];
 for (const source of anglerFacingFeatureSources) {
   assert.equal(
-    /\b(?:River Run|Run Stage|Run Timing|Pre-run|Post-run|Waiting for run|Run complete|Audited river run|Daily run score)\b/i
+    /\b(?:River Run|Run Stage|Run Timing|Pre-run|Post-run|Waiting for run|Audited river run|Daily run score)\b|(?<!\bFall )\bRun complete\b/i
       .test(
         source,
       ),

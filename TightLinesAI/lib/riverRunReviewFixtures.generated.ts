@@ -16,6 +16,7 @@ const BASE_SNAPSHOT = {
   "nextConditionRefreshAt": "2026-09-01T22:00:00.000Z",
   "runStage": {
     "stage": "building",
+    "copyStrategy": "pere_marquette",
     "stagingContext": false,
     "broadBuildingContext": false,
     "winterHoldingContext": false,
@@ -38,14 +39,14 @@ const BASE_SNAPSHOT = {
       "peakToEndDays": 37
     },
     "label": "Building",
-    "headline": "Chinook salmon are becoming established through more of the river.",
-    "detail": "More Chinook salmon are settling into lower- and middle-river holding water, which should still contain the most dependable concentrations. Some earlier fish may already have reached upper holding water wherever passage is open, but the upper river should remain a secondary starting choice at this stage.",
-    "tip": "Begin in dependable lower- or middle-river holding water and cover its deep holes, outside bends, and current breaks. Move into upper sections after those primary areas have been checked or direct fish activity supports the move.",
-    "whereToStart": "Middle-river holding water from Scottville toward Walhalla first; earlier fish may already have reached Branch and the upper river toward Baldwin and M-37.",
+    "headline": "The PM Chinook salmon run is becoming established in the Middle river.",
+    "detail": "Seasonal timing now favors the Middle river. The Upper river remains a conditional secondary choice.",
+    "tip": "Begin in the Middle river. Add the Upper river only after direct fish activity supports it.",
+    "whereToStart": "Start in the Middle river (Scottville–Maple Leaf). Add the Upper river (Maple Leaf–M-37) only after direct fish activity supports it.",
     "reasonCodes": [
       "stage_building"
     ],
-    "copyVersion": "river-run-copy-v27"
+    "copyVersion": "river-run-copy-v29"
   },
   "conditionsSuggest": {
     "label": "Ahead",
@@ -142,16 +143,16 @@ const BASE_SNAPSHOT = {
       "2026-08-30": "16:00",
       "2026-08-31": "16:00"
     },
-    "headline": "The migration appears to be developing earlier than usual.",
-    "detail": "The river has risen and cooled faster than it normally does by this point in the season.",
-    "tip": "Start one accessible river section farther upstream than you normally would for this date and prioritize established holding water. If Push is Possible or stronger, finish with lower travel lanes.",
+    "headline": "The PM migration is developing earlier than usual.",
+    "detail": "Season-to-date Scottville river-rise activity and M-37 cooling are stronger than the usual PM pattern.",
+    "tip": "Start one PM section upstream from Migration Stage, capped at the Upper river (Maple Leaf–M-37).",
     "reasonCodes": [
       "gauge_fresh",
       "temperature_measured",
       "conditions_checkpoint_building_established",
       "conditions_ahead"
     ],
-    "copyVersion": "river-run-copy-v27",
+    "copyVersion": "river-run-copy-v29",
     "previousCheckpointId": "building_start",
     "previousCheckpointDate": "2026-08-24",
     "previousTimingLabel": "Typical"
@@ -159,9 +160,9 @@ const BASE_SNAPSHOT = {
   "push": {
     "score": 35,
     "label": "No clear push",
-    "headline": "Today's water does not show a clear signal for a fresh wave of fish.",
-    "detail": "The river is holding steady with no meaningful rise yet. Water temperature is favorable for fall migration and is relatively steady. Recent rainfall has been too light to meaningfully change the river.",
-    "tip": "Fish established holding water from the head through the inside seam and tail. Do not spend the day racing between lower travel lanes for a wave the water does not support.",
+    "headline": "PM water does not show a clear fresh-movement signal.",
+    "detail": "Scottville flow is steady without a meaningful rise. Measured water temperature is favorable for this migration. Recent watershed rainfall is too light to affect the read.",
+    "tip": "Keep the section named by Migration Stage. Do not shift lower for a fresh wave this water does not support.",
     "reasonCodes": [
       "gauge_fresh",
       "push_normal_flow_context",
@@ -180,7 +181,7 @@ const BASE_SNAPSHOT = {
       "appliedCaps": []
     },
     "rulesVersion": "pm-fall-chinook-push-v5",
-    "copyVersion": "river-run-copy-v27"
+    "copyVersion": "river-run-copy-v29"
   },
   "pushHistory": {
     "status": "none_recorded",
@@ -243,9 +244,9 @@ const BASE_SNAPSHOT = {
   "fishability": {
     "score": 93,
     "label": "Excellent",
-    "headline": "The river is in an excellent range for covering water and presenting effectively.",
-    "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river.",
-    "tip": "Begin on the primary travel lane feeding deep holding water. Work each hole from its head through the inside seam and tail, then keep moving until fish establish a pattern.",
+    "headline": "Scottville flow is in its best presentation range.",
+    "detail": "The flow band offers the broadest mix of depth, seams, and presentation control. Stable flow should keep presentation lanes consistent. This read applies to the Lower river (Pere Marquette Lake–Scottville), not the full PM.",
+    "tip": "Cover readable seams and holding water with a controlled presentation.",
     "reasonCodes": [
       "gauge_fresh",
       "ideal_flow_band"
@@ -256,11 +257,13 @@ const BASE_SNAPSHOT = {
       "appliedCaps": []
     },
     "rulesVersion": "pm-scottville-fishability-v2",
-    "copyVersion": "river-run-copy-v27"
+    "copyVersion": "river-run-copy-v29"
   },
   "activity": null,
   "fishInRiver": {
     "score": 44,
+    "displayScore": 45,
+    "scoreIsApproximate": true,
     "stage": "building",
     "maximum": 100,
     "riverCeiling": 100,
@@ -269,14 +272,14 @@ const BASE_SNAPSHOT = {
     "curveDirection": "rising",
     "winterHoldingContext": false,
     "label": "Moderate presence",
-    "headline": "A meaningful number of Chinook salmon are likely in the river, with seasonal presence still building.",
-    "detail": "This part of the season usually brings moderate presence, with more fish expected to enter and spread through the river. This is a seasonal estimate, not a live fish count.",
-    "tip": "Plan for a credible river opportunity that is still improving. Stay mobile until direct fish activity gives you a reason to slow down.",
+    "headline": "Chinook salmon seasonal presence is moderate presence and building.",
+    "detail": "Calendar timing places Chinook salmon presence at moderate presence, increasing as the fall migration builds. For the PM, expected run strength is Strong, and the opportunity can extend across broadly accessible water. This is not a live fish count or today’s conditions.",
+    "tip": "Use Migration Stage to choose a section. Use Push and Activity for current movement support and responsiveness.",
     "reasonCodes": [
       "stage_building",
       "historical_presence_curve"
     ],
-    "copyVersion": "river-run-copy-v27"
+    "copyVersion": "river-run-copy-v29"
   },
   "gauge": {
     "provider": "USGS",
@@ -359,6 +362,7 @@ const GROUP_SEEDS = [
           "nextConditionRefreshAt": "2026-11-11T22:00:00.000Z",
           "runStage": {
             "stage": "post_run",
+            "copyStrategy": "pere_marquette",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -380,16 +384,16 @@ const GROUP_SEEDS = [
               "startToPeakDays": 36,
               "peakToEndDays": 37
             },
-            "label": "Offseason",
-            "headline": "Chinook salmon are outside their river migration season.",
-            "detail": "A dependable seasonal presence of Chinook salmon is not expected in the river right now.",
-            "tip": "Do not build a river trip around this species right now. Target a species with an active seasonal window and return to this read as the next migration approaches.",
-            "whereToStart": "No dependable Pere Marquette River location for this species right now.",
+            "label": "Fall run complete",
+            "headline": "The PM Chinook salmon fall run is complete.",
+            "detail": "Chinook salmon staging typically begins in late July.",
+            "tip": "Check back in late July when this fall-run model resumes.",
+            "whereToStart": "There is no dependable PM river starting section right now.",
             "reasonCodes": [
               "stage_post_run",
               "stage_offseason"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "conditionsSuggest": {
             "label": "Not monitoring yet",
@@ -407,25 +411,25 @@ const GROUP_SEEDS = [
             "historicalYears": 0,
             "sourceDates": [],
             "sourceRefreshSlots": {},
-            "headline": "Migration Timing is not active right now.",
-            "detail": "Timing monitoring begins before the expected river entry, but that seasonal observation window is not active yet.",
-            "tip": "Check Migration Stage for the current seasonal position and return to Migration Timing when early monitoring begins.",
+            "headline": "PM Migration Timing is not monitoring yet.",
+            "detail": "Season-to-date Scottville flow and M-37 temperature monitoring resumes in late July.",
+            "tip": "Check back in late July when PM timing monitoring resumes.",
             "reasonCodes": [
               "conditions_monitoring_inactive"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "push": {
             "score": null,
             "label": "Offseason",
-            "headline": "Push is not active outside the river migration season.",
-            "detail": "Rain, river level, and water temperature can still change, but they do not provide a useful fresh-arrival signal for this species right now.",
-            "tip": "Do not use Push to plan for this species outside its migration season. Follow an active species instead, or return when early monitoring begins.",
+            "headline": "PM Push is outside its fall movement window.",
+            "detail": "Current rain, Scottville flow, and water temperature do not provide an in-season fresh-movement signal for this run.",
+            "tip": "Check back in late July when fall movement monitoring resumes.",
             "reasonCodes": [
               "push_tracking_offseason"
             ],
             "rulesVersion": "pm-fall-chinook-push-v5",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "pushHistory": {
             "status": "complete",
@@ -487,6 +491,8 @@ const GROUP_SEEDS = [
           },
           "fishInRiver": {
             "score": 0,
+            "displayScore": 0,
+            "scoreIsApproximate": false,
             "stage": "post_run",
             "maximum": 100,
             "riverCeiling": 100,
@@ -494,15 +500,15 @@ const GROUP_SEEDS = [
             "curveFraction": 0,
             "curveDirection": "outside",
             "winterHoldingContext": false,
-            "label": "Offseason",
-            "headline": "Chinook salmon are outside their river migration season.",
-            "detail": "A dependable seasonal presence of Chinook salmon is not expected in the river right now.",
-            "tip": "Do not build a river trip around this species right now. Target a species with an active seasonal window and return as the next migration approaches.",
+            "label": "Fall run complete",
+            "headline": "The PM Chinook salmon fall run is complete.",
+            "detail": "Chinook salmon staging typically begins in late July. This seasonal estimate is inactive until then.",
+            "tip": "Check back in late July when the PM fall-run model resumes.",
             "reasonCodes": [
               "stage_post_run",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "gauge": {
             "provider": "USGS",
@@ -558,6 +564,7 @@ const GROUP_SEEDS = [
           "nextConditionRefreshAt": "2026-07-01T22:00:00.000Z",
           "runStage": {
             "stage": "pre_run",
+            "copyStrategy": "pere_marquette",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -580,14 +587,14 @@ const GROUP_SEEDS = [
               "peakToEndDays": 37
             },
             "label": "Before migration",
-            "headline": "Chinook salmon have not started entering the river yet.",
-            "detail": "Most Chinook salmon are still expected to be in the lake, so meaningful numbers in the river is unlikely right now.",
-            "tip": "Keep the trip in the lake, harbor, and river-mouth zone. Do not spend the day searching inland river water before the seasonal migration begins.",
-            "whereToStart": "Lake Michigan off Ludington, Ludington harbor, and Pere Marquette Lake—not the inland river yet.",
+            "headline": "The PM Chinook salmon fall run has not started.",
+            "detail": "Seasonal timing does not support dependable Chinook salmon presence in the PM river yet.",
+            "tip": "Keep effort in the lake, harbor, and Pere Marquette Lake until staging begins.",
+            "whereToStart": "Stay in Lake Michigan, Ludington harbor, and Pere Marquette Lake. The PM river is not a dependable starting section yet.",
             "reasonCodes": [
               "stage_pre_run"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "conditionsSuggest": {
             "label": "Not monitoring yet",
@@ -606,25 +613,25 @@ const GROUP_SEEDS = [
             "historicalYears": 0,
             "sourceDates": [],
             "sourceRefreshSlots": {},
-            "headline": "Migration Timing is not active right now.",
-            "detail": "Timing monitoring begins before the expected river entry, but that seasonal observation window is not active yet.",
-            "tip": "Check Migration Stage for the current seasonal position and return to Migration Timing when early monitoring begins.",
+            "headline": "PM Migration Timing is not monitoring yet.",
+            "detail": "Season-to-date Scottville flow and M-37 temperature monitoring resumes in late July.",
+            "tip": "Check back in late July when PM timing monitoring resumes.",
             "reasonCodes": [
               "conditions_monitoring_inactive"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "push": {
             "score": null,
             "label": "Waiting for migration",
-            "headline": "Fish have not started entering the river, so there is no Push read yet.",
-            "detail": "Push is meant to spot water conditions that may help fish enter or move during the active migration. Before that, most opportunity should remain in the lake, harbor, or river-mouth transition.",
-            "tip": "Keep the trip in the lake, harbor, and river-mouth zone. Do not move inland just because rain or cooling resembles an in-season movement event.",
+            "headline": "Dependable PM river entry has not started.",
+            "detail": "Rain, Scottville flow, and water temperature are not scored as an in-season movement signal yet.",
+            "tip": "Use Migration Stage. Do not move inland because offseason water resembles an in-season Push.",
             "reasonCodes": [
               "push_tracking_not_started"
             ],
             "rulesVersion": "pm-fall-chinook-push-v5",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "pushHistory": {
             "status": "not_started",
@@ -637,6 +644,8 @@ const GROUP_SEEDS = [
           },
           "fishInRiver": {
             "score": 0,
+            "displayScore": 0,
+            "scoreIsApproximate": false,
             "stage": "pre_run",
             "maximum": 100,
             "riverCeiling": 100,
@@ -645,14 +654,14 @@ const GROUP_SEEDS = [
             "curveDirection": "outside",
             "winterHoldingContext": false,
             "label": "Not expected yet",
-            "headline": "Chinook salmon are not expected in meaningful numbers yet.",
-            "detail": "Most Chinook salmon are not expected to have entered the river in dependable numbers. Any fish already present would be early exceptions.",
-            "tip": "Treat this as no dependable in-river opportunity yet. Keep expectations at zero, and do not interpret an isolated early fish as evidence of dependable river presence.",
+            "headline": "Dependable Chinook salmon presence is not expected in the PM river yet.",
+            "detail": "The seasonal estimate remains at zero. Any fish already in the river would be an early exception.",
+            "tip": "Use Migration Stage for nearby staging context. Do not treat one early fish as a dependable river opportunity.",
             "reasonCodes": [
               "stage_pre_run",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "gauge": {
             "provider": "USGS",
@@ -708,6 +717,7 @@ const GROUP_SEEDS = [
           "nextConditionRefreshAt": "2026-07-28T22:00:00.000Z",
           "runStage": {
             "stage": "pre_run",
+            "copyStrategy": "pere_marquette",
             "stagingContext": true,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -730,15 +740,15 @@ const GROUP_SEEDS = [
               "peakToEndDays": 37
             },
             "label": "Before migration",
-            "headline": "Chinook salmon may be gathering near the river mouth, and a few early fish could be in the river.",
-            "detail": "Most Chinook salmon are still expected near the lake, harbor, or river mouth. The earliest arrivals can occasionally slip into the lower river, but dependable river numbers have not developed yet.",
-            "tip": "Fish the harbor and river mouth first, then make one deliberate check of the first deep lower-river travel lane. Skip a middle- or upper-river trip until fish become dependable in the river.",
-            "whereToStart": "Ludington harbor, Pere Marquette Lake, the river mouth at the east end of the lake, and one deliberate check of the first deep travel lane in the lower migratory river.",
+            "headline": "Chinook salmon may be staging near the PM mouth, but dependable river entry has not begun.",
+            "detail": "Seasonal timing supports nearby-lake staging. Any Chinook salmon already in the Lower river would be an early exception.",
+            "tip": "Keep the river check brief. Do not move into the Middle or Upper river from calendar timing alone.",
+            "whereToStart": "Start at Pere Marquette Lake and the river mouth. Add the Lower river (Pere Marquette Lake–Scottville) only for an early-fish check.",
             "reasonCodes": [
               "stage_pre_run",
               "stage_pre_run_staging"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "conditionsSuggest": {
             "label": "Evaluating",
@@ -757,25 +767,25 @@ const GROUP_SEEDS = [
             "historicalYears": 0,
             "sourceDates": [],
             "sourceRefreshSlots": {},
-            "headline": "Migration Timing is still taking shape.",
-            "detail": "The early river and temperature pattern is still developing, so an Ahead, Typical, or Delayed call would be premature.",
-            "tip": "Keep the trip centered on the river mouth and earliest lower-river holding water. Move inland only when Migration Stage advances or direct fish activity supports it.",
+            "headline": "PM Migration Timing is still taking shape.",
+            "detail": "Scottville river-rise activity and M-37 cooling do not yet support an Ahead, Typical, or Delayed call.",
+            "tip": "Keep the section named by Migration Stage. Do not shift PM sections until this read has enough evidence.",
             "reasonCodes": [
               "conditions_checkpoint_evaluating"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "push": {
             "score": null,
             "label": "Waiting for migration",
-            "headline": "Fish have not started entering the river, so there is no Push read yet.",
-            "detail": "Push is meant to spot water conditions that may help fish enter or move during the active migration. Before that, most opportunity should remain in the lake, harbor, or river-mouth transition.",
-            "tip": "Keep the trip in the lake, harbor, and river-mouth zone. Do not move inland just because rain or cooling resembles an in-season movement event.",
+            "headline": "Dependable PM river entry has not started.",
+            "detail": "Rain, Scottville flow, and water temperature are not scored as an in-season movement signal yet.",
+            "tip": "Use Migration Stage. Do not move inland because offseason water resembles an in-season Push.",
             "reasonCodes": [
               "push_tracking_not_started"
             ],
             "rulesVersion": "pm-fall-chinook-push-v5",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "pushHistory": {
             "status": "not_started",
@@ -788,6 +798,8 @@ const GROUP_SEEDS = [
           },
           "fishInRiver": {
             "score": 0,
+            "displayScore": 0,
+            "scoreIsApproximate": false,
             "stage": "pre_run",
             "maximum": 100,
             "riverCeiling": 100,
@@ -796,14 +808,14 @@ const GROUP_SEEDS = [
             "curveDirection": "outside",
             "winterHoldingContext": false,
             "label": "Not expected yet",
-            "headline": "Chinook salmon are not expected in meaningful numbers yet.",
-            "detail": "Most Chinook salmon are not expected to have entered the river in dependable numbers. Any fish already present would be early exceptions.",
-            "tip": "Treat this as no dependable in-river opportunity yet. Keep expectations at zero, and do not interpret an isolated early fish as evidence of dependable river presence.",
+            "headline": "Dependable Chinook salmon presence is not expected in the PM river yet.",
+            "detail": "The seasonal estimate remains at zero. Any fish already in the river would be an early exception.",
+            "tip": "Use Migration Stage for nearby staging context. Do not treat one early fish as a dependable river opportunity.",
             "reasonCodes": [
               "stage_pre_run",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "gauge": {
             "provider": "USGS",
@@ -859,6 +871,7 @@ const GROUP_SEEDS = [
           "nextConditionRefreshAt": "2026-08-15T22:00:00.000Z",
           "runStage": {
             "stage": "beginning",
+            "copyStrategy": "pere_marquette",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -881,14 +894,14 @@ const GROUP_SEEDS = [
               "peakToEndDays": 37
             },
             "label": "Beginning",
-            "headline": "The first Chinook salmon are beginning to enter the river.",
-            "detail": "Fresh Chinook salmon may be entering the river, but numbers can still be scattered and inconsistent this early.",
-            "tip": "Begin in the lower river. Fish the first deep bends and short resting pockets off the main travel lane, then move upstream only after the lower section has been covered.",
-            "whereToStart": "Lower migratory river from Pere Marquette Lake toward Scottville: first deep bends, resting pockets, and current breaks beside the main travel lane.",
+            "headline": "Seasonal timing supports the first Chinook salmon entering the Lower river.",
+            "detail": "This is the opening river phase. Presence is expected to be scattered and uneven.",
+            "tip": "Cover the Lower river first. Move upstream only after direct fish activity supports it.",
+            "whereToStart": "Start in the Lower river (Pere Marquette Lake–Scottville).",
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "conditionsSuggest": {
             "label": "Typical",
@@ -951,16 +964,16 @@ const GROUP_SEEDS = [
               "2026-08-13": "16:00",
               "2026-08-14": "16:00"
             },
-            "headline": "The migration appears to be progressing at a normal seasonal pace.",
-            "detail": "River rises and cooling are close to what is usually seen by this point in the season.",
-            "tip": "Fish the core river section identified by Migration Stage. Begin where a travel lane feeds established holding water, then adjust presentation—not seasonal location—using Fishability.",
+            "headline": "The PM migration is progressing at its usual seasonal pace.",
+            "detail": "Season-to-date Scottville river-rise activity and M-37 cooling are close to the usual PM pattern.",
+            "tip": "Keep the PM section named by Migration Stage.",
             "reasonCodes": [
               "gauge_fresh",
               "temperature_measured",
               "conditions_checkpoint_river_start",
               "conditions_typical"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -973,6 +986,8 @@ const GROUP_SEEDS = [
           },
           "fishInRiver": {
             "score": 10,
+            "displayScore": 10,
+            "scoreIsApproximate": true,
             "stage": "beginning",
             "maximum": 100,
             "riverCeiling": 100,
@@ -981,14 +996,14 @@ const GROUP_SEEDS = [
             "curveDirection": "rising",
             "winterHoldingContext": false,
             "label": "Low presence",
-            "headline": "A small number of Chinook salmon may be in the river, and seasonal presence is still building.",
-            "detail": "This part of the season usually brings low presence, with more fish expected to enter and spread through the river. This is a seasonal estimate, not a live fish count.",
-            "tip": "Treat this as an early, low-odds river opportunity. Expect scattered results, and use direct fish activity before committing the full day.",
+            "headline": "Chinook salmon seasonal presence is low presence and building.",
+            "detail": "Calendar timing places Chinook salmon presence at low presence, increasing as the fall migration builds. For the PM, expected run strength is Strong, and the opportunity can extend across broadly accessible water. This is not a live fish count or today’s conditions.",
+            "tip": "Use Migration Stage to choose a section. Use Push and Activity for current movement support and responsiveness.",
             "reasonCodes": [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "gauge": {
             "provider": "USGS",
@@ -1044,6 +1059,7 @@ const GROUP_SEEDS = [
           "nextConditionRefreshAt": "2026-08-24T22:00:00.000Z",
           "runStage": {
             "stage": "building",
+            "copyStrategy": "pere_marquette",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -1066,14 +1082,14 @@ const GROUP_SEEDS = [
               "peakToEndDays": 37
             },
             "label": "Building",
-            "headline": "More Chinook salmon are beginning to move into the river.",
-            "detail": "More Chinook salmon are typically entering and beginning to spread upstream, although arrivals can still come in uneven waves.",
-            "tip": "Start where lower-river travel water enters the first dependable holding holes. Cover those holes from head to tail, then continue into the middle river instead of waiting in one lower-river spot.",
-            "whereToStart": "Lower migratory river around Scottville, then the first substantial holding holes entering the middle river toward Walhalla.",
+            "headline": "The PM Chinook salmon run is building beyond its earliest entry phase.",
+            "detail": "Seasonal timing keeps the Lower river primary. Earlier arrivals may begin reaching the Middle river.",
+            "tip": "Start low, then make one Middle river check if direct fish activity supports the move.",
+            "whereToStart": "Start in the Lower river (Pere Marquette Lake–Scottville). Add the Middle river (Scottville–Maple Leaf) after direct fish activity supports the move.",
             "reasonCodes": [
               "stage_building"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "conditionsSuggest": {
             "label": "Typical",
@@ -1154,16 +1170,16 @@ const GROUP_SEEDS = [
               "2026-08-22": "16:00",
               "2026-08-23": "16:00"
             },
-            "headline": "The migration appears to be progressing at a normal seasonal pace.",
-            "detail": "River rises and cooling are close to what is usually seen by this point in the season.",
-            "tip": "Fish the core river section identified by Migration Stage. Begin where a travel lane feeds established holding water, then adjust presentation—not seasonal location—using Fishability.",
+            "headline": "The PM migration is progressing at its usual seasonal pace.",
+            "detail": "Season-to-date Scottville river-rise activity and M-37 cooling are close to the usual PM pattern.",
+            "tip": "Keep the PM section named by Migration Stage.",
             "reasonCodes": [
               "gauge_fresh",
               "temperature_measured",
               "conditions_checkpoint_building_start",
               "conditions_typical"
             ],
-            "copyVersion": "river-run-copy-v27",
+            "copyVersion": "river-run-copy-v29",
             "previousCheckpointId": "river_start",
             "previousCheckpointDate": "2026-08-15",
             "previousTimingLabel": "Typical"
@@ -1228,6 +1244,8 @@ const GROUP_SEEDS = [
           },
           "fishInRiver": {
             "score": 29,
+            "displayScore": 30,
+            "scoreIsApproximate": true,
             "stage": "building",
             "maximum": 100,
             "riverCeiling": 100,
@@ -1236,14 +1254,14 @@ const GROUP_SEEDS = [
             "curveDirection": "rising",
             "winterHoldingContext": false,
             "label": "Limited presence",
-            "headline": "Some Chinook salmon are likely in the river, but seasonal presence is still developing.",
-            "detail": "This part of the season usually brings limited presence, with more fish expected to enter and spread through the river. This is a seasonal estimate, not a live fish count.",
-            "tip": "Plan for an emerging but uneven river opportunity. Cover water efficiently, and do not assume every promising stop holds fish.",
+            "headline": "Chinook salmon seasonal presence is limited presence and building.",
+            "detail": "Calendar timing places Chinook salmon presence at limited presence, increasing as the fall migration builds. For the PM, expected run strength is Strong, and the opportunity can extend across broadly accessible water. This is not a live fish count or today’s conditions.",
+            "tip": "Use Migration Stage to choose a section. Use Push and Activity for current movement support and responsiveness.",
             "reasonCodes": [
               "stage_building",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "gauge": {
             "provider": "USGS",
@@ -1305,6 +1323,7 @@ const GROUP_SEEDS = [
           "nextConditionRefreshAt": "2026-09-10T22:00:00.000Z",
           "runStage": {
             "stage": "building",
+            "copyStrategy": "pere_marquette",
             "stagingContext": false,
             "broadBuildingContext": true,
             "winterHoldingContext": false,
@@ -1327,14 +1346,14 @@ const GROUP_SEEDS = [
               "peakToEndDays": 37
             },
             "label": "Building",
-            "headline": "Chinook salmon can now be found throughout the accessible river.",
-            "detail": "Earlier waves have had time to reach upper holding water while later Chinook salmon may still be entering below. Lower, middle, and upper sections are all in play wherever passage is open; the most dependable concentrations may still be in the lower and middle river, while upper water can now hold meaningful numbers too.",
-            "tip": "Start with dependable lower- or middle-river holding water, then cover established upper holes, outside bends, and current breaks. Use Push to decide whether fresh lower-river travel lanes deserve extra time.",
-            "whereToStart": "Middle-river holding water from Scottville through Walhalla and Branch, with the upper river toward Baldwin and M-37 firmly in play.",
+            "headline": "Seasonal timing supports a broader PM Chinook salmon distribution.",
+            "detail": "The Middle river is the dependable calendar choice. Earlier arrivals may also occupy the Upper river.",
+            "tip": "Cover one Middle river section completely before comparing the Upper river.",
+            "whereToStart": "Start in the Middle river (Scottville–Maple Leaf). Add the Upper river (Maple Leaf–M-37) when direct fish activity supports it.",
             "reasonCodes": [
               "stage_building"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -1396,6 +1415,8 @@ const GROUP_SEEDS = [
           },
           "fishInRiver": {
             "score": 69,
+            "displayScore": 70,
+            "scoreIsApproximate": true,
             "stage": "building",
             "maximum": 100,
             "riverCeiling": 100,
@@ -1404,14 +1425,14 @@ const GROUP_SEEDS = [
             "curveDirection": "rising",
             "winterHoldingContext": false,
             "label": "High presence",
-            "headline": "Chinook salmon are likely spread through more of the river as seasonal presence builds toward its strongest point.",
-            "detail": "Seasonal presence is usually elevated relative to the rest of the season, with more fish expected to enter and spread through the river. This is a seasonal estimate, not a live fish count.",
-            "tip": "Treat this as one of the stronger parts of a strong river season. Give each stop a complete pass, but do not mistake this seasonal estimate for a live fish count.",
+            "headline": "Chinook salmon seasonal presence is high presence and building.",
+            "detail": "Calendar timing places Chinook salmon presence high for this fall migration, increasing as the fall migration builds. For the PM, expected run strength is Strong, and the opportunity can extend across broadly accessible water. This is not a live fish count or today’s conditions.",
+            "tip": "Use Migration Stage to choose a section. Use Push and Activity for current movement support and responsiveness.",
             "reasonCodes": [
               "stage_building",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "gauge": {
             "provider": "USGS",
@@ -1460,6 +1481,7 @@ const GROUP_SEEDS = [
           "nextConditionRefreshAt": "2026-09-20T22:00:00.000Z",
           "runStage": {
             "stage": "peak",
+            "copyStrategy": "pere_marquette",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -1482,14 +1504,14 @@ const GROUP_SEEDS = [
               "peakToEndDays": 37
             },
             "label": "Peak",
-            "headline": "This is typically the strongest and most dependable river opportunity of the Chinook salmon season.",
-            "detail": "Multiple waves have had time to spread, so Chinook salmon are likely distributed throughout the accessible river—from lower travel water through upstream holding and spawning reaches, except above dams or other barriers.",
-            "tip": "Choose an accessible river section and fish every substantial hole from its head through the inside seam and tail. Move section by section through deep bends and resting pockets, and leave fish on shallow spawning gravel alone.",
-            "whereToStart": "Compare the lower river near Scottville, middle river through Walhalla and Branch, and upper river toward Baldwin and M-37, prioritizing substantial holding water connected to productive current.",
+            "headline": "This is typically the PM’s strongest Chinook salmon migration window.",
+            "detail": "Seasonal timing supports the widest dependable Chinook salmon distribution. It does not confirm fish in every section.",
+            "tip": "Start in the Middle river. Compare the Upper river only after a complete first pass.",
+            "whereToStart": "Start in the Middle river (Scottville–Maple Leaf). Compare the Upper river (Maple Leaf–M-37) when direct fish activity favors it.",
             "reasonCodes": [
               "stage_peak"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "conditionsSuggest": {
             "label": "Ahead",
@@ -1614,16 +1636,16 @@ const GROUP_SEEDS = [
               "2026-09-13": "16:00",
               "2026-09-14": "16:00"
             },
-            "headline": "The migration appears to be developing earlier than usual.",
-            "detail": "The river has risen and cooled faster than it normally does by this point in the season.",
-            "tip": "Start one accessible river section farther upstream than you normally would for this date and prioritize established holding water. If Push is Possible or stronger, finish with lower travel lanes.",
+            "headline": "The PM migration is developing earlier than usual.",
+            "detail": "Season-to-date Scottville river-rise activity and M-37 cooling are stronger than the usual PM pattern.",
+            "tip": "Start one PM section upstream from Migration Stage, capped at the Upper river (Maple Leaf–M-37).",
             "reasonCodes": [
               "gauge_fresh",
               "temperature_measured",
               "conditions_checkpoint_peak_start",
               "conditions_ahead"
             ],
-            "copyVersion": "river-run-copy-v27",
+            "copyVersion": "river-run-copy-v29",
             "previousCheckpointId": "building_established",
             "previousCheckpointDate": "2026-09-01",
             "previousTimingLabel": "Ahead"
@@ -1688,6 +1710,8 @@ const GROUP_SEEDS = [
           },
           "fishInRiver": {
             "score": 100,
+            "displayScore": 100,
+            "scoreIsApproximate": false,
             "stage": "peak",
             "maximum": 100,
             "riverCeiling": 100,
@@ -1696,14 +1720,14 @@ const GROUP_SEEDS = [
             "curveDirection": "near_peak",
             "winterHoldingContext": false,
             "label": "Peak presence",
-            "headline": "Chinook salmon are likely near their highest seasonal presence in the river.",
-            "detail": "This is the part of the season when in-river presence is usually strongest. The read describes the river as a whole; it does not place fish in a specific pool or confirm a live count.",
-            "tip": "Plan for the strongest seasonal presence this river usually offers, while remembering that this estimate cannot confirm fish at a specific spot or describe today's river conditions.",
+            "headline": "Chinook salmon seasonal presence is peak presence and near its seasonal high.",
+            "detail": "Calendar timing places Chinook salmon presence at its expected seasonal peak, near its expected seasonal high. For the PM, expected run strength is Strong, and the opportunity can extend across broadly accessible water. This is not a live fish count or today’s conditions.",
+            "tip": "Use Migration Stage to choose a section. Use Push and Activity for current movement support and responsiveness.",
             "reasonCodes": [
               "stage_peak",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "gauge": {
             "provider": "USGS",
@@ -1759,6 +1783,7 @@ const GROUP_SEEDS = [
           "nextConditionRefreshAt": "2026-10-01T22:00:00.000Z",
           "runStage": {
             "stage": "tapering",
+            "copyStrategy": "pere_marquette",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -1781,14 +1806,14 @@ const GROUP_SEEDS = [
               "peakToEndDays": 37
             },
             "label": "Tapering",
-            "headline": "This can remain a productive part of the Chinook salmon season, even as fresh arrivals typically become less consistent.",
-            "detail": "Good numbers of Chinook salmon may still be spread through the river. At this point in the seasonal pattern, the balance often shifts from new arrivals toward fish already holding or spawning.",
-            "tip": "Begin with established middle- and upper-river holding water, especially deep holes and slower edges. If Push is Possible or stronger, finish with lower travel lanes for a fresh late wave.",
-            "whereToStart": "Established middle- and upper-river holding water from Walhalla and Branch toward Baldwin/M-37; add Scottville-area lower-river travel lanes only on a credible fresh-movement signal.",
+            "headline": "The main PM Chinook salmon migration is tapering.",
+            "detail": "Seasonal presence is declining. Established Middle river holding water is more dependable than broad travel-water searches.",
+            "tip": "Start in established Middle river water. Shift lower only when Push supports fresh movement.",
+            "whereToStart": "Start in the Middle river (Scottville–Maple Leaf). Add the Lower river (Pere Marquette Lake–Scottville) only when Push supports fresh movement.",
             "reasonCodes": [
               "stage_tapering"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "conditionsSuggest": {
             "label": "Timing complete",
@@ -1944,7 +1969,7 @@ const GROUP_SEEDS = [
               "conditions_ahead",
               "conditions_timing_complete"
             ],
-            "copyVersion": "river-run-copy-v27",
+            "copyVersion": "river-run-copy-v29",
             "previousCheckpointId": "peak_start",
             "previousCheckpointDate": "2026-09-15",
             "previousTimingLabel": "Ahead"
@@ -2009,6 +2034,8 @@ const GROUP_SEEDS = [
           },
           "fishInRiver": {
             "score": 92,
+            "displayScore": 90,
+            "scoreIsApproximate": true,
             "stage": "tapering",
             "maximum": 100,
             "riverCeiling": 100,
@@ -2017,14 +2044,14 @@ const GROUP_SEEDS = [
             "curveDirection": "falling",
             "winterHoldingContext": false,
             "label": "Peak presence",
-            "headline": "Seasonal timing still supports Chinook salmon being near their strongest in-river presence, even if the migration may be just beyond its usual peak.",
-            "detail": "This point in the season may sit just beyond the usual peak while the seasonal pattern still supports strong in-river presence. This is a seasonal estimate, not a live fish count.",
-            "tip": "Plan around fish already likely to be in the river. Seasonal presence is still near its high point, but remember that this seasonal estimate cannot tell whether a fresh wave is entering today.",
+            "headline": "Chinook salmon seasonal presence is peak presence and declining.",
+            "detail": "Calendar timing places Chinook salmon presence at its expected seasonal peak, declining as the fall migration advances. For the PM, expected run strength is Strong, and the opportunity can extend across broadly accessible water. This is not a live fish count or today’s conditions.",
+            "tip": "Use Migration Stage to choose a section. Use Push and Activity for current movement support and responsiveness.",
             "reasonCodes": [
               "stage_tapering",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "gauge": {
             "provider": "USGS",
@@ -2073,6 +2100,7 @@ const GROUP_SEEDS = [
           "nextConditionRefreshAt": "2026-10-19T22:00:00.000Z",
           "runStage": {
             "stage": "ending",
+            "copyStrategy": "pere_marquette",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -2095,14 +2123,14 @@ const GROUP_SEEDS = [
               "peakToEndDays": 37
             },
             "label": "Ending",
-            "headline": "Chinook salmon can still provide a worthwhile late-season river opportunity.",
-            "detail": "Fish can still be present, but many have been in the system for a while and fresh arrivals tend to be less dependable.",
-            "tip": "Skip fast travel lanes. Work the deepest established holes and slow current edges, and leave actively spawning fish and shallow gravel alone.",
-            "whereToStart": "The deepest middle- and upper-river holes and slower current edges from Walhalla through Branch toward Baldwin/M-37—not fast lower-river travel lanes.",
+            "headline": "The PM Chinook salmon migration is nearing its seasonal end.",
+            "detail": "Remaining fish are expected to be less evenly distributed. Fresh entry is no longer dependable.",
+            "tip": "Start in proven Middle river holding water. Add one Upper river check only after direct fish activity supports it.",
+            "whereToStart": "Start in the Middle river (Scottville–Maple Leaf). Add the Upper river (Maple Leaf–M-37) only for established late holding water.",
             "reasonCodes": [
               "stage_ending"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "conditionsSuggest": {
             "label": "Timing complete",
@@ -2258,7 +2286,7 @@ const GROUP_SEEDS = [
               "conditions_ahead",
               "conditions_timing_complete"
             ],
-            "copyVersion": "river-run-copy-v27",
+            "copyVersion": "river-run-copy-v29",
             "previousCheckpointId": "peak_start",
             "previousCheckpointDate": "2026-09-15",
             "previousTimingLabel": "Ahead"
@@ -2323,6 +2351,8 @@ const GROUP_SEEDS = [
           },
           "fishInRiver": {
             "score": 42,
+            "displayScore": 45,
+            "scoreIsApproximate": true,
             "stage": "ending",
             "maximum": 100,
             "riverCeiling": 100,
@@ -2331,14 +2361,14 @@ const GROUP_SEEDS = [
             "curveDirection": "falling",
             "winterHoldingContext": false,
             "label": "Moderate presence",
-            "headline": "Seasonal timing still supports meaningful Chinook salmon presence, especially in established holding water.",
-            "detail": "This part of the season usually supports moderate presence, while fresh arrivals often become less consistent later in the season. This is a seasonal estimate, not a live fish count.",
-            "tip": "Plan for a worthwhile but less consistent river opportunity. Expect more searching than near the seasonal high, and let direct fish activity determine how long you stay.",
+            "headline": "Chinook salmon seasonal presence is moderate presence and declining.",
+            "detail": "Calendar timing places Chinook salmon presence at moderate presence, declining as the fall migration advances. For the PM, expected run strength is Strong, and the opportunity can extend across broadly accessible water. This is not a live fish count or today’s conditions.",
+            "tip": "Use Migration Stage to choose a section. Use Push and Activity for current movement support and responsiveness.",
             "reasonCodes": [
               "stage_ending",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "gauge": {
             "provider": "USGS",
@@ -2387,6 +2417,7 @@ const GROUP_SEEDS = [
           "nextConditionRefreshAt": "2026-10-28T22:00:00.000Z",
           "runStage": {
             "stage": "post_run",
+            "copyStrategy": "pere_marquette",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -2409,14 +2440,14 @@ const GROUP_SEEDS = [
               "peakToEndDays": 37
             },
             "label": "After migration",
-            "headline": "The main Chinook salmon migration is over.",
-            "detail": "A few fish may remain, but the season no longer supports a dependable river-wide opportunity.",
-            "tip": "Do not chase scattered holdovers from access to access. Shift to another seasonal species and leave any actively spawning fish undisturbed.",
-            "whereToStart": "No dependable starting reach; any remaining fish are likely isolated in deep middle- or upper-river holding water from Walhalla and Branch toward Baldwin/M-37.",
+            "headline": "The main PM Chinook salmon migration is over, though isolated late fish may remain.",
+            "detail": "Seasonal timing no longer supports a broad river search. Any remaining Chinook salmon are exceptions.",
+            "tip": "Do not chase isolated reports across sections. Leave actively spawning fish undisturbed.",
+            "whereToStart": "There is no dependable PM starting section. If direct evidence supports a late check, use proven Middle river (Scottville–Maple Leaf) holding water.",
             "reasonCodes": [
               "stage_post_run"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "conditionsSuggest": {
             "label": "Timing complete",
@@ -2572,7 +2603,7 @@ const GROUP_SEEDS = [
               "conditions_ahead",
               "conditions_timing_complete"
             ],
-            "copyVersion": "river-run-copy-v27",
+            "copyVersion": "river-run-copy-v29",
             "previousCheckpointId": "peak_start",
             "previousCheckpointDate": "2026-09-15",
             "previousTimingLabel": "Ahead"
@@ -2587,7 +2618,7 @@ const GROUP_SEEDS = [
               "push_tracking_complete"
             ],
             "rulesVersion": "pm-fall-chinook-push-v5",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "pushHistory": {
             "status": "complete",
@@ -2649,6 +2680,8 @@ const GROUP_SEEDS = [
           },
           "fishInRiver": {
             "score": 20,
+            "displayScore": 20,
+            "scoreIsApproximate": true,
             "stage": "post_run",
             "maximum": 100,
             "riverCeiling": 100,
@@ -2657,14 +2690,14 @@ const GROUP_SEEDS = [
             "curveDirection": "falling",
             "winterHoldingContext": false,
             "label": "Low presence",
-            "headline": "Some Chinook salmon may still be in the river, with seasonal presence more likely to be scattered.",
-            "detail": "This part of the season usually supports low presence, while fresh arrivals often become less consistent later in the season. This is a seasonal estimate, not a live fish count.",
-            "tip": "Treat any remaining fish as a bonus rather than a dependable trip plan. Keep expectations narrow and be ready to shift to another seasonal species.",
+            "headline": "Chinook salmon seasonal presence is low presence and declining.",
+            "detail": "Calendar timing places Chinook salmon presence at low presence, declining as the fall migration advances. For the PM, expected run strength is Strong, and the opportunity can extend across broadly accessible water. This is not a live fish count or today’s conditions.",
+            "tip": "Use Migration Stage to choose a section. Use Push and Activity for current movement support and responsiveness.",
             "reasonCodes": [
               "stage_post_run",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "gauge": {
             "provider": "USGS",
@@ -2727,6 +2760,7 @@ const GROUP_SEEDS = [
           "nextConditionRefreshAt": "2026-07-20T22:00:00.000Z",
           "runStage": {
             "stage": "pre_run",
+            "copyStrategy": "pere_marquette",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -2749,14 +2783,14 @@ const GROUP_SEEDS = [
               "peakToEndDays": 37
             },
             "label": "Before migration",
-            "headline": "Chinook salmon have not started entering the river yet.",
-            "detail": "Most Chinook salmon are still expected to be in the lake, so meaningful numbers in the river is unlikely right now.",
-            "tip": "Keep the trip in the lake, harbor, and river-mouth zone. Do not spend the day searching inland river water before the seasonal migration begins.",
-            "whereToStart": "Lake Michigan off Ludington, Ludington harbor, and Pere Marquette Lake—not the inland river yet.",
+            "headline": "The PM Chinook salmon fall run has not started.",
+            "detail": "Seasonal timing does not support dependable Chinook salmon presence in the PM river yet.",
+            "tip": "Keep effort in the lake, harbor, and Pere Marquette Lake until staging begins.",
+            "whereToStart": "Stay in Lake Michigan, Ludington harbor, and Pere Marquette Lake. The PM river is not a dependable starting section yet.",
             "reasonCodes": [
               "stage_pre_run"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "conditionsSuggest": {
             "label": "Not monitoring yet",
@@ -2775,25 +2809,25 @@ const GROUP_SEEDS = [
             "historicalYears": 0,
             "sourceDates": [],
             "sourceRefreshSlots": {},
-            "headline": "Migration Timing is not active right now.",
-            "detail": "Timing monitoring begins before the expected river entry, but that seasonal observation window is not active yet.",
-            "tip": "Check Migration Stage for the current seasonal position and return to Migration Timing when early monitoring begins.",
+            "headline": "PM Migration Timing is not monitoring yet.",
+            "detail": "Season-to-date Scottville flow and M-37 temperature monitoring resumes in late July.",
+            "tip": "Check back in late July when PM timing monitoring resumes.",
             "reasonCodes": [
               "conditions_monitoring_inactive"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "push": {
             "score": null,
             "label": "Waiting for migration",
-            "headline": "Fish have not started entering the river, so there is no Push read yet.",
-            "detail": "Push is meant to spot water conditions that may help fish enter or move during the active migration. Before that, most opportunity should remain in the lake, harbor, or river-mouth transition.",
-            "tip": "Keep the trip in the lake, harbor, and river-mouth zone. Do not move inland just because rain or cooling resembles an in-season movement event.",
+            "headline": "Dependable PM river entry has not started.",
+            "detail": "Rain, Scottville flow, and water temperature are not scored as an in-season movement signal yet.",
+            "tip": "Use Migration Stage. Do not move inland because offseason water resembles an in-season Push.",
             "reasonCodes": [
               "push_tracking_not_started"
             ],
             "rulesVersion": "pm-fall-chinook-push-v5",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "pushHistory": {
             "status": "not_started",
@@ -2806,6 +2840,8 @@ const GROUP_SEEDS = [
           },
           "fishInRiver": {
             "score": 0,
+            "displayScore": 0,
+            "scoreIsApproximate": false,
             "stage": "pre_run",
             "maximum": 100,
             "riverCeiling": 100,
@@ -2814,14 +2850,14 @@ const GROUP_SEEDS = [
             "curveDirection": "outside",
             "winterHoldingContext": false,
             "label": "Not expected yet",
-            "headline": "Chinook salmon are not expected in meaningful numbers yet.",
-            "detail": "Most Chinook salmon are not expected to have entered the river in dependable numbers. Any fish already present would be early exceptions.",
-            "tip": "Treat this as no dependable in-river opportunity yet. Keep expectations at zero, and do not interpret an isolated early fish as evidence of dependable river presence.",
+            "headline": "Dependable Chinook salmon presence is not expected in the PM river yet.",
+            "detail": "The seasonal estimate remains at zero. Any fish already in the river would be an early exception.",
+            "tip": "Use Migration Stage for nearby staging context. Do not treat one early fish as a dependable river opportunity.",
             "reasonCodes": [
               "stage_pre_run",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "gauge": {
             "provider": "USGS",
@@ -2877,6 +2913,7 @@ const GROUP_SEEDS = [
           "nextConditionRefreshAt": "2026-08-01T22:00:00.000Z",
           "runStage": {
             "stage": "pre_run",
+            "copyStrategy": "pere_marquette",
             "stagingContext": true,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -2899,15 +2936,15 @@ const GROUP_SEEDS = [
               "peakToEndDays": 37
             },
             "label": "Before migration",
-            "headline": "Chinook salmon may be gathering near the river mouth, and a few early fish could be in the river.",
-            "detail": "Most Chinook salmon are still expected near the lake, harbor, or river mouth. The earliest arrivals can occasionally slip into the lower river, but dependable river numbers have not developed yet.",
-            "tip": "Fish the harbor and river mouth first, then make one deliberate check of the first deep lower-river travel lane. Skip a middle- or upper-river trip until fish become dependable in the river.",
-            "whereToStart": "Ludington harbor, Pere Marquette Lake, the river mouth at the east end of the lake, and one deliberate check of the first deep travel lane in the lower migratory river.",
+            "headline": "Chinook salmon may be staging near the PM mouth, but dependable river entry has not begun.",
+            "detail": "Seasonal timing supports nearby-lake staging. Any Chinook salmon already in the Lower river would be an early exception.",
+            "tip": "Keep the river check brief. Do not move into the Middle or Upper river from calendar timing alone.",
+            "whereToStart": "Start at Pere Marquette Lake and the river mouth. Add the Lower river (Pere Marquette Lake–Scottville) only for an early-fish check.",
             "reasonCodes": [
               "stage_pre_run",
               "stage_pre_run_staging"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "conditionsSuggest": {
             "label": "Evaluating",
@@ -2926,25 +2963,25 @@ const GROUP_SEEDS = [
             "historicalYears": 0,
             "sourceDates": [],
             "sourceRefreshSlots": {},
-            "headline": "Migration Timing is still taking shape.",
-            "detail": "The early river and temperature pattern is still developing, so an Ahead, Typical, or Delayed call would be premature.",
-            "tip": "Keep the trip centered on the river mouth and earliest lower-river holding water. Move inland only when Migration Stage advances or direct fish activity supports it.",
+            "headline": "PM Migration Timing is still taking shape.",
+            "detail": "Scottville river-rise activity and M-37 cooling do not yet support an Ahead, Typical, or Delayed call.",
+            "tip": "Keep the section named by Migration Stage. Do not shift PM sections until this read has enough evidence.",
             "reasonCodes": [
               "conditions_checkpoint_evaluating"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "push": {
             "score": null,
             "label": "Waiting for migration",
-            "headline": "Fish have not started entering the river, so there is no Push read yet.",
-            "detail": "Push is meant to spot water conditions that may help fish enter or move during the active migration. Before that, most opportunity should remain in the lake, harbor, or river-mouth transition.",
-            "tip": "Keep the trip in the lake, harbor, and river-mouth zone. Do not move inland just because rain or cooling resembles an in-season movement event.",
+            "headline": "Dependable PM river entry has not started.",
+            "detail": "Rain, Scottville flow, and water temperature are not scored as an in-season movement signal yet.",
+            "tip": "Use Migration Stage. Do not move inland because offseason water resembles an in-season Push.",
             "reasonCodes": [
               "push_tracking_not_started"
             ],
             "rulesVersion": "pm-fall-chinook-push-v5",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "pushHistory": {
             "status": "not_started",
@@ -2957,6 +2994,8 @@ const GROUP_SEEDS = [
           },
           "fishInRiver": {
             "score": 0,
+            "displayScore": 0,
+            "scoreIsApproximate": false,
             "stage": "pre_run",
             "maximum": 100,
             "riverCeiling": 100,
@@ -2965,14 +3004,14 @@ const GROUP_SEEDS = [
             "curveDirection": "outside",
             "winterHoldingContext": false,
             "label": "Not expected yet",
-            "headline": "Chinook salmon are not expected in meaningful numbers yet.",
-            "detail": "Most Chinook salmon are not expected to have entered the river in dependable numbers. Any fish already present would be early exceptions.",
-            "tip": "Treat this as no dependable in-river opportunity yet. Keep expectations at zero, and do not interpret an isolated early fish as evidence of dependable river presence.",
+            "headline": "Dependable Chinook salmon presence is not expected in the PM river yet.",
+            "detail": "The seasonal estimate remains at zero. Any fish already in the river would be an early exception.",
+            "tip": "Use Migration Stage for nearby staging context. Do not treat one early fish as a dependable river opportunity.",
             "reasonCodes": [
               "stage_pre_run",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "gauge": {
             "provider": "USGS",
@@ -3028,6 +3067,7 @@ const GROUP_SEEDS = [
           "nextConditionRefreshAt": "2026-08-15T22:00:00.000Z",
           "runStage": {
             "stage": "beginning",
+            "copyStrategy": "pere_marquette",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -3050,14 +3090,14 @@ const GROUP_SEEDS = [
               "peakToEndDays": 37
             },
             "label": "Beginning",
-            "headline": "The first Chinook salmon are beginning to enter the river.",
-            "detail": "Fresh Chinook salmon may be entering the river, but numbers can still be scattered and inconsistent this early.",
-            "tip": "Begin in the lower river. Fish the first deep bends and short resting pockets off the main travel lane, then move upstream only after the lower section has been covered.",
-            "whereToStart": "Lower migratory river from Pere Marquette Lake toward Scottville: first deep bends, resting pockets, and current breaks beside the main travel lane.",
+            "headline": "Seasonal timing supports the first Chinook salmon entering the Lower river.",
+            "detail": "This is the opening river phase. Presence is expected to be scattered and uneven.",
+            "tip": "Cover the Lower river first. Move upstream only after direct fish activity supports it.",
+            "whereToStart": "Start in the Lower river (Pere Marquette Lake–Scottville).",
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "conditionsSuggest": {
             "label": "Ahead",
@@ -3120,16 +3160,16 @@ const GROUP_SEEDS = [
               "2026-08-13": "16:00",
               "2026-08-14": "16:00"
             },
-            "headline": "The migration appears to be developing earlier than usual.",
-            "detail": "The river has risen and cooled faster than it normally does by this point in the season.",
-            "tip": "Start one accessible river section farther upstream than you normally would for this date and prioritize established holding water. If Push is Possible or stronger, finish with lower travel lanes.",
+            "headline": "The PM migration is developing earlier than usual.",
+            "detail": "Season-to-date Scottville river-rise activity and M-37 cooling are stronger than the usual PM pattern.",
+            "tip": "Start one PM section upstream from Migration Stage, capped at the Upper river (Maple Leaf–M-37).",
             "reasonCodes": [
               "gauge_fresh",
               "temperature_measured",
               "conditions_checkpoint_river_start",
               "conditions_ahead"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -3142,6 +3182,8 @@ const GROUP_SEEDS = [
           },
           "fishInRiver": {
             "score": 10,
+            "displayScore": 10,
+            "scoreIsApproximate": true,
             "stage": "beginning",
             "maximum": 100,
             "riverCeiling": 100,
@@ -3150,14 +3192,14 @@ const GROUP_SEEDS = [
             "curveDirection": "rising",
             "winterHoldingContext": false,
             "label": "Low presence",
-            "headline": "A small number of Chinook salmon may be in the river, and seasonal presence is still building.",
-            "detail": "This part of the season usually brings low presence, with more fish expected to enter and spread through the river. This is a seasonal estimate, not a live fish count.",
-            "tip": "Treat this as an early, low-odds river opportunity. Expect scattered results, and use direct fish activity before committing the full day.",
+            "headline": "Chinook salmon seasonal presence is low presence and building.",
+            "detail": "Calendar timing places Chinook salmon presence at low presence, increasing as the fall migration builds. For the PM, expected run strength is Strong, and the opportunity can extend across broadly accessible water. This is not a live fish count or today’s conditions.",
+            "tip": "Use Migration Stage to choose a section. Use Push and Activity for current movement support and responsiveness.",
             "reasonCodes": [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "gauge": {
             "provider": "USGS",
@@ -3214,6 +3256,7 @@ const GROUP_SEEDS = [
           "nextConditionRefreshAt": "2026-08-15T22:00:00.000Z",
           "runStage": {
             "stage": "beginning",
+            "copyStrategy": "pere_marquette",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -3236,14 +3279,14 @@ const GROUP_SEEDS = [
               "peakToEndDays": 37
             },
             "label": "Beginning",
-            "headline": "The first Chinook salmon are beginning to enter the river.",
-            "detail": "Fresh Chinook salmon may be entering the river, but numbers can still be scattered and inconsistent this early.",
-            "tip": "Begin in the lower river. Fish the first deep bends and short resting pockets off the main travel lane, then move upstream only after the lower section has been covered.",
-            "whereToStart": "Lower migratory river from Pere Marquette Lake toward Scottville: first deep bends, resting pockets, and current breaks beside the main travel lane.",
+            "headline": "Seasonal timing supports the first Chinook salmon entering the Lower river.",
+            "detail": "This is the opening river phase. Presence is expected to be scattered and uneven.",
+            "tip": "Cover the Lower river first. Move upstream only after direct fish activity supports it.",
+            "whereToStart": "Start in the Lower river (Pere Marquette Lake–Scottville).",
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "conditionsSuggest": {
             "label": "Typical",
@@ -3306,16 +3349,16 @@ const GROUP_SEEDS = [
               "2026-08-13": "16:00",
               "2026-08-14": "16:00"
             },
-            "headline": "The migration appears to be progressing at a normal seasonal pace.",
-            "detail": "River rises and cooling are close to what is usually seen by this point in the season.",
-            "tip": "Fish the core river section identified by Migration Stage. Begin where a travel lane feeds established holding water, then adjust presentation—not seasonal location—using Fishability.",
+            "headline": "The PM migration is progressing at its usual seasonal pace.",
+            "detail": "Season-to-date Scottville river-rise activity and M-37 cooling are close to the usual PM pattern.",
+            "tip": "Keep the PM section named by Migration Stage.",
             "reasonCodes": [
               "gauge_fresh",
               "temperature_measured",
               "conditions_checkpoint_river_start",
               "conditions_typical"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -3328,6 +3371,8 @@ const GROUP_SEEDS = [
           },
           "fishInRiver": {
             "score": 10,
+            "displayScore": 10,
+            "scoreIsApproximate": true,
             "stage": "beginning",
             "maximum": 100,
             "riverCeiling": 100,
@@ -3336,14 +3381,14 @@ const GROUP_SEEDS = [
             "curveDirection": "rising",
             "winterHoldingContext": false,
             "label": "Low presence",
-            "headline": "A small number of Chinook salmon may be in the river, and seasonal presence is still building.",
-            "detail": "This part of the season usually brings low presence, with more fish expected to enter and spread through the river. This is a seasonal estimate, not a live fish count.",
-            "tip": "Treat this as an early, low-odds river opportunity. Expect scattered results, and use direct fish activity before committing the full day.",
+            "headline": "Chinook salmon seasonal presence is low presence and building.",
+            "detail": "Calendar timing places Chinook salmon presence at low presence, increasing as the fall migration builds. For the PM, expected run strength is Strong, and the opportunity can extend across broadly accessible water. This is not a live fish count or today’s conditions.",
+            "tip": "Use Migration Stage to choose a section. Use Push and Activity for current movement support and responsiveness.",
             "reasonCodes": [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "gauge": {
             "provider": "USGS",
@@ -3399,6 +3444,7 @@ const GROUP_SEEDS = [
           "nextConditionRefreshAt": "2026-08-15T22:00:00.000Z",
           "runStage": {
             "stage": "beginning",
+            "copyStrategy": "pere_marquette",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -3421,14 +3467,14 @@ const GROUP_SEEDS = [
               "peakToEndDays": 37
             },
             "label": "Beginning",
-            "headline": "The first Chinook salmon are beginning to enter the river.",
-            "detail": "Fresh Chinook salmon may be entering the river, but numbers can still be scattered and inconsistent this early.",
-            "tip": "Begin in the lower river. Fish the first deep bends and short resting pockets off the main travel lane, then move upstream only after the lower section has been covered.",
-            "whereToStart": "Lower migratory river from Pere Marquette Lake toward Scottville: first deep bends, resting pockets, and current breaks beside the main travel lane.",
+            "headline": "Seasonal timing supports the first Chinook salmon entering the Lower river.",
+            "detail": "This is the opening river phase. Presence is expected to be scattered and uneven.",
+            "tip": "Cover the Lower river first. Move upstream only after direct fish activity supports it.",
+            "whereToStart": "Start in the Lower river (Pere Marquette Lake–Scottville).",
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "conditionsSuggest": {
             "label": "Delayed",
@@ -3491,16 +3537,16 @@ const GROUP_SEEDS = [
               "2026-08-13": "16:00",
               "2026-08-14": "16:00"
             },
-            "headline": "The migration appears to be developing later than usual.",
-            "detail": "The river has risen and cooled more slowly than it normally does by this point in the season.",
-            "tip": "Start in the lower river and fish the first deep holding water connected to lake-entry travel lanes. Do not assume the middle and upper river have filled in yet.",
+            "headline": "The PM migration is developing later than usual.",
+            "detail": "Season-to-date Scottville river-rise activity and M-37 cooling are weaker than the usual PM pattern.",
+            "tip": "Start one PM section downstream from Migration Stage, capped at the Lower river (Pere Marquette Lake–Scottville).",
             "reasonCodes": [
               "gauge_fresh",
               "temperature_measured",
               "conditions_checkpoint_river_start",
               "conditions_delayed"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -3513,6 +3559,8 @@ const GROUP_SEEDS = [
           },
           "fishInRiver": {
             "score": 10,
+            "displayScore": 10,
+            "scoreIsApproximate": true,
             "stage": "beginning",
             "maximum": 100,
             "riverCeiling": 100,
@@ -3521,14 +3569,14 @@ const GROUP_SEEDS = [
             "curveDirection": "rising",
             "winterHoldingContext": false,
             "label": "Low presence",
-            "headline": "A small number of Chinook salmon may be in the river, and seasonal presence is still building.",
-            "detail": "This part of the season usually brings low presence, with more fish expected to enter and spread through the river. This is a seasonal estimate, not a live fish count.",
-            "tip": "Treat this as an early, low-odds river opportunity. Expect scattered results, and use direct fish activity before committing the full day.",
+            "headline": "Chinook salmon seasonal presence is low presence and building.",
+            "detail": "Calendar timing places Chinook salmon presence at low presence, increasing as the fall migration builds. For the PM, expected run strength is Strong, and the opportunity can extend across broadly accessible water. This is not a live fish count or today’s conditions.",
+            "tip": "Use Migration Stage to choose a section. Use Push and Activity for current movement support and responsiveness.",
             "reasonCodes": [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "gauge": {
             "provider": "USGS",
@@ -3584,6 +3632,7 @@ const GROUP_SEEDS = [
           "nextConditionRefreshAt": "2026-08-15T22:00:00.000Z",
           "runStage": {
             "stage": "beginning",
+            "copyStrategy": "pere_marquette",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -3606,14 +3655,14 @@ const GROUP_SEEDS = [
               "peakToEndDays": 37
             },
             "label": "Beginning",
-            "headline": "The first Chinook salmon are beginning to enter the river.",
-            "detail": "Fresh Chinook salmon may be entering the river, but numbers can still be scattered and inconsistent this early.",
-            "tip": "Begin in the lower river. Fish the first deep bends and short resting pockets off the main travel lane, then move upstream only after the lower section has been covered.",
-            "whereToStart": "Lower migratory river from Pere Marquette Lake toward Scottville: first deep bends, resting pockets, and current breaks beside the main travel lane.",
+            "headline": "Seasonal timing supports the first Chinook salmon entering the Lower river.",
+            "detail": "This is the opening river phase. Presence is expected to be scattered and uneven.",
+            "tip": "Cover the Lower river first. Move upstream only after direct fish activity supports it.",
+            "whereToStart": "Start in the Lower river (Pere Marquette Lake–Scottville).",
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "conditionsSuggest": {
             "label": "Typical",
@@ -3676,9 +3725,9 @@ const GROUP_SEEDS = [
               "2026-08-13": "16:00",
               "2026-08-14": "16:00"
             },
-            "headline": "The migration still appears to be moving at a normal seasonal pace.",
-            "detail": "River levels and water temperature are pointing in different directions, so neither supports a clear early or late read.",
-            "tip": "Keep the normal distribution plan for the current Migration Stage. Start in established holding water; if Push is Possible or stronger, make lower travel lanes the next stop.",
+            "headline": "PM migration timing remains Typical because the signals are mixed.",
+            "detail": "Scottville river-rise activity and M-37 cooling point in opposite directions. Together they do not support an early or late call.",
+            "tip": "Keep the section named by Migration Stage. Use Push only for today’s fresh-movement support.",
             "reasonCodes": [
               "gauge_fresh",
               "temperature_measured",
@@ -3686,7 +3735,7 @@ const GROUP_SEEDS = [
               "conditions_typical",
               "conditions_signals_mixed"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -3699,6 +3748,8 @@ const GROUP_SEEDS = [
           },
           "fishInRiver": {
             "score": 10,
+            "displayScore": 10,
+            "scoreIsApproximate": true,
             "stage": "beginning",
             "maximum": 100,
             "riverCeiling": 100,
@@ -3707,14 +3758,14 @@ const GROUP_SEEDS = [
             "curveDirection": "rising",
             "winterHoldingContext": false,
             "label": "Low presence",
-            "headline": "A small number of Chinook salmon may be in the river, and seasonal presence is still building.",
-            "detail": "This part of the season usually brings low presence, with more fish expected to enter and spread through the river. This is a seasonal estimate, not a live fish count.",
-            "tip": "Treat this as an early, low-odds river opportunity. Expect scattered results, and use direct fish activity before committing the full day.",
+            "headline": "Chinook salmon seasonal presence is low presence and building.",
+            "detail": "Calendar timing places Chinook salmon presence at low presence, increasing as the fall migration builds. For the PM, expected run strength is Strong, and the opportunity can extend across broadly accessible water. This is not a live fish count or today’s conditions.",
+            "tip": "Use Migration Stage to choose a section. Use Push and Activity for current movement support and responsiveness.",
             "reasonCodes": [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "gauge": {
             "provider": "USGS",
@@ -3770,6 +3821,7 @@ const GROUP_SEEDS = [
           "nextConditionRefreshAt": "2026-08-24T22:00:00.000Z",
           "runStage": {
             "stage": "building",
+            "copyStrategy": "pere_marquette",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -3792,14 +3844,14 @@ const GROUP_SEEDS = [
               "peakToEndDays": 37
             },
             "label": "Building",
-            "headline": "More Chinook salmon are beginning to move into the river.",
-            "detail": "More Chinook salmon are typically entering and beginning to spread upstream, although arrivals can still come in uneven waves.",
-            "tip": "Start where lower-river travel water enters the first dependable holding holes. Cover those holes from head to tail, then continue into the middle river instead of waiting in one lower-river spot.",
-            "whereToStart": "Lower migratory river around Scottville, then the first substantial holding holes entering the middle river toward Walhalla.",
+            "headline": "The PM Chinook salmon run is building beyond its earliest entry phase.",
+            "detail": "Seasonal timing keeps the Lower river primary. Earlier arrivals may begin reaching the Middle river.",
+            "tip": "Start low, then make one Middle river check if direct fish activity supports the move.",
+            "whereToStart": "Start in the Lower river (Pere Marquette Lake–Scottville). Add the Middle river (Scottville–Maple Leaf) after direct fish activity supports the move.",
             "reasonCodes": [
               "stage_building"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "conditionsSuggest": {
             "label": "Delayed",
@@ -3880,16 +3932,16 @@ const GROUP_SEEDS = [
               "2026-08-22": "16:00",
               "2026-08-23": "16:00"
             },
-            "headline": "The migration appears to be developing later than usual.",
-            "detail": "The river has risen and cooled more slowly than it normally does by this point in the season.",
-            "tip": "Start in the lower river and fish the first deep holding water connected to lake-entry travel lanes. Do not assume the middle and upper river have filled in yet.",
+            "headline": "The PM migration is developing later than usual.",
+            "detail": "Season-to-date Scottville river-rise activity and M-37 cooling are weaker than the usual PM pattern.",
+            "tip": "Start one PM section downstream from Migration Stage, capped at the Lower river (Pere Marquette Lake–Scottville).",
             "reasonCodes": [
               "gauge_fresh",
               "temperature_measured",
               "conditions_checkpoint_building_start",
               "conditions_delayed"
             ],
-            "copyVersion": "river-run-copy-v27",
+            "copyVersion": "river-run-copy-v29",
             "previousCheckpointId": "river_start",
             "previousCheckpointDate": "2026-08-15",
             "previousTimingLabel": "Typical"
@@ -3954,6 +4006,8 @@ const GROUP_SEEDS = [
           },
           "fishInRiver": {
             "score": 29,
+            "displayScore": 30,
+            "scoreIsApproximate": true,
             "stage": "building",
             "maximum": 100,
             "riverCeiling": 100,
@@ -3962,14 +4016,14 @@ const GROUP_SEEDS = [
             "curveDirection": "rising",
             "winterHoldingContext": false,
             "label": "Limited presence",
-            "headline": "Some Chinook salmon are likely in the river, but seasonal presence is still developing.",
-            "detail": "This part of the season usually brings limited presence, with more fish expected to enter and spread through the river. This is a seasonal estimate, not a live fish count.",
-            "tip": "Plan for an emerging but uneven river opportunity. Cover water efficiently, and do not assume every promising stop holds fish.",
+            "headline": "Chinook salmon seasonal presence is limited presence and building.",
+            "detail": "Calendar timing places Chinook salmon presence at limited presence, increasing as the fall migration builds. For the PM, expected run strength is Strong, and the opportunity can extend across broadly accessible water. This is not a live fish count or today’s conditions.",
+            "tip": "Use Migration Stage to choose a section. Use Push and Activity for current movement support and responsiveness.",
             "reasonCodes": [
               "stage_building",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "gauge": {
             "provider": "USGS",
@@ -4025,6 +4079,7 @@ const GROUP_SEEDS = [
           "nextConditionRefreshAt": "2026-09-26T22:00:00.000Z",
           "runStage": {
             "stage": "peak",
+            "copyStrategy": "pere_marquette",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -4047,14 +4102,14 @@ const GROUP_SEEDS = [
               "peakToEndDays": 37
             },
             "label": "Peak",
-            "headline": "This is typically the strongest and most dependable river opportunity of the Chinook salmon season.",
-            "detail": "Multiple waves have had time to spread, so Chinook salmon are likely distributed throughout the accessible river—from lower travel water through upstream holding and spawning reaches, except above dams or other barriers.",
-            "tip": "Choose an accessible river section and fish every substantial hole from its head through the inside seam and tail. Move section by section through deep bends and resting pockets, and leave fish on shallow spawning gravel alone.",
-            "whereToStart": "Compare the lower river near Scottville, middle river through Walhalla and Branch, and upper river toward Baldwin and M-37, prioritizing substantial holding water connected to productive current.",
+            "headline": "This is typically the PM’s strongest Chinook salmon migration window.",
+            "detail": "Seasonal timing supports the widest dependable Chinook salmon distribution. It does not confirm fish in every section.",
+            "tip": "Start in the Middle river. Compare the Upper river only after a complete first pass.",
+            "whereToStart": "Start in the Middle river (Scottville–Maple Leaf). Compare the Upper river (Maple Leaf–M-37) when direct fish activity favors it.",
             "reasonCodes": [
               "stage_peak"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "conditionsSuggest": {
             "label": "Timing complete",
@@ -4210,7 +4265,7 @@ const GROUP_SEEDS = [
               "conditions_ahead",
               "conditions_timing_complete"
             ],
-            "copyVersion": "river-run-copy-v27",
+            "copyVersion": "river-run-copy-v29",
             "previousCheckpointId": "peak_start",
             "previousCheckpointDate": "2026-09-15",
             "previousTimingLabel": "Ahead"
@@ -4275,6 +4330,8 @@ const GROUP_SEEDS = [
           },
           "fishInRiver": {
             "score": 97,
+            "displayScore": 95,
+            "scoreIsApproximate": true,
             "stage": "peak",
             "maximum": 100,
             "riverCeiling": 100,
@@ -4283,14 +4340,14 @@ const GROUP_SEEDS = [
             "curveDirection": "falling",
             "winterHoldingContext": false,
             "label": "Peak presence",
-            "headline": "Seasonal timing still supports Chinook salmon being near their strongest in-river presence, even if the migration may be just beyond its usual peak.",
-            "detail": "This point in the season may sit just beyond the usual peak while the seasonal pattern still supports strong in-river presence. This is a seasonal estimate, not a live fish count.",
-            "tip": "Plan around fish already likely to be in the river. Seasonal presence is still near its high point, but remember that this seasonal estimate cannot tell whether a fresh wave is entering today.",
+            "headline": "Chinook salmon seasonal presence is peak presence and declining.",
+            "detail": "Calendar timing places Chinook salmon presence at its expected seasonal peak, declining as the fall migration advances. For the PM, expected run strength is Strong, and the opportunity can extend across broadly accessible water. This is not a live fish count or today’s conditions.",
+            "tip": "Use Migration Stage to choose a section. Use Push and Activity for current movement support and responsiveness.",
             "reasonCodes": [
               "stage_peak",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "gauge": {
             "provider": "USGS",
@@ -4346,6 +4403,7 @@ const GROUP_SEEDS = [
           "nextConditionRefreshAt": "2026-10-28T22:00:00.000Z",
           "runStage": {
             "stage": "post_run",
+            "copyStrategy": "pere_marquette",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -4368,14 +4426,14 @@ const GROUP_SEEDS = [
               "peakToEndDays": 37
             },
             "label": "After migration",
-            "headline": "The main Chinook salmon migration is over.",
-            "detail": "A few fish may remain, but the season no longer supports a dependable river-wide opportunity.",
-            "tip": "Do not chase scattered holdovers from access to access. Shift to another seasonal species and leave any actively spawning fish undisturbed.",
-            "whereToStart": "No dependable starting reach; any remaining fish are likely isolated in deep middle- or upper-river holding water from Walhalla and Branch toward Baldwin/M-37.",
+            "headline": "The main PM Chinook salmon migration is over, though isolated late fish may remain.",
+            "detail": "Seasonal timing no longer supports a broad river search. Any remaining Chinook salmon are exceptions.",
+            "tip": "Do not chase isolated reports across sections. Leave actively spawning fish undisturbed.",
+            "whereToStart": "There is no dependable PM starting section. If direct evidence supports a late check, use proven Middle river (Scottville–Maple Leaf) holding water.",
             "reasonCodes": [
               "stage_post_run"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "conditionsSuggest": {
             "label": "Timing complete",
@@ -4531,7 +4589,7 @@ const GROUP_SEEDS = [
               "conditions_ahead",
               "conditions_timing_complete"
             ],
-            "copyVersion": "river-run-copy-v27",
+            "copyVersion": "river-run-copy-v29",
             "previousCheckpointId": "peak_start",
             "previousCheckpointDate": "2026-09-15",
             "previousTimingLabel": "Ahead"
@@ -4546,7 +4604,7 @@ const GROUP_SEEDS = [
               "push_tracking_complete"
             ],
             "rulesVersion": "pm-fall-chinook-push-v5",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "pushHistory": {
             "status": "complete",
@@ -4608,6 +4666,8 @@ const GROUP_SEEDS = [
           },
           "fishInRiver": {
             "score": 20,
+            "displayScore": 20,
+            "scoreIsApproximate": true,
             "stage": "post_run",
             "maximum": 100,
             "riverCeiling": 100,
@@ -4616,14 +4676,14 @@ const GROUP_SEEDS = [
             "curveDirection": "falling",
             "winterHoldingContext": false,
             "label": "Low presence",
-            "headline": "Some Chinook salmon may still be in the river, with seasonal presence more likely to be scattered.",
-            "detail": "This part of the season usually supports low presence, while fresh arrivals often become less consistent later in the season. This is a seasonal estimate, not a live fish count.",
-            "tip": "Treat any remaining fish as a bonus rather than a dependable trip plan. Keep expectations narrow and be ready to shift to another seasonal species.",
+            "headline": "Chinook salmon seasonal presence is low presence and declining.",
+            "detail": "Calendar timing places Chinook salmon presence at low presence, declining as the fall migration advances. For the PM, expected run strength is Strong, and the opportunity can extend across broadly accessible water. This is not a live fish count or today’s conditions.",
+            "tip": "Use Migration Stage to choose a section. Use Push and Activity for current movement support and responsiveness.",
             "reasonCodes": [
               "stage_post_run",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "gauge": {
             "provider": "USGS",
@@ -4680,6 +4740,7 @@ const GROUP_SEEDS = [
           "nextConditionRefreshAt": "2026-09-26T22:00:00.000Z",
           "runStage": {
             "stage": "peak",
+            "copyStrategy": "pere_marquette",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -4702,14 +4763,14 @@ const GROUP_SEEDS = [
               "peakToEndDays": 37
             },
             "label": "Peak",
-            "headline": "This is typically the strongest and most dependable river opportunity of the Chinook salmon season.",
-            "detail": "Multiple waves have had time to spread, so Chinook salmon are likely distributed throughout the accessible river—from lower travel water through upstream holding and spawning reaches, except above dams or other barriers.",
-            "tip": "Choose an accessible river section and fish every substantial hole from its head through the inside seam and tail. Move section by section through deep bends and resting pockets, and leave fish on shallow spawning gravel alone.",
-            "whereToStart": "Compare the lower river near Scottville, middle river through Walhalla and Branch, and upper river toward Baldwin and M-37, prioritizing substantial holding water connected to productive current.",
+            "headline": "This is typically the PM’s strongest Chinook salmon migration window.",
+            "detail": "Seasonal timing supports the widest dependable Chinook salmon distribution. It does not confirm fish in every section.",
+            "tip": "Start in the Middle river. Compare the Upper river only after a complete first pass.",
+            "whereToStart": "Start in the Middle river (Scottville–Maple Leaf). Compare the Upper river (Maple Leaf–M-37) when direct fish activity favors it.",
             "reasonCodes": [
               "stage_peak"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "conditionsSuggest": {
             "label": "Timing complete",
@@ -4861,7 +4922,7 @@ const GROUP_SEEDS = [
               "conditions_checkpoint_peak_complete",
               "conditions_timing_complete"
             ],
-            "copyVersion": "river-run-copy-v27",
+            "copyVersion": "river-run-copy-v29",
             "previousCheckpointId": "peak_start",
             "previousCheckpointDate": "2026-09-15",
             "previousTimingLabel": "Insufficient evidence"
@@ -4926,6 +4987,8 @@ const GROUP_SEEDS = [
           },
           "fishInRiver": {
             "score": 97,
+            "displayScore": 95,
+            "scoreIsApproximate": true,
             "stage": "peak",
             "maximum": 100,
             "riverCeiling": 100,
@@ -4934,14 +4997,14 @@ const GROUP_SEEDS = [
             "curveDirection": "falling",
             "winterHoldingContext": false,
             "label": "Peak presence",
-            "headline": "Seasonal timing still supports Chinook salmon being near their strongest in-river presence, even if the migration may be just beyond its usual peak.",
-            "detail": "This point in the season may sit just beyond the usual peak while the seasonal pattern still supports strong in-river presence. This is a seasonal estimate, not a live fish count.",
-            "tip": "Plan around fish already likely to be in the river. Seasonal presence is still near its high point, but remember that this seasonal estimate cannot tell whether a fresh wave is entering today.",
+            "headline": "Chinook salmon seasonal presence is peak presence and declining.",
+            "detail": "Calendar timing places Chinook salmon presence at its expected seasonal peak, declining as the fall migration advances. For the PM, expected run strength is Strong, and the opportunity can extend across broadly accessible water. This is not a live fish count or today’s conditions.",
+            "tip": "Use Migration Stage to choose a section. Use Push and Activity for current movement support and responsiveness.",
             "reasonCodes": [
               "stage_peak",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "gauge": {
             "provider": "USGS",
@@ -4997,6 +5060,7 @@ const GROUP_SEEDS = [
           "nextConditionRefreshAt": "2026-08-15T22:00:00.000Z",
           "runStage": {
             "stage": "beginning",
+            "copyStrategy": "pere_marquette",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -5019,14 +5083,14 @@ const GROUP_SEEDS = [
               "peakToEndDays": 37
             },
             "label": "Beginning",
-            "headline": "The first Chinook salmon are beginning to enter the river.",
-            "detail": "Fresh Chinook salmon may be entering the river, but numbers can still be scattered and inconsistent this early.",
-            "tip": "Begin in the lower river. Fish the first deep bends and short resting pockets off the main travel lane, then move upstream only after the lower section has been covered.",
-            "whereToStart": "Lower migratory river from Pere Marquette Lake toward Scottville: first deep bends, resting pockets, and current breaks beside the main travel lane.",
+            "headline": "Seasonal timing supports the first Chinook salmon entering the Lower river.",
+            "detail": "This is the opening river phase. Presence is expected to be scattered and uneven.",
+            "tip": "Cover the Lower river first. Move upstream only after direct fish activity supports it.",
+            "whereToStart": "Start in the Lower river (Pere Marquette Lake–Scottville).",
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -5086,15 +5150,15 @@ const GROUP_SEEDS = [
               "2026-08-13": "16:00",
               "2026-08-14": "16:00"
             },
-            "headline": "There is not enough reliable information for a Migration Timing call.",
-            "tip": "Do not move farther upstream or stay lower based on this timing read. Fish the section identified by Migration Stage and begin in its most established holding water; change sections only when direct fish activity or a dependable later read supports it.",
+            "headline": "There is not enough reliable PM evidence for a Migration Timing call.",
+            "tip": "Keep the PM section named by Migration Stage. Do not shift upstream or downstream from this timing read.",
             "detail": "There are not enough dependable past seasons to judge whether this migration is early, normal, or late.",
             "reasonCodes": [
               "conditions_baseline_missing",
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -5107,6 +5171,8 @@ const GROUP_SEEDS = [
           },
           "fishInRiver": {
             "score": 10,
+            "displayScore": 10,
+            "scoreIsApproximate": true,
             "stage": "beginning",
             "maximum": 100,
             "riverCeiling": 100,
@@ -5115,14 +5181,14 @@ const GROUP_SEEDS = [
             "curveDirection": "rising",
             "winterHoldingContext": false,
             "label": "Low presence",
-            "headline": "A small number of Chinook salmon may be in the river, and seasonal presence is still building.",
-            "detail": "This part of the season usually brings low presence, with more fish expected to enter and spread through the river. This is a seasonal estimate, not a live fish count.",
-            "tip": "Treat this as an early, low-odds river opportunity. Expect scattered results, and use direct fish activity before committing the full day.",
+            "headline": "Chinook salmon seasonal presence is low presence and building.",
+            "detail": "Calendar timing places Chinook salmon presence at low presence, increasing as the fall migration builds. For the PM, expected run strength is Strong, and the opportunity can extend across broadly accessible water. This is not a live fish count or today’s conditions.",
+            "tip": "Use Migration Stage to choose a section. Use Push and Activity for current movement support and responsiveness.",
             "reasonCodes": [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "gauge": {
             "provider": "USGS",
@@ -5178,6 +5244,7 @@ const GROUP_SEEDS = [
           "nextConditionRefreshAt": "2026-08-15T22:00:00.000Z",
           "runStage": {
             "stage": "beginning",
+            "copyStrategy": "pere_marquette",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -5200,14 +5267,14 @@ const GROUP_SEEDS = [
               "peakToEndDays": 37
             },
             "label": "Beginning",
-            "headline": "The first Chinook salmon are beginning to enter the river.",
-            "detail": "Fresh Chinook salmon may be entering the river, but numbers can still be scattered and inconsistent this early.",
-            "tip": "Begin in the lower river. Fish the first deep bends and short resting pockets off the main travel lane, then move upstream only after the lower section has been covered.",
-            "whereToStart": "Lower migratory river from Pere Marquette Lake toward Scottville: first deep bends, resting pockets, and current breaks beside the main travel lane.",
+            "headline": "Seasonal timing supports the first Chinook salmon entering the Lower river.",
+            "detail": "This is the opening river phase. Presence is expected to be scattered and uneven.",
+            "tip": "Cover the Lower river first. Move upstream only after direct fish activity supports it.",
+            "whereToStart": "Start in the Lower river (Pere Marquette Lake–Scottville).",
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -5270,8 +5337,8 @@ const GROUP_SEEDS = [
               "2026-08-13": "16:00",
               "2026-08-14": "16:00"
             },
-            "headline": "There is not enough reliable information for a Migration Timing call.",
-            "tip": "Do not move farther upstream or stay lower based on this timing read. Fish the section identified by Migration Stage and begin in its most established holding water; change sections only when direct fish activity or a dependable later read supports it.",
+            "headline": "There is not enough reliable PM evidence for a Migration Timing call.",
+            "tip": "Keep the PM section named by Migration Stage. Do not shift upstream or downstream from this timing read.",
             "detail": "There are not enough dependable past seasons to judge whether this migration is early, normal, or late.",
             "reasonCodes": [
               "gauge_fresh",
@@ -5280,7 +5347,7 @@ const GROUP_SEEDS = [
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -5293,6 +5360,8 @@ const GROUP_SEEDS = [
           },
           "fishInRiver": {
             "score": 10,
+            "displayScore": 10,
+            "scoreIsApproximate": true,
             "stage": "beginning",
             "maximum": 100,
             "riverCeiling": 100,
@@ -5301,14 +5370,14 @@ const GROUP_SEEDS = [
             "curveDirection": "rising",
             "winterHoldingContext": false,
             "label": "Low presence",
-            "headline": "A small number of Chinook salmon may be in the river, and seasonal presence is still building.",
-            "detail": "This part of the season usually brings low presence, with more fish expected to enter and spread through the river. This is a seasonal estimate, not a live fish count.",
-            "tip": "Treat this as an early, low-odds river opportunity. Expect scattered results, and use direct fish activity before committing the full day.",
+            "headline": "Chinook salmon seasonal presence is low presence and building.",
+            "detail": "Calendar timing places Chinook salmon presence at low presence, increasing as the fall migration builds. For the PM, expected run strength is Strong, and the opportunity can extend across broadly accessible water. This is not a live fish count or today’s conditions.",
+            "tip": "Use Migration Stage to choose a section. Use Push and Activity for current movement support and responsiveness.",
             "reasonCodes": [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "gauge": {
             "provider": "USGS",
@@ -5364,6 +5433,7 @@ const GROUP_SEEDS = [
           "nextConditionRefreshAt": "2026-08-15T22:00:00.000Z",
           "runStage": {
             "stage": "beginning",
+            "copyStrategy": "pere_marquette",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -5386,14 +5456,14 @@ const GROUP_SEEDS = [
               "peakToEndDays": 37
             },
             "label": "Beginning",
-            "headline": "The first Chinook salmon are beginning to enter the river.",
-            "detail": "Fresh Chinook salmon may be entering the river, but numbers can still be scattered and inconsistent this early.",
-            "tip": "Begin in the lower river. Fish the first deep bends and short resting pockets off the main travel lane, then move upstream only after the lower section has been covered.",
-            "whereToStart": "Lower migratory river from Pere Marquette Lake toward Scottville: first deep bends, resting pockets, and current breaks beside the main travel lane.",
+            "headline": "Seasonal timing supports the first Chinook salmon entering the Lower river.",
+            "detail": "This is the opening river phase. Presence is expected to be scattered and uneven.",
+            "tip": "Cover the Lower river first. Move upstream only after direct fish activity supports it.",
+            "whereToStart": "Start in the Lower river (Pere Marquette Lake–Scottville).",
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -5456,8 +5526,8 @@ const GROUP_SEEDS = [
               "2026-08-13": "16:00",
               "2026-08-14": "16:00"
             },
-            "headline": "There is not enough reliable information for a Migration Timing call.",
-            "tip": "Do not move farther upstream or stay lower based on this timing read. Fish the section identified by Migration Stage and begin in its most established holding water; change sections only when direct fish activity or a dependable later read supports it.",
+            "headline": "There is not enough reliable PM evidence for a Migration Timing call.",
+            "tip": "Keep the PM section named by Migration Stage. Do not shift upstream or downstream from this timing read.",
             "detail": "Some of the long-term comparison data does not line up cleanly with this season, so showing a timing label would be misleading.",
             "reasonCodes": [
               "gauge_fresh",
@@ -5466,7 +5536,7 @@ const GROUP_SEEDS = [
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -5479,6 +5549,8 @@ const GROUP_SEEDS = [
           },
           "fishInRiver": {
             "score": 10,
+            "displayScore": 10,
+            "scoreIsApproximate": true,
             "stage": "beginning",
             "maximum": 100,
             "riverCeiling": 100,
@@ -5487,14 +5559,14 @@ const GROUP_SEEDS = [
             "curveDirection": "rising",
             "winterHoldingContext": false,
             "label": "Low presence",
-            "headline": "A small number of Chinook salmon may be in the river, and seasonal presence is still building.",
-            "detail": "This part of the season usually brings low presence, with more fish expected to enter and spread through the river. This is a seasonal estimate, not a live fish count.",
-            "tip": "Treat this as an early, low-odds river opportunity. Expect scattered results, and use direct fish activity before committing the full day.",
+            "headline": "Chinook salmon seasonal presence is low presence and building.",
+            "detail": "Calendar timing places Chinook salmon presence at low presence, increasing as the fall migration builds. For the PM, expected run strength is Strong, and the opportunity can extend across broadly accessible water. This is not a live fish count or today’s conditions.",
+            "tip": "Use Migration Stage to choose a section. Use Push and Activity for current movement support and responsiveness.",
             "reasonCodes": [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "gauge": {
             "provider": "USGS",
@@ -5550,6 +5622,7 @@ const GROUP_SEEDS = [
           "nextConditionRefreshAt": "2026-08-15T22:00:00.000Z",
           "runStage": {
             "stage": "beginning",
+            "copyStrategy": "pere_marquette",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -5572,14 +5645,14 @@ const GROUP_SEEDS = [
               "peakToEndDays": 37
             },
             "label": "Beginning",
-            "headline": "The first Chinook salmon are beginning to enter the river.",
-            "detail": "Fresh Chinook salmon may be entering the river, but numbers can still be scattered and inconsistent this early.",
-            "tip": "Begin in the lower river. Fish the first deep bends and short resting pockets off the main travel lane, then move upstream only after the lower section has been covered.",
-            "whereToStart": "Lower migratory river from Pere Marquette Lake toward Scottville: first deep bends, resting pockets, and current breaks beside the main travel lane.",
+            "headline": "Seasonal timing supports the first Chinook salmon entering the Lower river.",
+            "detail": "This is the opening river phase. Presence is expected to be scattered and uneven.",
+            "tip": "Cover the Lower river first. Move upstream only after direct fish activity supports it.",
+            "whereToStart": "Start in the Lower river (Pere Marquette Lake–Scottville).",
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -5642,8 +5715,8 @@ const GROUP_SEEDS = [
               "2026-08-13": "16:00",
               "2026-08-14": "16:00"
             },
-            "headline": "There is not enough reliable information for a Migration Timing call.",
-            "tip": "Do not move farther upstream or stay lower based on this timing read. Fish the section identified by Migration Stage and begin in its most established holding water; change sections only when direct fish activity or a dependable later read supports it.",
+            "headline": "There is not enough reliable PM evidence for a Migration Timing call.",
+            "tip": "Keep the PM section named by Migration Stage. Do not shift upstream or downstream from this timing read.",
             "detail": "Some of the long-term comparison data does not line up cleanly with this season, so showing a timing label would be misleading.",
             "reasonCodes": [
               "gauge_fresh",
@@ -5652,7 +5725,7 @@ const GROUP_SEEDS = [
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -5665,6 +5738,8 @@ const GROUP_SEEDS = [
           },
           "fishInRiver": {
             "score": 10,
+            "displayScore": 10,
+            "scoreIsApproximate": true,
             "stage": "beginning",
             "maximum": 100,
             "riverCeiling": 100,
@@ -5673,14 +5748,14 @@ const GROUP_SEEDS = [
             "curveDirection": "rising",
             "winterHoldingContext": false,
             "label": "Low presence",
-            "headline": "A small number of Chinook salmon may be in the river, and seasonal presence is still building.",
-            "detail": "This part of the season usually brings low presence, with more fish expected to enter and spread through the river. This is a seasonal estimate, not a live fish count.",
-            "tip": "Treat this as an early, low-odds river opportunity. Expect scattered results, and use direct fish activity before committing the full day.",
+            "headline": "Chinook salmon seasonal presence is low presence and building.",
+            "detail": "Calendar timing places Chinook salmon presence at low presence, increasing as the fall migration builds. For the PM, expected run strength is Strong, and the opportunity can extend across broadly accessible water. This is not a live fish count or today’s conditions.",
+            "tip": "Use Migration Stage to choose a section. Use Push and Activity for current movement support and responsiveness.",
             "reasonCodes": [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "gauge": {
             "provider": "USGS",
@@ -5736,6 +5811,7 @@ const GROUP_SEEDS = [
           "nextConditionRefreshAt": "2026-08-15T22:00:00.000Z",
           "runStage": {
             "stage": "beginning",
+            "copyStrategy": "pere_marquette",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -5758,14 +5834,14 @@ const GROUP_SEEDS = [
               "peakToEndDays": 37
             },
             "label": "Beginning",
-            "headline": "The first Chinook salmon are beginning to enter the river.",
-            "detail": "Fresh Chinook salmon may be entering the river, but numbers can still be scattered and inconsistent this early.",
-            "tip": "Begin in the lower river. Fish the first deep bends and short resting pockets off the main travel lane, then move upstream only after the lower section has been covered.",
-            "whereToStart": "Lower migratory river from Pere Marquette Lake toward Scottville: first deep bends, resting pockets, and current breaks beside the main travel lane.",
+            "headline": "Seasonal timing supports the first Chinook salmon entering the Lower river.",
+            "detail": "This is the opening river phase. Presence is expected to be scattered and uneven.",
+            "tip": "Cover the Lower river first. Move upstream only after direct fish activity supports it.",
+            "whereToStart": "Start in the Lower river (Pere Marquette Lake–Scottville).",
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -5828,8 +5904,8 @@ const GROUP_SEEDS = [
               "2026-08-13": "16:00",
               "2026-08-14": "16:00"
             },
-            "headline": "There is not enough reliable information for a Migration Timing call.",
-            "tip": "Do not move farther upstream or stay lower based on this timing read. Fish the section identified by Migration Stage and begin in its most established holding water; change sections only when direct fish activity or a dependable later read supports it.",
+            "headline": "There is not enough reliable PM evidence for a Migration Timing call.",
+            "tip": "Keep the PM section named by Migration Stage. Do not shift upstream or downstream from this timing read.",
             "detail": "A dependable river-level reading was missing when this seasonal timing read needed it.",
             "reasonCodes": [
               "gauge_fresh",
@@ -5838,7 +5914,7 @@ const GROUP_SEEDS = [
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -5851,6 +5927,8 @@ const GROUP_SEEDS = [
           },
           "fishInRiver": {
             "score": 10,
+            "displayScore": 10,
+            "scoreIsApproximate": true,
             "stage": "beginning",
             "maximum": 100,
             "riverCeiling": 100,
@@ -5859,14 +5937,14 @@ const GROUP_SEEDS = [
             "curveDirection": "rising",
             "winterHoldingContext": false,
             "label": "Low presence",
-            "headline": "A small number of Chinook salmon may be in the river, and seasonal presence is still building.",
-            "detail": "This part of the season usually brings low presence, with more fish expected to enter and spread through the river. This is a seasonal estimate, not a live fish count.",
-            "tip": "Treat this as an early, low-odds river opportunity. Expect scattered results, and use direct fish activity before committing the full day.",
+            "headline": "Chinook salmon seasonal presence is low presence and building.",
+            "detail": "Calendar timing places Chinook salmon presence at low presence, increasing as the fall migration builds. For the PM, expected run strength is Strong, and the opportunity can extend across broadly accessible water. This is not a live fish count or today’s conditions.",
+            "tip": "Use Migration Stage to choose a section. Use Push and Activity for current movement support and responsiveness.",
             "reasonCodes": [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "gauge": {
             "provider": "USGS",
@@ -5922,6 +6000,7 @@ const GROUP_SEEDS = [
           "nextConditionRefreshAt": "2026-08-15T22:00:00.000Z",
           "runStage": {
             "stage": "beginning",
+            "copyStrategy": "pere_marquette",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -5944,14 +6023,14 @@ const GROUP_SEEDS = [
               "peakToEndDays": 37
             },
             "label": "Beginning",
-            "headline": "The first Chinook salmon are beginning to enter the river.",
-            "detail": "Fresh Chinook salmon may be entering the river, but numbers can still be scattered and inconsistent this early.",
-            "tip": "Begin in the lower river. Fish the first deep bends and short resting pockets off the main travel lane, then move upstream only after the lower section has been covered.",
-            "whereToStart": "Lower migratory river from Pere Marquette Lake toward Scottville: first deep bends, resting pockets, and current breaks beside the main travel lane.",
+            "headline": "Seasonal timing supports the first Chinook salmon entering the Lower river.",
+            "detail": "This is the opening river phase. Presence is expected to be scattered and uneven.",
+            "tip": "Cover the Lower river first. Move upstream only after direct fish activity supports it.",
+            "whereToStart": "Start in the Lower river (Pere Marquette Lake–Scottville).",
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -6014,8 +6093,8 @@ const GROUP_SEEDS = [
               "2026-08-13": "16:00",
               "2026-08-14": "16:00"
             },
-            "headline": "There is not enough reliable information for a Migration Timing call.",
-            "tip": "Do not move farther upstream or stay lower based on this timing read. Fish the section identified by Migration Stage and begin in its most established holding water; change sections only when direct fish activity or a dependable later read supports it.",
+            "headline": "There is not enough reliable PM evidence for a Migration Timing call.",
+            "tip": "Keep the PM section named by Migration Stage. Do not shift upstream or downstream from this timing read.",
             "detail": "A dependable water-temperature reading was missing when this seasonal timing read needed it.",
             "reasonCodes": [
               "gauge_fresh",
@@ -6024,7 +6103,7 @@ const GROUP_SEEDS = [
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -6037,6 +6116,8 @@ const GROUP_SEEDS = [
           },
           "fishInRiver": {
             "score": 10,
+            "displayScore": 10,
+            "scoreIsApproximate": true,
             "stage": "beginning",
             "maximum": 100,
             "riverCeiling": 100,
@@ -6045,14 +6126,14 @@ const GROUP_SEEDS = [
             "curveDirection": "rising",
             "winterHoldingContext": false,
             "label": "Low presence",
-            "headline": "A small number of Chinook salmon may be in the river, and seasonal presence is still building.",
-            "detail": "This part of the season usually brings low presence, with more fish expected to enter and spread through the river. This is a seasonal estimate, not a live fish count.",
-            "tip": "Treat this as an early, low-odds river opportunity. Expect scattered results, and use direct fish activity before committing the full day.",
+            "headline": "Chinook salmon seasonal presence is low presence and building.",
+            "detail": "Calendar timing places Chinook salmon presence at low presence, increasing as the fall migration builds. For the PM, expected run strength is Strong, and the opportunity can extend across broadly accessible water. This is not a live fish count or today’s conditions.",
+            "tip": "Use Migration Stage to choose a section. Use Push and Activity for current movement support and responsiveness.",
             "reasonCodes": [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "gauge": {
             "provider": "USGS",
@@ -6108,6 +6189,7 @@ const GROUP_SEEDS = [
           "nextConditionRefreshAt": "2026-08-15T22:00:00.000Z",
           "runStage": {
             "stage": "beginning",
+            "copyStrategy": "pere_marquette",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -6130,14 +6212,14 @@ const GROUP_SEEDS = [
               "peakToEndDays": 37
             },
             "label": "Beginning",
-            "headline": "The first Chinook salmon are beginning to enter the river.",
-            "detail": "Fresh Chinook salmon may be entering the river, but numbers can still be scattered and inconsistent this early.",
-            "tip": "Begin in the lower river. Fish the first deep bends and short resting pockets off the main travel lane, then move upstream only after the lower section has been covered.",
-            "whereToStart": "Lower migratory river from Pere Marquette Lake toward Scottville: first deep bends, resting pockets, and current breaks beside the main travel lane.",
+            "headline": "Seasonal timing supports the first Chinook salmon entering the Lower river.",
+            "detail": "This is the opening river phase. Presence is expected to be scattered and uneven.",
+            "tip": "Cover the Lower river first. Move upstream only after direct fish activity supports it.",
+            "whereToStart": "Start in the Lower river (Pere Marquette Lake–Scottville).",
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -6200,8 +6282,8 @@ const GROUP_SEEDS = [
               "2026-08-13": "16:00",
               "2026-08-14": "16:00"
             },
-            "headline": "There is not enough reliable information for a Migration Timing call.",
-            "tip": "Do not move farther upstream or stay lower based on this timing read. Fish the section identified by Migration Stage and begin in its most established holding water; change sections only when direct fish activity or a dependable later read supports it.",
+            "headline": "There is not enough reliable PM evidence for a Migration Timing call.",
+            "tip": "Keep the PM section named by Migration Stage. Do not shift upstream or downstream from this timing read.",
             "detail": "The available river and temperature readings do not line up cleanly with the long-term comparison, so the result stays blank.",
             "reasonCodes": [
               "gauge_fresh",
@@ -6210,7 +6292,7 @@ const GROUP_SEEDS = [
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -6223,6 +6305,8 @@ const GROUP_SEEDS = [
           },
           "fishInRiver": {
             "score": 10,
+            "displayScore": 10,
+            "scoreIsApproximate": true,
             "stage": "beginning",
             "maximum": 100,
             "riverCeiling": 100,
@@ -6231,14 +6315,14 @@ const GROUP_SEEDS = [
             "curveDirection": "rising",
             "winterHoldingContext": false,
             "label": "Low presence",
-            "headline": "A small number of Chinook salmon may be in the river, and seasonal presence is still building.",
-            "detail": "This part of the season usually brings low presence, with more fish expected to enter and spread through the river. This is a seasonal estimate, not a live fish count.",
-            "tip": "Treat this as an early, low-odds river opportunity. Expect scattered results, and use direct fish activity before committing the full day.",
+            "headline": "Chinook salmon seasonal presence is low presence and building.",
+            "detail": "Calendar timing places Chinook salmon presence at low presence, increasing as the fall migration builds. For the PM, expected run strength is Strong, and the opportunity can extend across broadly accessible water. This is not a live fish count or today’s conditions.",
+            "tip": "Use Migration Stage to choose a section. Use Push and Activity for current movement support and responsiveness.",
             "reasonCodes": [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "gauge": {
             "provider": "USGS",
@@ -6294,6 +6378,7 @@ const GROUP_SEEDS = [
           "nextConditionRefreshAt": "2026-08-15T22:00:00.000Z",
           "runStage": {
             "stage": "beginning",
+            "copyStrategy": "pere_marquette",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -6316,14 +6401,14 @@ const GROUP_SEEDS = [
               "peakToEndDays": 37
             },
             "label": "Beginning",
-            "headline": "The first Chinook salmon are beginning to enter the river.",
-            "detail": "Fresh Chinook salmon may be entering the river, but numbers can still be scattered and inconsistent this early.",
-            "tip": "Begin in the lower river. Fish the first deep bends and short resting pockets off the main travel lane, then move upstream only after the lower section has been covered.",
-            "whereToStart": "Lower migratory river from Pere Marquette Lake toward Scottville: first deep bends, resting pockets, and current breaks beside the main travel lane.",
+            "headline": "Seasonal timing supports the first Chinook salmon entering the Lower river.",
+            "detail": "This is the opening river phase. Presence is expected to be scattered and uneven.",
+            "tip": "Cover the Lower river first. Move upstream only after direct fish activity supports it.",
+            "whereToStart": "Start in the Lower river (Pere Marquette Lake–Scottville).",
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -6372,8 +6457,8 @@ const GROUP_SEEDS = [
               "2026-07-30": "16:00",
               "2026-08-14": "16:00"
             },
-            "headline": "There is not enough reliable information for a Migration Timing call.",
-            "tip": "Do not move farther upstream or stay lower based on this timing read. Fish the section identified by Migration Stage and begin in its most established holding water; change sections only when direct fish activity or a dependable later read supports it.",
+            "headline": "There is not enough reliable PM evidence for a Migration Timing call.",
+            "tip": "Keep the PM section named by Migration Stage. Do not shift upstream or downstream from this timing read.",
             "detail": "Too many days are missing either river level or water temperature to make a dependable seasonal comparison.",
             "reasonCodes": [
               "gauge_fresh",
@@ -6382,7 +6467,7 @@ const GROUP_SEEDS = [
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -6395,6 +6480,8 @@ const GROUP_SEEDS = [
           },
           "fishInRiver": {
             "score": 10,
+            "displayScore": 10,
+            "scoreIsApproximate": true,
             "stage": "beginning",
             "maximum": 100,
             "riverCeiling": 100,
@@ -6403,14 +6490,14 @@ const GROUP_SEEDS = [
             "curveDirection": "rising",
             "winterHoldingContext": false,
             "label": "Low presence",
-            "headline": "A small number of Chinook salmon may be in the river, and seasonal presence is still building.",
-            "detail": "This part of the season usually brings low presence, with more fish expected to enter and spread through the river. This is a seasonal estimate, not a live fish count.",
-            "tip": "Treat this as an early, low-odds river opportunity. Expect scattered results, and use direct fish activity before committing the full day.",
+            "headline": "Chinook salmon seasonal presence is low presence and building.",
+            "detail": "Calendar timing places Chinook salmon presence at low presence, increasing as the fall migration builds. For the PM, expected run strength is Strong, and the opportunity can extend across broadly accessible water. This is not a live fish count or today’s conditions.",
+            "tip": "Use Migration Stage to choose a section. Use Push and Activity for current movement support and responsiveness.",
             "reasonCodes": [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "gauge": {
             "provider": "USGS",
@@ -6468,9 +6555,9 @@ const GROUP_SEEDS = [
           "push": {
             "score": 0,
             "label": "Weak",
-            "headline": "Today's water shows little support for a fresh wave of fish.",
-            "detail": "The river is falling instead of showing a fresh rise. Water temperature remains too warm to support a strong Push but is warming sharply. Recent weather estimates indicate very little rain around the river.",
-            "tip": "Do not build the day around new arrivals while the river remains warm. Start in established holding water at first or last light and leave lower travel lanes secondary.",
+            "headline": "PM water shows little support for fresh movement.",
+            "detail": "Scottville flow is falling. Measured water temperature is too warm for strong movement support but warming quickly. Recent watershed weather shows little rain.",
+            "tip": "Keep the section named by Migration Stage. Leave fresh-entry travel water secondary until measured temperature improves.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
@@ -6490,7 +6577,7 @@ const GROUP_SEEDS = [
               "appliedCaps": []
             },
             "rulesVersion": "pm-fall-chinook-push-v5",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           }
         }
       },
@@ -6508,9 +6595,9 @@ const GROUP_SEEDS = [
           "push": {
             "score": 61,
             "label": "Possible",
-            "headline": "Today's water offers some support for fresh fish moving into or through the river.",
-            "detail": "The river has started to rise since yesterday. Water temperature is favorable for fall migration and is cooling. Recent rain around the river adds some support while the river begins to rise.",
-            "tip": "Start in lower-river travel lanes, then fish the first deep resting water immediately upstream. Move to established holding water if those entry routes stay quiet.",
+            "headline": "PM water offers some support for fresh movement.",
+            "detail": "Scottville flow has started to rise. Measured water temperature is favorable for this migration and cooling. Rain adds limited support while Scottville begins to rise.",
+            "tip": "Keep Migration Stage’s section primary. Add one Lower river travel-water check before returning to established holding water.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
@@ -6528,7 +6615,7 @@ const GROUP_SEEDS = [
               "appliedCaps": []
             },
             "rulesVersion": "pm-fall-chinook-push-v5",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "pushHistory": {
             "status": "active_now",
@@ -6605,9 +6692,9 @@ const GROUP_SEEDS = [
           "push": {
             "score": 76,
             "label": "Strong",
-            "headline": "Today's river rise and water temperature strongly support the possibility of a fresh wave moving into the river.",
-            "detail": "The river has made a clear rise since yesterday. Water temperature is favorable for fall migration and is cooling. The river has already made a meaningful rise, so that measured response carries the useful movement signal and rainfall adds no separate weight.",
-            "tip": "Begin on lower-river travel lanes and inside seams, then work the first resting holes along that route. Keep moving until fish establish a pattern; the signal still does not prove a wave entered.",
+            "headline": "PM water strongly supports possible fresh movement.",
+            "detail": "Scottville flow has made a clear rise. Measured water temperature is favorable for this migration and cooling. Scottville already reflects the rain response, so rain adds no extra credit.",
+            "tip": "Use Lower river travel water as the fresh-movement check, then return to the section named by Migration Stage.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
@@ -6625,7 +6712,7 @@ const GROUP_SEEDS = [
               "appliedCaps": []
             },
             "rulesVersion": "pm-fall-chinook-push-v5",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "pushHistory": {
             "status": "active_now",
@@ -6702,9 +6789,9 @@ const GROUP_SEEDS = [
           "push": {
             "score": 90,
             "label": "Very strong",
-            "headline": "Today's water shows the strongest support for a fresh wave moving into the river.",
-            "detail": "The river is rising quickly, creating conditions fish often use to move. Water temperature is favorable for fall migration and is cooling sharply. The river has already made a meaningful rise, so that measured response carries the useful movement signal and rainfall adds no separate weight.",
-            "tip": "Start low and fish softer travel lanes, newly formed inside seams, and the first resting water above them. Skip any lane Fishability says is too fast or difficult to control.",
+            "headline": "PM water offers its strongest support for fresh movement.",
+            "detail": "Scottville flow is rising quickly. Measured water temperature is favorable for this migration and cooling quickly. Scottville already reflects the rain response, so rain adds no extra credit.",
+            "tip": "Use Lower river travel water as the fresh-movement check, then return to the section named by Migration Stage.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
@@ -6722,7 +6809,7 @@ const GROUP_SEEDS = [
               "appliedCaps": []
             },
             "rulesVersion": "pm-fall-chinook-push-v5",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "pushHistory": {
             "status": "active_now",
@@ -6799,9 +6886,9 @@ const GROUP_SEEDS = [
           "push": {
             "score": 51,
             "label": "Possible",
-            "headline": "Today's water offers some support for fresh fish moving into or through the river.",
-            "detail": "The river is holding steady with no meaningful rise yet. Water temperature is favorable for fall migration and is cooling. Recent rain around the river may help, but the river has not responded enough for rain alone to create a strong Push.",
-            "tip": "Start in lower-river travel lanes, then fish the first deep resting water immediately upstream. Move to established holding water if those entry routes stay quiet.",
+            "headline": "PM water offers some support for fresh movement.",
+            "detail": "Scottville flow is steady without a meaningful rise. Measured water temperature is favorable for this migration and cooling. Rain is only a precursor because Scottville has not shown enough response.",
+            "tip": "Keep Migration Stage’s section primary. Add one Lower river travel-water check before returning to established holding water.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
@@ -6820,7 +6907,7 @@ const GROUP_SEEDS = [
               "appliedCaps": []
             },
             "rulesVersion": "pm-fall-chinook-push-v5",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "pushHistory": {
             "status": "active_now",
@@ -6897,9 +6984,9 @@ const GROUP_SEEDS = [
           "push": {
             "score": 70,
             "label": "Strong",
-            "headline": "Today's river rise and water temperature strongly support the possibility of a fresh wave moving into the river.",
-            "detail": "The river has made a clear rise since yesterday. Water temperature is favorable for fall migration and is relatively steady. The river has already made a meaningful rise, so that measured response carries the useful movement signal and rainfall adds no separate weight.",
-            "tip": "Begin on lower-river travel lanes and inside seams, then work the first resting holes along that route. Keep moving until fish establish a pattern; the signal still does not prove a wave entered.",
+            "headline": "PM water strongly supports possible fresh movement.",
+            "detail": "Scottville flow has made a clear rise. Measured water temperature is favorable for this migration. Scottville already reflects the rain response, so rain adds no extra credit.",
+            "tip": "Use Lower river travel water as the fresh-movement check, then return to the section named by Migration Stage.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
@@ -6917,7 +7004,7 @@ const GROUP_SEEDS = [
               "appliedCaps": []
             },
             "rulesVersion": "pm-fall-chinook-push-v5",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "pushHistory": {
             "status": "active_now",
@@ -6994,9 +7081,9 @@ const GROUP_SEEDS = [
           "push": {
             "score": 47,
             "label": "No clear push",
-            "headline": "The river is rising, but already-high flow keeps this from being a clear fresh-movement signal.",
-            "detail": "The river has started to rise since yesterday. Overall flow is already high. Water temperature is favorable for fall migration and is relatively steady. Additional rain does not improve the read while the river is already high.",
-            "tip": "Fish established holding water from the head through the inside seam and tail. Do not spend the day racing between lower travel lanes for a wave the water does not support.",
+            "headline": "PM water does not show a clear fresh-movement signal.",
+            "detail": "Scottville flow has started to rise, while overall flow is high. Measured water temperature is favorable for this migration. Additional rain adds no support while Scottville flow is already high.",
+            "tip": "Keep the section named by Migration Stage. Do not shift lower for a fresh wave this water does not support.",
             "reasonCodes": [
               "gauge_fresh",
               "push_high_flow_context",
@@ -7014,7 +7101,7 @@ const GROUP_SEEDS = [
               "appliedCaps": []
             },
             "rulesVersion": "pm-fall-chinook-push-v5",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           }
         }
       },
@@ -7026,9 +7113,9 @@ const GROUP_SEEDS = [
           "push": {
             "score": 35,
             "label": "No clear push",
-            "headline": "Today's water does not show a clear signal for a fresh wave of fish.",
-            "detail": "The river is holding steady with no meaningful rise yet. Water temperature is favorable for fall migration and is relatively steady. Recent rainfall information is unavailable, so it adds no confidence.",
-            "tip": "Fish established holding water from the head through the inside seam and tail. Do not spend the day racing between lower travel lanes for a wave the water does not support.",
+            "headline": "PM water does not show a clear fresh-movement signal.",
+            "detail": "Scottville flow is steady without a meaningful rise. Measured water temperature is favorable for this migration. Watershed rainfall data is unavailable and adds no confidence.",
+            "tip": "Keep the section named by Migration Stage. Do not shift lower for a fresh wave this water does not support.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
@@ -7047,7 +7134,7 @@ const GROUP_SEEDS = [
               "appliedCaps": []
             },
             "rulesVersion": "pm-fall-chinook-push-v5",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           }
         }
       },
@@ -7059,9 +7146,9 @@ const GROUP_SEEDS = [
           "push": {
             "score": 75,
             "label": "Strong",
-            "headline": "Today's river rise and water temperature strongly support the possibility of a fresh wave moving into the river.",
-            "detail": "The river has made a clear rise since yesterday. Water is on the warm side for fall migration and is cooling. Recent rainfall has been too light to meaningfully change the river.",
-            "tip": "Begin on lower-river travel lanes and inside seams, then work the first resting holes along that route. Keep moving until fish establish a pattern; the signal still does not prove a wave entered.",
+            "headline": "PM water strongly supports possible fresh movement.",
+            "detail": "Scottville flow has made a clear rise. Measured water temperature is warmer than preferred and cooling. Recent watershed rainfall is too light to affect the read.",
+            "tip": "Use Lower river travel water as the fresh-movement check, then return to the section named by Migration Stage.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
@@ -7079,7 +7166,7 @@ const GROUP_SEEDS = [
               "appliedCaps": []
             },
             "rulesVersion": "pm-fall-chinook-push-v5",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "pushHistory": {
             "status": "active_now",
@@ -7156,9 +7243,9 @@ const GROUP_SEEDS = [
           "push": {
             "score": 62,
             "label": "Possible",
-            "headline": "Today's water offers some support for fresh fish moving into or through the river.",
-            "detail": "The river has made a clear rise since yesterday. Water temperature remains too warm to support a strong Push and is cooling. Recent rainfall has been too light to meaningfully change the river.",
-            "tip": "Do not build the day around new arrivals while the river remains warm. Start in established holding water at first or last light and leave lower travel lanes secondary.",
+            "headline": "PM water offers some support for fresh movement.",
+            "detail": "Scottville flow has made a clear rise. Measured water temperature is too warm for strong movement support and cooling. Recent watershed rainfall is too light to affect the read.",
+            "tip": "Keep the section named by Migration Stage. Leave fresh-entry travel water secondary until measured temperature improves.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
@@ -7177,7 +7264,7 @@ const GROUP_SEEDS = [
               "appliedCaps": []
             },
             "rulesVersion": "pm-fall-chinook-push-v5",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "pushHistory": {
             "status": "active_now",
@@ -7254,9 +7341,9 @@ const GROUP_SEEDS = [
           "push": {
             "score": 49,
             "label": "No clear push",
-            "headline": "The river is rising, but warm water prevents a dependable fresh-movement read.",
-            "detail": "The river is rising quickly, creating conditions fish often use to move. Water temperature is warm enough to seriously limit confidence in fresh movement. Recent rainfall has been too light to meaningfully change the river.",
-            "tip": "Do not build the day around new arrivals while the river remains warm. Start in established holding water at first or last light and leave lower travel lanes secondary.",
+            "headline": "Warm PM water prevents a dependable fresh-movement signal.",
+            "detail": "Scottville flow is rising quickly. Measured water temperature is warm enough to block a dependable movement call and cooling quickly. Recent watershed rainfall is too light to affect the read.",
+            "tip": "Keep the section named by Migration Stage. Leave fresh-entry travel water secondary until measured temperature improves.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
@@ -7277,7 +7364,7 @@ const GROUP_SEEDS = [
               ]
             },
             "rulesVersion": "pm-fall-chinook-push-v5",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           }
         }
       },
@@ -7289,9 +7376,9 @@ const GROUP_SEEDS = [
           "push": {
             "score": 70,
             "label": "Strong",
-            "headline": "Today's river rise and water temperature strongly support the possibility of a fresh wave moving into the river.",
-            "detail": "The river has made a clear rise since yesterday. Water is already plenty cool for migration, so more cooling does not strengthen the read by itself. Recent rainfall has been too light to meaningfully change the river.",
-            "tip": "Begin on lower-river travel lanes and inside seams, then work the first resting holes along that route. Keep moving until fish establish a pattern; the signal still does not prove a wave entered.",
+            "headline": "PM water strongly supports possible fresh movement.",
+            "detail": "Scottville flow has made a clear rise. Measured water temperature is already cool enough that more cooling adds no credit and cooling quickly. Recent watershed rainfall is too light to affect the read.",
+            "tip": "Use Lower river travel water as the fresh-movement check, then return to the section named by Migration Stage.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
@@ -7309,7 +7396,7 @@ const GROUP_SEEDS = [
               "appliedCaps": []
             },
             "rulesVersion": "pm-fall-chinook-push-v5",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "pushHistory": {
             "status": "active_now",
@@ -7386,9 +7473,9 @@ const GROUP_SEEDS = [
           "push": {
             "score": 70,
             "label": "Strong",
-            "headline": "Today's river rise and water temperature strongly support the possibility of a fresh wave moving into the river.",
-            "detail": "The river has made a clear rise since yesterday. Water temperature is favorable for fall migration and is cooling sharply. The temperature reading comes from farther upstream, so cooling there is not treated as proof of lower-river conditions. Recent rainfall has been too light to meaningfully change the river.",
-            "tip": "Begin on lower-river travel lanes and inside seams, then work the first resting holes along that route. Keep moving until fish establish a pattern; the signal still does not prove a wave entered.",
+            "headline": "PM water strongly supports possible fresh movement.",
+            "detail": "Scottville flow has made a clear rise. Measured water temperature is favorable for this migration and cooling quickly. The temperature source is upstream, so its cooling cannot add positive lower-river credit.",
+            "tip": "Use Lower river travel water as the fresh-movement check, then return to the section named by Migration Stage.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
@@ -7406,7 +7493,7 @@ const GROUP_SEEDS = [
               "appliedCaps": []
             },
             "rulesVersion": "pm-fall-chinook-push-v5",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "pushHistory": {
             "status": "active_now",
@@ -7483,9 +7570,9 @@ const GROUP_SEEDS = [
           "push": {
             "score": 46,
             "label": "No clear push",
-            "headline": "Today's water does not show a clear signal for a fresh wave of fish.",
-            "detail": "There is not enough recent river-level history to tell whether the river is rising or falling. Water temperature is favorable for fall migration and is cooling. Recent rain around the river may help, but the river has not responded enough for rain alone to create a strong Push. Without a dependable river trend, there is no clear Push.",
-            "tip": "Do not relocate the trip around this Push read. Begin in established holding water, verify the river at the first access, and add travel lanes only after confirming workable conditions.",
+            "headline": "PM water does not show a clear fresh-movement signal.",
+            "detail": "Scottville flow does not have a dependable recent trend. Measured water temperature is favorable for this migration and cooling. Without a dependable Scottville trend, the model cannot call a clear Push.",
+            "tip": "Keep the section named by Migration Stage. Do not shift lower for a fresh wave this water does not support.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
@@ -7505,7 +7592,7 @@ const GROUP_SEEDS = [
               "appliedCaps": []
             },
             "rulesVersion": "pm-fall-chinook-push-v5",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           }
         }
       },
@@ -7517,9 +7604,9 @@ const GROUP_SEEDS = [
           "push": {
             "score": 55,
             "label": "Possible",
-            "headline": "The water may support fresh movement, but an aging river reading limits confidence.",
-            "detail": "The river is rising quickly, creating conditions fish often use to move. Water temperature is favorable for fall migration and is cooling sharply. The river has already made a meaningful rise, so that measured response carries the useful movement signal and rainfall adds no separate weight. The latest river-level reading is aging, so confidence is reduced.",
-            "tip": "Do not relocate the trip around this Push read. Begin in established holding water, verify the river at the first access, and add travel lanes only after confirming workable conditions.",
+            "headline": "An aging Scottville reading limits confidence in PM fresh movement.",
+            "detail": "Scottville flow is rising quickly. Measured water temperature is favorable for this migration and cooling quickly. The latest Scottville reading is aging, so confidence is reduced.",
+            "tip": "Keep Migration Stage’s section primary. Add one Lower river travel-water check before returning to established holding water.",
             "reasonCodes": [
               "gauge_stale",
               "push_normal_flow_context",
@@ -7540,7 +7627,7 @@ const GROUP_SEEDS = [
               ]
             },
             "rulesVersion": "pm-fall-chinook-push-v5",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "pushHistory": {
             "status": "active_now",
@@ -7617,9 +7704,9 @@ const GROUP_SEEDS = [
           "push": {
             "score": 49,
             "label": "No clear push",
-            "headline": "The river is rising hard, but extreme flow makes this an unreliable fresh-movement read.",
-            "detail": "The river is rising quickly, creating conditions fish often use to move. Overall flow is extremely high. Water temperature is favorable for fall migration and is cooling sharply. Additional rain does not improve the read while the river is already high.",
-            "tip": "Do not chase movement in the main channel. If Fishability remains usable, fish only protected margins, inside turns, and soft current with short controlled presentations.",
+            "headline": "Extreme Scottville flow prevents a dependable fresh-movement signal.",
+            "detail": "Scottville flow is rising quickly, while overall flow is extreme. Measured water temperature is favorable for this migration and cooling quickly. Additional rain adds no support while Scottville flow is already high.",
+            "tip": "Do not chase a movement event. Let Fishability determine whether the Scottville reach offers any practical presentation water.",
             "reasonCodes": [
               "gauge_fresh",
               "push_severe_high_flow_context",
@@ -7640,7 +7727,7 @@ const GROUP_SEEDS = [
               ]
             },
             "rulesVersion": "pm-fall-chinook-push-v5",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           }
         }
       },
@@ -7652,14 +7739,14 @@ const GROUP_SEEDS = [
           "push": {
             "score": null,
             "label": "Unavailable",
-            "headline": "There is no dependable Push read without a current river level.",
-            "detail": "The river's response is the most important part of a Push, and the latest level is missing or too old to use.",
-            "tip": "Begin in established holding water and keep lower travel lanes secondary. Check again after the next river update; do not chase recent rain as proof of a fresh wave.",
+            "headline": "A current Scottville flow reading is unavailable.",
+            "detail": "Without Scottville flow and direction, rain cannot produce a dependable PM fresh-movement read.",
+            "tip": "Keep the section named by Migration Stage. Do not treat recent rain as proof of movement.",
             "reasonCodes": [
               "gauge_missing"
             ],
             "rulesVersion": "pm-fall-chinook-push-v5",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           }
         }
       },
@@ -7671,15 +7758,15 @@ const GROUP_SEEDS = [
           "push": {
             "score": null,
             "label": "Unavailable",
-            "headline": "There is no dependable Push read without a current water temperature.",
-            "detail": "Water temperature is a critical part of judging whether today's conditions support fresh movement, and that reading is missing.",
-            "tip": "Do not chase a fresh wave from this read. Fish established holding water for the current Migration Stage and check again after the next temperature update.",
+            "headline": "A current measured PM water temperature is unavailable.",
+            "detail": "Without measured water temperature, Scottville flow cannot produce a dependable fresh-movement read.",
+            "tip": "Keep the section named by Migration Stage. Do not chase a fresh wave until measured temperature returns.",
             "reasonCodes": [
               "gauge_fresh",
               "temperature_unavailable"
             ],
             "rulesVersion": "pm-fall-chinook-push-v5",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           }
         }
       },
@@ -7691,14 +7778,14 @@ const GROUP_SEEDS = [
           "push": {
             "score": null,
             "label": "Unavailable",
-            "headline": "This species and season do not have a dependable Push read yet.",
-            "detail": "Different migrations respond to water and weather in different ways, so another species' movement pattern would give a misleading result.",
-            "tip": "Fish the river section and holding water identified by Migration Stage and Fish In River. Do not apply another species' rain-and-temperature pattern to this migration.",
+            "headline": "This PM run does not have a supported Push model.",
+            "detail": "Another species or season’s water response would produce a misleading fresh-movement read.",
+            "tip": "Use Migration Stage for seasonal position. Do not borrow another run’s Push pattern.",
             "reasonCodes": [
               "gauge_fresh"
             ],
             "rulesVersion": "pm-fall-chinook-push-v5",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           }
         }
       },
@@ -7714,6 +7801,7 @@ const GROUP_SEEDS = [
           "nextConditionRefreshAt": "2026-08-01T22:00:00.000Z",
           "runStage": {
             "stage": "pre_run",
+            "copyStrategy": "pere_marquette",
             "stagingContext": true,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -7736,15 +7824,15 @@ const GROUP_SEEDS = [
               "peakToEndDays": 37
             },
             "label": "Before migration",
-            "headline": "Chinook salmon may be gathering near the river mouth, and a few early fish could be in the river.",
-            "detail": "Most Chinook salmon are still expected near the lake, harbor, or river mouth. The earliest arrivals can occasionally slip into the lower river, but dependable river numbers have not developed yet.",
-            "tip": "Fish the harbor and river mouth first, then make one deliberate check of the first deep lower-river travel lane. Skip a middle- or upper-river trip until fish become dependable in the river.",
-            "whereToStart": "Ludington harbor, Pere Marquette Lake, the river mouth at the east end of the lake, and one deliberate check of the first deep travel lane in the lower migratory river.",
+            "headline": "Chinook salmon may be staging near the PM mouth, but dependable river entry has not begun.",
+            "detail": "Seasonal timing supports nearby-lake staging. Any Chinook salmon already in the Lower river would be an early exception.",
+            "tip": "Keep the river check brief. Do not move into the Middle or Upper river from calendar timing alone.",
+            "whereToStart": "Start at Pere Marquette Lake and the river mouth. Add the Lower river (Pere Marquette Lake–Scottville) only for an early-fish check.",
             "reasonCodes": [
               "stage_pre_run",
               "stage_pre_run_staging"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "conditionsSuggest": {
             "label": "Evaluating",
@@ -7763,25 +7851,25 @@ const GROUP_SEEDS = [
             "historicalYears": 0,
             "sourceDates": [],
             "sourceRefreshSlots": {},
-            "headline": "Migration Timing is still taking shape.",
-            "detail": "The early river and temperature pattern is still developing, so an Ahead, Typical, or Delayed call would be premature.",
-            "tip": "Keep the trip centered on the river mouth and earliest lower-river holding water. Move inland only when Migration Stage advances or direct fish activity supports it.",
+            "headline": "PM Migration Timing is still taking shape.",
+            "detail": "Scottville river-rise activity and M-37 cooling do not yet support an Ahead, Typical, or Delayed call.",
+            "tip": "Keep the section named by Migration Stage. Do not shift PM sections until this read has enough evidence.",
             "reasonCodes": [
               "conditions_checkpoint_evaluating"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "push": {
             "score": null,
             "label": "Waiting for migration",
-            "headline": "Fish have not started entering the river, so there is no Push read yet.",
-            "detail": "Push is meant to spot water conditions that may help fish enter or move during the active migration. Before that, most opportunity should remain in the lake, harbor, or river-mouth transition.",
-            "tip": "Keep the trip in the lake, harbor, and river-mouth zone. Do not move inland just because rain or cooling resembles an in-season movement event.",
+            "headline": "Dependable PM river entry has not started.",
+            "detail": "Rain, Scottville flow, and water temperature are not scored as an in-season movement signal yet.",
+            "tip": "Use Migration Stage. Do not move inland because offseason water resembles an in-season Push.",
             "reasonCodes": [
               "push_tracking_not_started"
             ],
             "rulesVersion": "pm-fall-chinook-push-v5",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "pushHistory": {
             "status": "not_started",
@@ -7794,6 +7882,8 @@ const GROUP_SEEDS = [
           },
           "fishInRiver": {
             "score": 0,
+            "displayScore": 0,
+            "scoreIsApproximate": false,
             "stage": "pre_run",
             "maximum": 100,
             "riverCeiling": 100,
@@ -7802,14 +7892,14 @@ const GROUP_SEEDS = [
             "curveDirection": "outside",
             "winterHoldingContext": false,
             "label": "Not expected yet",
-            "headline": "Chinook salmon are not expected in meaningful numbers yet.",
-            "detail": "Most Chinook salmon are not expected to have entered the river in dependable numbers. Any fish already present would be early exceptions.",
-            "tip": "Treat this as no dependable in-river opportunity yet. Keep expectations at zero, and do not interpret an isolated early fish as evidence of dependable river presence.",
+            "headline": "Dependable Chinook salmon presence is not expected in the PM river yet.",
+            "detail": "The seasonal estimate remains at zero. Any fish already in the river would be an early exception.",
+            "tip": "Use Migration Stage for nearby staging context. Do not treat one early fish as a dependable river opportunity.",
             "reasonCodes": [
               "stage_pre_run",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "gauge": {
             "provider": "USGS",
@@ -7865,6 +7955,7 @@ const GROUP_SEEDS = [
           "nextConditionRefreshAt": "2026-11-11T22:00:00.000Z",
           "runStage": {
             "stage": "post_run",
+            "copyStrategy": "pere_marquette",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -7886,16 +7977,16 @@ const GROUP_SEEDS = [
               "startToPeakDays": 36,
               "peakToEndDays": 37
             },
-            "label": "Offseason",
-            "headline": "Chinook salmon are outside their river migration season.",
-            "detail": "A dependable seasonal presence of Chinook salmon is not expected in the river right now.",
-            "tip": "Do not build a river trip around this species right now. Target a species with an active seasonal window and return to this read as the next migration approaches.",
-            "whereToStart": "No dependable Pere Marquette River location for this species right now.",
+            "label": "Fall run complete",
+            "headline": "The PM Chinook salmon fall run is complete.",
+            "detail": "Chinook salmon staging typically begins in late July.",
+            "tip": "Check back in late July when this fall-run model resumes.",
+            "whereToStart": "There is no dependable PM river starting section right now.",
             "reasonCodes": [
               "stage_post_run",
               "stage_offseason"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "conditionsSuggest": {
             "label": "Not monitoring yet",
@@ -7913,25 +8004,25 @@ const GROUP_SEEDS = [
             "historicalYears": 0,
             "sourceDates": [],
             "sourceRefreshSlots": {},
-            "headline": "Migration Timing is not active right now.",
-            "detail": "Timing monitoring begins before the expected river entry, but that seasonal observation window is not active yet.",
-            "tip": "Check Migration Stage for the current seasonal position and return to Migration Timing when early monitoring begins.",
+            "headline": "PM Migration Timing is not monitoring yet.",
+            "detail": "Season-to-date Scottville flow and M-37 temperature monitoring resumes in late July.",
+            "tip": "Check back in late July when PM timing monitoring resumes.",
             "reasonCodes": [
               "conditions_monitoring_inactive"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "push": {
             "score": null,
             "label": "Offseason",
-            "headline": "Push is not active outside the river migration season.",
-            "detail": "Rain, river level, and water temperature can still change, but they do not provide a useful fresh-arrival signal for this species right now.",
-            "tip": "Do not use Push to plan for this species outside its migration season. Follow an active species instead, or return when early monitoring begins.",
+            "headline": "PM Push is outside its fall movement window.",
+            "detail": "Current rain, Scottville flow, and water temperature do not provide an in-season fresh-movement signal for this run.",
+            "tip": "Check back in late July when fall movement monitoring resumes.",
             "reasonCodes": [
               "push_tracking_offseason"
             ],
             "rulesVersion": "pm-fall-chinook-push-v5",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "pushHistory": {
             "status": "complete",
@@ -7993,6 +8084,8 @@ const GROUP_SEEDS = [
           },
           "fishInRiver": {
             "score": 0,
+            "displayScore": 0,
+            "scoreIsApproximate": false,
             "stage": "post_run",
             "maximum": 100,
             "riverCeiling": 100,
@@ -8000,15 +8093,15 @@ const GROUP_SEEDS = [
             "curveFraction": 0,
             "curveDirection": "outside",
             "winterHoldingContext": false,
-            "label": "Offseason",
-            "headline": "Chinook salmon are outside their river migration season.",
-            "detail": "A dependable seasonal presence of Chinook salmon is not expected in the river right now.",
-            "tip": "Do not build a river trip around this species right now. Target a species with an active seasonal window and return as the next migration approaches.",
+            "label": "Fall run complete",
+            "headline": "The PM Chinook salmon fall run is complete.",
+            "detail": "Chinook salmon staging typically begins in late July. This seasonal estimate is inactive until then.",
+            "tip": "Check back in late July when the PM fall-run model resumes.",
             "reasonCodes": [
               "stage_post_run",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "gauge": {
             "provider": "USGS",
@@ -8064,6 +8157,7 @@ const GROUP_SEEDS = [
           "nextConditionRefreshAt": "2026-08-15T22:00:00.000Z",
           "runStage": {
             "stage": "beginning",
+            "copyStrategy": "pere_marquette",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -8086,14 +8180,14 @@ const GROUP_SEEDS = [
               "peakToEndDays": 37
             },
             "label": "Beginning",
-            "headline": "The first Chinook salmon are beginning to enter the river.",
-            "detail": "Fresh Chinook salmon may be entering the river, but numbers can still be scattered and inconsistent this early.",
-            "tip": "Begin in the lower river. Fish the first deep bends and short resting pockets off the main travel lane, then move upstream only after the lower section has been covered.",
-            "whereToStart": "Lower migratory river from Pere Marquette Lake toward Scottville: first deep bends, resting pockets, and current breaks beside the main travel lane.",
+            "headline": "Seasonal timing supports the first Chinook salmon entering the Lower river.",
+            "detail": "This is the opening river phase. Presence is expected to be scattered and uneven.",
+            "tip": "Cover the Lower river first. Move upstream only after direct fish activity supports it.",
+            "whereToStart": "Start in the Lower river (Pere Marquette Lake–Scottville).",
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "conditionsSuggest": {
             "label": "Typical",
@@ -8156,16 +8250,16 @@ const GROUP_SEEDS = [
               "2026-08-13": "16:00",
               "2026-08-14": "16:00"
             },
-            "headline": "The migration appears to be progressing at a normal seasonal pace.",
-            "detail": "River rises and cooling are close to what is usually seen by this point in the season.",
-            "tip": "Fish the core river section identified by Migration Stage. Begin where a travel lane feeds established holding water, then adjust presentation—not seasonal location—using Fishability.",
+            "headline": "The PM migration is progressing at its usual seasonal pace.",
+            "detail": "Season-to-date Scottville river-rise activity and M-37 cooling are close to the usual PM pattern.",
+            "tip": "Keep the PM section named by Migration Stage.",
             "reasonCodes": [
               "gauge_fresh",
               "temperature_measured",
               "conditions_checkpoint_river_start",
               "conditions_typical"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -8178,6 +8272,8 @@ const GROUP_SEEDS = [
           },
           "fishInRiver": {
             "score": 10,
+            "displayScore": 10,
+            "scoreIsApproximate": true,
             "stage": "beginning",
             "maximum": 100,
             "riverCeiling": 100,
@@ -8186,14 +8282,14 @@ const GROUP_SEEDS = [
             "curveDirection": "rising",
             "winterHoldingContext": false,
             "label": "Low presence",
-            "headline": "A small number of Chinook salmon may be in the river, and seasonal presence is still building.",
-            "detail": "This part of the season usually brings low presence, with more fish expected to enter and spread through the river. This is a seasonal estimate, not a live fish count.",
-            "tip": "Treat this as an early, low-odds river opportunity. Expect scattered results, and use direct fish activity before committing the full day.",
+            "headline": "Chinook salmon seasonal presence is low presence and building.",
+            "detail": "Calendar timing places Chinook salmon presence at low presence, increasing as the fall migration builds. For the PM, expected run strength is Strong, and the opportunity can extend across broadly accessible water. This is not a live fish count or today’s conditions.",
+            "tip": "Use Migration Stage to choose a section. Use Push and Activity for current movement support and responsiveness.",
             "reasonCodes": [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "gauge": {
             "provider": "USGS",
@@ -8249,6 +8345,7 @@ const GROUP_SEEDS = [
           "nextConditionRefreshAt": "2026-10-28T22:00:00.000Z",
           "runStage": {
             "stage": "post_run",
+            "copyStrategy": "pere_marquette",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -8271,14 +8368,14 @@ const GROUP_SEEDS = [
               "peakToEndDays": 37
             },
             "label": "After migration",
-            "headline": "The main Chinook salmon migration is over.",
-            "detail": "A few fish may remain, but the season no longer supports a dependable river-wide opportunity.",
-            "tip": "Do not chase scattered holdovers from access to access. Shift to another seasonal species and leave any actively spawning fish undisturbed.",
-            "whereToStart": "No dependable starting reach; any remaining fish are likely isolated in deep middle- or upper-river holding water from Walhalla and Branch toward Baldwin/M-37.",
+            "headline": "The main PM Chinook salmon migration is over, though isolated late fish may remain.",
+            "detail": "Seasonal timing no longer supports a broad river search. Any remaining Chinook salmon are exceptions.",
+            "tip": "Do not chase isolated reports across sections. Leave actively spawning fish undisturbed.",
+            "whereToStart": "There is no dependable PM starting section. If direct evidence supports a late check, use proven Middle river (Scottville–Maple Leaf) holding water.",
             "reasonCodes": [
               "stage_post_run"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "conditionsSuggest": {
             "label": "Timing complete",
@@ -8434,7 +8531,7 @@ const GROUP_SEEDS = [
               "conditions_ahead",
               "conditions_timing_complete"
             ],
-            "copyVersion": "river-run-copy-v27",
+            "copyVersion": "river-run-copy-v29",
             "previousCheckpointId": "peak_start",
             "previousCheckpointDate": "2026-09-15",
             "previousTimingLabel": "Ahead"
@@ -8449,7 +8546,7 @@ const GROUP_SEEDS = [
               "push_tracking_complete"
             ],
             "rulesVersion": "pm-fall-chinook-push-v5",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "pushHistory": {
             "status": "complete",
@@ -8511,6 +8608,8 @@ const GROUP_SEEDS = [
           },
           "fishInRiver": {
             "score": 20,
+            "displayScore": 20,
+            "scoreIsApproximate": true,
             "stage": "post_run",
             "maximum": 100,
             "riverCeiling": 100,
@@ -8519,14 +8618,14 @@ const GROUP_SEEDS = [
             "curveDirection": "falling",
             "winterHoldingContext": false,
             "label": "Low presence",
-            "headline": "Some Chinook salmon may still be in the river, with seasonal presence more likely to be scattered.",
-            "detail": "This part of the season usually supports low presence, while fresh arrivals often become less consistent later in the season. This is a seasonal estimate, not a live fish count.",
-            "tip": "Treat any remaining fish as a bonus rather than a dependable trip plan. Keep expectations narrow and be ready to shift to another seasonal species.",
+            "headline": "Chinook salmon seasonal presence is low presence and declining.",
+            "detail": "Calendar timing places Chinook salmon presence at low presence, declining as the fall migration advances. For the PM, expected run strength is Strong, and the opportunity can extend across broadly accessible water. This is not a live fish count or today’s conditions.",
+            "tip": "Use Migration Stage to choose a section. Use Push and Activity for current movement support and responsiveness.",
             "reasonCodes": [
               "stage_post_run",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "gauge": {
             "provider": "USGS",
@@ -8585,9 +8684,9 @@ const GROUP_SEEDS = [
           "fishability": {
             "score": 40,
             "label": "Tough",
-            "headline": "The river is fishable, but very low water will make fish easier to disturb and productive water harder to find.",
-            "detail": "Water is unusually low, reducing cover and concentrating the best depth into fewer places. The low water is holding rather than refilling, so the few deeper slots should remain easy to identify. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river.",
-            "tip": "Fish first or last light. Begin at the deepest shaded holes and slots, approach quietly, and keep foot traffic out of shallow travel lanes.",
+            "headline": "Very low Scottville flow leaves limited depth and cover.",
+            "detail": "Unusually low flow concentrates useful depth into fewer places. Stable flow should keep presentation lanes consistent. This read applies to the Lower river (Pere Marquette Lake–Scottville), not the full PM.",
+            "tip": "Use the deepest connected water and keep disturbance low.",
             "reasonCodes": [
               "gauge_fresh",
               "very_low_flow_band",
@@ -8599,7 +8698,7 @@ const GROUP_SEEDS = [
               "appliedCaps": []
             },
             "rulesVersion": "pm-scottville-fishability-v2",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           }
         }
       },
@@ -8611,9 +8710,9 @@ const GROUP_SEEDS = [
           "fishability": {
             "score": 60,
             "label": "Fishable",
-            "headline": "The river is fishable, but lower water leaves less cover and less room for error.",
-            "detail": "Water is lower than ideal but still workable, with less depth and cover across the river. The lower flow is holding steady, so its limited depth and cover should remain consistent. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river.",
-            "tip": "Start with the deepest connected holding water, then fish shaded outside bends and cover. Approach quietly and make the first pass count.",
+            "headline": "Low Scottville flow remains workable with less depth and cover.",
+            "detail": "Lower flow reduces depth and cover across the reach. Stable flow should keep presentation lanes consistent. This read applies to the Lower river (Pere Marquette Lake–Scottville), not the full PM.",
+            "tip": "Prioritize deeper seams and current breaks with enough cover.",
             "reasonCodes": [
               "gauge_fresh",
               "low_flow_band"
@@ -8624,7 +8723,7 @@ const GROUP_SEEDS = [
               "appliedCaps": []
             },
             "rulesVersion": "pm-scottville-fishability-v2",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           }
         }
       },
@@ -8636,9 +8735,9 @@ const GROUP_SEEDS = [
           "fishability": {
             "score": 75,
             "label": "Good",
-            "headline": "The river is in a comfortable, fishable range with a manageable pace.",
-            "detail": "Flow is in a dependable working range with a useful mix of travel lanes, seams, and holding water. The steady flow should keep travel lanes, seams, and holding water easy to read from one pass to the next. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river.",
-            "tip": "Start where a main travel lane enters the first established hole. Fish the head, inside seam, and tail in order, then move to the next piece of holding water.",
+            "headline": "Scottville flow is in a comfortable presentation range.",
+            "detail": "The flow band supports readable lanes, seams, and holding water. Stable flow should keep presentation lanes consistent. This read applies to the Lower river (Pere Marquette Lake–Scottville), not the full PM.",
+            "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
               "normal_flow_band"
@@ -8649,7 +8748,7 @@ const GROUP_SEEDS = [
               "appliedCaps": []
             },
             "rulesVersion": "pm-scottville-fishability-v2",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           }
         }
       },
@@ -8667,9 +8766,9 @@ const GROUP_SEEDS = [
           "fishability": {
             "score": 73,
             "label": "Good",
-            "headline": "The river is fishable, but higher flow is moving at a faster pace and narrowing the easiest water.",
-            "detail": "Higher flow is pushing more current through the main channel, but softer edges and protected lanes remain workable. The higher flow is not climbing, so softer edges beside the main current should remain well defined. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river.",
-            "tip": "Start tight to the bank on inside bends and below current-breaking cover. Shorten the presentation and keep it in the slower edge instead of forcing the main flow.",
+            "headline": "High Scottville flow remains fishable in slower water.",
+            "detail": "Higher flow pushes useful presentation water toward softer edges. Stable flow should keep presentation lanes consistent. This read applies to the Lower river (Pere Marquette Lake–Scottville), not the full PM.",
+            "tip": "Prioritize inside seams, protected edges, and current breaks.",
             "reasonCodes": [
               "gauge_fresh",
               "high_fishable_flow_band"
@@ -8680,7 +8779,7 @@ const GROUP_SEEDS = [
               "appliedCaps": []
             },
             "rulesVersion": "pm-scottville-fishability-v2",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           }
         }
       },
@@ -8692,9 +8791,9 @@ const GROUP_SEEDS = [
           "fishability": {
             "score": 45,
             "label": "Tough",
-            "headline": "The river is running very high, leaving fewer practical places to fish effectively.",
-            "detail": "Very high flow is reducing access and the amount of water where a presentation can be controlled. The river is not climbing quickly, but practical fishing water remains compressed into the slowest edges. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river.",
-            "tip": "Fish only bank-side soft pockets, protected inside turns, and current breaks. Make short controlled presentations and skip every main-channel lane.",
+            "headline": "Very high Scottville flow leaves little controllable presentation water.",
+            "detail": "Very high flow compresses controllable water into the slowest protected edges. Stable flow should keep presentation lanes consistent. This read applies to the Lower river (Pere Marquette Lake–Scottville), not the full PM.",
+            "tip": "Favor protected margins and short controlled presentations. Choose another day if control is not dependable.",
             "reasonCodes": [
               "gauge_fresh",
               "very_high_flow_band"
@@ -8705,7 +8804,7 @@ const GROUP_SEEDS = [
               "appliedCaps": []
             },
             "rulesVersion": "pm-scottville-fishability-v2",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           }
         }
       },
@@ -8717,9 +8816,9 @@ const GROUP_SEEDS = [
           "fishability": {
             "score": 20,
             "label": "Poor",
-            "headline": "The river is too high and unsettled for a dependable fishing recommendation.",
-            "detail": "Excessive flow is overwhelming normal holding water and making access and presentation unreliable. The river is not climbing quickly, but it must fall substantially before normal holding lanes and presentation control return. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river.",
-            "tip": "Choose a lower-water day for the better fishing opportunity. If you fish now, stay tight to protected banks, slow inside turns, and the downstream side of major current breaks; keep presentations short and leave the main flow alone.",
+            "headline": "Scottville flow is blown out for a dependable presentation plan.",
+            "detail": "Excessive flow overwhelms normal lanes and presentation control. Stable flow should keep presentation lanes consistent. This read applies to the Lower river (Pere Marquette Lake–Scottville), not the full PM.",
+            "tip": "Choose another day and verify current conditions through authoritative local sources.",
             "reasonCodes": [
               "gauge_fresh",
               "blown_out_flow_band",
@@ -8731,7 +8830,7 @@ const GROUP_SEEDS = [
               "appliedCaps": []
             },
             "rulesVersion": "pm-scottville-fishability-v2",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           }
         }
       },
@@ -8743,9 +8842,9 @@ const GROUP_SEEDS = [
           "fishability": {
             "score": 90,
             "label": "Excellent",
-            "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The river is settling, which should sharpen seams and make established holding water easier to read. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river.",
-            "tip": "Begin on the primary seam feeding deep holding water. Work each hole from head to tail, giving the deeper downstream half one final pass as the river settles.",
+            "headline": "Scottville flow is in its best presentation range.",
+            "detail": "The flow band offers the broadest mix of depth, seams, and presentation control. Falling flow should sharpen established seams as the reach settles. This read applies to the Lower river (Pere Marquette Lake–Scottville), not the full PM.",
+            "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band"
@@ -8756,7 +8855,7 @@ const GROUP_SEEDS = [
               "appliedCaps": []
             },
             "rulesVersion": "pm-scottville-fishability-v2",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           }
         }
       },
@@ -8768,9 +8867,9 @@ const GROUP_SEEDS = [
           "fishability": {
             "score": 88,
             "label": "Excellent",
-            "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The early rise is adding pace and depth, with inside seams and the upstream edges of holes changing first. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river.",
-            "tip": "Begin on the soft inside edge of the primary travel lane, then fish the first deep resting hole above it. Recheck that edge as added depth changes the lane.",
+            "headline": "Scottville flow is in its best presentation range.",
+            "detail": "The flow band offers the broadest mix of depth, seams, and presentation control. Rising flow is beginning to shift lanes toward softer edges. This read applies to the Lower river (Pere Marquette Lake–Scottville), not the full PM.",
+            "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band"
@@ -8781,7 +8880,7 @@ const GROUP_SEEDS = [
               "appliedCaps": []
             },
             "rulesVersion": "pm-scottville-fishability-v2",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           }
         }
       },
@@ -8793,9 +8892,9 @@ const GROUP_SEEDS = [
           "fishability": {
             "score": 60,
             "label": "Fishable",
-            "headline": "The river is fishable, but rising water and faster current are narrowing the easiest places to present a bait.",
-            "detail": "Higher flow is pushing more current through the main channel, but softer edges and protected lanes remain workable. The rising water is pushing hard through the main channel and compressing practical fishing water along protected edges. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river.",
-            "tip": "Fish only protected margins, inside bends, and the downstream side of major current breaks. Leave the main-channel current alone while the rise continues.",
+            "headline": "High Scottville flow remains fishable in slower water.",
+            "detail": "Higher flow pushes useful presentation water toward softer edges. A clear rise is moving controllable presentations toward inside seams and current breaks. This read applies to the Lower river (Pere Marquette Lake–Scottville), not the full PM.",
+            "tip": "Prioritize inside seams, protected edges, and current breaks.",
             "reasonCodes": [
               "gauge_fresh",
               "high_fishable_flow_band"
@@ -8806,7 +8905,7 @@ const GROUP_SEEDS = [
               "appliedCaps": []
             },
             "rulesVersion": "pm-scottville-fishability-v2",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           }
         }
       },
@@ -8818,9 +8917,9 @@ const GROUP_SEEDS = [
           "fishability": {
             "score": 40,
             "label": "Tough",
-            "headline": "The river is rising fast, and usable fishing water is shifting toward slower margins and current breaks.",
-            "detail": "Higher flow is pushing more current through the main channel, but softer edges and protected lanes remain workable. The fast rise is forcing usable fishing water out of the main flow and into the slowest protected margins. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river.",
-            "tip": "Leave the main channel alone. Fish newly formed soft margins, inside bends, and the downstream side of current breaks with short controlled presentations.",
+            "headline": "High Scottville flow remains fishable in slower water.",
+            "detail": "Higher flow pushes useful presentation water toward softer edges. A fast rise is quickly replacing settled lanes with heavier current. This read applies to the Lower river (Pere Marquette Lake–Scottville), not the full PM.",
+            "tip": "Favor protected margins and short controlled presentations. Choose another day if control is not dependable.",
             "reasonCodes": [
               "gauge_fresh",
               "high_fishable_flow_band",
@@ -8834,7 +8933,7 @@ const GROUP_SEEDS = [
               ]
             },
             "rulesVersion": "pm-scottville-fishability-v2",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           }
         }
       },
@@ -8846,9 +8945,9 @@ const GROUP_SEEDS = [
           "fishability": {
             "score": 69,
             "label": "Fishable",
-            "headline": "The river appears fishable, but its direction is unclear, so confidence is limited.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. There is not enough recent information to tell whether the river is rising or falling, which lowers confidence in the read. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river.",
-            "tip": "Start at a bank-side inside bend or soft seam where the full presentation stays under control. Skip faster water until the river's direction is verified.",
+            "headline": "Scottville flow is workable, but its direction is unknown.",
+            "detail": "The flow band offers the broadest mix of depth, seams, and presentation control. Recent Scottville history cannot show whether presentation water is improving or worsening. This read applies to the Lower river (Pere Marquette Lake–Scottville), not the full PM.",
+            "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band",
@@ -8862,7 +8961,7 @@ const GROUP_SEEDS = [
               ]
             },
             "rulesVersion": "pm-scottville-fishability-v2",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           }
         }
       },
@@ -8874,9 +8973,9 @@ const GROUP_SEEDS = [
           "fishability": {
             "score": 55,
             "label": "Fishable",
-            "headline": "The last river reading was fishable, but it is aging and may no longer describe the water accurately.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. Because the latest reading is aging, the river may have changed since it was reported. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river.",
-            "tip": "Do not choose a reach from this reading alone. Check the water at the first access, and begin only in bank-side water where you can control the entire presentation.",
+            "headline": "The aging Scottville reading limits confidence in Lower river Fishability.",
+            "detail": "The flow band offers the broadest mix of depth, seams, and presentation control. The river may have changed since the last Scottville reading. This read applies to the Lower river (Pere Marquette Lake–Scottville), not the full PM.",
+            "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_stale",
               "ideal_flow_band",
@@ -8890,7 +8989,7 @@ const GROUP_SEEDS = [
               ]
             },
             "rulesVersion": "pm-scottville-fishability-v2",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           }
         }
       },
@@ -8902,14 +9001,14 @@ const GROUP_SEEDS = [
           "fishability": {
             "score": null,
             "label": "Unavailable",
-            "headline": "There is no dependable Fishability read right now.",
-            "detail": "A recent river-level reading is missing, so current flow and direction cannot be judged responsibly.",
-            "tip": "Do not plan from the last known level. Check again after the next update, and verify the river at the first access before choosing where or how to fish.",
+            "headline": "A current Scottville reading is unavailable.",
+            "detail": "Without current Scottville flow and direction, Lower river presentation conditions cannot be determined.",
+            "tip": "Do not extend an old or missing Scottville read across the PM. Use current authoritative local information.",
             "reasonCodes": [
               "gauge_missing"
             ],
             "rulesVersion": "pm-scottville-fishability-v2",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           }
         }
       },
@@ -8921,15 +9020,15 @@ const GROUP_SEEDS = [
           "fishability": {
             "score": null,
             "label": "Unavailable",
-            "headline": "This river does not have a dependable Fishability read yet.",
-            "detail": "River flow affects each river differently, and there is not enough local knowledge to translate today's water into a responsible fishing recommendation.",
-            "tip": "Do not use this card to choose fishing water. Rely on direct observation and verified local river guidance; FinFindr will not borrow another river's idea of low, ideal, or high flow.",
+            "headline": "Scottville does not have an accepted Fishability band for this read.",
+            "detail": "Without accepted local bands, Scottville flow cannot be translated into Lower river presentation conditions.",
+            "tip": "Do not extend an old or missing Scottville read across the PM. Use current authoritative local information.",
             "reasonCodes": [
               "gauge_fresh",
               "baseline_missing"
             ],
             "rulesVersion": "pm-scottville-fishability-v2",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           }
         }
       }
@@ -8951,6 +9050,7 @@ const GROUP_SEEDS = [
           "nextConditionRefreshAt": "2026-07-28T22:00:00.000Z",
           "runStage": {
             "stage": "pre_run",
+            "copyStrategy": "pere_marquette",
             "stagingContext": true,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -8973,15 +9073,15 @@ const GROUP_SEEDS = [
               "peakToEndDays": 37
             },
             "label": "Before migration",
-            "headline": "Chinook salmon may be gathering near the river mouth, and a few early fish could be in the river.",
-            "detail": "Most Chinook salmon are still expected near the lake, harbor, or river mouth. The earliest arrivals can occasionally slip into the lower river, but dependable river numbers have not developed yet.",
-            "tip": "Fish the harbor and river mouth first, then make one deliberate check of the first deep lower-river travel lane. Skip a middle- or upper-river trip until fish become dependable in the river.",
-            "whereToStart": "Ludington harbor, Pere Marquette Lake, the river mouth at the east end of the lake, and one deliberate check of the first deep travel lane in the lower migratory river.",
+            "headline": "Chinook salmon may be staging near the PM mouth, but dependable river entry has not begun.",
+            "detail": "Seasonal timing supports nearby-lake staging. Any Chinook salmon already in the Lower river would be an early exception.",
+            "tip": "Keep the river check brief. Do not move into the Middle or Upper river from calendar timing alone.",
+            "whereToStart": "Start at Pere Marquette Lake and the river mouth. Add the Lower river (Pere Marquette Lake–Scottville) only for an early-fish check.",
             "reasonCodes": [
               "stage_pre_run",
               "stage_pre_run_staging"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "conditionsSuggest": {
             "label": "Evaluating",
@@ -9000,25 +9100,25 @@ const GROUP_SEEDS = [
             "historicalYears": 0,
             "sourceDates": [],
             "sourceRefreshSlots": {},
-            "headline": "Migration Timing is still taking shape.",
-            "detail": "The early river and temperature pattern is still developing, so an Ahead, Typical, or Delayed call would be premature.",
-            "tip": "Keep the trip centered on the river mouth and earliest lower-river holding water. Move inland only when Migration Stage advances or direct fish activity supports it.",
+            "headline": "PM Migration Timing is still taking shape.",
+            "detail": "Scottville river-rise activity and M-37 cooling do not yet support an Ahead, Typical, or Delayed call.",
+            "tip": "Keep the section named by Migration Stage. Do not shift PM sections until this read has enough evidence.",
             "reasonCodes": [
               "conditions_checkpoint_evaluating"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "push": {
             "score": null,
             "label": "Waiting for migration",
-            "headline": "Fish have not started entering the river, so there is no Push read yet.",
-            "detail": "Push is meant to spot water conditions that may help fish enter or move during the active migration. Before that, most opportunity should remain in the lake, harbor, or river-mouth transition.",
-            "tip": "Keep the trip in the lake, harbor, and river-mouth zone. Do not move inland just because rain or cooling resembles an in-season movement event.",
+            "headline": "Dependable PM river entry has not started.",
+            "detail": "Rain, Scottville flow, and water temperature are not scored as an in-season movement signal yet.",
+            "tip": "Use Migration Stage. Do not move inland because offseason water resembles an in-season Push.",
             "reasonCodes": [
               "push_tracking_not_started"
             ],
             "rulesVersion": "pm-fall-chinook-push-v5",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "pushHistory": {
             "status": "not_started",
@@ -9033,9 +9133,9 @@ const GROUP_SEEDS = [
             "score": 74,
             "maximum": 100,
             "label": "Active",
-            "headline": "Today’s Chinook activity outlook is active.",
-            "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. Dependable river presence has not begun. The score applies only to a sparse early Chinook that may already have entered. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
-            "tip": "Start with 5–9 AM. If the sky changes from the forecast, favor the darkest practical window.",
+            "headline": "Today’s PM outlook is active, but dependable Chinook presence has not begun.",
+            "detail": "Conditions support a meaningful Chinook response if fish are present. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. This outlook applies only to an early Chinook already in the PM river.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light and access. Neither has a dependable advantage.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -9087,10 +9187,13 @@ const GROUP_SEEDS = [
                 "cloudCoverPct": 80,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v29"
           },
           "fishInRiver": {
             "score": 0,
+            "displayScore": 0,
+            "scoreIsApproximate": false,
             "stage": "pre_run",
             "maximum": 100,
             "riverCeiling": 100,
@@ -9099,14 +9202,14 @@ const GROUP_SEEDS = [
             "curveDirection": "outside",
             "winterHoldingContext": false,
             "label": "Not expected yet",
-            "headline": "Chinook salmon are not expected in meaningful numbers yet.",
-            "detail": "Most Chinook salmon are not expected to have entered the river in dependable numbers. Any fish already present would be early exceptions.",
-            "tip": "Treat this as no dependable in-river opportunity yet. Keep expectations at zero, and do not interpret an isolated early fish as evidence of dependable river presence.",
+            "headline": "Dependable Chinook salmon presence is not expected in the PM river yet.",
+            "detail": "The seasonal estimate remains at zero. Any fish already in the river would be an early exception.",
+            "tip": "Use Migration Stage for nearby staging context. Do not treat one early fish as a dependable river opportunity.",
             "reasonCodes": [
               "stage_pre_run",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "gauge": {
             "provider": "USGS",
@@ -9162,6 +9265,7 @@ const GROUP_SEEDS = [
           "nextConditionRefreshAt": "2026-08-15T22:00:00.000Z",
           "runStage": {
             "stage": "beginning",
+            "copyStrategy": "pere_marquette",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -9184,14 +9288,14 @@ const GROUP_SEEDS = [
               "peakToEndDays": 37
             },
             "label": "Beginning",
-            "headline": "The first Chinook salmon are beginning to enter the river.",
-            "detail": "Fresh Chinook salmon may be entering the river, but numbers can still be scattered and inconsistent this early.",
-            "tip": "Begin in the lower river. Fish the first deep bends and short resting pockets off the main travel lane, then move upstream only after the lower section has been covered.",
-            "whereToStart": "Lower migratory river from Pere Marquette Lake toward Scottville: first deep bends, resting pockets, and current breaks beside the main travel lane.",
+            "headline": "Seasonal timing supports the first Chinook salmon entering the Lower river.",
+            "detail": "This is the opening river phase. Presence is expected to be scattered and uneven.",
+            "tip": "Cover the Lower river first. Move upstream only after direct fish activity supports it.",
+            "whereToStart": "Start in the Lower river (Pere Marquette Lake–Scottville).",
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "conditionsSuggest": {
             "label": "Typical",
@@ -9254,16 +9358,16 @@ const GROUP_SEEDS = [
               "2026-08-13": "16:00",
               "2026-08-14": "16:00"
             },
-            "headline": "The migration appears to be progressing at a normal seasonal pace.",
-            "detail": "River rises and cooling are close to what is usually seen by this point in the season.",
-            "tip": "Fish the core river section identified by Migration Stage. Begin where a travel lane feeds established holding water, then adjust presentation—not seasonal location—using Fishability.",
+            "headline": "The PM migration is progressing at its usual seasonal pace.",
+            "detail": "Season-to-date Scottville river-rise activity and M-37 cooling are close to the usual PM pattern.",
+            "tip": "Keep the PM section named by Migration Stage.",
             "reasonCodes": [
               "gauge_fresh",
               "temperature_measured",
               "conditions_checkpoint_river_start",
               "conditions_typical"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -9278,9 +9382,9 @@ const GROUP_SEEDS = [
             "score": 75,
             "maximum": 100,
             "label": "Active",
-            "headline": "Today’s Chinook activity outlook is active.",
-            "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. Early lake-fresh Chinook can remain reactive in tolerable water, so warmth is penalized without automatically erasing response potential. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
-            "tip": "Start with 5–9 AM. If the sky changes from the forecast, favor the darkest practical window.",
+            "headline": "Today’s PM Chinook responsiveness is active if fish are present.",
+            "detail": "Conditions support a meaningful Chinook response if fish are present. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Full confidence uses current Scottville flow, measured PM temperature, and hourly weather.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light and access. Neither has a dependable advantage.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -9332,10 +9436,13 @@ const GROUP_SEEDS = [
                 "cloudCoverPct": 75,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v29"
           },
           "fishInRiver": {
             "score": 10,
+            "displayScore": 10,
+            "scoreIsApproximate": true,
             "stage": "beginning",
             "maximum": 100,
             "riverCeiling": 100,
@@ -9344,14 +9451,14 @@ const GROUP_SEEDS = [
             "curveDirection": "rising",
             "winterHoldingContext": false,
             "label": "Low presence",
-            "headline": "A small number of Chinook salmon may be in the river, and seasonal presence is still building.",
-            "detail": "This part of the season usually brings low presence, with more fish expected to enter and spread through the river. This is a seasonal estimate, not a live fish count.",
-            "tip": "Treat this as an early, low-odds river opportunity. Expect scattered results, and use direct fish activity before committing the full day.",
+            "headline": "Chinook salmon seasonal presence is low presence and building.",
+            "detail": "Calendar timing places Chinook salmon presence at low presence, increasing as the fall migration builds. For the PM, expected run strength is Strong, and the opportunity can extend across broadly accessible water. This is not a live fish count or today’s conditions.",
+            "tip": "Use Migration Stage to choose a section. Use Push and Activity for current movement support and responsiveness.",
             "reasonCodes": [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "gauge": {
             "provider": "USGS",
@@ -9396,6 +9503,74 @@ const GROUP_SEEDS = [
         }
       },
       {
+        "id": "activity_clear_morning_lead",
+        "label": "Building · clear strongest window",
+        "note": "Canonical production copy",
+        "snapshotOverride": {
+          "activity": {
+            "score": 78,
+            "maximum": 100,
+            "label": "Active",
+            "headline": "Today’s PM Chinook responsiveness is active if fish are present.",
+            "detail": "Conditions support a meaningful Chinook response if fish are present. 5–9 AM is strongest because clouds or lower light make this window more favorable. Full confidence uses current Scottville flow, measured PM temperature, and hourly weather.",
+            "tip": "Begin with 5–9 AM. Re-rank the blocks if light or weather changes materially.",
+            "reasonCodes": [
+              "activity_confidence_full",
+              "activity_today",
+              "activity_run_present"
+            ],
+            "rulesVersion": "pm-fall-chinook-activity-v7",
+            "targetDate": "2026-09-01",
+            "targetDayLabel": "Today",
+            "confidence": "Full",
+            "conditionalPresence": false,
+            "blocks": [
+              {
+                "id": "05-09",
+                "label": "5–9 AM",
+                "score": 92,
+                "activityLabel": "Highly active",
+                "positiveDriver": "Clouds or lower light make this window more favorable.",
+                "limitingFactor": "Rain adds little extra cover.",
+                "cloudCoverPct": 100,
+                "precipitationIn": 0.02
+              },
+              {
+                "id": "09-13",
+                "label": "9 AM–1 PM",
+                "score": 62,
+                "activityLabel": "Active",
+                "positiveDriver": "The measured water temperature is favorable for Chinook.",
+                "limitingFactor": "Brighter conditions are the main limitation.",
+                "cloudCoverPct": 25,
+                "precipitationIn": 0
+              },
+              {
+                "id": "13-17",
+                "label": "1–5 PM",
+                "score": 61,
+                "activityLabel": "Active",
+                "positiveDriver": "The measured water temperature is favorable for Chinook.",
+                "limitingFactor": "Brighter conditions are the main limitation.",
+                "cloudCoverPct": 25,
+                "precipitationIn": 0
+              },
+              {
+                "id": "17-21",
+                "label": "5–9 PM",
+                "score": 74,
+                "activityLabel": "Active",
+                "positiveDriver": "Clouds or lower light make this window more favorable.",
+                "limitingFactor": "Heavier precipitation can unsettle presentation.",
+                "cloudCoverPct": 0,
+                "precipitationIn": 0.32
+              }
+            ],
+            "copyVersion": "river-run-copy-v29"
+          }
+        }
+      },
+      {
         "id": "activity_building_high",
         "label": "Building · highly active",
         "note": "Canonical production copy",
@@ -9404,9 +9579,9 @@ const GROUP_SEEDS = [
             "score": 83,
             "maximum": 100,
             "label": "Highly active",
-            "headline": "Today’s Chinook activity outlook is highly active.",
-            "detail": "Conditions strongly favor a response from Chinook that are present and capable of reacting. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. More Chinook are moving and settling into the river; the score describes reaction conditions for fish already present. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
-            "tip": "Start with 5–9 AM. If the sky changes from the forecast, favor the darkest practical window.",
+            "headline": "Today’s PM Chinook responsiveness is highly active if fish are present.",
+            "detail": "Conditions strongly support Chinook responsiveness if fish are present. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Full confidence uses current Scottville flow, measured PM temperature, and hourly weather.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light and access. Neither has a dependable advantage.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -9458,7 +9633,8 @@ const GROUP_SEEDS = [
                 "cloudCoverPct": 100,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v29"
           }
         }
       },
@@ -9474,6 +9650,7 @@ const GROUP_SEEDS = [
           "nextConditionRefreshAt": "2026-09-20T22:00:00.000Z",
           "runStage": {
             "stage": "peak",
+            "copyStrategy": "pere_marquette",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -9496,14 +9673,14 @@ const GROUP_SEEDS = [
               "peakToEndDays": 37
             },
             "label": "Peak",
-            "headline": "This is typically the strongest and most dependable river opportunity of the Chinook salmon season.",
-            "detail": "Multiple waves have had time to spread, so Chinook salmon are likely distributed throughout the accessible river—from lower travel water through upstream holding and spawning reaches, except above dams or other barriers.",
-            "tip": "Choose an accessible river section and fish every substantial hole from its head through the inside seam and tail. Move section by section through deep bends and resting pockets, and leave fish on shallow spawning gravel alone.",
-            "whereToStart": "Compare the lower river near Scottville, middle river through Walhalla and Branch, and upper river toward Baldwin and M-37, prioritizing substantial holding water connected to productive current.",
+            "headline": "This is typically the PM’s strongest Chinook salmon migration window.",
+            "detail": "Seasonal timing supports the widest dependable Chinook salmon distribution. It does not confirm fish in every section.",
+            "tip": "Start in the Middle river. Compare the Upper river only after a complete first pass.",
+            "whereToStart": "Start in the Middle river (Scottville–Maple Leaf). Compare the Upper river (Maple Leaf–M-37) when direct fish activity favors it.",
             "reasonCodes": [
               "stage_peak"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "conditionsSuggest": {
             "label": "Ahead",
@@ -9628,16 +9805,16 @@ const GROUP_SEEDS = [
               "2026-09-13": "16:00",
               "2026-09-14": "16:00"
             },
-            "headline": "The migration appears to be developing earlier than usual.",
-            "detail": "The river has risen and cooled faster than it normally does by this point in the season.",
-            "tip": "Start one accessible river section farther upstream than you normally would for this date and prioritize established holding water. If Push is Possible or stronger, finish with lower travel lanes.",
+            "headline": "The PM migration is developing earlier than usual.",
+            "detail": "Season-to-date Scottville river-rise activity and M-37 cooling are stronger than the usual PM pattern.",
+            "tip": "Start one PM section upstream from Migration Stage, capped at the Upper river (Maple Leaf–M-37).",
             "reasonCodes": [
               "gauge_fresh",
               "temperature_measured",
               "conditions_checkpoint_peak_start",
               "conditions_ahead"
             ],
-            "copyVersion": "river-run-copy-v27",
+            "copyVersion": "river-run-copy-v29",
             "previousCheckpointId": "building_established",
             "previousCheckpointDate": "2026-09-01",
             "previousTimingLabel": "Ahead"
@@ -9704,9 +9881,9 @@ const GROUP_SEEDS = [
             "score": 80,
             "maximum": 100,
             "label": "Highly active",
-            "headline": "Today’s Chinook activity outlook is highly active.",
-            "detail": "Conditions strongly favor a response from Chinook that are present and capable of reacting. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. Broad seasonal presence improves the chance of locating fish, but this score measures responsiveness rather than abundance. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
-            "tip": "Start with 5–9 AM. If the sky changes from the forecast, favor the darkest practical window.",
+            "headline": "Today’s PM Chinook responsiveness is highly active if fish are present.",
+            "detail": "Conditions strongly support Chinook responsiveness if fish are present. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Full confidence uses current Scottville flow, measured PM temperature, and hourly weather.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light and access. Neither has a dependable advantage.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -9758,10 +9935,13 @@ const GROUP_SEEDS = [
                 "cloudCoverPct": 75,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v29"
           },
           "fishInRiver": {
             "score": 100,
+            "displayScore": 100,
+            "scoreIsApproximate": false,
             "stage": "peak",
             "maximum": 100,
             "riverCeiling": 100,
@@ -9770,14 +9950,14 @@ const GROUP_SEEDS = [
             "curveDirection": "near_peak",
             "winterHoldingContext": false,
             "label": "Peak presence",
-            "headline": "Chinook salmon are likely near their highest seasonal presence in the river.",
-            "detail": "This is the part of the season when in-river presence is usually strongest. The read describes the river as a whole; it does not place fish in a specific pool or confirm a live count.",
-            "tip": "Plan for the strongest seasonal presence this river usually offers, while remembering that this estimate cannot confirm fish at a specific spot or describe today's river conditions.",
+            "headline": "Chinook salmon seasonal presence is peak presence and near its seasonal high.",
+            "detail": "Calendar timing places Chinook salmon presence at its expected seasonal peak, near its expected seasonal high. For the PM, expected run strength is Strong, and the opportunity can extend across broadly accessible water. This is not a live fish count or today’s conditions.",
+            "tip": "Use Migration Stage to choose a section. Use Push and Activity for current movement support and responsiveness.",
             "reasonCodes": [
               "stage_peak",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "gauge": {
             "provider": "USGS",
@@ -9830,9 +10010,9 @@ const GROUP_SEEDS = [
             "score": 71,
             "maximum": 100,
             "label": "Active",
-            "headline": "Today’s Chinook activity outlook is active.",
-            "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Water temperature limits responsiveness. More Chinook are moving and settling into the river; the score describes reaction conditions for fish already present. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
-            "tip": "Start with 5–9 AM. If the sky changes from the forecast, favor the darkest practical window.",
+            "headline": "Today’s PM Chinook responsiveness is active if fish are present.",
+            "detail": "Conditions support a meaningful Chinook response if fish are present. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Full confidence uses current Scottville flow, measured PM temperature, and hourly weather.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light and access. Neither has a dependable advantage.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -9884,7 +10064,8 @@ const GROUP_SEEDS = [
                 "cloudCoverPct": 15,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v29"
           }
         }
       },
@@ -9900,6 +10081,7 @@ const GROUP_SEEDS = [
           "nextConditionRefreshAt": "2026-09-20T22:00:00.000Z",
           "runStage": {
             "stage": "peak",
+            "copyStrategy": "pere_marquette",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -9922,14 +10104,14 @@ const GROUP_SEEDS = [
               "peakToEndDays": 37
             },
             "label": "Peak",
-            "headline": "This is typically the strongest and most dependable river opportunity of the Chinook salmon season.",
-            "detail": "Multiple waves have had time to spread, so Chinook salmon are likely distributed throughout the accessible river—from lower travel water through upstream holding and spawning reaches, except above dams or other barriers.",
-            "tip": "Choose an accessible river section and fish every substantial hole from its head through the inside seam and tail. Move section by section through deep bends and resting pockets, and leave fish on shallow spawning gravel alone.",
-            "whereToStart": "Compare the lower river near Scottville, middle river through Walhalla and Branch, and upper river toward Baldwin and M-37, prioritizing substantial holding water connected to productive current.",
+            "headline": "This is typically the PM’s strongest Chinook salmon migration window.",
+            "detail": "Seasonal timing supports the widest dependable Chinook salmon distribution. It does not confirm fish in every section.",
+            "tip": "Start in the Middle river. Compare the Upper river only after a complete first pass.",
+            "whereToStart": "Start in the Middle river (Scottville–Maple Leaf). Compare the Upper river (Maple Leaf–M-37) when direct fish activity favors it.",
             "reasonCodes": [
               "stage_peak"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "conditionsSuggest": {
             "label": "Ahead",
@@ -10054,16 +10236,16 @@ const GROUP_SEEDS = [
               "2026-09-13": "16:00",
               "2026-09-14": "16:00"
             },
-            "headline": "The migration appears to be developing earlier than usual.",
-            "detail": "The river has risen and cooled faster than it normally does by this point in the season.",
-            "tip": "Start one accessible river section farther upstream than you normally would for this date and prioritize established holding water. If Push is Possible or stronger, finish with lower travel lanes.",
+            "headline": "The PM migration is developing earlier than usual.",
+            "detail": "Season-to-date Scottville river-rise activity and M-37 cooling are stronger than the usual PM pattern.",
+            "tip": "Start one PM section upstream from Migration Stage, capped at the Upper river (Maple Leaf–M-37).",
             "reasonCodes": [
               "gauge_fresh",
               "temperature_measured",
               "conditions_checkpoint_peak_start",
               "conditions_ahead"
             ],
-            "copyVersion": "river-run-copy-v27",
+            "copyVersion": "river-run-copy-v29",
             "previousCheckpointId": "building_established",
             "previousCheckpointDate": "2026-09-01",
             "previousTimingLabel": "Ahead"
@@ -10130,9 +10312,9 @@ const GROUP_SEEDS = [
             "score": 28,
             "maximum": 100,
             "label": "Reserved",
-            "headline": "Today’s Chinook activity outlook is reserved.",
-            "detail": "Fish may respond selectively, with important environmental limitations. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Water temperature limits responsiveness. Broad seasonal presence improves the chance of locating fish, but this score measures responsiveness rather than abundance. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
-            "tip": "Start with 5–9 AM. If the sky changes from the forecast, favor the darkest practical window.",
+            "headline": "Today’s PM Chinook responsiveness is reserved if fish are present.",
+            "detail": "Chinook may respond selectively under the current limitations. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Full confidence uses current Scottville flow, measured PM temperature, and hourly weather.",
+            "tip": "Fish one short test in 5–9 AM or 5–9 PM. Leave if direct response does not support the outlook.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -10185,10 +10367,13 @@ const GROUP_SEEDS = [
                 "cloudCoverPct": 5,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v29"
           },
           "fishInRiver": {
             "score": 100,
+            "displayScore": 100,
+            "scoreIsApproximate": false,
             "stage": "peak",
             "maximum": 100,
             "riverCeiling": 100,
@@ -10197,14 +10382,14 @@ const GROUP_SEEDS = [
             "curveDirection": "near_peak",
             "winterHoldingContext": false,
             "label": "Peak presence",
-            "headline": "Chinook salmon are likely near their highest seasonal presence in the river.",
-            "detail": "This is the part of the season when in-river presence is usually strongest. The read describes the river as a whole; it does not place fish in a specific pool or confirm a live count.",
-            "tip": "Plan for the strongest seasonal presence this river usually offers, while remembering that this estimate cannot confirm fish at a specific spot or describe today's river conditions.",
+            "headline": "Chinook salmon seasonal presence is peak presence and near its seasonal high.",
+            "detail": "Calendar timing places Chinook salmon presence at its expected seasonal peak, near its expected seasonal high. For the PM, expected run strength is Strong, and the opportunity can extend across broadly accessible water. This is not a live fish count or today’s conditions.",
+            "tip": "Use Migration Stage to choose a section. Use Push and Activity for current movement support and responsiveness.",
             "reasonCodes": [
               "stage_peak",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "gauge": {
             "provider": "USGS",
@@ -10260,6 +10445,7 @@ const GROUP_SEEDS = [
           "nextConditionRefreshAt": "2026-09-20T22:00:00.000Z",
           "runStage": {
             "stage": "peak",
+            "copyStrategy": "pere_marquette",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -10282,14 +10468,14 @@ const GROUP_SEEDS = [
               "peakToEndDays": 37
             },
             "label": "Peak",
-            "headline": "This is typically the strongest and most dependable river opportunity of the Chinook salmon season.",
-            "detail": "Multiple waves have had time to spread, so Chinook salmon are likely distributed throughout the accessible river—from lower travel water through upstream holding and spawning reaches, except above dams or other barriers.",
-            "tip": "Choose an accessible river section and fish every substantial hole from its head through the inside seam and tail. Move section by section through deep bends and resting pockets, and leave fish on shallow spawning gravel alone.",
-            "whereToStart": "Compare the lower river near Scottville, middle river through Walhalla and Branch, and upper river toward Baldwin and M-37, prioritizing substantial holding water connected to productive current.",
+            "headline": "This is typically the PM’s strongest Chinook salmon migration window.",
+            "detail": "Seasonal timing supports the widest dependable Chinook salmon distribution. It does not confirm fish in every section.",
+            "tip": "Start in the Middle river. Compare the Upper river only after a complete first pass.",
+            "whereToStart": "Start in the Middle river (Scottville–Maple Leaf). Compare the Upper river (Maple Leaf–M-37) when direct fish activity favors it.",
             "reasonCodes": [
               "stage_peak"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "conditionsSuggest": {
             "label": "Ahead",
@@ -10414,16 +10600,16 @@ const GROUP_SEEDS = [
               "2026-09-13": "16:00",
               "2026-09-14": "16:00"
             },
-            "headline": "The migration appears to be developing earlier than usual.",
-            "detail": "The river has risen and cooled faster than it normally does by this point in the season.",
-            "tip": "Start one accessible river section farther upstream than you normally would for this date and prioritize established holding water. If Push is Possible or stronger, finish with lower travel lanes.",
+            "headline": "The PM migration is developing earlier than usual.",
+            "detail": "Season-to-date Scottville river-rise activity and M-37 cooling are stronger than the usual PM pattern.",
+            "tip": "Start one PM section upstream from Migration Stage, capped at the Upper river (Maple Leaf–M-37).",
             "reasonCodes": [
               "gauge_fresh",
               "temperature_measured",
               "conditions_checkpoint_peak_start",
               "conditions_ahead"
             ],
-            "copyVersion": "river-run-copy-v27",
+            "copyVersion": "river-run-copy-v29",
             "previousCheckpointId": "building_established",
             "previousCheckpointDate": "2026-09-01",
             "previousTimingLabel": "Ahead"
@@ -10490,9 +10676,9 @@ const GROUP_SEEDS = [
             "score": 21,
             "maximum": 100,
             "label": "Reserved",
-            "headline": "Today’s Chinook activity outlook is reserved.",
-            "detail": "Fish may respond selectively, with important environmental limitations. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Water temperature limits responsiveness. Broad seasonal presence improves the chance of locating fish, but this score measures responsiveness rather than abundance. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
-            "tip": "Start with 5–9 AM. If the sky changes from the forecast, favor the darkest practical window.",
+            "headline": "Today’s PM Chinook responsiveness is reserved if fish are present.",
+            "detail": "Chinook may respond selectively under the current limitations. 5–9 AM and 9 AM–1 PM are the leading windows, but neither has a clear advantage. Full confidence uses current Scottville flow, measured PM temperature, and hourly weather.",
+            "tip": "Fish one short test in 5–9 AM or 9 AM–1 PM. Leave if direct response does not support the outlook.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -10546,10 +10732,13 @@ const GROUP_SEEDS = [
                 "cloudCoverPct": 0,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v29"
           },
           "fishInRiver": {
             "score": 100,
+            "displayScore": 100,
+            "scoreIsApproximate": false,
             "stage": "peak",
             "maximum": 100,
             "riverCeiling": 100,
@@ -10558,14 +10747,14 @@ const GROUP_SEEDS = [
             "curveDirection": "near_peak",
             "winterHoldingContext": false,
             "label": "Peak presence",
-            "headline": "Chinook salmon are likely near their highest seasonal presence in the river.",
-            "detail": "This is the part of the season when in-river presence is usually strongest. The read describes the river as a whole; it does not place fish in a specific pool or confirm a live count.",
-            "tip": "Plan for the strongest seasonal presence this river usually offers, while remembering that this estimate cannot confirm fish at a specific spot or describe today's river conditions.",
+            "headline": "Chinook salmon seasonal presence is peak presence and near its seasonal high.",
+            "detail": "Calendar timing places Chinook salmon presence at its expected seasonal peak, near its expected seasonal high. For the PM, expected run strength is Strong, and the opportunity can extend across broadly accessible water. This is not a live fish count or today’s conditions.",
+            "tip": "Use Migration Stage to choose a section. Use Push and Activity for current movement support and responsiveness.",
             "reasonCodes": [
               "stage_peak",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "gauge": {
             "provider": "USGS",
@@ -10621,6 +10810,7 @@ const GROUP_SEEDS = [
           "nextConditionRefreshAt": "2026-10-01T22:00:00.000Z",
           "runStage": {
             "stage": "tapering",
+            "copyStrategy": "pere_marquette",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -10643,14 +10833,14 @@ const GROUP_SEEDS = [
               "peakToEndDays": 37
             },
             "label": "Tapering",
-            "headline": "This can remain a productive part of the Chinook salmon season, even as fresh arrivals typically become less consistent.",
-            "detail": "Good numbers of Chinook salmon may still be spread through the river. At this point in the seasonal pattern, the balance often shifts from new arrivals toward fish already holding or spawning.",
-            "tip": "Begin with established middle- and upper-river holding water, especially deep holes and slower edges. If Push is Possible or stronger, finish with lower travel lanes for a fresh late wave.",
-            "whereToStart": "Established middle- and upper-river holding water from Walhalla and Branch toward Baldwin/M-37; add Scottville-area lower-river travel lanes only on a credible fresh-movement signal.",
+            "headline": "The main PM Chinook salmon migration is tapering.",
+            "detail": "Seasonal presence is declining. Established Middle river holding water is more dependable than broad travel-water searches.",
+            "tip": "Start in established Middle river water. Shift lower only when Push supports fresh movement.",
+            "whereToStart": "Start in the Middle river (Scottville–Maple Leaf). Add the Lower river (Pere Marquette Lake–Scottville) only when Push supports fresh movement.",
             "reasonCodes": [
               "stage_tapering"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "conditionsSuggest": {
             "label": "Timing complete",
@@ -10806,7 +10996,7 @@ const GROUP_SEEDS = [
               "conditions_ahead",
               "conditions_timing_complete"
             ],
-            "copyVersion": "river-run-copy-v27",
+            "copyVersion": "river-run-copy-v29",
             "previousCheckpointId": "peak_start",
             "previousCheckpointDate": "2026-09-15",
             "previousTimingLabel": "Ahead"
@@ -10873,9 +11063,9 @@ const GROUP_SEEDS = [
             "score": 79,
             "maximum": 100,
             "label": "Active",
-            "headline": "Today’s Chinook activity outlook is active.",
-            "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. This score represents a Chinook of unknown condition at this point in the season. A newly arrived or fresher fish may be more active than this score, while a spawning or deteriorating fish may be less responsive. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
-            "tip": "Compare the four time windows, but treat every difference as conditional on finding a living Chinook still capable of responding.",
+            "headline": "Today’s PM Chinook responsiveness is active if fish are present.",
+            "detail": "Conditions support a meaningful Chinook response if fish are present. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Late-run Chinook condition varies widely, so individual fish may respond above or below this outlook.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light and access. Neither has a dependable advantage.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -10928,10 +11118,13 @@ const GROUP_SEEDS = [
                 "cloudCoverPct": 95,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v29"
           },
           "fishInRiver": {
             "score": 92,
+            "displayScore": 90,
+            "scoreIsApproximate": true,
             "stage": "tapering",
             "maximum": 100,
             "riverCeiling": 100,
@@ -10940,14 +11133,14 @@ const GROUP_SEEDS = [
             "curveDirection": "falling",
             "winterHoldingContext": false,
             "label": "Peak presence",
-            "headline": "Seasonal timing still supports Chinook salmon being near their strongest in-river presence, even if the migration may be just beyond its usual peak.",
-            "detail": "This point in the season may sit just beyond the usual peak while the seasonal pattern still supports strong in-river presence. This is a seasonal estimate, not a live fish count.",
-            "tip": "Plan around fish already likely to be in the river. Seasonal presence is still near its high point, but remember that this seasonal estimate cannot tell whether a fresh wave is entering today.",
+            "headline": "Chinook salmon seasonal presence is peak presence and declining.",
+            "detail": "Calendar timing places Chinook salmon presence at its expected seasonal peak, declining as the fall migration advances. For the PM, expected run strength is Strong, and the opportunity can extend across broadly accessible water. This is not a live fish count or today’s conditions.",
+            "tip": "Use Migration Stage to choose a section. Use Push and Activity for current movement support and responsiveness.",
             "reasonCodes": [
               "stage_tapering",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "gauge": {
             "provider": "USGS",
@@ -10996,6 +11189,7 @@ const GROUP_SEEDS = [
           "nextConditionRefreshAt": "2026-10-19T22:00:00.000Z",
           "runStage": {
             "stage": "ending",
+            "copyStrategy": "pere_marquette",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -11018,14 +11212,14 @@ const GROUP_SEEDS = [
               "peakToEndDays": 37
             },
             "label": "Ending",
-            "headline": "Chinook salmon can still provide a worthwhile late-season river opportunity.",
-            "detail": "Fish can still be present, but many have been in the system for a while and fresh arrivals tend to be less dependable.",
-            "tip": "Skip fast travel lanes. Work the deepest established holes and slow current edges, and leave actively spawning fish and shallow gravel alone.",
-            "whereToStart": "The deepest middle- and upper-river holes and slower current edges from Walhalla through Branch toward Baldwin/M-37—not fast lower-river travel lanes.",
+            "headline": "The PM Chinook salmon migration is nearing its seasonal end.",
+            "detail": "Remaining fish are expected to be less evenly distributed. Fresh entry is no longer dependable.",
+            "tip": "Start in proven Middle river holding water. Add one Upper river check only after direct fish activity supports it.",
+            "whereToStart": "Start in the Middle river (Scottville–Maple Leaf). Add the Upper river (Maple Leaf–M-37) only for established late holding water.",
             "reasonCodes": [
               "stage_ending"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "conditionsSuggest": {
             "label": "Timing complete",
@@ -11181,7 +11375,7 @@ const GROUP_SEEDS = [
               "conditions_ahead",
               "conditions_timing_complete"
             ],
-            "copyVersion": "river-run-copy-v27",
+            "copyVersion": "river-run-copy-v29",
             "previousCheckpointId": "peak_start",
             "previousCheckpointDate": "2026-09-15",
             "previousTimingLabel": "Ahead"
@@ -11248,9 +11442,9 @@ const GROUP_SEEDS = [
             "score": 62,
             "maximum": 100,
             "label": "Active",
-            "headline": "Today’s Chinook activity outlook is active.",
-            "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. This score represents a remaining Chinook of unknown condition late in the season. A newly arrived or fresher fish may be more active than this score, while a spent or dying fish may respond less or not at all. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
-            "tip": "No late-season window should be treated as broadly favorable; use the block scores only for a living Chinook that is still capable of reacting.",
+            "headline": "Today’s PM Chinook responsiveness is active if fish are present.",
+            "detail": "Conditions support a meaningful Chinook response if fish are present. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Late-run Chinook condition varies widely, so individual fish may respond above or below this outlook.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light and access. Neither has a dependable advantage.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -11303,10 +11497,13 @@ const GROUP_SEEDS = [
                 "cloudCoverPct": 95,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v29"
           },
           "fishInRiver": {
             "score": 42,
+            "displayScore": 45,
+            "scoreIsApproximate": true,
             "stage": "ending",
             "maximum": 100,
             "riverCeiling": 100,
@@ -11315,14 +11512,14 @@ const GROUP_SEEDS = [
             "curveDirection": "falling",
             "winterHoldingContext": false,
             "label": "Moderate presence",
-            "headline": "Seasonal timing still supports meaningful Chinook salmon presence, especially in established holding water.",
-            "detail": "This part of the season usually supports moderate presence, while fresh arrivals often become less consistent later in the season. This is a seasonal estimate, not a live fish count.",
-            "tip": "Plan for a worthwhile but less consistent river opportunity. Expect more searching than near the seasonal high, and let direct fish activity determine how long you stay.",
+            "headline": "Chinook salmon seasonal presence is moderate presence and declining.",
+            "detail": "Calendar timing places Chinook salmon presence at moderate presence, declining as the fall migration advances. For the PM, expected run strength is Strong, and the opportunity can extend across broadly accessible water. This is not a live fish count or today’s conditions.",
+            "tip": "Use Migration Stage to choose a section. Use Push and Activity for current movement support and responsiveness.",
             "reasonCodes": [
               "stage_ending",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "gauge": {
             "provider": "USGS",
@@ -11371,6 +11568,7 @@ const GROUP_SEEDS = [
           "nextConditionRefreshAt": "2026-10-28T22:00:00.000Z",
           "runStage": {
             "stage": "post_run",
+            "copyStrategy": "pere_marquette",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -11393,14 +11591,14 @@ const GROUP_SEEDS = [
               "peakToEndDays": 37
             },
             "label": "After migration",
-            "headline": "The main Chinook salmon migration is over.",
-            "detail": "A few fish may remain, but the season no longer supports a dependable river-wide opportunity.",
-            "tip": "Do not chase scattered holdovers from access to access. Shift to another seasonal species and leave any actively spawning fish undisturbed.",
-            "whereToStart": "No dependable starting reach; any remaining fish are likely isolated in deep middle- or upper-river holding water from Walhalla and Branch toward Baldwin/M-37.",
+            "headline": "The main PM Chinook salmon migration is over, though isolated late fish may remain.",
+            "detail": "Seasonal timing no longer supports a broad river search. Any remaining Chinook salmon are exceptions.",
+            "tip": "Do not chase isolated reports across sections. Leave actively spawning fish undisturbed.",
+            "whereToStart": "There is no dependable PM starting section. If direct evidence supports a late check, use proven Middle river (Scottville–Maple Leaf) holding water.",
             "reasonCodes": [
               "stage_post_run"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "conditionsSuggest": {
             "label": "Timing complete",
@@ -11556,7 +11754,7 @@ const GROUP_SEEDS = [
               "conditions_ahead",
               "conditions_timing_complete"
             ],
-            "copyVersion": "river-run-copy-v27",
+            "copyVersion": "river-run-copy-v29",
             "previousCheckpointId": "peak_start",
             "previousCheckpointDate": "2026-09-15",
             "previousTimingLabel": "Ahead"
@@ -11571,7 +11769,7 @@ const GROUP_SEEDS = [
               "push_tracking_complete"
             ],
             "rulesVersion": "pm-fall-chinook-push-v5",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "pushHistory": {
             "status": "complete",
@@ -11635,9 +11833,9 @@ const GROUP_SEEDS = [
             "score": 38,
             "maximum": 100,
             "label": "Reserved",
-            "headline": "Today’s Chinook activity outlook is reserved.",
-            "detail": "Fish may respond selectively, with important environmental limitations. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. This score represents a remaining Chinook of unknown condition late in the season. A newly arrived or fresher fish may be more active than this score, while a spent or dying fish may respond less or not at all. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
-            "tip": "No late-season window should be treated as broadly favorable; use the block scores only for a living Chinook that is still capable of reacting.",
+            "headline": "Today’s PM Chinook responsiveness is reserved if fish are present.",
+            "detail": "Chinook may respond selectively under the current limitations. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Late-run Chinook condition varies widely, so individual fish may respond above or below this outlook.",
+            "tip": "Fish one short test in 5–9 AM or 5–9 PM. Leave if direct response does not support the outlook.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -11690,10 +11888,13 @@ const GROUP_SEEDS = [
                 "cloudCoverPct": 95,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v29"
           },
           "fishInRiver": {
             "score": 20,
+            "displayScore": 20,
+            "scoreIsApproximate": true,
             "stage": "post_run",
             "maximum": 100,
             "riverCeiling": 100,
@@ -11702,14 +11903,14 @@ const GROUP_SEEDS = [
             "curveDirection": "falling",
             "winterHoldingContext": false,
             "label": "Low presence",
-            "headline": "Some Chinook salmon may still be in the river, with seasonal presence more likely to be scattered.",
-            "detail": "This part of the season usually supports low presence, while fresh arrivals often become less consistent later in the season. This is a seasonal estimate, not a live fish count.",
-            "tip": "Treat any remaining fish as a bonus rather than a dependable trip plan. Keep expectations narrow and be ready to shift to another seasonal species.",
+            "headline": "Chinook salmon seasonal presence is low presence and declining.",
+            "detail": "Calendar timing places Chinook salmon presence at low presence, declining as the fall migration advances. For the PM, expected run strength is Strong, and the opportunity can extend across broadly accessible water. This is not a live fish count or today’s conditions.",
+            "tip": "Use Migration Stage to choose a section. Use Push and Activity for current movement support and responsiveness.",
             "reasonCodes": [
               "stage_post_run",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "gauge": {
             "provider": "USGS",
@@ -11763,9 +11964,9 @@ const GROUP_SEEDS = [
             "score": 63,
             "maximum": 100,
             "label": "Active",
-            "headline": "Tomorrow’s Chinook activity outlook is active.",
-            "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. More Chinook are moving and settling into the river; the score describes reaction conditions for fish already present. One important reading is unavailable or comes from tomorrow’s forecast, so the outlook is kept conservative.",
-            "tip": "Start with 5–9 AM. If the sky changes from the forecast, favor the darkest practical window.",
+            "headline": "Tomorrow’s PM Chinook responsiveness is active if fish are present.",
+            "detail": "Conditions support a meaningful Chinook response if fish are present. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Confidence is Moderate because one key input is missing or this is tomorrow’s outlook.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light and access. Neither has a dependable advantage.",
             "reasonCodes": [
               "activity_confidence_moderate",
               "activity_tomorrow",
@@ -11817,7 +12018,8 @@ const GROUP_SEEDS = [
                 "cloudCoverPct": 85,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v29"
           }
         }
       },
@@ -11830,9 +12032,9 @@ const GROUP_SEEDS = [
             "score": 53,
             "maximum": 100,
             "label": "Moderate",
-            "headline": "Today’s Chinook activity outlook is moderate.",
-            "detail": "Some useful factors are present, but the response window is mixed. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Measured water temperature is unavailable. More Chinook are moving and settling into the river; the score describes reaction conditions for fish already present. One important reading is unavailable or comes from tomorrow’s forecast, so the outlook is kept conservative.",
-            "tip": "Start with 5–9 AM. If the sky changes from the forecast, favor the darkest practical window.",
+            "headline": "Today’s PM Chinook responsiveness is moderate if fish are present.",
+            "detail": "Conditions offer mixed support for Chinook responsiveness. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Confidence is Moderate because one key input is missing or this is tomorrow’s outlook.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light and access. Neither has a dependable advantage.",
             "reasonCodes": [
               "activity_confidence_moderate",
               "activity_today",
@@ -11884,7 +12086,8 @@ const GROUP_SEEDS = [
                 "cloudCoverPct": 80,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v29"
           }
         }
       },
@@ -11897,9 +12100,9 @@ const GROUP_SEEDS = [
             "score": 50,
             "maximum": 100,
             "label": "Moderate",
-            "headline": "Today’s Chinook activity outlook is moderate.",
-            "detail": "Some useful factors are present, but the response window is mixed. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Measured water temperature is unavailable. More Chinook are moving and settling into the river; the score describes reaction conditions for fish already present. Several important readings are unavailable, so treat this as a limited outlook.",
-            "tip": "Start with 5–9 AM. If the sky changes from the forecast, favor the darkest practical window.",
+            "headline": "Today’s PM Chinook responsiveness is moderate if fish are present.",
+            "detail": "Conditions offer mixed support for Chinook responsiveness. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Confidence is Limited because several key inputs are unavailable.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light and access. Neither has a dependable advantage.",
             "reasonCodes": [
               "activity_confidence_limited",
               "activity_today",
@@ -11951,7 +12154,8 @@ const GROUP_SEEDS = [
                 "cloudCoverPct": 80,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v29"
           }
         }
       },
@@ -11964,9 +12168,9 @@ const GROUP_SEEDS = [
             "score": 66,
             "maximum": 100,
             "label": "Active",
-            "headline": "Today’s Chinook activity outlook is active.",
-            "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 AM: The measured water temperature is favorable for Chinook. The main limitation: Hourly light and weather data are unavailable. More Chinook are moving and settling into the river; the score describes reaction conditions for fish already present. Several important readings are unavailable, so treat this as a limited outlook.",
-            "tip": "Start with 5–9 AM. If the sky changes from the forecast, favor the darkest practical window.",
+            "headline": "Today’s PM Chinook responsiveness is active if fish are present.",
+            "detail": "Conditions support a meaningful Chinook response if fish are present. Hourly light and weather data are unavailable, so no time block can be separated. Confidence is Limited because several key inputs are unavailable.",
+            "tip": "Choose the block that best fits current access. Hourly conditions cannot separate the windows.",
             "reasonCodes": [
               "activity_confidence_limited",
               "activity_today",
@@ -12018,7 +12222,8 @@ const GROUP_SEEDS = [
                 "cloudCoverPct": null,
                 "precipitationIn": null
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v29"
           }
         }
       },
@@ -12031,9 +12236,9 @@ const GROUP_SEEDS = [
             "score": 3,
             "maximum": 100,
             "label": "Inactive",
-            "headline": "Today’s Chinook activity outlook is inactive.",
-            "detail": "Conditions provide little environmental support for an aggressive response. The strongest window is 5–9 AM: The river level and its recent change are favorable. The main limitation: Water temperature limits responsiveness. More Chinook are moving and settling into the river; the score describes reaction conditions for fish already present. Several important readings are unavailable, so treat this as a limited outlook.",
-            "tip": "Start with 5–9 AM. If the sky changes from the forecast, favor the darkest practical window.",
+            "headline": "Today’s PM Chinook responsiveness is inactive if fish are present.",
+            "detail": "No time block broadly supports an aggressive Chinook response. Hourly light and weather data are unavailable, so no time block can be separated. Confidence is Limited because several key inputs are unavailable.",
+            "tip": "Treat every block as unfavorable. Keep presentations conservative and continue only if direct fish response supports it.",
             "reasonCodes": [
               "activity_confidence_limited",
               "activity_today",
@@ -12087,7 +12292,8 @@ const GROUP_SEEDS = [
                 "cloudCoverPct": null,
                 "precipitationIn": null
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v29"
           }
         }
       }
@@ -12098,7 +12304,7 @@ const GROUP_SEEDS = [
     "label": "Fish In River",
     "scenarios": [
       {
-        "id": "fish_in_river_post_run_offseason",
+        "id": "fish_in_river_post_run_fall_run_complete",
         "label": "0 / 100 · Outside",
         "note": "Canonical production copy",
         "snapshotOverride": {
@@ -12109,6 +12315,7 @@ const GROUP_SEEDS = [
           "nextConditionRefreshAt": "2026-06-30T22:00:00.000Z",
           "runStage": {
             "stage": "post_run",
+            "copyStrategy": "pere_marquette",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -12130,16 +12337,16 @@ const GROUP_SEEDS = [
               "startToPeakDays": 36,
               "peakToEndDays": 37
             },
-            "label": "Offseason",
-            "headline": "Chinook salmon are outside their river migration season.",
-            "detail": "A dependable seasonal presence of Chinook salmon is not expected in the river right now.",
-            "tip": "Do not build a river trip around this species right now. Target a species with an active seasonal window and return to this read as the next migration approaches.",
-            "whereToStart": "No dependable Pere Marquette River location for this species right now.",
+            "label": "Fall run complete",
+            "headline": "The PM Chinook salmon fall run is complete.",
+            "detail": "Chinook salmon staging typically begins in late July.",
+            "tip": "Check back in late July when this fall-run model resumes.",
+            "whereToStart": "There is no dependable PM river starting section right now.",
             "reasonCodes": [
               "stage_post_run",
               "stage_offseason"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "conditionsSuggest": {
             "label": "Not monitoring yet",
@@ -12158,25 +12365,25 @@ const GROUP_SEEDS = [
             "historicalYears": 0,
             "sourceDates": [],
             "sourceRefreshSlots": {},
-            "headline": "Migration Timing is not active right now.",
-            "detail": "Timing monitoring begins before the expected river entry, but that seasonal observation window is not active yet.",
-            "tip": "Check Migration Stage for the current seasonal position and return to Migration Timing when early monitoring begins.",
+            "headline": "PM Migration Timing is not monitoring yet.",
+            "detail": "Season-to-date Scottville flow and M-37 temperature monitoring resumes in late July.",
+            "tip": "Check back in late July when PM timing monitoring resumes.",
             "reasonCodes": [
               "conditions_monitoring_inactive"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "push": {
             "score": null,
             "label": "Offseason",
-            "headline": "Push is not active outside the river migration season.",
-            "detail": "Rain, river level, and water temperature can still change, but they do not provide a useful fresh-arrival signal for this species right now.",
-            "tip": "Do not use Push to plan for this species outside its migration season. Follow an active species instead, or return when early monitoring begins.",
+            "headline": "PM Push is outside its fall movement window.",
+            "detail": "Current rain, Scottville flow, and water temperature do not provide an in-season fresh-movement signal for this run.",
+            "tip": "Check back in late July when fall movement monitoring resumes.",
             "reasonCodes": [
               "push_tracking_offseason"
             ],
             "rulesVersion": "pm-fall-chinook-push-v5",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "pushHistory": {
             "status": "not_started",
@@ -12189,6 +12396,8 @@ const GROUP_SEEDS = [
           },
           "fishInRiver": {
             "score": 0,
+            "displayScore": 0,
+            "scoreIsApproximate": false,
             "stage": "post_run",
             "maximum": 100,
             "riverCeiling": 100,
@@ -12196,15 +12405,15 @@ const GROUP_SEEDS = [
             "curveFraction": 0,
             "curveDirection": "outside",
             "winterHoldingContext": false,
-            "label": "Offseason",
-            "headline": "Chinook salmon are outside their river migration season.",
-            "detail": "A dependable seasonal presence of Chinook salmon is not expected in the river right now.",
-            "tip": "Do not build a river trip around this species right now. Target a species with an active seasonal window and return as the next migration approaches.",
+            "label": "Fall run complete",
+            "headline": "The PM Chinook salmon fall run is complete.",
+            "detail": "Chinook salmon staging typically begins in late July. This seasonal estimate is inactive until then.",
+            "tip": "Check back in late July when the PM fall-run model resumes.",
             "reasonCodes": [
               "stage_post_run",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "gauge": {
             "provider": "USGS",
@@ -12260,6 +12469,7 @@ const GROUP_SEEDS = [
           "nextConditionRefreshAt": "2026-07-01T22:00:00.000Z",
           "runStage": {
             "stage": "pre_run",
+            "copyStrategy": "pere_marquette",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -12282,14 +12492,14 @@ const GROUP_SEEDS = [
               "peakToEndDays": 37
             },
             "label": "Before migration",
-            "headline": "Chinook salmon have not started entering the river yet.",
-            "detail": "Most Chinook salmon are still expected to be in the lake, so meaningful numbers in the river is unlikely right now.",
-            "tip": "Keep the trip in the lake, harbor, and river-mouth zone. Do not spend the day searching inland river water before the seasonal migration begins.",
-            "whereToStart": "Lake Michigan off Ludington, Ludington harbor, and Pere Marquette Lake—not the inland river yet.",
+            "headline": "The PM Chinook salmon fall run has not started.",
+            "detail": "Seasonal timing does not support dependable Chinook salmon presence in the PM river yet.",
+            "tip": "Keep effort in the lake, harbor, and Pere Marquette Lake until staging begins.",
+            "whereToStart": "Stay in Lake Michigan, Ludington harbor, and Pere Marquette Lake. The PM river is not a dependable starting section yet.",
             "reasonCodes": [
               "stage_pre_run"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "conditionsSuggest": {
             "label": "Not monitoring yet",
@@ -12308,25 +12518,25 @@ const GROUP_SEEDS = [
             "historicalYears": 0,
             "sourceDates": [],
             "sourceRefreshSlots": {},
-            "headline": "Migration Timing is not active right now.",
-            "detail": "Timing monitoring begins before the expected river entry, but that seasonal observation window is not active yet.",
-            "tip": "Check Migration Stage for the current seasonal position and return to Migration Timing when early monitoring begins.",
+            "headline": "PM Migration Timing is not monitoring yet.",
+            "detail": "Season-to-date Scottville flow and M-37 temperature monitoring resumes in late July.",
+            "tip": "Check back in late July when PM timing monitoring resumes.",
             "reasonCodes": [
               "conditions_monitoring_inactive"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "push": {
             "score": null,
             "label": "Waiting for migration",
-            "headline": "Fish have not started entering the river, so there is no Push read yet.",
-            "detail": "Push is meant to spot water conditions that may help fish enter or move during the active migration. Before that, most opportunity should remain in the lake, harbor, or river-mouth transition.",
-            "tip": "Keep the trip in the lake, harbor, and river-mouth zone. Do not move inland just because rain or cooling resembles an in-season movement event.",
+            "headline": "Dependable PM river entry has not started.",
+            "detail": "Rain, Scottville flow, and water temperature are not scored as an in-season movement signal yet.",
+            "tip": "Use Migration Stage. Do not move inland because offseason water resembles an in-season Push.",
             "reasonCodes": [
               "push_tracking_not_started"
             ],
             "rulesVersion": "pm-fall-chinook-push-v5",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "pushHistory": {
             "status": "not_started",
@@ -12339,6 +12549,8 @@ const GROUP_SEEDS = [
           },
           "fishInRiver": {
             "score": 0,
+            "displayScore": 0,
+            "scoreIsApproximate": false,
             "stage": "pre_run",
             "maximum": 100,
             "riverCeiling": 100,
@@ -12347,14 +12559,14 @@ const GROUP_SEEDS = [
             "curveDirection": "outside",
             "winterHoldingContext": false,
             "label": "Not expected yet",
-            "headline": "Chinook salmon are not expected in meaningful numbers yet.",
-            "detail": "Most Chinook salmon are not expected to have entered the river in dependable numbers. Any fish already present would be early exceptions.",
-            "tip": "Treat this as no dependable in-river opportunity yet. Keep expectations at zero, and do not interpret an isolated early fish as evidence of dependable river presence.",
+            "headline": "Dependable Chinook salmon presence is not expected in the PM river yet.",
+            "detail": "The seasonal estimate remains at zero. Any fish already in the river would be an early exception.",
+            "tip": "Use Migration Stage for nearby staging context. Do not treat one early fish as a dependable river opportunity.",
             "reasonCodes": [
               "stage_pre_run",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "gauge": {
             "provider": "USGS",
@@ -12410,6 +12622,7 @@ const GROUP_SEEDS = [
           "nextConditionRefreshAt": "2026-08-15T22:00:00.000Z",
           "runStage": {
             "stage": "beginning",
+            "copyStrategy": "pere_marquette",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -12432,14 +12645,14 @@ const GROUP_SEEDS = [
               "peakToEndDays": 37
             },
             "label": "Beginning",
-            "headline": "The first Chinook salmon are beginning to enter the river.",
-            "detail": "Fresh Chinook salmon may be entering the river, but numbers can still be scattered and inconsistent this early.",
-            "tip": "Begin in the lower river. Fish the first deep bends and short resting pockets off the main travel lane, then move upstream only after the lower section has been covered.",
-            "whereToStart": "Lower migratory river from Pere Marquette Lake toward Scottville: first deep bends, resting pockets, and current breaks beside the main travel lane.",
+            "headline": "Seasonal timing supports the first Chinook salmon entering the Lower river.",
+            "detail": "This is the opening river phase. Presence is expected to be scattered and uneven.",
+            "tip": "Cover the Lower river first. Move upstream only after direct fish activity supports it.",
+            "whereToStart": "Start in the Lower river (Pere Marquette Lake–Scottville).",
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "conditionsSuggest": {
             "label": "Typical",
@@ -12502,16 +12715,16 @@ const GROUP_SEEDS = [
               "2026-08-13": "16:00",
               "2026-08-14": "16:00"
             },
-            "headline": "The migration appears to be progressing at a normal seasonal pace.",
-            "detail": "River rises and cooling are close to what is usually seen by this point in the season.",
-            "tip": "Fish the core river section identified by Migration Stage. Begin where a travel lane feeds established holding water, then adjust presentation—not seasonal location—using Fishability.",
+            "headline": "The PM migration is progressing at its usual seasonal pace.",
+            "detail": "Season-to-date Scottville river-rise activity and M-37 cooling are close to the usual PM pattern.",
+            "tip": "Keep the PM section named by Migration Stage.",
             "reasonCodes": [
               "gauge_fresh",
               "temperature_measured",
               "conditions_checkpoint_river_start",
               "conditions_typical"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -12524,6 +12737,8 @@ const GROUP_SEEDS = [
           },
           "fishInRiver": {
             "score": 10,
+            "displayScore": 10,
+            "scoreIsApproximate": true,
             "stage": "beginning",
             "maximum": 100,
             "riverCeiling": 100,
@@ -12532,14 +12747,14 @@ const GROUP_SEEDS = [
             "curveDirection": "rising",
             "winterHoldingContext": false,
             "label": "Low presence",
-            "headline": "A small number of Chinook salmon may be in the river, and seasonal presence is still building.",
-            "detail": "This part of the season usually brings low presence, with more fish expected to enter and spread through the river. This is a seasonal estimate, not a live fish count.",
-            "tip": "Treat this as an early, low-odds river opportunity. Expect scattered results, and use direct fish activity before committing the full day.",
+            "headline": "Chinook salmon seasonal presence is low presence and building.",
+            "detail": "Calendar timing places Chinook salmon presence at low presence, increasing as the fall migration builds. For the PM, expected run strength is Strong, and the opportunity can extend across broadly accessible water. This is not a live fish count or today’s conditions.",
+            "tip": "Use Migration Stage to choose a section. Use Push and Activity for current movement support and responsiveness.",
             "reasonCodes": [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "gauge": {
             "provider": "USGS",
@@ -12595,6 +12810,7 @@ const GROUP_SEEDS = [
           "nextConditionRefreshAt": "2026-08-20T22:00:00.000Z",
           "runStage": {
             "stage": "beginning",
+            "copyStrategy": "pere_marquette",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -12617,14 +12833,14 @@ const GROUP_SEEDS = [
               "peakToEndDays": 37
             },
             "label": "Beginning",
-            "headline": "The first Chinook salmon are beginning to enter the river.",
-            "detail": "Fresh Chinook salmon may be entering the river, but numbers can still be scattered and inconsistent this early.",
-            "tip": "Begin in the lower river. Fish the first deep bends and short resting pockets off the main travel lane, then move upstream only after the lower section has been covered.",
-            "whereToStart": "Lower migratory river from Pere Marquette Lake toward Scottville: first deep bends, resting pockets, and current breaks beside the main travel lane.",
+            "headline": "Seasonal timing supports the first Chinook salmon entering the Lower river.",
+            "detail": "This is the opening river phase. Presence is expected to be scattered and uneven.",
+            "tip": "Cover the Lower river first. Move upstream only after direct fish activity supports it.",
+            "whereToStart": "Start in the Lower river (Pere Marquette Lake–Scottville).",
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "conditionsSuggest": {
             "label": "Typical",
@@ -12687,16 +12903,16 @@ const GROUP_SEEDS = [
               "2026-08-13": "16:00",
               "2026-08-14": "16:00"
             },
-            "headline": "The migration appears to be progressing at a normal seasonal pace.",
-            "detail": "River rises and cooling are close to what is usually seen by this point in the season.",
-            "tip": "Fish the core river section identified by Migration Stage. Begin where a travel lane feeds established holding water, then adjust presentation—not seasonal location—using Fishability.",
+            "headline": "The PM migration is progressing at its usual seasonal pace.",
+            "detail": "Season-to-date Scottville river-rise activity and M-37 cooling are close to the usual PM pattern.",
+            "tip": "Keep the PM section named by Migration Stage.",
             "reasonCodes": [
               "gauge_fresh",
               "temperature_measured",
               "conditions_checkpoint_river_start",
               "conditions_typical"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -12744,6 +12960,8 @@ const GROUP_SEEDS = [
           },
           "fishInRiver": {
             "score": 21,
+            "displayScore": 25,
+            "scoreIsApproximate": true,
             "stage": "beginning",
             "maximum": 100,
             "riverCeiling": 100,
@@ -12752,14 +12970,14 @@ const GROUP_SEEDS = [
             "curveDirection": "rising",
             "winterHoldingContext": false,
             "label": "Limited presence",
-            "headline": "Some Chinook salmon are likely in the river, but seasonal presence is still developing.",
-            "detail": "This part of the season usually brings limited presence, with more fish expected to enter and spread through the river. This is a seasonal estimate, not a live fish count.",
-            "tip": "Plan for an emerging but uneven river opportunity. Cover water efficiently, and do not assume every promising stop holds fish.",
+            "headline": "Chinook salmon seasonal presence is limited presence and building.",
+            "detail": "Calendar timing places Chinook salmon presence at limited presence, increasing as the fall migration builds. For the PM, expected run strength is Strong, and the opportunity can extend across broadly accessible water. This is not a live fish count or today’s conditions.",
+            "tip": "Use Migration Stage to choose a section. Use Push and Activity for current movement support and responsiveness.",
             "reasonCodes": [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "gauge": {
             "provider": "USGS",
@@ -12815,6 +13033,7 @@ const GROUP_SEEDS = [
           "nextConditionRefreshAt": "2026-08-30T22:00:00.000Z",
           "runStage": {
             "stage": "building",
+            "copyStrategy": "pere_marquette",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -12837,14 +13056,14 @@ const GROUP_SEEDS = [
               "peakToEndDays": 37
             },
             "label": "Building",
-            "headline": "More Chinook salmon are beginning to move into the river.",
-            "detail": "More Chinook salmon are typically entering and beginning to spread upstream, although arrivals can still come in uneven waves.",
-            "tip": "Start where lower-river travel water enters the first dependable holding holes. Cover those holes from head to tail, then continue into the middle river instead of waiting in one lower-river spot.",
-            "whereToStart": "Lower migratory river around Scottville, then the first substantial holding holes entering the middle river toward Walhalla.",
+            "headline": "The PM Chinook salmon run is building beyond its earliest entry phase.",
+            "detail": "Seasonal timing keeps the Lower river primary. Earlier arrivals may begin reaching the Middle river.",
+            "tip": "Start low, then make one Middle river check if direct fish activity supports the move.",
+            "whereToStart": "Start in the Lower river (Pere Marquette Lake–Scottville). Add the Middle river (Scottville–Maple Leaf) after direct fish activity supports the move.",
             "reasonCodes": [
               "stage_building"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "conditionsSuggest": {
             "label": "Typical",
@@ -12925,16 +13144,16 @@ const GROUP_SEEDS = [
               "2026-08-22": "16:00",
               "2026-08-23": "16:00"
             },
-            "headline": "The migration appears to be progressing at a normal seasonal pace.",
-            "detail": "River rises and cooling are close to what is usually seen by this point in the season.",
-            "tip": "Fish the core river section identified by Migration Stage. Begin where a travel lane feeds established holding water, then adjust presentation—not seasonal location—using Fishability.",
+            "headline": "The PM migration is progressing at its usual seasonal pace.",
+            "detail": "Season-to-date Scottville river-rise activity and M-37 cooling are close to the usual PM pattern.",
+            "tip": "Keep the PM section named by Migration Stage.",
             "reasonCodes": [
               "gauge_fresh",
               "temperature_measured",
               "conditions_checkpoint_building_start",
               "conditions_typical"
             ],
-            "copyVersion": "river-run-copy-v27",
+            "copyVersion": "river-run-copy-v29",
             "previousCheckpointId": "river_start",
             "previousCheckpointDate": "2026-08-15",
             "previousTimingLabel": "Typical"
@@ -12999,6 +13218,8 @@ const GROUP_SEEDS = [
           },
           "fishInRiver": {
             "score": 40,
+            "displayScore": 45,
+            "scoreIsApproximate": true,
             "stage": "building",
             "maximum": 100,
             "riverCeiling": 100,
@@ -13007,14 +13228,14 @@ const GROUP_SEEDS = [
             "curveDirection": "rising",
             "winterHoldingContext": false,
             "label": "Moderate presence",
-            "headline": "A meaningful number of Chinook salmon are likely in the river, with seasonal presence still building.",
-            "detail": "This part of the season usually brings moderate presence, with more fish expected to enter and spread through the river. This is a seasonal estimate, not a live fish count.",
-            "tip": "Plan for a credible river opportunity that is still improving. Stay mobile until direct fish activity gives you a reason to slow down.",
+            "headline": "Chinook salmon seasonal presence is moderate presence and building.",
+            "detail": "Calendar timing places Chinook salmon presence at moderate presence, increasing as the fall migration builds. For the PM, expected run strength is Strong, and the opportunity can extend across broadly accessible water. This is not a live fish count or today’s conditions.",
+            "tip": "Use Migration Stage to choose a section. Use Push and Activity for current movement support and responsiveness.",
             "reasonCodes": [
               "stage_building",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "gauge": {
             "provider": "USGS",
@@ -13063,6 +13284,7 @@ const GROUP_SEEDS = [
           "nextConditionRefreshAt": "2026-09-08T22:00:00.000Z",
           "runStage": {
             "stage": "building",
+            "copyStrategy": "pere_marquette",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -13085,14 +13307,14 @@ const GROUP_SEEDS = [
               "peakToEndDays": 37
             },
             "label": "Building",
-            "headline": "Chinook salmon are becoming established through more of the river.",
-            "detail": "More Chinook salmon are settling into lower- and middle-river holding water, which should still contain the most dependable concentrations. Some earlier fish may already have reached upper holding water wherever passage is open, but the upper river should remain a secondary starting choice at this stage.",
-            "tip": "Begin in dependable lower- or middle-river holding water and cover its deep holes, outside bends, and current breaks. Move into upper sections after those primary areas have been checked or direct fish activity supports the move.",
-            "whereToStart": "Middle-river holding water from Scottville toward Walhalla first; earlier fish may already have reached Branch and the upper river toward Baldwin and M-37.",
+            "headline": "The PM Chinook salmon run is becoming established in the Middle river.",
+            "detail": "Seasonal timing now favors the Middle river. The Upper river remains a conditional secondary choice.",
+            "tip": "Begin in the Middle river. Add the Upper river only after direct fish activity supports it.",
+            "whereToStart": "Start in the Middle river (Scottville–Maple Leaf). Add the Upper river (Maple Leaf–M-37) only after direct fish activity supports it.",
             "reasonCodes": [
               "stage_building"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -13154,6 +13376,8 @@ const GROUP_SEEDS = [
           },
           "fishInRiver": {
             "score": 63,
+            "displayScore": 65,
+            "scoreIsApproximate": true,
             "stage": "building",
             "maximum": 100,
             "riverCeiling": 100,
@@ -13162,14 +13386,14 @@ const GROUP_SEEDS = [
             "curveDirection": "rising",
             "winterHoldingContext": false,
             "label": "High presence",
-            "headline": "Chinook salmon are likely spread through more of the river as seasonal presence builds toward its strongest point.",
-            "detail": "Seasonal presence is usually elevated relative to the rest of the season, with more fish expected to enter and spread through the river. This is a seasonal estimate, not a live fish count.",
-            "tip": "Treat this as one of the stronger parts of a strong river season. Give each stop a complete pass, but do not mistake this seasonal estimate for a live fish count.",
+            "headline": "Chinook salmon seasonal presence is high presence and building.",
+            "detail": "Calendar timing places Chinook salmon presence high for this fall migration, increasing as the fall migration builds. For the PM, expected run strength is Strong, and the opportunity can extend across broadly accessible water. This is not a live fish count or today’s conditions.",
+            "tip": "Use Migration Stage to choose a section. Use Push and Activity for current movement support and responsiveness.",
             "reasonCodes": [
               "stage_building",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "gauge": {
             "provider": "USGS",
@@ -13218,6 +13442,7 @@ const GROUP_SEEDS = [
           "nextConditionRefreshAt": "2026-09-14T22:00:00.000Z",
           "runStage": {
             "stage": "building",
+            "copyStrategy": "pere_marquette",
             "stagingContext": false,
             "broadBuildingContext": true,
             "winterHoldingContext": false,
@@ -13240,14 +13465,14 @@ const GROUP_SEEDS = [
               "peakToEndDays": 37
             },
             "label": "Building",
-            "headline": "Chinook salmon can now be found throughout the accessible river.",
-            "detail": "Earlier waves have had time to reach upper holding water while later Chinook salmon may still be entering below. Lower, middle, and upper sections are all in play wherever passage is open; the most dependable concentrations may still be in the lower and middle river, while upper water can now hold meaningful numbers too.",
-            "tip": "Start with dependable lower- or middle-river holding water, then cover established upper holes, outside bends, and current breaks. Use Push to decide whether fresh lower-river travel lanes deserve extra time.",
-            "whereToStart": "Middle-river holding water from Scottville through Walhalla and Branch, with the upper river toward Baldwin and M-37 firmly in play.",
+            "headline": "Seasonal timing supports a broader PM Chinook salmon distribution.",
+            "detail": "The Middle river is the dependable calendar choice. Earlier arrivals may also occupy the Upper river.",
+            "tip": "Cover one Middle river section completely before comparing the Upper river.",
+            "whereToStart": "Start in the Middle river (Scottville–Maple Leaf). Add the Upper river (Maple Leaf–M-37) when direct fish activity supports it.",
             "reasonCodes": [
               "stage_building"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -13309,6 +13534,8 @@ const GROUP_SEEDS = [
           },
           "fishInRiver": {
             "score": 81,
+            "displayScore": 80,
+            "scoreIsApproximate": true,
             "stage": "building",
             "maximum": 100,
             "riverCeiling": 100,
@@ -13317,14 +13544,14 @@ const GROUP_SEEDS = [
             "curveDirection": "rising",
             "winterHoldingContext": false,
             "label": "High presence",
-            "headline": "Chinook salmon are likely spread through more of the river as seasonal presence builds toward its strongest point.",
-            "detail": "The migration is approaching its strongest seasonal point, and fish are likely distributed through more of the river. This is a seasonal estimate, not a live fish count.",
-            "tip": "Treat this as one of the stronger parts of a strong river season. Give each stop a complete pass, but do not mistake this seasonal estimate for a live fish count.",
+            "headline": "Chinook salmon seasonal presence is high presence and building.",
+            "detail": "Calendar timing places Chinook salmon presence high for this fall migration, increasing as the fall migration builds. For the PM, expected run strength is Strong, and the opportunity can extend across broadly accessible water. This is not a live fish count or today’s conditions.",
+            "tip": "Use Migration Stage to choose a section. Use Push and Activity for current movement support and responsiveness.",
             "reasonCodes": [
               "stage_building",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "gauge": {
             "provider": "USGS",
@@ -13373,6 +13600,7 @@ const GROUP_SEEDS = [
           "nextConditionRefreshAt": "2026-09-17T22:00:00.000Z",
           "runStage": {
             "stage": "building",
+            "copyStrategy": "pere_marquette",
             "stagingContext": false,
             "broadBuildingContext": true,
             "winterHoldingContext": false,
@@ -13395,14 +13623,14 @@ const GROUP_SEEDS = [
               "peakToEndDays": 37
             },
             "label": "Building",
-            "headline": "Chinook salmon can now be found throughout the accessible river.",
-            "detail": "Earlier waves have had time to reach upper holding water while later Chinook salmon may still be entering below. Lower, middle, and upper sections are all in play wherever passage is open; the most dependable concentrations may still be in the lower and middle river, while upper water can now hold meaningful numbers too.",
-            "tip": "Start with dependable lower- or middle-river holding water, then cover established upper holes, outside bends, and current breaks. Use Push to decide whether fresh lower-river travel lanes deserve extra time.",
-            "whereToStart": "Middle-river holding water from Scottville through Walhalla and Branch, with the upper river toward Baldwin and M-37 firmly in play.",
+            "headline": "Seasonal timing supports a broader PM Chinook salmon distribution.",
+            "detail": "The Middle river is the dependable calendar choice. Earlier arrivals may also occupy the Upper river.",
+            "tip": "Cover one Middle river section completely before comparing the Upper river.",
+            "whereToStart": "Start in the Middle river (Scottville–Maple Leaf). Add the Upper river (Maple Leaf–M-37) when direct fish activity supports it.",
             "reasonCodes": [
               "stage_building"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "conditionsSuggest": {
             "label": "Ahead",
@@ -13527,16 +13755,16 @@ const GROUP_SEEDS = [
               "2026-09-13": "16:00",
               "2026-09-14": "16:00"
             },
-            "headline": "The migration appears to be developing earlier than usual.",
-            "detail": "The river has risen and cooled faster than it normally does by this point in the season.",
-            "tip": "Start one accessible river section farther upstream than you normally would for this date and prioritize established holding water. If Push is Possible or stronger, finish with lower travel lanes.",
+            "headline": "The PM migration is developing earlier than usual.",
+            "detail": "Season-to-date Scottville river-rise activity and M-37 cooling are stronger than the usual PM pattern.",
+            "tip": "Start one PM section upstream from Migration Stage, capped at the Upper river (Maple Leaf–M-37).",
             "reasonCodes": [
               "gauge_fresh",
               "temperature_measured",
               "conditions_checkpoint_peak_start",
               "conditions_ahead"
             ],
-            "copyVersion": "river-run-copy-v27",
+            "copyVersion": "river-run-copy-v29",
             "previousCheckpointId": "building_established",
             "previousCheckpointDate": "2026-09-01",
             "previousTimingLabel": "Ahead"
@@ -13601,6 +13829,8 @@ const GROUP_SEEDS = [
           },
           "fishInRiver": {
             "score": 91,
+            "displayScore": 90,
+            "scoreIsApproximate": true,
             "stage": "building",
             "maximum": 100,
             "riverCeiling": 100,
@@ -13609,14 +13839,14 @@ const GROUP_SEEDS = [
             "curveDirection": "rising",
             "winterHoldingContext": false,
             "label": "Peak presence",
-            "headline": "Chinook salmon are likely spread through more of the river as seasonal presence builds toward its strongest point.",
-            "detail": "The migration is approaching its strongest seasonal point, and fish are likely distributed through more of the river. This is a seasonal estimate, not a live fish count.",
-            "tip": "Treat this as one of the stronger parts of a strong river season. Give each stop a complete pass, but do not mistake this seasonal estimate for a live fish count.",
+            "headline": "Chinook salmon seasonal presence is peak presence and building.",
+            "detail": "Calendar timing places Chinook salmon presence at its expected seasonal peak, increasing as the fall migration builds. For the PM, expected run strength is Strong, and the opportunity can extend across broadly accessible water. This is not a live fish count or today’s conditions.",
+            "tip": "Use Migration Stage to choose a section. Use Push and Activity for current movement support and responsiveness.",
             "reasonCodes": [
               "stage_building",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "gauge": {
             "provider": "USGS",
@@ -13665,6 +13895,7 @@ const GROUP_SEEDS = [
           "nextConditionRefreshAt": "2026-09-20T22:00:00.000Z",
           "runStage": {
             "stage": "peak",
+            "copyStrategy": "pere_marquette",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -13687,14 +13918,14 @@ const GROUP_SEEDS = [
               "peakToEndDays": 37
             },
             "label": "Peak",
-            "headline": "This is typically the strongest and most dependable river opportunity of the Chinook salmon season.",
-            "detail": "Multiple waves have had time to spread, so Chinook salmon are likely distributed throughout the accessible river—from lower travel water through upstream holding and spawning reaches, except above dams or other barriers.",
-            "tip": "Choose an accessible river section and fish every substantial hole from its head through the inside seam and tail. Move section by section through deep bends and resting pockets, and leave fish on shallow spawning gravel alone.",
-            "whereToStart": "Compare the lower river near Scottville, middle river through Walhalla and Branch, and upper river toward Baldwin and M-37, prioritizing substantial holding water connected to productive current.",
+            "headline": "This is typically the PM’s strongest Chinook salmon migration window.",
+            "detail": "Seasonal timing supports the widest dependable Chinook salmon distribution. It does not confirm fish in every section.",
+            "tip": "Start in the Middle river. Compare the Upper river only after a complete first pass.",
+            "whereToStart": "Start in the Middle river (Scottville–Maple Leaf). Compare the Upper river (Maple Leaf–M-37) when direct fish activity favors it.",
             "reasonCodes": [
               "stage_peak"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "conditionsSuggest": {
             "label": "Ahead",
@@ -13819,16 +14050,16 @@ const GROUP_SEEDS = [
               "2026-09-13": "16:00",
               "2026-09-14": "16:00"
             },
-            "headline": "The migration appears to be developing earlier than usual.",
-            "detail": "The river has risen and cooled faster than it normally does by this point in the season.",
-            "tip": "Start one accessible river section farther upstream than you normally would for this date and prioritize established holding water. If Push is Possible or stronger, finish with lower travel lanes.",
+            "headline": "The PM migration is developing earlier than usual.",
+            "detail": "Season-to-date Scottville river-rise activity and M-37 cooling are stronger than the usual PM pattern.",
+            "tip": "Start one PM section upstream from Migration Stage, capped at the Upper river (Maple Leaf–M-37).",
             "reasonCodes": [
               "gauge_fresh",
               "temperature_measured",
               "conditions_checkpoint_peak_start",
               "conditions_ahead"
             ],
-            "copyVersion": "river-run-copy-v27",
+            "copyVersion": "river-run-copy-v29",
             "previousCheckpointId": "building_established",
             "previousCheckpointDate": "2026-09-01",
             "previousTimingLabel": "Ahead"
@@ -13893,6 +14124,8 @@ const GROUP_SEEDS = [
           },
           "fishInRiver": {
             "score": 100,
+            "displayScore": 100,
+            "scoreIsApproximate": false,
             "stage": "peak",
             "maximum": 100,
             "riverCeiling": 100,
@@ -13901,14 +14134,14 @@ const GROUP_SEEDS = [
             "curveDirection": "near_peak",
             "winterHoldingContext": false,
             "label": "Peak presence",
-            "headline": "Chinook salmon are likely near their highest seasonal presence in the river.",
-            "detail": "This is the part of the season when in-river presence is usually strongest. The read describes the river as a whole; it does not place fish in a specific pool or confirm a live count.",
-            "tip": "Plan for the strongest seasonal presence this river usually offers, while remembering that this estimate cannot confirm fish at a specific spot or describe today's river conditions.",
+            "headline": "Chinook salmon seasonal presence is peak presence and near its seasonal high.",
+            "detail": "Calendar timing places Chinook salmon presence at its expected seasonal peak, near its expected seasonal high. For the PM, expected run strength is Strong, and the opportunity can extend across broadly accessible water. This is not a live fish count or today’s conditions.",
+            "tip": "Use Migration Stage to choose a section. Use Push and Activity for current movement support and responsiveness.",
             "reasonCodes": [
               "stage_peak",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "gauge": {
             "provider": "USGS",
@@ -13964,6 +14197,7 @@ const GROUP_SEEDS = [
           "nextConditionRefreshAt": "2026-09-21T22:00:00.000Z",
           "runStage": {
             "stage": "peak",
+            "copyStrategy": "pere_marquette",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -13986,14 +14220,14 @@ const GROUP_SEEDS = [
               "peakToEndDays": 37
             },
             "label": "Peak",
-            "headline": "This is typically the strongest and most dependable river opportunity of the Chinook salmon season.",
-            "detail": "Multiple waves have had time to spread, so Chinook salmon are likely distributed throughout the accessible river—from lower travel water through upstream holding and spawning reaches, except above dams or other barriers.",
-            "tip": "Choose an accessible river section and fish every substantial hole from its head through the inside seam and tail. Move section by section through deep bends and resting pockets, and leave fish on shallow spawning gravel alone.",
-            "whereToStart": "Compare the lower river near Scottville, middle river through Walhalla and Branch, and upper river toward Baldwin and M-37, prioritizing substantial holding water connected to productive current.",
+            "headline": "This is typically the PM’s strongest Chinook salmon migration window.",
+            "detail": "Seasonal timing supports the widest dependable Chinook salmon distribution. It does not confirm fish in every section.",
+            "tip": "Start in the Middle river. Compare the Upper river only after a complete first pass.",
+            "whereToStart": "Start in the Middle river (Scottville–Maple Leaf). Compare the Upper river (Maple Leaf–M-37) when direct fish activity favors it.",
             "reasonCodes": [
               "stage_peak"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "conditionsSuggest": {
             "label": "Ahead",
@@ -14118,16 +14352,16 @@ const GROUP_SEEDS = [
               "2026-09-13": "16:00",
               "2026-09-14": "16:00"
             },
-            "headline": "The migration appears to be developing earlier than usual.",
-            "detail": "The river has risen and cooled faster than it normally does by this point in the season.",
-            "tip": "Start one accessible river section farther upstream than you normally would for this date and prioritize established holding water. If Push is Possible or stronger, finish with lower travel lanes.",
+            "headline": "The PM migration is developing earlier than usual.",
+            "detail": "Season-to-date Scottville river-rise activity and M-37 cooling are stronger than the usual PM pattern.",
+            "tip": "Start one PM section upstream from Migration Stage, capped at the Upper river (Maple Leaf–M-37).",
             "reasonCodes": [
               "gauge_fresh",
               "temperature_measured",
               "conditions_checkpoint_peak_start",
               "conditions_ahead"
             ],
-            "copyVersion": "river-run-copy-v27",
+            "copyVersion": "river-run-copy-v29",
             "previousCheckpointId": "building_established",
             "previousCheckpointDate": "2026-09-01",
             "previousTimingLabel": "Ahead"
@@ -14192,6 +14426,8 @@ const GROUP_SEEDS = [
           },
           "fishInRiver": {
             "score": 100,
+            "displayScore": 100,
+            "scoreIsApproximate": false,
             "stage": "peak",
             "maximum": 100,
             "riverCeiling": 100,
@@ -14200,14 +14436,14 @@ const GROUP_SEEDS = [
             "curveDirection": "falling",
             "winterHoldingContext": false,
             "label": "Peak presence",
-            "headline": "Seasonal timing still supports Chinook salmon being near their strongest in-river presence, even if the migration may be just beyond its usual peak.",
-            "detail": "This point in the season may sit just beyond the usual peak while the seasonal pattern still supports strong in-river presence. This is a seasonal estimate, not a live fish count.",
-            "tip": "Plan around fish already likely to be in the river. Seasonal presence is still near its high point, but remember that this seasonal estimate cannot tell whether a fresh wave is entering today.",
+            "headline": "Chinook salmon seasonal presence is peak presence and declining.",
+            "detail": "Calendar timing places Chinook salmon presence at its expected seasonal peak, declining as the fall migration advances. For the PM, expected run strength is Strong, and the opportunity can extend across broadly accessible water. This is not a live fish count or today’s conditions.",
+            "tip": "Use Migration Stage to choose a section. Use Push and Activity for current movement support and responsiveness.",
             "reasonCodes": [
               "stage_peak",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "gauge": {
             "provider": "USGS",
@@ -14263,6 +14499,7 @@ const GROUP_SEEDS = [
           "nextConditionRefreshAt": "2026-10-02T22:00:00.000Z",
           "runStage": {
             "stage": "tapering",
+            "copyStrategy": "pere_marquette",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -14285,14 +14522,14 @@ const GROUP_SEEDS = [
               "peakToEndDays": 37
             },
             "label": "Tapering",
-            "headline": "This can remain a productive part of the Chinook salmon season, even as fresh arrivals typically become less consistent.",
-            "detail": "Good numbers of Chinook salmon may still be spread through the river. At this point in the seasonal pattern, the balance often shifts from new arrivals toward fish already holding or spawning.",
-            "tip": "Begin with established middle- and upper-river holding water, especially deep holes and slower edges. If Push is Possible or stronger, finish with lower travel lanes for a fresh late wave.",
-            "whereToStart": "Established middle- and upper-river holding water from Walhalla and Branch toward Baldwin/M-37; add Scottville-area lower-river travel lanes only on a credible fresh-movement signal.",
+            "headline": "The main PM Chinook salmon migration is tapering.",
+            "detail": "Seasonal presence is declining. Established Middle river holding water is more dependable than broad travel-water searches.",
+            "tip": "Start in established Middle river water. Shift lower only when Push supports fresh movement.",
+            "whereToStart": "Start in the Middle river (Scottville–Maple Leaf). Add the Lower river (Pere Marquette Lake–Scottville) only when Push supports fresh movement.",
             "reasonCodes": [
               "stage_tapering"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "conditionsSuggest": {
             "label": "Timing complete",
@@ -14448,7 +14685,7 @@ const GROUP_SEEDS = [
               "conditions_ahead",
               "conditions_timing_complete"
             ],
-            "copyVersion": "river-run-copy-v27",
+            "copyVersion": "river-run-copy-v29",
             "previousCheckpointId": "peak_start",
             "previousCheckpointDate": "2026-09-15",
             "previousTimingLabel": "Ahead"
@@ -14513,6 +14750,8 @@ const GROUP_SEEDS = [
           },
           "fishInRiver": {
             "score": 89,
+            "displayScore": 85,
+            "scoreIsApproximate": true,
             "stage": "tapering",
             "maximum": 100,
             "riverCeiling": 100,
@@ -14521,14 +14760,14 @@ const GROUP_SEEDS = [
             "curveDirection": "falling",
             "winterHoldingContext": false,
             "label": "High presence",
-            "headline": "Seasonal timing still supports strong Chinook salmon presence across much of the river, even as the usual peak window may be easing.",
-            "detail": "Seasonal presence remains elevated relative to the rest of the season, but fresh arrivals may be less consistent than around the usual peak. This is a seasonal estimate, not a live fish count.",
-            "tip": "Plan around fish already likely to be in the river. Seasonal presence is still near its high point, but remember that this seasonal estimate cannot tell whether a fresh wave is entering today.",
+            "headline": "Chinook salmon seasonal presence is high presence and declining.",
+            "detail": "Calendar timing places Chinook salmon presence high for this fall migration, declining as the fall migration advances. For the PM, expected run strength is Strong, and the opportunity can extend across broadly accessible water. This is not a live fish count or today’s conditions.",
+            "tip": "Use Migration Stage to choose a section. Use Push and Activity for current movement support and responsiveness.",
             "reasonCodes": [
               "stage_tapering",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "gauge": {
             "provider": "USGS",
@@ -14577,6 +14816,7 @@ const GROUP_SEEDS = [
           "nextConditionRefreshAt": "2026-10-06T22:00:00.000Z",
           "runStage": {
             "stage": "tapering",
+            "copyStrategy": "pere_marquette",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -14599,14 +14839,14 @@ const GROUP_SEEDS = [
               "peakToEndDays": 37
             },
             "label": "Tapering",
-            "headline": "This can remain a productive part of the Chinook salmon season, even as fresh arrivals typically become less consistent.",
-            "detail": "Good numbers of Chinook salmon may still be spread through the river. At this point in the seasonal pattern, the balance often shifts from new arrivals toward fish already holding or spawning.",
-            "tip": "Begin with established middle- and upper-river holding water, especially deep holes and slower edges. If Push is Possible or stronger, finish with lower travel lanes for a fresh late wave.",
-            "whereToStart": "Established middle- and upper-river holding water from Walhalla and Branch toward Baldwin/M-37; add Scottville-area lower-river travel lanes only on a credible fresh-movement signal.",
+            "headline": "The main PM Chinook salmon migration is tapering.",
+            "detail": "Seasonal presence is declining. Established Middle river holding water is more dependable than broad travel-water searches.",
+            "tip": "Start in established Middle river water. Shift lower only when Push supports fresh movement.",
+            "whereToStart": "Start in the Middle river (Scottville–Maple Leaf). Add the Lower river (Pere Marquette Lake–Scottville) only when Push supports fresh movement.",
             "reasonCodes": [
               "stage_tapering"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "conditionsSuggest": {
             "label": "Timing complete",
@@ -14762,7 +15002,7 @@ const GROUP_SEEDS = [
               "conditions_ahead",
               "conditions_timing_complete"
             ],
-            "copyVersion": "river-run-copy-v27",
+            "copyVersion": "river-run-copy-v29",
             "previousCheckpointId": "peak_start",
             "previousCheckpointDate": "2026-09-15",
             "previousTimingLabel": "Ahead"
@@ -14827,6 +15067,8 @@ const GROUP_SEEDS = [
           },
           "fishInRiver": {
             "score": 78,
+            "displayScore": 80,
+            "scoreIsApproximate": true,
             "stage": "tapering",
             "maximum": 100,
             "riverCeiling": 100,
@@ -14835,14 +15077,14 @@ const GROUP_SEEDS = [
             "curveDirection": "falling",
             "winterHoldingContext": false,
             "label": "High presence",
-            "headline": "Seasonal timing still supports Chinook salmon being well distributed, although fresh arrivals may be less consistent than near peak.",
-            "detail": "Seasonal presence is usually elevated relative to the rest of the season, while fresh arrivals often become less consistent later in the season. This is a seasonal estimate, not a live fish count.",
-            "tip": "Plan around fish already likely to be in the river. A meaningful seasonal presence may remain, but remember that this seasonal estimate cannot tell whether a fresh wave is entering today.",
+            "headline": "Chinook salmon seasonal presence is high presence and declining.",
+            "detail": "Calendar timing places Chinook salmon presence high for this fall migration, declining as the fall migration advances. For the PM, expected run strength is Strong, and the opportunity can extend across broadly accessible water. This is not a live fish count or today’s conditions.",
+            "tip": "Use Migration Stage to choose a section. Use Push and Activity for current movement support and responsiveness.",
             "reasonCodes": [
               "stage_tapering",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "gauge": {
             "provider": "USGS",
@@ -14891,6 +15133,7 @@ const GROUP_SEEDS = [
           "nextConditionRefreshAt": "2026-10-13T22:00:00.000Z",
           "runStage": {
             "stage": "tapering",
+            "copyStrategy": "pere_marquette",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -14913,14 +15156,14 @@ const GROUP_SEEDS = [
               "peakToEndDays": 37
             },
             "label": "Tapering",
-            "headline": "This can remain a productive part of the Chinook salmon season, even as fresh arrivals typically become less consistent.",
-            "detail": "Good numbers of Chinook salmon may still be spread through the river. At this point in the seasonal pattern, the balance often shifts from new arrivals toward fish already holding or spawning.",
-            "tip": "Begin with established middle- and upper-river holding water, especially deep holes and slower edges. If Push is Possible or stronger, finish with lower travel lanes for a fresh late wave.",
-            "whereToStart": "Established middle- and upper-river holding water from Walhalla and Branch toward Baldwin/M-37; add Scottville-area lower-river travel lanes only on a credible fresh-movement signal.",
+            "headline": "The main PM Chinook salmon migration is tapering.",
+            "detail": "Seasonal presence is declining. Established Middle river holding water is more dependable than broad travel-water searches.",
+            "tip": "Start in established Middle river water. Shift lower only when Push supports fresh movement.",
+            "whereToStart": "Start in the Middle river (Scottville–Maple Leaf). Add the Lower river (Pere Marquette Lake–Scottville) only when Push supports fresh movement.",
             "reasonCodes": [
               "stage_tapering"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "conditionsSuggest": {
             "label": "Timing complete",
@@ -15076,7 +15319,7 @@ const GROUP_SEEDS = [
               "conditions_ahead",
               "conditions_timing_complete"
             ],
-            "copyVersion": "river-run-copy-v27",
+            "copyVersion": "river-run-copy-v29",
             "previousCheckpointId": "peak_start",
             "previousCheckpointDate": "2026-09-15",
             "previousTimingLabel": "Ahead"
@@ -15141,6 +15384,8 @@ const GROUP_SEEDS = [
           },
           "fishInRiver": {
             "score": 59,
+            "displayScore": 60,
+            "scoreIsApproximate": true,
             "stage": "tapering",
             "maximum": 100,
             "riverCeiling": 100,
@@ -15149,14 +15394,14 @@ const GROUP_SEEDS = [
             "curveDirection": "falling",
             "winterHoldingContext": false,
             "label": "Moderate presence",
-            "headline": "Seasonal timing still supports meaningful Chinook salmon presence, especially in established holding water.",
-            "detail": "This part of the season usually supports moderate presence, while fresh arrivals often become less consistent later in the season. This is a seasonal estimate, not a live fish count.",
-            "tip": "Plan for a worthwhile but less consistent river opportunity. Expect more searching than near the seasonal high, and let direct fish activity determine how long you stay.",
+            "headline": "Chinook salmon seasonal presence is moderate presence and declining.",
+            "detail": "Calendar timing places Chinook salmon presence at moderate presence, declining as the fall migration advances. For the PM, expected run strength is Strong, and the opportunity can extend across broadly accessible water. This is not a live fish count or today’s conditions.",
+            "tip": "Use Migration Stage to choose a section. Use Push and Activity for current movement support and responsiveness.",
             "reasonCodes": [
               "stage_tapering",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "gauge": {
             "provider": "USGS",
@@ -15205,6 +15450,7 @@ const GROUP_SEEDS = [
           "nextConditionRefreshAt": "2026-10-20T22:00:00.000Z",
           "runStage": {
             "stage": "ending",
+            "copyStrategy": "pere_marquette",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -15227,14 +15473,14 @@ const GROUP_SEEDS = [
               "peakToEndDays": 37
             },
             "label": "Ending",
-            "headline": "Chinook salmon can still provide a worthwhile late-season river opportunity.",
-            "detail": "Fish can still be present, but many have been in the system for a while and fresh arrivals tend to be less dependable.",
-            "tip": "Skip fast travel lanes. Work the deepest established holes and slow current edges, and leave actively spawning fish and shallow gravel alone.",
-            "whereToStart": "The deepest middle- and upper-river holes and slower current edges from Walhalla through Branch toward Baldwin/M-37—not fast lower-river travel lanes.",
+            "headline": "The PM Chinook salmon migration is nearing its seasonal end.",
+            "detail": "Remaining fish are expected to be less evenly distributed. Fresh entry is no longer dependable.",
+            "tip": "Start in proven Middle river holding water. Add one Upper river check only after direct fish activity supports it.",
+            "whereToStart": "Start in the Middle river (Scottville–Maple Leaf). Add the Upper river (Maple Leaf–M-37) only for established late holding water.",
             "reasonCodes": [
               "stage_ending"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "conditionsSuggest": {
             "label": "Timing complete",
@@ -15390,7 +15636,7 @@ const GROUP_SEEDS = [
               "conditions_ahead",
               "conditions_timing_complete"
             ],
-            "copyVersion": "river-run-copy-v27",
+            "copyVersion": "river-run-copy-v29",
             "previousCheckpointId": "peak_start",
             "previousCheckpointDate": "2026-09-15",
             "previousTimingLabel": "Ahead"
@@ -15455,6 +15701,8 @@ const GROUP_SEEDS = [
           },
           "fishInRiver": {
             "score": 39,
+            "displayScore": 40,
+            "scoreIsApproximate": true,
             "stage": "ending",
             "maximum": 100,
             "riverCeiling": 100,
@@ -15463,14 +15711,14 @@ const GROUP_SEEDS = [
             "curveDirection": "falling",
             "winterHoldingContext": false,
             "label": "Limited presence",
-            "headline": "Seasonal timing still supports some Chinook salmon in established holding water, but they are less likely to be spread throughout the river.",
-            "detail": "This part of the season usually supports limited presence concentrated in dependable holes and slower holding water. This is a seasonal estimate, not a live fish count.",
-            "tip": "Treat this as a lower-odds late-season opportunity. Keep the trip flexible, and require direct fish activity before committing more time.",
+            "headline": "Chinook salmon seasonal presence is limited presence and declining.",
+            "detail": "Calendar timing places Chinook salmon presence at limited presence, declining as the fall migration advances. For the PM, expected run strength is Strong, and the opportunity can extend across broadly accessible water. This is not a live fish count or today’s conditions.",
+            "tip": "Use Migration Stage to choose a section. Use Push and Activity for current movement support and responsiveness.",
             "reasonCodes": [
               "stage_ending",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "gauge": {
             "provider": "USGS",
@@ -15519,6 +15767,7 @@ const GROUP_SEEDS = [
           "nextConditionRefreshAt": "2026-10-28T22:00:00.000Z",
           "runStage": {
             "stage": "post_run",
+            "copyStrategy": "pere_marquette",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -15541,14 +15790,14 @@ const GROUP_SEEDS = [
               "peakToEndDays": 37
             },
             "label": "After migration",
-            "headline": "The main Chinook salmon migration is over.",
-            "detail": "A few fish may remain, but the season no longer supports a dependable river-wide opportunity.",
-            "tip": "Do not chase scattered holdovers from access to access. Shift to another seasonal species and leave any actively spawning fish undisturbed.",
-            "whereToStart": "No dependable starting reach; any remaining fish are likely isolated in deep middle- or upper-river holding water from Walhalla and Branch toward Baldwin/M-37.",
+            "headline": "The main PM Chinook salmon migration is over, though isolated late fish may remain.",
+            "detail": "Seasonal timing no longer supports a broad river search. Any remaining Chinook salmon are exceptions.",
+            "tip": "Do not chase isolated reports across sections. Leave actively spawning fish undisturbed.",
+            "whereToStart": "There is no dependable PM starting section. If direct evidence supports a late check, use proven Middle river (Scottville–Maple Leaf) holding water.",
             "reasonCodes": [
               "stage_post_run"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "conditionsSuggest": {
             "label": "Timing complete",
@@ -15704,7 +15953,7 @@ const GROUP_SEEDS = [
               "conditions_ahead",
               "conditions_timing_complete"
             ],
-            "copyVersion": "river-run-copy-v27",
+            "copyVersion": "river-run-copy-v29",
             "previousCheckpointId": "peak_start",
             "previousCheckpointDate": "2026-09-15",
             "previousTimingLabel": "Ahead"
@@ -15719,7 +15968,7 @@ const GROUP_SEEDS = [
               "push_tracking_complete"
             ],
             "rulesVersion": "pm-fall-chinook-push-v5",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "pushHistory": {
             "status": "complete",
@@ -15781,6 +16030,8 @@ const GROUP_SEEDS = [
           },
           "fishInRiver": {
             "score": 20,
+            "displayScore": 20,
+            "scoreIsApproximate": true,
             "stage": "post_run",
             "maximum": 100,
             "riverCeiling": 100,
@@ -15789,14 +16040,14 @@ const GROUP_SEEDS = [
             "curveDirection": "falling",
             "winterHoldingContext": false,
             "label": "Low presence",
-            "headline": "Some Chinook salmon may still be in the river, with seasonal presence more likely to be scattered.",
-            "detail": "This part of the season usually supports low presence, while fresh arrivals often become less consistent later in the season. This is a seasonal estimate, not a live fish count.",
-            "tip": "Treat any remaining fish as a bonus rather than a dependable trip plan. Keep expectations narrow and be ready to shift to another seasonal species.",
+            "headline": "Chinook salmon seasonal presence is low presence and declining.",
+            "detail": "Calendar timing places Chinook salmon presence at low presence, declining as the fall migration advances. For the PM, expected run strength is Strong, and the opportunity can extend across broadly accessible water. This is not a live fish count or today’s conditions.",
+            "tip": "Use Migration Stage to choose a section. Use Push and Activity for current movement support and responsiveness.",
             "reasonCodes": [
               "stage_post_run",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "gauge": {
             "provider": "USGS",
@@ -15853,6 +16104,7 @@ const GROUP_SEEDS = [
           "nextConditionRefreshAt": "2026-11-08T22:00:00.000Z",
           "runStage": {
             "stage": "post_run",
+            "copyStrategy": "pere_marquette",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -15875,14 +16127,14 @@ const GROUP_SEEDS = [
               "peakToEndDays": 37
             },
             "label": "After migration",
-            "headline": "The main Chinook salmon migration is over.",
-            "detail": "A few fish may remain, but the season no longer supports a dependable river-wide opportunity.",
-            "tip": "Do not chase scattered holdovers from access to access. Shift to another seasonal species and leave any actively spawning fish undisturbed.",
-            "whereToStart": "No dependable starting reach; any remaining fish are likely isolated in deep middle- or upper-river holding water from Walhalla and Branch toward Baldwin/M-37.",
+            "headline": "The main PM Chinook salmon migration is over, though isolated late fish may remain.",
+            "detail": "Seasonal timing no longer supports a broad river search. Any remaining Chinook salmon are exceptions.",
+            "tip": "Do not chase isolated reports across sections. Leave actively spawning fish undisturbed.",
+            "whereToStart": "There is no dependable PM starting section. If direct evidence supports a late check, use proven Middle river (Scottville–Maple Leaf) holding water.",
             "reasonCodes": [
               "stage_post_run"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "conditionsSuggest": {
             "label": "Timing complete",
@@ -16038,7 +16290,7 @@ const GROUP_SEEDS = [
               "conditions_ahead",
               "conditions_timing_complete"
             ],
-            "copyVersion": "river-run-copy-v27",
+            "copyVersion": "river-run-copy-v29",
             "previousCheckpointId": "peak_start",
             "previousCheckpointDate": "2026-09-15",
             "previousTimingLabel": "Ahead"
@@ -16053,7 +16305,7 @@ const GROUP_SEEDS = [
               "push_tracking_complete"
             ],
             "rulesVersion": "pm-fall-chinook-push-v5",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "pushHistory": {
             "status": "complete",
@@ -16115,6 +16367,8 @@ const GROUP_SEEDS = [
           },
           "fishInRiver": {
             "score": 0,
+            "displayScore": 0,
+            "scoreIsApproximate": false,
             "stage": "post_run",
             "maximum": 100,
             "riverCeiling": 100,
@@ -16123,14 +16377,14 @@ const GROUP_SEEDS = [
             "curveDirection": "falling",
             "winterHoldingContext": false,
             "label": "Migration complete",
-            "headline": "The season no longer supports a dependable in-river migration.",
-            "detail": "A few Chinook salmon may remain, but their presence is likely isolated rather than part of a consistent river-wide opportunity.",
-            "tip": "Do not build a trip around scattered late fish. Shift to another seasonal species, and leave any actively spawning fish undisturbed.",
+            "headline": "The PM Chinook salmon migration no longer has dependable seasonal presence.",
+            "detail": "The seasonal estimate has reached zero. Isolated late fish are not a dependable migration opportunity.",
+            "tip": "Do not build a broad river search around isolated late fish. Leave actively spawning fish undisturbed.",
             "reasonCodes": [
               "stage_post_run",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "gauge": {
             "provider": "USGS",
@@ -16186,6 +16440,7 @@ const GROUP_SEEDS = [
           "nextConditionRefreshAt": "2026-09-20T22:00:00.000Z",
           "runStage": {
             "stage": "peak",
+            "copyStrategy": "pere_marquette",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -16208,14 +16463,14 @@ const GROUP_SEEDS = [
               "peakToEndDays": 37
             },
             "label": "Peak",
-            "headline": "This is typically the strongest and most dependable river opportunity of the Chinook salmon season.",
-            "detail": "Multiple waves have had time to spread, so Chinook salmon are likely distributed throughout the accessible river—from lower travel water through upstream holding and spawning reaches, except above dams or other barriers.",
-            "tip": "Choose an accessible river section and fish every substantial hole from its head through the inside seam and tail. Move section by section through deep bends and resting pockets, and leave fish on shallow spawning gravel alone.",
-            "whereToStart": "Compare the lower river near Scottville, middle river through Walhalla and Branch, and upper river toward Baldwin and M-37, prioritizing substantial holding water connected to productive current.",
+            "headline": "This is typically the PM’s strongest Chinook salmon migration window.",
+            "detail": "Seasonal timing supports the widest dependable Chinook salmon distribution. It does not confirm fish in every section.",
+            "tip": "Start in the Middle river. Compare the Upper river only after a complete first pass.",
+            "whereToStart": "Start in the Middle river (Scottville–Maple Leaf). Compare the Upper river (Maple Leaf–M-37) when direct fish activity favors it.",
             "reasonCodes": [
               "stage_peak"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "conditionsSuggest": {
             "label": "Ahead",
@@ -16340,16 +16595,16 @@ const GROUP_SEEDS = [
               "2026-09-13": "16:00",
               "2026-09-14": "16:00"
             },
-            "headline": "The migration appears to be developing earlier than usual.",
-            "detail": "The river has risen and cooled faster than it normally does by this point in the season.",
-            "tip": "Start one accessible river section farther upstream than you normally would for this date and prioritize established holding water. If Push is Possible or stronger, finish with lower travel lanes.",
+            "headline": "The PM migration is developing earlier than usual.",
+            "detail": "Season-to-date Scottville river-rise activity and M-37 cooling are stronger than the usual PM pattern.",
+            "tip": "Start one PM section upstream from Migration Stage, capped at the Upper river (Maple Leaf–M-37).",
             "reasonCodes": [
               "gauge_fresh",
               "temperature_measured",
               "conditions_checkpoint_peak_start",
               "conditions_ahead"
             ],
-            "copyVersion": "river-run-copy-v27",
+            "copyVersion": "river-run-copy-v29",
             "previousCheckpointId": "building_established",
             "previousCheckpointDate": "2026-09-01",
             "previousTimingLabel": "Ahead"
@@ -16414,6 +16669,8 @@ const GROUP_SEEDS = [
           },
           "fishInRiver": {
             "score": 60,
+            "displayScore": 60,
+            "scoreIsApproximate": false,
             "stage": "peak",
             "maximum": 100,
             "riverCeiling": 60,
@@ -16422,14 +16679,14 @@ const GROUP_SEEDS = [
             "curveDirection": "near_peak",
             "winterHoldingContext": false,
             "label": "Peak presence",
-            "headline": "Chinook salmon are likely near their highest seasonal presence in the river.",
-            "detail": "This is the part of the season when in-river presence is usually strongest. Fish are most likely distributed through several dependable river sections. The read does not place fish in a specific pool or confirm a live count.",
-            "tip": "Plan for a dependable but potentially uneven river opportunity near its seasonal high point. Confirm fish activity before committing the full day.",
+            "headline": "Chinook salmon seasonal presence is peak presence and near its seasonal high.",
+            "detail": "Calendar timing places Chinook salmon presence at its expected seasonal peak, near its expected seasonal high. For the PM, expected run strength is Moderate, and the opportunity centers on dependable river sections. This is not a live fish count or today’s conditions.",
+            "tip": "Use Migration Stage to choose a section. Use Push and Activity for current movement support and responsiveness.",
             "reasonCodes": [
               "stage_peak",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "gauge": {
             "provider": "USGS",
@@ -16485,41 +16742,10 @@ const GROUP_SEEDS = [
         "note": "Canonical production copy",
         "snapshotOverride": {
           "runId": "qa_moderate_opportunity",
-          "runStage": {
-            "stage": "building",
-            "stagingContext": false,
-            "broadBuildingContext": false,
-            "winterHoldingContext": false,
-            "window": {
-              "snapshotDate": "2026-09-01",
-              "preRunStartDate": "2026-07-01",
-              "stagingStartDate": "2026-07-28",
-              "startDate": "2026-08-15",
-              "beginningEndDate": "2026-08-23",
-              "buildingEstablishedStartDate": "2026-09-01",
-              "buildingBroadStartDate": "2026-09-10",
-              "peakStartDate": "2026-09-15",
-              "peakDate": "2026-09-20",
-              "peakEndDate": "2026-09-30",
-              "taperingEndDate": "2026-10-18",
-              "endDate": "2026-10-27",
-              "lateEndDate": "2026-11-08",
-              "postRunLateCopyEndDate": "2026-11-10",
-              "startToPeakDays": 36,
-              "peakToEndDays": 37
-            },
-            "label": "Building",
-            "headline": "Chinook salmon are becoming established through more dependable river sections.",
-            "detail": "Earlier arrivals have had time to move upstream while later Chinook salmon may continue to enter. Fish may now be distributed through several dependable river sections, wherever passage is open.",
-            "tip": "Begin in a dependable middle-river section, then work through its deep holes, outside bends, and current breaks. If Push is Possible or stronger, finish with a deliberate lower-river travel-lane check.",
-            "whereToStart": "Middle-river holding water from Scottville toward Walhalla first; earlier fish may already have reached Branch and the upper river toward Baldwin and M-37.",
-            "reasonCodes": [
-              "stage_building"
-            ],
-            "copyVersion": "river-run-copy-v27"
-          },
           "fishInRiver": {
             "score": 27,
+            "displayScore": 25,
+            "scoreIsApproximate": true,
             "stage": "building",
             "maximum": 100,
             "riverCeiling": 60,
@@ -16528,14 +16754,14 @@ const GROUP_SEEDS = [
             "curveDirection": "rising",
             "winterHoldingContext": false,
             "label": "Moderate presence",
-            "headline": "A meaningful seasonal presence of Chinook salmon is likely in the river and still building.",
-            "detail": "This part of the season usually brings moderate presence, with more fish expected to enter and become established through several dependable river sections. This is a seasonal estimate, not a live fish count.",
-            "tip": "Plan for a credible river opportunity that is still improving. Stay mobile until direct fish activity gives you a reason to slow down.",
+            "headline": "Chinook salmon seasonal presence is moderate presence and building.",
+            "detail": "Calendar timing places Chinook salmon presence at moderate presence, increasing as the fall migration builds. For the PM, expected run strength is Moderate, and the opportunity centers on dependable river sections. This is not a live fish count or today’s conditions.",
+            "tip": "Use Migration Stage to choose a section. Use Push and Activity for current movement support and responsiveness.",
             "reasonCodes": [
               "stage_building",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           }
         }
       },
@@ -16552,6 +16778,7 @@ const GROUP_SEEDS = [
           "nextConditionRefreshAt": "2026-09-20T22:00:00.000Z",
           "runStage": {
             "stage": "peak",
+            "copyStrategy": "pere_marquette",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -16574,14 +16801,14 @@ const GROUP_SEEDS = [
               "peakToEndDays": 37
             },
             "label": "Peak",
-            "headline": "This is typically the strongest and most dependable river opportunity of the Chinook salmon season.",
-            "detail": "Earlier waves have had time to move, so Chinook salmon may now be distributed through several dependable river sections, except above dams or other barriers.",
-            "tip": "Choose a dependable river section and fish every substantial hole from its head through the inside seam and tail. Move section by section through deep bends and resting pockets, and leave fish on shallow spawning gravel alone.",
-            "whereToStart": "Compare the lower river near Scottville, middle river through Walhalla and Branch, and upper river toward Baldwin and M-37, prioritizing substantial holding water connected to productive current.",
+            "headline": "This is typically the PM’s strongest Coho window, within a moderate river-specific run.",
+            "detail": "Seasonal timing supports the PM’s core Chinook salmon sections. Concentrations may remain uneven between them.",
+            "tip": "Start in the Middle river. Compare the Upper river only after a complete first pass.",
+            "whereToStart": "Start in the Middle river (Scottville–Maple Leaf). Compare the Upper river (Maple Leaf–M-37) when direct fish activity favors it.",
             "reasonCodes": [
               "stage_peak"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "conditionsSuggest": {
             "label": "Ahead",
@@ -16706,16 +16933,16 @@ const GROUP_SEEDS = [
               "2026-09-13": "16:00",
               "2026-09-14": "16:00"
             },
-            "headline": "The migration appears to be developing earlier than usual.",
-            "detail": "The river has risen and cooled faster than it normally does by this point in the season.",
-            "tip": "Start one accessible river section farther upstream than you normally would for this date and prioritize established holding water. If Push is Possible or stronger, finish with lower travel lanes.",
+            "headline": "The PM migration is developing earlier than usual.",
+            "detail": "Season-to-date Scottville river-rise activity and M-37 cooling are stronger than the usual PM pattern.",
+            "tip": "Start one PM section upstream from Migration Stage, capped at the Upper river (Maple Leaf–M-37).",
             "reasonCodes": [
               "gauge_fresh",
               "temperature_measured",
               "conditions_checkpoint_peak_start",
               "conditions_ahead"
             ],
-            "copyVersion": "river-run-copy-v27",
+            "copyVersion": "river-run-copy-v29",
             "previousCheckpointId": "building_established",
             "previousCheckpointDate": "2026-09-01",
             "previousTimingLabel": "Ahead"
@@ -16780,6 +17007,8 @@ const GROUP_SEEDS = [
           },
           "fishInRiver": {
             "score": 60,
+            "displayScore": 60,
+            "scoreIsApproximate": false,
             "stage": "peak",
             "maximum": 100,
             "riverCeiling": 60,
@@ -16788,14 +17017,14 @@ const GROUP_SEEDS = [
             "curveDirection": "near_peak",
             "winterHoldingContext": false,
             "label": "Peak presence",
-            "headline": "Chinook salmon are likely near their highest seasonal presence in the river.",
-            "detail": "This is the part of the season when in-river presence is usually strongest. Fish are most likely distributed through several dependable river sections. The read does not place fish in a specific pool or confirm a live count.",
-            "tip": "Plan for a dependable but potentially uneven river opportunity near its seasonal high point. Confirm fish activity before committing the full day.",
+            "headline": "Chinook salmon seasonal presence is peak presence and near its seasonal high.",
+            "detail": "Calendar timing places Chinook salmon presence at its expected seasonal peak, near its expected seasonal high. For the PM, expected run strength is Moderate, and the opportunity centers on dependable river sections. This is not a live fish count or today’s conditions.",
+            "tip": "Use Migration Stage to choose a section. Use Push and Activity for current movement support and responsiveness.",
             "reasonCodes": [
               "stage_peak",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "gauge": {
             "provider": "USGS",
@@ -16852,6 +17081,7 @@ const GROUP_SEEDS = [
           "nextConditionRefreshAt": "2026-10-05T22:00:00.000Z",
           "runStage": {
             "stage": "tapering",
+            "copyStrategy": "pere_marquette",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -16874,14 +17104,14 @@ const GROUP_SEEDS = [
               "peakToEndDays": 37
             },
             "label": "Tapering",
-            "headline": "This can remain a productive part of the Chinook salmon season, even as fresh arrivals typically become less consistent.",
-            "detail": "Chinook salmon may still be present through the river's dependable sections. At this point in the seasonal pattern, the balance often shifts from new arrivals toward fish already holding or spawning.",
-            "tip": "Begin in the river's established holding sections, especially deep holes and slower edges. If Push is Possible or stronger, finish with lower travel lanes for a fresh late wave.",
-            "whereToStart": "Established middle- and upper-river holding water from Walhalla and Branch toward Baldwin/M-37; add Scottville-area lower-river travel lanes only on a credible fresh-movement signal.",
+            "headline": "The main PM Chinook salmon migration is tapering.",
+            "detail": "Seasonal presence is declining. Established Middle river holding water is more dependable than broad travel-water searches.",
+            "tip": "Start in established Middle river water. Shift lower only when Push supports fresh movement.",
+            "whereToStart": "Start in the Middle river (Scottville–Maple Leaf). Add the Lower river (Pere Marquette Lake–Scottville) only when Push supports fresh movement.",
             "reasonCodes": [
               "stage_tapering"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "conditionsSuggest": {
             "label": "Timing complete",
@@ -17037,7 +17267,7 @@ const GROUP_SEEDS = [
               "conditions_ahead",
               "conditions_timing_complete"
             ],
-            "copyVersion": "river-run-copy-v27",
+            "copyVersion": "river-run-copy-v29",
             "previousCheckpointId": "peak_start",
             "previousCheckpointDate": "2026-09-15",
             "previousTimingLabel": "Ahead"
@@ -17102,6 +17332,8 @@ const GROUP_SEEDS = [
           },
           "fishInRiver": {
             "score": 49,
+            "displayScore": 50,
+            "scoreIsApproximate": true,
             "stage": "tapering",
             "maximum": 100,
             "riverCeiling": 60,
@@ -17110,14 +17342,14 @@ const GROUP_SEEDS = [
             "curveDirection": "falling",
             "winterHoldingContext": false,
             "label": "High presence",
-            "headline": "Seasonal timing still supports meaningful Chinook salmon presence through dependable river sections, even as the usual peak window may be easing.",
-            "detail": "Seasonal presence remains elevated relative to the rest of the season. Fish are still likely established through several dependable river sections, but fresh arrivals may be less consistent than around the usual peak. This is a seasonal estimate, not a live fish count.",
-            "tip": "Plan around fish already likely to be in the river. Seasonal presence is still near its high point, but remember that this seasonal estimate cannot tell whether a fresh wave is entering today.",
+            "headline": "Chinook salmon seasonal presence is high presence and declining.",
+            "detail": "Calendar timing places Chinook salmon presence high for this fall migration, declining as the fall migration advances. For the PM, expected run strength is Moderate, and the opportunity centers on dependable river sections. This is not a live fish count or today’s conditions.",
+            "tip": "Use Migration Stage to choose a section. Use Push and Activity for current movement support and responsiveness.",
             "reasonCodes": [
               "stage_tapering",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "gauge": {
             "provider": "USGS",
@@ -17167,6 +17399,7 @@ const GROUP_SEEDS = [
           "nextConditionRefreshAt": "2026-10-22T22:00:00.000Z",
           "runStage": {
             "stage": "ending",
+            "copyStrategy": "pere_marquette",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -17189,14 +17422,14 @@ const GROUP_SEEDS = [
               "peakToEndDays": 37
             },
             "label": "Ending",
-            "headline": "Chinook salmon can still provide a worthwhile late-season opportunity in dependable river sections.",
-            "detail": "Some fish can still be present, but those fish may have been in the system for a while and fresh arrivals tend to be less dependable.",
-            "tip": "Skip fast travel lanes. Work the deepest established holes and slow current edges, and leave actively spawning fish and shallow gravel alone.",
-            "whereToStart": "The deepest middle- and upper-river holes and slower current edges from Walhalla through Branch toward Baldwin/M-37—not fast lower-river travel lanes.",
+            "headline": "The PM Chinook salmon migration is nearing its seasonal end.",
+            "detail": "Remaining fish are expected to be less evenly distributed. Fresh entry is no longer dependable.",
+            "tip": "Start in proven Middle river holding water. Add one Upper river check only after direct fish activity supports it.",
+            "whereToStart": "Start in the Middle river (Scottville–Maple Leaf). Add the Upper river (Maple Leaf–M-37) only for established late holding water.",
             "reasonCodes": [
               "stage_ending"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "conditionsSuggest": {
             "label": "Timing complete",
@@ -17352,7 +17585,7 @@ const GROUP_SEEDS = [
               "conditions_ahead",
               "conditions_timing_complete"
             ],
-            "copyVersion": "river-run-copy-v27",
+            "copyVersion": "river-run-copy-v29",
             "previousCheckpointId": "peak_start",
             "previousCheckpointDate": "2026-09-15",
             "previousTimingLabel": "Ahead"
@@ -17417,6 +17650,8 @@ const GROUP_SEEDS = [
           },
           "fishInRiver": {
             "score": 20,
+            "displayScore": 20,
+            "scoreIsApproximate": true,
             "stage": "ending",
             "maximum": 100,
             "riverCeiling": 60,
@@ -17425,14 +17660,14 @@ const GROUP_SEEDS = [
             "curveDirection": "falling",
             "winterHoldingContext": false,
             "label": "Limited presence",
-            "headline": "Seasonal timing still supports some Chinook salmon in established holding water, but they are less likely to occupy every dependable section.",
-            "detail": "This part of the season usually supports limited presence concentrated in the river's most dependable holes and slower holding water. This is a seasonal estimate, not a live fish count.",
-            "tip": "Treat this as a lower-odds late-season opportunity. Keep the trip flexible, and require direct fish activity before committing more time.",
+            "headline": "Chinook salmon seasonal presence is limited presence and declining.",
+            "detail": "Calendar timing places Chinook salmon presence at limited presence, declining as the fall migration advances. For the PM, expected run strength is Moderate, and the opportunity centers on dependable river sections. This is not a live fish count or today’s conditions.",
+            "tip": "Use Migration Stage to choose a section. Use Push and Activity for current movement support and responsiveness.",
             "reasonCodes": [
               "stage_ending",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "gauge": {
             "provider": "USGS",
@@ -17482,6 +17717,7 @@ const GROUP_SEEDS = [
           "nextConditionRefreshAt": "2026-09-14T22:00:00.000Z",
           "runStage": {
             "stage": "building",
+            "copyStrategy": "pere_marquette",
             "stagingContext": false,
             "broadBuildingContext": true,
             "winterHoldingContext": false,
@@ -17504,14 +17740,14 @@ const GROUP_SEEDS = [
               "peakToEndDays": 37
             },
             "label": "Building",
-            "headline": "Chinook salmon are becoming established through more dependable river sections.",
-            "detail": "Earlier arrivals have had time to move upstream while later Chinook salmon may continue to enter. Fish may now be distributed through several dependable river sections, wherever passage is open.",
-            "tip": "Begin in a dependable middle-river section, then work through its deep holes, outside bends, and current breaks. If Push is Possible or stronger, finish with a deliberate lower-river travel-lane check.",
-            "whereToStart": "Middle-river holding water from Scottville through Walhalla and Branch, with the upper river toward Baldwin and M-37 firmly in play.",
+            "headline": "Seasonal timing supports a broader PM Chinook salmon distribution.",
+            "detail": "The Middle river is the dependable calendar choice. Earlier arrivals may also occupy the Upper river.",
+            "tip": "Cover one Middle river section completely before comparing the Upper river.",
+            "whereToStart": "Start in the Middle river (Scottville–Maple Leaf). Add the Upper river (Maple Leaf–M-37) when direct fish activity supports it.",
             "reasonCodes": [
               "stage_building"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -17573,6 +17809,8 @@ const GROUP_SEEDS = [
           },
           "fishInRiver": {
             "score": 49,
+            "displayScore": 50,
+            "scoreIsApproximate": true,
             "stage": "building",
             "maximum": 100,
             "riverCeiling": 60,
@@ -17581,14 +17819,14 @@ const GROUP_SEEDS = [
             "curveDirection": "rising",
             "winterHoldingContext": false,
             "label": "High presence",
-            "headline": "Chinook salmon are likely present through more dependable river sections as seasonal presence builds toward its strongest point.",
-            "detail": "The migration is approaching its strongest seasonal point, and fish are likely distributed through several dependable river sections. This is a seasonal estimate, not a live fish count.",
-            "tip": "Treat this as one of the stronger parts of this river's moderate seasonal opportunity. Give each stop a complete pass, but do not mistake this seasonal estimate for a live fish count.",
+            "headline": "Chinook salmon seasonal presence is high presence and building.",
+            "detail": "Calendar timing places Chinook salmon presence high for this fall migration, increasing as the fall migration builds. For the PM, expected run strength is Moderate, and the opportunity centers on dependable river sections. This is not a live fish count or today’s conditions.",
+            "tip": "Use Migration Stage to choose a section. Use Push and Activity for current movement support and responsiveness.",
             "reasonCodes": [
               "stage_building",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "gauge": {
             "provider": "USGS",
@@ -17638,6 +17876,7 @@ const GROUP_SEEDS = [
           "nextConditionRefreshAt": "2026-09-20T22:00:00.000Z",
           "runStage": {
             "stage": "peak",
+            "copyStrategy": "pere_marquette",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -17660,14 +17899,14 @@ const GROUP_SEEDS = [
               "peakToEndDays": 37
             },
             "label": "Peak",
-            "headline": "This is typically the strongest and most dependable river opportunity of the Chinook salmon season.",
-            "detail": "Earlier waves have had time to move, so Chinook salmon may now be distributed through several dependable river sections, except above dams or other barriers.",
-            "tip": "Choose a dependable river section and fish every substantial hole from its head through the inside seam and tail. Move section by section through deep bends and resting pockets, and leave fish on shallow spawning gravel alone.",
-            "whereToStart": "Compare the lower river near Scottville, middle river through Walhalla and Branch, and upper river toward Baldwin and M-37, prioritizing substantial holding water connected to productive current.",
+            "headline": "This is typically the PM’s strongest Coho window, within a moderate river-specific run.",
+            "detail": "Seasonal timing supports the PM’s core Chinook salmon sections. Concentrations may remain uneven between them.",
+            "tip": "Start in the Middle river. Compare the Upper river only after a complete first pass.",
+            "whereToStart": "Start in the Middle river (Scottville–Maple Leaf). Compare the Upper river (Maple Leaf–M-37) when direct fish activity favors it.",
             "reasonCodes": [
               "stage_peak"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "conditionsSuggest": {
             "label": "Ahead",
@@ -17792,16 +18031,16 @@ const GROUP_SEEDS = [
               "2026-09-13": "16:00",
               "2026-09-14": "16:00"
             },
-            "headline": "The migration appears to be developing earlier than usual.",
-            "detail": "The river has risen and cooled faster than it normally does by this point in the season.",
-            "tip": "Start one accessible river section farther upstream than you normally would for this date and prioritize established holding water. If Push is Possible or stronger, finish with lower travel lanes.",
+            "headline": "The PM migration is developing earlier than usual.",
+            "detail": "Season-to-date Scottville river-rise activity and M-37 cooling are stronger than the usual PM pattern.",
+            "tip": "Start one PM section upstream from Migration Stage, capped at the Upper river (Maple Leaf–M-37).",
             "reasonCodes": [
               "gauge_fresh",
               "temperature_measured",
               "conditions_checkpoint_peak_start",
               "conditions_ahead"
             ],
-            "copyVersion": "river-run-copy-v27",
+            "copyVersion": "river-run-copy-v29",
             "previousCheckpointId": "building_established",
             "previousCheckpointDate": "2026-09-01",
             "previousTimingLabel": "Ahead"
@@ -17866,6 +18105,8 @@ const GROUP_SEEDS = [
           },
           "fishInRiver": {
             "score": 60,
+            "displayScore": 60,
+            "scoreIsApproximate": false,
             "stage": "peak",
             "maximum": 100,
             "riverCeiling": 60,
@@ -17874,14 +18115,14 @@ const GROUP_SEEDS = [
             "curveDirection": "near_peak",
             "winterHoldingContext": false,
             "label": "Peak presence",
-            "headline": "Chinook salmon are likely near their highest seasonal presence in the river.",
-            "detail": "This is the part of the season when in-river presence is usually strongest. Fish are most likely distributed through several dependable river sections. The read does not place fish in a specific pool or confirm a live count.",
-            "tip": "Plan for a dependable but potentially uneven river opportunity near its seasonal high point. Confirm fish activity before committing the full day.",
+            "headline": "Chinook salmon seasonal presence is peak presence and near its seasonal high.",
+            "detail": "Calendar timing places Chinook salmon presence at its expected seasonal peak, near its expected seasonal high. For the PM, expected run strength is Moderate, and the opportunity centers on dependable river sections. This is not a live fish count or today’s conditions.",
+            "tip": "Use Migration Stage to choose a section. Use Push and Activity for current movement support and responsiveness.",
             "reasonCodes": [
               "stage_peak",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "gauge": {
             "provider": "USGS",
@@ -17938,6 +18179,7 @@ const GROUP_SEEDS = [
           "nextConditionRefreshAt": "2026-10-02T22:00:00.000Z",
           "runStage": {
             "stage": "tapering",
+            "copyStrategy": "pere_marquette",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -17960,14 +18202,14 @@ const GROUP_SEEDS = [
               "peakToEndDays": 37
             },
             "label": "Tapering",
-            "headline": "This can remain a productive part of the Chinook salmon season, even as fresh arrivals typically become less consistent.",
-            "detail": "Chinook salmon may still be present through the river's dependable sections. At this point in the seasonal pattern, the balance often shifts from new arrivals toward fish already holding or spawning.",
-            "tip": "Begin in the river's established holding sections, especially deep holes and slower edges. If Push is Possible or stronger, finish with lower travel lanes for a fresh late wave.",
-            "whereToStart": "Established middle- and upper-river holding water from Walhalla and Branch toward Baldwin/M-37; add Scottville-area lower-river travel lanes only on a credible fresh-movement signal.",
+            "headline": "The main PM Chinook salmon migration is tapering.",
+            "detail": "Seasonal presence is declining. Established Middle river holding water is more dependable than broad travel-water searches.",
+            "tip": "Start in established Middle river water. Shift lower only when Push supports fresh movement.",
+            "whereToStart": "Start in the Middle river (Scottville–Maple Leaf). Add the Lower river (Pere Marquette Lake–Scottville) only when Push supports fresh movement.",
             "reasonCodes": [
               "stage_tapering"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "conditionsSuggest": {
             "label": "Timing complete",
@@ -18123,7 +18365,7 @@ const GROUP_SEEDS = [
               "conditions_ahead",
               "conditions_timing_complete"
             ],
-            "copyVersion": "river-run-copy-v27",
+            "copyVersion": "river-run-copy-v29",
             "previousCheckpointId": "peak_start",
             "previousCheckpointDate": "2026-09-15",
             "previousTimingLabel": "Ahead"
@@ -18188,6 +18430,8 @@ const GROUP_SEEDS = [
           },
           "fishInRiver": {
             "score": 54,
+            "displayScore": 50,
+            "scoreIsApproximate": true,
             "stage": "tapering",
             "maximum": 100,
             "riverCeiling": 60,
@@ -18196,14 +18440,14 @@ const GROUP_SEEDS = [
             "curveDirection": "falling",
             "winterHoldingContext": false,
             "label": "High presence",
-            "headline": "Seasonal timing still supports meaningful Chinook salmon presence through dependable river sections, even as the usual peak window may be easing.",
-            "detail": "Seasonal presence remains elevated relative to the rest of the season. Fish are still likely established through several dependable river sections, but fresh arrivals may be less consistent than around the usual peak. This is a seasonal estimate, not a live fish count.",
-            "tip": "Plan around fish already likely to be in the river. Seasonal presence is still near its high point, but remember that this seasonal estimate cannot tell whether a fresh wave is entering today.",
+            "headline": "Chinook salmon seasonal presence is high presence and declining.",
+            "detail": "Calendar timing places Chinook salmon presence high for this fall migration, declining as the fall migration advances. For the PM, expected run strength is Moderate, and the opportunity centers on dependable river sections. This is not a live fish count or today’s conditions.",
+            "tip": "Use Migration Stage to choose a section. Use Push and Activity for current movement support and responsiveness.",
             "reasonCodes": [
               "stage_tapering",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "gauge": {
             "provider": "USGS",
@@ -18246,41 +18490,10 @@ const GROUP_SEEDS = [
         "note": "Canonical production copy",
         "snapshotOverride": {
           "runId": "qa_limited_opportunity",
-          "runStage": {
-            "stage": "building",
-            "stagingContext": false,
-            "broadBuildingContext": false,
-            "winterHoldingContext": false,
-            "window": {
-              "snapshotDate": "2026-09-01",
-              "preRunStartDate": "2026-07-01",
-              "stagingStartDate": "2026-07-28",
-              "startDate": "2026-08-15",
-              "beginningEndDate": "2026-08-23",
-              "buildingEstablishedStartDate": "2026-09-01",
-              "buildingBroadStartDate": "2026-09-10",
-              "peakStartDate": "2026-09-15",
-              "peakDate": "2026-09-20",
-              "peakEndDate": "2026-09-30",
-              "taperingEndDate": "2026-10-18",
-              "endDate": "2026-10-27",
-              "lateEndDate": "2026-11-08",
-              "postRunLateCopyEndDate": "2026-11-10",
-              "startToPeakDays": 36,
-              "peakToEndDays": 37
-            },
-            "label": "Building",
-            "headline": "Chinook salmon are becoming established within the river's most dependable sections.",
-            "detail": "Earlier arrivals have had time to move upstream while later Chinook salmon may continue to enter. A smaller number of fish may now be distributed within a smaller set of dependable holding areas, wherever passage is open.",
-            "tip": "Begin in the river's most dependable established holding water and cover each deep hole, outside bend, and current break carefully. If Push is Possible or stronger, finish with one deliberate lower-river travel-lane check.",
-            "whereToStart": "Middle-river holding water from Scottville toward Walhalla first; earlier fish may already have reached Branch and the upper river toward Baldwin and M-37.",
-            "reasonCodes": [
-              "stage_building"
-            ],
-            "copyVersion": "river-run-copy-v27"
-          },
           "fishInRiver": {
             "score": 13,
+            "displayScore": 15,
+            "scoreIsApproximate": true,
             "stage": "building",
             "maximum": 100,
             "riverCeiling": 30,
@@ -18289,14 +18502,14 @@ const GROUP_SEEDS = [
             "curveDirection": "rising",
             "winterHoldingContext": false,
             "label": "Moderate presence",
-            "headline": "A smaller number of Chinook salmon are likely in the river, with this limited seasonal presence still building toward its high point.",
-            "detail": "This part of the season usually brings moderate presence, with a smaller number of fish expected to enter and occupy its most dependable water. This is a seasonal estimate, not a live fish count.",
-            "tip": "Plan for an improving but still limited river opportunity. Stay mobile, and require direct fish activity before slowing down.",
+            "headline": "Chinook salmon seasonal presence is moderate presence and building.",
+            "detail": "Calendar timing places Chinook salmon presence at moderate presence, increasing as the fall migration builds. For the PM, expected run strength is Limited, and the opportunity concentrates in dependable holding water. This is not a live fish count or today’s conditions.",
+            "tip": "Use Migration Stage to choose a section. Use Push and Activity for current movement support and responsiveness.",
             "reasonCodes": [
               "stage_building",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           }
         }
       },
@@ -18313,6 +18526,7 @@ const GROUP_SEEDS = [
           "nextConditionRefreshAt": "2026-09-20T22:00:00.000Z",
           "runStage": {
             "stage": "peak",
+            "copyStrategy": "pere_marquette",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -18335,14 +18549,14 @@ const GROUP_SEEDS = [
               "peakToEndDays": 37
             },
             "label": "Peak",
-            "headline": "This is typically the best river opportunity of the Chinook salmon season, although the overall seasonal presence remains limited.",
-            "detail": "Earlier waves have had time to move, so a smaller number of Chinook salmon may now be distributed within the river's most dependable holding and spawning areas, except above dams or other barriers.",
-            "tip": "Choose one of the river's most dependable holding sections and fish every substantial hole from its head through the inside seam and tail. Move carefully between deep bends and resting pockets, and leave fish on shallow spawning gravel alone.",
-            "whereToStart": "Compare the lower river near Scottville, middle river through Walhalla and Branch, and upper river toward Baldwin and M-37, prioritizing substantial holding water connected to productive current.",
+            "headline": "This is typically the PM’s strongest Chinook salmon window, within a Limited river-specific run.",
+            "detail": "Seasonal timing favors the most dependable Chinook salmon holding water. Expected distribution is concentrated and uneven.",
+            "tip": "Start in the Middle river. Compare the Upper river only after a complete first pass.",
+            "whereToStart": "Start in the Middle river (Scottville–Maple Leaf). Compare the Upper river (Maple Leaf–M-37) when direct fish activity favors it.",
             "reasonCodes": [
               "stage_peak"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "conditionsSuggest": {
             "label": "Ahead",
@@ -18467,16 +18681,16 @@ const GROUP_SEEDS = [
               "2026-09-13": "16:00",
               "2026-09-14": "16:00"
             },
-            "headline": "The migration appears to be developing earlier than usual.",
-            "detail": "The river has risen and cooled faster than it normally does by this point in the season.",
-            "tip": "Start one accessible river section farther upstream than you normally would for this date and prioritize established holding water. If Push is Possible or stronger, finish with lower travel lanes.",
+            "headline": "The PM migration is developing earlier than usual.",
+            "detail": "Season-to-date Scottville river-rise activity and M-37 cooling are stronger than the usual PM pattern.",
+            "tip": "Start one PM section upstream from Migration Stage, capped at the Upper river (Maple Leaf–M-37).",
             "reasonCodes": [
               "gauge_fresh",
               "temperature_measured",
               "conditions_checkpoint_peak_start",
               "conditions_ahead"
             ],
-            "copyVersion": "river-run-copy-v27",
+            "copyVersion": "river-run-copy-v29",
             "previousCheckpointId": "building_established",
             "previousCheckpointDate": "2026-09-01",
             "previousTimingLabel": "Ahead"
@@ -18541,6 +18755,8 @@ const GROUP_SEEDS = [
           },
           "fishInRiver": {
             "score": 30,
+            "displayScore": 30,
+            "scoreIsApproximate": false,
             "stage": "peak",
             "maximum": 100,
             "riverCeiling": 30,
@@ -18549,14 +18765,14 @@ const GROUP_SEEDS = [
             "curveDirection": "near_peak",
             "winterHoldingContext": false,
             "label": "Peak presence",
-            "headline": "Chinook salmon are likely near their highest seasonal presence in the river, although the overall opportunity remains limited.",
-            "detail": "This is the part of the season when in-river presence is usually strongest. Even at that high point, the overall seasonal opportunity remains limited. The read does not place fish in a specific pool or confirm a live count.",
-            "tip": "Treat this as the best part of this river's limited seasonal opportunity, not a high-abundance fishery. Require direct fish activity before committing more time.",
+            "headline": "Chinook salmon seasonal presence is peak presence and near its seasonal high.",
+            "detail": "Calendar timing places Chinook salmon presence at its expected seasonal peak, near its expected seasonal high. For the PM, expected run strength is Limited, and the opportunity concentrates in dependable holding water. This is not a live fish count or today’s conditions.",
+            "tip": "Use Migration Stage to choose a section. Use Push and Activity for current movement support and responsiveness.",
             "reasonCodes": [
               "stage_peak",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "gauge": {
             "provider": "USGS",
@@ -18613,6 +18829,7 @@ const GROUP_SEEDS = [
           "nextConditionRefreshAt": "2026-10-05T22:00:00.000Z",
           "runStage": {
             "stage": "tapering",
+            "copyStrategy": "pere_marquette",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -18635,14 +18852,14 @@ const GROUP_SEEDS = [
               "peakToEndDays": 37
             },
             "label": "Tapering",
-            "headline": "This can still offer a limited Chinook salmon opportunity, even as fresh arrivals typically become less consistent.",
-            "detail": "A smaller number of Chinook salmon may still be concentrated in the river's most dependable holding water. At this point in the seasonal pattern, the balance often shifts from new arrivals toward fish already holding or spawning.",
-            "tip": "Begin in the river's most dependable deep holes and slower holding edges. If Push is Possible or stronger, finish with one lower travel-lane check for a fresh late arrival.",
-            "whereToStart": "Established middle- and upper-river holding water from Walhalla and Branch toward Baldwin/M-37; add Scottville-area lower-river travel lanes only on a credible fresh-movement signal.",
+            "headline": "The main PM Chinook salmon migration is tapering.",
+            "detail": "Seasonal presence is declining. Established Middle river holding water is more dependable than broad travel-water searches.",
+            "tip": "Start in established Middle river water. Shift lower only when Push supports fresh movement.",
+            "whereToStart": "Start in the Middle river (Scottville–Maple Leaf). Add the Lower river (Pere Marquette Lake–Scottville) only when Push supports fresh movement.",
             "reasonCodes": [
               "stage_tapering"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "conditionsSuggest": {
             "label": "Timing complete",
@@ -18798,7 +19015,7 @@ const GROUP_SEEDS = [
               "conditions_ahead",
               "conditions_timing_complete"
             ],
-            "copyVersion": "river-run-copy-v27",
+            "copyVersion": "river-run-copy-v29",
             "previousCheckpointId": "peak_start",
             "previousCheckpointDate": "2026-09-15",
             "previousTimingLabel": "Ahead"
@@ -18863,6 +19080,8 @@ const GROUP_SEEDS = [
           },
           "fishInRiver": {
             "score": 24,
+            "displayScore": 25,
+            "scoreIsApproximate": true,
             "stage": "tapering",
             "maximum": 100,
             "riverCeiling": 30,
@@ -18871,14 +19090,14 @@ const GROUP_SEEDS = [
             "curveDirection": "falling",
             "winterHoldingContext": false,
             "label": "High presence",
-            "headline": "Seasonal timing still supports this limited Chinook salmon presence holding near its seasonal high point in dependable water, even as the usual peak window may be easing.",
-            "detail": "Seasonal presence remains elevated relative to the rest of the season. The overall seasonal opportunity remains limited, but fresh arrivals may be less consistent than around the usual peak. This is a seasonal estimate, not a live fish count.",
-            "tip": "Treat this as near the high point of a limited seasonal opportunity. Focus on the most dependable water, and require direct fish activity before committing more time.",
+            "headline": "Chinook salmon seasonal presence is high presence and declining.",
+            "detail": "Calendar timing places Chinook salmon presence high for this fall migration, declining as the fall migration advances. For the PM, expected run strength is Limited, and the opportunity concentrates in dependable holding water. This is not a live fish count or today’s conditions.",
+            "tip": "Use Migration Stage to choose a section. Use Push and Activity for current movement support and responsiveness.",
             "reasonCodes": [
               "stage_tapering",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "gauge": {
             "provider": "USGS",
@@ -18928,6 +19147,7 @@ const GROUP_SEEDS = [
           "nextConditionRefreshAt": "2026-10-22T22:00:00.000Z",
           "runStage": {
             "stage": "ending",
+            "copyStrategy": "pere_marquette",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -18950,14 +19170,14 @@ const GROUP_SEEDS = [
               "peakToEndDays": 37
             },
             "label": "Ending",
-            "headline": "A limited late-season Chinook salmon opportunity may remain in the most dependable holding water.",
-            "detail": "A smaller number of fish can still be present, but those fish may have been in the system for a while and fresh arrivals tend to be less dependable.",
-            "tip": "Skip fast travel lanes. Work the deepest established holes and slow current edges, and leave actively spawning fish and shallow gravel alone.",
-            "whereToStart": "The deepest middle- and upper-river holes and slower current edges from Walhalla through Branch toward Baldwin/M-37—not fast lower-river travel lanes.",
+            "headline": "The PM Chinook salmon migration is nearing its seasonal end.",
+            "detail": "Remaining fish are expected to be less evenly distributed. Fresh entry is no longer dependable.",
+            "tip": "Start in proven Middle river holding water. Add one Upper river check only after direct fish activity supports it.",
+            "whereToStart": "Start in the Middle river (Scottville–Maple Leaf). Add the Upper river (Maple Leaf–M-37) only for established late holding water.",
             "reasonCodes": [
               "stage_ending"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "conditionsSuggest": {
             "label": "Timing complete",
@@ -19113,7 +19333,7 @@ const GROUP_SEEDS = [
               "conditions_ahead",
               "conditions_timing_complete"
             ],
-            "copyVersion": "river-run-copy-v27",
+            "copyVersion": "river-run-copy-v29",
             "previousCheckpointId": "peak_start",
             "previousCheckpointDate": "2026-09-15",
             "previousTimingLabel": "Ahead"
@@ -19178,6 +19398,8 @@ const GROUP_SEEDS = [
           },
           "fishInRiver": {
             "score": 10,
+            "displayScore": 10,
+            "scoreIsApproximate": true,
             "stage": "ending",
             "maximum": 100,
             "riverCeiling": 30,
@@ -19186,14 +19408,14 @@ const GROUP_SEEDS = [
             "curveDirection": "falling",
             "winterHoldingContext": false,
             "label": "Limited presence",
-            "headline": "Seasonal timing still supports a few Chinook salmon in the river's most dependable holding water, but this limited opportunity is thinning.",
-            "detail": "This part of the season usually supports limited presence concentrated in the river's most dependable holes and slower holding water. This is a seasonal estimate, not a live fish count.",
-            "tip": "Treat this as a lower-odds late-season opportunity. Keep the trip flexible, and require direct fish activity before committing more time.",
+            "headline": "Chinook salmon seasonal presence is limited presence and declining.",
+            "detail": "Calendar timing places Chinook salmon presence at limited presence, declining as the fall migration advances. For the PM, expected run strength is Limited, and the opportunity concentrates in dependable holding water. This is not a live fish count or today’s conditions.",
+            "tip": "Use Migration Stage to choose a section. Use Push and Activity for current movement support and responsiveness.",
             "reasonCodes": [
               "stage_ending",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "gauge": {
             "provider": "USGS",
@@ -19243,6 +19465,7 @@ const GROUP_SEEDS = [
           "nextConditionRefreshAt": "2026-09-14T22:00:00.000Z",
           "runStage": {
             "stage": "building",
+            "copyStrategy": "pere_marquette",
             "stagingContext": false,
             "broadBuildingContext": true,
             "winterHoldingContext": false,
@@ -19265,14 +19488,14 @@ const GROUP_SEEDS = [
               "peakToEndDays": 37
             },
             "label": "Building",
-            "headline": "Chinook salmon are becoming established within the river's most dependable sections.",
-            "detail": "Earlier arrivals have had time to move upstream while later Chinook salmon may continue to enter. A smaller number of fish may now be distributed within a smaller set of dependable holding areas, wherever passage is open.",
-            "tip": "Begin in the river's most dependable established holding water and cover each deep hole, outside bend, and current break carefully. If Push is Possible or stronger, finish with one deliberate lower-river travel-lane check.",
-            "whereToStart": "Middle-river holding water from Scottville through Walhalla and Branch, with the upper river toward Baldwin and M-37 firmly in play.",
+            "headline": "Seasonal timing supports a broader PM Chinook salmon distribution.",
+            "detail": "The Middle river is the dependable calendar choice. Earlier arrivals may also occupy the Upper river.",
+            "tip": "Cover one Middle river section completely before comparing the Upper river.",
+            "whereToStart": "Start in the Middle river (Scottville–Maple Leaf). Add the Upper river (Maple Leaf–M-37) when direct fish activity supports it.",
             "reasonCodes": [
               "stage_building"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -19334,6 +19557,8 @@ const GROUP_SEEDS = [
           },
           "fishInRiver": {
             "score": 24,
+            "displayScore": 25,
+            "scoreIsApproximate": true,
             "stage": "building",
             "maximum": 100,
             "riverCeiling": 30,
@@ -19342,14 +19567,14 @@ const GROUP_SEEDS = [
             "curveDirection": "rising",
             "winterHoldingContext": false,
             "label": "High presence",
-            "headline": "Chinook salmon are likely filling more of the river's dependable holding water as seasonal presence builds toward its strongest point.",
-            "detail": "The migration is approaching its strongest seasonal point, but its limited opportunity is most likely within a smaller set of dependable holding areas. This is a seasonal estimate, not a live fish count.",
-            "tip": "Treat this as one of the better parts of the season, while remembering that this river's overall opportunity remains limited. Give each stop a complete pass, but do not mistake this seasonal estimate for a live fish count.",
+            "headline": "Chinook salmon seasonal presence is high presence and building.",
+            "detail": "Calendar timing places Chinook salmon presence high for this fall migration, increasing as the fall migration builds. For the PM, expected run strength is Limited, and the opportunity concentrates in dependable holding water. This is not a live fish count or today’s conditions.",
+            "tip": "Use Migration Stage to choose a section. Use Push and Activity for current movement support and responsiveness.",
             "reasonCodes": [
               "stage_building",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "gauge": {
             "provider": "USGS",
@@ -19399,6 +19624,7 @@ const GROUP_SEEDS = [
           "nextConditionRefreshAt": "2026-09-20T22:00:00.000Z",
           "runStage": {
             "stage": "peak",
+            "copyStrategy": "pere_marquette",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -19421,14 +19647,14 @@ const GROUP_SEEDS = [
               "peakToEndDays": 37
             },
             "label": "Peak",
-            "headline": "This is typically the best river opportunity of the Chinook salmon season, although the overall seasonal presence remains limited.",
-            "detail": "Earlier waves have had time to move, so a smaller number of Chinook salmon may now be distributed within the river's most dependable holding and spawning areas, except above dams or other barriers.",
-            "tip": "Choose one of the river's most dependable holding sections and fish every substantial hole from its head through the inside seam and tail. Move carefully between deep bends and resting pockets, and leave fish on shallow spawning gravel alone.",
-            "whereToStart": "Compare the lower river near Scottville, middle river through Walhalla and Branch, and upper river toward Baldwin and M-37, prioritizing substantial holding water connected to productive current.",
+            "headline": "This is typically the PM’s strongest Chinook salmon window, within a Limited river-specific run.",
+            "detail": "Seasonal timing favors the most dependable Chinook salmon holding water. Expected distribution is concentrated and uneven.",
+            "tip": "Start in the Middle river. Compare the Upper river only after a complete first pass.",
+            "whereToStart": "Start in the Middle river (Scottville–Maple Leaf). Compare the Upper river (Maple Leaf–M-37) when direct fish activity favors it.",
             "reasonCodes": [
               "stage_peak"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "conditionsSuggest": {
             "label": "Ahead",
@@ -19553,16 +19779,16 @@ const GROUP_SEEDS = [
               "2026-09-13": "16:00",
               "2026-09-14": "16:00"
             },
-            "headline": "The migration appears to be developing earlier than usual.",
-            "detail": "The river has risen and cooled faster than it normally does by this point in the season.",
-            "tip": "Start one accessible river section farther upstream than you normally would for this date and prioritize established holding water. If Push is Possible or stronger, finish with lower travel lanes.",
+            "headline": "The PM migration is developing earlier than usual.",
+            "detail": "Season-to-date Scottville river-rise activity and M-37 cooling are stronger than the usual PM pattern.",
+            "tip": "Start one PM section upstream from Migration Stage, capped at the Upper river (Maple Leaf–M-37).",
             "reasonCodes": [
               "gauge_fresh",
               "temperature_measured",
               "conditions_checkpoint_peak_start",
               "conditions_ahead"
             ],
-            "copyVersion": "river-run-copy-v27",
+            "copyVersion": "river-run-copy-v29",
             "previousCheckpointId": "building_established",
             "previousCheckpointDate": "2026-09-01",
             "previousTimingLabel": "Ahead"
@@ -19627,6 +19853,8 @@ const GROUP_SEEDS = [
           },
           "fishInRiver": {
             "score": 30,
+            "displayScore": 30,
+            "scoreIsApproximate": false,
             "stage": "peak",
             "maximum": 100,
             "riverCeiling": 30,
@@ -19635,14 +19863,14 @@ const GROUP_SEEDS = [
             "curveDirection": "near_peak",
             "winterHoldingContext": false,
             "label": "Peak presence",
-            "headline": "Chinook salmon are likely near their highest seasonal presence in the river, although the overall opportunity remains limited.",
-            "detail": "This is the part of the season when in-river presence is usually strongest. Even at that high point, the overall seasonal opportunity remains limited. The read does not place fish in a specific pool or confirm a live count.",
-            "tip": "Treat this as the best part of this river's limited seasonal opportunity, not a high-abundance fishery. Require direct fish activity before committing more time.",
+            "headline": "Chinook salmon seasonal presence is peak presence and near its seasonal high.",
+            "detail": "Calendar timing places Chinook salmon presence at its expected seasonal peak, near its expected seasonal high. For the PM, expected run strength is Limited, and the opportunity concentrates in dependable holding water. This is not a live fish count or today’s conditions.",
+            "tip": "Use Migration Stage to choose a section. Use Push and Activity for current movement support and responsiveness.",
             "reasonCodes": [
               "stage_peak",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "gauge": {
             "provider": "USGS",
@@ -19699,6 +19927,7 @@ const GROUP_SEEDS = [
           "nextConditionRefreshAt": "2026-10-02T22:00:00.000Z",
           "runStage": {
             "stage": "tapering",
+            "copyStrategy": "pere_marquette",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -19721,14 +19950,14 @@ const GROUP_SEEDS = [
               "peakToEndDays": 37
             },
             "label": "Tapering",
-            "headline": "This can still offer a limited Chinook salmon opportunity, even as fresh arrivals typically become less consistent.",
-            "detail": "A smaller number of Chinook salmon may still be concentrated in the river's most dependable holding water. At this point in the seasonal pattern, the balance often shifts from new arrivals toward fish already holding or spawning.",
-            "tip": "Begin in the river's most dependable deep holes and slower holding edges. If Push is Possible or stronger, finish with one lower travel-lane check for a fresh late arrival.",
-            "whereToStart": "Established middle- and upper-river holding water from Walhalla and Branch toward Baldwin/M-37; add Scottville-area lower-river travel lanes only on a credible fresh-movement signal.",
+            "headline": "The main PM Chinook salmon migration is tapering.",
+            "detail": "Seasonal presence is declining. Established Middle river holding water is more dependable than broad travel-water searches.",
+            "tip": "Start in established Middle river water. Shift lower only when Push supports fresh movement.",
+            "whereToStart": "Start in the Middle river (Scottville–Maple Leaf). Add the Lower river (Pere Marquette Lake–Scottville) only when Push supports fresh movement.",
             "reasonCodes": [
               "stage_tapering"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "conditionsSuggest": {
             "label": "Timing complete",
@@ -19884,7 +20113,7 @@ const GROUP_SEEDS = [
               "conditions_ahead",
               "conditions_timing_complete"
             ],
-            "copyVersion": "river-run-copy-v27",
+            "copyVersion": "river-run-copy-v29",
             "previousCheckpointId": "peak_start",
             "previousCheckpointDate": "2026-09-15",
             "previousTimingLabel": "Ahead"
@@ -19949,6 +20178,8 @@ const GROUP_SEEDS = [
           },
           "fishInRiver": {
             "score": 27,
+            "displayScore": 25,
+            "scoreIsApproximate": true,
             "stage": "tapering",
             "maximum": 100,
             "riverCeiling": 30,
@@ -19957,14 +20188,14 @@ const GROUP_SEEDS = [
             "curveDirection": "falling",
             "winterHoldingContext": false,
             "label": "High presence",
-            "headline": "Seasonal timing still supports this limited Chinook salmon presence holding near its seasonal high point in dependable water, even as the usual peak window may be easing.",
-            "detail": "Seasonal presence remains elevated relative to the rest of the season. The overall seasonal opportunity remains limited, but fresh arrivals may be less consistent than around the usual peak. This is a seasonal estimate, not a live fish count.",
-            "tip": "Treat this as near the high point of a limited seasonal opportunity. Focus on the most dependable water, and require direct fish activity before committing more time.",
+            "headline": "Chinook salmon seasonal presence is high presence and declining.",
+            "detail": "Calendar timing places Chinook salmon presence high for this fall migration, declining as the fall migration advances. For the PM, expected run strength is Limited, and the opportunity concentrates in dependable holding water. This is not a live fish count or today’s conditions.",
+            "tip": "Use Migration Stage to choose a section. Use Push and Activity for current movement support and responsiveness.",
             "reasonCodes": [
               "stage_tapering",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "gauge": {
             "provider": "USGS",
@@ -20015,9 +20246,9 @@ const GROUP_SEEDS = [
           "push": {
             "score": 76,
             "label": "Strong",
-            "headline": "Today's river rise and water temperature strongly support the possibility of a fresh wave moving into the river.",
-            "detail": "The river has made a clear rise since yesterday. Water temperature is favorable for fall migration and is cooling. The river has already made a meaningful rise, so that measured response carries the useful movement signal and rainfall adds no separate weight.",
-            "tip": "Begin on lower-river travel lanes and inside seams, then work the first resting holes along that route. Keep moving until fish establish a pattern; the signal still does not prove a wave entered.",
+            "headline": "PM water strongly supports possible fresh movement.",
+            "detail": "Scottville flow has made a clear rise. Measured water temperature is favorable for this migration and cooling. Scottville already reflects the rain response, so rain adds no extra credit.",
+            "tip": "Use Lower river travel water as the fresh-movement check, then return to the section named by Migration Stage.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
@@ -20035,7 +20266,7 @@ const GROUP_SEEDS = [
               "appliedCaps": []
             },
             "rulesVersion": "pm-fall-chinook-push-v5",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "pushHistory": {
             "status": "active_now",
@@ -20105,9 +20336,9 @@ const GROUP_SEEDS = [
           "fishability": {
             "score": 45,
             "label": "Tough",
-            "headline": "The river is running very high, leaving fewer practical places to fish effectively.",
-            "detail": "Very high flow is reducing access and the amount of water where a presentation can be controlled. The river is not climbing quickly, but practical fishing water remains compressed into the slowest edges. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river.",
-            "tip": "Fish only bank-side soft pockets, protected inside turns, and current breaks. Make short controlled presentations and skip every main-channel lane.",
+            "headline": "Very high Scottville flow leaves little controllable presentation water.",
+            "detail": "Very high flow compresses controllable water into the slowest protected edges. Stable flow should keep presentation lanes consistent. This read applies to the Lower river (Pere Marquette Lake–Scottville), not the full PM.",
+            "tip": "Favor protected margins and short controlled presentations. Choose another day if control is not dependable.",
             "reasonCodes": [
               "gauge_fresh",
               "very_high_flow_band"
@@ -20118,7 +20349,7 @@ const GROUP_SEEDS = [
               "appliedCaps": []
             },
             "rulesVersion": "pm-scottville-fishability-v2",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "interpretationNote": {
             "headline": "Fresh movement looks possible, but the river may be difficult to fish.",
@@ -20141,6 +20372,7 @@ const GROUP_SEEDS = [
           "nextConditionRefreshAt": "2026-09-20T22:00:00.000Z",
           "runStage": {
             "stage": "peak",
+            "copyStrategy": "pere_marquette",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -20163,14 +20395,14 @@ const GROUP_SEEDS = [
               "peakToEndDays": 37
             },
             "label": "Peak",
-            "headline": "This is typically the strongest and most dependable river opportunity of the Chinook salmon season.",
-            "detail": "Multiple waves have had time to spread, so Chinook salmon are likely distributed throughout the accessible river—from lower travel water through upstream holding and spawning reaches, except above dams or other barriers.",
-            "tip": "Choose an accessible river section and fish every substantial hole from its head through the inside seam and tail. Move section by section through deep bends and resting pockets, and leave fish on shallow spawning gravel alone.",
-            "whereToStart": "Compare the lower river near Scottville, middle river through Walhalla and Branch, and upper river toward Baldwin and M-37, prioritizing substantial holding water connected to productive current.",
+            "headline": "This is typically the PM’s strongest Chinook salmon migration window.",
+            "detail": "Seasonal timing supports the widest dependable Chinook salmon distribution. It does not confirm fish in every section.",
+            "tip": "Start in the Middle river. Compare the Upper river only after a complete first pass.",
+            "whereToStart": "Start in the Middle river (Scottville–Maple Leaf). Compare the Upper river (Maple Leaf–M-37) when direct fish activity favors it.",
             "reasonCodes": [
               "stage_peak"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "conditionsSuggest": {
             "label": "Ahead",
@@ -20295,16 +20527,16 @@ const GROUP_SEEDS = [
               "2026-09-13": "16:00",
               "2026-09-14": "16:00"
             },
-            "headline": "The migration appears to be developing earlier than usual.",
-            "detail": "The river has risen and cooled faster than it normally does by this point in the season.",
-            "tip": "Start one accessible river section farther upstream than you normally would for this date and prioritize established holding water. If Push is Possible or stronger, finish with lower travel lanes.",
+            "headline": "The PM migration is developing earlier than usual.",
+            "detail": "Season-to-date Scottville river-rise activity and M-37 cooling are stronger than the usual PM pattern.",
+            "tip": "Start one PM section upstream from Migration Stage, capped at the Upper river (Maple Leaf–M-37).",
             "reasonCodes": [
               "gauge_fresh",
               "temperature_measured",
               "conditions_checkpoint_peak_start",
               "conditions_ahead"
             ],
-            "copyVersion": "river-run-copy-v27",
+            "copyVersion": "river-run-copy-v29",
             "previousCheckpointId": "building_established",
             "previousCheckpointDate": "2026-09-01",
             "previousTimingLabel": "Ahead"
@@ -20312,9 +20544,9 @@ const GROUP_SEEDS = [
           "push": {
             "score": 0,
             "label": "Weak",
-            "headline": "Today's water shows little support for a fresh wave of fish.",
-            "detail": "The river is falling instead of showing a fresh rise. Water temperature remains too warm to support a strong Push but is warming sharply. Recent weather estimates indicate very little rain around the river.",
-            "tip": "Do not build the day around new arrivals while the river remains warm. Start in established holding water at first or last light and leave lower travel lanes secondary.",
+            "headline": "PM water shows little support for fresh movement.",
+            "detail": "Scottville flow is falling. Measured water temperature is too warm for strong movement support but warming quickly. Recent watershed weather shows little rain.",
+            "tip": "Keep the section named by Migration Stage. Leave fresh-entry travel water secondary until measured temperature improves.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
@@ -20334,7 +20566,7 @@ const GROUP_SEEDS = [
               "appliedCaps": []
             },
             "rulesVersion": "pm-fall-chinook-push-v5",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -20396,6 +20628,8 @@ const GROUP_SEEDS = [
           },
           "fishInRiver": {
             "score": 100,
+            "displayScore": 100,
+            "scoreIsApproximate": false,
             "stage": "peak",
             "maximum": 100,
             "riverCeiling": 100,
@@ -20404,14 +20638,14 @@ const GROUP_SEEDS = [
             "curveDirection": "near_peak",
             "winterHoldingContext": false,
             "label": "Peak presence",
-            "headline": "Chinook salmon are likely near their highest seasonal presence in the river.",
-            "detail": "This is the part of the season when in-river presence is usually strongest. The read describes the river as a whole; it does not place fish in a specific pool or confirm a live count.",
-            "tip": "Plan for the strongest seasonal presence this river usually offers, while remembering that this estimate cannot confirm fish at a specific spot or describe today's river conditions.",
+            "headline": "Chinook salmon seasonal presence is peak presence and near its seasonal high.",
+            "detail": "Calendar timing places Chinook salmon presence at its expected seasonal peak, near its expected seasonal high. For the PM, expected run strength is Strong, and the opportunity can extend across broadly accessible water. This is not a live fish count or today’s conditions.",
+            "tip": "Use Migration Stage to choose a section. Use Push and Activity for current movement support and responsiveness.",
             "reasonCodes": [
               "stage_peak",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "gauge": {
             "provider": "USGS",
@@ -20467,6 +20701,7 @@ const GROUP_SEEDS = [
           "nextConditionRefreshAt": "2026-08-15T22:00:00.000Z",
           "runStage": {
             "stage": "beginning",
+            "copyStrategy": "pere_marquette",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -20489,14 +20724,14 @@ const GROUP_SEEDS = [
               "peakToEndDays": 37
             },
             "label": "Beginning",
-            "headline": "The first Chinook salmon are beginning to enter the river.",
-            "detail": "Fresh Chinook salmon may be entering the river, but numbers can still be scattered and inconsistent this early.",
-            "tip": "Begin in the lower river. Fish the first deep bends and short resting pockets off the main travel lane, then move upstream only after the lower section has been covered.",
-            "whereToStart": "Lower migratory river from Pere Marquette Lake toward Scottville: first deep bends, resting pockets, and current breaks beside the main travel lane.",
+            "headline": "Seasonal timing supports the first Chinook salmon entering the Lower river.",
+            "detail": "This is the opening river phase. Presence is expected to be scattered and uneven.",
+            "tip": "Cover the Lower river first. Move upstream only after direct fish activity supports it.",
+            "whereToStart": "Start in the Lower river (Pere Marquette Lake–Scottville).",
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "conditionsSuggest": {
             "label": "Typical",
@@ -20559,16 +20794,16 @@ const GROUP_SEEDS = [
               "2026-08-13": "16:00",
               "2026-08-14": "16:00"
             },
-            "headline": "The migration appears to be progressing at a normal seasonal pace.",
-            "detail": "River rises and cooling are close to what is usually seen by this point in the season.",
-            "tip": "Fish the core river section identified by Migration Stage. Begin where a travel lane feeds established holding water, then adjust presentation—not seasonal location—using Fishability.",
+            "headline": "The PM migration is progressing at its usual seasonal pace.",
+            "detail": "Season-to-date Scottville river-rise activity and M-37 cooling are close to the usual PM pattern.",
+            "tip": "Keep the PM section named by Migration Stage.",
             "reasonCodes": [
               "gauge_fresh",
               "temperature_measured",
               "conditions_checkpoint_river_start",
               "conditions_typical"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -20582,9 +20817,9 @@ const GROUP_SEEDS = [
           "fishability": {
             "score": 75,
             "label": "Good",
-            "headline": "The river is in a comfortable, fishable range with a manageable pace.",
-            "detail": "Flow is in a dependable working range with a useful mix of travel lanes, seams, and holding water. The steady flow should keep travel lanes, seams, and holding water easy to read from one pass to the next. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river.",
-            "tip": "Start where a main travel lane enters the first established hole. Fish the head, inside seam, and tail in order, then move to the next piece of holding water.",
+            "headline": "Scottville flow is in a comfortable presentation range.",
+            "detail": "The flow band supports readable lanes, seams, and holding water. Stable flow should keep presentation lanes consistent. This read applies to the Lower river (Pere Marquette Lake–Scottville), not the full PM.",
+            "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
               "normal_flow_band"
@@ -20595,10 +20830,12 @@ const GROUP_SEEDS = [
               "appliedCaps": []
             },
             "rulesVersion": "pm-scottville-fishability-v2",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "fishInRiver": {
             "score": 10,
+            "displayScore": 10,
+            "scoreIsApproximate": true,
             "stage": "beginning",
             "maximum": 100,
             "riverCeiling": 100,
@@ -20607,14 +20844,14 @@ const GROUP_SEEDS = [
             "curveDirection": "rising",
             "winterHoldingContext": false,
             "label": "Low presence",
-            "headline": "A small number of Chinook salmon may be in the river, and seasonal presence is still building.",
-            "detail": "This part of the season usually brings low presence, with more fish expected to enter and spread through the river. This is a seasonal estimate, not a live fish count.",
-            "tip": "Treat this as an early, low-odds river opportunity. Expect scattered results, and use direct fish activity before committing the full day.",
+            "headline": "Chinook salmon seasonal presence is low presence and building.",
+            "detail": "Calendar timing places Chinook salmon presence at low presence, increasing as the fall migration builds. For the PM, expected run strength is Strong, and the opportunity can extend across broadly accessible water. This is not a live fish count or today’s conditions.",
+            "tip": "Use Migration Stage to choose a section. Use Push and Activity for current movement support and responsiveness.",
             "reasonCodes": [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "gauge": {
             "provider": "USGS",
@@ -20670,6 +20907,7 @@ const GROUP_SEEDS = [
           "nextConditionRefreshAt": "2026-09-15T22:00:00.000Z",
           "runStage": {
             "stage": "building",
+            "copyStrategy": "pere_marquette",
             "stagingContext": false,
             "broadBuildingContext": true,
             "winterHoldingContext": false,
@@ -20692,14 +20930,14 @@ const GROUP_SEEDS = [
               "peakToEndDays": 37
             },
             "label": "Building",
-            "headline": "Chinook salmon can now be found throughout the accessible river.",
-            "detail": "Earlier waves have had time to reach upper holding water while later Chinook salmon may still be entering below. Lower, middle, and upper sections are all in play wherever passage is open; the most dependable concentrations may still be in the lower and middle river, while upper water can now hold meaningful numbers too.",
-            "tip": "Start with dependable lower- or middle-river holding water, then cover established upper holes, outside bends, and current breaks. Use Push to decide whether fresh lower-river travel lanes deserve extra time.",
-            "whereToStart": "Middle-river holding water from Scottville through Walhalla and Branch, with the upper river toward Baldwin and M-37 firmly in play.",
+            "headline": "Seasonal timing supports a broader PM Chinook salmon distribution.",
+            "detail": "The Middle river is the dependable calendar choice. Earlier arrivals may also occupy the Upper river.",
+            "tip": "Cover one Middle river section completely before comparing the Upper river.",
+            "whereToStart": "Start in the Middle river (Scottville–Maple Leaf). Add the Upper river (Maple Leaf–M-37) when direct fish activity supports it.",
             "reasonCodes": [
               "stage_building"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "conditionsSuggest": {
             "label": "Delayed",
@@ -20824,16 +21062,16 @@ const GROUP_SEEDS = [
               "2026-09-13": "16:00",
               "2026-09-14": "16:00"
             },
-            "headline": "The migration appears to be developing later than usual.",
-            "detail": "The river has risen and cooled more slowly than it normally does by this point in the season.",
-            "tip": "Start in the lower river and fish the first deep holding water connected to lake-entry travel lanes. Do not assume the middle and upper river have filled in yet.",
+            "headline": "The PM migration is developing later than usual.",
+            "detail": "Season-to-date Scottville river-rise activity and M-37 cooling are weaker than the usual PM pattern.",
+            "tip": "Start one PM section downstream from Migration Stage, capped at the Lower river (Pere Marquette Lake–Scottville).",
             "reasonCodes": [
               "gauge_fresh",
               "temperature_measured",
               "conditions_checkpoint_peak_start",
               "conditions_delayed"
             ],
-            "copyVersion": "river-run-copy-v27",
+            "copyVersion": "river-run-copy-v29",
             "previousCheckpointId": "building_established",
             "previousCheckpointDate": "2026-09-01",
             "previousTimingLabel": "Delayed"
@@ -20841,9 +21079,9 @@ const GROUP_SEEDS = [
           "push": {
             "score": 76,
             "label": "Strong",
-            "headline": "Today's river rise and water temperature strongly support the possibility of a fresh wave moving into the river.",
-            "detail": "The river has made a clear rise since yesterday. Water temperature is favorable for fall migration and is cooling. The river has already made a meaningful rise, so that measured response carries the useful movement signal and rainfall adds no separate weight.",
-            "tip": "Begin on lower-river travel lanes and inside seams, then work the first resting holes along that route. Keep moving until fish establish a pattern; the signal still does not prove a wave entered.",
+            "headline": "PM water strongly supports possible fresh movement.",
+            "detail": "Scottville flow has made a clear rise. Measured water temperature is favorable for this migration and cooling. Scottville already reflects the rain response, so rain adds no extra credit.",
+            "tip": "Use Lower river travel water as the fresh-movement check, then return to the section named by Migration Stage.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
@@ -20861,7 +21099,7 @@ const GROUP_SEEDS = [
               "appliedCaps": []
             },
             "rulesVersion": "pm-fall-chinook-push-v5",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "pushHistory": {
             "status": "active_now",
@@ -20930,6 +21168,8 @@ const GROUP_SEEDS = [
           },
           "fishInRiver": {
             "score": 84,
+            "displayScore": 85,
+            "scoreIsApproximate": true,
             "stage": "building",
             "maximum": 100,
             "riverCeiling": 100,
@@ -20938,14 +21178,14 @@ const GROUP_SEEDS = [
             "curveDirection": "rising",
             "winterHoldingContext": false,
             "label": "High presence",
-            "headline": "Chinook salmon are likely spread through more of the river as seasonal presence builds toward its strongest point.",
-            "detail": "The migration is approaching its strongest seasonal point, and fish are likely distributed through more of the river. This is a seasonal estimate, not a live fish count.",
-            "tip": "Treat this as one of the stronger parts of a strong river season. Give each stop a complete pass, but do not mistake this seasonal estimate for a live fish count.",
+            "headline": "Chinook salmon seasonal presence is high presence and building.",
+            "detail": "Calendar timing places Chinook salmon presence high for this fall migration, increasing as the fall migration builds. For the PM, expected run strength is Strong, and the opportunity can extend across broadly accessible water. This is not a live fish count or today’s conditions.",
+            "tip": "Use Migration Stage to choose a section. Use Push and Activity for current movement support and responsiveness.",
             "reasonCodes": [
               "stage_building",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "gauge": {
             "provider": "USGS",
@@ -21010,26 +21250,26 @@ const GROUP_SEEDS = [
           "push": {
             "score": null,
             "label": "Unavailable",
-            "headline": "There is no dependable Push read without a current river level.",
-            "detail": "The river's response is the most important part of a Push, and the latest level is missing or too old to use.",
-            "tip": "Begin in established holding water and keep lower travel lanes secondary. Check again after the next river update; do not chase recent rain as proof of a fresh wave.",
+            "headline": "A current Scottville flow reading is unavailable.",
+            "detail": "Without Scottville flow and direction, rain cannot produce a dependable PM fresh-movement read.",
+            "tip": "Keep the section named by Migration Stage. Do not treat recent rain as proof of movement.",
             "reasonCodes": [
               "gauge_missing"
             ],
             "rulesVersion": "pm-fall-chinook-push-v5",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "fishability": {
             "score": null,
             "label": "Unavailable",
-            "headline": "There is no dependable Fishability read right now.",
-            "detail": "A recent river-level reading is missing, so current flow and direction cannot be judged responsibly.",
-            "tip": "Do not plan from the last known level. Check again after the next update, and verify the river at the first access before choosing where or how to fish.",
+            "headline": "A current Scottville reading is unavailable.",
+            "detail": "Without current Scottville flow and direction, Lower river presentation conditions cannot be determined.",
+            "tip": "Do not extend an old or missing Scottville read across the PM. Use current authoritative local information.",
             "reasonCodes": [
               "gauge_missing"
             ],
             "rulesVersion": "pm-scottville-fishability-v2",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v29"
           },
           "gauge": null,
           "weather": null,

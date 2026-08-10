@@ -454,13 +454,12 @@ function validateRiverFoundation(
 
   if (
     !Array.isArray(foundation.contextualGaugeSiteIds) ||
-    foundation.contextualGaugeSiteIds.length === 0 ||
     new Set(foundation.contextualGaugeSiteIds).size !==
       foundation.contextualGaugeSiteIds.length
   ) {
     issues.push(issue(
       "foundation.contextualGaugeSiteIds",
-      "Contextual gauge site IDs must be present and unique.",
+      "Contextual gauge site IDs must be an array of unique IDs; an audited river may have no accepted contextual gauge.",
       "config_source_invalid",
     ));
   }

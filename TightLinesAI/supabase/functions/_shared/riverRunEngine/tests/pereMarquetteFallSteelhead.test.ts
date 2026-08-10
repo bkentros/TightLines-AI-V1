@@ -33,25 +33,12 @@ Deno.test("PM Fall Steelhead is a valid public fall-entry configuration capped a
   assertEquals(result.issues, []);
 });
 
-Deno.test("fall-entry handoff fails closed when the retained-presence anchor misses the final migration day", () => {
-  const invalid = {
-    ...run,
-    historicalPresence: {
-      ...run.historicalPresence,
-      anchors: run.historicalPresence.anchors.map((anchor, index, anchors) =>
-        index === anchors.length - 1
-          ? { ...anchor, dayOffsetFromStart: anchor.dayOffsetFromStart + 1 }
-          : anchor
-      ),
-    },
-  };
-  const result = validateRunProfile(invalid, PERE_MARQUETTE_RIVER_PROFILE);
-  assertEquals(result.valid, false);
-  assert(
-    result.issues.some((item) =>
-      item.field === "historicalPresence.anchors" &&
-      item.message.includes("final migration day")
-    ),
+Deno.test("PM fall entry ends without an unimplemented winter handoff", () => {
+  assertEquals(run.handoff, undefined);
+  assertMatch(run.researchNotes ?? "", /Fall entry complete/i);
+  assertEquals(
+    /winter holding experience/i.test(run.researchNotes ?? ""),
+    false,
   );
 });
 
@@ -93,9 +80,9 @@ Deno.test("PM Fall Steelhead binds reusable iteroparous biology and PM river hyd
   );
 });
 
-Deno.test("PM Fall Steelhead stages include late-September entry and December winter handoff", () => {
+Deno.test("PM Fall Steelhead stages include late-September entry and a complete fall boundary", () => {
   const expected = [
-    ["2026-08-14", "Offseason"],
+    ["2026-08-14", "Fall entry complete"],
     ["2026-08-15", "Before migration"],
     ["2026-09-20", "Beginning"],
     ["2026-10-11", "Building"],
@@ -103,7 +90,7 @@ Deno.test("PM Fall Steelhead stages include late-September entry and December wi
     ["2026-11-15", "Peak"],
     ["2026-12-05", "Late fall"],
     ["2026-12-20", "Holding transition"],
-    ["2026-12-23", "Winter holding"],
+    ["2026-12-23", "Fall entry complete"],
   ] as const;
   for (const [localDate, label] of expected) {
     assertEquals(resolveRunStage(run, localDate).label, label, localDate);
@@ -111,24 +98,26 @@ Deno.test("PM Fall Steelhead stages include late-September entry and December wi
   const established = resolveRunStage(run, "2026-10-15");
   assertMatch(
     established.whereToStart ?? "",
-    /Scottville through Walhalla and Branch/i,
+    /Middle river.*Scottville–Maple Leaf/i,
   );
-  assertMatch(established.whereToStart ?? "", /Baldwin\/M-37/i);
-  assertMatch(established.detail, /lower, middle, and upper/i);
-  assertMatch(established.detail, /dependable concentrations/i);
+  assertMatch(established.whereToStart ?? "", /Upper river.*M-37/i);
+  assertMatch(established.detail, /Upper river remains a conditional/i);
   const broadlyEstablished = resolveRunStage(run, "2026-11-01");
-  assertMatch(broadlyEstablished.headline, /broadly established/i);
   assertMatch(
-    broadlyEstablished.whereToStart ?? "",
-    /middle-river holding water/i,
+    broadlyEstablished.headline,
+    /broader PM Steelhead distribution/i,
   );
   assertMatch(
     broadlyEstablished.whereToStart ?? "",
-    /upper river toward Baldwin\/M-37/i,
+    /Middle river.*Scottville–Maple Leaf/i,
+  );
+  assertMatch(
+    broadlyEstablished.whereToStart ?? "",
+    /Upper river.*Maple Leaf–M-37/i,
   );
   assertMatch(
     broadlyEstablished.detail,
-    /upper river is now a primary option/i,
+    /Earlier arrivals may also occupy the Upper river/i,
   );
   const delayedBroadRead = resolveInterpretationNote({
     runStage: broadlyEstablished.stage,
@@ -158,11 +147,20 @@ Deno.test("PM Fall Steelhead stages include late-September entry and December wi
     ),
   );
   assertMatch(delayedBroadRead?.detail ?? "", /expand upstream only/i);
-  const winter = resolveRunStage(run, "2026-12-23");
-  assertEquals(winter.winterHoldingContext, true);
-  assertMatch(winter.detail, /remain distributed|remain strongly present/i);
-  assertMatch(winter.tip, /open the winter holding read/i);
-  assertEquals(/spawning|gravel/i.test(JSON.stringify(winter)), false);
+  const complete = resolveRunStage(run, "2026-12-23");
+  assertEquals(complete.winterHoldingContext, false);
+  assertMatch(complete.detail, /may remain in the river/i);
+  assertMatch(complete.detail, /no longer scores.*presence or activity/i);
+  assertMatch(complete.tip, /early September/i);
+  assertEquals(
+    /winter|spawning|gravel/i.test([
+      complete.headline,
+      complete.detail,
+      complete.tip,
+      complete.whereToStart,
+    ].join(" ")),
+    false,
+  );
 });
 
 Deno.test("PM Fall Steelhead reaches 80 and retains 70 through December 22", () => {
@@ -187,11 +185,14 @@ Deno.test("PM Fall Steelhead reaches 80 and retains 70 through December 22", () 
     assertEquals(result.score, score, localDate);
     assertEquals(result.label, label, localDate);
   }
-  const handoff = scoreFishInRiver(run, "2026-12-23");
-  assertEquals(handoff.score, 70);
-  assertEquals(handoff.handoffScore, 70);
-  assertEquals(handoff.label, "Winter holding");
-  assertEquals(handoff.winterHoldingContext, true);
+  const finalFallRead = scoreFishInRiver(run, "2026-12-22");
+  assertEquals(finalFallRead.displayScore, 70);
+  assertEquals(finalFallRead.scoreIsApproximate, true);
+  const complete = scoreFishInRiver(run, "2026-12-23");
+  assertEquals(complete.score, null);
+  assertEquals(complete.handoffScore, undefined);
+  assertEquals(complete.label, "Fall entry complete");
+  assertEquals(complete.winterHoldingContext, false);
 });
 
 Deno.test("fall-entry Push distinguishes core, cold-active, and cold-holding steelhead water", () => {
@@ -221,7 +222,7 @@ Deno.test("fall-entry Push distinguishes core, cold-active, and cold-holding ste
   assertMatch(coldHolding.detail, /remain in the river/i);
 });
 
-Deno.test("December 23 completes migration primitives and requires the winter fishery read", () => {
+Deno.test("December 23 completes PM fall primitives without referencing winter", () => {
   const daily = buildDailySnapshot({
     river: PERE_MARQUETTE_RIVER_PROFILE,
     run,
@@ -257,15 +258,23 @@ Deno.test("December 23 completes migration primitives and requires the winter fi
     engineVersion: "steelhead-test-engine",
     configVersion: "steelhead-test-config",
   });
-  assertEquals(daily.runStage.label, "Winter holding");
-  assertEquals(daily.fishInRiver.score, 70);
-  assertEquals(refresh.push.label, "Winter holding");
+  assertEquals(daily.runStage.label, "Fall entry complete");
+  assertEquals(daily.fishInRiver.score, null);
+  assertEquals(refresh.push.label, "Fall entry complete");
   assertEquals(daily.conditionsSuggest.label, "Timing complete");
-  assert(
-    refresh.interpretationNote?.reasonCodes.includes(
-      "winter_holding_read_required",
-    ),
-  );
+  assertEquals(refresh.interpretationNote, undefined);
+  const publicCopy = [
+    daily.runStage,
+    daily.conditionsSuggest,
+    daily.fishInRiver,
+    refresh.push,
+  ].flatMap((primitive) => [
+    primitive.headline,
+    primitive.detail,
+    primitive.tip,
+    primitive.whereToStart,
+  ]).join(" ");
+  assertEquals(/winter/i.test(publicCopy), false);
 });
 
 Deno.test("PM Fall Steelhead has dedicated timing checkpoints and is public", () => {

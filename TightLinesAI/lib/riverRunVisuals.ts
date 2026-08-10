@@ -44,6 +44,7 @@ export type RiverRunVisualModel = {
   ceilingPosition?: number;
   historicalRunStrength?: RiverRunHistoricalStrength;
   score?: number | null;
+  scoreIsApproximate?: boolean;
   accent: string;
 };
 
@@ -138,6 +139,8 @@ export function formatRiverRunTabStatus(
     return "COMPLETE";
   }
   return primitive.label
+    .replace("Fall run complete", "Complete")
+    .replace("Fall entry complete", "Complete")
     .replace("Not monitoring yet", "Not active")
     .replace("Not expected yet", "Waiting")
     .replace("Before migration", "Before")
@@ -168,20 +171,28 @@ function runStageModel(
   );
   const offseason = primitive.label === "Offseason";
   const winterHolding = primitive.label === "Winter holding";
+  const fallComplete = primitive.label === "Fall run complete" ||
+    primitive.label === "Fall entry complete";
   const model = baseModel({
     kind: "run_stage",
     kicker: "SEASON POSITION",
     artLabel: "MIGRATION WINDOW",
     icon: "calendar-outline",
     stops: RUN_STAGE_SEVEN,
-    selectedIndex: offseason ? null : selectedIndex,
+    selectedIndex: offseason || fallComplete ? null : selectedIndex,
     stateLabel: primitive.label,
-    stateNote: winterHolding
+    stateNote: fallComplete
+      ? primitive.label === "Fall entry complete"
+        ? "FALL ENTRY MODEL COMPLETE"
+        : "FALL RUN MODEL COMPLETE"
+      : winterHolding
       ? "FALL ENTRY COMPLETE · WINTER HOLDING ACTIVE"
       : offseason
       ? "MIGRATION WINDOW INACTIVE"
       : stageNote(selectedIndex),
-    specialState: offseason || winterHolding ? "complete" : undefined,
+    specialState: offseason || winterHolding || fallComplete
+      ? "complete"
+      : undefined,
   });
   return model;
 }
@@ -238,6 +249,8 @@ function pushModel(
   const specialState = primitive.label === "Waiting for migration"
     ? "waiting"
     : primitive.label === "Migration complete" ||
+        primitive.label === "Fall entry complete" ||
+        primitive.label === "Fall run complete" ||
         primitive.label === "Winter holding" ||
         primitive.label === "Offseason"
     ? "complete"
@@ -252,7 +265,11 @@ function pushModel(
     stops: QUALITY_FIVE,
     selectedIndex,
     stateLabel: primitive.label,
-    stateNote: primitive.label === "Offseason"
+    stateNote: primitive.label === "Fall entry complete"
+      ? "FALL-ENTRY SIGNAL COMPLETE"
+      : primitive.label === "Fall run complete"
+      ? "FALL-MOVEMENT SIGNAL COMPLETE"
+      : primitive.label === "Offseason"
       ? "FRESH-MOVEMENT WINDOW INACTIVE"
       : primitive.label === "Winter holding"
       ? "FALL-ENTRY SIGNAL COMPLETE · WINTER READ REQUIRED"
@@ -262,7 +279,7 @@ function pushModel(
       ? "THE MIGRATION IS COMPLETE"
       : specialState === "unavailable"
       ? "WAITING FOR REQUIRED WATER DATA"
-      : "FRESH-WAVE POTENTIAL TODAY",
+      : "SUPPORT FOR FRESH MOVEMENT · NOT PROOF OF ARRIVALS",
     specialState,
     score: primitive.score,
   });
@@ -288,7 +305,7 @@ function fishabilityModel(
     stateLabel: primitive.label,
     stateNote: specialState
       ? "WAITING FOR A CURRENT RIVER LEVEL"
-      : "FLOW · TREND · PRESENTATION",
+      : "PRESENTATION CONDITIONS · NOT ABUNDANCE OR SAFETY",
     specialState,
     score: primitive.score,
   });
@@ -298,6 +315,8 @@ function activityModel(
   primitive: RiverRunPrimitiveDisplay,
 ): RiverRunVisualModel {
   const score = clampScore(primitive.score ?? 0);
+  const fallComplete = primitive.label === "Fall run complete" ||
+    primitive.label === "Fall entry complete";
   const model = baseModel({
     kind: "activity",
     kicker: "CONDITIONAL RESPONSIVENESS",
@@ -308,8 +327,14 @@ function activityModel(
       ? null
       : Math.min(4, Math.floor(score / 20)),
     stateLabel: primitive.label,
-    stateNote: "IF FISH ARE PRESENT · NOT CATCH PROBABILITY",
-    specialState: primitive.score == null ? "unavailable" : undefined,
+    stateNote: fallComplete
+      ? "FALL ACTIVITY MODEL COMPLETE"
+      : "IF FISH ARE PRESENT · NOT CATCH PROBABILITY",
+    specialState: fallComplete
+      ? "complete"
+      : primitive.score == null
+      ? "unavailable"
+      : undefined,
     score,
   });
   return { ...model, position: score / 100 };
@@ -320,13 +345,19 @@ function fishInRiverModel(
     curveDirection?: string;
     historicalRunStrength?: "limited" | "moderate" | "strong";
     handoffScore?: number;
+    displayScore?: number;
+    scoreIsApproximate?: boolean;
   },
 ): RiverRunVisualModel {
   const direction = normalizeDirection(primitive.curveDirection);
   const riverCeiling = clampScore(primitive.riverCeiling ?? 100);
   const winterHolding = primitive.label === "Winter holding";
+  const fallComplete = primitive.label === "Fall run complete" ||
+    primitive.label === "Fall entry complete";
   const score = clampScore(
-    typeof primitive.score === "number"
+    typeof primitive.displayScore === "number"
+      ? primitive.displayScore
+      : typeof primitive.score === "number"
       ? primitive.score
       : winterHolding && typeof primitive.handoffScore === "number"
       ? primitive.handoffScore
@@ -343,9 +374,13 @@ function fishInRiverModel(
     icon: "fish-outline",
     stops: PRESENCE_INDEX_FIVE,
     ticks: PRESENCE_INDEX_TICKS,
-    selectedIndex,
+    selectedIndex: fallComplete ? null : selectedIndex,
     stateLabel: formatPresenceStateLabel(primitive.label),
-    stateNote: winterHolding
+    stateNote: fallComplete
+      ? primitive.label === "Fall entry complete"
+        ? "FALL ENTRY COMPLETE · NO CURRENT PRESENCE SCORE"
+        : "FALL RUN COMPLETE · SEASONAL ESTIMATE INACTIVE"
+      : winterHolding
       ? `FALL PRESENCE HANDOFF · ${score} · WINTER READ REQUIRED`
       : direction === "rising"
       ? "SEASONAL PRESENCE IS BUILDING"
@@ -360,8 +395,11 @@ function fishInRiverModel(
     historicalRunStrength: primitive.historicalRunStrength
       ? capitalizeStrength(primitive.historicalRunStrength)
       : historicalRunStrength(riverCeiling),
-    score: winterHolding ? score : primitive.score,
-    specialState: winterHolding ? "complete" : undefined,
+    score: winterHolding || typeof primitive.displayScore === "number"
+      ? score
+      : primitive.score,
+    scoreIsApproximate: primitive.scoreIsApproximate,
+    specialState: winterHolding || fallComplete ? "complete" : undefined,
   });
   return {
     ...model,

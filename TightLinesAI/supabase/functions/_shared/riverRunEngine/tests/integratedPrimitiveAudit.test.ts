@@ -537,7 +537,7 @@ function auditDisplay(display: PrimitiveDisplay): void {
   assert(display.detail.trim().length > 0);
   assert(display.tip.trim().length > 0);
   assert(
-    /^(?:Begin|Start|Fish|Keep|Skip|Leave|Do not|Stop|Choose|Stay|Concentrate|Target|Work|Check|Cover|Plan|Treat)\b/
+    /^(?:Begin|Start|Fish|Keep|Skip|Leave|Do not|Stop|Choose|Stay|Concentrate|Target|Work|Check|Cover|Plan|Treat|Use)\b/
       .test(
         display.tip.trim(),
       ),

@@ -1,4 +1,9 @@
-import type { PrimitiveDisplay, RiverRunProfile, RunStage } from "../types.ts";
+import type {
+  PrimitiveDisplay,
+  RiverRunProfile,
+  RunStage,
+  RunStageCopyStrategy,
+} from "../types.ts";
 import { RIVER_RUN_COPY_VERSION } from "../copy/version.ts";
 import { anglerSpeciesName } from "../copy/species.ts";
 import {
@@ -14,6 +19,7 @@ import {
 
 export type RunStageResult = PrimitiveDisplay & {
   stage: RunStage;
+  copyStrategy: RunStageCopyStrategy;
   stagingContext: boolean;
   broadBuildingContext: boolean;
   winterHoldingContext: boolean;
@@ -33,6 +39,7 @@ export function resolveRunStage(
   localDate: string,
 ): RunStageResult {
   const window = resolveActiveRunWindow(run, localDate);
+  const copyStrategy = run.runStageCopyStrategy ?? "default";
   const stage = stageForDate(localDate, window);
   const stagingContext = stage === "pre_run" &&
     compareLocalDates(localDate, window.stagingStartDate) >= 0;
@@ -45,6 +52,7 @@ export function resolveRunStage(
     compareLocalDates(localDate, window.endDate) > 0 &&
     compareLocalDates(localDate, window.postRunLateCopyEndDate) <= 0;
   const winterHoldingContext = run.runType === "fall_entry" && !!run.handoff &&
+    run.runStageCopyStrategy !== "pere_marquette" &&
     stage === "post_run" && compareLocalDates(localDate, window.endDate) > 0;
 
   const opportunity = resolveRunOpportunityCopyContext(run.historicalPresence);
@@ -73,6 +81,16 @@ export function resolveRunStage(
         broadBuildingContext,
         winterHoldingContext,
         species: anglerSpeciesName(run.species),
+      })
+      : run.runStageCopyStrategy === "pere_marquette"
+      ? pereMarquetteFallEntryStageCopy({
+        stage,
+        stagingContext,
+        establishedBuildingContext,
+        broadBuildingContext,
+        species: anglerSpeciesName(run.species),
+        stagingStart: window.stagingStartDate.slice(5),
+        opportunity,
       })
       : regulatedTailwaterCopy
       ? bigManisteeFallEntryStageCopy({
@@ -127,11 +145,15 @@ export function resolveRunStage(
       : copy.whereToStart;
     return {
       stage,
+      copyStrategy,
       stagingContext,
       broadBuildingContext,
       winterHoldingContext,
       window,
-      label: fallEntryStageLabel(stage, winterHoldingContext),
+      label: run.runStageCopyStrategy === "pere_marquette" &&
+          stage === "post_run"
+        ? "Fall entry complete"
+        : fallEntryStageLabel(stage, winterHoldingContext),
       ...copy,
       whereToStart,
       reasonCodes: [
@@ -158,6 +180,7 @@ export function resolveRunStage(
     });
     return {
       stage,
+      copyStrategy,
       stagingContext,
       broadBuildingContext,
       winterHoldingContext: false,
@@ -186,6 +209,7 @@ export function resolveRunStage(
   if (run.runStageCopyStrategy === "big_manistee_tailwater") {
     return {
       stage,
+      copyStrategy,
       stagingContext,
       broadBuildingContext,
       winterHoldingContext: false,
@@ -215,6 +239,7 @@ export function resolveRunStage(
   if (run.runStageCopyStrategy === "muskegon_croton_tailwater") {
     return {
       stage,
+      copyStrategy,
       stagingContext,
       broadBuildingContext,
       winterHoldingContext: false,
@@ -244,6 +269,7 @@ export function resolveRunStage(
   if (run.runStageCopyStrategy === "betsie_homestead") {
     return {
       stage,
+      copyStrategy,
       stagingContext,
       broadBuildingContext,
       winterHoldingContext,
@@ -276,20 +302,35 @@ export function resolveRunStage(
   }
   return {
     stage,
+    copyStrategy,
     stagingContext,
     broadBuildingContext,
     winterHoldingContext: false,
     window,
-    label: stageLabel(stage, latePostRunContext),
-    ...stageCopy(
-      stage,
-      stagingContext,
-      establishedBuildingContext,
-      broadBuildingContext,
-      latePostRunContext,
-      anglerSpeciesName(run.species),
-      opportunity,
-    ),
+    label: run.runStageCopyStrategy === "pere_marquette" &&
+        stage === "post_run" && !latePostRunContext
+      ? "Fall run complete"
+      : stageLabel(stage, latePostRunContext),
+    ...(run.runStageCopyStrategy === "pere_marquette"
+      ? pereMarquetteStageCopy({
+        stage,
+        stagingContext,
+        establishedBuildingContext,
+        broadBuildingContext,
+        latePostRunContext,
+        species: anglerSpeciesName(run.species),
+        stagingStart: window.stagingStartDate.slice(5),
+        opportunity,
+      })
+      : stageCopy(
+        stage,
+        stagingContext,
+        establishedBuildingContext,
+        broadBuildingContext,
+        latePostRunContext,
+        anglerSpeciesName(run.species),
+        opportunity,
+      )),
     whereToStart: run.runStageCopyStrategy === "pere_marquette"
       ? pereMarquetteWhereToStartCopy(
         stage,
@@ -840,6 +881,195 @@ function bigManisteeTailwaterStageCopy(input: {
   }
 }
 
+function pereMarquetteStageCopy(input: {
+  stage: RunStage;
+  stagingContext: boolean;
+  establishedBuildingContext: boolean;
+  broadBuildingContext: boolean;
+  latePostRunContext: boolean;
+  species: string;
+  stagingStart: string;
+  opportunity: RunOpportunityCopyContext;
+}): Pick<PrimitiveDisplay, "headline" | "detail" | "tip"> {
+  const moderateRun = input.opportunity.strength === "moderate";
+  const limitedRun = input.opportunity.strength === "limited";
+  switch (input.stage) {
+    case "pre_run":
+      return input.stagingContext
+        ? {
+          headline:
+            `${input.species} may be staging near the PM mouth, but dependable river entry has not begun.`,
+          detail:
+            `Seasonal timing supports nearby-lake staging. Any ${input.species} already in the Lower river would be an early exception.`,
+          tip:
+            "Keep the river check brief. Do not move into the Middle or Upper river from calendar timing alone.",
+        }
+        : {
+          headline: `The PM ${input.species} fall run has not started.`,
+          detail:
+            `Seasonal timing does not support dependable ${input.species} presence in the PM river yet.`,
+          tip:
+            "Keep effort in the lake, harbor, and Pere Marquette Lake until staging begins.",
+        };
+    case "beginning":
+      return {
+        headline:
+          `Seasonal timing supports the first ${input.species} entering the Lower river.`,
+        detail:
+          `This is the opening river phase. Presence is expected to be scattered and uneven.`,
+        tip:
+          "Cover the Lower river first. Move upstream only after direct fish activity supports it.",
+      };
+    case "building":
+      if (!input.establishedBuildingContext) {
+        return {
+          headline:
+            `The PM ${input.species} run is building beyond its earliest entry phase.`,
+          detail:
+            `Seasonal timing keeps the Lower river primary. Earlier arrivals may begin reaching the Middle river.`,
+          tip:
+            "Start low, then make one Middle river check if direct fish activity supports the move.",
+        };
+      }
+      if (input.broadBuildingContext) {
+        return {
+          headline:
+            `Seasonal timing supports a broader PM ${input.species} distribution.`,
+          detail:
+            `The Middle river is the dependable calendar choice. Earlier arrivals may also occupy the Upper river.`,
+          tip:
+            "Cover one Middle river section completely before comparing the Upper river.",
+        };
+      }
+      return {
+        headline:
+          `The PM ${input.species} run is becoming established in the Middle river.`,
+        detail:
+          `Seasonal timing now favors the Middle river. The Upper river remains a conditional secondary choice.`,
+        tip:
+          "Begin in the Middle river. Add the Upper river only after direct fish activity supports it.",
+      };
+    case "peak":
+      return {
+        headline: limitedRun
+          ? `This is typically the PM’s strongest ${input.species} window, within a Limited river-specific run.`
+          : moderateRun
+          ? "This is typically the PM’s strongest Coho window, within a moderate river-specific run."
+          : `This is typically the PM’s strongest ${input.species} migration window.`,
+        detail: input.opportunity.distributionScope === "concentrated"
+          ? `Seasonal timing favors the most dependable ${input.species} holding water. Expected distribution is concentrated and uneven.`
+          : input.opportunity.distributionScope === "sectional"
+          ? `Seasonal timing supports the PM’s core ${input.species} sections. Concentrations may remain uneven between them.`
+          : moderateRun
+          ? "Seasonal timing supports the widest dependable Coho distribution. It does not make Coho abundance equal to the PM Chinook run."
+          : `Seasonal timing supports the widest dependable ${input.species} distribution. It does not confirm fish in every section.`,
+        tip:
+          "Start in the Middle river. Compare the Upper river only after a complete first pass.",
+      };
+    case "tapering":
+      return {
+        headline: `The main PM ${input.species} migration is tapering.`,
+        detail:
+          `Seasonal presence is declining. Established Middle river holding water is more dependable than broad travel-water searches.`,
+        tip:
+          "Start in established Middle river water. Shift lower only when Push supports fresh movement.",
+      };
+    case "ending":
+      return {
+        headline:
+          `The PM ${input.species} migration is nearing its seasonal end.`,
+        detail:
+          `Remaining fish are expected to be less evenly distributed. Fresh entry is no longer dependable.`,
+        tip:
+          "Start in proven Middle river holding water. Add one Upper river check only after direct fish activity supports it.",
+      };
+    case "post_run":
+      return input.latePostRunContext
+        ? {
+          headline:
+            `The main PM ${input.species} migration is over, though isolated late fish may remain.`,
+          detail:
+            `Seasonal timing no longer supports a broad river search. Any remaining ${input.species} are exceptions.`,
+          tip:
+            "Do not chase isolated reports across sections. Leave actively spawning fish undisturbed.",
+        }
+        : {
+          headline: `The PM ${input.species} fall run is complete.`,
+          detail: `${input.species} staging typically begins ${
+            seasonalReturnPhrase(input.stagingStart)
+          }.`,
+          tip: `Check back ${
+            seasonalReturnPhrase(input.stagingStart)
+          } when this fall-run model resumes.`,
+        };
+  }
+}
+
+function pereMarquetteFallEntryStageCopy(input: {
+  stage: RunStage;
+  stagingContext: boolean;
+  establishedBuildingContext: boolean;
+  broadBuildingContext: boolean;
+  species: string;
+  stagingStart: string;
+  opportunity: RunOpportunityCopyContext;
+}): Pick<PrimitiveDisplay, "headline" | "whereToStart" | "detail" | "tip"> {
+  if (input.stage === "post_run") {
+    return {
+      headline: "PM Steelhead fall entry is complete.",
+      detail:
+        "Steelhead may remain in the river. This fall-entry model no longer scores their current presence or activity.",
+      tip: `Check back ${
+        seasonalReturnPhrase(input.stagingStart)
+      } when PM fall movement tracking resumes.`,
+    };
+  }
+  const base = pereMarquetteStageCopy({
+    ...input,
+    latePostRunContext: false,
+  });
+  if (input.stage === "tapering") {
+    return {
+      headline: "PM Steelhead fall entry remains strong but is slowing.",
+      detail:
+        "Seasonal timing still supports broad fall presence. Colder water makes established holding water more important than new entry.",
+      tip:
+        "Start in the Middle river. Shift lower only when Push supports fresh movement.",
+    };
+  }
+  if (input.stage === "ending") {
+    return {
+      headline: "PM Steelhead fall entry is in its final seasonal phase.",
+      detail:
+        "Steelhead may remain after fall entry ends. This state marks the model boundary, not fish leaving the river.",
+      tip:
+        "Prioritize established Middle river holding water and use Activity only through the final fall-entry day.",
+    };
+  }
+  return base;
+}
+
+function seasonalReturnPhrase(monthDay: string): string {
+  const month = Number(monthDay.slice(0, 2));
+  const day = Number(monthDay.slice(3, 5));
+  const period = day <= 10 ? "early" : day <= 20 ? "mid" : "late";
+  const monthName = [
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December",
+  ][month - 1];
+  return `in ${period} ${monthName}`;
+}
+
 function pereMarquetteWhereToStartCopy(
   stage: RunStage,
   stagingContext: boolean,
@@ -850,28 +1080,28 @@ function pereMarquetteWhereToStartCopy(
   switch (stage) {
     case "pre_run":
       return stagingContext
-        ? "Ludington harbor, Pere Marquette Lake, the river mouth at the east end of the lake, and one deliberate check of the first deep travel lane in the lower migratory river."
-        : "Lake Michigan off Ludington, Ludington harbor, and Pere Marquette Lake—not the inland river yet.";
+        ? "Start at Pere Marquette Lake and the river mouth. Add the Lower river (Pere Marquette Lake–Scottville) only for an early-fish check."
+        : "Stay in Lake Michigan, Ludington harbor, and Pere Marquette Lake. The PM river is not a dependable starting section yet.";
     case "beginning":
-      return "Lower migratory river from Pere Marquette Lake toward Scottville: first deep bends, resting pockets, and current breaks beside the main travel lane.";
+      return "Start in the Lower river (Pere Marquette Lake–Scottville).";
     case "building":
       if (!establishedBuildingContext) {
-        return "Lower migratory river around Scottville, then the first substantial holding holes entering the middle river toward Walhalla.";
+        return "Start in the Lower river (Pere Marquette Lake–Scottville). Add the Middle river (Scottville–Maple Leaf) after direct fish activity supports the move.";
       }
       if (broadBuildingContext) {
-        return "Middle-river holding water from Scottville through Walhalla and Branch, with the upper river toward Baldwin and M-37 firmly in play.";
+        return "Start in the Middle river (Scottville–Maple Leaf). Add the Upper river (Maple Leaf–M-37) when direct fish activity supports it.";
       }
-      return "Middle-river holding water from Scottville toward Walhalla first; earlier fish may already have reached Branch and the upper river toward Baldwin and M-37.";
+      return "Start in the Middle river (Scottville–Maple Leaf). Add the Upper river (Maple Leaf–M-37) only after direct fish activity supports it.";
     case "peak":
-      return "Compare the lower river near Scottville, middle river through Walhalla and Branch, and upper river toward Baldwin and M-37, prioritizing substantial holding water connected to productive current.";
+      return "Start in the Middle river (Scottville–Maple Leaf). Compare the Upper river (Maple Leaf–M-37) when direct fish activity favors it.";
     case "tapering":
-      return "Established middle- and upper-river holding water from Walhalla and Branch toward Baldwin/M-37; add Scottville-area lower-river travel lanes only on a credible fresh-movement signal.";
+      return "Start in the Middle river (Scottville–Maple Leaf). Add the Lower river (Pere Marquette Lake–Scottville) only when Push supports fresh movement.";
     case "ending":
-      return "The deepest middle- and upper-river holes and slower current edges from Walhalla through Branch toward Baldwin/M-37—not fast lower-river travel lanes.";
+      return "Start in the Middle river (Scottville–Maple Leaf). Add the Upper river (Maple Leaf–M-37) only for established late holding water.";
     case "post_run":
       return latePostRunContext
-        ? "No dependable starting reach; any remaining fish are likely isolated in deep middle- or upper-river holding water from Walhalla and Branch toward Baldwin/M-37."
-        : "No dependable Pere Marquette River location for this species right now.";
+        ? "There is no dependable PM starting section. If direct evidence supports a late check, use proven Middle river (Scottville–Maple Leaf) holding water."
+        : "There is no dependable PM river starting section right now.";
   }
 }
 
@@ -882,31 +1112,28 @@ function pereMarquetteFallEntryWhereToStartCopy(input: {
   broadBuildingContext: boolean;
   winterHoldingContext: boolean;
 }): string {
-  if (input.winterHoldingContext) {
-    return "Deep, slow middle- and upper-river holding water from Walhalla and Branch toward Baldwin/M-37, with nearby current and an easy feeding lane.";
-  }
   switch (input.stage) {
     case "pre_run":
       return input.stagingContext
-        ? "Ludington harbor, Pere Marquette Lake, the river mouth, and one deliberate check of the first deep travel lane in the lower migratory river toward Scottville."
-        : "Lake Michigan off Ludington, Ludington harbor, and Pere Marquette Lake—not the inland river yet.";
+        ? "Start at Pere Marquette Lake and the river mouth. Add the Lower river (Pere Marquette Lake–Scottville) only for an early-fish check."
+        : "Stay in Lake Michigan, Ludington harbor, and Pere Marquette Lake. The PM river is not a dependable fall-entry section yet.";
     case "beginning":
-      return "Lower migratory river from Pere Marquette Lake toward Scottville: travel lanes feeding the first deep bends, resting pockets, and current breaks.";
+      return "Start in the Lower river (Pere Marquette Lake–Scottville).";
     case "building":
       if (input.broadBuildingContext) {
-        return "Middle-river holding water from Scottville through Walhalla and Branch, plus the upper river toward Baldwin/M-37; add lower-river travel lanes when Push supports fresh arrivals.";
+        return "Start in the Middle river (Scottville–Maple Leaf). Add the Upper river (Maple Leaf–M-37) when direct fish activity supports it.";
       }
       return input.establishedBuildingContext
-        ? "Lower- and middle-river holding water from Scottville through Walhalla and Branch first; sample the upper river toward Baldwin/M-37 when direct activity supports it."
-        : "Lower river around Scottville into the first substantial middle-river holding holes toward Walhalla.";
+        ? "Start in the Middle river (Scottville–Maple Leaf). Add the Upper river (Maple Leaf–M-37) only after direct fish activity supports it."
+        : "Start in the Lower river (Pere Marquette Lake–Scottville). Add the Middle river (Scottville–Maple Leaf) after direct fish activity supports the move.";
     case "peak":
-      return "Compare substantial holding water in the middle river from Scottville through Walhalla and Branch with the upper river toward Baldwin/M-37; add lower travel lanes on a fresh Push.";
+      return "Start in the Middle river (Scottville–Maple Leaf). Compare the Upper river (Maple Leaf–M-37) when direct fish activity favors it.";
     case "tapering":
-      return "Established middle- and upper-river holes from Walhalla and Branch toward Baldwin/M-37, especially deeper bends and slower edges beside productive current.";
+      return "Start in the Middle river (Scottville–Maple Leaf). Add the Lower river (Pere Marquette Lake–Scottville) only when Push supports fresh movement.";
     case "ending":
-      return "Deep, speed-controlled middle- and upper-river holding water from Walhalla and Branch toward Baldwin/M-37, with nearby feeding current.";
+      return "Start in the Middle river (Scottville–Maple Leaf). Add the Upper river (Maple Leaf–M-37) only for established late-fall holding water.";
     case "post_run":
-      return "No dependable PM fall-entry location; use the active winter or spring Steelhead experience instead.";
+      return "There is no active PM starting section in this fall-entry model.";
   }
 }
 

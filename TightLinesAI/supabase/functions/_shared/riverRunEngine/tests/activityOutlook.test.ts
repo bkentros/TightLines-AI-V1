@@ -165,6 +165,53 @@ Deno.test("PM Chinook Activity produces four conditional staging windows", () =>
   assert(result.blocks[0].score > result.blocks[2].score);
 });
 
+Deno.test("PM Activity names both near-tied leaders instead of dismissing all four blocks", () => {
+  const result = scoreActivity({
+    rules,
+    requestDate: "2026-08-15",
+    targetDate: "2026-08-15",
+    runStage: "beginning",
+    staging: false,
+    waterTempF: 66,
+    temperatureTrend: "cooling",
+    gaugeFreshness: "fresh",
+    weatherFreshness: "fresh",
+    flowBand: "normal_fishable",
+    flowSignal: "stable",
+    hourlyWeather: weather("2026-08-15", 75),
+    copyStrategy: "pere_marquette",
+  });
+  const ranked = [...result.blocks].sort((a, b) => b.score - a.score);
+  assert(ranked[0].score - ranked[1].score < 3);
+  assertMatch(result.detail, new RegExp(ranked[0].label));
+  assertMatch(result.detail, new RegExp(ranked[1].label));
+  assertMatch(result.detail, /neither has a clear advantage/i);
+  assertEquals(
+    /do not separate the four time blocks/i.test(result.detail),
+    false,
+  );
+});
+
+Deno.test("PM Activity keeps missing-weather copy separate from a near tie", () => {
+  const result = scoreActivity({
+    rules,
+    requestDate: "2026-08-15",
+    targetDate: "2026-08-15",
+    runStage: "beginning",
+    staging: false,
+    waterTempF: 66,
+    temperatureTrend: "cooling",
+    gaugeFreshness: "fresh",
+    weatherFreshness: "missing",
+    flowBand: "normal_fishable",
+    flowSignal: "stable",
+    hourlyWeather: [],
+    copyStrategy: "pere_marquette",
+  });
+  assertMatch(result.detail, /Hourly light and weather data are unavailable/i);
+  assertEquals(/leading windows/i.test(result.detail), false);
+});
+
 Deno.test("PM Chinook Activity switches to tomorrow and caps forecast certainty", () => {
   const result = scoreActivity({
     rules,

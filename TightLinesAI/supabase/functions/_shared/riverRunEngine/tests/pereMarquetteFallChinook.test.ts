@@ -173,6 +173,65 @@ Deno.test("PM river config is structurally valid", () => {
   assertEquals(result.issues, []);
 });
 
+Deno.test("PM foundation locks three named mainstem sections and honest source reach scope", () => {
+  const foundation = PERE_MARQUETTE_RIVER_PROFILE.foundation;
+  assert(foundation);
+  assertEquals(foundation.version, "pere-marquette-foundation-v2");
+  assertEquals(foundation.primaryGaugeReachId, "pm_lower_mainstem");
+  assertEquals(foundation.contextualGaugeSiteIds, []);
+  assertEquals(
+    foundation.reaches.map((reach) => reach.reachId),
+    [
+      "pm_lake_harbor_context",
+      "pm_lower_mainstem",
+      "pm_middle_mainstem",
+      "pm_upper_mainstem",
+    ],
+  );
+  assertMatch(
+    foundation.reaches[1].displayName,
+    /Pere Marquette Lake to Scottville/,
+  );
+  assertMatch(
+    foundation.reaches[2].displayName,
+    /Scottville to Maple Leaf/,
+  );
+  assertMatch(
+    foundation.reaches[3].displayName,
+    /Maple Leaf to M-37/,
+  );
+  assertMatch(foundation.reaches[2].notes, /Custer.*removed/i);
+  assertMatch(foundation.reaches[3].notes, /Baldwin River Dam.*tributary/i);
+  assertMatch(
+    PERE_MARQUETTE_RIVER_PROFILE.hydraulicSources[0].reachNotes,
+    /does not directly measure middle- or upper-river/i,
+  );
+  assertMatch(
+    PERE_MARQUETTE_RIVER_PROFILE.waterTemperatureSources[0].reachNotes,
+    /must not be described as a lower-river temperature/i,
+  );
+});
+
+Deno.test("foundation permits no contextual gauge and rejects duplicate contextual IDs", () => {
+  const foundation = PERE_MARQUETTE_RIVER_PROFILE.foundation;
+  assert(foundation);
+  assertEquals(validateRiverProfile(PERE_MARQUETTE_RIVER_PROFILE).valid, true);
+
+  const duplicate = validateRiverProfile({
+    ...PERE_MARQUETTE_RIVER_PROFILE,
+    foundation: {
+      ...foundation,
+      contextualGaugeSiteIds: ["04122500", "04122500"],
+    },
+  });
+  assertEquals(duplicate.valid, false);
+  assert(
+    duplicate.issues.some((issue) =>
+      issue.field === "foundation.contextualGaugeSiteIds"
+    ),
+  );
+});
+
 Deno.test("PM refresh cadence is four-hourly in season and daily outside it", () => {
   assertEquals(
     PERE_MARQUETTE_RIVER_PROFILE.conditionRefreshSchedule.activeSlots,
@@ -220,15 +279,15 @@ Deno.test("PM Fall Chinook location guidance broadens without changing presence"
     PERE_MARQUETTE_FALL_CHINOOK_RUN_PROFILE,
     "2026-07-01",
   );
-  assertMatch(beforeStaging.whereToStart ?? "", /Lake Michigan off Ludington/i);
+  assertMatch(beforeStaging.whereToStart ?? "", /Lake Michigan/i);
   assertMatch(beforeStaging.whereToStart ?? "", /Pere Marquette Lake/i);
 
   const staging = resolveRunStage(
     PERE_MARQUETTE_FALL_CHINOOK_RUN_PROFILE,
     "2026-07-28",
   );
-  assertMatch(staging.whereToStart ?? "", /Ludington harbor/i);
-  assertMatch(staging.whereToStart ?? "", /east end of the lake/i);
+  assertMatch(staging.whereToStart ?? "", /Pere Marquette Lake/i);
+  assertMatch(staging.whereToStart ?? "", /Lower river.*Scottville/i);
 
   const beginning = resolveRunStage(
     PERE_MARQUETTE_FALL_CHINOOK_RUN_PROFILE,
@@ -236,7 +295,7 @@ Deno.test("PM Fall Chinook location guidance broadens without changing presence"
   );
   assertMatch(
     beginning.whereToStart ?? "",
-    /Pere Marquette Lake toward Scottville/i,
+    /Lower river.*Pere Marquette Lake–Scottville/i,
   );
 
   const earlyBuilding = resolveRunStage(
@@ -245,9 +304,9 @@ Deno.test("PM Fall Chinook location guidance broadens without changing presence"
   );
   assertMatch(
     earlyBuilding.whereToStart ?? "",
-    /lower migratory river around Scottville/i,
+    /Lower river.*Pere Marquette Lake–Scottville/i,
   );
-  assertMatch(earlyBuilding.whereToStart ?? "", /Walhalla/i);
+  assertMatch(earlyBuilding.whereToStart ?? "", /Middle river.*Maple Leaf/i);
 
   const earlyEstablished = resolveRunStage(
     PERE_MARQUETTE_FALL_CHINOOK_RUN_PROFILE,
@@ -257,11 +316,15 @@ Deno.test("PM Fall Chinook location guidance broadens without changing presence"
   assertEquals(earlyEstablished.broadBuildingContext, false);
   assertMatch(
     earlyEstablished.whereToStart ?? "",
-    /Scottville toward Walhalla/i,
+    /Middle river.*Scottville–Maple Leaf/i,
   );
-  assertMatch(earlyEstablished.whereToStart ?? "", /Branch.*Baldwin.*M-37/i);
-  assert(/upper holding water/i.test(earlyEstablished.detail));
-  assert(/secondary starting choice/i.test(earlyEstablished.detail));
+  assertMatch(
+    earlyEstablished.whereToStart ?? "",
+    /Upper river.*Maple Leaf–M-37/i,
+  );
+  assert(/upper river remains a conditional secondary choice/i.test(
+    earlyEstablished.detail,
+  ));
 
   for (const localDate of ["2026-09-10", "2026-09-19"]) {
     const broadlyEstablished = resolveRunStage(
@@ -272,16 +335,13 @@ Deno.test("PM Fall Chinook location guidance broadens without changing presence"
     assertEquals(broadlyEstablished.broadBuildingContext, true);
     assertMatch(
       broadlyEstablished.whereToStart ?? "",
-      /Scottville through Walhalla and Branch/i,
+      /Middle river.*Scottville–Maple Leaf/i,
     );
     assertMatch(
       broadlyEstablished.whereToStart ?? "",
-      /upper river toward Baldwin and M-37/i,
+      /Upper river.*Maple Leaf–M-37/i,
     );
-    assert(/lower, middle, and upper sections are all in play/i.test(
-      broadlyEstablished.detail,
-    ));
-    assert(/upper water can now hold meaningful numbers/i.test(
+    assert(/earlier arrivals may also occupy the upper river/i.test(
       broadlyEstablished.detail,
     ));
   }
@@ -292,16 +352,16 @@ Deno.test("PM Fall Chinook location guidance broadens without changing presence"
   );
   assertMatch(
     peak.whereToStart ?? "",
-    /lower river near Scottville.*middle river through Walhalla and Branch/i,
+    /Middle river.*Scottville–Maple Leaf/i,
   );
-  assertMatch(peak.whereToStart ?? "", /upper river toward Baldwin and M-37/i);
+  assertMatch(peak.whereToStart ?? "", /Upper river.*Maple Leaf–M-37/i);
 
   const tapering = resolveRunStage(
     PERE_MARQUETTE_FALL_CHINOOK_RUN_PROFILE,
     "2026-10-01",
   );
-  assertMatch(tapering.whereToStart ?? "", /Walhalla and Branch/i);
-  assertMatch(tapering.whereToStart ?? "", /Baldwin\/M-37/i);
+  assertMatch(tapering.whereToStart ?? "", /Middle river.*Maple Leaf/i);
+  assertMatch(tapering.whereToStart ?? "", /Lower river.*Scottville/i);
 
   const ending = resolveRunStage(
     PERE_MARQUETTE_FALL_CHINOOK_RUN_PROFILE,
@@ -309,7 +369,7 @@ Deno.test("PM Fall Chinook location guidance broadens without changing presence"
   );
   assertMatch(
     ending.whereToStart ?? "",
-    /Walhalla through Branch toward Baldwin\/M-37/i,
+    /Middle river.*Scottville–Maple Leaf/i,
   );
 
   const residual = resolveRunStage(
@@ -318,7 +378,7 @@ Deno.test("PM Fall Chinook location guidance broadens without changing presence"
   );
   assertMatch(
     residual.whereToStart ?? "",
-    /Walhalla and Branch toward Baldwin\/M-37/i,
+    /proven Middle river \(Scottville–Maple Leaf\) holding water/i,
   );
   assertEquals(peak.stage, "peak");
   assertEquals(peak.broadBuildingContext, false);
@@ -338,6 +398,24 @@ Deno.test("PM Fall Chinook location guidance broadens without changing presence"
       `Fish In River changed at ${localDate}`,
     );
   }
+});
+
+Deno.test("PM Chinook publishes rounded approximate presence without changing its state", () => {
+  const rising = scoreFishInRiver(
+    PERE_MARQUETTE_FALL_CHINOOK_RUN_PROFILE,
+    "2026-09-01",
+  );
+  assertEquals(rising.score, 44);
+  assertEquals(rising.displayScore, 45);
+  assertEquals(rising.scoreIsApproximate, true);
+  assertEquals(rising.label, "Moderate presence");
+
+  const peak = scoreFishInRiver(
+    PERE_MARQUETTE_FALL_CHINOOK_RUN_PROFILE,
+    "2026-09-20",
+  );
+  assertEquals(peak.displayScore, 100);
+  assertEquals(peak.scoreIsApproximate, false);
 });
 
 Deno.test("river without measured water-temperature sources is unsupported", () => {

@@ -90,6 +90,7 @@
     "qa:river-run:visuals": "tsx scripts/river-run-visual-qa.ts",
     "qa:river-run:coho-acceptance": "npm run check:river-run:coho-review-fixtures && tsx scripts/river-run-coho-acceptance-qa.ts",
     "qa:river-run:steelhead-acceptance": "npm run check:river-run:steelhead-review-fixtures && tsx scripts/river-run-steelhead-acceptance-qa.ts",
+    "qa:river-run:pm-copy": "npm run check:river-run:review-fixtures && npm run check:river-run:coho-review-fixtures && npm run check:river-run:steelhead-review-fixtures && tsx scripts/river-run-pm-copy-qa.ts",
     "qa:river-run:betsie-acceptance": "npm run check:river-run:betsie-review-fixtures && tsx scripts/river-run-betsie-acceptance-qa.ts",
     "qa:river-run:betsie-coho-acceptance": "npm run check:river-run:betsie-coho-review-fixtures && tsx scripts/river-run-betsie-coho-acceptance-qa.ts",
     "qa:river-run:betsie-steelhead-acceptance": "npm run check:river-run:betsie-steelhead-review-fixtures && tsx scripts/river-run-betsie-steelhead-acceptance-qa.ts",

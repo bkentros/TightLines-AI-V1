@@ -2221,18 +2221,12 @@ export const PERE_MARQUETTE_FALL_STEELHEAD_RUN_PROFILE:
       lateEnd: "12-23",
       postRunLateCopyEnd: "12-24",
     },
-    handoff: {
-      type: "winter_holding",
-      start: "12-23",
-      destinationRunType: "holding",
-      retainedPresenceFraction: 0.875,
-    },
     historicalPresence: {
       maximum: 8,
       distributionScope: "broad",
       curveVersion: "pm-fall-steelhead-presence-v2",
       evidenceNotes:
-        "The PM supports a strong wild steelhead fishery. The curve allows occasional late-September entry, establishes a meaningful and increasingly broad presence by mid-October, reaches its 8-of-10 fall opportunity ceiling on November 15, and deliberately retains 70-of-100 presence on December 22. It then hands off to winter holding rather than treating those fish as having left the river. This is seasonal opportunity context, not a live fish count.",
+        "The PM supports a strong wild steelhead fishery. The curve allows occasional late-September entry, establishes a meaningful and increasingly broad presence by mid-October, reaches its 8-of-10 fall opportunity ceiling on November 15, and deliberately retains 70-of-100 presence on December 22. The fall-entry estimate ends after that date without implying that Steelhead have left the river. This is seasonal opportunity context, not a live fish count.",
       sourceNotes:
         "Michigan DNR describes Great Lakes steelhead tributary entry from late October into spring, with many fish entering in fall and overwintering. Pere Marquette creel and telemetry work supports a strong, largely wild fishery, meaningful December opportunity, and temperature-led movement. Occasional late-September fish are represented conservatively from accepted local field experience rather than as dependable early abundance.",
       anchors: [
@@ -2272,7 +2266,7 @@ export const PERE_MARQUETTE_FALL_STEELHEAD_RUN_PROFILE:
         ending: 100,
       },
       evidenceNotes:
-        "PM Fall Steelhead Activity describes feeding and aggressive responsiveness for fish already present, not migration, abundance, catch probability, or the future winter-holding read. Measured temperature leads the profile because rainbow-trout feeding intensity changes strongly with temperature and PM adult Steelhead telemetry independently shows temperature-led behavior. Effective light remains meaningful for choosing among four-hour windows but is deliberately much lower than either salmon profile, so dark skies cannot erase cold-water metabolic restraint. Scottville flow position describes presentation shape without re-awarding a measured migration response, and precipitation remains restrained cover context. The 44-56F preferred band represents favorable fall feeding calibration, with a narrower 48-54F apex that can support an exceptional result only when river, light, and weather conditions also align. Responsiveness declines continuously and more sharply below 44F toward the approximately 39F cold-holding transition, and also declines above 56F toward unusually warm fall water. Steelhead receive no salmon conditional floor and no tapering or ending mortality reduction: low scores can honestly represent cold, warm, or extreme-flow responsiveness while fish remain alive, and December copy transitions toward winter holding rather than spawning deterioration.",
+        "PM Fall Steelhead Activity describes feeding and aggressive responsiveness for fish already present, not migration, abundance, catch probability, or post-fall behavior. Measured temperature leads the profile because rainbow-trout feeding intensity changes strongly with temperature and PM adult Steelhead telemetry independently shows temperature-led behavior. Effective light remains meaningful for choosing among four-hour windows but is deliberately much lower than either salmon profile, so dark skies cannot erase cold-water metabolic restraint. Scottville flow position describes presentation shape without re-awarding a measured migration response, and precipitation remains restrained cover context. The 44-56F preferred band represents favorable fall feeding calibration, with a narrower 48-54F apex that can support an exceptional result only when river, light, and weather conditions also align. Responsiveness declines continuously and more sharply below 44F toward approximately 39F, and also declines above 56F toward unusually warm fall water. Steelhead receive no salmon mortality reduction. After December 22, this fall model stops scoring Activity rather than extending into an unimplemented winter experience.",
     },
     push: {
       ...PERE_MARQUETTE_FALL_CHINOOK_RUN_PROFILE.push,
@@ -2302,9 +2296,9 @@ export const PERE_MARQUETTE_FALL_STEELHEAD_RUN_PROFILE:
     fishabilityBands: {
       ...PERE_MARQUETTE_FALL_CHINOOK_RUN_PROFILE.fishabilityBands,
       evidenceNotes:
-        "Scottville Fishability is a PM reach-level hydraulic calibration shared across fall migratory species. The same absolute bands describe presentation control and river shape for steelhead: below 400 unusually low, 400-500 low but fishable, 500-525 transitional, 525-750 ideal, 750-1000 high but fishable, 1000-1600 very high/difficult, and 1600+ blown out. Species identity does not change the measured hydraulic shape; these are not abundance or safety thresholds.",
+        "Scottville Fishability is a Lower-river hydraulic calibration shared across fall migratory species. The same absolute bands describe presentation control for Steelhead: below 400 unusually low, 400-500 low but fishable, 500-525 transitional, 525-750 ideal, 750-1000 high but fishable, 1000-1600 very high/difficult, and 1600+ blown out. Species identity does not change the measured hydraulic shape; these are not abundance or safety thresholds and do not describe the full PM.",
       sourceNotes:
-        "Hydraulics: USGS 04122500 approved daily discharge, 2016-2025. Reach context: Pere Marquette Comprehensive River Management Plan. The audited Scottville reach and absolute fishing-shape thresholds are deliberately reused; the steelhead-specific differences belong to biology, timing, presence, temperature response, and winter handoff.",
+        "Hydraulics: USGS 04122500 approved daily discharge, 2016-2025. Reach context: Pere Marquette Comprehensive River Management Plan. The audited Scottville reach and absolute fishing-shape thresholds are deliberately reused; the Steelhead-specific differences belong to biology, timing, presence, temperature response, and the December 22 fall-model endpoint.",
     },
     baselineCoverage: {
       ...PERE_MARQUETTE_FALL_CHINOOK_RUN_PROFILE.baselineCoverage,
@@ -2333,14 +2327,14 @@ export const PERE_MARQUETTE_FALL_STEELHEAD_RUN_PROFILE:
       waterTemperatureWeight: 0.6,
     },
     researchNotes:
-      "PM fall steelhead launch configuration. Early monitoring begins August 15, condition tracking begins September 1, and the river-entry window begins September 20 so occasional late-September fish are represented without overstating dependability. Meaningful presence and broadening distribution develop by mid-October, the 8-of-10 ceiling begins November 15, tapering begins December 5, the holding transition begins December 20, and presence remains 70-of-100 on December 22. December 23 is an explicit handoff to a future winter-holding experience with different activity-focused primitives; the fall migration primitives stop rather than fabricating winter scores.",
+      "PM fall steelhead launch configuration. Early monitoring begins August 15, condition tracking begins September 1, and the river-entry window begins September 20 so occasional late-September fish are represented without overstating dependability. Meaningful presence and broadening distribution develop by mid-October, the 8-of-10 ceiling begins November 15, tapering begins December 5, and the final fall-entry phase begins December 20. Presence remains 70-of-100 on December 22. Beginning December 23, the public state is Fall entry complete: Push, Activity, and Fish In River stop scoring, no winter experience is referenced, and fall movement tracking resumes in early September.",
     sourceNotes:
-      "Sources include Michigan DNR steelhead biology and Great Lakes tributary timing, Michigan DNR Pere Marquette fishery/angler-survey material, Pere Marquette and broader Great Lakes telemetry, USGS 04122500 Scottville, and PMTU measured-water stations. PM hydraulics and providers are shared; biology, timing, retained presence, temperature response, condition weights, and winter handoff are steelhead-specific. The full local acceptance pass and explicit owner release approval are complete.",
+      "Sources include Michigan DNR steelhead biology and Great Lakes tributary timing, Michigan DNR Pere Marquette fishery/angler-survey material, Pere Marquette and broader Great Lakes telemetry, USGS 04122500 Scottville, and PMTU measured-water stations. PM hydraulics and providers are shared; biology, timing, retained fall presence, temperature response, condition weights, and the December 22 endpoint are Steelhead-specific. The renovated copy requires a new owner acceptance pass.",
     publicAudit: {
       isEnabled: true,
       auditVersion: "pm-fall-steelhead-activity-audit-v1",
       notes:
-        "The accepted fall-entry foundation remains public while Steelhead Activity is in owner review. Local Activity audit passed 515 complete historical days, 2,060 four-hour blocks, 118 review scenarios, every lifecycle and confidence state, the 70-point winter handoff, copy safety, and visual contracts with zero scoring or copy invariant failures.",
+        "The accepted fall-entry foundation remains public while renovated copy enters owner review. The prior Activity audit covered 515 historical days, 2,060 four-hour blocks, 118 review scenarios, every lifecycle and confidence state, copy safety, and visual contracts. Phase 2 replaces the former winter handoff with an explicit Fall entry complete boundary after December 22.",
     },
   };
 

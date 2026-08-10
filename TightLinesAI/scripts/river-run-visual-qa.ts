@@ -9,7 +9,6 @@ import {
 
 const TARGETS = {
   run_stage: {
-    Offseason: null,
     kind: "run_stage",
     primitive: "runStage",
     expectedStops: 7,
@@ -45,6 +44,8 @@ const EXPECTED_SELECTED_INDEX: Record<
 > = {
   run_stage: {
     Offseason: null,
+    "Fall run complete": null,
+    "Fall entry complete": null,
     "Before migration": 0,
     Beginning: 1,
     Building: 2,
@@ -71,6 +72,8 @@ const EXPECTED_SELECTED_INDEX: Record<
     Unavailable: null,
     "Waiting for migration": null,
     "Migration complete": null,
+    "Fall run complete": null,
+    "Fall entry complete": null,
   },
   fishability: {
     Poor: 0,
@@ -89,6 +92,8 @@ const EXPECTED_SELECTED_INDEX: Record<
     "Moderate presence": 3,
     "High presence": 4,
     "Peak presence": 5,
+    "Fall run complete": null,
+    "Fall entry complete": null,
   },
 };
 
@@ -106,7 +111,25 @@ for (const [groupId, target] of Object.entries(TARGETS)) {
 
     assert.equal(model.kind, target.kind);
     if (target.kind === "fish_in_river") {
-      const score = Math.max(0, Math.min(100, primitive.score ?? 0));
+      if (
+        primitive.label === "Fall run complete" ||
+        primitive.label === "Fall entry complete"
+      ) {
+        assert.equal(model.selectedIndex, null);
+        assert.equal(model.specialState, "complete");
+        labels.add(primitive.label);
+        visualCount += 1;
+        continue;
+      }
+      const score = Math.max(
+        0,
+        Math.min(
+          100,
+          typeof primitive.displayScore === "number"
+            ? primitive.displayScore
+            : primitive.score ?? 0,
+        ),
+      );
       assert.equal(
         model.selectedIndex,
         Math.min(4, Math.max(0, Math.ceil(score / 20) - 1)),
@@ -184,7 +207,7 @@ for (const [groupId, target] of Object.entries(TARGETS)) {
 assert.deepEqual(
   seen.get("run_stage"),
   new Set([
-    "Offseason",
+    "Fall run complete",
     "Before migration",
     "Beginning",
     "Building",
@@ -234,7 +257,7 @@ assert.deepEqual(
 assert.deepEqual(
   seen.get("fish_in_river"),
   new Set([
-    "Offseason",
+    "Fall run complete",
     "Not expected yet",
     "Low presence",
     "Limited presence",
@@ -321,7 +344,10 @@ for (const scenario of pushGroup.scenarios) {
     assert.equal(model.specialState, "unavailable");
   }
   if (!model.specialState) {
-    assert.equal(model.stateNote, "FRESH-WAVE POTENTIAL TODAY");
+    assert.equal(
+      model.stateNote,
+      "SUPPORT FOR FRESH MOVEMENT · NOT PROOF OF ARRIVALS",
+    );
   }
 }
 
@@ -376,7 +402,9 @@ for (
     kind: "fish_in_river",
     primitive: {
       ...presenceGroup.scenarios[0].snapshot.fishInRiver,
+      label: "Low presence",
       score,
+      displayScore: score,
     },
   });
   assert.equal(model.selectedIndex, expectedBand, `${score}/100 band mismatch`);
@@ -435,6 +463,7 @@ const lowerCap = {
     scenario.snapshot.fishInRiver.label === "Peak presence"
   )!.snapshot.fishInRiver,
   score: 60,
+  displayScore: 60,
   maximum: 100,
   riverCeiling: 60,
   historicalRunStrength: "moderate" as const,
@@ -455,6 +484,7 @@ const orangeHighModel = resolveRiverRunVisualModel({
   primitive: {
     ...lowerCap,
     score: 36,
+    displayScore: 36,
     label: "High presence",
   },
 });
@@ -467,6 +497,7 @@ const yellowPeakModel = resolveRiverRunVisualModel({
   primitive: {
     ...lowerCap,
     score: 55,
+    displayScore: 55,
   },
 });
 assert.equal(yellowPeakModel.selectedIndex, 2);
@@ -477,6 +508,7 @@ const strongCapModel = resolveRiverRunVisualModel({
   primitive: {
     ...lowerCap,
     score: 100,
+    displayScore: 100,
     riverCeiling: 100,
     historicalRunStrength: "strong" as const,
   },
@@ -492,6 +524,7 @@ const limitedCapModel = resolveRiverRunVisualModel({
   primitive: {
     ...lowerCap,
     score: 30,
+    displayScore: 30,
     riverCeiling: 30,
     historicalRunStrength: "limited" as const,
   },

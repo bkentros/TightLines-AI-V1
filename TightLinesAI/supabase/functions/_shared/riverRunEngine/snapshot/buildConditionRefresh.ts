@@ -140,8 +140,11 @@ export function buildConditionRefresh(input: {
 }): RiverRunConditionRefresh {
   const trackingStartDate = input.dailySnapshot.runStage.window.startDate;
   const trackingEndDate = input.dailySnapshot.runStage.window.endDate;
-  const trackingState = input.dailySnapshot.runStage.label === "Offseason"
+  const trackingState = input.dailySnapshot.runStage.label === "Offseason" ||
+      input.dailySnapshot.runStage.label === "Fall run complete"
     ? "offseason"
+    : input.dailySnapshot.runStage.label === "Fall entry complete"
+    ? "complete"
     : compareLocalDates(input.localDate, trackingStartDate) < 0
     ? "not_started"
     : compareLocalDates(input.localDate, trackingEndDate) > 0
@@ -175,6 +178,8 @@ export function buildConditionRefresh(input: {
       flowReasonCodes: input.flowReasonCodes,
       temperatureReasonCodes: input.temperatureReasonCodes,
       localDate: input.localDate,
+      copyStrategy: input.dailySnapshot.runStage.copyStrategy,
+      monitoringStartDate: input.dailySnapshot.runStage.window.stagingStartDate,
     });
   const fishability = fishabilityCapability.status === "unavailable"
     ? unavailableFishability(fishabilityCapability.reason)
@@ -188,6 +193,7 @@ export function buildConditionRefresh(input: {
       hydraulicPercentChange24h: input.hydraulicPercentChange24h,
       flowReasonCodes: input.flowReasonCodes,
       localDate: input.localDate,
+      copyStrategy: input.dailySnapshot.runStage.copyStrategy,
     });
   const activity = input.activityRules && input.activityTargetDate
     ? scoreActivity({
@@ -205,6 +211,9 @@ export function buildConditionRefresh(input: {
       fishabilityBands: input.fishabilityBands,
       flowSignal: input.flowSignal,
       hourlyWeather: input.sourceMetrics.weather?.hourlyActivityWeather ?? [],
+      copyStrategy: input.dailySnapshot.runStage.copyStrategy,
+      fallEntryComplete:
+        input.dailySnapshot.runStage.label === "Fall entry complete",
     })
     : null;
   const dataQuality = resolveDataQuality({

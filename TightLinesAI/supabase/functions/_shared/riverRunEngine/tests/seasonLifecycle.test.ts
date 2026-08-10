@@ -36,9 +36,9 @@ const lifecycleCases = [
 for (const testCase of lifecycleCases) {
   Deno.test(`${testCase.name} exposes honest states across the full seasonal lifecycle`, () => {
     const before = snapshotAndRefresh(testCase.run, testCase.offseasonBefore);
-    assertEquals(before.daily.runStage.label, "Offseason");
+    assertEquals(before.daily.runStage.label, "Fall run complete");
     assertEquals(before.daily.conditionsSuggest.label, "Not monitoring yet");
-    assertEquals(before.daily.fishInRiver.label, "Offseason");
+    assertEquals(before.daily.fishInRiver.label, "Fall run complete");
     assertEquals(before.refresh.push.label, "Offseason");
 
     const early = snapshotAndRefresh(
@@ -75,30 +75,24 @@ for (const testCase of lifecycleCases) {
     assertEquals(post.refresh.push.label, "Migration complete");
 
     const after = snapshotAndRefresh(testCase.run, testCase.offseasonAfter);
-    assertEquals(after.daily.runStage.label, "Offseason");
+    assertEquals(after.daily.runStage.label, "Fall run complete");
     assertEquals(after.daily.conditionsSuggest.label, "Not monitoring yet");
-    assertEquals(after.daily.fishInRiver.label, "Offseason");
+    assertEquals(after.daily.fishInRiver.label, "Fall run complete");
     assertEquals(after.refresh.push.label, "Offseason");
     assert(
-      after.refresh.fishability.detail.includes(
-        "if migratory fish are present",
-      ),
-      "Offseason Fishability must remain explicitly conditional on fish presence",
+      after.refresh.fishability.detail.includes("not the full PM"),
+      "Fishability must stay scoped to the Scottville/Lower river reach",
     );
   });
 }
 
-Deno.test("PM Fall Steelhead hands migration primitives to winter holding without erasing fish", () => {
+Deno.test("PM Fall Steelhead completes fall primitives without claiming fish left", () => {
   const run = PERE_MARQUETTE_FALL_STEELHEAD_RUN_PROFILE;
   const early = snapshotAndRefresh(run, "2026-09-01");
   assertEquals(early.daily.runStage.label, "Before migration");
   assertEquals(early.daily.conditionsSuggest.label, "Evaluating");
   assertEquals(early.refresh.push.label, "Waiting for migration");
-  assert(
-    early.refresh.push.detail.includes(
-      "occasional early steelhead is possible",
-    ),
-  );
+  assert(early.refresh.push.detail.includes("not scored as an in-season"));
   assertEquals(
     early.refresh.push.headline.includes("Fish have not started entering"),
     false,
@@ -109,18 +103,14 @@ Deno.test("PM Fall Steelhead hands migration primitives to winter holding withou
   assertEquals(active.daily.fishInRiver.score, 70);
   assertEquals(active.daily.conditionsSuggest.label, "Timing complete");
 
-  const winter = snapshotAndRefresh(run, "2026-12-23");
-  assertEquals(winter.daily.runStage.label, "Winter holding");
-  assertEquals(winter.daily.fishInRiver.label, "Winter holding");
-  assertEquals(winter.daily.fishInRiver.score, 70);
-  assertEquals(winter.daily.fishInRiver.handoffScore, 70);
-  assertEquals(winter.refresh.push.label, "Winter holding");
-  assertEquals(winter.daily.conditionsSuggest.label, "Timing complete");
-  assert(
-    winter.refresh.interpretationNote?.reasonCodes.includes(
-      "winter_holding_read_required",
-    ),
-  );
+  const complete = snapshotAndRefresh(run, "2026-12-23");
+  assertEquals(complete.daily.runStage.label, "Fall entry complete");
+  assertEquals(complete.daily.fishInRiver.label, "Fall entry complete");
+  assertEquals(complete.daily.fishInRiver.score, null);
+  assertEquals(complete.daily.fishInRiver.handoffScore, undefined);
+  assertEquals(complete.refresh.push.label, "Fall entry complete");
+  assertEquals(complete.daily.conditionsSuggest.label, "Timing complete");
+  assertEquals(complete.refresh.interpretationNote, undefined);
 });
 
 function snapshotAndRefresh(run: RiverRunProfile, localDate: string) {

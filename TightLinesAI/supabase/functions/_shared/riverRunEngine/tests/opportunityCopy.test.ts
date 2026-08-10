@@ -31,16 +31,13 @@ Deno.test("PM Chinook strong and broad Migration Stage copy remains stable", () 
 
   assertEquals(
     building.headline,
-    "Chinook salmon are becoming established through more of the river.",
+    "The PM Chinook salmon run is becoming established in the Middle river.",
   );
-  assertEquals(
-    peak.detail,
-    "Multiple waves have had time to spread, so Chinook salmon are likely distributed throughout the accessible river—from lower travel water through upstream holding and spawning reaches, except above dams or other barriers.",
-  );
-  assertEquals(
-    tapering.detail,
-    "Good numbers of Chinook salmon may still be spread through the river. At this point in the seasonal pattern, the balance often shifts from new arrivals toward fish already holding or spawning.",
-  );
+  assertMatch(peak.detail, /widest dependable Chinook salmon distribution/);
+  assertMatch(peak.detail, /does not confirm fish in every section/);
+  assertEquals(/dam|barrier/i.test(peak.detail), false);
+  assertMatch(tapering.detail, /Seasonal presence is declining/);
+  assertMatch(tapering.detail, /Middle river holding water/);
 });
 
 Deno.test("moderate and limited Migration Stage copy is complete for every state", () => {
@@ -67,7 +64,7 @@ Deno.test("moderate and limited Migration Stage copy is complete for every state
   }
 
   const moderatePeak = resolveRunStage(moderateRun, "2026-09-20");
-  assertMatch(moderatePeak.detail, /several dependable river sections/);
+  assertMatch(moderatePeak.detail, /core Coho salmon sections/);
   assertEquals(
     /throughout the accessible river/i.test(text(moderatePeak)),
     false,
@@ -76,14 +73,14 @@ Deno.test("moderate and limited Migration Stage copy is complete for every state
   const limitedPeak = resolveRunStage(limitedRun, "2026-09-20");
   assertMatch(
     limitedPeak.headline,
-    /overall seasonal presence remains limited/,
+    /Limited river-specific run/,
   );
-  assertMatch(limitedPeak.detail, /smaller number of Coho salmon/i);
-  assertMatch(limitedPeak.detail, /most dependable holding and spawning areas/);
+  assertMatch(limitedPeak.detail, /most dependable Coho salmon holding water/i);
+  assertMatch(limitedPeak.detail, /concentrated and uneven/i);
 
   const limitedTaper = resolveRunStage(limitedRun, "2026-10-01");
-  assertMatch(limitedTaper.headline, /limited Coho salmon opportunity/);
-  assertMatch(limitedTaper.detail, /smaller number of Coho salmon/);
+  assertMatch(limitedTaper.headline, /Coho salmon migration is tapering/);
+  assertMatch(limitedTaper.detail, /Seasonal presence is declining/);
   assertEquals(/Good numbers/i.test(text(limitedTaper)), false);
 });
 
@@ -110,8 +107,8 @@ Deno.test("moderate and limited Fish In River copy covers every seasonal state",
 
   const moderatePeak = scoreFishInRiver(moderateRun, "2026-09-20");
   assertEquals(moderatePeak.score, 60);
-  assertMatch(moderatePeak.headline, /their highest seasonal presence/);
-  assertMatch(moderatePeak.detail, /several dependable river sections/);
+  assertMatch(moderatePeak.headline, /peak presence.*seasonal high/i);
+  assertMatch(moderatePeak.detail, /expected run strength is Moderate/);
   assertEquals(
     /river-wide|throughout the accessible river/i.test(text(moderatePeak)),
     false,
@@ -119,16 +116,16 @@ Deno.test("moderate and limited Fish In River copy covers every seasonal state",
 
   const limitedPeak = scoreFishInRiver(limitedRun, "2026-09-20");
   assertEquals(limitedPeak.score, 30);
-  assertMatch(limitedPeak.headline, /overall opportunity remains limited/);
-  assertMatch(limitedPeak.detail, /seasonal opportunity remains limited/);
+  assertMatch(limitedPeak.headline, /peak presence.*seasonal high/i);
+  assertMatch(limitedPeak.detail, /expected run strength is Limited/);
   assertEquals(
     /strong presence|substantial presence|river-wide/i.test(text(limitedPeak)),
     false,
   );
 
   const limitedFalling = scoreFishInRiver(limitedRun, "2026-10-02");
-  assertMatch(limitedFalling.headline, /limited Coho salmon presence/);
-  assertMatch(limitedFalling.headline, /dependable water/);
+  assertMatch(limitedFalling.headline, /presence.*declining/i);
+  assertMatch(limitedFalling.detail, /dependable holding water/);
   assertEquals(
     /strong Coho salmon presence/i.test(text(limitedFalling)),
     false,
@@ -150,7 +147,7 @@ Deno.test("High presence copy is explicitly relative to each river season", () =
     for (const read of highReads) {
       assertMatch(
         read.detail,
-        /elevated relative to the rest of the season|approaching its strongest seasonal point/i,
+        /high for this fall migration/i,
       );
       assertEquals(
         /usually (?:brings|supports) high presence/i.test(read.detail),
@@ -222,14 +219,10 @@ Deno.test("strength and distribution remain independent across all nine combinat
       assertComplete(tapering);
       assertComplete(falling);
       const combined = `${text(stage)} ${text(tapering)} ${text(falling)}`;
-      if (strength === "strong") {
-        assertMatch(combined, /Good numbers|strong Coho salmon presence/i);
-      } else {
-        assertEquals(
-          /Good numbers|strong Coho salmon presence/i.test(combined),
-          false,
-        );
-      }
+      assertMatch(
+        combined,
+        new RegExp(`expected run strength is ${strength}`, "i"),
+      );
       if (distributionScope !== "broad") {
         assertEquals(
           /throughout the accessible river|spread through the river|broad part|river-wide/i

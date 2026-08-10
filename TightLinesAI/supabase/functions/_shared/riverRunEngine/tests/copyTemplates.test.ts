@@ -28,7 +28,7 @@ Deno.test("every primitive uses the single canonical copy template", () => {
     }),
   ];
 
-  assertEquals(RIVER_RUN_COPY_VERSION, "river-run-copy-v27");
+  assertEquals(RIVER_RUN_COPY_VERSION, "river-run-copy-v29");
   for (const display of displays) {
     assertEquals(display.copyVersion, RIVER_RUN_COPY_VERSION);
     assertEquals("copyVariant" in display, false);
@@ -81,8 +81,8 @@ Deno.test("Fish In River separates level from run direction", () => {
   const falling = limited.find((item) => item.curveDirection === "falling");
   assert(rising);
   assert(falling);
-  assert(rising.headline.includes("developing"));
-  assert(falling.headline.includes("established holding water"));
+  assert(rising.headline.includes("building"));
+  assert(falling.headline.includes("declining"));
   assertEquals(rising.headline === falling.headline, false);
 
   const lowerCapRun = {

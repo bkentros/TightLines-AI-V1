@@ -129,10 +129,7 @@ Deno.test("every Betsie Steelhead calendar and handoff boundary is exactly five 
   }
   assertEquals(run.handoff?.start, "12-18");
   assertEquals(
-    addDays(
-      `2026-${PERE_MARQUETTE_FALL_STEELHEAD_RUN_PROFILE.handoff!.start}`,
-      -5,
-    ).slice(5),
+    addDays(pm.endDate, -4).slice(5),
     run.handoff?.start,
   );
 });
