@@ -54,7 +54,7 @@ export const RIVER_RUN_BETSIE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "stage_pre_run"
             ],
-            "copyVersion": "river-run-copy-v30"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "score": null,
@@ -73,12 +73,12 @@ export const RIVER_RUN_BETSIE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "sourceDates": [],
             "sourceRefreshSlots": {},
             "headline": "Migration Timing is not available for the Betsie.",
-            "detail": "The Betsie lacks an accepted long-term flow and measured water-temperature record for an early, typical, or delayed comparison.",
+            "detail": "The Betsie does not have a long-term flow and measured water-temperature record reliable enough for an early, typical, or delayed comparison.",
             "tip": "Use Migration Stage and Fish In River. This card cannot shift the plan between the Betsie Lake–US-31 and US-31–Homestead reaches.",
             "reasonCodes": [
               "primitive_migration_timing_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v30"
+            "copyVersion": "river-run-copy-v34"
           },
           "push": {
             "score": null,
@@ -89,7 +89,7 @@ export const RIVER_RUN_BETSIE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "primitive_push_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v30"
+            "copyVersion": "river-run-copy-v34"
           },
           "pushHistory": {
             "status": "unavailable",
@@ -109,7 +109,7 @@ export const RIVER_RUN_BETSIE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "primitive_fishability_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v30"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": null,
           "fishInRiver": {
@@ -131,7 +131,7 @@ export const RIVER_RUN_BETSIE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_pre_run",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v30"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": null,
           "weather": null,
@@ -157,7 +157,7 @@ export const RIVER_RUN_BETSIE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "secondaryNote": "No sufficiently accurate and consistent live flow gauge or measured water-temperature sensor represents the Betsie below Homestead. Push, Fishability, and Migration Timing are unavailable. Activity is a Limited-confidence weather-only outlook; Run Stage and Fish In River remain seasonal context.",
           "safety": {
             "regulationReminder": "Fishing is closed within 300 feet of Homestead's lamprey barrier and fish-passage facility from August 1 through November 15, and within 100 feet from November 16 through July 31. Follow current regulations and signed boundaries.",
-            "gaugeBasis": "No accepted live gauge represents the two Betsie River Run reaches; Fishability is unavailable.",
+            "gaugeBasis": "No live gauge reliably represents the two Betsie River Run reaches; Fishability is unavailable.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
@@ -211,7 +211,7 @@ export const RIVER_RUN_BETSIE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_pre_run",
               "stage_pre_run_staging"
             ],
-            "copyVersion": "river-run-copy-v30"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "score": null,
@@ -230,12 +230,12 @@ export const RIVER_RUN_BETSIE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "sourceDates": [],
             "sourceRefreshSlots": {},
             "headline": "Migration Timing is not available for the Betsie.",
-            "detail": "The Betsie lacks an accepted long-term flow and measured water-temperature record for an early, typical, or delayed comparison.",
+            "detail": "The Betsie does not have a long-term flow and measured water-temperature record reliable enough for an early, typical, or delayed comparison.",
             "tip": "Use Migration Stage and Fish In River. This card cannot shift the plan between the Betsie Lake–US-31 and US-31–Homestead reaches.",
             "reasonCodes": [
               "primitive_migration_timing_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v30"
+            "copyVersion": "river-run-copy-v34"
           },
           "push": {
             "score": null,
@@ -246,7 +246,7 @@ export const RIVER_RUN_BETSIE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "primitive_push_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v30"
+            "copyVersion": "river-run-copy-v34"
           },
           "pushHistory": {
             "status": "unavailable",
@@ -266,7 +266,7 @@ export const RIVER_RUN_BETSIE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "primitive_fishability_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v30"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 70,
@@ -328,7 +328,7 @@ export const RIVER_RUN_BETSIE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "precipitationIn": 0
               }
             ],
-            "copyVersion": "river-run-copy-v30"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 0,
@@ -349,7 +349,7 @@ export const RIVER_RUN_BETSIE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_pre_run",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v30"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": null,
           "weather": null,
@@ -375,7 +375,7 @@ export const RIVER_RUN_BETSIE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "secondaryNote": "No sufficiently accurate and consistent live flow gauge or measured water-temperature sensor represents the Betsie below Homestead. Push, Fishability, and Migration Timing are unavailable. Activity is a Limited-confidence weather-only outlook; Run Stage and Fish In River remain seasonal context.",
           "safety": {
             "regulationReminder": "Fishing is closed within 300 feet of Homestead's lamprey barrier and fish-passage facility from August 1 through November 15, and within 100 feet from November 16 through July 31. Follow current regulations and signed boundaries.",
-            "gaugeBasis": "No accepted live gauge represents the two Betsie River Run reaches; Fishability is unavailable.",
+            "gaugeBasis": "No live gauge reliably represents the two Betsie River Run reaches; Fishability is unavailable.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
@@ -428,7 +428,7 @@ export const RIVER_RUN_BETSIE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v30"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "score": null,
@@ -447,12 +447,12 @@ export const RIVER_RUN_BETSIE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "sourceDates": [],
             "sourceRefreshSlots": {},
             "headline": "Migration Timing is not available for the Betsie.",
-            "detail": "The Betsie lacks an accepted long-term flow and measured water-temperature record for an early, typical, or delayed comparison.",
+            "detail": "The Betsie does not have a long-term flow and measured water-temperature record reliable enough for an early, typical, or delayed comparison.",
             "tip": "Use Migration Stage and Fish In River. This card cannot shift the plan between the Betsie Lake–US-31 and US-31–Homestead reaches.",
             "reasonCodes": [
               "primitive_migration_timing_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v30"
+            "copyVersion": "river-run-copy-v34"
           },
           "push": {
             "score": null,
@@ -463,7 +463,7 @@ export const RIVER_RUN_BETSIE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "primitive_push_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v30"
+            "copyVersion": "river-run-copy-v34"
           },
           "pushHistory": {
             "status": "unavailable",
@@ -483,7 +483,7 @@ export const RIVER_RUN_BETSIE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "primitive_fishability_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v30"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 70,
@@ -545,7 +545,7 @@ export const RIVER_RUN_BETSIE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "precipitationIn": 0
               }
             ],
-            "copyVersion": "river-run-copy-v30"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 7,
@@ -566,7 +566,7 @@ export const RIVER_RUN_BETSIE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v30"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": null,
           "weather": null,
@@ -592,7 +592,7 @@ export const RIVER_RUN_BETSIE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "secondaryNote": "No sufficiently accurate and consistent live flow gauge or measured water-temperature sensor represents the Betsie below Homestead. Push, Fishability, and Migration Timing are unavailable. Activity is a Limited-confidence weather-only outlook; Run Stage and Fish In River remain seasonal context.",
           "safety": {
             "regulationReminder": "Fishing is closed within 300 feet of Homestead's lamprey barrier and fish-passage facility from August 1 through November 15, and within 100 feet from November 16 through July 31. Follow current regulations and signed boundaries.",
-            "gaugeBasis": "No accepted live gauge represents the two Betsie River Run reaches; Fishability is unavailable.",
+            "gaugeBasis": "No live gauge reliably represents the two Betsie River Run reaches; Fishability is unavailable.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
@@ -645,7 +645,7 @@ export const RIVER_RUN_BETSIE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "stage_building"
             ],
-            "copyVersion": "river-run-copy-v30"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "score": null,
@@ -664,12 +664,12 @@ export const RIVER_RUN_BETSIE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "sourceDates": [],
             "sourceRefreshSlots": {},
             "headline": "Migration Timing is not available for the Betsie.",
-            "detail": "The Betsie lacks an accepted long-term flow and measured water-temperature record for an early, typical, or delayed comparison.",
+            "detail": "The Betsie does not have a long-term flow and measured water-temperature record reliable enough for an early, typical, or delayed comparison.",
             "tip": "Use Migration Stage and Fish In River. This card cannot shift the plan between the Betsie Lake–US-31 and US-31–Homestead reaches.",
             "reasonCodes": [
               "primitive_migration_timing_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v30"
+            "copyVersion": "river-run-copy-v34"
           },
           "push": {
             "score": null,
@@ -680,7 +680,7 @@ export const RIVER_RUN_BETSIE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "primitive_push_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v30"
+            "copyVersion": "river-run-copy-v34"
           },
           "pushHistory": {
             "status": "unavailable",
@@ -700,7 +700,7 @@ export const RIVER_RUN_BETSIE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "primitive_fishability_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v30"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 70,
@@ -762,7 +762,7 @@ export const RIVER_RUN_BETSIE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "precipitationIn": 0
               }
             ],
-            "copyVersion": "river-run-copy-v30"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 26,
@@ -783,7 +783,7 @@ export const RIVER_RUN_BETSIE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_building",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v30"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": null,
           "weather": null,
@@ -809,7 +809,7 @@ export const RIVER_RUN_BETSIE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "secondaryNote": "No sufficiently accurate and consistent live flow gauge or measured water-temperature sensor represents the Betsie below Homestead. Push, Fishability, and Migration Timing are unavailable. Activity is a Limited-confidence weather-only outlook; Run Stage and Fish In River remain seasonal context.",
           "safety": {
             "regulationReminder": "Fishing is closed within 300 feet of Homestead's lamprey barrier and fish-passage facility from August 1 through November 15, and within 100 feet from November 16 through July 31. Follow current regulations and signed boundaries.",
-            "gaugeBasis": "No accepted live gauge represents the two Betsie River Run reaches; Fishability is unavailable.",
+            "gaugeBasis": "No live gauge reliably represents the two Betsie River Run reaches; Fishability is unavailable.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
@@ -862,7 +862,7 @@ export const RIVER_RUN_BETSIE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "stage_building"
             ],
-            "copyVersion": "river-run-copy-v30"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "score": null,
@@ -881,12 +881,12 @@ export const RIVER_RUN_BETSIE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "sourceDates": [],
             "sourceRefreshSlots": {},
             "headline": "Migration Timing is not available for the Betsie.",
-            "detail": "The Betsie lacks an accepted long-term flow and measured water-temperature record for an early, typical, or delayed comparison.",
+            "detail": "The Betsie does not have a long-term flow and measured water-temperature record reliable enough for an early, typical, or delayed comparison.",
             "tip": "Use Migration Stage and Fish In River. This card cannot shift the plan between the Betsie Lake–US-31 and US-31–Homestead reaches.",
             "reasonCodes": [
               "primitive_migration_timing_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v30"
+            "copyVersion": "river-run-copy-v34"
           },
           "push": {
             "score": null,
@@ -897,7 +897,7 @@ export const RIVER_RUN_BETSIE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "primitive_push_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v30"
+            "copyVersion": "river-run-copy-v34"
           },
           "pushHistory": {
             "status": "unavailable",
@@ -917,7 +917,7 @@ export const RIVER_RUN_BETSIE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "primitive_fishability_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v30"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 70,
@@ -979,7 +979,7 @@ export const RIVER_RUN_BETSIE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "precipitationIn": 0
               }
             ],
-            "copyVersion": "river-run-copy-v30"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 32,
@@ -1000,7 +1000,7 @@ export const RIVER_RUN_BETSIE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_building",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v30"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": null,
           "weather": null,
@@ -1026,7 +1026,7 @@ export const RIVER_RUN_BETSIE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "secondaryNote": "No sufficiently accurate and consistent live flow gauge or measured water-temperature sensor represents the Betsie below Homestead. Push, Fishability, and Migration Timing are unavailable. Activity is a Limited-confidence weather-only outlook; Run Stage and Fish In River remain seasonal context.",
           "safety": {
             "regulationReminder": "Fishing is closed within 300 feet of Homestead's lamprey barrier and fish-passage facility from August 1 through November 15, and within 100 feet from November 16 through July 31. Follow current regulations and signed boundaries.",
-            "gaugeBasis": "No accepted live gauge represents the two Betsie River Run reaches; Fishability is unavailable.",
+            "gaugeBasis": "No live gauge reliably represents the two Betsie River Run reaches; Fishability is unavailable.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
@@ -1079,7 +1079,7 @@ export const RIVER_RUN_BETSIE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "stage_building"
             ],
-            "copyVersion": "river-run-copy-v30"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "score": null,
@@ -1098,12 +1098,12 @@ export const RIVER_RUN_BETSIE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "sourceDates": [],
             "sourceRefreshSlots": {},
             "headline": "Migration Timing is not available for the Betsie.",
-            "detail": "The Betsie lacks an accepted long-term flow and measured water-temperature record for an early, typical, or delayed comparison.",
+            "detail": "The Betsie does not have a long-term flow and measured water-temperature record reliable enough for an early, typical, or delayed comparison.",
             "tip": "Use Migration Stage and Fish In River. This card cannot shift the plan between the Betsie Lake–US-31 and US-31–Homestead reaches.",
             "reasonCodes": [
               "primitive_migration_timing_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v30"
+            "copyVersion": "river-run-copy-v34"
           },
           "push": {
             "score": null,
@@ -1114,7 +1114,7 @@ export const RIVER_RUN_BETSIE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "primitive_push_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v30"
+            "copyVersion": "river-run-copy-v34"
           },
           "pushHistory": {
             "status": "unavailable",
@@ -1134,7 +1134,7 @@ export const RIVER_RUN_BETSIE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "primitive_fishability_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v30"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 70,
@@ -1196,7 +1196,7 @@ export const RIVER_RUN_BETSIE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "precipitationIn": 0
               }
             ],
-            "copyVersion": "river-run-copy-v30"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 53,
@@ -1217,7 +1217,7 @@ export const RIVER_RUN_BETSIE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_building",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v30"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": null,
           "weather": null,
@@ -1243,7 +1243,7 @@ export const RIVER_RUN_BETSIE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "secondaryNote": "No sufficiently accurate and consistent live flow gauge or measured water-temperature sensor represents the Betsie below Homestead. Push, Fishability, and Migration Timing are unavailable. Activity is a Limited-confidence weather-only outlook; Run Stage and Fish In River remain seasonal context.",
           "safety": {
             "regulationReminder": "Fishing is closed within 300 feet of Homestead's lamprey barrier and fish-passage facility from August 1 through November 15, and within 100 feet from November 16 through July 31. Follow current regulations and signed boundaries.",
-            "gaugeBasis": "No accepted live gauge represents the two Betsie River Run reaches; Fishability is unavailable.",
+            "gaugeBasis": "No live gauge reliably represents the two Betsie River Run reaches; Fishability is unavailable.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
@@ -1296,7 +1296,7 @@ export const RIVER_RUN_BETSIE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "stage_peak"
             ],
-            "copyVersion": "river-run-copy-v30"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "score": null,
@@ -1315,12 +1315,12 @@ export const RIVER_RUN_BETSIE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "sourceDates": [],
             "sourceRefreshSlots": {},
             "headline": "Migration Timing is not available for the Betsie.",
-            "detail": "The Betsie lacks an accepted long-term flow and measured water-temperature record for an early, typical, or delayed comparison.",
+            "detail": "The Betsie does not have a long-term flow and measured water-temperature record reliable enough for an early, typical, or delayed comparison.",
             "tip": "Use Migration Stage and Fish In River. This card cannot shift the plan between the Betsie Lake–US-31 and US-31–Homestead reaches.",
             "reasonCodes": [
               "primitive_migration_timing_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v30"
+            "copyVersion": "river-run-copy-v34"
           },
           "push": {
             "score": null,
@@ -1331,7 +1331,7 @@ export const RIVER_RUN_BETSIE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "primitive_push_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v30"
+            "copyVersion": "river-run-copy-v34"
           },
           "pushHistory": {
             "status": "unavailable",
@@ -1351,7 +1351,7 @@ export const RIVER_RUN_BETSIE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "primitive_fishability_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v30"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 70,
@@ -1413,7 +1413,7 @@ export const RIVER_RUN_BETSIE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "precipitationIn": 0
               }
             ],
-            "copyVersion": "river-run-copy-v30"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 70,
@@ -1434,7 +1434,7 @@ export const RIVER_RUN_BETSIE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_peak",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v30"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": null,
           "weather": null,
@@ -1460,7 +1460,7 @@ export const RIVER_RUN_BETSIE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "secondaryNote": "No sufficiently accurate and consistent live flow gauge or measured water-temperature sensor represents the Betsie below Homestead. Push, Fishability, and Migration Timing are unavailable. Activity is a Limited-confidence weather-only outlook; Run Stage and Fish In River remain seasonal context.",
           "safety": {
             "regulationReminder": "Fishing is closed within 300 feet of Homestead's lamprey barrier and fish-passage facility from August 1 through November 15, and within 100 feet from November 16 through July 31. Follow current regulations and signed boundaries.",
-            "gaugeBasis": "No accepted live gauge represents the two Betsie River Run reaches; Fishability is unavailable.",
+            "gaugeBasis": "No live gauge reliably represents the two Betsie River Run reaches; Fishability is unavailable.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
@@ -1513,7 +1513,7 @@ export const RIVER_RUN_BETSIE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "stage_tapering"
             ],
-            "copyVersion": "river-run-copy-v30"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "score": null,
@@ -1532,12 +1532,12 @@ export const RIVER_RUN_BETSIE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "sourceDates": [],
             "sourceRefreshSlots": {},
             "headline": "Migration Timing is not available for the Betsie.",
-            "detail": "The Betsie lacks an accepted long-term flow and measured water-temperature record for an early, typical, or delayed comparison.",
+            "detail": "The Betsie does not have a long-term flow and measured water-temperature record reliable enough for an early, typical, or delayed comparison.",
             "tip": "Use Migration Stage and Fish In River. This card cannot shift the plan between the Betsie Lake–US-31 and US-31–Homestead reaches.",
             "reasonCodes": [
               "primitive_migration_timing_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v30"
+            "copyVersion": "river-run-copy-v34"
           },
           "push": {
             "score": null,
@@ -1548,7 +1548,7 @@ export const RIVER_RUN_BETSIE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "primitive_push_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v30"
+            "copyVersion": "river-run-copy-v34"
           },
           "pushHistory": {
             "status": "unavailable",
@@ -1568,7 +1568,7 @@ export const RIVER_RUN_BETSIE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "primitive_fishability_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v30"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 70,
@@ -1630,7 +1630,7 @@ export const RIVER_RUN_BETSIE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "precipitationIn": 0
               }
             ],
-            "copyVersion": "river-run-copy-v30"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 69,
@@ -1651,7 +1651,7 @@ export const RIVER_RUN_BETSIE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_tapering",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v30"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": null,
           "weather": null,
@@ -1677,7 +1677,7 @@ export const RIVER_RUN_BETSIE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "secondaryNote": "No sufficiently accurate and consistent live flow gauge or measured water-temperature sensor represents the Betsie below Homestead. Push, Fishability, and Migration Timing are unavailable. Activity is a Limited-confidence weather-only outlook; Run Stage and Fish In River remain seasonal context.",
           "safety": {
             "regulationReminder": "Fishing is closed within 300 feet of Homestead's lamprey barrier and fish-passage facility from August 1 through November 15, and within 100 feet from November 16 through July 31. Follow current regulations and signed boundaries.",
-            "gaugeBasis": "No accepted live gauge represents the two Betsie River Run reaches; Fishability is unavailable.",
+            "gaugeBasis": "No live gauge reliably represents the two Betsie River Run reaches; Fishability is unavailable.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
@@ -1730,7 +1730,7 @@ export const RIVER_RUN_BETSIE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "stage_ending"
             ],
-            "copyVersion": "river-run-copy-v30"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "score": null,
@@ -1749,12 +1749,12 @@ export const RIVER_RUN_BETSIE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "sourceDates": [],
             "sourceRefreshSlots": {},
             "headline": "Migration Timing is not available for the Betsie.",
-            "detail": "The Betsie lacks an accepted long-term flow and measured water-temperature record for an early, typical, or delayed comparison.",
+            "detail": "The Betsie does not have a long-term flow and measured water-temperature record reliable enough for an early, typical, or delayed comparison.",
             "tip": "Use Migration Stage and Fish In River. This card cannot shift the plan between the Betsie Lake–US-31 and US-31–Homestead reaches.",
             "reasonCodes": [
               "primitive_migration_timing_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v30"
+            "copyVersion": "river-run-copy-v34"
           },
           "push": {
             "score": null,
@@ -1765,7 +1765,7 @@ export const RIVER_RUN_BETSIE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "primitive_push_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v30"
+            "copyVersion": "river-run-copy-v34"
           },
           "pushHistory": {
             "status": "unavailable",
@@ -1785,7 +1785,7 @@ export const RIVER_RUN_BETSIE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "primitive_fishability_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v30"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 70,
@@ -1847,7 +1847,7 @@ export const RIVER_RUN_BETSIE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "precipitationIn": 0
               }
             ],
-            "copyVersion": "river-run-copy-v30"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 62,
@@ -1868,7 +1868,7 @@ export const RIVER_RUN_BETSIE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_ending",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v30"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": null,
           "weather": null,
@@ -1894,7 +1894,7 @@ export const RIVER_RUN_BETSIE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "secondaryNote": "No sufficiently accurate and consistent live flow gauge or measured water-temperature sensor represents the Betsie below Homestead. Push, Fishability, and Migration Timing are unavailable. Activity is a Limited-confidence weather-only outlook; Run Stage and Fish In River remain seasonal context.",
           "safety": {
             "regulationReminder": "Fishing is closed within 300 feet of Homestead's lamprey barrier and fish-passage facility from August 1 through November 15, and within 100 feet from November 16 through July 31. Follow current regulations and signed boundaries.",
-            "gaugeBasis": "No accepted live gauge represents the two Betsie River Run reaches; Fishability is unavailable.",
+            "gaugeBasis": "No live gauge reliably represents the two Betsie River Run reaches; Fishability is unavailable.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
@@ -1946,7 +1946,7 @@ export const RIVER_RUN_BETSIE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "stage_post_run"
             ],
-            "copyVersion": "river-run-copy-v30"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "score": null,
@@ -1965,12 +1965,12 @@ export const RIVER_RUN_BETSIE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "sourceDates": [],
             "sourceRefreshSlots": {},
             "headline": "Migration Timing is not available for the Betsie.",
-            "detail": "The Betsie lacks an accepted long-term flow and measured water-temperature record for an early, typical, or delayed comparison.",
+            "detail": "The Betsie does not have a long-term flow and measured water-temperature record reliable enough for an early, typical, or delayed comparison.",
             "tip": "Use Migration Stage and Fish In River. This card cannot shift the plan between the Betsie Lake–US-31 and US-31–Homestead reaches.",
             "reasonCodes": [
               "primitive_migration_timing_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v30"
+            "copyVersion": "river-run-copy-v34"
           },
           "push": {
             "score": null,
@@ -1981,7 +1981,7 @@ export const RIVER_RUN_BETSIE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "primitive_push_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v30"
+            "copyVersion": "river-run-copy-v34"
           },
           "pushHistory": {
             "status": "unavailable",
@@ -2001,7 +2001,7 @@ export const RIVER_RUN_BETSIE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "primitive_fishability_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v30"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": null,
@@ -2019,7 +2019,7 @@ export const RIVER_RUN_BETSIE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "confidence": "Limited",
             "conditionalPresence": false,
             "blocks": [],
-            "copyVersion": "river-run-copy-v30"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": null,
@@ -2039,7 +2039,7 @@ export const RIVER_RUN_BETSIE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_post_run",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v30"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": null,
           "weather": null,
@@ -2065,7 +2065,7 @@ export const RIVER_RUN_BETSIE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "secondaryNote": "No sufficiently accurate and consistent live flow gauge or measured water-temperature sensor represents the Betsie below Homestead. Push, Fishability, and Migration Timing are unavailable. Activity is a Limited-confidence weather-only outlook; Run Stage and Fish In River remain seasonal context.",
           "safety": {
             "regulationReminder": "Fishing is closed within 300 feet of Homestead's lamprey barrier and fish-passage facility from August 1 through November 15, and within 100 feet from November 16 through July 31. Follow current regulations and signed boundaries.",
-            "gaugeBasis": "No accepted live gauge represents the two Betsie River Run reaches; Fishability is unavailable.",
+            "gaugeBasis": "No live gauge reliably represents the two Betsie River Run reaches; Fishability is unavailable.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
@@ -2124,7 +2124,7 @@ export const RIVER_RUN_BETSIE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "stage_peak"
             ],
-            "copyVersion": "river-run-copy-v30"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "score": null,
@@ -2143,12 +2143,12 @@ export const RIVER_RUN_BETSIE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "sourceDates": [],
             "sourceRefreshSlots": {},
             "headline": "Migration Timing is not available for the Betsie.",
-            "detail": "The Betsie lacks an accepted long-term flow and measured water-temperature record for an early, typical, or delayed comparison.",
+            "detail": "The Betsie does not have a long-term flow and measured water-temperature record reliable enough for an early, typical, or delayed comparison.",
             "tip": "Use Migration Stage and Fish In River. This card cannot shift the plan between the Betsie Lake–US-31 and US-31–Homestead reaches.",
             "reasonCodes": [
               "primitive_migration_timing_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v30"
+            "copyVersion": "river-run-copy-v34"
           },
           "push": {
             "score": null,
@@ -2159,7 +2159,7 @@ export const RIVER_RUN_BETSIE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "primitive_push_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v30"
+            "copyVersion": "river-run-copy-v34"
           },
           "pushHistory": {
             "status": "unavailable",
@@ -2179,7 +2179,7 @@ export const RIVER_RUN_BETSIE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "primitive_fishability_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v30"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 70,
@@ -2241,7 +2241,7 @@ export const RIVER_RUN_BETSIE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "precipitationIn": 0
               }
             ],
-            "copyVersion": "river-run-copy-v30"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 70,
@@ -2262,7 +2262,7 @@ export const RIVER_RUN_BETSIE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_peak",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v30"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": null,
           "weather": null,
@@ -2288,7 +2288,7 @@ export const RIVER_RUN_BETSIE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "secondaryNote": "No sufficiently accurate and consistent live flow gauge or measured water-temperature sensor represents the Betsie below Homestead. Push, Fishability, and Migration Timing are unavailable. Activity is a Limited-confidence weather-only outlook; Run Stage and Fish In River remain seasonal context.",
           "safety": {
             "regulationReminder": "Fishing is closed within 300 feet of Homestead's lamprey barrier and fish-passage facility from August 1 through November 15, and within 100 feet from November 16 through July 31. Follow current regulations and signed boundaries.",
-            "gaugeBasis": "No accepted live gauge represents the two Betsie River Run reaches; Fishability is unavailable.",
+            "gaugeBasis": "No live gauge reliably represents the two Betsie River Run reaches; Fishability is unavailable.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
@@ -2347,7 +2347,7 @@ export const RIVER_RUN_BETSIE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "stage_peak"
             ],
-            "copyVersion": "river-run-copy-v30"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "score": null,
@@ -2366,12 +2366,12 @@ export const RIVER_RUN_BETSIE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "sourceDates": [],
             "sourceRefreshSlots": {},
             "headline": "Migration Timing is not available for the Betsie.",
-            "detail": "The Betsie lacks an accepted long-term flow and measured water-temperature record for an early, typical, or delayed comparison.",
+            "detail": "The Betsie does not have a long-term flow and measured water-temperature record reliable enough for an early, typical, or delayed comparison.",
             "tip": "Use Migration Stage and Fish In River. This card cannot shift the plan between the Betsie Lake–US-31 and US-31–Homestead reaches.",
             "reasonCodes": [
               "primitive_migration_timing_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v30"
+            "copyVersion": "river-run-copy-v34"
           },
           "push": {
             "score": null,
@@ -2382,7 +2382,7 @@ export const RIVER_RUN_BETSIE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "primitive_push_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v30"
+            "copyVersion": "river-run-copy-v34"
           },
           "pushHistory": {
             "status": "unavailable",
@@ -2402,7 +2402,7 @@ export const RIVER_RUN_BETSIE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "primitive_fishability_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v30"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 70,
@@ -2464,7 +2464,7 @@ export const RIVER_RUN_BETSIE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "precipitationIn": 0
               }
             ],
-            "copyVersion": "river-run-copy-v30"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 70,
@@ -2485,7 +2485,7 @@ export const RIVER_RUN_BETSIE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_peak",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v30"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": null,
           "weather": null,
@@ -2511,7 +2511,7 @@ export const RIVER_RUN_BETSIE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "secondaryNote": "No sufficiently accurate and consistent live flow gauge or measured water-temperature sensor represents the Betsie below Homestead. Push, Fishability, and Migration Timing are unavailable. Activity is a Limited-confidence weather-only outlook; Run Stage and Fish In River remain seasonal context.",
           "safety": {
             "regulationReminder": "Fishing is closed within 300 feet of Homestead's lamprey barrier and fish-passage facility from August 1 through November 15, and within 100 feet from November 16 through July 31. Follow current regulations and signed boundaries.",
-            "gaugeBasis": "No accepted live gauge represents the two Betsie River Run reaches; Fishability is unavailable.",
+            "gaugeBasis": "No live gauge reliably represents the two Betsie River Run reaches; Fishability is unavailable.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
@@ -2570,7 +2570,7 @@ export const RIVER_RUN_BETSIE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "stage_peak"
             ],
-            "copyVersion": "river-run-copy-v30"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "score": null,
@@ -2589,12 +2589,12 @@ export const RIVER_RUN_BETSIE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "sourceDates": [],
             "sourceRefreshSlots": {},
             "headline": "Migration Timing is not available for the Betsie.",
-            "detail": "The Betsie lacks an accepted long-term flow and measured water-temperature record for an early, typical, or delayed comparison.",
+            "detail": "The Betsie does not have a long-term flow and measured water-temperature record reliable enough for an early, typical, or delayed comparison.",
             "tip": "Use Migration Stage and Fish In River. This card cannot shift the plan between the Betsie Lake–US-31 and US-31–Homestead reaches.",
             "reasonCodes": [
               "primitive_migration_timing_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v30"
+            "copyVersion": "river-run-copy-v34"
           },
           "push": {
             "score": null,
@@ -2605,7 +2605,7 @@ export const RIVER_RUN_BETSIE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "primitive_push_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v30"
+            "copyVersion": "river-run-copy-v34"
           },
           "pushHistory": {
             "status": "unavailable",
@@ -2625,7 +2625,7 @@ export const RIVER_RUN_BETSIE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "primitive_fishability_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v30"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 70,
@@ -2687,7 +2687,7 @@ export const RIVER_RUN_BETSIE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "precipitationIn": 0
               }
             ],
-            "copyVersion": "river-run-copy-v30"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 70,
@@ -2708,7 +2708,7 @@ export const RIVER_RUN_BETSIE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_peak",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v30"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": null,
           "weather": null,
@@ -2734,7 +2734,7 @@ export const RIVER_RUN_BETSIE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "secondaryNote": "No sufficiently accurate and consistent live flow gauge or measured water-temperature sensor represents the Betsie below Homestead. Push, Fishability, and Migration Timing are unavailable. Activity is a Limited-confidence weather-only outlook; Run Stage and Fish In River remain seasonal context.",
           "safety": {
             "regulationReminder": "Fishing is closed within 300 feet of Homestead's lamprey barrier and fish-passage facility from August 1 through November 15, and within 100 feet from November 16 through July 31. Follow current regulations and signed boundaries.",
-            "gaugeBasis": "No accepted live gauge represents the two Betsie River Run reaches; Fishability is unavailable.",
+            "gaugeBasis": "No live gauge reliably represents the two Betsie River Run reaches; Fishability is unavailable.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
@@ -2794,7 +2794,7 @@ export const RIVER_RUN_BETSIE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_pre_run",
               "stage_pre_run_staging"
             ],
-            "copyVersion": "river-run-copy-v30"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "score": null,
@@ -2813,12 +2813,12 @@ export const RIVER_RUN_BETSIE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "sourceDates": [],
             "sourceRefreshSlots": {},
             "headline": "Migration Timing is not available for the Betsie.",
-            "detail": "The Betsie lacks an accepted long-term flow and measured water-temperature record for an early, typical, or delayed comparison.",
+            "detail": "The Betsie does not have a long-term flow and measured water-temperature record reliable enough for an early, typical, or delayed comparison.",
             "tip": "Use Migration Stage and Fish In River. This card cannot shift the plan between the Betsie Lake–US-31 and US-31–Homestead reaches.",
             "reasonCodes": [
               "primitive_migration_timing_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v30"
+            "copyVersion": "river-run-copy-v34"
           },
           "push": {
             "score": null,
@@ -2829,7 +2829,7 @@ export const RIVER_RUN_BETSIE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "primitive_push_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v30"
+            "copyVersion": "river-run-copy-v34"
           },
           "pushHistory": {
             "status": "unavailable",
@@ -2849,7 +2849,7 @@ export const RIVER_RUN_BETSIE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "primitive_fishability_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v30"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 78,
@@ -2911,7 +2911,7 @@ export const RIVER_RUN_BETSIE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "precipitationIn": 0
               }
             ],
-            "copyVersion": "river-run-copy-v30"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 0,
@@ -2932,7 +2932,7 @@ export const RIVER_RUN_BETSIE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_pre_run",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v30"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": null,
           "weather": null,
@@ -2958,7 +2958,7 @@ export const RIVER_RUN_BETSIE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "secondaryNote": "No sufficiently accurate and consistent live flow gauge or measured water-temperature sensor represents the Betsie below Homestead. Push, Fishability, and Migration Timing are unavailable. Activity is a Limited-confidence weather-only outlook; Run Stage and Fish In River remain seasonal context.",
           "safety": {
             "regulationReminder": "Fishing is closed within 300 feet of Homestead's lamprey barrier and fish-passage facility from August 1 through November 15, and within 100 feet from November 16 through July 31. Follow current regulations and signed boundaries.",
-            "gaugeBasis": "No accepted live gauge represents the two Betsie River Run reaches; Fishability is unavailable.",
+            "gaugeBasis": "No live gauge reliably represents the two Betsie River Run reaches; Fishability is unavailable.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
@@ -3011,7 +3011,7 @@ export const RIVER_RUN_BETSIE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v30"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "score": null,
@@ -3030,12 +3030,12 @@ export const RIVER_RUN_BETSIE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "sourceDates": [],
             "sourceRefreshSlots": {},
             "headline": "Migration Timing is not available for the Betsie.",
-            "detail": "The Betsie lacks an accepted long-term flow and measured water-temperature record for an early, typical, or delayed comparison.",
+            "detail": "The Betsie does not have a long-term flow and measured water-temperature record reliable enough for an early, typical, or delayed comparison.",
             "tip": "Use Migration Stage and Fish In River. This card cannot shift the plan between the Betsie Lake–US-31 and US-31–Homestead reaches.",
             "reasonCodes": [
               "primitive_migration_timing_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v30"
+            "copyVersion": "river-run-copy-v34"
           },
           "push": {
             "score": null,
@@ -3046,7 +3046,7 @@ export const RIVER_RUN_BETSIE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "primitive_push_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v30"
+            "copyVersion": "river-run-copy-v34"
           },
           "pushHistory": {
             "status": "unavailable",
@@ -3066,7 +3066,7 @@ export const RIVER_RUN_BETSIE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "primitive_fishability_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v30"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 62,
@@ -3128,7 +3128,7 @@ export const RIVER_RUN_BETSIE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "precipitationIn": 0
               }
             ],
-            "copyVersion": "river-run-copy-v30"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 7,
@@ -3149,7 +3149,7 @@ export const RIVER_RUN_BETSIE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v30"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": null,
           "weather": null,
@@ -3175,7 +3175,7 @@ export const RIVER_RUN_BETSIE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "secondaryNote": "No sufficiently accurate and consistent live flow gauge or measured water-temperature sensor represents the Betsie below Homestead. Push, Fishability, and Migration Timing are unavailable. Activity is a Limited-confidence weather-only outlook; Run Stage and Fish In River remain seasonal context.",
           "safety": {
             "regulationReminder": "Fishing is closed within 300 feet of Homestead's lamprey barrier and fish-passage facility from August 1 through November 15, and within 100 feet from November 16 through July 31. Follow current regulations and signed boundaries.",
-            "gaugeBasis": "No accepted live gauge represents the two Betsie River Run reaches; Fishability is unavailable.",
+            "gaugeBasis": "No live gauge reliably represents the two Betsie River Run reaches; Fishability is unavailable.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
@@ -3228,7 +3228,7 @@ export const RIVER_RUN_BETSIE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v30"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "score": null,
@@ -3247,12 +3247,12 @@ export const RIVER_RUN_BETSIE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "sourceDates": [],
             "sourceRefreshSlots": {},
             "headline": "Migration Timing is not available for the Betsie.",
-            "detail": "The Betsie lacks an accepted long-term flow and measured water-temperature record for an early, typical, or delayed comparison.",
+            "detail": "The Betsie does not have a long-term flow and measured water-temperature record reliable enough for an early, typical, or delayed comparison.",
             "tip": "Use Migration Stage and Fish In River. This card cannot shift the plan between the Betsie Lake–US-31 and US-31–Homestead reaches.",
             "reasonCodes": [
               "primitive_migration_timing_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v30"
+            "copyVersion": "river-run-copy-v34"
           },
           "push": {
             "score": null,
@@ -3263,7 +3263,7 @@ export const RIVER_RUN_BETSIE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "primitive_push_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v30"
+            "copyVersion": "river-run-copy-v34"
           },
           "pushHistory": {
             "status": "unavailable",
@@ -3283,7 +3283,7 @@ export const RIVER_RUN_BETSIE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "primitive_fishability_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v30"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 68,
@@ -3345,7 +3345,7 @@ export const RIVER_RUN_BETSIE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "precipitationIn": 0
               }
             ],
-            "copyVersion": "river-run-copy-v30"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 7,
@@ -3366,7 +3366,7 @@ export const RIVER_RUN_BETSIE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v30"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": null,
           "weather": null,
@@ -3392,7 +3392,7 @@ export const RIVER_RUN_BETSIE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "secondaryNote": "No sufficiently accurate and consistent live flow gauge or measured water-temperature sensor represents the Betsie below Homestead. Push, Fishability, and Migration Timing are unavailable. Activity is a Limited-confidence weather-only outlook; Run Stage and Fish In River remain seasonal context.",
           "safety": {
             "regulationReminder": "Fishing is closed within 300 feet of Homestead's lamprey barrier and fish-passage facility from August 1 through November 15, and within 100 feet from November 16 through July 31. Follow current regulations and signed boundaries.",
-            "gaugeBasis": "No accepted live gauge represents the two Betsie River Run reaches; Fishability is unavailable.",
+            "gaugeBasis": "No live gauge reliably represents the two Betsie River Run reaches; Fishability is unavailable.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
@@ -3445,7 +3445,7 @@ export const RIVER_RUN_BETSIE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "stage_building"
             ],
-            "copyVersion": "river-run-copy-v30"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "score": null,
@@ -3464,12 +3464,12 @@ export const RIVER_RUN_BETSIE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "sourceDates": [],
             "sourceRefreshSlots": {},
             "headline": "Migration Timing is not available for the Betsie.",
-            "detail": "The Betsie lacks an accepted long-term flow and measured water-temperature record for an early, typical, or delayed comparison.",
+            "detail": "The Betsie does not have a long-term flow and measured water-temperature record reliable enough for an early, typical, or delayed comparison.",
             "tip": "Use Migration Stage and Fish In River. This card cannot shift the plan between the Betsie Lake–US-31 and US-31–Homestead reaches.",
             "reasonCodes": [
               "primitive_migration_timing_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v30"
+            "copyVersion": "river-run-copy-v34"
           },
           "push": {
             "score": null,
@@ -3480,7 +3480,7 @@ export const RIVER_RUN_BETSIE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "primitive_push_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v30"
+            "copyVersion": "river-run-copy-v34"
           },
           "pushHistory": {
             "status": "unavailable",
@@ -3500,7 +3500,7 @@ export const RIVER_RUN_BETSIE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "primitive_fishability_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v30"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 80,
@@ -3562,7 +3562,7 @@ export const RIVER_RUN_BETSIE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "precipitationIn": 0
               }
             ],
-            "copyVersion": "river-run-copy-v30"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 53,
@@ -3583,7 +3583,7 @@ export const RIVER_RUN_BETSIE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_building",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v30"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": null,
           "weather": null,
@@ -3609,7 +3609,7 @@ export const RIVER_RUN_BETSIE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "secondaryNote": "No sufficiently accurate and consistent live flow gauge or measured water-temperature sensor represents the Betsie below Homestead. Push, Fishability, and Migration Timing are unavailable. Activity is a Limited-confidence weather-only outlook; Run Stage and Fish In River remain seasonal context.",
           "safety": {
             "regulationReminder": "Fishing is closed within 300 feet of Homestead's lamprey barrier and fish-passage facility from August 1 through November 15, and within 100 feet from November 16 through July 31. Follow current regulations and signed boundaries.",
-            "gaugeBasis": "No accepted live gauge represents the two Betsie River Run reaches; Fishability is unavailable.",
+            "gaugeBasis": "No live gauge reliably represents the two Betsie River Run reaches; Fishability is unavailable.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
@@ -3662,7 +3662,7 @@ export const RIVER_RUN_BETSIE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "stage_peak"
             ],
-            "copyVersion": "river-run-copy-v30"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "score": null,
@@ -3681,12 +3681,12 @@ export const RIVER_RUN_BETSIE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "sourceDates": [],
             "sourceRefreshSlots": {},
             "headline": "Migration Timing is not available for the Betsie.",
-            "detail": "The Betsie lacks an accepted long-term flow and measured water-temperature record for an early, typical, or delayed comparison.",
+            "detail": "The Betsie does not have a long-term flow and measured water-temperature record reliable enough for an early, typical, or delayed comparison.",
             "tip": "Use Migration Stage and Fish In River. This card cannot shift the plan between the Betsie Lake–US-31 and US-31–Homestead reaches.",
             "reasonCodes": [
               "primitive_migration_timing_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v30"
+            "copyVersion": "river-run-copy-v34"
           },
           "push": {
             "score": null,
@@ -3697,7 +3697,7 @@ export const RIVER_RUN_BETSIE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "primitive_push_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v30"
+            "copyVersion": "river-run-copy-v34"
           },
           "pushHistory": {
             "status": "unavailable",
@@ -3717,7 +3717,7 @@ export const RIVER_RUN_BETSIE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "primitive_fishability_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v30"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 82,
@@ -3779,7 +3779,7 @@ export const RIVER_RUN_BETSIE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "precipitationIn": 0
               }
             ],
-            "copyVersion": "river-run-copy-v30"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 70,
@@ -3800,7 +3800,7 @@ export const RIVER_RUN_BETSIE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_peak",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v30"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": null,
           "weather": null,
@@ -3826,7 +3826,7 @@ export const RIVER_RUN_BETSIE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "secondaryNote": "No sufficiently accurate and consistent live flow gauge or measured water-temperature sensor represents the Betsie below Homestead. Push, Fishability, and Migration Timing are unavailable. Activity is a Limited-confidence weather-only outlook; Run Stage and Fish In River remain seasonal context.",
           "safety": {
             "regulationReminder": "Fishing is closed within 300 feet of Homestead's lamprey barrier and fish-passage facility from August 1 through November 15, and within 100 feet from November 16 through July 31. Follow current regulations and signed boundaries.",
-            "gaugeBasis": "No accepted live gauge represents the two Betsie River Run reaches; Fishability is unavailable.",
+            "gaugeBasis": "No live gauge reliably represents the two Betsie River Run reaches; Fishability is unavailable.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
@@ -3879,7 +3879,7 @@ export const RIVER_RUN_BETSIE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "stage_peak"
             ],
-            "copyVersion": "river-run-copy-v30"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "score": null,
@@ -3898,12 +3898,12 @@ export const RIVER_RUN_BETSIE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "sourceDates": [],
             "sourceRefreshSlots": {},
             "headline": "Migration Timing is not available for the Betsie.",
-            "detail": "The Betsie lacks an accepted long-term flow and measured water-temperature record for an early, typical, or delayed comparison.",
+            "detail": "The Betsie does not have a long-term flow and measured water-temperature record reliable enough for an early, typical, or delayed comparison.",
             "tip": "Use Migration Stage and Fish In River. This card cannot shift the plan between the Betsie Lake–US-31 and US-31–Homestead reaches.",
             "reasonCodes": [
               "primitive_migration_timing_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v30"
+            "copyVersion": "river-run-copy-v34"
           },
           "push": {
             "score": null,
@@ -3914,7 +3914,7 @@ export const RIVER_RUN_BETSIE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "primitive_push_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v30"
+            "copyVersion": "river-run-copy-v34"
           },
           "pushHistory": {
             "status": "unavailable",
@@ -3934,7 +3934,7 @@ export const RIVER_RUN_BETSIE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "primitive_fishability_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v30"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 79,
@@ -3996,7 +3996,7 @@ export const RIVER_RUN_BETSIE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "precipitationIn": 0
               }
             ],
-            "copyVersion": "river-run-copy-v30"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 70,
@@ -4017,7 +4017,7 @@ export const RIVER_RUN_BETSIE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_peak",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v30"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": null,
           "weather": null,
@@ -4043,7 +4043,7 @@ export const RIVER_RUN_BETSIE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "secondaryNote": "No sufficiently accurate and consistent live flow gauge or measured water-temperature sensor represents the Betsie below Homestead. Push, Fishability, and Migration Timing are unavailable. Activity is a Limited-confidence weather-only outlook; Run Stage and Fish In River remain seasonal context.",
           "safety": {
             "regulationReminder": "Fishing is closed within 300 feet of Homestead's lamprey barrier and fish-passage facility from August 1 through November 15, and within 100 feet from November 16 through July 31. Follow current regulations and signed boundaries.",
-            "gaugeBasis": "No accepted live gauge represents the two Betsie River Run reaches; Fishability is unavailable.",
+            "gaugeBasis": "No live gauge reliably represents the two Betsie River Run reaches; Fishability is unavailable.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
@@ -4096,7 +4096,7 @@ export const RIVER_RUN_BETSIE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "stage_tapering"
             ],
-            "copyVersion": "river-run-copy-v30"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "score": null,
@@ -4115,12 +4115,12 @@ export const RIVER_RUN_BETSIE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "sourceDates": [],
             "sourceRefreshSlots": {},
             "headline": "Migration Timing is not available for the Betsie.",
-            "detail": "The Betsie lacks an accepted long-term flow and measured water-temperature record for an early, typical, or delayed comparison.",
+            "detail": "The Betsie does not have a long-term flow and measured water-temperature record reliable enough for an early, typical, or delayed comparison.",
             "tip": "Use Migration Stage and Fish In River. This card cannot shift the plan between the Betsie Lake–US-31 and US-31–Homestead reaches.",
             "reasonCodes": [
               "primitive_migration_timing_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v30"
+            "copyVersion": "river-run-copy-v34"
           },
           "push": {
             "score": null,
@@ -4131,7 +4131,7 @@ export const RIVER_RUN_BETSIE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "primitive_push_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v30"
+            "copyVersion": "river-run-copy-v34"
           },
           "pushHistory": {
             "status": "unavailable",
@@ -4151,7 +4151,7 @@ export const RIVER_RUN_BETSIE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "primitive_fishability_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v30"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 82,
@@ -4213,7 +4213,7 @@ export const RIVER_RUN_BETSIE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "precipitationIn": 0
               }
             ],
-            "copyVersion": "river-run-copy-v30"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 69,
@@ -4234,7 +4234,7 @@ export const RIVER_RUN_BETSIE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_tapering",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v30"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": null,
           "weather": null,
@@ -4260,7 +4260,7 @@ export const RIVER_RUN_BETSIE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "secondaryNote": "No sufficiently accurate and consistent live flow gauge or measured water-temperature sensor represents the Betsie below Homestead. Push, Fishability, and Migration Timing are unavailable. Activity is a Limited-confidence weather-only outlook; Run Stage and Fish In River remain seasonal context.",
           "safety": {
             "regulationReminder": "Fishing is closed within 300 feet of Homestead's lamprey barrier and fish-passage facility from August 1 through November 15, and within 100 feet from November 16 through July 31. Follow current regulations and signed boundaries.",
-            "gaugeBasis": "No accepted live gauge represents the two Betsie River Run reaches; Fishability is unavailable.",
+            "gaugeBasis": "No live gauge reliably represents the two Betsie River Run reaches; Fishability is unavailable.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
@@ -4313,7 +4313,7 @@ export const RIVER_RUN_BETSIE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "stage_ending"
             ],
-            "copyVersion": "river-run-copy-v30"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "score": null,
@@ -4332,12 +4332,12 @@ export const RIVER_RUN_BETSIE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "sourceDates": [],
             "sourceRefreshSlots": {},
             "headline": "Migration Timing is not available for the Betsie.",
-            "detail": "The Betsie lacks an accepted long-term flow and measured water-temperature record for an early, typical, or delayed comparison.",
+            "detail": "The Betsie does not have a long-term flow and measured water-temperature record reliable enough for an early, typical, or delayed comparison.",
             "tip": "Use Migration Stage and Fish In River. This card cannot shift the plan between the Betsie Lake–US-31 and US-31–Homestead reaches.",
             "reasonCodes": [
               "primitive_migration_timing_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v30"
+            "copyVersion": "river-run-copy-v34"
           },
           "push": {
             "score": null,
@@ -4348,7 +4348,7 @@ export const RIVER_RUN_BETSIE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "primitive_push_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v30"
+            "copyVersion": "river-run-copy-v34"
           },
           "pushHistory": {
             "status": "unavailable",
@@ -4368,7 +4368,7 @@ export const RIVER_RUN_BETSIE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "primitive_fishability_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v30"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 82,
@@ -4430,7 +4430,7 @@ export const RIVER_RUN_BETSIE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "precipitationIn": 0
               }
             ],
-            "copyVersion": "river-run-copy-v30"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 62,
@@ -4451,7 +4451,7 @@ export const RIVER_RUN_BETSIE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_ending",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v30"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": null,
           "weather": null,
@@ -4477,7 +4477,7 @@ export const RIVER_RUN_BETSIE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "secondaryNote": "No sufficiently accurate and consistent live flow gauge or measured water-temperature sensor represents the Betsie below Homestead. Push, Fishability, and Migration Timing are unavailable. Activity is a Limited-confidence weather-only outlook; Run Stage and Fish In River remain seasonal context.",
           "safety": {
             "regulationReminder": "Fishing is closed within 300 feet of Homestead's lamprey barrier and fish-passage facility from August 1 through November 15, and within 100 feet from November 16 through July 31. Follow current regulations and signed boundaries.",
-            "gaugeBasis": "No accepted live gauge represents the two Betsie River Run reaches; Fishability is unavailable.",
+            "gaugeBasis": "No live gauge reliably represents the two Betsie River Run reaches; Fishability is unavailable.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
@@ -4530,7 +4530,7 @@ export const RIVER_RUN_BETSIE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "stage_ending"
             ],
-            "copyVersion": "river-run-copy-v30"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "score": null,
@@ -4549,12 +4549,12 @@ export const RIVER_RUN_BETSIE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "sourceDates": [],
             "sourceRefreshSlots": {},
             "headline": "Migration Timing is not available for the Betsie.",
-            "detail": "The Betsie lacks an accepted long-term flow and measured water-temperature record for an early, typical, or delayed comparison.",
+            "detail": "The Betsie does not have a long-term flow and measured water-temperature record reliable enough for an early, typical, or delayed comparison.",
             "tip": "Use Migration Stage and Fish In River. This card cannot shift the plan between the Betsie Lake–US-31 and US-31–Homestead reaches.",
             "reasonCodes": [
               "primitive_migration_timing_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v30"
+            "copyVersion": "river-run-copy-v34"
           },
           "push": {
             "score": null,
@@ -4565,7 +4565,7 @@ export const RIVER_RUN_BETSIE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "primitive_push_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v30"
+            "copyVersion": "river-run-copy-v34"
           },
           "pushHistory": {
             "status": "unavailable",
@@ -4585,7 +4585,7 @@ export const RIVER_RUN_BETSIE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "primitive_fishability_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v30"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 82,
@@ -4647,7 +4647,7 @@ export const RIVER_RUN_BETSIE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "precipitationIn": 0
               }
             ],
-            "copyVersion": "river-run-copy-v30"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 61,
@@ -4668,7 +4668,7 @@ export const RIVER_RUN_BETSIE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_ending",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v30"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": null,
           "weather": null,
@@ -4694,7 +4694,7 @@ export const RIVER_RUN_BETSIE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "secondaryNote": "No sufficiently accurate and consistent live flow gauge or measured water-temperature sensor represents the Betsie below Homestead. Push, Fishability, and Migration Timing are unavailable. Activity is a Limited-confidence weather-only outlook; Run Stage and Fish In River remain seasonal context.",
           "safety": {
             "regulationReminder": "Fishing is closed within 300 feet of Homestead's lamprey barrier and fish-passage facility from August 1 through November 15, and within 100 feet from November 16 through July 31. Follow current regulations and signed boundaries.",
-            "gaugeBasis": "No accepted live gauge represents the two Betsie River Run reaches; Fishability is unavailable.",
+            "gaugeBasis": "No live gauge reliably represents the two Betsie River Run reaches; Fishability is unavailable.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
@@ -4746,7 +4746,7 @@ export const RIVER_RUN_BETSIE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "stage_post_run"
             ],
-            "copyVersion": "river-run-copy-v30"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "score": null,
@@ -4765,12 +4765,12 @@ export const RIVER_RUN_BETSIE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "sourceDates": [],
             "sourceRefreshSlots": {},
             "headline": "Migration Timing is not available for the Betsie.",
-            "detail": "The Betsie lacks an accepted long-term flow and measured water-temperature record for an early, typical, or delayed comparison.",
+            "detail": "The Betsie does not have a long-term flow and measured water-temperature record reliable enough for an early, typical, or delayed comparison.",
             "tip": "Use Migration Stage and Fish In River. This card cannot shift the plan between the Betsie Lake–US-31 and US-31–Homestead reaches.",
             "reasonCodes": [
               "primitive_migration_timing_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v30"
+            "copyVersion": "river-run-copy-v34"
           },
           "push": {
             "score": null,
@@ -4781,7 +4781,7 @@ export const RIVER_RUN_BETSIE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "primitive_push_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v30"
+            "copyVersion": "river-run-copy-v34"
           },
           "pushHistory": {
             "status": "unavailable",
@@ -4801,7 +4801,7 @@ export const RIVER_RUN_BETSIE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "primitive_fishability_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v30"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": null,
@@ -4819,7 +4819,7 @@ export const RIVER_RUN_BETSIE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "confidence": "Limited",
             "conditionalPresence": false,
             "blocks": [],
-            "copyVersion": "river-run-copy-v30"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": null,
@@ -4839,7 +4839,7 @@ export const RIVER_RUN_BETSIE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_post_run",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v30"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": null,
           "weather": null,
@@ -4865,7 +4865,7 @@ export const RIVER_RUN_BETSIE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "secondaryNote": "No sufficiently accurate and consistent live flow gauge or measured water-temperature sensor represents the Betsie below Homestead. Push, Fishability, and Migration Timing are unavailable. Activity is a Limited-confidence weather-only outlook; Run Stage and Fish In River remain seasonal context.",
           "safety": {
             "regulationReminder": "Fishing is closed within 300 feet of Homestead's lamprey barrier and fish-passage facility from August 1 through November 15, and within 100 feet from November 16 through July 31. Follow current regulations and signed boundaries.",
-            "gaugeBasis": "No accepted live gauge represents the two Betsie River Run reaches; Fishability is unavailable.",
+            "gaugeBasis": "No live gauge reliably represents the two Betsie River Run reaches; Fishability is unavailable.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
@@ -4925,7 +4925,7 @@ export const RIVER_RUN_BETSIE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_pre_run",
               "stage_pre_run_staging"
             ],
-            "copyVersion": "river-run-copy-v30"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "score": null,
@@ -4944,12 +4944,12 @@ export const RIVER_RUN_BETSIE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "sourceDates": [],
             "sourceRefreshSlots": {},
             "headline": "Migration Timing is not available for the Betsie.",
-            "detail": "The Betsie lacks an accepted long-term flow and measured water-temperature record for an early, typical, or delayed comparison.",
+            "detail": "The Betsie does not have a long-term flow and measured water-temperature record reliable enough for an early, typical, or delayed comparison.",
             "tip": "Use Migration Stage and Fish In River. This card cannot shift the plan between the Betsie Lake–US-31 and US-31–Homestead reaches.",
             "reasonCodes": [
               "primitive_migration_timing_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v30"
+            "copyVersion": "river-run-copy-v34"
           },
           "push": {
             "score": null,
@@ -4960,7 +4960,7 @@ export const RIVER_RUN_BETSIE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "primitive_push_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v30"
+            "copyVersion": "river-run-copy-v34"
           },
           "pushHistory": {
             "status": "unavailable",
@@ -4980,7 +4980,7 @@ export const RIVER_RUN_BETSIE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "primitive_fishability_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v30"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 70,
@@ -5042,7 +5042,7 @@ export const RIVER_RUN_BETSIE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "precipitationIn": 0
               }
             ],
-            "copyVersion": "river-run-copy-v30"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 0,
@@ -5063,7 +5063,7 @@ export const RIVER_RUN_BETSIE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_pre_run",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v30"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": null,
           "weather": null,
@@ -5089,7 +5089,7 @@ export const RIVER_RUN_BETSIE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "secondaryNote": "No sufficiently accurate and consistent live flow gauge or measured water-temperature sensor represents the Betsie below Homestead. Push, Fishability, and Migration Timing are unavailable. Activity is a Limited-confidence weather-only outlook; Run Stage and Fish In River remain seasonal context.",
           "safety": {
             "regulationReminder": "Fishing is closed within 300 feet of Homestead's lamprey barrier and fish-passage facility from August 1 through November 15, and within 100 feet from November 16 through July 31. Follow current regulations and signed boundaries.",
-            "gaugeBasis": "No accepted live gauge represents the two Betsie River Run reaches; Fishability is unavailable.",
+            "gaugeBasis": "No live gauge reliably represents the two Betsie River Run reaches; Fishability is unavailable.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
@@ -5142,7 +5142,7 @@ export const RIVER_RUN_BETSIE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v30"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "score": null,
@@ -5161,12 +5161,12 @@ export const RIVER_RUN_BETSIE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "sourceDates": [],
             "sourceRefreshSlots": {},
             "headline": "Migration Timing is not available for the Betsie.",
-            "detail": "The Betsie lacks an accepted long-term flow and measured water-temperature record for an early, typical, or delayed comparison.",
+            "detail": "The Betsie does not have a long-term flow and measured water-temperature record reliable enough for an early, typical, or delayed comparison.",
             "tip": "Use Migration Stage and Fish In River. This card cannot shift the plan between the Betsie Lake–US-31 and US-31–Homestead reaches.",
             "reasonCodes": [
               "primitive_migration_timing_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v30"
+            "copyVersion": "river-run-copy-v34"
           },
           "push": {
             "score": null,
@@ -5177,7 +5177,7 @@ export const RIVER_RUN_BETSIE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "primitive_push_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v30"
+            "copyVersion": "river-run-copy-v34"
           },
           "pushHistory": {
             "status": "unavailable",
@@ -5197,7 +5197,7 @@ export const RIVER_RUN_BETSIE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "primitive_fishability_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v30"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 70,
@@ -5259,7 +5259,7 @@ export const RIVER_RUN_BETSIE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "precipitationIn": 0
               }
             ],
-            "copyVersion": "river-run-copy-v30"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 7,
@@ -5280,7 +5280,7 @@ export const RIVER_RUN_BETSIE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v30"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": null,
           "weather": null,
@@ -5306,7 +5306,7 @@ export const RIVER_RUN_BETSIE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "secondaryNote": "No sufficiently accurate and consistent live flow gauge or measured water-temperature sensor represents the Betsie below Homestead. Push, Fishability, and Migration Timing are unavailable. Activity is a Limited-confidence weather-only outlook; Run Stage and Fish In River remain seasonal context.",
           "safety": {
             "regulationReminder": "Fishing is closed within 300 feet of Homestead's lamprey barrier and fish-passage facility from August 1 through November 15, and within 100 feet from November 16 through July 31. Follow current regulations and signed boundaries.",
-            "gaugeBasis": "No accepted live gauge represents the two Betsie River Run reaches; Fishability is unavailable.",
+            "gaugeBasis": "No live gauge reliably represents the two Betsie River Run reaches; Fishability is unavailable.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
@@ -5359,7 +5359,7 @@ export const RIVER_RUN_BETSIE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v30"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "score": null,
@@ -5378,12 +5378,12 @@ export const RIVER_RUN_BETSIE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "sourceDates": [],
             "sourceRefreshSlots": {},
             "headline": "Migration Timing is not available for the Betsie.",
-            "detail": "The Betsie lacks an accepted long-term flow and measured water-temperature record for an early, typical, or delayed comparison.",
+            "detail": "The Betsie does not have a long-term flow and measured water-temperature record reliable enough for an early, typical, or delayed comparison.",
             "tip": "Use Migration Stage and Fish In River. This card cannot shift the plan between the Betsie Lake–US-31 and US-31–Homestead reaches.",
             "reasonCodes": [
               "primitive_migration_timing_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v30"
+            "copyVersion": "river-run-copy-v34"
           },
           "push": {
             "score": null,
@@ -5394,7 +5394,7 @@ export const RIVER_RUN_BETSIE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "primitive_push_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v30"
+            "copyVersion": "river-run-copy-v34"
           },
           "pushHistory": {
             "status": "unavailable",
@@ -5414,7 +5414,7 @@ export const RIVER_RUN_BETSIE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "primitive_fishability_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v30"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 70,
@@ -5476,7 +5476,7 @@ export const RIVER_RUN_BETSIE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "precipitationIn": 0
               }
             ],
-            "copyVersion": "river-run-copy-v30"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 14,
@@ -5497,7 +5497,7 @@ export const RIVER_RUN_BETSIE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v30"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": null,
           "weather": null,
@@ -5523,7 +5523,7 @@ export const RIVER_RUN_BETSIE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "secondaryNote": "No sufficiently accurate and consistent live flow gauge or measured water-temperature sensor represents the Betsie below Homestead. Push, Fishability, and Migration Timing are unavailable. Activity is a Limited-confidence weather-only outlook; Run Stage and Fish In River remain seasonal context.",
           "safety": {
             "regulationReminder": "Fishing is closed within 300 feet of Homestead's lamprey barrier and fish-passage facility from August 1 through November 15, and within 100 feet from November 16 through July 31. Follow current regulations and signed boundaries.",
-            "gaugeBasis": "No accepted live gauge represents the two Betsie River Run reaches; Fishability is unavailable.",
+            "gaugeBasis": "No live gauge reliably represents the two Betsie River Run reaches; Fishability is unavailable.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
@@ -5576,7 +5576,7 @@ export const RIVER_RUN_BETSIE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v30"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "score": null,
@@ -5595,12 +5595,12 @@ export const RIVER_RUN_BETSIE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "sourceDates": [],
             "sourceRefreshSlots": {},
             "headline": "Migration Timing is not available for the Betsie.",
-            "detail": "The Betsie lacks an accepted long-term flow and measured water-temperature record for an early, typical, or delayed comparison.",
+            "detail": "The Betsie does not have a long-term flow and measured water-temperature record reliable enough for an early, typical, or delayed comparison.",
             "tip": "Use Migration Stage and Fish In River. This card cannot shift the plan between the Betsie Lake–US-31 and US-31–Homestead reaches.",
             "reasonCodes": [
               "primitive_migration_timing_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v30"
+            "copyVersion": "river-run-copy-v34"
           },
           "push": {
             "score": null,
@@ -5611,7 +5611,7 @@ export const RIVER_RUN_BETSIE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "primitive_push_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v30"
+            "copyVersion": "river-run-copy-v34"
           },
           "pushHistory": {
             "status": "unavailable",
@@ -5631,7 +5631,7 @@ export const RIVER_RUN_BETSIE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "primitive_fishability_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v30"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 70,
@@ -5693,7 +5693,7 @@ export const RIVER_RUN_BETSIE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "precipitationIn": 0
               }
             ],
-            "copyVersion": "river-run-copy-v30"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 25,
@@ -5714,7 +5714,7 @@ export const RIVER_RUN_BETSIE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v30"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": null,
           "weather": null,
@@ -5740,7 +5740,7 @@ export const RIVER_RUN_BETSIE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "secondaryNote": "No sufficiently accurate and consistent live flow gauge or measured water-temperature sensor represents the Betsie below Homestead. Push, Fishability, and Migration Timing are unavailable. Activity is a Limited-confidence weather-only outlook; Run Stage and Fish In River remain seasonal context.",
           "safety": {
             "regulationReminder": "Fishing is closed within 300 feet of Homestead's lamprey barrier and fish-passage facility from August 1 through November 15, and within 100 feet from November 16 through July 31. Follow current regulations and signed boundaries.",
-            "gaugeBasis": "No accepted live gauge represents the two Betsie River Run reaches; Fishability is unavailable.",
+            "gaugeBasis": "No live gauge reliably represents the two Betsie River Run reaches; Fishability is unavailable.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
@@ -5793,7 +5793,7 @@ export const RIVER_RUN_BETSIE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "stage_building"
             ],
-            "copyVersion": "river-run-copy-v30"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "score": null,
@@ -5812,12 +5812,12 @@ export const RIVER_RUN_BETSIE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "sourceDates": [],
             "sourceRefreshSlots": {},
             "headline": "Migration Timing is not available for the Betsie.",
-            "detail": "The Betsie lacks an accepted long-term flow and measured water-temperature record for an early, typical, or delayed comparison.",
+            "detail": "The Betsie does not have a long-term flow and measured water-temperature record reliable enough for an early, typical, or delayed comparison.",
             "tip": "Use Migration Stage and Fish In River. This card cannot shift the plan between the Betsie Lake–US-31 and US-31–Homestead reaches.",
             "reasonCodes": [
               "primitive_migration_timing_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v30"
+            "copyVersion": "river-run-copy-v34"
           },
           "push": {
             "score": null,
@@ -5828,7 +5828,7 @@ export const RIVER_RUN_BETSIE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "primitive_push_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v30"
+            "copyVersion": "river-run-copy-v34"
           },
           "pushHistory": {
             "status": "unavailable",
@@ -5848,7 +5848,7 @@ export const RIVER_RUN_BETSIE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "primitive_fishability_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v30"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 70,
@@ -5910,7 +5910,7 @@ export const RIVER_RUN_BETSIE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "precipitationIn": 0
               }
             ],
-            "copyVersion": "river-run-copy-v30"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 32,
@@ -5931,7 +5931,7 @@ export const RIVER_RUN_BETSIE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_building",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v30"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": null,
           "weather": null,
@@ -5957,7 +5957,7 @@ export const RIVER_RUN_BETSIE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "secondaryNote": "No sufficiently accurate and consistent live flow gauge or measured water-temperature sensor represents the Betsie below Homestead. Push, Fishability, and Migration Timing are unavailable. Activity is a Limited-confidence weather-only outlook; Run Stage and Fish In River remain seasonal context.",
           "safety": {
             "regulationReminder": "Fishing is closed within 300 feet of Homestead's lamprey barrier and fish-passage facility from August 1 through November 15, and within 100 feet from November 16 through July 31. Follow current regulations and signed boundaries.",
-            "gaugeBasis": "No accepted live gauge represents the two Betsie River Run reaches; Fishability is unavailable.",
+            "gaugeBasis": "No live gauge reliably represents the two Betsie River Run reaches; Fishability is unavailable.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
@@ -6010,7 +6010,7 @@ export const RIVER_RUN_BETSIE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "stage_building"
             ],
-            "copyVersion": "river-run-copy-v30"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "score": null,
@@ -6029,12 +6029,12 @@ export const RIVER_RUN_BETSIE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "sourceDates": [],
             "sourceRefreshSlots": {},
             "headline": "Migration Timing is not available for the Betsie.",
-            "detail": "The Betsie lacks an accepted long-term flow and measured water-temperature record for an early, typical, or delayed comparison.",
+            "detail": "The Betsie does not have a long-term flow and measured water-temperature record reliable enough for an early, typical, or delayed comparison.",
             "tip": "Use Migration Stage and Fish In River. This card cannot shift the plan between the Betsie Lake–US-31 and US-31–Homestead reaches.",
             "reasonCodes": [
               "primitive_migration_timing_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v30"
+            "copyVersion": "river-run-copy-v34"
           },
           "push": {
             "score": null,
@@ -6045,7 +6045,7 @@ export const RIVER_RUN_BETSIE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "primitive_push_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v30"
+            "copyVersion": "river-run-copy-v34"
           },
           "pushHistory": {
             "status": "unavailable",
@@ -6065,7 +6065,7 @@ export const RIVER_RUN_BETSIE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "primitive_fishability_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v30"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 70,
@@ -6127,7 +6127,7 @@ export const RIVER_RUN_BETSIE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "precipitationIn": 0
               }
             ],
-            "copyVersion": "river-run-copy-v30"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 53,
@@ -6148,7 +6148,7 @@ export const RIVER_RUN_BETSIE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_building",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v30"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": null,
           "weather": null,
@@ -6174,7 +6174,7 @@ export const RIVER_RUN_BETSIE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "secondaryNote": "No sufficiently accurate and consistent live flow gauge or measured water-temperature sensor represents the Betsie below Homestead. Push, Fishability, and Migration Timing are unavailable. Activity is a Limited-confidence weather-only outlook; Run Stage and Fish In River remain seasonal context.",
           "safety": {
             "regulationReminder": "Fishing is closed within 300 feet of Homestead's lamprey barrier and fish-passage facility from August 1 through November 15, and within 100 feet from November 16 through July 31. Follow current regulations and signed boundaries.",
-            "gaugeBasis": "No accepted live gauge represents the two Betsie River Run reaches; Fishability is unavailable.",
+            "gaugeBasis": "No live gauge reliably represents the two Betsie River Run reaches; Fishability is unavailable.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
@@ -6227,7 +6227,7 @@ export const RIVER_RUN_BETSIE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "stage_peak"
             ],
-            "copyVersion": "river-run-copy-v30"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "score": null,
@@ -6246,12 +6246,12 @@ export const RIVER_RUN_BETSIE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "sourceDates": [],
             "sourceRefreshSlots": {},
             "headline": "Migration Timing is not available for the Betsie.",
-            "detail": "The Betsie lacks an accepted long-term flow and measured water-temperature record for an early, typical, or delayed comparison.",
+            "detail": "The Betsie does not have a long-term flow and measured water-temperature record reliable enough for an early, typical, or delayed comparison.",
             "tip": "Use Migration Stage and Fish In River. This card cannot shift the plan between the Betsie Lake–US-31 and US-31–Homestead reaches.",
             "reasonCodes": [
               "primitive_migration_timing_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v30"
+            "copyVersion": "river-run-copy-v34"
           },
           "push": {
             "score": null,
@@ -6262,7 +6262,7 @@ export const RIVER_RUN_BETSIE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "primitive_push_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v30"
+            "copyVersion": "river-run-copy-v34"
           },
           "pushHistory": {
             "status": "unavailable",
@@ -6282,7 +6282,7 @@ export const RIVER_RUN_BETSIE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "primitive_fishability_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v30"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 70,
@@ -6344,7 +6344,7 @@ export const RIVER_RUN_BETSIE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "precipitationIn": 0
               }
             ],
-            "copyVersion": "river-run-copy-v30"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 70,
@@ -6365,7 +6365,7 @@ export const RIVER_RUN_BETSIE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_peak",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v30"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": null,
           "weather": null,
@@ -6391,7 +6391,7 @@ export const RIVER_RUN_BETSIE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "secondaryNote": "No sufficiently accurate and consistent live flow gauge or measured water-temperature sensor represents the Betsie below Homestead. Push, Fishability, and Migration Timing are unavailable. Activity is a Limited-confidence weather-only outlook; Run Stage and Fish In River remain seasonal context.",
           "safety": {
             "regulationReminder": "Fishing is closed within 300 feet of Homestead's lamprey barrier and fish-passage facility from August 1 through November 15, and within 100 feet from November 16 through July 31. Follow current regulations and signed boundaries.",
-            "gaugeBasis": "No accepted live gauge represents the two Betsie River Run reaches; Fishability is unavailable.",
+            "gaugeBasis": "No live gauge reliably represents the two Betsie River Run reaches; Fishability is unavailable.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
@@ -6444,7 +6444,7 @@ export const RIVER_RUN_BETSIE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "stage_peak"
             ],
-            "copyVersion": "river-run-copy-v30"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "score": null,
@@ -6463,12 +6463,12 @@ export const RIVER_RUN_BETSIE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "sourceDates": [],
             "sourceRefreshSlots": {},
             "headline": "Migration Timing is not available for the Betsie.",
-            "detail": "The Betsie lacks an accepted long-term flow and measured water-temperature record for an early, typical, or delayed comparison.",
+            "detail": "The Betsie does not have a long-term flow and measured water-temperature record reliable enough for an early, typical, or delayed comparison.",
             "tip": "Use Migration Stage and Fish In River. This card cannot shift the plan between the Betsie Lake–US-31 and US-31–Homestead reaches.",
             "reasonCodes": [
               "primitive_migration_timing_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v30"
+            "copyVersion": "river-run-copy-v34"
           },
           "push": {
             "score": null,
@@ -6479,7 +6479,7 @@ export const RIVER_RUN_BETSIE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "primitive_push_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v30"
+            "copyVersion": "river-run-copy-v34"
           },
           "pushHistory": {
             "status": "unavailable",
@@ -6499,7 +6499,7 @@ export const RIVER_RUN_BETSIE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "primitive_fishability_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v30"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 70,
@@ -6561,7 +6561,7 @@ export const RIVER_RUN_BETSIE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "precipitationIn": 0
               }
             ],
-            "copyVersion": "river-run-copy-v30"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 70,
@@ -6582,7 +6582,7 @@ export const RIVER_RUN_BETSIE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_peak",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v30"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": null,
           "weather": null,
@@ -6608,7 +6608,7 @@ export const RIVER_RUN_BETSIE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "secondaryNote": "No sufficiently accurate and consistent live flow gauge or measured water-temperature sensor represents the Betsie below Homestead. Push, Fishability, and Migration Timing are unavailable. Activity is a Limited-confidence weather-only outlook; Run Stage and Fish In River remain seasonal context.",
           "safety": {
             "regulationReminder": "Fishing is closed within 300 feet of Homestead's lamprey barrier and fish-passage facility from August 1 through November 15, and within 100 feet from November 16 through July 31. Follow current regulations and signed boundaries.",
-            "gaugeBasis": "No accepted live gauge represents the two Betsie River Run reaches; Fishability is unavailable.",
+            "gaugeBasis": "No live gauge reliably represents the two Betsie River Run reaches; Fishability is unavailable.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
@@ -6661,7 +6661,7 @@ export const RIVER_RUN_BETSIE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "stage_tapering"
             ],
-            "copyVersion": "river-run-copy-v30"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "score": null,
@@ -6680,12 +6680,12 @@ export const RIVER_RUN_BETSIE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "sourceDates": [],
             "sourceRefreshSlots": {},
             "headline": "Migration Timing is not available for the Betsie.",
-            "detail": "The Betsie lacks an accepted long-term flow and measured water-temperature record for an early, typical, or delayed comparison.",
+            "detail": "The Betsie does not have a long-term flow and measured water-temperature record reliable enough for an early, typical, or delayed comparison.",
             "tip": "Use Migration Stage and Fish In River. This card cannot shift the plan between the Betsie Lake–US-31 and US-31–Homestead reaches.",
             "reasonCodes": [
               "primitive_migration_timing_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v30"
+            "copyVersion": "river-run-copy-v34"
           },
           "push": {
             "score": null,
@@ -6696,7 +6696,7 @@ export const RIVER_RUN_BETSIE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "primitive_push_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v30"
+            "copyVersion": "river-run-copy-v34"
           },
           "pushHistory": {
             "status": "unavailable",
@@ -6716,7 +6716,7 @@ export const RIVER_RUN_BETSIE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "primitive_fishability_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v30"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 70,
@@ -6778,7 +6778,7 @@ export const RIVER_RUN_BETSIE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "precipitationIn": 0
               }
             ],
-            "copyVersion": "river-run-copy-v30"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 69,
@@ -6799,7 +6799,7 @@ export const RIVER_RUN_BETSIE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_tapering",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v30"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": null,
           "weather": null,
@@ -6825,7 +6825,7 @@ export const RIVER_RUN_BETSIE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "secondaryNote": "No sufficiently accurate and consistent live flow gauge or measured water-temperature sensor represents the Betsie below Homestead. Push, Fishability, and Migration Timing are unavailable. Activity is a Limited-confidence weather-only outlook; Run Stage and Fish In River remain seasonal context.",
           "safety": {
             "regulationReminder": "Fishing is closed within 300 feet of Homestead's lamprey barrier and fish-passage facility from August 1 through November 15, and within 100 feet from November 16 through July 31. Follow current regulations and signed boundaries.",
-            "gaugeBasis": "No accepted live gauge represents the two Betsie River Run reaches; Fishability is unavailable.",
+            "gaugeBasis": "No live gauge reliably represents the two Betsie River Run reaches; Fishability is unavailable.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
@@ -6878,7 +6878,7 @@ export const RIVER_RUN_BETSIE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "stage_tapering"
             ],
-            "copyVersion": "river-run-copy-v30"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "score": null,
@@ -6897,12 +6897,12 @@ export const RIVER_RUN_BETSIE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "sourceDates": [],
             "sourceRefreshSlots": {},
             "headline": "Migration Timing is not available for the Betsie.",
-            "detail": "The Betsie lacks an accepted long-term flow and measured water-temperature record for an early, typical, or delayed comparison.",
+            "detail": "The Betsie does not have a long-term flow and measured water-temperature record reliable enough for an early, typical, or delayed comparison.",
             "tip": "Use Migration Stage and Fish In River. This card cannot shift the plan between the Betsie Lake–US-31 and US-31–Homestead reaches.",
             "reasonCodes": [
               "primitive_migration_timing_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v30"
+            "copyVersion": "river-run-copy-v34"
           },
           "push": {
             "score": null,
@@ -6913,7 +6913,7 @@ export const RIVER_RUN_BETSIE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "primitive_push_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v30"
+            "copyVersion": "river-run-copy-v34"
           },
           "pushHistory": {
             "status": "unavailable",
@@ -6933,7 +6933,7 @@ export const RIVER_RUN_BETSIE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "primitive_fishability_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v30"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 70,
@@ -6995,7 +6995,7 @@ export const RIVER_RUN_BETSIE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "precipitationIn": 0
               }
             ],
-            "copyVersion": "river-run-copy-v30"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 63,
@@ -7016,7 +7016,7 @@ export const RIVER_RUN_BETSIE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_tapering",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v30"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": null,
           "weather": null,
@@ -7042,7 +7042,7 @@ export const RIVER_RUN_BETSIE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "secondaryNote": "No sufficiently accurate and consistent live flow gauge or measured water-temperature sensor represents the Betsie below Homestead. Push, Fishability, and Migration Timing are unavailable. Activity is a Limited-confidence weather-only outlook; Run Stage and Fish In River remain seasonal context.",
           "safety": {
             "regulationReminder": "Fishing is closed within 300 feet of Homestead's lamprey barrier and fish-passage facility from August 1 through November 15, and within 100 feet from November 16 through July 31. Follow current regulations and signed boundaries.",
-            "gaugeBasis": "No accepted live gauge represents the two Betsie River Run reaches; Fishability is unavailable.",
+            "gaugeBasis": "No live gauge reliably represents the two Betsie River Run reaches; Fishability is unavailable.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
@@ -7095,7 +7095,7 @@ export const RIVER_RUN_BETSIE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "stage_ending"
             ],
-            "copyVersion": "river-run-copy-v30"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "score": null,
@@ -7114,12 +7114,12 @@ export const RIVER_RUN_BETSIE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "sourceDates": [],
             "sourceRefreshSlots": {},
             "headline": "Migration Timing is not available for the Betsie.",
-            "detail": "The Betsie lacks an accepted long-term flow and measured water-temperature record for an early, typical, or delayed comparison.",
+            "detail": "The Betsie does not have a long-term flow and measured water-temperature record reliable enough for an early, typical, or delayed comparison.",
             "tip": "Use Migration Stage and Fish In River. This card cannot shift the plan between the Betsie Lake–US-31 and US-31–Homestead reaches.",
             "reasonCodes": [
               "primitive_migration_timing_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v30"
+            "copyVersion": "river-run-copy-v34"
           },
           "push": {
             "score": null,
@@ -7130,7 +7130,7 @@ export const RIVER_RUN_BETSIE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "primitive_push_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v30"
+            "copyVersion": "river-run-copy-v34"
           },
           "pushHistory": {
             "status": "unavailable",
@@ -7150,7 +7150,7 @@ export const RIVER_RUN_BETSIE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "primitive_fishability_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v30"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 70,
@@ -7212,7 +7212,7 @@ export const RIVER_RUN_BETSIE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "precipitationIn": 0
               }
             ],
-            "copyVersion": "river-run-copy-v30"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 61,
@@ -7233,7 +7233,7 @@ export const RIVER_RUN_BETSIE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_ending",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v30"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": null,
           "weather": null,
@@ -7259,7 +7259,7 @@ export const RIVER_RUN_BETSIE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "secondaryNote": "No sufficiently accurate and consistent live flow gauge or measured water-temperature sensor represents the Betsie below Homestead. Push, Fishability, and Migration Timing are unavailable. Activity is a Limited-confidence weather-only outlook; Run Stage and Fish In River remain seasonal context.",
           "safety": {
             "regulationReminder": "Fishing is closed within 300 feet of Homestead's lamprey barrier and fish-passage facility from August 1 through November 15, and within 100 feet from November 16 through July 31. Follow current regulations and signed boundaries.",
-            "gaugeBasis": "No accepted live gauge represents the two Betsie River Run reaches; Fishability is unavailable.",
+            "gaugeBasis": "No live gauge reliably represents the two Betsie River Run reaches; Fishability is unavailable.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
@@ -7311,7 +7311,7 @@ export const RIVER_RUN_BETSIE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "stage_post_run"
             ],
-            "copyVersion": "river-run-copy-v30"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "score": null,
@@ -7330,12 +7330,12 @@ export const RIVER_RUN_BETSIE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "sourceDates": [],
             "sourceRefreshSlots": {},
             "headline": "Migration Timing is not available for the Betsie.",
-            "detail": "The Betsie lacks an accepted long-term flow and measured water-temperature record for an early, typical, or delayed comparison.",
+            "detail": "The Betsie does not have a long-term flow and measured water-temperature record reliable enough for an early, typical, or delayed comparison.",
             "tip": "Use Migration Stage and Fish In River. This card cannot shift the plan between the Betsie Lake–US-31 and US-31–Homestead reaches.",
             "reasonCodes": [
               "primitive_migration_timing_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v30"
+            "copyVersion": "river-run-copy-v34"
           },
           "push": {
             "score": null,
@@ -7346,7 +7346,7 @@ export const RIVER_RUN_BETSIE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "primitive_push_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v30"
+            "copyVersion": "river-run-copy-v34"
           },
           "pushHistory": {
             "status": "unavailable",
@@ -7366,7 +7366,7 @@ export const RIVER_RUN_BETSIE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "primitive_fishability_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v30"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": null,
@@ -7384,7 +7384,7 @@ export const RIVER_RUN_BETSIE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "confidence": "Limited",
             "conditionalPresence": false,
             "blocks": [],
-            "copyVersion": "river-run-copy-v30"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": null,
@@ -7404,7 +7404,7 @@ export const RIVER_RUN_BETSIE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_post_run",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v30"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": null,
           "weather": null,
@@ -7430,7 +7430,7 @@ export const RIVER_RUN_BETSIE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "secondaryNote": "No sufficiently accurate and consistent live flow gauge or measured water-temperature sensor represents the Betsie below Homestead. Push, Fishability, and Migration Timing are unavailable. Activity is a Limited-confidence weather-only outlook; Run Stage and Fish In River remain seasonal context.",
           "safety": {
             "regulationReminder": "Fishing is closed within 300 feet of Homestead's lamprey barrier and fish-passage facility from August 1 through November 15, and within 100 feet from November 16 through July 31. Follow current regulations and signed boundaries.",
-            "gaugeBasis": "No accepted live gauge represents the two Betsie River Run reaches; Fishability is unavailable.",
+            "gaugeBasis": "No live gauge reliably represents the two Betsie River Run reaches; Fishability is unavailable.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",

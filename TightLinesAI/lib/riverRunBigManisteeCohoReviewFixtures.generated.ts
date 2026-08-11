@@ -24,6 +24,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
           "nextConditionRefreshAt": "2026-12-14T05:00:00.000Z",
           "runStage": {
             "stage": "post_run",
+            "copyStrategy": "big_manistee_tailwater",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -45,16 +46,16 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "startToPeakDays": 40,
               "peakToEndDays": 41
             },
-            "label": "Offseason",
-            "headline": "The Big Manistee Coho salmon run is outside its researched window.",
-            "whereToStart": "No dependable Big Manistee location for this fall migration model right now.",
-            "detail": "This fall-spawn profile has ended; another seasonal experience must supply any later species guidance.",
-            "tip": "Do not use this profile to score a different season.",
+            "label": "Fall run complete",
+            "headline": "The Big Manistee Coho salmon fall run is complete.",
+            "whereToStart": "There is no active Big Manistee starting section in this fall-run model.",
+            "detail": "Coho salmon staging typically begins in early September. This seasonal estimate is inactive until then.",
+            "tip": "Check back in early September when Big Manistee fall-run tracking resumes.",
             "reasonCodes": [
               "stage_post_run",
               "stage_offseason"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Not monitoring yet",
@@ -72,13 +73,13 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "historicalYears": 0,
             "sourceDates": [],
             "sourceRefreshSlots": {},
-            "headline": "Migration Timing is not active right now.",
-            "detail": "Timing monitoring begins before the expected river entry, but that seasonal observation window is not active yet.",
-            "tip": "Check Migration Stage for the current seasonal position and return to Migration Timing when early monitoring begins.",
+            "headline": "Big Manistee Migration Timing is not monitoring yet.",
+            "detail": "Season-to-date Wellston flow and temperature monitoring resumes in early September.",
+            "tip": "Check back in early September when Big Manistee timing monitoring resumes.",
             "reasonCodes": [
               "conditions_monitoring_inactive"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -92,21 +93,21 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
           "push": {
             "score": null,
             "label": "Offseason",
-            "headline": "Push is not active outside the river migration season.",
-            "detail": "Rain, river level, and water temperature can still change, but they do not provide a useful fresh-arrival signal for this species right now.",
-            "tip": "Do not use Push to plan for this species outside its migration season. Follow an active species instead, or return when early monitoring begins.",
+            "headline": "Big Manistee Push is outside its fall movement window.",
+            "detail": "Current Wellston flow and temperature do not provide an in-season fresh-movement signal for this run.",
+            "tip": "Check back in early September.",
             "reasonCodes": [
               "push_tracking_offseason"
             ],
             "rulesVersion": "big-manistee-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 93,
             "label": "Excellent",
-            "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river.",
-            "tip": "Begin on the primary travel lane feeding deep holding water. Work each hole from its head through the inside seam and tail, then keep moving until fish establish a pattern.",
+            "headline": "Upper-river flow is in its best presentation range.",
+            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read covers only the Upper river (High Bridge–Tippy Dam).",
+            "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band"
@@ -117,11 +118,12 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": null,
           "fishInRiver": {
-            "score": 0,
+            "score": null,
+            "scoreIsApproximate": false,
             "stage": "post_run",
             "maximum": 100,
             "riverCeiling": 50,
@@ -129,15 +131,15 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "curveFraction": 0,
             "curveDirection": "outside",
             "winterHoldingContext": false,
-            "label": "Offseason",
-            "headline": "Coho salmon are outside their river migration season.",
-            "detail": "A dependable seasonal presence of Coho salmon is not expected in the river right now.",
-            "tip": "Do not build a river trip around this species right now. Target a species with an active seasonal window and return as the next migration approaches.",
+            "label": "Fall run complete",
+            "headline": "The Big Manistee Coho salmon fall run is complete.",
+            "detail": "Coho salmon staging typically begins in early September. This seasonal estimate is inactive until then.",
+            "tip": "Check back in early September when Big Manistee fall-run tracking resumes.",
             "reasonCodes": [
               "stage_post_run",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -363,21 +365,15 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "data_quality_fresh"
             ]
           },
-          "interpretationNote": {
-            "headline": "The river should fish well, but seasonal fish presence is still low.",
-            "detail": "Good flow makes presentations easier, but it does not put fish in the river. Begin in the deepest established holding water and skip broad searches through fast travel lanes as seasonal presence thins.",
-            "reasonCodes": [
-              "good_fishability_low_presence"
-            ]
-          },
-          "secondaryNote": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It best represents the Tippy tailwater and upper migratory corridor; flow, temperature, access, and fishability can differ downstream through High Bridge, Bear Creek, the lower river, and Manistee Lake.",
+          "interpretationNote": null,
+          "secondaryNote": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It represents the Upper river (High Bridge–Tippy Dam), especially the Tippy Dam area. Conditions can differ in the Middle river, Lower river, Manistee Lake, and harbor.",
           "safety": {
             "regulationReminder": "The Big Manistee below Tippy is a Type 3 reach extending to the railroad bridge below M-55, with a year-round one-Rainbow-Trout limit and special artificial-lure rules during the August 1–November 15 window. Follow current Michigan regulations, DNR closure notices, dam-safety information, and posted boundaries. Fishing methods can change by reach and season.",
-            "gaugeBasis": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It best represents the Tippy tailwater and upper migratory corridor; flow, temperature, access, and fishability can differ downstream through High Bridge, Bear Creek, the lower river, and Manistee Lake.",
+            "gaugeBasis": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It represents the Upper river (High Bridge–Tippy Dam), especially the Tippy Dam area. Conditions can differ in the Middle river, Lower river, Manistee Lake, and harbor.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-big-manistee-steelhead-activity.1"
+          "configVersion": "2026-08-10-big-manistee-copy.1"
         }
       },
       {
@@ -396,6 +392,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
           "nextConditionRefreshAt": "2026-08-26T05:00:00.000Z",
           "runStage": {
             "stage": "pre_run",
+            "copyStrategy": "big_manistee_tailwater",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -418,14 +415,14 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "peakToEndDays": 41
             },
             "label": "Before migration",
-            "headline": "Coho salmon have not begun their dependable Big Manistee river run.",
-            "whereToStart": "Lake Michigan, Manistee Lake, the harbor, and the river mouth.",
-            "detail": "The fixed seasonal calendar has not reached dependable Coho salmon river presence yet.",
-            "tip": "Keep staging context separate from river presence until the river window opens.",
+            "headline": "Coho salmon have not begun dependable Big Manistee river entry.",
+            "whereToStart": "Stay with Manistee Lake, the harbor, and the river entrance.",
+            "detail": "The river-entry window has not opened yet. An isolated river fish would be an early exception.",
+            "tip": "Do not build an inland trip around Coho salmon yet.",
             "reasonCodes": [
               "stage_pre_run"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Not monitoring yet",
@@ -444,13 +441,13 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "historicalYears": 0,
             "sourceDates": [],
             "sourceRefreshSlots": {},
-            "headline": "Migration Timing is not active right now.",
-            "detail": "Timing monitoring begins before the expected river entry, but that seasonal observation window is not active yet.",
-            "tip": "Check Migration Stage for the current seasonal position and return to Migration Timing when early monitoring begins.",
+            "headline": "Big Manistee Migration Timing is not monitoring yet.",
+            "detail": "Season-to-date Wellston flow and temperature monitoring resumes in early September.",
+            "tip": "Check back in early September when Big Manistee timing monitoring resumes.",
             "reasonCodes": [
               "conditions_monitoring_inactive"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -464,21 +461,21 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
           "push": {
             "score": null,
             "label": "Waiting for migration",
-            "headline": "Fish have not started entering the river, so there is no Push read yet.",
-            "detail": "Push is meant to spot water conditions that may help fish enter or move during the active migration. Before that, most opportunity should remain in the lake, harbor, or river-mouth transition.",
-            "tip": "Keep the trip in the lake, harbor, and river-mouth zone. Do not move inland just because rain or cooling resembles an in-season movement event.",
+            "headline": "Dependable Big Manistee river entry has not started.",
+            "detail": "Wellston flow and temperature are not scored as an in-season fresh-movement signal yet.",
+            "tip": "Use Migration Stage. Do not move inland because offseason water resembles a Push.",
             "reasonCodes": [
               "push_tracking_not_started"
             ],
             "rulesVersion": "big-manistee-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 93,
             "label": "Excellent",
-            "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river.",
-            "tip": "Begin on the primary travel lane feeding deep holding water. Work each hole from its head through the inside seam and tail, then keep moving until fish establish a pattern.",
+            "headline": "Upper-river flow is in its best presentation range.",
+            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read covers only the Upper river (High Bridge–Tippy Dam).",
+            "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band"
@@ -489,11 +486,13 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": null,
           "fishInRiver": {
             "score": 0,
+            "displayScore": 0,
+            "scoreIsApproximate": false,
             "stage": "pre_run",
             "maximum": 100,
             "riverCeiling": 50,
@@ -502,14 +501,14 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "curveDirection": "outside",
             "winterHoldingContext": false,
             "label": "Not expected yet",
-            "headline": "A dependable presence of Coho salmon is not expected in the river yet.",
-            "detail": "Most Coho salmon are not expected to have entered the river in dependable numbers. Any fish already present would be early exceptions.",
-            "tip": "Treat this as no dependable in-river opportunity yet. Keep expectations at zero, and do not interpret an isolated early fish as evidence of dependable river presence.",
+            "headline": "Dependable Coho salmon presence is not expected in the Big Manistee yet.",
+            "detail": "The seasonal estimate remains at zero. Any river fish would be an early exception.",
+            "tip": "Use Migration Stage for Manistee Lake, harbor, and river-entrance context.",
             "reasonCodes": [
               "stage_pre_run",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -742,14 +741,14 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "good_fishability_low_presence"
             ]
           },
-          "secondaryNote": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It best represents the Tippy tailwater and upper migratory corridor; flow, temperature, access, and fishability can differ downstream through High Bridge, Bear Creek, the lower river, and Manistee Lake.",
+          "secondaryNote": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It represents the Upper river (High Bridge–Tippy Dam), especially the Tippy Dam area. Conditions can differ in the Middle river, Lower river, Manistee Lake, and harbor.",
           "safety": {
             "regulationReminder": "The Big Manistee below Tippy is a Type 3 reach extending to the railroad bridge below M-55, with a year-round one-Rainbow-Trout limit and special artificial-lure rules during the August 1–November 15 window. Follow current Michigan regulations, DNR closure notices, dam-safety information, and posted boundaries. Fishing methods can change by reach and season.",
-            "gaugeBasis": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It best represents the Tippy tailwater and upper migratory corridor; flow, temperature, access, and fishability can differ downstream through High Bridge, Bear Creek, the lower river, and Manistee Lake.",
+            "gaugeBasis": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It represents the Upper river (High Bridge–Tippy Dam), especially the Tippy Dam area. Conditions can differ in the Middle river, Lower river, Manistee Lake, and harbor.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-big-manistee-steelhead-activity.1"
+          "configVersion": "2026-08-10-big-manistee-copy.1"
         }
       },
       {
@@ -768,6 +767,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
           "nextConditionRefreshAt": "2026-09-02T05:00:00.000Z",
           "runStage": {
             "stage": "pre_run",
+            "copyStrategy": "big_manistee_tailwater",
             "stagingContext": true,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -790,15 +790,15 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "peakToEndDays": 41
             },
             "label": "Before migration",
-            "headline": "Coho salmon may be staging in Lake Michigan, Manistee Lake, and near the river mouth.",
-            "whereToStart": "Manistee Lake, the harbor, the river mouth, and the first deep travel water in the lower migratory river toward M-55.",
-            "detail": "Early Coho salmon can begin checking the Big Manistee, but the Wellston gauge and Tippy tailwater should not be treated as proof that the entire lower corridor is occupied.",
-            "tip": "Use the lake-to-river transition for staging context. Treat an early river fish as real evidence, not as a reason to claim broad river presence.",
+            "headline": "Coho salmon may be staging near the river entrance.",
+            "whereToStart": "Start at Manistee Lake, the harbor, and the river entrance. Add the Lower river (M-55–Bear Creek) only for an early-fish check.",
+            "detail": "Staging context does not confirm dependable river entry. Coho opportunity remains sectional.",
+            "tip": "Keep the river check brief. Do not move into the Middle river (Bear Creek–High Bridge) or Upper river (High Bridge–Tippy Dam) from calendar timing alone.",
             "reasonCodes": [
               "stage_pre_run",
               "stage_pre_run_staging"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Evaluating",
@@ -817,13 +817,13 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "historicalYears": 0,
             "sourceDates": [],
             "sourceRefreshSlots": {},
-            "headline": "Migration Timing is still taking shape.",
-            "detail": "The early river and temperature pattern is still developing, so an Ahead, Typical, or Delayed call would be premature.",
-            "tip": "Keep the trip centered on the river mouth and earliest lower-river holding water. Move inland only when Migration Stage advances or direct fish activity supports it.",
+            "headline": "Big Manistee Migration Timing is still taking shape.",
+            "detail": "Wellston flow and measured temperature do not yet support an Ahead, Typical, or Delayed call.",
+            "tip": "Keep the section named by Migration Stage until this read has enough Upper-river evidence.",
             "reasonCodes": [
               "conditions_checkpoint_evaluating"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -837,21 +837,21 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
           "push": {
             "score": null,
             "label": "Waiting for migration",
-            "headline": "Fish have not started entering the river, so there is no Push read yet.",
-            "detail": "Push is meant to spot water conditions that may help fish enter or move during the active migration. Before that, most opportunity should remain in the lake, harbor, or river-mouth transition.",
-            "tip": "Keep the trip in the lake, harbor, and river-mouth zone. Do not move inland just because rain or cooling resembles an in-season movement event.",
+            "headline": "Dependable Big Manistee river entry has not started.",
+            "detail": "Wellston flow and temperature are not scored as an in-season fresh-movement signal yet.",
+            "tip": "Use Migration Stage. Do not move inland because offseason water resembles a Push.",
             "reasonCodes": [
               "push_tracking_not_started"
             ],
             "rulesVersion": "big-manistee-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 93,
             "label": "Excellent",
-            "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river.",
-            "tip": "Begin on the primary travel lane feeding deep holding water. Work each hole from its head through the inside seam and tail, then keep moving until fish establish a pattern.",
+            "headline": "Upper-river flow is in its best presentation range.",
+            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read covers only the Upper river (High Bridge–Tippy Dam).",
+            "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band"
@@ -862,15 +862,15 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 75,
             "maximum": 100,
             "label": "Active",
-            "headline": "Today’s Coho activity outlook is active.",
-            "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. Dependable river presence has not begun. The score applies only to a sparse early Coho that may already have entered. The measured conditions represent the Wellston/Tippy tailwater; water temperature, clarity, and presentation conditions can differ through the middle and lower migratory river. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
-            "tip": "Start with 5–9 AM. If the sky changes from the forecast, favor the darkest practical window.",
+            "headline": "Today’s Upper-river responsiveness is active, but dependable Coho presence has not begun.",
+            "detail": "Conditions support a meaningful Coho response. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. This applies only to an early Coho already in the river.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify downstream sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -922,10 +922,13 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 0,
+            "displayScore": 0,
+            "scoreIsApproximate": false,
             "stage": "pre_run",
             "maximum": 100,
             "riverCeiling": 50,
@@ -934,14 +937,14 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "curveDirection": "outside",
             "winterHoldingContext": false,
             "label": "Not expected yet",
-            "headline": "A dependable presence of Coho salmon is not expected in the river yet.",
-            "detail": "Most Coho salmon are not expected to have entered the river in dependable numbers. Any fish already present would be early exceptions.",
-            "tip": "Treat this as no dependable in-river opportunity yet. Keep expectations at zero, and do not interpret an isolated early fish as evidence of dependable river presence.",
+            "headline": "Dependable Coho salmon presence is not expected in the Big Manistee yet.",
+            "detail": "The seasonal estimate remains at zero. Any river fish would be an early exception.",
+            "tip": "Use Migration Stage for Manistee Lake, harbor, and river-entrance context.",
             "reasonCodes": [
               "stage_pre_run",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -1174,14 +1177,14 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "good_fishability_low_presence"
             ]
           },
-          "secondaryNote": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It best represents the Tippy tailwater and upper migratory corridor; flow, temperature, access, and fishability can differ downstream through High Bridge, Bear Creek, the lower river, and Manistee Lake.",
+          "secondaryNote": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It represents the Upper river (High Bridge–Tippy Dam), especially the Tippy Dam area. Conditions can differ in the Middle river, Lower river, Manistee Lake, and harbor.",
           "safety": {
             "regulationReminder": "The Big Manistee below Tippy is a Type 3 reach extending to the railroad bridge below M-55, with a year-round one-Rainbow-Trout limit and special artificial-lure rules during the August 1–November 15 window. Follow current Michigan regulations, DNR closure notices, dam-safety information, and posted boundaries. Fishing methods can change by reach and season.",
-            "gaugeBasis": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It best represents the Tippy tailwater and upper migratory corridor; flow, temperature, access, and fishability can differ downstream through High Bridge, Bear Creek, the lower river, and Manistee Lake.",
+            "gaugeBasis": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It represents the Upper river (High Bridge–Tippy Dam), especially the Tippy Dam area. Conditions can differ in the Middle river, Lower river, Manistee Lake, and harbor.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-big-manistee-steelhead-activity.1"
+          "configVersion": "2026-08-10-big-manistee-copy.1"
         }
       },
       {
@@ -1200,6 +1203,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
           "nextConditionRefreshAt": "2026-09-11T05:00:00.000Z",
           "runStage": {
             "stage": "beginning",
+            "copyStrategy": "big_manistee_tailwater",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -1222,14 +1226,14 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "peakToEndDays": 41
             },
             "label": "Beginning",
-            "headline": "The first Coho salmon are beginning to enter the Big Manistee below Tippy Dam.",
-            "whereToStart": "Make a quick Tippy-tailwater check. If it is empty or sparse, compare the High Bridge-Bear Creek middle corridor with the lower migratory river toward M-55, where newer fish are more likely still traveling.",
-            "detail": "The dam concentrates migrants, but early fish are not necessarily distributed through the full 25-mile corridor. Wellston describes the tailwater and upper corridor only.",
-            "tip": "Start near the tailwater, then cover deep travel and holding water downstream rather than assuming every reach is equally populated.",
+            "headline": "The first Coho salmon are entering the Big Manistee.",
+            "whereToStart": "Start in the Lower river (M-55–Bear Creek). Add the Middle river (Bear Creek–High Bridge) after direct fish activity supports the move.",
+            "detail": "Early fish remain scattered. Coho opportunity is limited to select water.",
+            "tip": "Cover travel water and the first substantial holding areas before moving upstream.",
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -1261,15 +1265,15 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "2026-09-09"
             ],
             "sourceRefreshSlots": {},
-            "headline": "There is not enough reliable information for a Migration Timing call.",
-            "tip": "Do not move farther upstream or stay lower based on this timing read. Fish the section identified by Migration Stage and begin in its most established holding water; change sections only when direct fish activity or a dependable later read supports it.",
+            "headline": "There is not enough reliable Big Manistee evidence for a Migration Timing call.",
+            "tip": "Keep the section named by Migration Stage. Do not shift sections from this timing read.",
             "detail": "There are not enough dependable past seasons to judge whether this migration is early, normal, or late.",
             "reasonCodes": [
               "conditions_baseline_missing",
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -1283,9 +1287,9 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
           "push": {
             "score": 30,
             "label": "No clear push",
-            "headline": "Today's water does not show a clear signal for a fresh wave of fish.",
-            "detail": "The river is holding steady with no meaningful rise yet. Water temperature is favorable for fall migration and is relatively steady. Recent weather estimates indicate very little rain around the river.",
-            "tip": "Fish established holding water from the head through the inside seam and tail. Do not spend the day racing between lower travel lanes for a wave the water does not support.",
+            "headline": "Upper-river water does not show a clear fresh-movement signal.",
+            "detail": "The river is holding steady with no meaningful rise yet. Water temperature is favorable for fall migration and is relatively steady. Recent watershed weather shows little rain.",
+            "tip": "Keep Migration Stage’s section primary. Do not shift to fresh-entry water from this read.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
@@ -1304,14 +1308,14 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 93,
             "label": "Excellent",
-            "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river.",
-            "tip": "Begin on the primary travel lane feeding deep holding water. Work each hole from its head through the inside seam and tail, then keep moving until fish establish a pattern.",
+            "headline": "Upper-river flow is in its best presentation range.",
+            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read covers only the Upper river (High Bridge–Tippy Dam).",
+            "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band"
@@ -1322,15 +1326,15 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 76,
             "maximum": 100,
             "label": "Active",
-            "headline": "Today’s Coho activity outlook is active.",
-            "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. Early lake-fresh Coho can remain reactive when measured water temperatures are suitable; this score applies only to fish already in the river. The measured conditions represent the Wellston/Tippy tailwater; water temperature, clarity, and presentation conditions can differ through the middle and lower migratory river. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
-            "tip": "Start with 5–9 AM. If the sky changes from the forecast, favor the darkest practical window.",
+            "headline": "Today’s Upper-river Coho responsiveness is active.",
+            "detail": "Conditions support a meaningful Coho response. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Wellston flow and temperature represent the Upper river, especially the Tippy Dam area.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify downstream sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -1382,10 +1386,13 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 5,
+            "displayScore": 5,
+            "scoreIsApproximate": true,
             "stage": "beginning",
             "maximum": 100,
             "riverCeiling": 50,
@@ -1394,14 +1401,14 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "curveDirection": "rising",
             "winterHoldingContext": false,
             "label": "Low presence",
-            "headline": "A small number of Coho salmon may be in the river, and seasonal presence is still building.",
-            "detail": "This part of the season usually brings low presence, with more fish expected to enter and become established through several dependable river sections. This is a seasonal estimate, not a live fish count.",
-            "tip": "Treat this as an early, low-odds river opportunity. Expect scattered results, and use direct fish activity before committing the full day.",
+            "headline": "Seasonal Coho salmon presence is low and building.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the Big Manistee Coho salmon ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -1635,14 +1642,14 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "good_fishability_low_presence"
             ]
           },
-          "secondaryNote": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It best represents the Tippy tailwater and upper migratory corridor; flow, temperature, access, and fishability can differ downstream through High Bridge, Bear Creek, the lower river, and Manistee Lake.",
+          "secondaryNote": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It represents the Upper river (High Bridge–Tippy Dam), especially the Tippy Dam area. Conditions can differ in the Middle river, Lower river, Manistee Lake, and harbor.",
           "safety": {
             "regulationReminder": "The Big Manistee below Tippy is a Type 3 reach extending to the railroad bridge below M-55, with a year-round one-Rainbow-Trout limit and special artificial-lure rules during the August 1–November 15 window. Follow current Michigan regulations, DNR closure notices, dam-safety information, and posted boundaries. Fishing methods can change by reach and season.",
-            "gaugeBasis": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It best represents the Tippy tailwater and upper migratory corridor; flow, temperature, access, and fishability can differ downstream through High Bridge, Bear Creek, the lower river, and Manistee Lake.",
+            "gaugeBasis": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It represents the Upper river (High Bridge–Tippy Dam), especially the Tippy Dam area. Conditions can differ in the Middle river, Lower river, Manistee Lake, and harbor.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-big-manistee-steelhead-activity.1"
+          "configVersion": "2026-08-10-big-manistee-copy.1"
         }
       },
       {
@@ -1661,6 +1668,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
           "nextConditionRefreshAt": "2026-09-21T05:00:00.000Z",
           "runStage": {
             "stage": "beginning",
+            "copyStrategy": "big_manistee_tailwater",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -1683,14 +1691,14 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "peakToEndDays": 41
             },
             "label": "Beginning",
-            "headline": "Coho salmon are accumulating through more of the Big Manistee below Tippy Dam.",
-            "whereToStart": "Check the Tippy tailwater and Tippy-to-High Bridge reach first; if fish are scattered there, compare the High Bridge-Bear Creek middle corridor and lower migratory river for newer arrivals.",
-            "detail": "Earlier fish can already be established in tailwater holding areas while newer fish continue moving through the lower and middle migratory corridor. Numbers can still be uneven between sections.",
-            "tip": "Treat Tippy, High Bridge, and Bear Creek as different checks—not one uniform gauge reach—and let direct fish activity decide where to slow down.",
+            "headline": "Coho salmon are accumulating through more of the Big Manistee.",
+            "whereToStart": "Start in the Lower river (M-55–Bear Creek). Add the Middle river (Bear Creek–High Bridge) after direct fish activity supports the move.",
+            "detail": "More Coho are present, but concentrations remain selective.",
+            "tip": "Follow travel water into substantial holding areas before moving upstream.",
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -1722,15 +1730,15 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "2026-09-09"
             ],
             "sourceRefreshSlots": {},
-            "headline": "There is not enough reliable information for a Migration Timing call.",
-            "tip": "Do not move farther upstream or stay lower based on this timing read. Fish the section identified by Migration Stage and begin in its most established holding water; change sections only when direct fish activity or a dependable later read supports it.",
+            "headline": "There is not enough reliable Big Manistee evidence for a Migration Timing call.",
+            "tip": "Keep the section named by Migration Stage. Do not shift sections from this timing read.",
             "detail": "There are not enough dependable past seasons to judge whether this migration is early, normal, or late.",
             "reasonCodes": [
               "conditions_baseline_missing",
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -1744,9 +1752,9 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
           "push": {
             "score": 30,
             "label": "No clear push",
-            "headline": "Today's water does not show a clear signal for a fresh wave of fish.",
-            "detail": "The river is holding steady with no meaningful rise yet. Water temperature is favorable for fall migration and is relatively steady. Recent weather estimates indicate very little rain around the river.",
-            "tip": "Fish established holding water from the head through the inside seam and tail. Do not spend the day racing between lower travel lanes for a wave the water does not support.",
+            "headline": "Upper-river water does not show a clear fresh-movement signal.",
+            "detail": "The river is holding steady with no meaningful rise yet. Water temperature is favorable for fall migration and is relatively steady. Recent watershed weather shows little rain.",
+            "tip": "Keep Migration Stage’s section primary. Do not shift to fresh-entry water from this read.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
@@ -1765,14 +1773,14 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 93,
             "label": "Excellent",
-            "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river.",
-            "tip": "Begin on the primary travel lane feeding deep holding water. Work each hole from its head through the inside seam and tail, then keep moving until fish establish a pattern.",
+            "headline": "Upper-river flow is in its best presentation range.",
+            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read covers only the Upper river (High Bridge–Tippy Dam).",
+            "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band"
@@ -1783,15 +1791,15 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 76,
             "maximum": 100,
             "label": "Active",
-            "headline": "Today’s Coho activity outlook is active.",
-            "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. Early lake-fresh Coho can remain reactive when measured water temperatures are suitable; this score applies only to fish already in the river. The measured conditions represent the Wellston/Tippy tailwater; water temperature, clarity, and presentation conditions can differ through the middle and lower migratory river. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
-            "tip": "Start with 5–9 AM. If the sky changes from the forecast, favor the darkest practical window.",
+            "headline": "Today’s Upper-river Coho responsiveness is active.",
+            "detail": "Conditions support a meaningful Coho response. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Wellston flow and temperature represent the Upper river, especially the Tippy Dam area.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify downstream sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -1843,10 +1851,13 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 10,
+            "displayScore": 10,
+            "scoreIsApproximate": true,
             "stage": "beginning",
             "maximum": 100,
             "riverCeiling": 50,
@@ -1855,14 +1866,14 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "curveDirection": "rising",
             "winterHoldingContext": false,
             "label": "Low presence",
-            "headline": "A small number of Coho salmon may be in the river, and seasonal presence is still building.",
-            "detail": "This part of the season usually brings low presence, with more fish expected to enter and become established through several dependable river sections. This is a seasonal estimate, not a live fish count.",
-            "tip": "Treat this as an early, low-odds river opportunity. Expect scattered results, and use direct fish activity before committing the full day.",
+            "headline": "Seasonal Coho salmon presence is low and building.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the Big Manistee Coho salmon ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -2096,14 +2107,14 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "good_fishability_low_presence"
             ]
           },
-          "secondaryNote": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It best represents the Tippy tailwater and upper migratory corridor; flow, temperature, access, and fishability can differ downstream through High Bridge, Bear Creek, the lower river, and Manistee Lake.",
+          "secondaryNote": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It represents the Upper river (High Bridge–Tippy Dam), especially the Tippy Dam area. Conditions can differ in the Middle river, Lower river, Manistee Lake, and harbor.",
           "safety": {
             "regulationReminder": "The Big Manistee below Tippy is a Type 3 reach extending to the railroad bridge below M-55, with a year-round one-Rainbow-Trout limit and special artificial-lure rules during the August 1–November 15 window. Follow current Michigan regulations, DNR closure notices, dam-safety information, and posted boundaries. Fishing methods can change by reach and season.",
-            "gaugeBasis": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It best represents the Tippy tailwater and upper migratory corridor; flow, temperature, access, and fishability can differ downstream through High Bridge, Bear Creek, the lower river, and Manistee Lake.",
+            "gaugeBasis": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It represents the Upper river (High Bridge–Tippy Dam), especially the Tippy Dam area. Conditions can differ in the Middle river, Lower river, Manistee Lake, and harbor.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-big-manistee-steelhead-activity.1"
+          "configVersion": "2026-08-10-big-manistee-copy.1"
         }
       },
       {
@@ -2122,6 +2133,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
           "nextConditionRefreshAt": "2026-10-02T05:00:00.000Z",
           "runStage": {
             "stage": "building",
+            "copyStrategy": "big_manistee_tailwater",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -2144,14 +2156,14 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "peakToEndDays": 41
             },
             "label": "Building",
-            "headline": "More Coho salmon are becoming established below Tippy Dam.",
-            "whereToStart": "Begin in the Tippy tailwater, then compare the Tippy-to-High Bridge reach with deeper bends in the High Bridge-Bear Creek middle corridor before committing to one section.",
-            "detail": "Earlier fish can be established near the dam while newer arrivals remain distributed farther downstream. The river is not a single uniform gauge reach.",
-            "tip": "Work substantial holding water and current breaks section by section. Do not turn a Wellston reading into a claim about the lower river.",
+            "headline": "Coho salmon are becoming established through more of the river.",
+            "whereToStart": "Start in the Middle river (Bear Creek–High Bridge). Add the Upper river (High Bridge–Tippy Dam), especially the Tippy Dam area, when direct activity supports it.",
+            "detail": "Coho may occupy more than one section, but the opportunity remains selective.",
+            "tip": "Compare one section at a time; Wellston does not describe the Middle or Lower river.",
             "reasonCodes": [
               "stage_building"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -2204,15 +2216,15 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "2026-09-30"
             ],
             "sourceRefreshSlots": {},
-            "headline": "There is not enough reliable information for a Migration Timing call.",
-            "tip": "Do not move farther upstream or stay lower based on this timing read. Fish the section identified by Migration Stage and begin in its most established holding water; change sections only when direct fish activity or a dependable later read supports it.",
+            "headline": "There is not enough reliable Big Manistee evidence for a Migration Timing call.",
+            "tip": "Keep the section named by Migration Stage. Do not shift sections from this timing read.",
             "detail": "There are not enough dependable past seasons to judge whether this migration is early, normal, or late.",
             "reasonCodes": [
               "conditions_baseline_missing",
               "conditions_insufficient",
               "conditions_checkpoint_building_established"
             ],
-            "copyVersion": "river-run-copy-v27",
+            "copyVersion": "river-run-copy-v34",
             "previousCheckpointId": "building_start",
             "previousCheckpointDate": "2026-10-01",
             "previousTimingLabel": "Insufficient evidence"
@@ -2229,9 +2241,9 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
           "push": {
             "score": 30,
             "label": "No clear push",
-            "headline": "Today's water does not show a clear signal for a fresh wave of fish.",
-            "detail": "The river is holding steady with no meaningful rise yet. Water temperature is favorable for fall migration and is relatively steady. Recent weather estimates indicate very little rain around the river.",
-            "tip": "Fish established holding water from the head through the inside seam and tail. Do not spend the day racing between lower travel lanes for a wave the water does not support.",
+            "headline": "Upper-river water does not show a clear fresh-movement signal.",
+            "detail": "The river is holding steady with no meaningful rise yet. Water temperature is favorable for fall migration and is relatively steady. Recent watershed weather shows little rain.",
+            "tip": "Keep Migration Stage’s section primary. Do not shift to fresh-entry water from this read.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
@@ -2250,14 +2262,14 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 93,
             "label": "Excellent",
-            "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river.",
-            "tip": "Begin on the primary travel lane feeding deep holding water. Work each hole from its head through the inside seam and tail, then keep moving until fish establish a pattern.",
+            "headline": "Upper-river flow is in its best presentation range.",
+            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read covers only the Upper river (High Bridge–Tippy Dam).",
+            "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band"
@@ -2268,15 +2280,15 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 75,
             "maximum": 100,
             "label": "Active",
-            "headline": "Today’s Coho activity outlook is active.",
-            "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. More Coho are entering and settling into the river; measured water temperature matters, but this score describes reaction conditions rather than movement or abundance. The measured conditions represent the Wellston/Tippy tailwater; water temperature, clarity, and presentation conditions can differ through the middle and lower migratory river. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
-            "tip": "Start with 5–9 AM. If the sky changes from the forecast, favor the darkest practical window.",
+            "headline": "Today’s Upper-river Coho responsiveness is active.",
+            "detail": "Conditions support a meaningful Coho response. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Wellston flow and temperature represent the Upper river, especially the Tippy Dam area.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify downstream sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -2328,10 +2340,13 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 20,
+            "displayScore": 20,
+            "scoreIsApproximate": true,
             "stage": "building",
             "maximum": 100,
             "riverCeiling": 50,
@@ -2340,14 +2355,14 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "curveDirection": "rising",
             "winterHoldingContext": false,
             "label": "Limited presence",
-            "headline": "Some Coho salmon are likely in the river, but seasonal presence is still developing.",
-            "detail": "This part of the season usually brings limited presence, with more fish expected to enter and become established through several dependable river sections. This is a seasonal estimate, not a live fish count.",
-            "tip": "Plan for an emerging but uneven river opportunity. Cover water efficiently, and do not assume every promising stop holds fish.",
+            "headline": "Seasonal Coho salmon presence is limited and building.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the Big Manistee Coho salmon ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_building",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -2575,14 +2590,14 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             ]
           },
           "interpretationNote": null,
-          "secondaryNote": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It best represents the Tippy tailwater and upper migratory corridor; flow, temperature, access, and fishability can differ downstream through High Bridge, Bear Creek, the lower river, and Manistee Lake.",
+          "secondaryNote": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It represents the Upper river (High Bridge–Tippy Dam), especially the Tippy Dam area. Conditions can differ in the Middle river, Lower river, Manistee Lake, and harbor.",
           "safety": {
             "regulationReminder": "The Big Manistee below Tippy is a Type 3 reach extending to the railroad bridge below M-55, with a year-round one-Rainbow-Trout limit and special artificial-lure rules during the August 1–November 15 window. Follow current Michigan regulations, DNR closure notices, dam-safety information, and posted boundaries. Fishing methods can change by reach and season.",
-            "gaugeBasis": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It best represents the Tippy tailwater and upper migratory corridor; flow, temperature, access, and fishability can differ downstream through High Bridge, Bear Creek, the lower river, and Manistee Lake.",
+            "gaugeBasis": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It represents the Upper river (High Bridge–Tippy Dam), especially the Tippy Dam area. Conditions can differ in the Middle river, Lower river, Manistee Lake, and harbor.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-big-manistee-steelhead-activity.1"
+          "configVersion": "2026-08-10-big-manistee-copy.1"
         }
       },
       {
@@ -2601,6 +2616,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
           "nextConditionRefreshAt": "2026-10-11T05:00:00.000Z",
           "runStage": {
             "stage": "building",
+            "copyStrategy": "big_manistee_tailwater",
             "stagingContext": false,
             "broadBuildingContext": true,
             "winterHoldingContext": false,
@@ -2623,14 +2639,14 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "peakToEndDays": 41
             },
             "label": "Building",
-            "headline": "The Big Manistee Coho salmon opportunity is broadening through the migratory corridor.",
-            "whereToStart": "Sample select Tippy-to-High Bridge pools, the High Bridge-Bear Creek middle corridor, and one or two substantial lower-river bends toward M-55.",
-            "detail": "More than one migratory reach is now plausible, but this remains sectional opportunity—not evidence that fish occupy every reach or good-looking hole. Wellston directly measures only the regulated tailwater.",
-            "tip": "Use the gauge for the Tippy tailwater. Treat lower-river clarity, access, and holding water as separate reach questions.",
+            "headline": "Coho salmon are established in select Big Manistee sections.",
+            "whereToStart": "Start in the Upper river (High Bridge–Tippy Dam), emphasizing the Tippy Dam area. Compare the Middle river (Bear Creek–High Bridge) when direct activity favors it.",
+            "detail": "More than one section may hold Coho, but concentrations remain selective.",
+            "tip": "Use Wellston conditions only for the Upper river. Verify downstream water directly.",
             "reasonCodes": [
               "stage_building"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -2683,15 +2699,15 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "2026-09-30"
             ],
             "sourceRefreshSlots": {},
-            "headline": "There is not enough reliable information for a Migration Timing call.",
-            "tip": "Do not move farther upstream or stay lower based on this timing read. Fish the section identified by Migration Stage and begin in its most established holding water; change sections only when direct fish activity or a dependable later read supports it.",
+            "headline": "There is not enough reliable Big Manistee evidence for a Migration Timing call.",
+            "tip": "Keep the section named by Migration Stage. Do not shift sections from this timing read.",
             "detail": "There are not enough dependable past seasons to judge whether this migration is early, normal, or late.",
             "reasonCodes": [
               "conditions_baseline_missing",
               "conditions_insufficient",
               "conditions_checkpoint_building_established"
             ],
-            "copyVersion": "river-run-copy-v27",
+            "copyVersion": "river-run-copy-v34",
             "previousCheckpointId": "building_start",
             "previousCheckpointDate": "2026-10-01",
             "previousTimingLabel": "Insufficient evidence"
@@ -2708,9 +2724,9 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
           "push": {
             "score": 30,
             "label": "No clear push",
-            "headline": "Today's water does not show a clear signal for a fresh wave of fish.",
-            "detail": "The river is holding steady with no meaningful rise yet. Water temperature is favorable for fall migration and is relatively steady. Recent weather estimates indicate very little rain around the river.",
-            "tip": "Fish established holding water from the head through the inside seam and tail. Do not spend the day racing between lower travel lanes for a wave the water does not support.",
+            "headline": "Upper-river water does not show a clear fresh-movement signal.",
+            "detail": "The river is holding steady with no meaningful rise yet. Water temperature is favorable for fall migration and is relatively steady. Recent watershed weather shows little rain.",
+            "tip": "Keep Migration Stage’s section primary. Do not shift to fresh-entry water from this read.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
@@ -2729,14 +2745,14 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 93,
             "label": "Excellent",
-            "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river.",
-            "tip": "Begin on the primary travel lane feeding deep holding water. Work each hole from its head through the inside seam and tail, then keep moving until fish establish a pattern.",
+            "headline": "Upper-river flow is in its best presentation range.",
+            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read covers only the Upper river (High Bridge–Tippy Dam).",
+            "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band"
@@ -2747,15 +2763,15 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 75,
             "maximum": 100,
             "label": "Active",
-            "headline": "Today’s Coho activity outlook is active.",
-            "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. More Coho are entering and settling into the river; measured water temperature matters, but this score describes reaction conditions rather than movement or abundance. The measured conditions represent the Wellston/Tippy tailwater; water temperature, clarity, and presentation conditions can differ through the middle and lower migratory river. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
-            "tip": "Start with 5–9 AM. If the sky changes from the forecast, favor the darkest practical window.",
+            "headline": "Today’s Upper-river Coho responsiveness is active.",
+            "detail": "Conditions support a meaningful Coho response. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Wellston flow and temperature represent the Upper river, especially the Tippy Dam area.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify downstream sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -2807,10 +2823,13 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 33,
+            "displayScore": 35,
+            "scoreIsApproximate": true,
             "stage": "building",
             "maximum": 100,
             "riverCeiling": 50,
@@ -2819,14 +2838,14 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "curveDirection": "rising",
             "winterHoldingContext": false,
             "label": "High presence",
-            "headline": "Coho salmon are likely present through more dependable river sections as seasonal presence builds toward its strongest point.",
-            "detail": "Seasonal presence is usually elevated relative to the rest of the season, with more fish expected to enter and become established through several dependable river sections. This is a seasonal estimate, not a live fish count.",
-            "tip": "Treat this as one of the stronger parts of this river's moderate seasonal opportunity. Give each stop a complete pass, but do not mistake this seasonal estimate for a live fish count.",
+            "headline": "Seasonal Coho salmon presence is high and building.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the Big Manistee Coho salmon ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_building",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -3054,14 +3073,14 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             ]
           },
           "interpretationNote": null,
-          "secondaryNote": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It best represents the Tippy tailwater and upper migratory corridor; flow, temperature, access, and fishability can differ downstream through High Bridge, Bear Creek, the lower river, and Manistee Lake.",
+          "secondaryNote": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It represents the Upper river (High Bridge–Tippy Dam), especially the Tippy Dam area. Conditions can differ in the Middle river, Lower river, Manistee Lake, and harbor.",
           "safety": {
             "regulationReminder": "The Big Manistee below Tippy is a Type 3 reach extending to the railroad bridge below M-55, with a year-round one-Rainbow-Trout limit and special artificial-lure rules during the August 1–November 15 window. Follow current Michigan regulations, DNR closure notices, dam-safety information, and posted boundaries. Fishing methods can change by reach and season.",
-            "gaugeBasis": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It best represents the Tippy tailwater and upper migratory corridor; flow, temperature, access, and fishability can differ downstream through High Bridge, Bear Creek, the lower river, and Manistee Lake.",
+            "gaugeBasis": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It represents the Upper river (High Bridge–Tippy Dam), especially the Tippy Dam area. Conditions can differ in the Middle river, Lower river, Manistee Lake, and harbor.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-big-manistee-steelhead-activity.1"
+          "configVersion": "2026-08-10-big-manistee-copy.1"
         }
       },
       {
@@ -3080,6 +3099,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
           "nextConditionRefreshAt": "2026-10-16T05:00:00.000Z",
           "runStage": {
             "stage": "building",
+            "copyStrategy": "big_manistee_tailwater",
             "stagingContext": false,
             "broadBuildingContext": true,
             "winterHoldingContext": false,
@@ -3102,14 +3122,14 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "peakToEndDays": 41
             },
             "label": "Building",
-            "headline": "Coho salmon are moving into the Big Manistee's strongest seasonal window.",
-            "whereToStart": "Start in the Tippy-to-High Bridge reach for accumulated fish, then compare the High Bridge-Bear Creek middle corridor and lower-river bends toward M-55 for fresher arrivals.",
-            "detail": "Multiple waves have had time to spread through the corridor, and the tailwater reach is building toward its heaviest-use period. Reach-to-reach clarity and fish freshness can still differ sharply.",
-            "tip": "Use Wellston to judge the tailwater response, but compare several sections before assuming the most crowded water holds the freshest fish.",
+            "headline": "Coho salmon are approaching their strongest Big Manistee window.",
+            "whereToStart": "Start in the Upper river (High Bridge–Tippy Dam), emphasizing the Tippy Dam area. Compare the Middle river (Bear Creek–High Bridge) for fresher fish.",
+            "detail": "Seasonal opportunity is broadening, but Coho remain concentrated in select water.",
+            "tip": "Use Wellston only for Upper-river conditions and verify downstream water directly.",
             "reasonCodes": [
               "stage_building"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -3176,15 +3196,15 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "2026-10-14"
             ],
             "sourceRefreshSlots": {},
-            "headline": "There is not enough reliable information for a Migration Timing call.",
-            "tip": "Do not move farther upstream or stay lower based on this timing read. Fish the section identified by Migration Stage and begin in its most established holding water; change sections only when direct fish activity or a dependable later read supports it.",
+            "headline": "There is not enough reliable Big Manistee evidence for a Migration Timing call.",
+            "tip": "Keep the section named by Migration Stage. Do not shift sections from this timing read.",
             "detail": "There are not enough dependable past seasons to judge whether this migration is early, normal, or late.",
             "reasonCodes": [
               "conditions_baseline_missing",
               "conditions_insufficient",
               "conditions_checkpoint_peak_start"
             ],
-            "copyVersion": "river-run-copy-v27",
+            "copyVersion": "river-run-copy-v34",
             "previousCheckpointId": "building_established",
             "previousCheckpointDate": "2026-10-01",
             "previousTimingLabel": "Insufficient evidence"
@@ -3201,9 +3221,9 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
           "push": {
             "score": 30,
             "label": "No clear push",
-            "headline": "Today's water does not show a clear signal for a fresh wave of fish.",
-            "detail": "The river is holding steady with no meaningful rise yet. Water temperature is favorable for fall migration and is relatively steady. Recent weather estimates indicate very little rain around the river.",
-            "tip": "Fish established holding water from the head through the inside seam and tail. Do not spend the day racing between lower travel lanes for a wave the water does not support.",
+            "headline": "Upper-river water does not show a clear fresh-movement signal.",
+            "detail": "The river is holding steady with no meaningful rise yet. Water temperature is favorable for fall migration and is relatively steady. Recent watershed weather shows little rain.",
+            "tip": "Keep Migration Stage’s section primary. Do not shift to fresh-entry water from this read.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
@@ -3222,14 +3242,14 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 93,
             "label": "Excellent",
-            "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river.",
-            "tip": "Begin on the primary travel lane feeding deep holding water. Work each hole from its head through the inside seam and tail, then keep moving until fish establish a pattern.",
+            "headline": "Upper-river flow is in its best presentation range.",
+            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read covers only the Upper river (High Bridge–Tippy Dam).",
+            "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band"
@@ -3240,15 +3260,15 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 75,
             "maximum": 100,
             "label": "Active",
-            "headline": "Today’s Coho activity outlook is active.",
-            "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. More Coho are entering and settling into the river; measured water temperature matters, but this score describes reaction conditions rather than movement or abundance. The measured conditions represent the Wellston/Tippy tailwater; water temperature, clarity, and presentation conditions can differ through the middle and lower migratory river. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
-            "tip": "Start with 5–9 AM. If the sky changes from the forecast, favor the darkest practical window.",
+            "headline": "Today’s Upper-river Coho responsiveness is active.",
+            "detail": "Conditions support a meaningful Coho response. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Wellston flow and temperature represent the Upper river, especially the Tippy Dam area.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify downstream sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -3300,10 +3320,13 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 45,
+            "displayScore": 45,
+            "scoreIsApproximate": true,
             "stage": "building",
             "maximum": 100,
             "riverCeiling": 50,
@@ -3312,14 +3335,14 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "curveDirection": "rising",
             "winterHoldingContext": false,
             "label": "Peak presence",
-            "headline": "Coho salmon are likely present through more dependable river sections as seasonal presence builds toward its strongest point.",
-            "detail": "The migration is approaching its strongest seasonal point, and fish are likely distributed through several dependable river sections. This is a seasonal estimate, not a live fish count.",
-            "tip": "Treat this as one of the stronger parts of this river's moderate seasonal opportunity. Give each stop a complete pass, but do not mistake this seasonal estimate for a live fish count.",
+            "headline": "Seasonal Coho salmon presence is near its expected Big Manistee peak.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the Big Manistee Coho salmon ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_building",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -3547,14 +3570,14 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             ]
           },
           "interpretationNote": null,
-          "secondaryNote": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It best represents the Tippy tailwater and upper migratory corridor; flow, temperature, access, and fishability can differ downstream through High Bridge, Bear Creek, the lower river, and Manistee Lake.",
+          "secondaryNote": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It represents the Upper river (High Bridge–Tippy Dam), especially the Tippy Dam area. Conditions can differ in the Middle river, Lower river, Manistee Lake, and harbor.",
           "safety": {
             "regulationReminder": "The Big Manistee below Tippy is a Type 3 reach extending to the railroad bridge below M-55, with a year-round one-Rainbow-Trout limit and special artificial-lure rules during the August 1–November 15 window. Follow current Michigan regulations, DNR closure notices, dam-safety information, and posted boundaries. Fishing methods can change by reach and season.",
-            "gaugeBasis": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It best represents the Tippy tailwater and upper migratory corridor; flow, temperature, access, and fishability can differ downstream through High Bridge, Bear Creek, the lower river, and Manistee Lake.",
+            "gaugeBasis": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It represents the Upper river (High Bridge–Tippy Dam), especially the Tippy Dam area. Conditions can differ in the Middle river, Lower river, Manistee Lake, and harbor.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-big-manistee-steelhead-activity.1"
+          "configVersion": "2026-08-10-big-manistee-copy.1"
         }
       },
       {
@@ -3573,6 +3596,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
           "nextConditionRefreshAt": "2026-10-21T05:00:00.000Z",
           "runStage": {
             "stage": "peak",
+            "copyStrategy": "big_manistee_tailwater",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -3595,14 +3619,14 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "peakToEndDays": 41
             },
             "label": "Peak",
-            "headline": "This is typically the strongest part of the Big Manistee Coho salmon window.",
-            "whereToStart": "Compare the Tippy tailwater, Tippy-to-High Bridge reach, High Bridge-Bear Creek middle corridor, and major lower-river holes toward M-55.",
-            "detail": "This is the best seasonal chance to find fish in more than one migratory reach, but the opportunity remains sectional and concentrations can change sharply from one access or hole to the next.",
-            "tip": "Use Wellston for the regulated tailwater response, then make lower-river decisions from local water conditions rather than extrapolation.",
+            "headline": "This is the strongest seasonal Big Manistee Coho salmon window.",
+            "whereToStart": "Start in the Upper river (High Bridge–Tippy Dam), emphasizing the Tippy Dam area. Compare the Middle river (Bear Creek–High Bridge) for fresher fish.",
+            "detail": "This is still sectional opportunity; Coho will not be evenly distributed.",
+            "tip": "Use Wellston only for Upper-river conditions and leave visible spawning fish undisturbed.",
             "reasonCodes": [
               "stage_peak"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -3669,15 +3693,15 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "2026-10-14"
             ],
             "sourceRefreshSlots": {},
-            "headline": "There is not enough reliable information for a Migration Timing call.",
-            "tip": "Do not move farther upstream or stay lower based on this timing read. Fish the section identified by Migration Stage and begin in its most established holding water; change sections only when direct fish activity or a dependable later read supports it.",
+            "headline": "There is not enough reliable Big Manistee evidence for a Migration Timing call.",
+            "tip": "Keep the section named by Migration Stage. Do not shift sections from this timing read.",
             "detail": "There are not enough dependable past seasons to judge whether this migration is early, normal, or late.",
             "reasonCodes": [
               "conditions_baseline_missing",
               "conditions_insufficient",
               "conditions_checkpoint_peak_start"
             ],
-            "copyVersion": "river-run-copy-v27",
+            "copyVersion": "river-run-copy-v34",
             "previousCheckpointId": "building_established",
             "previousCheckpointDate": "2026-10-01",
             "previousTimingLabel": "Insufficient evidence"
@@ -3694,9 +3718,9 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
           "push": {
             "score": 30,
             "label": "No clear push",
-            "headline": "Today's water does not show a clear signal for a fresh wave of fish.",
-            "detail": "The river is holding steady with no meaningful rise yet. Water temperature is favorable for fall migration and is relatively steady. Recent weather estimates indicate very little rain around the river.",
-            "tip": "Fish established holding water from the head through the inside seam and tail. Do not spend the day racing between lower travel lanes for a wave the water does not support.",
+            "headline": "Upper-river water does not show a clear fresh-movement signal.",
+            "detail": "The river is holding steady with no meaningful rise yet. Water temperature is favorable for fall migration and is relatively steady. Recent watershed weather shows little rain.",
+            "tip": "Keep Migration Stage’s section primary. Do not shift to fresh-entry water from this read.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
@@ -3715,14 +3739,14 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 93,
             "label": "Excellent",
-            "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river.",
-            "tip": "Begin on the primary travel lane feeding deep holding water. Work each hole from its head through the inside seam and tail, then keep moving until fish establish a pattern.",
+            "headline": "Upper-river flow is in its best presentation range.",
+            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read covers only the Upper river (High Bridge–Tippy Dam).",
+            "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band"
@@ -3733,15 +3757,15 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 75,
             "maximum": 100,
             "label": "Active",
-            "headline": "Today’s Coho activity outlook is active.",
-            "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. Broad seasonal presence can make fish easier to locate, but this score measures the responsiveness of Coho already present rather than their abundance. The measured conditions represent the Wellston/Tippy tailwater; water temperature, clarity, and presentation conditions can differ through the middle and lower migratory river. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
-            "tip": "Start with 5–9 AM. If the sky changes from the forecast, favor the darkest practical window.",
+            "headline": "Today’s Upper-river Coho responsiveness is active.",
+            "detail": "Conditions support a meaningful Coho response. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Wellston flow and temperature represent the Upper river, especially the Tippy Dam area.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify downstream sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -3793,10 +3817,13 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 50,
+            "displayScore": 50,
+            "scoreIsApproximate": false,
             "stage": "peak",
             "maximum": 100,
             "riverCeiling": 50,
@@ -3805,14 +3832,14 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "curveDirection": "near_peak",
             "winterHoldingContext": false,
             "label": "Peak presence",
-            "headline": "Coho salmon are likely near their highest seasonal presence in the river.",
-            "detail": "This is the part of the season when in-river presence is usually strongest. Fish are most likely distributed through several dependable river sections. The read does not place fish in a specific pool or confirm a live count.",
-            "tip": "Plan for a dependable but potentially uneven river opportunity near its seasonal high point. Confirm fish activity before committing the full day.",
+            "headline": "Seasonal Coho salmon presence is near its expected Big Manistee peak.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the Big Manistee Coho salmon ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_peak",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -4046,14 +4073,14 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "peak_presence_weak_push"
             ]
           },
-          "secondaryNote": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It best represents the Tippy tailwater and upper migratory corridor; flow, temperature, access, and fishability can differ downstream through High Bridge, Bear Creek, the lower river, and Manistee Lake.",
+          "secondaryNote": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It represents the Upper river (High Bridge–Tippy Dam), especially the Tippy Dam area. Conditions can differ in the Middle river, Lower river, Manistee Lake, and harbor.",
           "safety": {
             "regulationReminder": "The Big Manistee below Tippy is a Type 3 reach extending to the railroad bridge below M-55, with a year-round one-Rainbow-Trout limit and special artificial-lure rules during the August 1–November 15 window. Follow current Michigan regulations, DNR closure notices, dam-safety information, and posted boundaries. Fishing methods can change by reach and season.",
-            "gaugeBasis": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It best represents the Tippy tailwater and upper migratory corridor; flow, temperature, access, and fishability can differ downstream through High Bridge, Bear Creek, the lower river, and Manistee Lake.",
+            "gaugeBasis": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It represents the Upper river (High Bridge–Tippy Dam), especially the Tippy Dam area. Conditions can differ in the Middle river, Lower river, Manistee Lake, and harbor.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-big-manistee-steelhead-activity.1"
+          "configVersion": "2026-08-10-big-manistee-copy.1"
         }
       },
       {
@@ -4072,6 +4099,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
           "nextConditionRefreshAt": "2026-10-28T05:00:00.000Z",
           "runStage": {
             "stage": "peak",
+            "copyStrategy": "big_manistee_tailwater",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -4094,14 +4122,14 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "peakToEndDays": 41
             },
             "label": "Peak",
-            "headline": "The Big Manistee remains near peak Coho salmon presence as the run begins shifting toward a late-season mix.",
-            "whereToStart": "Work the deeper pools below Tippy, High Bridge bends, and the Bear Creek junction; visit lower-river travel holes only when fresh movement is evident.",
-            "detail": "Strong numbers can remain through the system, but the mix increasingly includes fish that have held for days or begun spawning alongside later arrivals.",
-            "tip": "Prioritize deep holding water connected to current, look for genuinely fresh fish, and leave visible fish on shallow spawning gravel undisturbed.",
+            "headline": "Big Manistee Coho salmon presence remains near its seasonal peak.",
+            "whereToStart": "Start in the Upper river (High Bridge–Tippy Dam), emphasizing the Tippy Dam area. Compare the Middle river (Bear Creek–High Bridge) for fresher fish.",
+            "detail": "Coho remain sectional as the run begins shifting toward a later mix.",
+            "tip": "Look for genuinely fresh fish and leave visible spawning fish undisturbed.",
             "reasonCodes": [
               "stage_peak"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Timing complete",
@@ -4187,7 +4215,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "conditions_checkpoint_peak_complete",
               "conditions_timing_complete"
             ],
-            "copyVersion": "river-run-copy-v27",
+            "copyVersion": "river-run-copy-v34",
             "previousCheckpointId": "peak_start",
             "previousCheckpointDate": "2026-10-15",
             "previousTimingLabel": "Insufficient evidence"
@@ -4204,9 +4232,9 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
           "push": {
             "score": 30,
             "label": "No clear push",
-            "headline": "Today's water does not show a clear signal for a fresh wave of fish.",
-            "detail": "The river is holding steady with no meaningful rise yet. Water temperature is favorable for fall migration and is relatively steady. Recent weather estimates indicate very little rain around the river.",
-            "tip": "Fish established holding water from the head through the inside seam and tail. Do not spend the day racing between lower travel lanes for a wave the water does not support.",
+            "headline": "Upper-river water does not show a clear fresh-movement signal.",
+            "detail": "The river is holding steady with no meaningful rise yet. Water temperature is favorable for fall migration and is relatively steady. Recent watershed weather shows little rain.",
+            "tip": "Keep Migration Stage’s section primary. Do not shift to fresh-entry water from this read.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
@@ -4225,14 +4253,14 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 93,
             "label": "Excellent",
-            "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river.",
-            "tip": "Begin on the primary travel lane feeding deep holding water. Work each hole from its head through the inside seam and tail, then keep moving until fish establish a pattern.",
+            "headline": "Upper-river flow is in its best presentation range.",
+            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read covers only the Upper river (High Bridge–Tippy Dam).",
+            "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band"
@@ -4243,15 +4271,15 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 75,
             "maximum": 100,
             "label": "Active",
-            "headline": "Today’s Coho activity outlook is active.",
-            "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. Broad seasonal presence can make fish easier to locate, but this score measures the responsiveness of Coho already present rather than their abundance. The measured conditions represent the Wellston/Tippy tailwater; water temperature, clarity, and presentation conditions can differ through the middle and lower migratory river. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
-            "tip": "Start with 5–9 AM. If the sky changes from the forecast, favor the darkest practical window.",
+            "headline": "Today’s Upper-river Coho responsiveness is active.",
+            "detail": "Conditions support a meaningful Coho response. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Wellston flow and temperature represent the Upper river, especially the Tippy Dam area.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify downstream sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -4303,10 +4331,13 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 47,
+            "displayScore": 45,
+            "scoreIsApproximate": true,
             "stage": "peak",
             "maximum": 100,
             "riverCeiling": 50,
@@ -4315,14 +4346,14 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "curveDirection": "falling",
             "winterHoldingContext": false,
             "label": "Peak presence",
-            "headline": "Seasonal timing still supports Coho salmon being near their strongest in-river presence, even if the migration may be just beyond its usual peak.",
-            "detail": "This point in the season may sit just beyond the usual peak while the seasonal pattern still supports fish through several dependable river sections. This is a seasonal estimate, not a live fish count.",
-            "tip": "Plan around fish already likely to be in the river. Seasonal presence is still near its high point, but remember that this seasonal estimate cannot tell whether a fresh wave is entering today.",
+            "headline": "Seasonal Coho salmon presence is near its expected Big Manistee peak.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the Big Manistee Coho salmon ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_peak",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -4556,14 +4587,14 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "peak_presence_weak_push"
             ]
           },
-          "secondaryNote": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It best represents the Tippy tailwater and upper migratory corridor; flow, temperature, access, and fishability can differ downstream through High Bridge, Bear Creek, the lower river, and Manistee Lake.",
+          "secondaryNote": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It represents the Upper river (High Bridge–Tippy Dam), especially the Tippy Dam area. Conditions can differ in the Middle river, Lower river, Manistee Lake, and harbor.",
           "safety": {
             "regulationReminder": "The Big Manistee below Tippy is a Type 3 reach extending to the railroad bridge below M-55, with a year-round one-Rainbow-Trout limit and special artificial-lure rules during the August 1–November 15 window. Follow current Michigan regulations, DNR closure notices, dam-safety information, and posted boundaries. Fishing methods can change by reach and season.",
-            "gaugeBasis": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It best represents the Tippy tailwater and upper migratory corridor; flow, temperature, access, and fishability can differ downstream through High Bridge, Bear Creek, the lower river, and Manistee Lake.",
+            "gaugeBasis": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It represents the Upper river (High Bridge–Tippy Dam), especially the Tippy Dam area. Conditions can differ in the Middle river, Lower river, Manistee Lake, and harbor.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-big-manistee-steelhead-activity.1"
+          "configVersion": "2026-08-10-big-manistee-copy.1"
         }
       },
       {
@@ -4582,6 +4613,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
           "nextConditionRefreshAt": "2026-11-02T05:00:00.000Z",
           "runStage": {
             "stage": "tapering",
+            "copyStrategy": "big_manistee_tailwater",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -4604,14 +4636,14 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "peakToEndDays": 41
             },
             "label": "Tapering",
-            "headline": "The Big Manistee can remain productive for Coho salmon, although fresh arrivals are becoming less consistent.",
-            "whereToStart": "Begin with shaded pools below Tippy and the slower edges of High Bridge bends, then check Bear Creek for late moving fish.",
-            "detail": "Older fish may remain while new movement becomes more dependent on cooling water and a measured hydraulic response.",
-            "tip": "Prioritize established holding water and do not treat rain alone as a confirmed push.",
+            "headline": "Coho salmon remain present, but fresh arrivals are less consistent.",
+            "whereToStart": "Start in the Upper river (High Bridge–Tippy Dam), especially the Tippy Dam area. Add the Middle river (Bear Creek–High Bridge) only when direct activity supports it.",
+            "detail": "The run is declining and increasingly concentrated in established holding water.",
+            "tip": "Look for genuinely fresh fish and leave visible spawning or deteriorated fish alone.",
             "reasonCodes": [
               "stage_tapering"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Timing complete",
@@ -4697,7 +4729,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "conditions_checkpoint_peak_complete",
               "conditions_timing_complete"
             ],
-            "copyVersion": "river-run-copy-v27",
+            "copyVersion": "river-run-copy-v34",
             "previousCheckpointId": "peak_start",
             "previousCheckpointDate": "2026-10-15",
             "previousTimingLabel": "Insufficient evidence"
@@ -4714,9 +4746,9 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
           "push": {
             "score": 30,
             "label": "No clear push",
-            "headline": "Today's water does not show a clear signal for a fresh wave of fish.",
-            "detail": "The river is holding steady with no meaningful rise yet. Water temperature is favorable for fall migration and is relatively steady. Recent weather estimates indicate very little rain around the river.",
-            "tip": "Fish established holding water from the head through the inside seam and tail. Do not spend the day racing between lower travel lanes for a wave the water does not support.",
+            "headline": "Upper-river water does not show a clear fresh-movement signal.",
+            "detail": "The river is holding steady with no meaningful rise yet. Water temperature is favorable for fall migration and is relatively steady. Recent watershed weather shows little rain.",
+            "tip": "Keep Migration Stage’s section primary. Do not shift to fresh-entry water from this read.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
@@ -4735,14 +4767,14 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 93,
             "label": "Excellent",
-            "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river.",
-            "tip": "Begin on the primary travel lane feeding deep holding water. Work each hole from its head through the inside seam and tail, then keep moving until fish establish a pattern.",
+            "headline": "Upper-river flow is in its best presentation range.",
+            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read covers only the Upper river (High Bridge–Tippy Dam).",
+            "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band"
@@ -4753,15 +4785,15 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 74,
             "maximum": 100,
             "label": "Active",
-            "headline": "Today’s Coho activity outlook is active.",
-            "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. This score represents a Coho of unknown condition at this point in the season. A newly arrived or fresher fish may be more active than this score, while a spawning or deteriorating fish may be less responsive. The measured conditions represent the Wellston/Tippy tailwater; water temperature, clarity, and presentation conditions can differ through the middle and lower migratory river. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
-            "tip": "Compare the four time windows, but treat every difference as conditional on finding a living Coho still capable of responding.",
+            "headline": "Today’s Upper-river Coho responsiveness is active.",
+            "detail": "Conditions support a meaningful Coho response. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Late-run Coho condition varies widely, so individual fish may respond above or below this outlook.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify downstream sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -4814,10 +4846,13 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 44,
+            "displayScore": 40,
+            "scoreIsApproximate": true,
             "stage": "tapering",
             "maximum": 100,
             "riverCeiling": 50,
@@ -4826,14 +4861,14 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "curveDirection": "falling",
             "winterHoldingContext": false,
             "label": "High presence",
-            "headline": "Seasonal timing still supports meaningful Coho salmon presence through dependable river sections, even as the usual peak window may be easing.",
-            "detail": "Seasonal presence remains elevated relative to the rest of the season. Fish are still likely established through several dependable river sections, but fresh arrivals may be less consistent than around the usual peak. This is a seasonal estimate, not a live fish count.",
-            "tip": "Plan around fish already likely to be in the river. Seasonal presence is still near its high point, but remember that this seasonal estimate cannot tell whether a fresh wave is entering today.",
+            "headline": "Seasonal Coho salmon presence is high and declining.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the Big Manistee Coho salmon ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_tapering",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -5061,14 +5096,14 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             ]
           },
           "interpretationNote": null,
-          "secondaryNote": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It best represents the Tippy tailwater and upper migratory corridor; flow, temperature, access, and fishability can differ downstream through High Bridge, Bear Creek, the lower river, and Manistee Lake.",
+          "secondaryNote": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It represents the Upper river (High Bridge–Tippy Dam), especially the Tippy Dam area. Conditions can differ in the Middle river, Lower river, Manistee Lake, and harbor.",
           "safety": {
             "regulationReminder": "The Big Manistee below Tippy is a Type 3 reach extending to the railroad bridge below M-55, with a year-round one-Rainbow-Trout limit and special artificial-lure rules during the August 1–November 15 window. Follow current Michigan regulations, DNR closure notices, dam-safety information, and posted boundaries. Fishing methods can change by reach and season.",
-            "gaugeBasis": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It best represents the Tippy tailwater and upper migratory corridor; flow, temperature, access, and fishability can differ downstream through High Bridge, Bear Creek, the lower river, and Manistee Lake.",
+            "gaugeBasis": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It represents the Upper river (High Bridge–Tippy Dam), especially the Tippy Dam area. Conditions can differ in the Middle river, Lower river, Manistee Lake, and harbor.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-big-manistee-steelhead-activity.1"
+          "configVersion": "2026-08-10-big-manistee-copy.1"
         }
       },
       {
@@ -5087,6 +5122,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
           "nextConditionRefreshAt": "2026-11-08T05:00:00.000Z",
           "runStage": {
             "stage": "tapering",
+            "copyStrategy": "big_manistee_tailwater",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -5110,13 +5146,13 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             },
             "label": "Tapering",
             "headline": "The Big Manistee Coho salmon run is entering its late taper.",
-            "whereToStart": "Target the deepest pools below Tippy, slower inside bends near High Bridge, and current seams around Bear Creek; go lower only on a fresh response.",
-            "detail": "Fish can remain numerous in selected holding and spawning reaches, but fresh silver arrivals are becoming the exception and river-wide distribution is less dependable.",
-            "tip": "Fish selected deep water carefully, avoid shallow spawning fish, and do not let one late arrival stand in for a broad new wave.",
+            "whereToStart": "Start in the Upper river (High Bridge–Tippy Dam), especially the Tippy Dam area. Add the Middle river (Bear Creek–High Bridge) only when direct activity supports it.",
+            "detail": "Fresh arrivals are becoming exceptions and dependable distribution is narrowing.",
+            "tip": "Fish selected holding water carefully and leave visible spawning fish undisturbed.",
             "reasonCodes": [
               "stage_tapering"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Timing complete",
@@ -5202,7 +5238,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "conditions_checkpoint_peak_complete",
               "conditions_timing_complete"
             ],
-            "copyVersion": "river-run-copy-v27",
+            "copyVersion": "river-run-copy-v34",
             "previousCheckpointId": "peak_start",
             "previousCheckpointDate": "2026-10-15",
             "previousTimingLabel": "Insufficient evidence"
@@ -5219,9 +5255,9 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
           "push": {
             "score": 30,
             "label": "No clear push",
-            "headline": "Today's water does not show a clear signal for a fresh wave of fish.",
-            "detail": "The river is holding steady with no meaningful rise yet. Water temperature is favorable for fall migration and is relatively steady. Recent weather estimates indicate very little rain around the river.",
-            "tip": "Fish established holding water from the head through the inside seam and tail. Do not spend the day racing between lower travel lanes for a wave the water does not support.",
+            "headline": "Upper-river water does not show a clear fresh-movement signal.",
+            "detail": "The river is holding steady with no meaningful rise yet. Water temperature is favorable for fall migration and is relatively steady. Recent watershed weather shows little rain.",
+            "tip": "Keep Migration Stage’s section primary. Do not shift to fresh-entry water from this read.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
@@ -5240,14 +5276,14 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 93,
             "label": "Excellent",
-            "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river.",
-            "tip": "Begin on the primary travel lane feeding deep holding water. Work each hole from its head through the inside seam and tail, then keep moving until fish establish a pattern.",
+            "headline": "Upper-river flow is in its best presentation range.",
+            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read covers only the Upper river (High Bridge–Tippy Dam).",
+            "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band"
@@ -5258,15 +5294,15 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 65,
             "maximum": 100,
             "label": "Active",
-            "headline": "Today’s Coho activity outlook is active.",
-            "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. This score represents a Coho of unknown condition at this point in the season. A newly arrived or fresher fish may be more active than this score, while a spawning or deteriorating fish may be less responsive. The measured conditions represent the Wellston/Tippy tailwater; water temperature, clarity, and presentation conditions can differ through the middle and lower migratory river. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
-            "tip": "Compare the four time windows, but treat every difference as conditional on finding a living Coho still capable of responding.",
+            "headline": "Today’s Upper-river Coho responsiveness is active.",
+            "detail": "Conditions support a meaningful Coho response. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Late-run Coho condition varies widely, so individual fish may respond above or below this outlook.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify downstream sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -5319,10 +5355,13 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 35,
+            "displayScore": 35,
+            "scoreIsApproximate": true,
             "stage": "tapering",
             "maximum": 100,
             "riverCeiling": 50,
@@ -5331,14 +5370,14 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "curveDirection": "falling",
             "winterHoldingContext": false,
             "label": "High presence",
-            "headline": "Seasonal timing still supports Coho salmon through dependable river sections, although fresh arrivals may be less consistent than near peak.",
-            "detail": "Seasonal presence is usually elevated relative to the rest of the season. Fish are still likely established through several dependable river sections, while fresh arrivals often become less consistent later in the season. This is a seasonal estimate, not a live fish count.",
-            "tip": "Plan around fish already likely to be in the river. A meaningful seasonal presence may remain, but remember that this seasonal estimate cannot tell whether a fresh wave is entering today.",
+            "headline": "Seasonal Coho salmon presence is high and declining.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the Big Manistee Coho salmon ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_tapering",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -5566,14 +5605,14 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             ]
           },
           "interpretationNote": null,
-          "secondaryNote": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It best represents the Tippy tailwater and upper migratory corridor; flow, temperature, access, and fishability can differ downstream through High Bridge, Bear Creek, the lower river, and Manistee Lake.",
+          "secondaryNote": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It represents the Upper river (High Bridge–Tippy Dam), especially the Tippy Dam area. Conditions can differ in the Middle river, Lower river, Manistee Lake, and harbor.",
           "safety": {
             "regulationReminder": "The Big Manistee below Tippy is a Type 3 reach extending to the railroad bridge below M-55, with a year-round one-Rainbow-Trout limit and special artificial-lure rules during the August 1–November 15 window. Follow current Michigan regulations, DNR closure notices, dam-safety information, and posted boundaries. Fishing methods can change by reach and season.",
-            "gaugeBasis": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It best represents the Tippy tailwater and upper migratory corridor; flow, temperature, access, and fishability can differ downstream through High Bridge, Bear Creek, the lower river, and Manistee Lake.",
+            "gaugeBasis": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It represents the Upper river (High Bridge–Tippy Dam), especially the Tippy Dam area. Conditions can differ in the Middle river, Lower river, Manistee Lake, and harbor.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-big-manistee-steelhead-activity.1"
+          "configVersion": "2026-08-10-big-manistee-copy.1"
         }
       },
       {
@@ -5592,6 +5631,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
           "nextConditionRefreshAt": "2026-11-12T05:00:00.000Z",
           "runStage": {
             "stage": "ending",
+            "copyStrategy": "big_manistee_tailwater",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -5615,13 +5655,13 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             },
             "label": "Ending",
             "headline": "The main Big Manistee Coho salmon run is winding down.",
-            "whereToStart": "The deepest pools below Tippy and High Bridge, especially soft edges beside the main current; skip broad exploratory water.",
-            "detail": "Residual fish can remain, but active movement and fresh distribution are becoming less dependable.",
-            "tip": "Require a measured rise and suitable water before giving late movement strong weight.",
+            "whereToStart": "Start in the Upper river (High Bridge–Tippy Dam), emphasizing established water near Tippy Dam.",
+            "detail": "Residual fish can remain, but fresh movement is no longer dependable.",
+            "tip": "Keep expectations narrow and stop searching when direct evidence is absent.",
             "reasonCodes": [
               "stage_ending"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Timing complete",
@@ -5707,7 +5747,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "conditions_checkpoint_peak_complete",
               "conditions_timing_complete"
             ],
-            "copyVersion": "river-run-copy-v27",
+            "copyVersion": "river-run-copy-v34",
             "previousCheckpointId": "peak_start",
             "previousCheckpointDate": "2026-10-15",
             "previousTimingLabel": "Insufficient evidence"
@@ -5724,9 +5764,9 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
           "push": {
             "score": 30,
             "label": "No clear push",
-            "headline": "Today's water does not show a clear signal for a fresh wave of fish.",
-            "detail": "The river is holding steady with no meaningful rise yet. Water temperature is favorable for fall migration and is relatively steady. Recent weather estimates indicate very little rain around the river.",
-            "tip": "Fish established holding water from the head through the inside seam and tail. Do not spend the day racing between lower travel lanes for a wave the water does not support.",
+            "headline": "Upper-river water does not show a clear fresh-movement signal.",
+            "detail": "The river is holding steady with no meaningful rise yet. Water temperature is favorable for fall migration and is relatively steady. Recent watershed weather shows little rain.",
+            "tip": "Keep Migration Stage’s section primary. Do not shift to fresh-entry water from this read.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
@@ -5745,14 +5785,14 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 93,
             "label": "Excellent",
-            "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river.",
-            "tip": "Begin on the primary travel lane feeding deep holding water. Work each hole from its head through the inside seam and tail, then keep moving until fish establish a pattern.",
+            "headline": "Upper-river flow is in its best presentation range.",
+            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read covers only the Upper river (High Bridge–Tippy Dam).",
+            "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band"
@@ -5763,15 +5803,15 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 59,
             "maximum": 100,
             "label": "Moderate",
-            "headline": "Today’s Coho activity outlook is moderate.",
-            "detail": "Some useful factors are present, but the response window is mixed. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. This score represents a remaining Coho of unknown condition late in the season. A newly arrived or fresher fish may be more active than this score, while a spent or deteriorating fish may respond less or not at all. The measured conditions represent the Wellston/Tippy tailwater; water temperature, clarity, and presentation conditions can differ through the middle and lower migratory river. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
-            "tip": "No late-season window should be treated as broadly favorable; use the block scores only for a living Coho that is still capable of reacting.",
+            "headline": "Today’s Upper-river Coho responsiveness is moderate.",
+            "detail": "Conditions offer mixed support for Coho responsiveness. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Late-run Coho condition varies widely, so individual fish may respond above or below this outlook.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify downstream sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -5824,10 +5864,13 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 29,
+            "displayScore": 30,
+            "scoreIsApproximate": true,
             "stage": "ending",
             "maximum": 100,
             "riverCeiling": 50,
@@ -5836,14 +5879,14 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "curveDirection": "falling",
             "winterHoldingContext": false,
             "label": "Moderate presence",
-            "headline": "Seasonal timing still supports meaningful Coho salmon presence, especially in established holding water.",
-            "detail": "This part of the season usually supports moderate presence through several dependable river sections, while fresh arrivals often become less consistent later in the season. This is a seasonal estimate, not a live fish count.",
-            "tip": "Plan for a worthwhile but less consistent river opportunity. Expect more searching than near the seasonal high, and let direct fish activity determine how long you stay.",
+            "headline": "Seasonal Coho salmon presence is moderate and declining.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the Big Manistee Coho salmon ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_ending",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -6071,14 +6114,14 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             ]
           },
           "interpretationNote": null,
-          "secondaryNote": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It best represents the Tippy tailwater and upper migratory corridor; flow, temperature, access, and fishability can differ downstream through High Bridge, Bear Creek, the lower river, and Manistee Lake.",
+          "secondaryNote": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It represents the Upper river (High Bridge–Tippy Dam), especially the Tippy Dam area. Conditions can differ in the Middle river, Lower river, Manistee Lake, and harbor.",
           "safety": {
             "regulationReminder": "The Big Manistee below Tippy is a Type 3 reach extending to the railroad bridge below M-55, with a year-round one-Rainbow-Trout limit and special artificial-lure rules during the August 1–November 15 window. Follow current Michigan regulations, DNR closure notices, dam-safety information, and posted boundaries. Fishing methods can change by reach and season.",
-            "gaugeBasis": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It best represents the Tippy tailwater and upper migratory corridor; flow, temperature, access, and fishability can differ downstream through High Bridge, Bear Creek, the lower river, and Manistee Lake.",
+            "gaugeBasis": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It represents the Upper river (High Bridge–Tippy Dam), especially the Tippy Dam area. Conditions can differ in the Middle river, Lower river, Manistee Lake, and harbor.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-big-manistee-steelhead-activity.1"
+          "configVersion": "2026-08-10-big-manistee-copy.1"
         }
       },
       {
@@ -6097,6 +6140,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
           "nextConditionRefreshAt": "2026-11-21T05:00:00.000Z",
           "runStage": {
             "stage": "ending",
+            "copyStrategy": "big_manistee_tailwater",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -6119,14 +6163,14 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "peakToEndDays": 41
             },
             "label": "Ending",
-            "headline": "Only a residual late Coho salmon opportunity remains in the Big Manistee.",
-            "whereToStart": "Limit the search to the deepest Tippy-area pools, High Bridge inside bends, and one or two proven Bear Creek-area holes.",
-            "detail": "Most remaining fish have been in the system for some time. A genuinely fresh fish is possible, but no longer represents a dependable new migration wave.",
-            "tip": "Keep expectations narrow, leave spawning or visibly deteriorated fish alone, and shift effort when direct evidence is absent.",
+            "headline": "Only a residual late Coho salmon opportunity remains.",
+            "whereToStart": "Start in the Upper river (High Bridge–Tippy Dam), emphasizing established water near Tippy Dam.",
+            "detail": "A fresh fish is possible, but no longer represents a dependable movement wave.",
+            "tip": "Keep expectations narrow and stop searching when direct evidence is absent.",
             "reasonCodes": [
               "stage_ending"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Timing complete",
@@ -6212,7 +6256,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "conditions_checkpoint_peak_complete",
               "conditions_timing_complete"
             ],
-            "copyVersion": "river-run-copy-v27",
+            "copyVersion": "river-run-copy-v34",
             "previousCheckpointId": "peak_start",
             "previousCheckpointDate": "2026-10-15",
             "previousTimingLabel": "Insufficient evidence"
@@ -6229,9 +6273,9 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
           "push": {
             "score": 30,
             "label": "No clear push",
-            "headline": "Today's water does not show a clear signal for a fresh wave of fish.",
-            "detail": "The river is holding steady with no meaningful rise yet. Water temperature is favorable for fall migration and is relatively steady. Recent weather estimates indicate very little rain around the river.",
-            "tip": "Fish established holding water from the head through the inside seam and tail. Do not spend the day racing between lower travel lanes for a wave the water does not support.",
+            "headline": "Upper-river water does not show a clear fresh-movement signal.",
+            "detail": "The river is holding steady with no meaningful rise yet. Water temperature is favorable for fall migration and is relatively steady. Recent watershed weather shows little rain.",
+            "tip": "Keep Migration Stage’s section primary. Do not shift to fresh-entry water from this read.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
@@ -6250,14 +6294,14 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 93,
             "label": "Excellent",
-            "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river.",
-            "tip": "Begin on the primary travel lane feeding deep holding water. Work each hole from its head through the inside seam and tail, then keep moving until fish establish a pattern.",
+            "headline": "Upper-river flow is in its best presentation range.",
+            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read covers only the Upper river (High Bridge–Tippy Dam).",
+            "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band"
@@ -6268,15 +6312,15 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 46,
             "maximum": 100,
             "label": "Moderate",
-            "headline": "Today’s Coho activity outlook is moderate.",
-            "detail": "Some useful factors are present, but the response window is mixed. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. This score represents a remaining Coho of unknown condition late in the season. A newly arrived or fresher fish may be more active than this score, while a spent or deteriorating fish may respond less or not at all. The measured conditions represent the Wellston/Tippy tailwater; water temperature, clarity, and presentation conditions can differ through the middle and lower migratory river. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
-            "tip": "No late-season window should be treated as broadly favorable; use the block scores only for a living Coho that is still capable of reacting.",
+            "headline": "Today’s Upper-river Coho responsiveness is moderate.",
+            "detail": "Conditions offer mixed support for Coho responsiveness. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Late-run Coho condition varies widely, so individual fish may respond above or below this outlook.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify downstream sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -6329,10 +6373,13 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 20,
+            "displayScore": 20,
+            "scoreIsApproximate": true,
             "stage": "ending",
             "maximum": 100,
             "riverCeiling": 50,
@@ -6341,14 +6388,14 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "curveDirection": "falling",
             "winterHoldingContext": false,
             "label": "Limited presence",
-            "headline": "Seasonal timing still supports some Coho salmon in established holding water, but they are less likely to occupy every dependable section.",
-            "detail": "This part of the season usually supports limited presence concentrated in the river's most dependable holes and slower holding water. This is a seasonal estimate, not a live fish count.",
-            "tip": "Treat this as a lower-odds late-season opportunity. Keep the trip flexible, and require direct fish activity before committing more time.",
+            "headline": "Seasonal Coho salmon presence is limited and declining.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the Big Manistee Coho salmon ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_ending",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -6576,14 +6623,14 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             ]
           },
           "interpretationNote": null,
-          "secondaryNote": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It best represents the Tippy tailwater and upper migratory corridor; flow, temperature, access, and fishability can differ downstream through High Bridge, Bear Creek, the lower river, and Manistee Lake.",
+          "secondaryNote": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It represents the Upper river (High Bridge–Tippy Dam), especially the Tippy Dam area. Conditions can differ in the Middle river, Lower river, Manistee Lake, and harbor.",
           "safety": {
             "regulationReminder": "The Big Manistee below Tippy is a Type 3 reach extending to the railroad bridge below M-55, with a year-round one-Rainbow-Trout limit and special artificial-lure rules during the August 1–November 15 window. Follow current Michigan regulations, DNR closure notices, dam-safety information, and posted boundaries. Fishing methods can change by reach and season.",
-            "gaugeBasis": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It best represents the Tippy tailwater and upper migratory corridor; flow, temperature, access, and fishability can differ downstream through High Bridge, Bear Creek, the lower river, and Manistee Lake.",
+            "gaugeBasis": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It represents the Upper river (High Bridge–Tippy Dam), especially the Tippy Dam area. Conditions can differ in the Middle river, Lower river, Manistee Lake, and harbor.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-big-manistee-steelhead-activity.1"
+          "configVersion": "2026-08-10-big-manistee-copy.1"
         }
       },
       {
@@ -6602,6 +6649,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
           "nextConditionRefreshAt": "2026-12-02T05:00:00.000Z",
           "runStage": {
             "stage": "post_run",
+            "copyStrategy": "big_manistee_tailwater",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -6624,14 +6672,14 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "peakToEndDays": 41
             },
             "label": "After migration",
-            "headline": "A few late Coho salmon may remain in established Big Manistee holding water.",
-            "whereToStart": "There is no dependable starting reach; if you still go, make one careful check of a proven deep pool below Tippy or near High Bridge.",
-            "detail": "The seasonal presence tail is not a live abundance estimate and does not imply a fresh river push.",
-            "tip": "Do not convert residual presence into a new-run signal.",
+            "headline": "Only a residual late Coho salmon opportunity remains.",
+            "whereToStart": "There is no dependable starting section. If you go, make one careful Upper river (High Bridge–Tippy Dam) check near Tippy Dam.",
+            "detail": "The seasonal tail does not indicate a fresh movement event.",
+            "tip": "Do not build a broad corridor search around isolated late fish.",
             "reasonCodes": [
               "stage_post_run"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Timing complete",
@@ -6717,7 +6765,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "conditions_checkpoint_peak_complete",
               "conditions_timing_complete"
             ],
-            "copyVersion": "river-run-copy-v27",
+            "copyVersion": "river-run-copy-v34",
             "previousCheckpointId": "peak_start",
             "previousCheckpointDate": "2026-10-15",
             "previousTimingLabel": "Insufficient evidence"
@@ -6741,14 +6789,14 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "push_tracking_complete"
             ],
             "rulesVersion": "big-manistee-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 93,
             "label": "Excellent",
-            "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river.",
-            "tip": "Begin on the primary travel lane feeding deep holding water. Work each hole from its head through the inside seam and tail, then keep moving until fish establish a pattern.",
+            "headline": "Upper-river flow is in its best presentation range.",
+            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read covers only the Upper river (High Bridge–Tippy Dam).",
+            "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band"
@@ -6759,15 +6807,15 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 32,
             "maximum": 100,
             "label": "Reserved",
-            "headline": "Today’s Coho activity outlook is reserved.",
-            "detail": "Fish may respond selectively, with important environmental limitations. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. This score represents a remaining Coho of unknown condition late in the season. A newly arrived or fresher fish may be more active than this score, while a spent or deteriorating fish may respond less or not at all. The measured conditions represent the Wellston/Tippy tailwater; water temperature, clarity, and presentation conditions can differ through the middle and lower migratory river. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
-            "tip": "No late-season window should be treated as broadly favorable; use the block scores only for a living Coho that is still capable of reacting.",
+            "headline": "Today’s Upper-river Coho responsiveness is reserved.",
+            "detail": "Coho may respond selectively under current limitations. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Late-run Coho condition varies widely, so individual fish may respond above or below this outlook.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify downstream sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -6820,10 +6868,13 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 9,
+            "displayScore": 10,
+            "scoreIsApproximate": true,
             "stage": "post_run",
             "maximum": 100,
             "riverCeiling": 50,
@@ -6832,14 +6883,14 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "curveDirection": "falling",
             "winterHoldingContext": false,
             "label": "Low presence",
-            "headline": "Some Coho salmon may still be in the river, with seasonal presence more likely to be scattered.",
-            "detail": "This part of the season usually supports low presence through several dependable river sections, while fresh arrivals often become less consistent later in the season. This is a seasonal estimate, not a live fish count.",
-            "tip": "Treat any remaining fish as a bonus rather than a dependable trip plan. Keep expectations narrow and be ready to shift to another seasonal species.",
+            "headline": "Seasonal Coho salmon presence is low and declining.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the Big Manistee Coho salmon ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_post_run",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -7074,14 +7125,14 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "post_run_residual_presence"
             ]
           },
-          "secondaryNote": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It best represents the Tippy tailwater and upper migratory corridor; flow, temperature, access, and fishability can differ downstream through High Bridge, Bear Creek, the lower river, and Manistee Lake.",
+          "secondaryNote": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It represents the Upper river (High Bridge–Tippy Dam), especially the Tippy Dam area. Conditions can differ in the Middle river, Lower river, Manistee Lake, and harbor.",
           "safety": {
             "regulationReminder": "The Big Manistee below Tippy is a Type 3 reach extending to the railroad bridge below M-55, with a year-round one-Rainbow-Trout limit and special artificial-lure rules during the August 1–November 15 window. Follow current Michigan regulations, DNR closure notices, dam-safety information, and posted boundaries. Fishing methods can change by reach and season.",
-            "gaugeBasis": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It best represents the Tippy tailwater and upper migratory corridor; flow, temperature, access, and fishability can differ downstream through High Bridge, Bear Creek, the lower river, and Manistee Lake.",
+            "gaugeBasis": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It represents the Upper river (High Bridge–Tippy Dam), especially the Tippy Dam area. Conditions can differ in the Middle river, Lower river, Manistee Lake, and harbor.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-big-manistee-steelhead-activity.1"
+          "configVersion": "2026-08-10-big-manistee-copy.1"
         }
       }
     ]
@@ -7106,6 +7157,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
           "nextConditionRefreshAt": "2026-07-25T05:00:00.000Z",
           "runStage": {
             "stage": "post_run",
+            "copyStrategy": "big_manistee_tailwater",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -7127,16 +7179,16 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "startToPeakDays": 40,
               "peakToEndDays": 41
             },
-            "label": "Offseason",
-            "headline": "The Big Manistee Coho salmon run is outside its researched window.",
-            "whereToStart": "No dependable Big Manistee location for this fall migration model right now.",
-            "detail": "This fall-spawn profile has ended; another seasonal experience must supply any later species guidance.",
-            "tip": "Do not use this profile to score a different season.",
+            "label": "Fall run complete",
+            "headline": "The Big Manistee Coho salmon fall run is complete.",
+            "whereToStart": "There is no active Big Manistee starting section in this fall-run model.",
+            "detail": "Coho salmon staging typically begins in early September. This seasonal estimate is inactive until then.",
+            "tip": "Check back in early September when Big Manistee fall-run tracking resumes.",
             "reasonCodes": [
               "stage_post_run",
               "stage_offseason"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Not monitoring yet",
@@ -7155,13 +7207,13 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "historicalYears": 0,
             "sourceDates": [],
             "sourceRefreshSlots": {},
-            "headline": "Migration Timing is not active right now.",
-            "detail": "Timing monitoring begins before the expected river entry, but that seasonal observation window is not active yet.",
-            "tip": "Check Migration Stage for the current seasonal position and return to Migration Timing when early monitoring begins.",
+            "headline": "Big Manistee Migration Timing is not monitoring yet.",
+            "detail": "Season-to-date Wellston flow and temperature monitoring resumes in early September.",
+            "tip": "Check back in early September when Big Manistee timing monitoring resumes.",
             "reasonCodes": [
               "conditions_monitoring_inactive"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -7175,21 +7227,21 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
           "push": {
             "score": null,
             "label": "Offseason",
-            "headline": "Push is not active outside the river migration season.",
-            "detail": "Rain, river level, and water temperature can still change, but they do not provide a useful fresh-arrival signal for this species right now.",
-            "tip": "Do not use Push to plan for this species outside its migration season. Follow an active species instead, or return when early monitoring begins.",
+            "headline": "Big Manistee Push is outside its fall movement window.",
+            "detail": "Current Wellston flow and temperature do not provide an in-season fresh-movement signal for this run.",
+            "tip": "Check back in early September.",
             "reasonCodes": [
               "push_tracking_offseason"
             ],
             "rulesVersion": "big-manistee-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 93,
             "label": "Excellent",
-            "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river.",
-            "tip": "Begin on the primary travel lane feeding deep holding water. Work each hole from its head through the inside seam and tail, then keep moving until fish establish a pattern.",
+            "headline": "Upper-river flow is in its best presentation range.",
+            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read covers only the Upper river (High Bridge–Tippy Dam).",
+            "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band"
@@ -7200,11 +7252,12 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": null,
           "fishInRiver": {
-            "score": 0,
+            "score": null,
+            "scoreIsApproximate": false,
             "stage": "post_run",
             "maximum": 100,
             "riverCeiling": 50,
@@ -7212,15 +7265,15 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "curveFraction": 0,
             "curveDirection": "outside",
             "winterHoldingContext": false,
-            "label": "Offseason",
-            "headline": "Coho salmon are outside their river migration season.",
-            "detail": "A dependable seasonal presence of Coho salmon is not expected in the river right now.",
-            "tip": "Do not build a river trip around this species right now. Target a species with an active seasonal window and return as the next migration approaches.",
+            "label": "Fall run complete",
+            "headline": "The Big Manistee Coho salmon fall run is complete.",
+            "detail": "Coho salmon staging typically begins in early September. This seasonal estimate is inactive until then.",
+            "tip": "Check back in early September when Big Manistee fall-run tracking resumes.",
             "reasonCodes": [
               "stage_post_run",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -7446,21 +7499,15 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "data_quality_fresh"
             ]
           },
-          "interpretationNote": {
-            "headline": "The river should fish well, but seasonal fish presence is still low.",
-            "detail": "Good flow makes presentations easier, but it does not put fish in the river. Begin in the deepest established holding water and skip broad searches through fast travel lanes as seasonal presence thins.",
-            "reasonCodes": [
-              "good_fishability_low_presence"
-            ]
-          },
-          "secondaryNote": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It best represents the Tippy tailwater and upper migratory corridor; flow, temperature, access, and fishability can differ downstream through High Bridge, Bear Creek, the lower river, and Manistee Lake.",
+          "interpretationNote": null,
+          "secondaryNote": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It represents the Upper river (High Bridge–Tippy Dam), especially the Tippy Dam area. Conditions can differ in the Middle river, Lower river, Manistee Lake, and harbor.",
           "safety": {
             "regulationReminder": "The Big Manistee below Tippy is a Type 3 reach extending to the railroad bridge below M-55, with a year-round one-Rainbow-Trout limit and special artificial-lure rules during the August 1–November 15 window. Follow current Michigan regulations, DNR closure notices, dam-safety information, and posted boundaries. Fishing methods can change by reach and season.",
-            "gaugeBasis": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It best represents the Tippy tailwater and upper migratory corridor; flow, temperature, access, and fishability can differ downstream through High Bridge, Bear Creek, the lower river, and Manistee Lake.",
+            "gaugeBasis": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It represents the Upper river (High Bridge–Tippy Dam), especially the Tippy Dam area. Conditions can differ in the Middle river, Lower river, Manistee Lake, and harbor.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-big-manistee-steelhead-activity.1"
+          "configVersion": "2026-08-10-big-manistee-copy.1"
         }
       },
       {
@@ -7479,6 +7526,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
           "nextConditionRefreshAt": "2026-08-06T05:00:00.000Z",
           "runStage": {
             "stage": "post_run",
+            "copyStrategy": "big_manistee_tailwater",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -7500,16 +7548,16 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "startToPeakDays": 40,
               "peakToEndDays": 41
             },
-            "label": "Offseason",
-            "headline": "The Big Manistee Coho salmon run is outside its researched window.",
-            "whereToStart": "No dependable Big Manistee location for this fall migration model right now.",
-            "detail": "This fall-spawn profile has ended; another seasonal experience must supply any later species guidance.",
-            "tip": "Do not use this profile to score a different season.",
+            "label": "Fall run complete",
+            "headline": "The Big Manistee Coho salmon fall run is complete.",
+            "whereToStart": "There is no active Big Manistee starting section in this fall-run model.",
+            "detail": "Coho salmon staging typically begins in early September. This seasonal estimate is inactive until then.",
+            "tip": "Check back in early September when Big Manistee fall-run tracking resumes.",
             "reasonCodes": [
               "stage_post_run",
               "stage_offseason"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Not monitoring yet",
@@ -7528,13 +7576,13 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "historicalYears": 0,
             "sourceDates": [],
             "sourceRefreshSlots": {},
-            "headline": "Migration Timing is not active right now.",
-            "detail": "Timing monitoring begins before the expected river entry, but that seasonal observation window is not active yet.",
-            "tip": "Check Migration Stage for the current seasonal position and return to Migration Timing when early monitoring begins.",
+            "headline": "Big Manistee Migration Timing is not monitoring yet.",
+            "detail": "Season-to-date Wellston flow and temperature monitoring resumes in early September.",
+            "tip": "Check back in early September when Big Manistee timing monitoring resumes.",
             "reasonCodes": [
               "conditions_monitoring_inactive"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -7548,21 +7596,21 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
           "push": {
             "score": null,
             "label": "Offseason",
-            "headline": "Push is not active outside the river migration season.",
-            "detail": "Rain, river level, and water temperature can still change, but they do not provide a useful fresh-arrival signal for this species right now.",
-            "tip": "Do not use Push to plan for this species outside its migration season. Follow an active species instead, or return when early monitoring begins.",
+            "headline": "Big Manistee Push is outside its fall movement window.",
+            "detail": "Current Wellston flow and temperature do not provide an in-season fresh-movement signal for this run.",
+            "tip": "Check back in early September.",
             "reasonCodes": [
               "push_tracking_offseason"
             ],
             "rulesVersion": "big-manistee-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 93,
             "label": "Excellent",
-            "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river.",
-            "tip": "Begin on the primary travel lane feeding deep holding water. Work each hole from its head through the inside seam and tail, then keep moving until fish establish a pattern.",
+            "headline": "Upper-river flow is in its best presentation range.",
+            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read covers only the Upper river (High Bridge–Tippy Dam).",
+            "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band"
@@ -7573,11 +7621,12 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": null,
           "fishInRiver": {
-            "score": 0,
+            "score": null,
+            "scoreIsApproximate": false,
             "stage": "post_run",
             "maximum": 100,
             "riverCeiling": 50,
@@ -7585,15 +7634,15 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "curveFraction": 0,
             "curveDirection": "outside",
             "winterHoldingContext": false,
-            "label": "Offseason",
-            "headline": "Coho salmon are outside their river migration season.",
-            "detail": "A dependable seasonal presence of Coho salmon is not expected in the river right now.",
-            "tip": "Do not build a river trip around this species right now. Target a species with an active seasonal window and return as the next migration approaches.",
+            "label": "Fall run complete",
+            "headline": "The Big Manistee Coho salmon fall run is complete.",
+            "detail": "Coho salmon staging typically begins in early September. This seasonal estimate is inactive until then.",
+            "tip": "Check back in early September when Big Manistee fall-run tracking resumes.",
             "reasonCodes": [
               "stage_post_run",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -7819,21 +7868,15 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "data_quality_fresh"
             ]
           },
-          "interpretationNote": {
-            "headline": "The river should fish well, but seasonal fish presence is still low.",
-            "detail": "Good flow makes presentations easier, but it does not put fish in the river. Begin in the deepest established holding water and skip broad searches through fast travel lanes as seasonal presence thins.",
-            "reasonCodes": [
-              "good_fishability_low_presence"
-            ]
-          },
-          "secondaryNote": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It best represents the Tippy tailwater and upper migratory corridor; flow, temperature, access, and fishability can differ downstream through High Bridge, Bear Creek, the lower river, and Manistee Lake.",
+          "interpretationNote": null,
+          "secondaryNote": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It represents the Upper river (High Bridge–Tippy Dam), especially the Tippy Dam area. Conditions can differ in the Middle river, Lower river, Manistee Lake, and harbor.",
           "safety": {
             "regulationReminder": "The Big Manistee below Tippy is a Type 3 reach extending to the railroad bridge below M-55, with a year-round one-Rainbow-Trout limit and special artificial-lure rules during the August 1–November 15 window. Follow current Michigan regulations, DNR closure notices, dam-safety information, and posted boundaries. Fishing methods can change by reach and season.",
-            "gaugeBasis": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It best represents the Tippy tailwater and upper migratory corridor; flow, temperature, access, and fishability can differ downstream through High Bridge, Bear Creek, the lower river, and Manistee Lake.",
+            "gaugeBasis": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It represents the Upper river (High Bridge–Tippy Dam), especially the Tippy Dam area. Conditions can differ in the Middle river, Lower river, Manistee Lake, and harbor.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-big-manistee-steelhead-activity.1"
+          "configVersion": "2026-08-10-big-manistee-copy.1"
         }
       },
       {
@@ -7852,6 +7895,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
           "nextConditionRefreshAt": "2026-08-16T05:00:00.000Z",
           "runStage": {
             "stage": "post_run",
+            "copyStrategy": "big_manistee_tailwater",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -7873,16 +7917,16 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "startToPeakDays": 40,
               "peakToEndDays": 41
             },
-            "label": "Offseason",
-            "headline": "The Big Manistee Coho salmon run is outside its researched window.",
-            "whereToStart": "No dependable Big Manistee location for this fall migration model right now.",
-            "detail": "This fall-spawn profile has ended; another seasonal experience must supply any later species guidance.",
-            "tip": "Do not use this profile to score a different season.",
+            "label": "Fall run complete",
+            "headline": "The Big Manistee Coho salmon fall run is complete.",
+            "whereToStart": "There is no active Big Manistee starting section in this fall-run model.",
+            "detail": "Coho salmon staging typically begins in early September. This seasonal estimate is inactive until then.",
+            "tip": "Check back in early September when Big Manistee fall-run tracking resumes.",
             "reasonCodes": [
               "stage_post_run",
               "stage_offseason"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Not monitoring yet",
@@ -7901,13 +7945,13 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "historicalYears": 0,
             "sourceDates": [],
             "sourceRefreshSlots": {},
-            "headline": "Migration Timing is not active right now.",
-            "detail": "Timing monitoring begins before the expected river entry, but that seasonal observation window is not active yet.",
-            "tip": "Check Migration Stage for the current seasonal position and return to Migration Timing when early monitoring begins.",
+            "headline": "Big Manistee Migration Timing is not monitoring yet.",
+            "detail": "Season-to-date Wellston flow and temperature monitoring resumes in early September.",
+            "tip": "Check back in early September when Big Manistee timing monitoring resumes.",
             "reasonCodes": [
               "conditions_monitoring_inactive"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -7921,21 +7965,21 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
           "push": {
             "score": null,
             "label": "Offseason",
-            "headline": "Push is not active outside the river migration season.",
-            "detail": "Rain, river level, and water temperature can still change, but they do not provide a useful fresh-arrival signal for this species right now.",
-            "tip": "Do not use Push to plan for this species outside its migration season. Follow an active species instead, or return when early monitoring begins.",
+            "headline": "Big Manistee Push is outside its fall movement window.",
+            "detail": "Current Wellston flow and temperature do not provide an in-season fresh-movement signal for this run.",
+            "tip": "Check back in early September.",
             "reasonCodes": [
               "push_tracking_offseason"
             ],
             "rulesVersion": "big-manistee-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 93,
             "label": "Excellent",
-            "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river.",
-            "tip": "Begin on the primary travel lane feeding deep holding water. Work each hole from its head through the inside seam and tail, then keep moving until fish establish a pattern.",
+            "headline": "Upper-river flow is in its best presentation range.",
+            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read covers only the Upper river (High Bridge–Tippy Dam).",
+            "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band"
@@ -7946,11 +7990,12 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": null,
           "fishInRiver": {
-            "score": 0,
+            "score": null,
+            "scoreIsApproximate": false,
             "stage": "post_run",
             "maximum": 100,
             "riverCeiling": 50,
@@ -7958,15 +8003,15 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "curveFraction": 0,
             "curveDirection": "outside",
             "winterHoldingContext": false,
-            "label": "Offseason",
-            "headline": "Coho salmon are outside their river migration season.",
-            "detail": "A dependable seasonal presence of Coho salmon is not expected in the river right now.",
-            "tip": "Do not build a river trip around this species right now. Target a species with an active seasonal window and return as the next migration approaches.",
+            "label": "Fall run complete",
+            "headline": "The Big Manistee Coho salmon fall run is complete.",
+            "detail": "Coho salmon staging typically begins in early September. This seasonal estimate is inactive until then.",
+            "tip": "Check back in early September when Big Manistee fall-run tracking resumes.",
             "reasonCodes": [
               "stage_post_run",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -8192,21 +8237,15 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "data_quality_fresh"
             ]
           },
-          "interpretationNote": {
-            "headline": "The river should fish well, but seasonal fish presence is still low.",
-            "detail": "Good flow makes presentations easier, but it does not put fish in the river. Begin in the deepest established holding water and skip broad searches through fast travel lanes as seasonal presence thins.",
-            "reasonCodes": [
-              "good_fishability_low_presence"
-            ]
-          },
-          "secondaryNote": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It best represents the Tippy tailwater and upper migratory corridor; flow, temperature, access, and fishability can differ downstream through High Bridge, Bear Creek, the lower river, and Manistee Lake.",
+          "interpretationNote": null,
+          "secondaryNote": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It represents the Upper river (High Bridge–Tippy Dam), especially the Tippy Dam area. Conditions can differ in the Middle river, Lower river, Manistee Lake, and harbor.",
           "safety": {
             "regulationReminder": "The Big Manistee below Tippy is a Type 3 reach extending to the railroad bridge below M-55, with a year-round one-Rainbow-Trout limit and special artificial-lure rules during the August 1–November 15 window. Follow current Michigan regulations, DNR closure notices, dam-safety information, and posted boundaries. Fishing methods can change by reach and season.",
-            "gaugeBasis": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It best represents the Tippy tailwater and upper migratory corridor; flow, temperature, access, and fishability can differ downstream through High Bridge, Bear Creek, the lower river, and Manistee Lake.",
+            "gaugeBasis": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It represents the Upper river (High Bridge–Tippy Dam), especially the Tippy Dam area. Conditions can differ in the Middle river, Lower river, Manistee Lake, and harbor.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-big-manistee-steelhead-activity.1"
+          "configVersion": "2026-08-10-big-manistee-copy.1"
         }
       },
       {
@@ -8225,6 +8264,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
           "nextConditionRefreshAt": "2026-08-16T05:00:00.000Z",
           "runStage": {
             "stage": "post_run",
+            "copyStrategy": "big_manistee_tailwater",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -8246,16 +8286,16 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "startToPeakDays": 40,
               "peakToEndDays": 41
             },
-            "label": "Offseason",
-            "headline": "The Big Manistee Coho salmon run is outside its researched window.",
-            "whereToStart": "No dependable Big Manistee location for this fall migration model right now.",
-            "detail": "This fall-spawn profile has ended; another seasonal experience must supply any later species guidance.",
-            "tip": "Do not use this profile to score a different season.",
+            "label": "Fall run complete",
+            "headline": "The Big Manistee Coho salmon fall run is complete.",
+            "whereToStart": "There is no active Big Manistee starting section in this fall-run model.",
+            "detail": "Coho salmon staging typically begins in early September. This seasonal estimate is inactive until then.",
+            "tip": "Check back in early September when Big Manistee fall-run tracking resumes.",
             "reasonCodes": [
               "stage_post_run",
               "stage_offseason"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Not monitoring yet",
@@ -8274,13 +8314,13 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "historicalYears": 0,
             "sourceDates": [],
             "sourceRefreshSlots": {},
-            "headline": "Migration Timing is not active right now.",
-            "detail": "Timing monitoring begins before the expected river entry, but that seasonal observation window is not active yet.",
-            "tip": "Check Migration Stage for the current seasonal position and return to Migration Timing when early monitoring begins.",
+            "headline": "Big Manistee Migration Timing is not monitoring yet.",
+            "detail": "Season-to-date Wellston flow and temperature monitoring resumes in early September.",
+            "tip": "Check back in early September when Big Manistee timing monitoring resumes.",
             "reasonCodes": [
               "conditions_monitoring_inactive"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -8294,21 +8334,21 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
           "push": {
             "score": null,
             "label": "Offseason",
-            "headline": "Push is not active outside the river migration season.",
-            "detail": "Rain, river level, and water temperature can still change, but they do not provide a useful fresh-arrival signal for this species right now.",
-            "tip": "Do not use Push to plan for this species outside its migration season. Follow an active species instead, or return when early monitoring begins.",
+            "headline": "Big Manistee Push is outside its fall movement window.",
+            "detail": "Current Wellston flow and temperature do not provide an in-season fresh-movement signal for this run.",
+            "tip": "Check back in early September.",
             "reasonCodes": [
               "push_tracking_offseason"
             ],
             "rulesVersion": "big-manistee-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 93,
             "label": "Excellent",
-            "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river.",
-            "tip": "Begin on the primary travel lane feeding deep holding water. Work each hole from its head through the inside seam and tail, then keep moving until fish establish a pattern.",
+            "headline": "Upper-river flow is in its best presentation range.",
+            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read covers only the Upper river (High Bridge–Tippy Dam).",
+            "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band"
@@ -8319,11 +8359,12 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": null,
           "fishInRiver": {
-            "score": 0,
+            "score": null,
+            "scoreIsApproximate": false,
             "stage": "post_run",
             "maximum": 100,
             "riverCeiling": 50,
@@ -8331,15 +8372,15 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "curveFraction": 0,
             "curveDirection": "outside",
             "winterHoldingContext": false,
-            "label": "Offseason",
-            "headline": "Coho salmon are outside their river migration season.",
-            "detail": "A dependable seasonal presence of Coho salmon is not expected in the river right now.",
-            "tip": "Do not build a river trip around this species right now. Target a species with an active seasonal window and return as the next migration approaches.",
+            "label": "Fall run complete",
+            "headline": "The Big Manistee Coho salmon fall run is complete.",
+            "detail": "Coho salmon staging typically begins in early September. This seasonal estimate is inactive until then.",
+            "tip": "Check back in early September when Big Manistee fall-run tracking resumes.",
             "reasonCodes": [
               "stage_post_run",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -8565,21 +8606,15 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "data_quality_fresh"
             ]
           },
-          "interpretationNote": {
-            "headline": "The river should fish well, but seasonal fish presence is still low.",
-            "detail": "Good flow makes presentations easier, but it does not put fish in the river. Begin in the deepest established holding water and skip broad searches through fast travel lanes as seasonal presence thins.",
-            "reasonCodes": [
-              "good_fishability_low_presence"
-            ]
-          },
-          "secondaryNote": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It best represents the Tippy tailwater and upper migratory corridor; flow, temperature, access, and fishability can differ downstream through High Bridge, Bear Creek, the lower river, and Manistee Lake.",
+          "interpretationNote": null,
+          "secondaryNote": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It represents the Upper river (High Bridge–Tippy Dam), especially the Tippy Dam area. Conditions can differ in the Middle river, Lower river, Manistee Lake, and harbor.",
           "safety": {
             "regulationReminder": "The Big Manistee below Tippy is a Type 3 reach extending to the railroad bridge below M-55, with a year-round one-Rainbow-Trout limit and special artificial-lure rules during the August 1–November 15 window. Follow current Michigan regulations, DNR closure notices, dam-safety information, and posted boundaries. Fishing methods can change by reach and season.",
-            "gaugeBasis": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It best represents the Tippy tailwater and upper migratory corridor; flow, temperature, access, and fishability can differ downstream through High Bridge, Bear Creek, the lower river, and Manistee Lake.",
+            "gaugeBasis": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It represents the Upper river (High Bridge–Tippy Dam), especially the Tippy Dam area. Conditions can differ in the Middle river, Lower river, Manistee Lake, and harbor.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-big-manistee-steelhead-activity.1"
+          "configVersion": "2026-08-10-big-manistee-copy.1"
         }
       },
       {
@@ -8598,6 +8633,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
           "nextConditionRefreshAt": "2026-08-16T05:00:00.000Z",
           "runStage": {
             "stage": "post_run",
+            "copyStrategy": "big_manistee_tailwater",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -8619,16 +8655,16 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "startToPeakDays": 40,
               "peakToEndDays": 41
             },
-            "label": "Offseason",
-            "headline": "The Big Manistee Coho salmon run is outside its researched window.",
-            "whereToStart": "No dependable Big Manistee location for this fall migration model right now.",
-            "detail": "This fall-spawn profile has ended; another seasonal experience must supply any later species guidance.",
-            "tip": "Do not use this profile to score a different season.",
+            "label": "Fall run complete",
+            "headline": "The Big Manistee Coho salmon fall run is complete.",
+            "whereToStart": "There is no active Big Manistee starting section in this fall-run model.",
+            "detail": "Coho salmon staging typically begins in early September. This seasonal estimate is inactive until then.",
+            "tip": "Check back in early September when Big Manistee fall-run tracking resumes.",
             "reasonCodes": [
               "stage_post_run",
               "stage_offseason"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Not monitoring yet",
@@ -8647,13 +8683,13 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "historicalYears": 0,
             "sourceDates": [],
             "sourceRefreshSlots": {},
-            "headline": "Migration Timing is not active right now.",
-            "detail": "Timing monitoring begins before the expected river entry, but that seasonal observation window is not active yet.",
-            "tip": "Check Migration Stage for the current seasonal position and return to Migration Timing when early monitoring begins.",
+            "headline": "Big Manistee Migration Timing is not monitoring yet.",
+            "detail": "Season-to-date Wellston flow and temperature monitoring resumes in early September.",
+            "tip": "Check back in early September when Big Manistee timing monitoring resumes.",
             "reasonCodes": [
               "conditions_monitoring_inactive"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -8667,21 +8703,21 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
           "push": {
             "score": null,
             "label": "Offseason",
-            "headline": "Push is not active outside the river migration season.",
-            "detail": "Rain, river level, and water temperature can still change, but they do not provide a useful fresh-arrival signal for this species right now.",
-            "tip": "Do not use Push to plan for this species outside its migration season. Follow an active species instead, or return when early monitoring begins.",
+            "headline": "Big Manistee Push is outside its fall movement window.",
+            "detail": "Current Wellston flow and temperature do not provide an in-season fresh-movement signal for this run.",
+            "tip": "Check back in early September.",
             "reasonCodes": [
               "push_tracking_offseason"
             ],
             "rulesVersion": "big-manistee-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 93,
             "label": "Excellent",
-            "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river.",
-            "tip": "Begin on the primary travel lane feeding deep holding water. Work each hole from its head through the inside seam and tail, then keep moving until fish establish a pattern.",
+            "headline": "Upper-river flow is in its best presentation range.",
+            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read covers only the Upper river (High Bridge–Tippy Dam).",
+            "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band"
@@ -8692,11 +8728,12 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": null,
           "fishInRiver": {
-            "score": 0,
+            "score": null,
+            "scoreIsApproximate": false,
             "stage": "post_run",
             "maximum": 100,
             "riverCeiling": 50,
@@ -8704,15 +8741,15 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "curveFraction": 0,
             "curveDirection": "outside",
             "winterHoldingContext": false,
-            "label": "Offseason",
-            "headline": "Coho salmon are outside their river migration season.",
-            "detail": "A dependable seasonal presence of Coho salmon is not expected in the river right now.",
-            "tip": "Do not build a river trip around this species right now. Target a species with an active seasonal window and return as the next migration approaches.",
+            "label": "Fall run complete",
+            "headline": "The Big Manistee Coho salmon fall run is complete.",
+            "detail": "Coho salmon staging typically begins in early September. This seasonal estimate is inactive until then.",
+            "tip": "Check back in early September when Big Manistee fall-run tracking resumes.",
             "reasonCodes": [
               "stage_post_run",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -8938,21 +8975,15 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "data_quality_fresh"
             ]
           },
-          "interpretationNote": {
-            "headline": "The river should fish well, but seasonal fish presence is still low.",
-            "detail": "Good flow makes presentations easier, but it does not put fish in the river. Begin in the deepest established holding water and skip broad searches through fast travel lanes as seasonal presence thins.",
-            "reasonCodes": [
-              "good_fishability_low_presence"
-            ]
-          },
-          "secondaryNote": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It best represents the Tippy tailwater and upper migratory corridor; flow, temperature, access, and fishability can differ downstream through High Bridge, Bear Creek, the lower river, and Manistee Lake.",
+          "interpretationNote": null,
+          "secondaryNote": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It represents the Upper river (High Bridge–Tippy Dam), especially the Tippy Dam area. Conditions can differ in the Middle river, Lower river, Manistee Lake, and harbor.",
           "safety": {
             "regulationReminder": "The Big Manistee below Tippy is a Type 3 reach extending to the railroad bridge below M-55, with a year-round one-Rainbow-Trout limit and special artificial-lure rules during the August 1–November 15 window. Follow current Michigan regulations, DNR closure notices, dam-safety information, and posted boundaries. Fishing methods can change by reach and season.",
-            "gaugeBasis": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It best represents the Tippy tailwater and upper migratory corridor; flow, temperature, access, and fishability can differ downstream through High Bridge, Bear Creek, the lower river, and Manistee Lake.",
+            "gaugeBasis": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It represents the Upper river (High Bridge–Tippy Dam), especially the Tippy Dam area. Conditions can differ in the Middle river, Lower river, Manistee Lake, and harbor.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-big-manistee-steelhead-activity.1"
+          "configVersion": "2026-08-10-big-manistee-copy.1"
         }
       },
       {
@@ -8971,6 +9002,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
           "nextConditionRefreshAt": "2026-08-16T05:00:00.000Z",
           "runStage": {
             "stage": "post_run",
+            "copyStrategy": "big_manistee_tailwater",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -8992,16 +9024,16 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "startToPeakDays": 40,
               "peakToEndDays": 41
             },
-            "label": "Offseason",
-            "headline": "The Big Manistee Coho salmon run is outside its researched window.",
-            "whereToStart": "No dependable Big Manistee location for this fall migration model right now.",
-            "detail": "This fall-spawn profile has ended; another seasonal experience must supply any later species guidance.",
-            "tip": "Do not use this profile to score a different season.",
+            "label": "Fall run complete",
+            "headline": "The Big Manistee Coho salmon fall run is complete.",
+            "whereToStart": "There is no active Big Manistee starting section in this fall-run model.",
+            "detail": "Coho salmon staging typically begins in early September. This seasonal estimate is inactive until then.",
+            "tip": "Check back in early September when Big Manistee fall-run tracking resumes.",
             "reasonCodes": [
               "stage_post_run",
               "stage_offseason"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Not monitoring yet",
@@ -9020,13 +9052,13 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "historicalYears": 0,
             "sourceDates": [],
             "sourceRefreshSlots": {},
-            "headline": "Migration Timing is not active right now.",
-            "detail": "Timing monitoring begins before the expected river entry, but that seasonal observation window is not active yet.",
-            "tip": "Check Migration Stage for the current seasonal position and return to Migration Timing when early monitoring begins.",
+            "headline": "Big Manistee Migration Timing is not monitoring yet.",
+            "detail": "Season-to-date Wellston flow and temperature monitoring resumes in early September.",
+            "tip": "Check back in early September when Big Manistee timing monitoring resumes.",
             "reasonCodes": [
               "conditions_monitoring_inactive"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -9040,21 +9072,21 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
           "push": {
             "score": null,
             "label": "Offseason",
-            "headline": "Push is not active outside the river migration season.",
-            "detail": "Rain, river level, and water temperature can still change, but they do not provide a useful fresh-arrival signal for this species right now.",
-            "tip": "Do not use Push to plan for this species outside its migration season. Follow an active species instead, or return when early monitoring begins.",
+            "headline": "Big Manistee Push is outside its fall movement window.",
+            "detail": "Current Wellston flow and temperature do not provide an in-season fresh-movement signal for this run.",
+            "tip": "Check back in early September.",
             "reasonCodes": [
               "push_tracking_offseason"
             ],
             "rulesVersion": "big-manistee-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 93,
             "label": "Excellent",
-            "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river.",
-            "tip": "Begin on the primary travel lane feeding deep holding water. Work each hole from its head through the inside seam and tail, then keep moving until fish establish a pattern.",
+            "headline": "Upper-river flow is in its best presentation range.",
+            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read covers only the Upper river (High Bridge–Tippy Dam).",
+            "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band"
@@ -9065,11 +9097,12 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": null,
           "fishInRiver": {
-            "score": 0,
+            "score": null,
+            "scoreIsApproximate": false,
             "stage": "post_run",
             "maximum": 100,
             "riverCeiling": 50,
@@ -9077,15 +9110,15 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "curveFraction": 0,
             "curveDirection": "outside",
             "winterHoldingContext": false,
-            "label": "Offseason",
-            "headline": "Coho salmon are outside their river migration season.",
-            "detail": "A dependable seasonal presence of Coho salmon is not expected in the river right now.",
-            "tip": "Do not build a river trip around this species right now. Target a species with an active seasonal window and return as the next migration approaches.",
+            "label": "Fall run complete",
+            "headline": "The Big Manistee Coho salmon fall run is complete.",
+            "detail": "Coho salmon staging typically begins in early September. This seasonal estimate is inactive until then.",
+            "tip": "Check back in early September when Big Manistee fall-run tracking resumes.",
             "reasonCodes": [
               "stage_post_run",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -9311,21 +9344,15 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "data_quality_fresh"
             ]
           },
-          "interpretationNote": {
-            "headline": "The river should fish well, but seasonal fish presence is still low.",
-            "detail": "Good flow makes presentations easier, but it does not put fish in the river. Begin in the deepest established holding water and skip broad searches through fast travel lanes as seasonal presence thins.",
-            "reasonCodes": [
-              "good_fishability_low_presence"
-            ]
-          },
-          "secondaryNote": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It best represents the Tippy tailwater and upper migratory corridor; flow, temperature, access, and fishability can differ downstream through High Bridge, Bear Creek, the lower river, and Manistee Lake.",
+          "interpretationNote": null,
+          "secondaryNote": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It represents the Upper river (High Bridge–Tippy Dam), especially the Tippy Dam area. Conditions can differ in the Middle river, Lower river, Manistee Lake, and harbor.",
           "safety": {
             "regulationReminder": "The Big Manistee below Tippy is a Type 3 reach extending to the railroad bridge below M-55, with a year-round one-Rainbow-Trout limit and special artificial-lure rules during the August 1–November 15 window. Follow current Michigan regulations, DNR closure notices, dam-safety information, and posted boundaries. Fishing methods can change by reach and season.",
-            "gaugeBasis": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It best represents the Tippy tailwater and upper migratory corridor; flow, temperature, access, and fishability can differ downstream through High Bridge, Bear Creek, the lower river, and Manistee Lake.",
+            "gaugeBasis": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It represents the Upper river (High Bridge–Tippy Dam), especially the Tippy Dam area. Conditions can differ in the Middle river, Lower river, Manistee Lake, and harbor.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-big-manistee-steelhead-activity.1"
+          "configVersion": "2026-08-10-big-manistee-copy.1"
         }
       },
       {
@@ -9344,6 +9371,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
           "nextConditionRefreshAt": "2026-10-07T05:00:00.000Z",
           "runStage": {
             "stage": "building",
+            "copyStrategy": "big_manistee_tailwater",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -9366,14 +9394,14 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "peakToEndDays": 41
             },
             "label": "Building",
-            "headline": "More Coho salmon are becoming established below Tippy Dam.",
-            "whereToStart": "Begin in the Tippy tailwater, then compare the Tippy-to-High Bridge reach with deeper bends in the High Bridge-Bear Creek middle corridor before committing to one section.",
-            "detail": "Earlier fish can be established near the dam while newer arrivals remain distributed farther downstream. The river is not a single uniform gauge reach.",
-            "tip": "Work substantial holding water and current breaks section by section. Do not turn a Wellston reading into a claim about the lower river.",
+            "headline": "Coho salmon are becoming established through more of the river.",
+            "whereToStart": "Start in the Middle river (Bear Creek–High Bridge). Add the Upper river (High Bridge–Tippy Dam), especially the Tippy Dam area, when direct activity supports it.",
+            "detail": "Coho may occupy more than one section, but the opportunity remains selective.",
+            "tip": "Compare one section at a time; Wellston does not describe the Middle or Lower river.",
             "reasonCodes": [
               "stage_building"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Typical",
@@ -9460,16 +9488,16 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "2026-09-29": "16:00",
               "2026-09-30": "16:00"
             },
-            "headline": "The migration appears to be progressing at a normal seasonal pace.",
-            "detail": "River rises and cooling are close to what is usually seen by this point in the season.",
-            "tip": "Fish the core river section identified by Migration Stage. Begin where a travel lane feeds established holding water, then adjust presentation—not seasonal location—using Fishability.",
+            "headline": "Big Manistee migration is progressing at its usual seasonal pace.",
+            "detail": "Season-to-date Wellston river-rise activity and measured cooling are close to the usual Upper-river pattern.",
+            "tip": "Keep the Big Manistee section named by Migration Stage.",
             "reasonCodes": [
               "gauge_fresh",
               "temperature_measured",
               "conditions_checkpoint_building_established",
               "conditions_typical"
             ],
-            "copyVersion": "river-run-copy-v27",
+            "copyVersion": "river-run-copy-v34",
             "previousCheckpointId": "building_start",
             "previousCheckpointDate": "2026-10-01",
             "previousTimingLabel": "Typical"
@@ -9486,9 +9514,9 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
           "push": {
             "score": 30,
             "label": "No clear push",
-            "headline": "Today's water does not show a clear signal for a fresh wave of fish.",
-            "detail": "The river is holding steady with no meaningful rise yet. Water temperature is favorable for fall migration and is relatively steady. Recent weather estimates indicate very little rain around the river.",
-            "tip": "Fish established holding water from the head through the inside seam and tail. Do not spend the day racing between lower travel lanes for a wave the water does not support.",
+            "headline": "Upper-river water does not show a clear fresh-movement signal.",
+            "detail": "The river is holding steady with no meaningful rise yet. Water temperature is favorable for fall migration and is relatively steady. Recent watershed weather shows little rain.",
+            "tip": "Keep Migration Stage’s section primary. Do not shift to fresh-entry water from this read.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
@@ -9507,14 +9535,14 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 93,
             "label": "Excellent",
-            "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river.",
-            "tip": "Begin on the primary travel lane feeding deep holding water. Work each hole from its head through the inside seam and tail, then keep moving until fish establish a pattern.",
+            "headline": "Upper-river flow is in its best presentation range.",
+            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read covers only the Upper river (High Bridge–Tippy Dam).",
+            "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band"
@@ -9525,15 +9553,15 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 75,
             "maximum": 100,
             "label": "Active",
-            "headline": "Today’s Coho activity outlook is active.",
-            "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. More Coho are entering and settling into the river; measured water temperature matters, but this score describes reaction conditions rather than movement or abundance. The measured conditions represent the Wellston/Tippy tailwater; water temperature, clarity, and presentation conditions can differ through the middle and lower migratory river. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
-            "tip": "Start with 5–9 AM. If the sky changes from the forecast, favor the darkest practical window.",
+            "headline": "Today’s Upper-river Coho responsiveness is active.",
+            "detail": "Conditions support a meaningful Coho response. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Wellston flow and temperature represent the Upper river, especially the Tippy Dam area.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify downstream sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -9585,10 +9613,13 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 27,
+            "displayScore": 25,
+            "scoreIsApproximate": true,
             "stage": "building",
             "maximum": 100,
             "riverCeiling": 50,
@@ -9597,14 +9628,14 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "curveDirection": "rising",
             "winterHoldingContext": false,
             "label": "Moderate presence",
-            "headline": "A meaningful seasonal presence of Coho salmon is likely in the river and still building.",
-            "detail": "This part of the season usually brings moderate presence, with more fish expected to enter and become established through several dependable river sections. This is a seasonal estimate, not a live fish count.",
-            "tip": "Plan for a credible river opportunity that is still improving. Stay mobile until direct fish activity gives you a reason to slow down.",
+            "headline": "Seasonal Coho salmon presence is moderate and building.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the Big Manistee Coho salmon ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_building",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -9832,14 +9863,14 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             ]
           },
           "interpretationNote": null,
-          "secondaryNote": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It best represents the Tippy tailwater and upper migratory corridor; flow, temperature, access, and fishability can differ downstream through High Bridge, Bear Creek, the lower river, and Manistee Lake.",
+          "secondaryNote": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It represents the Upper river (High Bridge–Tippy Dam), especially the Tippy Dam area. Conditions can differ in the Middle river, Lower river, Manistee Lake, and harbor.",
           "safety": {
             "regulationReminder": "The Big Manistee below Tippy is a Type 3 reach extending to the railroad bridge below M-55, with a year-round one-Rainbow-Trout limit and special artificial-lure rules during the August 1–November 15 window. Follow current Michigan regulations, DNR closure notices, dam-safety information, and posted boundaries. Fishing methods can change by reach and season.",
-            "gaugeBasis": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It best represents the Tippy tailwater and upper migratory corridor; flow, temperature, access, and fishability can differ downstream through High Bridge, Bear Creek, the lower river, and Manistee Lake.",
+            "gaugeBasis": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It represents the Upper river (High Bridge–Tippy Dam), especially the Tippy Dam area. Conditions can differ in the Middle river, Lower river, Manistee Lake, and harbor.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-big-manistee-steelhead-activity.1"
+          "configVersion": "2026-08-10-big-manistee-copy.1"
         }
       }
     ]
@@ -9864,6 +9895,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
           "nextConditionRefreshAt": "2026-10-01T05:00:00.000Z",
           "runStage": {
             "stage": "beginning",
+            "copyStrategy": "big_manistee_tailwater",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -9886,14 +9918,14 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "peakToEndDays": 41
             },
             "label": "Beginning",
-            "headline": "Coho salmon are accumulating through more of the Big Manistee below Tippy Dam.",
-            "whereToStart": "Check the Tippy tailwater and Tippy-to-High Bridge reach first; if fish are scattered there, compare the High Bridge-Bear Creek middle corridor and lower migratory river for newer arrivals.",
-            "detail": "Earlier fish can already be established in tailwater holding areas while newer fish continue moving through the lower and middle migratory corridor. Numbers can still be uneven between sections.",
-            "tip": "Treat Tippy, High Bridge, and Bear Creek as different checks—not one uniform gauge reach—and let direct fish activity decide where to slow down.",
+            "headline": "Coho salmon are accumulating through more of the Big Manistee.",
+            "whereToStart": "Start in the Lower river (M-55–Bear Creek). Add the Middle river (Bear Creek–High Bridge) after direct fish activity supports the move.",
+            "detail": "More Coho are present, but concentrations remain selective.",
+            "tip": "Follow travel water into substantial holding areas before moving upstream.",
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -9925,15 +9957,15 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "2026-09-09"
             ],
             "sourceRefreshSlots": {},
-            "headline": "There is not enough reliable information for a Migration Timing call.",
-            "tip": "Do not move farther upstream or stay lower based on this timing read. Fish the section identified by Migration Stage and begin in its most established holding water; change sections only when direct fish activity or a dependable later read supports it.",
+            "headline": "There is not enough reliable Big Manistee evidence for a Migration Timing call.",
+            "tip": "Keep the section named by Migration Stage. Do not shift sections from this timing read.",
             "detail": "There are not enough dependable past seasons to judge whether this migration is early, normal, or late.",
             "reasonCodes": [
               "conditions_baseline_missing",
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -9947,9 +9979,9 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
           "push": {
             "score": 30,
             "label": "No clear push",
-            "headline": "Today's water does not show a clear signal for a fresh wave of fish.",
-            "detail": "The river is holding steady with no meaningful rise yet. Water temperature is favorable for fall migration and is relatively steady. Recent weather estimates indicate very little rain around the river.",
-            "tip": "Fish established holding water from the head through the inside seam and tail. Do not spend the day racing between lower travel lanes for a wave the water does not support.",
+            "headline": "Upper-river water does not show a clear fresh-movement signal.",
+            "detail": "The river is holding steady with no meaningful rise yet. Water temperature is favorable for fall migration and is relatively steady. Recent watershed weather shows little rain.",
+            "tip": "Keep Migration Stage’s section primary. Do not shift to fresh-entry water from this read.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
@@ -9968,14 +10000,14 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 93,
             "label": "Excellent",
-            "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river.",
-            "tip": "Begin on the primary travel lane feeding deep holding water. Work each hole from its head through the inside seam and tail, then keep moving until fish establish a pattern.",
+            "headline": "Upper-river flow is in its best presentation range.",
+            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read covers only the Upper river (High Bridge–Tippy Dam).",
+            "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band"
@@ -9986,15 +10018,15 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 76,
             "maximum": 100,
             "label": "Active",
-            "headline": "Today’s Coho activity outlook is active.",
-            "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. Early lake-fresh Coho can remain reactive when measured water temperatures are suitable; this score applies only to fish already in the river. The measured conditions represent the Wellston/Tippy tailwater; water temperature, clarity, and presentation conditions can differ through the middle and lower migratory river. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
-            "tip": "Start with 5–9 AM. If the sky changes from the forecast, favor the darkest practical window.",
+            "headline": "Today’s Upper-river Coho responsiveness is active.",
+            "detail": "Conditions support a meaningful Coho response. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Wellston flow and temperature represent the Upper river, especially the Tippy Dam area.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify downstream sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -10046,10 +10078,13 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 19,
+            "displayScore": 20,
+            "scoreIsApproximate": true,
             "stage": "beginning",
             "maximum": 100,
             "riverCeiling": 50,
@@ -10058,14 +10093,14 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "curveDirection": "rising",
             "winterHoldingContext": false,
             "label": "Limited presence",
-            "headline": "Some Coho salmon are likely in the river, but seasonal presence is still developing.",
-            "detail": "This part of the season usually brings limited presence, with more fish expected to enter and become established through several dependable river sections. This is a seasonal estimate, not a live fish count.",
-            "tip": "Plan for an emerging but uneven river opportunity. Cover water efficiently, and do not assume every promising stop holds fish.",
+            "headline": "Seasonal Coho salmon presence is limited and building.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the Big Manistee Coho salmon ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -10293,14 +10328,14 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             ]
           },
           "interpretationNote": null,
-          "secondaryNote": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It best represents the Tippy tailwater and upper migratory corridor; flow, temperature, access, and fishability can differ downstream through High Bridge, Bear Creek, the lower river, and Manistee Lake.",
+          "secondaryNote": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It represents the Upper river (High Bridge–Tippy Dam), especially the Tippy Dam area. Conditions can differ in the Middle river, Lower river, Manistee Lake, and harbor.",
           "safety": {
             "regulationReminder": "The Big Manistee below Tippy is a Type 3 reach extending to the railroad bridge below M-55, with a year-round one-Rainbow-Trout limit and special artificial-lure rules during the August 1–November 15 window. Follow current Michigan regulations, DNR closure notices, dam-safety information, and posted boundaries. Fishing methods can change by reach and season.",
-            "gaugeBasis": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It best represents the Tippy tailwater and upper migratory corridor; flow, temperature, access, and fishability can differ downstream through High Bridge, Bear Creek, the lower river, and Manistee Lake.",
+            "gaugeBasis": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It represents the Upper river (High Bridge–Tippy Dam), especially the Tippy Dam area. Conditions can differ in the Middle river, Lower river, Manistee Lake, and harbor.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-big-manistee-steelhead-activity.1"
+          "configVersion": "2026-08-10-big-manistee-copy.1"
         }
       },
       {
@@ -10319,6 +10354,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
           "nextConditionRefreshAt": "2026-10-01T05:00:00.000Z",
           "runStage": {
             "stage": "beginning",
+            "copyStrategy": "big_manistee_tailwater",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -10341,14 +10377,14 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "peakToEndDays": 41
             },
             "label": "Beginning",
-            "headline": "Coho salmon are accumulating through more of the Big Manistee below Tippy Dam.",
-            "whereToStart": "Check the Tippy tailwater and Tippy-to-High Bridge reach first; if fish are scattered there, compare the High Bridge-Bear Creek middle corridor and lower migratory river for newer arrivals.",
-            "detail": "Earlier fish can already be established in tailwater holding areas while newer fish continue moving through the lower and middle migratory corridor. Numbers can still be uneven between sections.",
-            "tip": "Treat Tippy, High Bridge, and Bear Creek as different checks—not one uniform gauge reach—and let direct fish activity decide where to slow down.",
+            "headline": "Coho salmon are accumulating through more of the Big Manistee.",
+            "whereToStart": "Start in the Lower river (M-55–Bear Creek). Add the Middle river (Bear Creek–High Bridge) after direct fish activity supports the move.",
+            "detail": "More Coho are present, but concentrations remain selective.",
+            "tip": "Follow travel water into substantial holding areas before moving upstream.",
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -10380,15 +10416,15 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "2026-09-09"
             ],
             "sourceRefreshSlots": {},
-            "headline": "There is not enough reliable information for a Migration Timing call.",
-            "tip": "Do not move farther upstream or stay lower based on this timing read. Fish the section identified by Migration Stage and begin in its most established holding water; change sections only when direct fish activity or a dependable later read supports it.",
+            "headline": "There is not enough reliable Big Manistee evidence for a Migration Timing call.",
+            "tip": "Keep the section named by Migration Stage. Do not shift sections from this timing read.",
             "detail": "There are not enough dependable past seasons to judge whether this migration is early, normal, or late.",
             "reasonCodes": [
               "conditions_baseline_missing",
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -10402,9 +10438,9 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
           "push": {
             "score": 0,
             "label": "Weak",
-            "headline": "Today's water shows little support for a fresh wave of fish.",
-            "detail": "The river is falling instead of showing a fresh rise. Water temperature remains too warm to support a strong Push but is warming sharply. Recent weather estimates indicate very little rain around the river.",
-            "tip": "Do not build the day around new arrivals while the river remains warm. Start in established holding water at first or last light and leave lower travel lanes secondary.",
+            "headline": "Upper-river water shows little support for fresh movement.",
+            "detail": "The river is falling instead of showing a fresh rise. Water temperature remains too warm to support a strong Push but is warming sharply. Recent watershed weather shows little rain.",
+            "tip": "Keep Migration Stage’s section primary. Do not shift to fresh-entry water from this read.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
@@ -10424,14 +10460,14 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 90,
             "label": "Excellent",
-            "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The river is settling, which should sharpen seams and make established holding water easier to read. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river.",
-            "tip": "Begin on the primary seam feeding deep holding water. Work each hole from head to tail, giving the deeper downstream half one final pass as the river settles.",
+            "headline": "Upper-river flow is in its best presentation range.",
+            "detail": "The flow band offers the broadest mix of depth and presentation control. Falling flow should sharpen established seams. This read covers only the Upper river (High Bridge–Tippy Dam).",
+            "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band"
@@ -10442,15 +10478,15 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 19,
             "maximum": 100,
             "label": "Inactive",
-            "headline": "Today’s Coho activity outlook is inactive.",
-            "detail": "Conditions provide little environmental support for an aggressive response. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Water temperature limits responsiveness. Early lake-fresh Coho can remain reactive when measured water temperatures are suitable; this score applies only to fish already in the river. The measured conditions represent the Wellston/Tippy tailwater; water temperature, clarity, and presentation conditions can differ through the middle and lower migratory river. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
-            "tip": "Start with 5–9 AM. If the sky changes from the forecast, favor the darkest practical window.",
+            "headline": "Today’s Upper-river Coho responsiveness is inactive.",
+            "detail": "Conditions offer little support for an aggressive Coho response. 5–9 AM and 9 AM–1 PM are the leading windows, but neither has a clear advantage. Wellston flow and temperature represent the Upper river, especially the Tippy Dam area.",
+            "tip": "Choose between 5–9 AM and 9 AM–1 PM using actual light. Verify downstream sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -10503,10 +10539,13 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 19,
+            "displayScore": 20,
+            "scoreIsApproximate": true,
             "stage": "beginning",
             "maximum": 100,
             "riverCeiling": 50,
@@ -10515,14 +10554,14 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "curveDirection": "rising",
             "winterHoldingContext": false,
             "label": "Limited presence",
-            "headline": "Some Coho salmon are likely in the river, but seasonal presence is still developing.",
-            "detail": "This part of the season usually brings limited presence, with more fish expected to enter and become established through several dependable river sections. This is a seasonal estimate, not a live fish count.",
-            "tip": "Plan for an emerging but uneven river opportunity. Cover water efficiently, and do not assume every promising stop holds fish.",
+            "headline": "Seasonal Coho salmon presence is limited and building.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the Big Manistee Coho salmon ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -10750,14 +10789,14 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             ]
           },
           "interpretationNote": null,
-          "secondaryNote": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It best represents the Tippy tailwater and upper migratory corridor; flow, temperature, access, and fishability can differ downstream through High Bridge, Bear Creek, the lower river, and Manistee Lake.",
+          "secondaryNote": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It represents the Upper river (High Bridge–Tippy Dam), especially the Tippy Dam area. Conditions can differ in the Middle river, Lower river, Manistee Lake, and harbor.",
           "safety": {
             "regulationReminder": "The Big Manistee below Tippy is a Type 3 reach extending to the railroad bridge below M-55, with a year-round one-Rainbow-Trout limit and special artificial-lure rules during the August 1–November 15 window. Follow current Michigan regulations, DNR closure notices, dam-safety information, and posted boundaries. Fishing methods can change by reach and season.",
-            "gaugeBasis": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It best represents the Tippy tailwater and upper migratory corridor; flow, temperature, access, and fishability can differ downstream through High Bridge, Bear Creek, the lower river, and Manistee Lake.",
+            "gaugeBasis": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It represents the Upper river (High Bridge–Tippy Dam), especially the Tippy Dam area. Conditions can differ in the Middle river, Lower river, Manistee Lake, and harbor.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-big-manistee-steelhead-activity.1"
+          "configVersion": "2026-08-10-big-manistee-copy.1"
         }
       },
       {
@@ -10776,6 +10815,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
           "nextConditionRefreshAt": "2026-10-01T05:00:00.000Z",
           "runStage": {
             "stage": "beginning",
+            "copyStrategy": "big_manistee_tailwater",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -10798,14 +10838,14 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "peakToEndDays": 41
             },
             "label": "Beginning",
-            "headline": "Coho salmon are accumulating through more of the Big Manistee below Tippy Dam.",
-            "whereToStart": "Check the Tippy tailwater and Tippy-to-High Bridge reach first; if fish are scattered there, compare the High Bridge-Bear Creek middle corridor and lower migratory river for newer arrivals.",
-            "detail": "Earlier fish can already be established in tailwater holding areas while newer fish continue moving through the lower and middle migratory corridor. Numbers can still be uneven between sections.",
-            "tip": "Treat Tippy, High Bridge, and Bear Creek as different checks—not one uniform gauge reach—and let direct fish activity decide where to slow down.",
+            "headline": "Coho salmon are accumulating through more of the Big Manistee.",
+            "whereToStart": "Start in the Lower river (M-55–Bear Creek). Add the Middle river (Bear Creek–High Bridge) after direct fish activity supports the move.",
+            "detail": "More Coho are present, but concentrations remain selective.",
+            "tip": "Follow travel water into substantial holding areas before moving upstream.",
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -10837,15 +10877,15 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "2026-09-09"
             ],
             "sourceRefreshSlots": {},
-            "headline": "There is not enough reliable information for a Migration Timing call.",
-            "tip": "Do not move farther upstream or stay lower based on this timing read. Fish the section identified by Migration Stage and begin in its most established holding water; change sections only when direct fish activity or a dependable later read supports it.",
+            "headline": "There is not enough reliable Big Manistee evidence for a Migration Timing call.",
+            "tip": "Keep the section named by Migration Stage. Do not shift sections from this timing read.",
             "detail": "There are not enough dependable past seasons to judge whether this migration is early, normal, or late.",
             "reasonCodes": [
               "conditions_baseline_missing",
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -10859,9 +10899,9 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
           "push": {
             "score": 61,
             "label": "Possible",
-            "headline": "Today's water offers some support for fresh fish moving into or through the river.",
-            "detail": "The river has started to rise since yesterday. Water temperature is favorable for fall migration and is cooling. Recent rain around the river adds some support while the river begins to rise.",
-            "tip": "Start in lower-river travel lanes, then fish the first deep resting water immediately upstream. Move to established holding water if those entry routes stay quiet.",
+            "headline": "Upper-river water offers some support for fresh movement.",
+            "detail": "The river has started to rise since yesterday. Water temperature is favorable for fall migration and is cooling. Rain adds limited support while Wellston begins to rise.",
+            "tip": "Keep Migration Stage’s section primary and add one Lower-river fresh-entry check.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
@@ -10879,14 +10919,14 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 88,
             "label": "Excellent",
-            "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The early rise is adding pace and depth, with inside seams and the upstream edges of holes changing first. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river.",
-            "tip": "Begin on the soft inside edge of the primary travel lane, then fish the first deep resting hole above it. Recheck that edge as added depth changes the lane.",
+            "headline": "Upper-river flow is in its best presentation range.",
+            "detail": "The flow band offers the broadest mix of depth and presentation control. A modest rise is shifting lanes toward softer edges. This read covers only the Upper river (High Bridge–Tippy Dam).",
+            "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band"
@@ -10897,15 +10937,15 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 75,
             "maximum": 100,
             "label": "Active",
-            "headline": "Today’s Coho activity outlook is active.",
-            "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. Early lake-fresh Coho can remain reactive when measured water temperatures are suitable; this score applies only to fish already in the river. The measured conditions represent the Wellston/Tippy tailwater; water temperature, clarity, and presentation conditions can differ through the middle and lower migratory river. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
-            "tip": "Start with 5–9 AM. If the sky changes from the forecast, favor the darkest practical window.",
+            "headline": "Today’s Upper-river Coho responsiveness is active.",
+            "detail": "Conditions support a meaningful Coho response. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Wellston flow and temperature represent the Upper river, especially the Tippy Dam area.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify downstream sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -10957,10 +10997,13 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 19,
+            "displayScore": 20,
+            "scoreIsApproximate": true,
             "stage": "beginning",
             "maximum": 100,
             "riverCeiling": 50,
@@ -10969,14 +11012,14 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "curveDirection": "rising",
             "winterHoldingContext": false,
             "label": "Limited presence",
-            "headline": "Some Coho salmon are likely in the river, but seasonal presence is still developing.",
-            "detail": "This part of the season usually brings limited presence, with more fish expected to enter and become established through several dependable river sections. This is a seasonal estimate, not a live fish count.",
-            "tip": "Plan for an emerging but uneven river opportunity. Cover water efficiently, and do not assume every promising stop holds fish.",
+            "headline": "Seasonal Coho salmon presence is limited and building.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the Big Manistee Coho salmon ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -11204,14 +11247,14 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             ]
           },
           "interpretationNote": null,
-          "secondaryNote": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It best represents the Tippy tailwater and upper migratory corridor; flow, temperature, access, and fishability can differ downstream through High Bridge, Bear Creek, the lower river, and Manistee Lake.",
+          "secondaryNote": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It represents the Upper river (High Bridge–Tippy Dam), especially the Tippy Dam area. Conditions can differ in the Middle river, Lower river, Manistee Lake, and harbor.",
           "safety": {
             "regulationReminder": "The Big Manistee below Tippy is a Type 3 reach extending to the railroad bridge below M-55, with a year-round one-Rainbow-Trout limit and special artificial-lure rules during the August 1–November 15 window. Follow current Michigan regulations, DNR closure notices, dam-safety information, and posted boundaries. Fishing methods can change by reach and season.",
-            "gaugeBasis": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It best represents the Tippy tailwater and upper migratory corridor; flow, temperature, access, and fishability can differ downstream through High Bridge, Bear Creek, the lower river, and Manistee Lake.",
+            "gaugeBasis": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It represents the Upper river (High Bridge–Tippy Dam), especially the Tippy Dam area. Conditions can differ in the Middle river, Lower river, Manistee Lake, and harbor.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-big-manistee-steelhead-activity.1"
+          "configVersion": "2026-08-10-big-manistee-copy.1"
         }
       },
       {
@@ -11230,6 +11273,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
           "nextConditionRefreshAt": "2026-10-01T05:00:00.000Z",
           "runStage": {
             "stage": "beginning",
+            "copyStrategy": "big_manistee_tailwater",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -11252,14 +11296,14 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "peakToEndDays": 41
             },
             "label": "Beginning",
-            "headline": "Coho salmon are accumulating through more of the Big Manistee below Tippy Dam.",
-            "whereToStart": "Check the Tippy tailwater and Tippy-to-High Bridge reach first; if fish are scattered there, compare the High Bridge-Bear Creek middle corridor and lower migratory river for newer arrivals.",
-            "detail": "Earlier fish can already be established in tailwater holding areas while newer fish continue moving through the lower and middle migratory corridor. Numbers can still be uneven between sections.",
-            "tip": "Treat Tippy, High Bridge, and Bear Creek as different checks—not one uniform gauge reach—and let direct fish activity decide where to slow down.",
+            "headline": "Coho salmon are accumulating through more of the Big Manistee.",
+            "whereToStart": "Start in the Lower river (M-55–Bear Creek). Add the Middle river (Bear Creek–High Bridge) after direct fish activity supports the move.",
+            "detail": "More Coho are present, but concentrations remain selective.",
+            "tip": "Follow travel water into substantial holding areas before moving upstream.",
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -11291,15 +11335,15 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "2026-09-09"
             ],
             "sourceRefreshSlots": {},
-            "headline": "There is not enough reliable information for a Migration Timing call.",
-            "tip": "Do not move farther upstream or stay lower based on this timing read. Fish the section identified by Migration Stage and begin in its most established holding water; change sections only when direct fish activity or a dependable later read supports it.",
+            "headline": "There is not enough reliable Big Manistee evidence for a Migration Timing call.",
+            "tip": "Keep the section named by Migration Stage. Do not shift sections from this timing read.",
             "detail": "There are not enough dependable past seasons to judge whether this migration is early, normal, or late.",
             "reasonCodes": [
               "conditions_baseline_missing",
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -11313,9 +11357,9 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
           "push": {
             "score": 76,
             "label": "Strong",
-            "headline": "Today's river rise and water temperature strongly support the possibility of a fresh wave moving into the river.",
-            "detail": "The river has made a clear rise since yesterday. Water temperature is favorable for fall migration and is cooling. The river has already made a meaningful rise, so that measured response carries the useful movement signal and rainfall adds no separate weight.",
-            "tip": "Begin on lower-river travel lanes and inside seams, then work the first resting holes along that route. Keep moving until fish establish a pattern; the signal still does not prove a wave entered.",
+            "headline": "Upper-river water strongly supports possible fresh movement.",
+            "detail": "The river has made a clear rise since yesterday. Water temperature is favorable for fall migration and is cooling. Wellston already reflects the rain response, so rain adds no extra credit.",
+            "tip": "Use the Lower river as the fresh-entry comparison, then return to Migration Stage’s section.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
@@ -11333,14 +11377,14 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 80,
             "label": "Good",
-            "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. Depth and current are changing enough to move the most controllable presentations toward inside seams and current breaks. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river.",
-            "tip": "Move off the center lane. Work inside seams, the downstream side of current breaks, and the first deep resting pocket with short controlled presentations.",
+            "headline": "Upper-river flow is in its best presentation range.",
+            "detail": "The flow band offers the broadest mix of depth and presentation control. A clear rise is moving controllable water toward current breaks. This read covers only the Upper river (High Bridge–Tippy Dam).",
+            "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band"
@@ -11351,15 +11395,15 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 77,
             "maximum": 100,
             "label": "Active",
-            "headline": "Today’s Coho activity outlook is active.",
-            "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. Early lake-fresh Coho can remain reactive when measured water temperatures are suitable; this score applies only to fish already in the river. The measured conditions represent the Wellston/Tippy tailwater; water temperature, clarity, and presentation conditions can differ through the middle and lower migratory river. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
-            "tip": "Start with 5–9 AM. If the sky changes from the forecast, favor the darkest practical window.",
+            "headline": "Today’s Upper-river Coho responsiveness is active.",
+            "detail": "Conditions support a meaningful Coho response. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Wellston flow and temperature represent the Upper river, especially the Tippy Dam area.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify downstream sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -11411,10 +11455,13 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 19,
+            "displayScore": 20,
+            "scoreIsApproximate": true,
             "stage": "beginning",
             "maximum": 100,
             "riverCeiling": 50,
@@ -11423,14 +11470,14 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "curveDirection": "rising",
             "winterHoldingContext": false,
             "label": "Limited presence",
-            "headline": "Some Coho salmon are likely in the river, but seasonal presence is still developing.",
-            "detail": "This part of the season usually brings limited presence, with more fish expected to enter and become established through several dependable river sections. This is a seasonal estimate, not a live fish count.",
-            "tip": "Plan for an emerging but uneven river opportunity. Cover water efficiently, and do not assume every promising stop holds fish.",
+            "headline": "Seasonal Coho salmon presence is limited and building.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the Big Manistee Coho salmon ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -11658,14 +11705,14 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             ]
           },
           "interpretationNote": null,
-          "secondaryNote": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It best represents the Tippy tailwater and upper migratory corridor; flow, temperature, access, and fishability can differ downstream through High Bridge, Bear Creek, the lower river, and Manistee Lake.",
+          "secondaryNote": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It represents the Upper river (High Bridge–Tippy Dam), especially the Tippy Dam area. Conditions can differ in the Middle river, Lower river, Manistee Lake, and harbor.",
           "safety": {
             "regulationReminder": "The Big Manistee below Tippy is a Type 3 reach extending to the railroad bridge below M-55, with a year-round one-Rainbow-Trout limit and special artificial-lure rules during the August 1–November 15 window. Follow current Michigan regulations, DNR closure notices, dam-safety information, and posted boundaries. Fishing methods can change by reach and season.",
-            "gaugeBasis": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It best represents the Tippy tailwater and upper migratory corridor; flow, temperature, access, and fishability can differ downstream through High Bridge, Bear Creek, the lower river, and Manistee Lake.",
+            "gaugeBasis": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It represents the Upper river (High Bridge–Tippy Dam), especially the Tippy Dam area. Conditions can differ in the Middle river, Lower river, Manistee Lake, and harbor.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-big-manistee-steelhead-activity.1"
+          "configVersion": "2026-08-10-big-manistee-copy.1"
         }
       },
       {
@@ -11684,6 +11731,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
           "nextConditionRefreshAt": "2026-10-01T05:00:00.000Z",
           "runStage": {
             "stage": "beginning",
+            "copyStrategy": "big_manistee_tailwater",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -11706,14 +11754,14 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "peakToEndDays": 41
             },
             "label": "Beginning",
-            "headline": "Coho salmon are accumulating through more of the Big Manistee below Tippy Dam.",
-            "whereToStart": "Check the Tippy tailwater and Tippy-to-High Bridge reach first; if fish are scattered there, compare the High Bridge-Bear Creek middle corridor and lower migratory river for newer arrivals.",
-            "detail": "Earlier fish can already be established in tailwater holding areas while newer fish continue moving through the lower and middle migratory corridor. Numbers can still be uneven between sections.",
-            "tip": "Treat Tippy, High Bridge, and Bear Creek as different checks—not one uniform gauge reach—and let direct fish activity decide where to slow down.",
+            "headline": "Coho salmon are accumulating through more of the Big Manistee.",
+            "whereToStart": "Start in the Lower river (M-55–Bear Creek). Add the Middle river (Bear Creek–High Bridge) after direct fish activity supports the move.",
+            "detail": "More Coho are present, but concentrations remain selective.",
+            "tip": "Follow travel water into substantial holding areas before moving upstream.",
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -11745,15 +11793,15 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "2026-09-09"
             ],
             "sourceRefreshSlots": {},
-            "headline": "There is not enough reliable information for a Migration Timing call.",
-            "tip": "Do not move farther upstream or stay lower based on this timing read. Fish the section identified by Migration Stage and begin in its most established holding water; change sections only when direct fish activity or a dependable later read supports it.",
+            "headline": "There is not enough reliable Big Manistee evidence for a Migration Timing call.",
+            "tip": "Keep the section named by Migration Stage. Do not shift sections from this timing read.",
             "detail": "There are not enough dependable past seasons to judge whether this migration is early, normal, or late.",
             "reasonCodes": [
               "conditions_baseline_missing",
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -11767,9 +11815,9 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
           "push": {
             "score": 90,
             "label": "Very strong",
-            "headline": "Today's water shows the strongest support for a fresh wave moving into the river.",
-            "detail": "The river is rising quickly, creating conditions fish often use to move. Water temperature is favorable for fall migration and is cooling sharply. The river has already made a meaningful rise, so that measured response carries the useful movement signal and rainfall adds no separate weight.",
-            "tip": "Start low and fish softer travel lanes, newly formed inside seams, and the first resting water above them. Skip any lane Fishability says is too fast or difficult to control.",
+            "headline": "Upper-river water offers its strongest support for fresh movement.",
+            "detail": "The river is rising quickly, creating conditions fish often use to move. Water temperature is favorable for fall migration and is cooling sharply. Wellston already reflects the rain response, so rain adds no extra credit.",
+            "tip": "Use the Lower river as the fresh-entry comparison, then return to Migration Stage’s section.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
@@ -11787,14 +11835,14 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 68,
             "label": "Fishable",
-            "headline": "The river is rising fast, and usable fishing water is shifting toward slower margins and current breaks.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The fast rise is quickly replacing settled lanes with heavier current and newly formed soft edges. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river.",
-            "tip": "Leave the main channel alone. Fish newly formed soft margins, inside bends, and the downstream side of current breaks with short controlled presentations.",
+            "headline": "A fast Upper-river rise is shifting usable water toward protected edges.",
+            "detail": "The flow band offers the broadest mix of depth and presentation control. A fast rise is replacing settled lanes with heavier current. This read covers only the Upper river (High Bridge–Tippy Dam).",
+            "tip": "Favor protected margins and short controlled presentations. Choose another day if control is not dependable.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band"
@@ -11805,15 +11853,15 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 77,
             "maximum": 100,
             "label": "Active",
-            "headline": "Today’s Coho activity outlook is active.",
-            "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. Early lake-fresh Coho can remain reactive when measured water temperatures are suitable; this score applies only to fish already in the river. The measured conditions represent the Wellston/Tippy tailwater; water temperature, clarity, and presentation conditions can differ through the middle and lower migratory river. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
-            "tip": "Start with 5–9 AM. If the sky changes from the forecast, favor the darkest practical window.",
+            "headline": "Today’s Upper-river Coho responsiveness is active.",
+            "detail": "Conditions support a meaningful Coho response. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Wellston flow and temperature represent the Upper river, especially the Tippy Dam area.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify downstream sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -11865,10 +11913,13 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 19,
+            "displayScore": 20,
+            "scoreIsApproximate": true,
             "stage": "beginning",
             "maximum": 100,
             "riverCeiling": 50,
@@ -11877,14 +11928,14 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "curveDirection": "rising",
             "winterHoldingContext": false,
             "label": "Limited presence",
-            "headline": "Some Coho salmon are likely in the river, but seasonal presence is still developing.",
-            "detail": "This part of the season usually brings limited presence, with more fish expected to enter and become established through several dependable river sections. This is a seasonal estimate, not a live fish count.",
-            "tip": "Plan for an emerging but uneven river opportunity. Cover water efficiently, and do not assume every promising stop holds fish.",
+            "headline": "Seasonal Coho salmon presence is limited and building.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the Big Manistee Coho salmon ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -12112,14 +12163,14 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             ]
           },
           "interpretationNote": null,
-          "secondaryNote": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It best represents the Tippy tailwater and upper migratory corridor; flow, temperature, access, and fishability can differ downstream through High Bridge, Bear Creek, the lower river, and Manistee Lake.",
+          "secondaryNote": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It represents the Upper river (High Bridge–Tippy Dam), especially the Tippy Dam area. Conditions can differ in the Middle river, Lower river, Manistee Lake, and harbor.",
           "safety": {
             "regulationReminder": "The Big Manistee below Tippy is a Type 3 reach extending to the railroad bridge below M-55, with a year-round one-Rainbow-Trout limit and special artificial-lure rules during the August 1–November 15 window. Follow current Michigan regulations, DNR closure notices, dam-safety information, and posted boundaries. Fishing methods can change by reach and season.",
-            "gaugeBasis": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It best represents the Tippy tailwater and upper migratory corridor; flow, temperature, access, and fishability can differ downstream through High Bridge, Bear Creek, the lower river, and Manistee Lake.",
+            "gaugeBasis": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It represents the Upper river (High Bridge–Tippy Dam), especially the Tippy Dam area. Conditions can differ in the Middle river, Lower river, Manistee Lake, and harbor.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-big-manistee-steelhead-activity.1"
+          "configVersion": "2026-08-10-big-manistee-copy.1"
         }
       },
       {
@@ -12138,6 +12189,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
           "nextConditionRefreshAt": "2026-10-01T05:00:00.000Z",
           "runStage": {
             "stage": "beginning",
+            "copyStrategy": "big_manistee_tailwater",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -12160,14 +12212,14 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "peakToEndDays": 41
             },
             "label": "Beginning",
-            "headline": "Coho salmon are accumulating through more of the Big Manistee below Tippy Dam.",
-            "whereToStart": "Check the Tippy tailwater and Tippy-to-High Bridge reach first; if fish are scattered there, compare the High Bridge-Bear Creek middle corridor and lower migratory river for newer arrivals.",
-            "detail": "Earlier fish can already be established in tailwater holding areas while newer fish continue moving through the lower and middle migratory corridor. Numbers can still be uneven between sections.",
-            "tip": "Treat Tippy, High Bridge, and Bear Creek as different checks—not one uniform gauge reach—and let direct fish activity decide where to slow down.",
+            "headline": "Coho salmon are accumulating through more of the Big Manistee.",
+            "whereToStart": "Start in the Lower river (M-55–Bear Creek). Add the Middle river (Bear Creek–High Bridge) after direct fish activity supports the move.",
+            "detail": "More Coho are present, but concentrations remain selective.",
+            "tip": "Follow travel water into substantial holding areas before moving upstream.",
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -12199,15 +12251,15 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "2026-09-09"
             ],
             "sourceRefreshSlots": {},
-            "headline": "There is not enough reliable information for a Migration Timing call.",
-            "tip": "Do not move farther upstream or stay lower based on this timing read. Fish the section identified by Migration Stage and begin in its most established holding water; change sections only when direct fish activity or a dependable later read supports it.",
+            "headline": "There is not enough reliable Big Manistee evidence for a Migration Timing call.",
+            "tip": "Keep the section named by Migration Stage. Do not shift sections from this timing read.",
             "detail": "There are not enough dependable past seasons to judge whether this migration is early, normal, or late.",
             "reasonCodes": [
               "conditions_baseline_missing",
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -12221,9 +12273,9 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
           "push": {
             "score": 51,
             "label": "Possible",
-            "headline": "Today's water offers some support for fresh fish moving into or through the river.",
-            "detail": "The river is holding steady with no meaningful rise yet. Water temperature is favorable for fall migration and is cooling. Recent rain around the river may help, but the river has not responded enough for rain alone to create a strong Push.",
-            "tip": "Start in lower-river travel lanes, then fish the first deep resting water immediately upstream. Move to established holding water if those entry routes stay quiet.",
+            "headline": "Upper-river water offers some support for fresh movement.",
+            "detail": "The river is holding steady with no meaningful rise yet. Water temperature is favorable for fall migration and is cooling. Rain is only a precursor because Wellston has not responded.",
+            "tip": "Keep Migration Stage’s section primary and add one Lower-river fresh-entry check.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
@@ -12242,14 +12294,14 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 93,
             "label": "Excellent",
-            "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river.",
-            "tip": "Begin on the primary travel lane feeding deep holding water. Work each hole from its head through the inside seam and tail, then keep moving until fish establish a pattern.",
+            "headline": "Upper-river flow is in its best presentation range.",
+            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read covers only the Upper river (High Bridge–Tippy Dam).",
+            "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band"
@@ -12260,15 +12312,15 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 77,
             "maximum": 100,
             "label": "Active",
-            "headline": "Today’s Coho activity outlook is active.",
-            "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. Early lake-fresh Coho can remain reactive when measured water temperatures are suitable; this score applies only to fish already in the river. The measured conditions represent the Wellston/Tippy tailwater; water temperature, clarity, and presentation conditions can differ through the middle and lower migratory river. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
-            "tip": "Start with 5–9 AM. If the sky changes from the forecast, favor the darkest practical window.",
+            "headline": "Today’s Upper-river Coho responsiveness is active.",
+            "detail": "Conditions support a meaningful Coho response. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Wellston flow and temperature represent the Upper river, especially the Tippy Dam area.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify downstream sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -12320,10 +12372,13 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 19,
+            "displayScore": 20,
+            "scoreIsApproximate": true,
             "stage": "beginning",
             "maximum": 100,
             "riverCeiling": 50,
@@ -12332,14 +12387,14 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "curveDirection": "rising",
             "winterHoldingContext": false,
             "label": "Limited presence",
-            "headline": "Some Coho salmon are likely in the river, but seasonal presence is still developing.",
-            "detail": "This part of the season usually brings limited presence, with more fish expected to enter and become established through several dependable river sections. This is a seasonal estimate, not a live fish count.",
-            "tip": "Plan for an emerging but uneven river opportunity. Cover water efficiently, and do not assume every promising stop holds fish.",
+            "headline": "Seasonal Coho salmon presence is limited and building.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the Big Manistee Coho salmon ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -12567,14 +12622,14 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             ]
           },
           "interpretationNote": null,
-          "secondaryNote": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It best represents the Tippy tailwater and upper migratory corridor; flow, temperature, access, and fishability can differ downstream through High Bridge, Bear Creek, the lower river, and Manistee Lake.",
+          "secondaryNote": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It represents the Upper river (High Bridge–Tippy Dam), especially the Tippy Dam area. Conditions can differ in the Middle river, Lower river, Manistee Lake, and harbor.",
           "safety": {
             "regulationReminder": "The Big Manistee below Tippy is a Type 3 reach extending to the railroad bridge below M-55, with a year-round one-Rainbow-Trout limit and special artificial-lure rules during the August 1–November 15 window. Follow current Michigan regulations, DNR closure notices, dam-safety information, and posted boundaries. Fishing methods can change by reach and season.",
-            "gaugeBasis": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It best represents the Tippy tailwater and upper migratory corridor; flow, temperature, access, and fishability can differ downstream through High Bridge, Bear Creek, the lower river, and Manistee Lake.",
+            "gaugeBasis": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It represents the Upper river (High Bridge–Tippy Dam), especially the Tippy Dam area. Conditions can differ in the Middle river, Lower river, Manistee Lake, and harbor.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-big-manistee-steelhead-activity.1"
+          "configVersion": "2026-08-10-big-manistee-copy.1"
         }
       },
       {
@@ -12593,6 +12648,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
           "nextConditionRefreshAt": "2026-10-01T05:00:00.000Z",
           "runStage": {
             "stage": "beginning",
+            "copyStrategy": "big_manistee_tailwater",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -12615,14 +12671,14 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "peakToEndDays": 41
             },
             "label": "Beginning",
-            "headline": "Coho salmon are accumulating through more of the Big Manistee below Tippy Dam.",
-            "whereToStart": "Check the Tippy tailwater and Tippy-to-High Bridge reach first; if fish are scattered there, compare the High Bridge-Bear Creek middle corridor and lower migratory river for newer arrivals.",
-            "detail": "Earlier fish can already be established in tailwater holding areas while newer fish continue moving through the lower and middle migratory corridor. Numbers can still be uneven between sections.",
-            "tip": "Treat Tippy, High Bridge, and Bear Creek as different checks—not one uniform gauge reach—and let direct fish activity decide where to slow down.",
+            "headline": "Coho salmon are accumulating through more of the Big Manistee.",
+            "whereToStart": "Start in the Lower river (M-55–Bear Creek). Add the Middle river (Bear Creek–High Bridge) after direct fish activity supports the move.",
+            "detail": "More Coho are present, but concentrations remain selective.",
+            "tip": "Follow travel water into substantial holding areas before moving upstream.",
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -12654,15 +12710,15 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "2026-09-09"
             ],
             "sourceRefreshSlots": {},
-            "headline": "There is not enough reliable information for a Migration Timing call.",
-            "tip": "Do not move farther upstream or stay lower based on this timing read. Fish the section identified by Migration Stage and begin in its most established holding water; change sections only when direct fish activity or a dependable later read supports it.",
+            "headline": "There is not enough reliable Big Manistee evidence for a Migration Timing call.",
+            "tip": "Keep the section named by Migration Stage. Do not shift sections from this timing read.",
             "detail": "There are not enough dependable past seasons to judge whether this migration is early, normal, or late.",
             "reasonCodes": [
               "conditions_baseline_missing",
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -12676,9 +12732,9 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
           "push": {
             "score": 46,
             "label": "No clear push",
-            "headline": "Today's water does not show a clear signal for a fresh wave of fish.",
-            "detail": "There is not enough recent river-level history to tell whether the river is rising or falling. Water temperature is favorable for fall migration and is cooling. Recent rain around the river may help, but the river has not responded enough for rain alone to create a strong Push. Without a dependable river trend, there is no clear Push.",
-            "tip": "Do not relocate the trip around this Push read. Begin in established holding water, verify the river at the first access, and add travel lanes only after confirming workable conditions.",
+            "headline": "Upper-river water does not show a clear fresh-movement signal.",
+            "detail": "There is not enough recent river-level history to tell whether the river is rising or falling. Water temperature is favorable for fall migration and is cooling. Without a dependable Wellston trend, the read cannot show a clear Push.",
+            "tip": "Keep Migration Stage’s section primary. Do not shift to fresh-entry water from this read.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
@@ -12698,14 +12754,14 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 69,
             "label": "Fishable",
-            "headline": "The river appears fishable, but its direction is unclear, so confidence is limited.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. There is not enough recent information to tell whether the river is rising or falling, which lowers confidence in the read. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river.",
-            "tip": "Start at a bank-side inside bend or soft seam where the full presentation stays under control. Skip faster water until the river's direction is verified.",
+            "headline": "Upper-river flow is workable, but its direction is unknown.",
+            "detail": "The flow band offers the broadest mix of depth and presentation control. Recent Wellston history cannot establish the flow direction. This read covers only the Upper river (High Bridge–Tippy Dam).",
+            "tip": "Verify the Upper river directly before choosing presentation water.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band",
@@ -12719,15 +12775,15 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               ]
             },
             "rulesVersion": "big-manistee-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 77,
             "maximum": 100,
             "label": "Active",
-            "headline": "Today’s Coho activity outlook is active.",
-            "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. Early lake-fresh Coho can remain reactive when measured water temperatures are suitable; this score applies only to fish already in the river. The measured conditions represent the Wellston/Tippy tailwater; water temperature, clarity, and presentation conditions can differ through the middle and lower migratory river. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
-            "tip": "Start with 5–9 AM. If the sky changes from the forecast, favor the darkest practical window.",
+            "headline": "Today’s Upper-river Coho responsiveness is active.",
+            "detail": "Conditions support a meaningful Coho response. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Wellston flow and temperature represent the Upper river, especially the Tippy Dam area.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify downstream sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -12779,10 +12835,13 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 19,
+            "displayScore": 20,
+            "scoreIsApproximate": true,
             "stage": "beginning",
             "maximum": 100,
             "riverCeiling": 50,
@@ -12791,14 +12850,14 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "curveDirection": "rising",
             "winterHoldingContext": false,
             "label": "Limited presence",
-            "headline": "Some Coho salmon are likely in the river, but seasonal presence is still developing.",
-            "detail": "This part of the season usually brings limited presence, with more fish expected to enter and become established through several dependable river sections. This is a seasonal estimate, not a live fish count.",
-            "tip": "Plan for an emerging but uneven river opportunity. Cover water efficiently, and do not assume every promising stop holds fish.",
+            "headline": "Seasonal Coho salmon presence is limited and building.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the Big Manistee Coho salmon ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -13026,14 +13085,14 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             ]
           },
           "interpretationNote": null,
-          "secondaryNote": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It best represents the Tippy tailwater and upper migratory corridor; flow, temperature, access, and fishability can differ downstream through High Bridge, Bear Creek, the lower river, and Manistee Lake.",
+          "secondaryNote": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It represents the Upper river (High Bridge–Tippy Dam), especially the Tippy Dam area. Conditions can differ in the Middle river, Lower river, Manistee Lake, and harbor.",
           "safety": {
             "regulationReminder": "The Big Manistee below Tippy is a Type 3 reach extending to the railroad bridge below M-55, with a year-round one-Rainbow-Trout limit and special artificial-lure rules during the August 1–November 15 window. Follow current Michigan regulations, DNR closure notices, dam-safety information, and posted boundaries. Fishing methods can change by reach and season.",
-            "gaugeBasis": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It best represents the Tippy tailwater and upper migratory corridor; flow, temperature, access, and fishability can differ downstream through High Bridge, Bear Creek, the lower river, and Manistee Lake.",
+            "gaugeBasis": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It represents the Upper river (High Bridge–Tippy Dam), especially the Tippy Dam area. Conditions can differ in the Middle river, Lower river, Manistee Lake, and harbor.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-big-manistee-steelhead-activity.1"
+          "configVersion": "2026-08-10-big-manistee-copy.1"
         }
       },
       {
@@ -13052,6 +13111,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
           "nextConditionRefreshAt": "2026-10-01T05:00:00.000Z",
           "runStage": {
             "stage": "beginning",
+            "copyStrategy": "big_manistee_tailwater",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -13074,14 +13134,14 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "peakToEndDays": 41
             },
             "label": "Beginning",
-            "headline": "Coho salmon are accumulating through more of the Big Manistee below Tippy Dam.",
-            "whereToStart": "Check the Tippy tailwater and Tippy-to-High Bridge reach first; if fish are scattered there, compare the High Bridge-Bear Creek middle corridor and lower migratory river for newer arrivals.",
-            "detail": "Earlier fish can already be established in tailwater holding areas while newer fish continue moving through the lower and middle migratory corridor. Numbers can still be uneven between sections.",
-            "tip": "Treat Tippy, High Bridge, and Bear Creek as different checks—not one uniform gauge reach—and let direct fish activity decide where to slow down.",
+            "headline": "Coho salmon are accumulating through more of the Big Manistee.",
+            "whereToStart": "Start in the Lower river (M-55–Bear Creek). Add the Middle river (Bear Creek–High Bridge) after direct fish activity supports the move.",
+            "detail": "More Coho are present, but concentrations remain selective.",
+            "tip": "Follow travel water into substantial holding areas before moving upstream.",
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -13113,15 +13173,15 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "2026-09-09"
             ],
             "sourceRefreshSlots": {},
-            "headline": "There is not enough reliable information for a Migration Timing call.",
-            "tip": "Do not move farther upstream or stay lower based on this timing read. Fish the section identified by Migration Stage and begin in its most established holding water; change sections only when direct fish activity or a dependable later read supports it.",
+            "headline": "There is not enough reliable Big Manistee evidence for a Migration Timing call.",
+            "tip": "Keep the section named by Migration Stage. Do not shift sections from this timing read.",
             "detail": "There are not enough dependable past seasons to judge whether this migration is early, normal, or late.",
             "reasonCodes": [
               "conditions_baseline_missing",
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -13135,9 +13195,9 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
           "push": {
             "score": 55,
             "label": "Possible",
-            "headline": "The water may support fresh movement, but an aging river reading limits confidence.",
-            "detail": "The river is rising quickly, creating conditions fish often use to move. Water temperature is favorable for fall migration and is cooling sharply. The river has already made a meaningful rise, so that measured response carries the useful movement signal and rainfall adds no separate weight. The latest river-level reading is aging, so confidence is reduced.",
-            "tip": "Do not relocate the trip around this Push read. Begin in established holding water, verify the river at the first access, and add travel lanes only after confirming workable conditions.",
+            "headline": "Upper-river water offers some support for fresh movement.",
+            "detail": "The river is rising quickly, creating conditions fish often use to move. Water temperature is favorable for fall migration and is cooling sharply. The Wellston reading is aging, so confidence is reduced.",
+            "tip": "Keep Migration Stage’s section primary and add one Lower-river fresh-entry check.",
             "reasonCodes": [
               "gauge_stale",
               "push_normal_flow_context",
@@ -13158,14 +13218,14 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               ]
             },
             "rulesVersion": "big-manistee-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 55,
             "label": "Fishable",
-            "headline": "The last river reading was fishable, but it is aging and may no longer describe the water accurately.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. Because the latest reading is aging, the river may have changed since it was reported. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river.",
-            "tip": "Do not choose a reach from this reading alone. Check the water at the first access, and begin only in bank-side water where you can control the entire presentation.",
+            "headline": "The aging Wellston reading limits Upper-river Fishability confidence.",
+            "detail": "The flow band offers the broadest mix of depth and presentation control. The Upper river may have changed since the last Wellston reading. This read covers only the Upper river (High Bridge–Tippy Dam).",
+            "tip": "Verify the Upper river directly before choosing presentation water.",
             "reasonCodes": [
               "gauge_stale",
               "ideal_flow_band",
@@ -13179,15 +13239,15 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               ]
             },
             "rulesVersion": "big-manistee-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 53,
             "maximum": 100,
             "label": "Moderate",
-            "headline": "Today’s Coho activity outlook is moderate.",
-            "detail": "Some useful factors are present, but the response window is mixed. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Current river behavior is unavailable. Early lake-fresh Coho can remain reactive when measured water temperatures are suitable; this score applies only to fish already in the river. The measured conditions represent the Wellston/Tippy tailwater; water temperature, clarity, and presentation conditions can differ through the middle and lower migratory river. One important reading is unavailable or comes from tomorrow’s forecast, so the outlook is kept conservative.",
-            "tip": "Start with 5–9 AM. If the sky changes from the forecast, favor the darkest practical window.",
+            "headline": "Today’s Upper-river Coho responsiveness is moderate.",
+            "detail": "Conditions offer mixed support for Coho responsiveness. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Moderate confidence reflects missing or forecast inputs; Wellston still represents only the Upper river.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify downstream sections directly.",
             "reasonCodes": [
               "activity_confidence_moderate",
               "activity_today",
@@ -13239,10 +13299,13 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 19,
+            "displayScore": 20,
+            "scoreIsApproximate": true,
             "stage": "beginning",
             "maximum": 100,
             "riverCeiling": 50,
@@ -13251,14 +13314,14 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "curveDirection": "rising",
             "winterHoldingContext": false,
             "label": "Limited presence",
-            "headline": "Some Coho salmon are likely in the river, but seasonal presence is still developing.",
-            "detail": "This part of the season usually brings limited presence, with more fish expected to enter and become established through several dependable river sections. This is a seasonal estimate, not a live fish count.",
-            "tip": "Plan for an emerging but uneven river opportunity. Cover water efficiently, and do not assume every promising stop holds fish.",
+            "headline": "Seasonal Coho salmon presence is limited and building.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the Big Manistee Coho salmon ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -13486,14 +13549,14 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             ]
           },
           "interpretationNote": null,
-          "secondaryNote": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It best represents the Tippy tailwater and upper migratory corridor; flow, temperature, access, and fishability can differ downstream through High Bridge, Bear Creek, the lower river, and Manistee Lake.",
+          "secondaryNote": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It represents the Upper river (High Bridge–Tippy Dam), especially the Tippy Dam area. Conditions can differ in the Middle river, Lower river, Manistee Lake, and harbor.",
           "safety": {
             "regulationReminder": "The Big Manistee below Tippy is a Type 3 reach extending to the railroad bridge below M-55, with a year-round one-Rainbow-Trout limit and special artificial-lure rules during the August 1–November 15 window. Follow current Michigan regulations, DNR closure notices, dam-safety information, and posted boundaries. Fishing methods can change by reach and season.",
-            "gaugeBasis": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It best represents the Tippy tailwater and upper migratory corridor; flow, temperature, access, and fishability can differ downstream through High Bridge, Bear Creek, the lower river, and Manistee Lake.",
+            "gaugeBasis": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It represents the Upper river (High Bridge–Tippy Dam), especially the Tippy Dam area. Conditions can differ in the Middle river, Lower river, Manistee Lake, and harbor.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-big-manistee-steelhead-activity.1"
+          "configVersion": "2026-08-10-big-manistee-copy.1"
         }
       },
       {
@@ -13512,6 +13575,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
           "nextConditionRefreshAt": "2026-10-01T05:00:00.000Z",
           "runStage": {
             "stage": "beginning",
+            "copyStrategy": "big_manistee_tailwater",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -13534,14 +13598,14 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "peakToEndDays": 41
             },
             "label": "Beginning",
-            "headline": "Coho salmon are accumulating through more of the Big Manistee below Tippy Dam.",
-            "whereToStart": "Check the Tippy tailwater and Tippy-to-High Bridge reach first; if fish are scattered there, compare the High Bridge-Bear Creek middle corridor and lower migratory river for newer arrivals.",
-            "detail": "Earlier fish can already be established in tailwater holding areas while newer fish continue moving through the lower and middle migratory corridor. Numbers can still be uneven between sections.",
-            "tip": "Treat Tippy, High Bridge, and Bear Creek as different checks—not one uniform gauge reach—and let direct fish activity decide where to slow down.",
+            "headline": "Coho salmon are accumulating through more of the Big Manistee.",
+            "whereToStart": "Start in the Lower river (M-55–Bear Creek). Add the Middle river (Bear Creek–High Bridge) after direct fish activity supports the move.",
+            "detail": "More Coho are present, but concentrations remain selective.",
+            "tip": "Follow travel water into substantial holding areas before moving upstream.",
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -13573,15 +13637,15 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "2026-09-09"
             ],
             "sourceRefreshSlots": {},
-            "headline": "There is not enough reliable information for a Migration Timing call.",
-            "tip": "Do not move farther upstream or stay lower based on this timing read. Fish the section identified by Migration Stage and begin in its most established holding water; change sections only when direct fish activity or a dependable later read supports it.",
+            "headline": "There is not enough reliable Big Manistee evidence for a Migration Timing call.",
+            "tip": "Keep the section named by Migration Stage. Do not shift sections from this timing read.",
             "detail": "There are not enough dependable past seasons to judge whether this migration is early, normal, or late.",
             "reasonCodes": [
               "conditions_baseline_missing",
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -13595,9 +13659,9 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
           "push": {
             "score": 49,
             "label": "No clear push",
-            "headline": "The river is rising hard, but extreme flow makes this an unreliable fresh-movement read.",
-            "detail": "The river is rising quickly, creating conditions fish often use to move. Overall flow is extremely high. Water temperature is favorable for fall migration and is cooling sharply. Additional rain does not improve the read while the river is already high.",
-            "tip": "Do not chase movement in the main channel. If Fishability remains usable, fish only protected margins, inside turns, and soft current with short controlled presentations.",
+            "headline": "Extreme Upper-river flow prevents a dependable fresh-movement signal.",
+            "detail": "The river is rising quickly, creating conditions fish often use to move; overall flow is extremely high. Water temperature is favorable for fall migration and is cooling sharply. Rain adds no support while Wellston flow is already high.",
+            "tip": "Keep Migration Stage’s section primary. Do not shift to fresh-entry water from this read.",
             "reasonCodes": [
               "gauge_fresh",
               "push_severe_high_flow_context",
@@ -13618,14 +13682,14 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               ]
             },
             "rulesVersion": "big-manistee-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 0,
             "label": "Poor",
-            "headline": "The river is blown out and still rising fast, so normal fishing water is not dependable.",
-            "detail": "Excessive flow is overwhelming normal holding water and making access and presentation unreliable. The fast rise is forcing usable fishing water out of the main flow and into the slowest protected margins. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river.",
-            "tip": "Choose a lower-water day for the better fishing opportunity. If you fish now, stay tight to protected banks, slow inside turns, and the downstream side of major current breaks; keep presentations short and leave the main flow alone.",
+            "headline": "The Upper river is blown out for a dependable presentation plan.",
+            "detail": "Excessive flow overwhelms normal lanes and presentation control. A fast rise is replacing settled lanes with heavier current. This read covers only the Upper river (High Bridge–Tippy Dam).",
+            "tip": "Choose another day and verify current conditions through authoritative local sources.",
             "reasonCodes": [
               "gauge_fresh",
               "blown_out_flow_band",
@@ -13638,15 +13702,15 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 20,
             "maximum": 100,
             "label": "Reserved",
-            "headline": "Today’s Coho activity outlook is reserved.",
-            "detail": "Fish may respond selectively, with important environmental limitations. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: The river level or its recent change is less favorable. Early lake-fresh Coho can remain reactive when measured water temperatures are suitable; this score applies only to fish already in the river. The measured conditions represent the Wellston/Tippy tailwater; water temperature, clarity, and presentation conditions can differ through the middle and lower migratory river. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
-            "tip": "Start with 5–9 AM. If the sky changes from the forecast, favor the darkest practical window.",
+            "headline": "Today’s Upper-river Coho responsiveness is reserved.",
+            "detail": "Coho may respond selectively under current limitations. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Wellston flow and temperature represent the Upper river, especially the Tippy Dam area.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify downstream sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -13699,10 +13763,13 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 19,
+            "displayScore": 20,
+            "scoreIsApproximate": true,
             "stage": "beginning",
             "maximum": 100,
             "riverCeiling": 50,
@@ -13711,14 +13778,14 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "curveDirection": "rising",
             "winterHoldingContext": false,
             "label": "Limited presence",
-            "headline": "Some Coho salmon are likely in the river, but seasonal presence is still developing.",
-            "detail": "This part of the season usually brings limited presence, with more fish expected to enter and become established through several dependable river sections. This is a seasonal estimate, not a live fish count.",
-            "tip": "Plan for an emerging but uneven river opportunity. Cover water efficiently, and do not assume every promising stop holds fish.",
+            "headline": "Seasonal Coho salmon presence is limited and building.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the Big Manistee Coho salmon ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -13946,14 +14013,14 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             ]
           },
           "interpretationNote": null,
-          "secondaryNote": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It best represents the Tippy tailwater and upper migratory corridor; flow, temperature, access, and fishability can differ downstream through High Bridge, Bear Creek, the lower river, and Manistee Lake.",
+          "secondaryNote": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It represents the Upper river (High Bridge–Tippy Dam), especially the Tippy Dam area. Conditions can differ in the Middle river, Lower river, Manistee Lake, and harbor.",
           "safety": {
             "regulationReminder": "The Big Manistee below Tippy is a Type 3 reach extending to the railroad bridge below M-55, with a year-round one-Rainbow-Trout limit and special artificial-lure rules during the August 1–November 15 window. Follow current Michigan regulations, DNR closure notices, dam-safety information, and posted boundaries. Fishing methods can change by reach and season.",
-            "gaugeBasis": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It best represents the Tippy tailwater and upper migratory corridor; flow, temperature, access, and fishability can differ downstream through High Bridge, Bear Creek, the lower river, and Manistee Lake.",
+            "gaugeBasis": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It represents the Upper river (High Bridge–Tippy Dam), especially the Tippy Dam area. Conditions can differ in the Middle river, Lower river, Manistee Lake, and harbor.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-big-manistee-steelhead-activity.1"
+          "configVersion": "2026-08-10-big-manistee-copy.1"
         }
       },
       {
@@ -13972,6 +14039,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
           "nextConditionRefreshAt": "2026-10-01T05:00:00.000Z",
           "runStage": {
             "stage": "beginning",
+            "copyStrategy": "big_manistee_tailwater",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -13994,14 +14062,14 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "peakToEndDays": 41
             },
             "label": "Beginning",
-            "headline": "Coho salmon are accumulating through more of the Big Manistee below Tippy Dam.",
-            "whereToStart": "Check the Tippy tailwater and Tippy-to-High Bridge reach first; if fish are scattered there, compare the High Bridge-Bear Creek middle corridor and lower migratory river for newer arrivals.",
-            "detail": "Earlier fish can already be established in tailwater holding areas while newer fish continue moving through the lower and middle migratory corridor. Numbers can still be uneven between sections.",
-            "tip": "Treat Tippy, High Bridge, and Bear Creek as different checks—not one uniform gauge reach—and let direct fish activity decide where to slow down.",
+            "headline": "Coho salmon are accumulating through more of the Big Manistee.",
+            "whereToStart": "Start in the Lower river (M-55–Bear Creek). Add the Middle river (Bear Creek–High Bridge) after direct fish activity supports the move.",
+            "detail": "More Coho are present, but concentrations remain selective.",
+            "tip": "Follow travel water into substantial holding areas before moving upstream.",
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -14033,15 +14101,15 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "2026-09-09"
             ],
             "sourceRefreshSlots": {},
-            "headline": "There is not enough reliable information for a Migration Timing call.",
-            "tip": "Do not move farther upstream or stay lower based on this timing read. Fish the section identified by Migration Stage and begin in its most established holding water; change sections only when direct fish activity or a dependable later read supports it.",
+            "headline": "There is not enough reliable Big Manistee evidence for a Migration Timing call.",
+            "tip": "Keep the section named by Migration Stage. Do not shift sections from this timing read.",
             "detail": "There are not enough dependable past seasons to judge whether this migration is early, normal, or late.",
             "reasonCodes": [
               "conditions_baseline_missing",
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -14062,27 +14130,27 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "gauge_missing"
             ],
             "rulesVersion": "big-manistee-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": null,
             "label": "Unavailable",
-            "headline": "There is no dependable Fishability read right now.",
-            "detail": "A recent river-level reading is missing, so current flow and direction cannot be judged responsibly.",
-            "tip": "Do not plan from the last known level. Check again after the next update, and verify the river at the first access before choosing where or how to fish.",
+            "headline": "A current Wellston Fishability reading is unavailable.",
+            "detail": "Without current Wellston flow and direction, Upper-river presentation conditions cannot be determined.",
+            "tip": "Do not extend an old or missing Wellston read through the Big Manistee. Verify current conditions directly.",
             "reasonCodes": [
               "gauge_missing"
             ],
             "rulesVersion": "big-manistee-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 50,
             "maximum": 100,
             "label": "Moderate",
-            "headline": "Today’s Coho activity outlook is moderate.",
-            "detail": "Some useful factors are present, but the response window is mixed. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Current river behavior is unavailable. Early lake-fresh Coho can remain reactive when measured water temperatures are suitable; this score applies only to fish already in the river. The measured conditions represent the Wellston/Tippy tailwater; water temperature, clarity, and presentation conditions can differ through the middle and lower migratory river. One important reading is unavailable or comes from tomorrow’s forecast, so the outlook is kept conservative.",
-            "tip": "Start with 5–9 AM. If the sky changes from the forecast, favor the darkest practical window.",
+            "headline": "Today’s Upper-river Coho responsiveness is moderate.",
+            "detail": "Conditions offer mixed support for Coho responsiveness. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Moderate confidence reflects missing or forecast inputs; Wellston still represents only the Upper river.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify downstream sections directly.",
             "reasonCodes": [
               "activity_confidence_moderate",
               "activity_today",
@@ -14134,10 +14202,13 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 19,
+            "displayScore": 20,
+            "scoreIsApproximate": true,
             "stage": "beginning",
             "maximum": 100,
             "riverCeiling": 50,
@@ -14146,14 +14217,14 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "curveDirection": "rising",
             "winterHoldingContext": false,
             "label": "Limited presence",
-            "headline": "Some Coho salmon are likely in the river, but seasonal presence is still developing.",
-            "detail": "This part of the season usually brings limited presence, with more fish expected to enter and become established through several dependable river sections. This is a seasonal estimate, not a live fish count.",
-            "tip": "Plan for an emerging but uneven river opportunity. Cover water efficiently, and do not assume every promising stop holds fish.",
+            "headline": "Seasonal Coho salmon presence is limited and building.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the Big Manistee Coho salmon ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": null,
           "weather": {
@@ -14371,14 +14442,14 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             ]
           },
           "interpretationNote": null,
-          "secondaryNote": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It best represents the Tippy tailwater and upper migratory corridor; flow, temperature, access, and fishability can differ downstream through High Bridge, Bear Creek, the lower river, and Manistee Lake.",
+          "secondaryNote": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It represents the Upper river (High Bridge–Tippy Dam), especially the Tippy Dam area. Conditions can differ in the Middle river, Lower river, Manistee Lake, and harbor.",
           "safety": {
             "regulationReminder": "The Big Manistee below Tippy is a Type 3 reach extending to the railroad bridge below M-55, with a year-round one-Rainbow-Trout limit and special artificial-lure rules during the August 1–November 15 window. Follow current Michigan regulations, DNR closure notices, dam-safety information, and posted boundaries. Fishing methods can change by reach and season.",
-            "gaugeBasis": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It best represents the Tippy tailwater and upper migratory corridor; flow, temperature, access, and fishability can differ downstream through High Bridge, Bear Creek, the lower river, and Manistee Lake.",
+            "gaugeBasis": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It represents the Upper river (High Bridge–Tippy Dam), especially the Tippy Dam area. Conditions can differ in the Middle river, Lower river, Manistee Lake, and harbor.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-big-manistee-steelhead-activity.1"
+          "configVersion": "2026-08-10-big-manistee-copy.1"
         }
       },
       {
@@ -14397,6 +14468,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
           "nextConditionRefreshAt": "2026-10-01T05:00:00.000Z",
           "runStage": {
             "stage": "beginning",
+            "copyStrategy": "big_manistee_tailwater",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -14419,14 +14491,14 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "peakToEndDays": 41
             },
             "label": "Beginning",
-            "headline": "Coho salmon are accumulating through more of the Big Manistee below Tippy Dam.",
-            "whereToStart": "Check the Tippy tailwater and Tippy-to-High Bridge reach first; if fish are scattered there, compare the High Bridge-Bear Creek middle corridor and lower migratory river for newer arrivals.",
-            "detail": "Earlier fish can already be established in tailwater holding areas while newer fish continue moving through the lower and middle migratory corridor. Numbers can still be uneven between sections.",
-            "tip": "Treat Tippy, High Bridge, and Bear Creek as different checks—not one uniform gauge reach—and let direct fish activity decide where to slow down.",
+            "headline": "Coho salmon are accumulating through more of the Big Manistee.",
+            "whereToStart": "Start in the Lower river (M-55–Bear Creek). Add the Middle river (Bear Creek–High Bridge) after direct fish activity supports the move.",
+            "detail": "More Coho are present, but concentrations remain selective.",
+            "tip": "Follow travel water into substantial holding areas before moving upstream.",
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -14458,15 +14530,15 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "2026-09-09"
             ],
             "sourceRefreshSlots": {},
-            "headline": "There is not enough reliable information for a Migration Timing call.",
-            "tip": "Do not move farther upstream or stay lower based on this timing read. Fish the section identified by Migration Stage and begin in its most established holding water; change sections only when direct fish activity or a dependable later read supports it.",
+            "headline": "There is not enough reliable Big Manistee evidence for a Migration Timing call.",
+            "tip": "Keep the section named by Migration Stage. Do not shift sections from this timing read.",
             "detail": "There are not enough dependable past seasons to judge whether this migration is early, normal, or late.",
             "reasonCodes": [
               "conditions_baseline_missing",
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -14488,14 +14560,14 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "temperature_unavailable"
             ],
             "rulesVersion": "big-manistee-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 93,
             "label": "Excellent",
-            "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river.",
-            "tip": "Begin on the primary travel lane feeding deep holding water. Work each hole from its head through the inside seam and tail, then keep moving until fish establish a pattern.",
+            "headline": "Upper-river flow is in its best presentation range.",
+            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read covers only the Upper river (High Bridge–Tippy Dam).",
+            "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band"
@@ -14506,15 +14578,15 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 53,
             "maximum": 100,
             "label": "Moderate",
-            "headline": "Today’s Coho activity outlook is moderate.",
-            "detail": "Some useful factors are present, but the response window is mixed. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Measured water temperature is unavailable. Early lake-fresh Coho can remain reactive when measured water temperatures are suitable; this score applies only to fish already in the river. The measured conditions represent the Wellston/Tippy tailwater; water temperature, clarity, and presentation conditions can differ through the middle and lower migratory river. One important reading is unavailable or comes from tomorrow’s forecast, so the outlook is kept conservative.",
-            "tip": "Start with 5–9 AM. If the sky changes from the forecast, favor the darkest practical window.",
+            "headline": "Today’s Upper-river Coho responsiveness is moderate.",
+            "detail": "Conditions offer mixed support for Coho responsiveness. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Moderate confidence reflects missing or forecast inputs; Wellston still represents only the Upper river.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify downstream sections directly.",
             "reasonCodes": [
               "activity_confidence_moderate",
               "activity_today",
@@ -14566,10 +14638,13 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 19,
+            "displayScore": 20,
+            "scoreIsApproximate": true,
             "stage": "beginning",
             "maximum": 100,
             "riverCeiling": 50,
@@ -14578,14 +14653,14 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "curveDirection": "rising",
             "winterHoldingContext": false,
             "label": "Limited presence",
-            "headline": "Some Coho salmon are likely in the river, but seasonal presence is still developing.",
-            "detail": "This part of the season usually brings limited presence, with more fish expected to enter and become established through several dependable river sections. This is a seasonal estimate, not a live fish count.",
-            "tip": "Plan for an emerging but uneven river opportunity. Cover water efficiently, and do not assume every promising stop holds fish.",
+            "headline": "Seasonal Coho salmon presence is limited and building.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the Big Manistee Coho salmon ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -14796,14 +14871,14 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             ]
           },
           "interpretationNote": null,
-          "secondaryNote": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It best represents the Tippy tailwater and upper migratory corridor; flow, temperature, access, and fishability can differ downstream through High Bridge, Bear Creek, the lower river, and Manistee Lake.",
+          "secondaryNote": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It represents the Upper river (High Bridge–Tippy Dam), especially the Tippy Dam area. Conditions can differ in the Middle river, Lower river, Manistee Lake, and harbor.",
           "safety": {
             "regulationReminder": "The Big Manistee below Tippy is a Type 3 reach extending to the railroad bridge below M-55, with a year-round one-Rainbow-Trout limit and special artificial-lure rules during the August 1–November 15 window. Follow current Michigan regulations, DNR closure notices, dam-safety information, and posted boundaries. Fishing methods can change by reach and season.",
-            "gaugeBasis": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It best represents the Tippy tailwater and upper migratory corridor; flow, temperature, access, and fishability can differ downstream through High Bridge, Bear Creek, the lower river, and Manistee Lake.",
+            "gaugeBasis": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It represents the Upper river (High Bridge–Tippy Dam), especially the Tippy Dam area. Conditions can differ in the Middle river, Lower river, Manistee Lake, and harbor.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-big-manistee-steelhead-activity.1"
+          "configVersion": "2026-08-10-big-manistee-copy.1"
         }
       },
       {
@@ -14822,6 +14897,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
           "nextConditionRefreshAt": "2026-08-16T05:00:00.000Z",
           "runStage": {
             "stage": "post_run",
+            "copyStrategy": "big_manistee_tailwater",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -14843,16 +14919,16 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "startToPeakDays": 40,
               "peakToEndDays": 41
             },
-            "label": "Offseason",
-            "headline": "The Big Manistee Coho salmon run is outside its researched window.",
-            "whereToStart": "No dependable Big Manistee location for this fall migration model right now.",
-            "detail": "This fall-spawn profile has ended; another seasonal experience must supply any later species guidance.",
-            "tip": "Do not use this profile to score a different season.",
+            "label": "Fall run complete",
+            "headline": "The Big Manistee Coho salmon fall run is complete.",
+            "whereToStart": "There is no active Big Manistee starting section in this fall-run model.",
+            "detail": "Coho salmon staging typically begins in early September. This seasonal estimate is inactive until then.",
+            "tip": "Check back in early September when Big Manistee fall-run tracking resumes.",
             "reasonCodes": [
               "stage_post_run",
               "stage_offseason"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Not monitoring yet",
@@ -14871,13 +14947,13 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "historicalYears": 0,
             "sourceDates": [],
             "sourceRefreshSlots": {},
-            "headline": "Migration Timing is not active right now.",
-            "detail": "Timing monitoring begins before the expected river entry, but that seasonal observation window is not active yet.",
-            "tip": "Check Migration Stage for the current seasonal position and return to Migration Timing when early monitoring begins.",
+            "headline": "Big Manistee Migration Timing is not monitoring yet.",
+            "detail": "Season-to-date Wellston flow and temperature monitoring resumes in early September.",
+            "tip": "Check back in early September when Big Manistee timing monitoring resumes.",
             "reasonCodes": [
               "conditions_monitoring_inactive"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -14891,21 +14967,21 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
           "push": {
             "score": null,
             "label": "Offseason",
-            "headline": "Push is not active outside the river migration season.",
-            "detail": "Rain, river level, and water temperature can still change, but they do not provide a useful fresh-arrival signal for this species right now.",
-            "tip": "Do not use Push to plan for this species outside its migration season. Follow an active species instead, or return when early monitoring begins.",
+            "headline": "Big Manistee Push is outside its fall movement window.",
+            "detail": "Current Wellston flow and temperature do not provide an in-season fresh-movement signal for this run.",
+            "tip": "Check back in early September.",
             "reasonCodes": [
               "push_tracking_offseason"
             ],
             "rulesVersion": "big-manistee-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 93,
             "label": "Excellent",
-            "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river.",
-            "tip": "Begin on the primary travel lane feeding deep holding water. Work each hole from its head through the inside seam and tail, then keep moving until fish establish a pattern.",
+            "headline": "Upper-river flow is in its best presentation range.",
+            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read covers only the Upper river (High Bridge–Tippy Dam).",
+            "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band"
@@ -14916,11 +14992,12 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": null,
           "fishInRiver": {
-            "score": 0,
+            "score": null,
+            "scoreIsApproximate": false,
             "stage": "post_run",
             "maximum": 100,
             "riverCeiling": 50,
@@ -14928,15 +15005,15 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "curveFraction": 0,
             "curveDirection": "outside",
             "winterHoldingContext": false,
-            "label": "Offseason",
-            "headline": "Coho salmon are outside their river migration season.",
-            "detail": "A dependable seasonal presence of Coho salmon is not expected in the river right now.",
-            "tip": "Do not build a river trip around this species right now. Target a species with an active seasonal window and return as the next migration approaches.",
+            "label": "Fall run complete",
+            "headline": "The Big Manistee Coho salmon fall run is complete.",
+            "detail": "Coho salmon staging typically begins in early September. This seasonal estimate is inactive until then.",
+            "tip": "Check back in early September when Big Manistee fall-run tracking resumes.",
             "reasonCodes": [
               "stage_post_run",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -15162,21 +15239,15 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "data_quality_fresh"
             ]
           },
-          "interpretationNote": {
-            "headline": "The river should fish well, but seasonal fish presence is still low.",
-            "detail": "Good flow makes presentations easier, but it does not put fish in the river. Begin in the deepest established holding water and skip broad searches through fast travel lanes as seasonal presence thins.",
-            "reasonCodes": [
-              "good_fishability_low_presence"
-            ]
-          },
-          "secondaryNote": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It best represents the Tippy tailwater and upper migratory corridor; flow, temperature, access, and fishability can differ downstream through High Bridge, Bear Creek, the lower river, and Manistee Lake.",
+          "interpretationNote": null,
+          "secondaryNote": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It represents the Upper river (High Bridge–Tippy Dam), especially the Tippy Dam area. Conditions can differ in the Middle river, Lower river, Manistee Lake, and harbor.",
           "safety": {
             "regulationReminder": "The Big Manistee below Tippy is a Type 3 reach extending to the railroad bridge below M-55, with a year-round one-Rainbow-Trout limit and special artificial-lure rules during the August 1–November 15 window. Follow current Michigan regulations, DNR closure notices, dam-safety information, and posted boundaries. Fishing methods can change by reach and season.",
-            "gaugeBasis": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It best represents the Tippy tailwater and upper migratory corridor; flow, temperature, access, and fishability can differ downstream through High Bridge, Bear Creek, the lower river, and Manistee Lake.",
+            "gaugeBasis": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It represents the Upper river (High Bridge–Tippy Dam), especially the Tippy Dam area. Conditions can differ in the Middle river, Lower river, Manistee Lake, and harbor.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-big-manistee-steelhead-activity.1"
+          "configVersion": "2026-08-10-big-manistee-copy.1"
         }
       },
       {
@@ -15195,6 +15266,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
           "nextConditionRefreshAt": "2026-08-16T05:00:00.000Z",
           "runStage": {
             "stage": "post_run",
+            "copyStrategy": "big_manistee_tailwater",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -15216,16 +15288,16 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "startToPeakDays": 40,
               "peakToEndDays": 41
             },
-            "label": "Offseason",
-            "headline": "The Big Manistee Coho salmon run is outside its researched window.",
-            "whereToStart": "No dependable Big Manistee location for this fall migration model right now.",
-            "detail": "This fall-spawn profile has ended; another seasonal experience must supply any later species guidance.",
-            "tip": "Do not use this profile to score a different season.",
+            "label": "Fall run complete",
+            "headline": "The Big Manistee Coho salmon fall run is complete.",
+            "whereToStart": "There is no active Big Manistee starting section in this fall-run model.",
+            "detail": "Coho salmon staging typically begins in early September. This seasonal estimate is inactive until then.",
+            "tip": "Check back in early September when Big Manistee fall-run tracking resumes.",
             "reasonCodes": [
               "stage_post_run",
               "stage_offseason"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Not monitoring yet",
@@ -15244,13 +15316,13 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "historicalYears": 0,
             "sourceDates": [],
             "sourceRefreshSlots": {},
-            "headline": "Migration Timing is not active right now.",
-            "detail": "Timing monitoring begins before the expected river entry, but that seasonal observation window is not active yet.",
-            "tip": "Check Migration Stage for the current seasonal position and return to Migration Timing when early monitoring begins.",
+            "headline": "Big Manistee Migration Timing is not monitoring yet.",
+            "detail": "Season-to-date Wellston flow and temperature monitoring resumes in early September.",
+            "tip": "Check back in early September when Big Manistee timing monitoring resumes.",
             "reasonCodes": [
               "conditions_monitoring_inactive"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -15264,21 +15336,21 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
           "push": {
             "score": null,
             "label": "Offseason",
-            "headline": "Push is not active outside the river migration season.",
-            "detail": "Rain, river level, and water temperature can still change, but they do not provide a useful fresh-arrival signal for this species right now.",
-            "tip": "Do not use Push to plan for this species outside its migration season. Follow an active species instead, or return when early monitoring begins.",
+            "headline": "Big Manistee Push is outside its fall movement window.",
+            "detail": "Current Wellston flow and temperature do not provide an in-season fresh-movement signal for this run.",
+            "tip": "Check back in early September.",
             "reasonCodes": [
               "push_tracking_offseason"
             ],
             "rulesVersion": "big-manistee-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 80,
             "label": "Good",
-            "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. Depth and current are changing enough to move the most controllable presentations toward inside seams and current breaks. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river.",
-            "tip": "Move off the center lane. Work inside seams, the downstream side of current breaks, and the first deep resting pocket with short controlled presentations.",
+            "headline": "Upper-river flow is in its best presentation range.",
+            "detail": "The flow band offers the broadest mix of depth and presentation control. A clear rise is moving controllable water toward current breaks. This read covers only the Upper river (High Bridge–Tippy Dam).",
+            "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band"
@@ -15289,11 +15361,12 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": null,
           "fishInRiver": {
-            "score": 0,
+            "score": null,
+            "scoreIsApproximate": false,
             "stage": "post_run",
             "maximum": 100,
             "riverCeiling": 50,
@@ -15301,15 +15374,15 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "curveFraction": 0,
             "curveDirection": "outside",
             "winterHoldingContext": false,
-            "label": "Offseason",
-            "headline": "Coho salmon are outside their river migration season.",
-            "detail": "A dependable seasonal presence of Coho salmon is not expected in the river right now.",
-            "tip": "Do not build a river trip around this species right now. Target a species with an active seasonal window and return as the next migration approaches.",
+            "label": "Fall run complete",
+            "headline": "The Big Manistee Coho salmon fall run is complete.",
+            "detail": "Coho salmon staging typically begins in early September. This seasonal estimate is inactive until then.",
+            "tip": "Check back in early September when Big Manistee fall-run tracking resumes.",
             "reasonCodes": [
               "stage_post_run",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -15535,21 +15608,15 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "data_quality_fresh"
             ]
           },
-          "interpretationNote": {
-            "headline": "The river should fish well, but seasonal fish presence is still low.",
-            "detail": "Good flow makes presentations easier, but it does not put fish in the river. Begin in the deepest established holding water and skip broad searches through fast travel lanes as seasonal presence thins.",
-            "reasonCodes": [
-              "good_fishability_low_presence"
-            ]
-          },
-          "secondaryNote": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It best represents the Tippy tailwater and upper migratory corridor; flow, temperature, access, and fishability can differ downstream through High Bridge, Bear Creek, the lower river, and Manistee Lake.",
+          "interpretationNote": null,
+          "secondaryNote": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It represents the Upper river (High Bridge–Tippy Dam), especially the Tippy Dam area. Conditions can differ in the Middle river, Lower river, Manistee Lake, and harbor.",
           "safety": {
             "regulationReminder": "The Big Manistee below Tippy is a Type 3 reach extending to the railroad bridge below M-55, with a year-round one-Rainbow-Trout limit and special artificial-lure rules during the August 1–November 15 window. Follow current Michigan regulations, DNR closure notices, dam-safety information, and posted boundaries. Fishing methods can change by reach and season.",
-            "gaugeBasis": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It best represents the Tippy tailwater and upper migratory corridor; flow, temperature, access, and fishability can differ downstream through High Bridge, Bear Creek, the lower river, and Manistee Lake.",
+            "gaugeBasis": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It represents the Upper river (High Bridge–Tippy Dam), especially the Tippy Dam area. Conditions can differ in the Middle river, Lower river, Manistee Lake, and harbor.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-big-manistee-steelhead-activity.1"
+          "configVersion": "2026-08-10-big-manistee-copy.1"
         }
       },
       {
@@ -15568,6 +15635,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
           "nextConditionRefreshAt": "2026-08-16T05:00:00.000Z",
           "runStage": {
             "stage": "post_run",
+            "copyStrategy": "big_manistee_tailwater",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -15589,16 +15657,16 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "startToPeakDays": 40,
               "peakToEndDays": 41
             },
-            "label": "Offseason",
-            "headline": "The Big Manistee Coho salmon run is outside its researched window.",
-            "whereToStart": "No dependable Big Manistee location for this fall migration model right now.",
-            "detail": "This fall-spawn profile has ended; another seasonal experience must supply any later species guidance.",
-            "tip": "Do not use this profile to score a different season.",
+            "label": "Fall run complete",
+            "headline": "The Big Manistee Coho salmon fall run is complete.",
+            "whereToStart": "There is no active Big Manistee starting section in this fall-run model.",
+            "detail": "Coho salmon staging typically begins in early September. This seasonal estimate is inactive until then.",
+            "tip": "Check back in early September when Big Manistee fall-run tracking resumes.",
             "reasonCodes": [
               "stage_post_run",
               "stage_offseason"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Not monitoring yet",
@@ -15617,13 +15685,13 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "historicalYears": 0,
             "sourceDates": [],
             "sourceRefreshSlots": {},
-            "headline": "Migration Timing is not active right now.",
-            "detail": "Timing monitoring begins before the expected river entry, but that seasonal observation window is not active yet.",
-            "tip": "Check Migration Stage for the current seasonal position and return to Migration Timing when early monitoring begins.",
+            "headline": "Big Manistee Migration Timing is not monitoring yet.",
+            "detail": "Season-to-date Wellston flow and temperature monitoring resumes in early September.",
+            "tip": "Check back in early September when Big Manistee timing monitoring resumes.",
             "reasonCodes": [
               "conditions_monitoring_inactive"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -15637,21 +15705,21 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
           "push": {
             "score": null,
             "label": "Offseason",
-            "headline": "Push is not active outside the river migration season.",
-            "detail": "Rain, river level, and water temperature can still change, but they do not provide a useful fresh-arrival signal for this species right now.",
-            "tip": "Do not use Push to plan for this species outside its migration season. Follow an active species instead, or return when early monitoring begins.",
+            "headline": "Big Manistee Push is outside its fall movement window.",
+            "detail": "Current Wellston flow and temperature do not provide an in-season fresh-movement signal for this run.",
+            "tip": "Check back in early September.",
             "reasonCodes": [
               "push_tracking_offseason"
             ],
             "rulesVersion": "big-manistee-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 80,
             "label": "Good",
-            "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. Depth and current are changing enough to move the most controllable presentations toward inside seams and current breaks. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river.",
-            "tip": "Move off the center lane. Work inside seams, the downstream side of current breaks, and the first deep resting pocket with short controlled presentations.",
+            "headline": "Upper-river flow is in its best presentation range.",
+            "detail": "The flow band offers the broadest mix of depth and presentation control. A clear rise is moving controllable water toward current breaks. This read covers only the Upper river (High Bridge–Tippy Dam).",
+            "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band"
@@ -15662,11 +15730,12 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": null,
           "fishInRiver": {
-            "score": 0,
+            "score": null,
+            "scoreIsApproximate": false,
             "stage": "post_run",
             "maximum": 100,
             "riverCeiling": 50,
@@ -15674,15 +15743,15 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "curveFraction": 0,
             "curveDirection": "outside",
             "winterHoldingContext": false,
-            "label": "Offseason",
-            "headline": "Coho salmon are outside their river migration season.",
-            "detail": "A dependable seasonal presence of Coho salmon is not expected in the river right now.",
-            "tip": "Do not build a river trip around this species right now. Target a species with an active seasonal window and return as the next migration approaches.",
+            "label": "Fall run complete",
+            "headline": "The Big Manistee Coho salmon fall run is complete.",
+            "detail": "Coho salmon staging typically begins in early September. This seasonal estimate is inactive until then.",
+            "tip": "Check back in early September when Big Manistee fall-run tracking resumes.",
             "reasonCodes": [
               "stage_post_run",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -15908,21 +15977,15 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "data_quality_fresh"
             ]
           },
-          "interpretationNote": {
-            "headline": "The river should fish well, but seasonal fish presence is still low.",
-            "detail": "Good flow makes presentations easier, but it does not put fish in the river. Begin in the deepest established holding water and skip broad searches through fast travel lanes as seasonal presence thins.",
-            "reasonCodes": [
-              "good_fishability_low_presence"
-            ]
-          },
-          "secondaryNote": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It best represents the Tippy tailwater and upper migratory corridor; flow, temperature, access, and fishability can differ downstream through High Bridge, Bear Creek, the lower river, and Manistee Lake.",
+          "interpretationNote": null,
+          "secondaryNote": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It represents the Upper river (High Bridge–Tippy Dam), especially the Tippy Dam area. Conditions can differ in the Middle river, Lower river, Manistee Lake, and harbor.",
           "safety": {
             "regulationReminder": "The Big Manistee below Tippy is a Type 3 reach extending to the railroad bridge below M-55, with a year-round one-Rainbow-Trout limit and special artificial-lure rules during the August 1–November 15 window. Follow current Michigan regulations, DNR closure notices, dam-safety information, and posted boundaries. Fishing methods can change by reach and season.",
-            "gaugeBasis": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It best represents the Tippy tailwater and upper migratory corridor; flow, temperature, access, and fishability can differ downstream through High Bridge, Bear Creek, the lower river, and Manistee Lake.",
+            "gaugeBasis": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It represents the Upper river (High Bridge–Tippy Dam), especially the Tippy Dam area. Conditions can differ in the Middle river, Lower river, Manistee Lake, and harbor.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-big-manistee-steelhead-activity.1"
+          "configVersion": "2026-08-10-big-manistee-copy.1"
         }
       },
       {
@@ -15941,6 +16004,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
           "nextConditionRefreshAt": "2026-10-01T05:00:00.000Z",
           "runStage": {
             "stage": "beginning",
+            "copyStrategy": "big_manistee_tailwater",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -15963,14 +16027,14 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "peakToEndDays": 41
             },
             "label": "Beginning",
-            "headline": "Coho salmon are accumulating through more of the Big Manistee below Tippy Dam.",
-            "whereToStart": "Check the Tippy tailwater and Tippy-to-High Bridge reach first; if fish are scattered there, compare the High Bridge-Bear Creek middle corridor and lower migratory river for newer arrivals.",
-            "detail": "Earlier fish can already be established in tailwater holding areas while newer fish continue moving through the lower and middle migratory corridor. Numbers can still be uneven between sections.",
-            "tip": "Treat Tippy, High Bridge, and Bear Creek as different checks—not one uniform gauge reach—and let direct fish activity decide where to slow down.",
+            "headline": "Coho salmon are accumulating through more of the Big Manistee.",
+            "whereToStart": "Start in the Lower river (M-55–Bear Creek). Add the Middle river (Bear Creek–High Bridge) after direct fish activity supports the move.",
+            "detail": "More Coho are present, but concentrations remain selective.",
+            "tip": "Follow travel water into substantial holding areas before moving upstream.",
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -16002,15 +16066,15 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "2026-09-09"
             ],
             "sourceRefreshSlots": {},
-            "headline": "There is not enough reliable information for a Migration Timing call.",
-            "tip": "Do not move farther upstream or stay lower based on this timing read. Fish the section identified by Migration Stage and begin in its most established holding water; change sections only when direct fish activity or a dependable later read supports it.",
+            "headline": "There is not enough reliable Big Manistee evidence for a Migration Timing call.",
+            "tip": "Keep the section named by Migration Stage. Do not shift sections from this timing read.",
             "detail": "There are not enough dependable past seasons to judge whether this migration is early, normal, or late.",
             "reasonCodes": [
               "conditions_baseline_missing",
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -16024,9 +16088,9 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
           "push": {
             "score": 25,
             "label": "No clear push",
-            "headline": "Today's water does not show a clear signal for a fresh wave of fish.",
-            "detail": "The river is holding steady with no meaningful rise yet. Overall flow remains low. Water temperature is favorable for fall migration and is relatively steady. Recent weather estimates indicate very little rain around the river.",
-            "tip": "Fish established holding water from the head through the inside seam and tail. Do not spend the day racing between lower travel lanes for a wave the water does not support.",
+            "headline": "Upper-river water does not show a clear fresh-movement signal.",
+            "detail": "The river is holding steady with no meaningful rise yet; overall flow remains low. Water temperature is favorable for fall migration and is relatively steady. Recent watershed weather shows little rain.",
+            "tip": "Keep Migration Stage’s section primary. Do not shift to fresh-entry water from this read.",
             "reasonCodes": [
               "gauge_fresh",
               "push_low_flow_context",
@@ -16045,14 +16109,14 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 40,
             "label": "Tough",
-            "headline": "The river is fishable, but very low water will make fish easier to disturb and productive water harder to find.",
-            "detail": "Water is unusually low, reducing cover and concentrating the best depth into fewer places. The low water is holding rather than refilling, so the few deeper slots should remain easy to identify. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river.",
-            "tip": "Fish first or last light. Begin at the deepest shaded holes and slots, approach quietly, and keep foot traffic out of shallow travel lanes.",
+            "headline": "Very low Upper-river flow leaves limited depth and cover.",
+            "detail": "Unusually low flow concentrates useful depth into fewer places. Steady flow should keep presentation lanes consistent. This read covers only the Upper river (High Bridge–Tippy Dam).",
+            "tip": "Use the deepest connected water and keep disturbance low.",
             "reasonCodes": [
               "gauge_fresh",
               "very_low_flow_band",
@@ -16064,15 +16128,15 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 68,
             "maximum": 100,
             "label": "Active",
-            "headline": "Today’s Coho activity outlook is active.",
-            "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: The river level or its recent change is less favorable. Early lake-fresh Coho can remain reactive when measured water temperatures are suitable; this score applies only to fish already in the river. The measured conditions represent the Wellston/Tippy tailwater; water temperature, clarity, and presentation conditions can differ through the middle and lower migratory river. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
-            "tip": "Start with 5–9 AM. If the sky changes from the forecast, favor the darkest practical window.",
+            "headline": "Today’s Upper-river Coho responsiveness is active.",
+            "detail": "Conditions support a meaningful Coho response. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Wellston flow and temperature represent the Upper river, especially the Tippy Dam area.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify downstream sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -16124,10 +16188,13 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 19,
+            "displayScore": 20,
+            "scoreIsApproximate": true,
             "stage": "beginning",
             "maximum": 100,
             "riverCeiling": 50,
@@ -16136,14 +16203,14 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "curveDirection": "rising",
             "winterHoldingContext": false,
             "label": "Limited presence",
-            "headline": "Some Coho salmon are likely in the river, but seasonal presence is still developing.",
-            "detail": "This part of the season usually brings limited presence, with more fish expected to enter and become established through several dependable river sections. This is a seasonal estimate, not a live fish count.",
-            "tip": "Plan for an emerging but uneven river opportunity. Cover water efficiently, and do not assume every promising stop holds fish.",
+            "headline": "Seasonal Coho salmon presence is limited and building.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the Big Manistee Coho salmon ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -16371,14 +16438,14 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             ]
           },
           "interpretationNote": null,
-          "secondaryNote": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It best represents the Tippy tailwater and upper migratory corridor; flow, temperature, access, and fishability can differ downstream through High Bridge, Bear Creek, the lower river, and Manistee Lake.",
+          "secondaryNote": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It represents the Upper river (High Bridge–Tippy Dam), especially the Tippy Dam area. Conditions can differ in the Middle river, Lower river, Manistee Lake, and harbor.",
           "safety": {
             "regulationReminder": "The Big Manistee below Tippy is a Type 3 reach extending to the railroad bridge below M-55, with a year-round one-Rainbow-Trout limit and special artificial-lure rules during the August 1–November 15 window. Follow current Michigan regulations, DNR closure notices, dam-safety information, and posted boundaries. Fishing methods can change by reach and season.",
-            "gaugeBasis": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It best represents the Tippy tailwater and upper migratory corridor; flow, temperature, access, and fishability can differ downstream through High Bridge, Bear Creek, the lower river, and Manistee Lake.",
+            "gaugeBasis": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It represents the Upper river (High Bridge–Tippy Dam), especially the Tippy Dam area. Conditions can differ in the Middle river, Lower river, Manistee Lake, and harbor.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-big-manistee-steelhead-activity.1"
+          "configVersion": "2026-08-10-big-manistee-copy.1"
         }
       }
     ]
@@ -16403,6 +16470,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
           "nextConditionRefreshAt": "2026-10-01T05:00:00.000Z",
           "runStage": {
             "stage": "beginning",
+            "copyStrategy": "big_manistee_tailwater",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -16425,14 +16493,14 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "peakToEndDays": 41
             },
             "label": "Beginning",
-            "headline": "Coho salmon are accumulating through more of the Big Manistee below Tippy Dam.",
-            "whereToStart": "Check the Tippy tailwater and Tippy-to-High Bridge reach first; if fish are scattered there, compare the High Bridge-Bear Creek middle corridor and lower migratory river for newer arrivals.",
-            "detail": "Earlier fish can already be established in tailwater holding areas while newer fish continue moving through the lower and middle migratory corridor. Numbers can still be uneven between sections.",
-            "tip": "Treat Tippy, High Bridge, and Bear Creek as different checks—not one uniform gauge reach—and let direct fish activity decide where to slow down.",
+            "headline": "Coho salmon are accumulating through more of the Big Manistee.",
+            "whereToStart": "Start in the Lower river (M-55–Bear Creek). Add the Middle river (Bear Creek–High Bridge) after direct fish activity supports the move.",
+            "detail": "More Coho are present, but concentrations remain selective.",
+            "tip": "Follow travel water into substantial holding areas before moving upstream.",
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -16464,15 +16532,15 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "2026-09-09"
             ],
             "sourceRefreshSlots": {},
-            "headline": "There is not enough reliable information for a Migration Timing call.",
-            "tip": "Do not move farther upstream or stay lower based on this timing read. Fish the section identified by Migration Stage and begin in its most established holding water; change sections only when direct fish activity or a dependable later read supports it.",
+            "headline": "There is not enough reliable Big Manistee evidence for a Migration Timing call.",
+            "tip": "Keep the section named by Migration Stage. Do not shift sections from this timing read.",
             "detail": "There are not enough dependable past seasons to judge whether this migration is early, normal, or late.",
             "reasonCodes": [
               "conditions_baseline_missing",
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -16486,9 +16554,9 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
           "push": {
             "score": 25,
             "label": "No clear push",
-            "headline": "Today's water does not show a clear signal for a fresh wave of fish.",
-            "detail": "The river is holding steady with no meaningful rise yet. Overall flow remains low. Water temperature is favorable for fall migration and is relatively steady. Recent weather estimates indicate very little rain around the river.",
-            "tip": "Fish established holding water from the head through the inside seam and tail. Do not spend the day racing between lower travel lanes for a wave the water does not support.",
+            "headline": "Upper-river water does not show a clear fresh-movement signal.",
+            "detail": "The river is holding steady with no meaningful rise yet; overall flow remains low. Water temperature is favorable for fall migration and is relatively steady. Recent watershed weather shows little rain.",
+            "tip": "Keep Migration Stage’s section primary. Do not shift to fresh-entry water from this read.",
             "reasonCodes": [
               "gauge_fresh",
               "push_low_flow_context",
@@ -16507,14 +16575,14 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 60,
             "label": "Fishable",
-            "headline": "The river is fishable, but lower water leaves less cover and less room for error.",
-            "detail": "Water is lower than ideal but still workable, with less depth and cover across the river. The lower flow is holding steady, so its limited depth and cover should remain consistent. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river.",
-            "tip": "Start with the deepest connected holding water, then fish shaded outside bends and cover. Approach quietly and make the first pass count.",
+            "headline": "Low Upper-river flow remains workable with less depth and cover.",
+            "detail": "Low flow reduces depth and cover across the Upper river. Steady flow should keep presentation lanes consistent. This read covers only the Upper river (High Bridge–Tippy Dam).",
+            "tip": "Use the deepest connected water and keep disturbance low.",
             "reasonCodes": [
               "gauge_fresh",
               "low_flow_band"
@@ -16525,15 +16593,15 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 70,
             "maximum": 100,
             "label": "Active",
-            "headline": "Today’s Coho activity outlook is active.",
-            "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. Early lake-fresh Coho can remain reactive when measured water temperatures are suitable; this score applies only to fish already in the river. The measured conditions represent the Wellston/Tippy tailwater; water temperature, clarity, and presentation conditions can differ through the middle and lower migratory river. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
-            "tip": "Start with 5–9 AM. If the sky changes from the forecast, favor the darkest practical window.",
+            "headline": "Today’s Upper-river Coho responsiveness is active.",
+            "detail": "Conditions support a meaningful Coho response. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Wellston flow and temperature represent the Upper river, especially the Tippy Dam area.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify downstream sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -16585,10 +16653,13 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 19,
+            "displayScore": 20,
+            "scoreIsApproximate": true,
             "stage": "beginning",
             "maximum": 100,
             "riverCeiling": 50,
@@ -16597,14 +16668,14 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "curveDirection": "rising",
             "winterHoldingContext": false,
             "label": "Limited presence",
-            "headline": "Some Coho salmon are likely in the river, but seasonal presence is still developing.",
-            "detail": "This part of the season usually brings limited presence, with more fish expected to enter and become established through several dependable river sections. This is a seasonal estimate, not a live fish count.",
-            "tip": "Plan for an emerging but uneven river opportunity. Cover water efficiently, and do not assume every promising stop holds fish.",
+            "headline": "Seasonal Coho salmon presence is limited and building.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the Big Manistee Coho salmon ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -16832,14 +16903,14 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             ]
           },
           "interpretationNote": null,
-          "secondaryNote": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It best represents the Tippy tailwater and upper migratory corridor; flow, temperature, access, and fishability can differ downstream through High Bridge, Bear Creek, the lower river, and Manistee Lake.",
+          "secondaryNote": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It represents the Upper river (High Bridge–Tippy Dam), especially the Tippy Dam area. Conditions can differ in the Middle river, Lower river, Manistee Lake, and harbor.",
           "safety": {
             "regulationReminder": "The Big Manistee below Tippy is a Type 3 reach extending to the railroad bridge below M-55, with a year-round one-Rainbow-Trout limit and special artificial-lure rules during the August 1–November 15 window. Follow current Michigan regulations, DNR closure notices, dam-safety information, and posted boundaries. Fishing methods can change by reach and season.",
-            "gaugeBasis": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It best represents the Tippy tailwater and upper migratory corridor; flow, temperature, access, and fishability can differ downstream through High Bridge, Bear Creek, the lower river, and Manistee Lake.",
+            "gaugeBasis": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It represents the Upper river (High Bridge–Tippy Dam), especially the Tippy Dam area. Conditions can differ in the Middle river, Lower river, Manistee Lake, and harbor.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-big-manistee-steelhead-activity.1"
+          "configVersion": "2026-08-10-big-manistee-copy.1"
         }
       },
       {
@@ -16858,6 +16929,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
           "nextConditionRefreshAt": "2026-10-01T05:00:00.000Z",
           "runStage": {
             "stage": "beginning",
+            "copyStrategy": "big_manistee_tailwater",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -16880,14 +16952,14 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "peakToEndDays": 41
             },
             "label": "Beginning",
-            "headline": "Coho salmon are accumulating through more of the Big Manistee below Tippy Dam.",
-            "whereToStart": "Check the Tippy tailwater and Tippy-to-High Bridge reach first; if fish are scattered there, compare the High Bridge-Bear Creek middle corridor and lower migratory river for newer arrivals.",
-            "detail": "Earlier fish can already be established in tailwater holding areas while newer fish continue moving through the lower and middle migratory corridor. Numbers can still be uneven between sections.",
-            "tip": "Treat Tippy, High Bridge, and Bear Creek as different checks—not one uniform gauge reach—and let direct fish activity decide where to slow down.",
+            "headline": "Coho salmon are accumulating through more of the Big Manistee.",
+            "whereToStart": "Start in the Lower river (M-55–Bear Creek). Add the Middle river (Bear Creek–High Bridge) after direct fish activity supports the move.",
+            "detail": "More Coho are present, but concentrations remain selective.",
+            "tip": "Follow travel water into substantial holding areas before moving upstream.",
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -16919,15 +16991,15 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "2026-09-09"
             ],
             "sourceRefreshSlots": {},
-            "headline": "There is not enough reliable information for a Migration Timing call.",
-            "tip": "Do not move farther upstream or stay lower based on this timing read. Fish the section identified by Migration Stage and begin in its most established holding water; change sections only when direct fish activity or a dependable later read supports it.",
+            "headline": "There is not enough reliable Big Manistee evidence for a Migration Timing call.",
+            "tip": "Keep the section named by Migration Stage. Do not shift sections from this timing read.",
             "detail": "There are not enough dependable past seasons to judge whether this migration is early, normal, or late.",
             "reasonCodes": [
               "conditions_baseline_missing",
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -16941,9 +17013,9 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
           "push": {
             "score": 25,
             "label": "No clear push",
-            "headline": "The river is rising hard, but extreme flow makes this an unreliable fresh-movement read.",
-            "detail": "The river is holding steady with no meaningful rise yet. Overall flow is extremely high. Water temperature is favorable for fall migration and is relatively steady. Recent weather estimates indicate very little rain around the river.",
-            "tip": "Do not chase movement in the main channel. If Fishability remains usable, fish only protected margins, inside turns, and soft current with short controlled presentations.",
+            "headline": "Extreme Upper-river flow prevents a dependable fresh-movement signal.",
+            "detail": "The river is holding steady with no meaningful rise yet; overall flow is extremely high. Water temperature is favorable for fall migration and is relatively steady. Recent watershed weather shows little rain.",
+            "tip": "Keep Migration Stage’s section primary. Do not shift to fresh-entry water from this read.",
             "reasonCodes": [
               "gauge_fresh",
               "push_severe_high_flow_context",
@@ -16963,14 +17035,14 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 20,
             "label": "Poor",
-            "headline": "The river is too high and unsettled for a dependable fishing recommendation.",
-            "detail": "Excessive flow is overwhelming normal holding water and making access and presentation unreliable. The river is not climbing quickly, but it must fall substantially before normal holding lanes and presentation control return. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river.",
-            "tip": "Choose a lower-water day for the better fishing opportunity. If you fish now, stay tight to protected banks, slow inside turns, and the downstream side of major current breaks; keep presentations short and leave the main flow alone.",
+            "headline": "The Upper river is blown out for a dependable presentation plan.",
+            "detail": "Excessive flow overwhelms normal lanes and presentation control. Steady flow should keep presentation lanes consistent. This read covers only the Upper river (High Bridge–Tippy Dam).",
+            "tip": "Choose another day and verify current conditions through authoritative local sources.",
             "reasonCodes": [
               "gauge_fresh",
               "blown_out_flow_band",
@@ -16982,15 +17054,15 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 20,
             "maximum": 100,
             "label": "Reserved",
-            "headline": "Today’s Coho activity outlook is reserved.",
-            "detail": "Fish may respond selectively, with important environmental limitations. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: The river level or its recent change is less favorable. Early lake-fresh Coho can remain reactive when measured water temperatures are suitable; this score applies only to fish already in the river. The measured conditions represent the Wellston/Tippy tailwater; water temperature, clarity, and presentation conditions can differ through the middle and lower migratory river. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
-            "tip": "Start with 5–9 AM. If the sky changes from the forecast, favor the darkest practical window.",
+            "headline": "Today’s Upper-river Coho responsiveness is reserved.",
+            "detail": "Coho may respond selectively under current limitations. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Wellston flow and temperature represent the Upper river, especially the Tippy Dam area.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify downstream sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -17043,10 +17115,13 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 19,
+            "displayScore": 20,
+            "scoreIsApproximate": true,
             "stage": "beginning",
             "maximum": 100,
             "riverCeiling": 50,
@@ -17055,14 +17130,14 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "curveDirection": "rising",
             "winterHoldingContext": false,
             "label": "Limited presence",
-            "headline": "Some Coho salmon are likely in the river, but seasonal presence is still developing.",
-            "detail": "This part of the season usually brings limited presence, with more fish expected to enter and become established through several dependable river sections. This is a seasonal estimate, not a live fish count.",
-            "tip": "Plan for an emerging but uneven river opportunity. Cover water efficiently, and do not assume every promising stop holds fish.",
+            "headline": "Seasonal Coho salmon presence is limited and building.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the Big Manistee Coho salmon ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -17290,14 +17365,14 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             ]
           },
           "interpretationNote": null,
-          "secondaryNote": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It best represents the Tippy tailwater and upper migratory corridor; flow, temperature, access, and fishability can differ downstream through High Bridge, Bear Creek, the lower river, and Manistee Lake.",
+          "secondaryNote": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It represents the Upper river (High Bridge–Tippy Dam), especially the Tippy Dam area. Conditions can differ in the Middle river, Lower river, Manistee Lake, and harbor.",
           "safety": {
             "regulationReminder": "The Big Manistee below Tippy is a Type 3 reach extending to the railroad bridge below M-55, with a year-round one-Rainbow-Trout limit and special artificial-lure rules during the August 1–November 15 window. Follow current Michigan regulations, DNR closure notices, dam-safety information, and posted boundaries. Fishing methods can change by reach and season.",
-            "gaugeBasis": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It best represents the Tippy tailwater and upper migratory corridor; flow, temperature, access, and fishability can differ downstream through High Bridge, Bear Creek, the lower river, and Manistee Lake.",
+            "gaugeBasis": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It represents the Upper river (High Bridge–Tippy Dam), especially the Tippy Dam area. Conditions can differ in the Middle river, Lower river, Manistee Lake, and harbor.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-big-manistee-steelhead-activity.1"
+          "configVersion": "2026-08-10-big-manistee-copy.1"
         }
       },
       {
@@ -17316,6 +17391,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
           "nextConditionRefreshAt": "2026-10-01T05:00:00.000Z",
           "runStage": {
             "stage": "beginning",
+            "copyStrategy": "big_manistee_tailwater",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -17338,14 +17414,14 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "peakToEndDays": 41
             },
             "label": "Beginning",
-            "headline": "Coho salmon are accumulating through more of the Big Manistee below Tippy Dam.",
-            "whereToStart": "Check the Tippy tailwater and Tippy-to-High Bridge reach first; if fish are scattered there, compare the High Bridge-Bear Creek middle corridor and lower migratory river for newer arrivals.",
-            "detail": "Earlier fish can already be established in tailwater holding areas while newer fish continue moving through the lower and middle migratory corridor. Numbers can still be uneven between sections.",
-            "tip": "Treat Tippy, High Bridge, and Bear Creek as different checks—not one uniform gauge reach—and let direct fish activity decide where to slow down.",
+            "headline": "Coho salmon are accumulating through more of the Big Manistee.",
+            "whereToStart": "Start in the Lower river (M-55–Bear Creek). Add the Middle river (Bear Creek–High Bridge) after direct fish activity supports the move.",
+            "detail": "More Coho are present, but concentrations remain selective.",
+            "tip": "Follow travel water into substantial holding areas before moving upstream.",
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -17377,15 +17453,15 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "2026-09-09"
             ],
             "sourceRefreshSlots": {},
-            "headline": "There is not enough reliable information for a Migration Timing call.",
-            "tip": "Do not move farther upstream or stay lower based on this timing read. Fish the section identified by Migration Stage and begin in its most established holding water; change sections only when direct fish activity or a dependable later read supports it.",
+            "headline": "There is not enough reliable Big Manistee evidence for a Migration Timing call.",
+            "tip": "Keep the section named by Migration Stage. Do not shift sections from this timing read.",
             "detail": "There are not enough dependable past seasons to judge whether this migration is early, normal, or late.",
             "reasonCodes": [
               "conditions_baseline_missing",
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -17399,9 +17475,9 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
           "push": {
             "score": 47,
             "label": "No clear push",
-            "headline": "Today's water does not show a clear signal for a fresh wave of fish.",
-            "detail": "The river has started to rise since yesterday. Water temperature is favorable for fall migration and is relatively steady. Recent weather estimates indicate very little rain around the river.",
-            "tip": "Fish established holding water from the head through the inside seam and tail. Do not spend the day racing between lower travel lanes for a wave the water does not support.",
+            "headline": "Upper-river water does not show a clear fresh-movement signal.",
+            "detail": "The river has started to rise since yesterday. Water temperature is favorable for fall migration and is relatively steady. Recent watershed weather shows little rain.",
+            "tip": "Keep Migration Stage’s section primary. Do not shift to fresh-entry water from this read.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
@@ -17419,14 +17495,14 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 88,
             "label": "Excellent",
-            "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The early rise is adding pace and depth, with inside seams and the upstream edges of holes changing first. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river.",
-            "tip": "Begin on the soft inside edge of the primary travel lane, then fish the first deep resting hole above it. Recheck that edge as added depth changes the lane.",
+            "headline": "Upper-river flow is in its best presentation range.",
+            "detail": "The flow band offers the broadest mix of depth and presentation control. A modest rise is shifting lanes toward softer edges. This read covers only the Upper river (High Bridge–Tippy Dam).",
+            "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band"
@@ -17437,15 +17513,15 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 77,
             "maximum": 100,
             "label": "Active",
-            "headline": "Today’s Coho activity outlook is active.",
-            "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. Early lake-fresh Coho can remain reactive when measured water temperatures are suitable; this score applies only to fish already in the river. The measured conditions represent the Wellston/Tippy tailwater; water temperature, clarity, and presentation conditions can differ through the middle and lower migratory river. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
-            "tip": "Start with 5–9 AM. If the sky changes from the forecast, favor the darkest practical window.",
+            "headline": "Today’s Upper-river Coho responsiveness is active.",
+            "detail": "Conditions support a meaningful Coho response. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Wellston flow and temperature represent the Upper river, especially the Tippy Dam area.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify downstream sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -17497,10 +17573,13 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 19,
+            "displayScore": 20,
+            "scoreIsApproximate": true,
             "stage": "beginning",
             "maximum": 100,
             "riverCeiling": 50,
@@ -17509,14 +17588,14 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "curveDirection": "rising",
             "winterHoldingContext": false,
             "label": "Limited presence",
-            "headline": "Some Coho salmon are likely in the river, but seasonal presence is still developing.",
-            "detail": "This part of the season usually brings limited presence, with more fish expected to enter and become established through several dependable river sections. This is a seasonal estimate, not a live fish count.",
-            "tip": "Plan for an emerging but uneven river opportunity. Cover water efficiently, and do not assume every promising stop holds fish.",
+            "headline": "Seasonal Coho salmon presence is limited and building.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the Big Manistee Coho salmon ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -17744,14 +17823,14 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             ]
           },
           "interpretationNote": null,
-          "secondaryNote": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It best represents the Tippy tailwater and upper migratory corridor; flow, temperature, access, and fishability can differ downstream through High Bridge, Bear Creek, the lower river, and Manistee Lake.",
+          "secondaryNote": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It represents the Upper river (High Bridge–Tippy Dam), especially the Tippy Dam area. Conditions can differ in the Middle river, Lower river, Manistee Lake, and harbor.",
           "safety": {
             "regulationReminder": "The Big Manistee below Tippy is a Type 3 reach extending to the railroad bridge below M-55, with a year-round one-Rainbow-Trout limit and special artificial-lure rules during the August 1–November 15 window. Follow current Michigan regulations, DNR closure notices, dam-safety information, and posted boundaries. Fishing methods can change by reach and season.",
-            "gaugeBasis": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It best represents the Tippy tailwater and upper migratory corridor; flow, temperature, access, and fishability can differ downstream through High Bridge, Bear Creek, the lower river, and Manistee Lake.",
+            "gaugeBasis": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It represents the Upper river (High Bridge–Tippy Dam), especially the Tippy Dam area. Conditions can differ in the Middle river, Lower river, Manistee Lake, and harbor.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-big-manistee-steelhead-activity.1"
+          "configVersion": "2026-08-10-big-manistee-copy.1"
         }
       },
       {
@@ -17770,6 +17849,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
           "nextConditionRefreshAt": "2026-10-01T05:00:00.000Z",
           "runStage": {
             "stage": "beginning",
+            "copyStrategy": "big_manistee_tailwater",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -17792,14 +17872,14 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "peakToEndDays": 41
             },
             "label": "Beginning",
-            "headline": "Coho salmon are accumulating through more of the Big Manistee below Tippy Dam.",
-            "whereToStart": "Check the Tippy tailwater and Tippy-to-High Bridge reach first; if fish are scattered there, compare the High Bridge-Bear Creek middle corridor and lower migratory river for newer arrivals.",
-            "detail": "Earlier fish can already be established in tailwater holding areas while newer fish continue moving through the lower and middle migratory corridor. Numbers can still be uneven between sections.",
-            "tip": "Treat Tippy, High Bridge, and Bear Creek as different checks—not one uniform gauge reach—and let direct fish activity decide where to slow down.",
+            "headline": "Coho salmon are accumulating through more of the Big Manistee.",
+            "whereToStart": "Start in the Lower river (M-55–Bear Creek). Add the Middle river (Bear Creek–High Bridge) after direct fish activity supports the move.",
+            "detail": "More Coho are present, but concentrations remain selective.",
+            "tip": "Follow travel water into substantial holding areas before moving upstream.",
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -17831,15 +17911,15 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "2026-09-09"
             ],
             "sourceRefreshSlots": {},
-            "headline": "There is not enough reliable information for a Migration Timing call.",
-            "tip": "Do not move farther upstream or stay lower based on this timing read. Fish the section identified by Migration Stage and begin in its most established holding water; change sections only when direct fish activity or a dependable later read supports it.",
+            "headline": "There is not enough reliable Big Manistee evidence for a Migration Timing call.",
+            "tip": "Keep the section named by Migration Stage. Do not shift sections from this timing read.",
             "detail": "There are not enough dependable past seasons to judge whether this migration is early, normal, or late.",
             "reasonCodes": [
               "conditions_baseline_missing",
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -17853,9 +17933,9 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
           "push": {
             "score": 75,
             "label": "Strong",
-            "headline": "Today's river rise and water temperature strongly support the possibility of a fresh wave moving into the river.",
-            "detail": "The river is rising quickly, creating conditions fish often use to move. Overall flow is already high. Water temperature is favorable for fall migration and is relatively steady. The river has already made a meaningful rise, so that measured response carries the useful movement signal and rainfall adds no separate weight.",
-            "tip": "Begin on lower-river travel lanes and inside seams, then work the first resting holes along that route. Keep moving until fish establish a pattern; the signal still does not prove a wave entered.",
+            "headline": "Upper-river water strongly supports possible fresh movement.",
+            "detail": "The river is rising quickly, creating conditions fish often use to move; overall flow is already high. Water temperature is favorable for fall migration and is relatively steady. Wellston already reflects the rain response, so rain adds no extra credit.",
+            "tip": "Use the Lower river as the fresh-entry comparison, then return to Migration Stage’s section.",
             "reasonCodes": [
               "gauge_fresh",
               "push_high_flow_context",
@@ -17873,14 +17953,14 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 40,
             "label": "Tough",
-            "headline": "The river is rising fast, and usable fishing water is shifting toward slower margins and current breaks.",
-            "detail": "Higher flow is pushing more current through the main channel, but softer edges and protected lanes remain workable. The fast rise is forcing usable fishing water out of the main flow and into the slowest protected margins. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river.",
-            "tip": "Leave the main channel alone. Fish newly formed soft margins, inside bends, and the downstream side of current breaks with short controlled presentations.",
+            "headline": "A fast Upper-river rise is shifting usable water toward protected edges.",
+            "detail": "Higher flow pushes useful presentation water toward softer edges. A fast rise is replacing settled lanes with heavier current. This read covers only the Upper river (High Bridge–Tippy Dam).",
+            "tip": "Favor protected margins and short controlled presentations. Choose another day if control is not dependable.",
             "reasonCodes": [
               "gauge_fresh",
               "high_fishable_flow_band",
@@ -17894,15 +17974,15 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               ]
             },
             "rulesVersion": "big-manistee-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 70,
             "maximum": 100,
             "label": "Active",
-            "headline": "Today’s Coho activity outlook is active.",
-            "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. Early lake-fresh Coho can remain reactive when measured water temperatures are suitable; this score applies only to fish already in the river. The measured conditions represent the Wellston/Tippy tailwater; water temperature, clarity, and presentation conditions can differ through the middle and lower migratory river. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
-            "tip": "Start with 5–9 AM. If the sky changes from the forecast, favor the darkest practical window.",
+            "headline": "Today’s Upper-river Coho responsiveness is active.",
+            "detail": "Conditions support a meaningful Coho response. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Wellston flow and temperature represent the Upper river, especially the Tippy Dam area.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify downstream sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -17954,10 +18034,13 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 19,
+            "displayScore": 20,
+            "scoreIsApproximate": true,
             "stage": "beginning",
             "maximum": 100,
             "riverCeiling": 50,
@@ -17966,14 +18049,14 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "curveDirection": "rising",
             "winterHoldingContext": false,
             "label": "Limited presence",
-            "headline": "Some Coho salmon are likely in the river, but seasonal presence is still developing.",
-            "detail": "This part of the season usually brings limited presence, with more fish expected to enter and become established through several dependable river sections. This is a seasonal estimate, not a live fish count.",
-            "tip": "Plan for an emerging but uneven river opportunity. Cover water efficiently, and do not assume every promising stop holds fish.",
+            "headline": "Seasonal Coho salmon presence is limited and building.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the Big Manistee Coho salmon ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -18207,14 +18290,14 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "strong_push_low_fishability"
             ]
           },
-          "secondaryNote": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It best represents the Tippy tailwater and upper migratory corridor; flow, temperature, access, and fishability can differ downstream through High Bridge, Bear Creek, the lower river, and Manistee Lake.",
+          "secondaryNote": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It represents the Upper river (High Bridge–Tippy Dam), especially the Tippy Dam area. Conditions can differ in the Middle river, Lower river, Manistee Lake, and harbor.",
           "safety": {
             "regulationReminder": "The Big Manistee below Tippy is a Type 3 reach extending to the railroad bridge below M-55, with a year-round one-Rainbow-Trout limit and special artificial-lure rules during the August 1–November 15 window. Follow current Michigan regulations, DNR closure notices, dam-safety information, and posted boundaries. Fishing methods can change by reach and season.",
-            "gaugeBasis": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It best represents the Tippy tailwater and upper migratory corridor; flow, temperature, access, and fishability can differ downstream through High Bridge, Bear Creek, the lower river, and Manistee Lake.",
+            "gaugeBasis": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It represents the Upper river (High Bridge–Tippy Dam), especially the Tippy Dam area. Conditions can differ in the Middle river, Lower river, Manistee Lake, and harbor.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-big-manistee-steelhead-activity.1"
+          "configVersion": "2026-08-10-big-manistee-copy.1"
         }
       },
       {
@@ -18233,6 +18316,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
           "nextConditionRefreshAt": "2026-10-01T05:00:00.000Z",
           "runStage": {
             "stage": "beginning",
+            "copyStrategy": "big_manistee_tailwater",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -18255,14 +18339,14 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "peakToEndDays": 41
             },
             "label": "Beginning",
-            "headline": "Coho salmon are accumulating through more of the Big Manistee below Tippy Dam.",
-            "whereToStart": "Check the Tippy tailwater and Tippy-to-High Bridge reach first; if fish are scattered there, compare the High Bridge-Bear Creek middle corridor and lower migratory river for newer arrivals.",
-            "detail": "Earlier fish can already be established in tailwater holding areas while newer fish continue moving through the lower and middle migratory corridor. Numbers can still be uneven between sections.",
-            "tip": "Treat Tippy, High Bridge, and Bear Creek as different checks—not one uniform gauge reach—and let direct fish activity decide where to slow down.",
+            "headline": "Coho salmon are accumulating through more of the Big Manistee.",
+            "whereToStart": "Start in the Lower river (M-55–Bear Creek). Add the Middle river (Bear Creek–High Bridge) after direct fish activity supports the move.",
+            "detail": "More Coho are present, but concentrations remain selective.",
+            "tip": "Follow travel water into substantial holding areas before moving upstream.",
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -18294,15 +18378,15 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "2026-09-09"
             ],
             "sourceRefreshSlots": {},
-            "headline": "There is not enough reliable information for a Migration Timing call.",
-            "tip": "Do not move farther upstream or stay lower based on this timing read. Fish the section identified by Migration Stage and begin in its most established holding water; change sections only when direct fish activity or a dependable later read supports it.",
+            "headline": "There is not enough reliable Big Manistee evidence for a Migration Timing call.",
+            "tip": "Keep the section named by Migration Stage. Do not shift sections from this timing read.",
             "detail": "There are not enough dependable past seasons to judge whether this migration is early, normal, or late.",
             "reasonCodes": [
               "conditions_baseline_missing",
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -18316,9 +18400,9 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
           "push": {
             "score": 25,
             "label": "No clear push",
-            "headline": "Today's water does not show a clear signal for a fresh wave of fish.",
-            "detail": "There is not enough recent river-level history to tell whether the river is rising or falling. Water temperature is favorable for fall migration and is relatively steady. Recent weather estimates indicate very little rain around the river. Without a dependable river trend, there is no clear Push.",
-            "tip": "Do not relocate the trip around this Push read. Begin in established holding water, verify the river at the first access, and add travel lanes only after confirming workable conditions.",
+            "headline": "Upper-river water does not show a clear fresh-movement signal.",
+            "detail": "There is not enough recent river-level history to tell whether the river is rising or falling. Water temperature is favorable for fall migration and is relatively steady. Without a dependable Wellston trend, the read cannot show a clear Push.",
+            "tip": "Keep Migration Stage’s section primary. Do not shift to fresh-entry water from this read.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
@@ -18338,14 +18422,14 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 69,
             "label": "Fishable",
-            "headline": "The river appears fishable, but its direction is unclear, so confidence is limited.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. There is not enough recent information to tell whether the river is rising or falling, which lowers confidence in the read. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river.",
-            "tip": "Start at a bank-side inside bend or soft seam where the full presentation stays under control. Skip faster water until the river's direction is verified.",
+            "headline": "Upper-river flow is workable, but its direction is unknown.",
+            "detail": "The flow band offers the broadest mix of depth and presentation control. Recent Wellston history cannot establish the flow direction. This read covers only the Upper river (High Bridge–Tippy Dam).",
+            "tip": "Verify the Upper river directly before choosing presentation water.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band",
@@ -18359,15 +18443,15 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               ]
             },
             "rulesVersion": "big-manistee-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 76,
             "maximum": 100,
             "label": "Active",
-            "headline": "Today’s Coho activity outlook is active.",
-            "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. Early lake-fresh Coho can remain reactive when measured water temperatures are suitable; this score applies only to fish already in the river. The measured conditions represent the Wellston/Tippy tailwater; water temperature, clarity, and presentation conditions can differ through the middle and lower migratory river. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
-            "tip": "Start with 5–9 AM. If the sky changes from the forecast, favor the darkest practical window.",
+            "headline": "Today’s Upper-river Coho responsiveness is active.",
+            "detail": "Conditions support a meaningful Coho response. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Wellston flow and temperature represent the Upper river, especially the Tippy Dam area.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify downstream sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -18419,10 +18503,13 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 19,
+            "displayScore": 20,
+            "scoreIsApproximate": true,
             "stage": "beginning",
             "maximum": 100,
             "riverCeiling": 50,
@@ -18431,14 +18518,14 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "curveDirection": "rising",
             "winterHoldingContext": false,
             "label": "Limited presence",
-            "headline": "Some Coho salmon are likely in the river, but seasonal presence is still developing.",
-            "detail": "This part of the season usually brings limited presence, with more fish expected to enter and become established through several dependable river sections. This is a seasonal estimate, not a live fish count.",
-            "tip": "Plan for an emerging but uneven river opportunity. Cover water efficiently, and do not assume every promising stop holds fish.",
+            "headline": "Seasonal Coho salmon presence is limited and building.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the Big Manistee Coho salmon ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -18666,14 +18753,14 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             ]
           },
           "interpretationNote": null,
-          "secondaryNote": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It best represents the Tippy tailwater and upper migratory corridor; flow, temperature, access, and fishability can differ downstream through High Bridge, Bear Creek, the lower river, and Manistee Lake.",
+          "secondaryNote": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It represents the Upper river (High Bridge–Tippy Dam), especially the Tippy Dam area. Conditions can differ in the Middle river, Lower river, Manistee Lake, and harbor.",
           "safety": {
             "regulationReminder": "The Big Manistee below Tippy is a Type 3 reach extending to the railroad bridge below M-55, with a year-round one-Rainbow-Trout limit and special artificial-lure rules during the August 1–November 15 window. Follow current Michigan regulations, DNR closure notices, dam-safety information, and posted boundaries. Fishing methods can change by reach and season.",
-            "gaugeBasis": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It best represents the Tippy tailwater and upper migratory corridor; flow, temperature, access, and fishability can differ downstream through High Bridge, Bear Creek, the lower river, and Manistee Lake.",
+            "gaugeBasis": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It represents the Upper river (High Bridge–Tippy Dam), especially the Tippy Dam area. Conditions can differ in the Middle river, Lower river, Manistee Lake, and harbor.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-big-manistee-steelhead-activity.1"
+          "configVersion": "2026-08-10-big-manistee-copy.1"
         }
       },
       {
@@ -18692,6 +18779,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
           "nextConditionRefreshAt": "2026-10-01T05:00:00.000Z",
           "runStage": {
             "stage": "beginning",
+            "copyStrategy": "big_manistee_tailwater",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -18714,14 +18802,14 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "peakToEndDays": 41
             },
             "label": "Beginning",
-            "headline": "Coho salmon are accumulating through more of the Big Manistee below Tippy Dam.",
-            "whereToStart": "Check the Tippy tailwater and Tippy-to-High Bridge reach first; if fish are scattered there, compare the High Bridge-Bear Creek middle corridor and lower migratory river for newer arrivals.",
-            "detail": "Earlier fish can already be established in tailwater holding areas while newer fish continue moving through the lower and middle migratory corridor. Numbers can still be uneven between sections.",
-            "tip": "Treat Tippy, High Bridge, and Bear Creek as different checks—not one uniform gauge reach—and let direct fish activity decide where to slow down.",
+            "headline": "Coho salmon are accumulating through more of the Big Manistee.",
+            "whereToStart": "Start in the Lower river (M-55–Bear Creek). Add the Middle river (Bear Creek–High Bridge) after direct fish activity supports the move.",
+            "detail": "More Coho are present, but concentrations remain selective.",
+            "tip": "Follow travel water into substantial holding areas before moving upstream.",
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -18753,15 +18841,15 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "2026-09-09"
             ],
             "sourceRefreshSlots": {},
-            "headline": "There is not enough reliable information for a Migration Timing call.",
-            "tip": "Do not move farther upstream or stay lower based on this timing read. Fish the section identified by Migration Stage and begin in its most established holding water; change sections only when direct fish activity or a dependable later read supports it.",
+            "headline": "There is not enough reliable Big Manistee evidence for a Migration Timing call.",
+            "tip": "Keep the section named by Migration Stage. Do not shift sections from this timing read.",
             "detail": "There are not enough dependable past seasons to judge whether this migration is early, normal, or late.",
             "reasonCodes": [
               "conditions_baseline_missing",
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -18775,9 +18863,9 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
           "push": {
             "score": 20,
             "label": "Weak",
-            "headline": "The water may support fresh movement, but an aging river reading limits confidence.",
-            "detail": "The river is holding steady with no meaningful rise yet. Water temperature is favorable for fall migration and is relatively steady. Recent weather estimates indicate very little rain around the river. The latest river-level reading is aging, so confidence is reduced.",
-            "tip": "Do not relocate the trip around this Push read. Begin in established holding water, verify the river at the first access, and add travel lanes only after confirming workable conditions.",
+            "headline": "Upper-river water shows little support for fresh movement.",
+            "detail": "The river is holding steady with no meaningful rise yet. Water temperature is favorable for fall migration and is relatively steady. The Wellston reading is aging, so confidence is reduced.",
+            "tip": "Keep Migration Stage’s section primary. Do not shift to fresh-entry water from this read.",
             "reasonCodes": [
               "gauge_stale",
               "push_normal_flow_context",
@@ -18797,14 +18885,14 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 55,
             "label": "Fishable",
-            "headline": "The last river reading was fishable, but it is aging and may no longer describe the water accurately.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. Because the latest reading is aging, the river may have changed since it was reported. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river.",
-            "tip": "Do not choose a reach from this reading alone. Check the water at the first access, and begin only in bank-side water where you can control the entire presentation.",
+            "headline": "The aging Wellston reading limits Upper-river Fishability confidence.",
+            "detail": "The flow band offers the broadest mix of depth and presentation control. The Upper river may have changed since the last Wellston reading. This read covers only the Upper river (High Bridge–Tippy Dam).",
+            "tip": "Verify the Upper river directly before choosing presentation water.",
             "reasonCodes": [
               "gauge_stale",
               "ideal_flow_band",
@@ -18818,15 +18906,15 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               ]
             },
             "rulesVersion": "big-manistee-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 50,
             "maximum": 100,
             "label": "Moderate",
-            "headline": "Today’s Coho activity outlook is moderate.",
-            "detail": "Some useful factors are present, but the response window is mixed. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Current river behavior is unavailable. Early lake-fresh Coho can remain reactive when measured water temperatures are suitable; this score applies only to fish already in the river. The measured conditions represent the Wellston/Tippy tailwater; water temperature, clarity, and presentation conditions can differ through the middle and lower migratory river. One important reading is unavailable or comes from tomorrow’s forecast, so the outlook is kept conservative.",
-            "tip": "Start with 5–9 AM. If the sky changes from the forecast, favor the darkest practical window.",
+            "headline": "Today’s Upper-river Coho responsiveness is moderate.",
+            "detail": "Conditions offer mixed support for Coho responsiveness. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Moderate confidence reflects missing or forecast inputs; Wellston still represents only the Upper river.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify downstream sections directly.",
             "reasonCodes": [
               "activity_confidence_moderate",
               "activity_today",
@@ -18878,10 +18966,13 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 19,
+            "displayScore": 20,
+            "scoreIsApproximate": true,
             "stage": "beginning",
             "maximum": 100,
             "riverCeiling": 50,
@@ -18890,14 +18981,14 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "curveDirection": "rising",
             "winterHoldingContext": false,
             "label": "Limited presence",
-            "headline": "Some Coho salmon are likely in the river, but seasonal presence is still developing.",
-            "detail": "This part of the season usually brings limited presence, with more fish expected to enter and become established through several dependable river sections. This is a seasonal estimate, not a live fish count.",
-            "tip": "Plan for an emerging but uneven river opportunity. Cover water efficiently, and do not assume every promising stop holds fish.",
+            "headline": "Seasonal Coho salmon presence is limited and building.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the Big Manistee Coho salmon ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -19125,14 +19216,14 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             ]
           },
           "interpretationNote": null,
-          "secondaryNote": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It best represents the Tippy tailwater and upper migratory corridor; flow, temperature, access, and fishability can differ downstream through High Bridge, Bear Creek, the lower river, and Manistee Lake.",
+          "secondaryNote": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It represents the Upper river (High Bridge–Tippy Dam), especially the Tippy Dam area. Conditions can differ in the Middle river, Lower river, Manistee Lake, and harbor.",
           "safety": {
             "regulationReminder": "The Big Manistee below Tippy is a Type 3 reach extending to the railroad bridge below M-55, with a year-round one-Rainbow-Trout limit and special artificial-lure rules during the August 1–November 15 window. Follow current Michigan regulations, DNR closure notices, dam-safety information, and posted boundaries. Fishing methods can change by reach and season.",
-            "gaugeBasis": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It best represents the Tippy tailwater and upper migratory corridor; flow, temperature, access, and fishability can differ downstream through High Bridge, Bear Creek, the lower river, and Manistee Lake.",
+            "gaugeBasis": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It represents the Upper river (High Bridge–Tippy Dam), especially the Tippy Dam area. Conditions can differ in the Middle river, Lower river, Manistee Lake, and harbor.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-big-manistee-steelhead-activity.1"
+          "configVersion": "2026-08-10-big-manistee-copy.1"
         }
       },
       {
@@ -19151,6 +19242,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
           "nextConditionRefreshAt": "2026-10-01T05:00:00.000Z",
           "runStage": {
             "stage": "beginning",
+            "copyStrategy": "big_manistee_tailwater",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -19173,14 +19265,14 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "peakToEndDays": 41
             },
             "label": "Beginning",
-            "headline": "Coho salmon are accumulating through more of the Big Manistee below Tippy Dam.",
-            "whereToStart": "Check the Tippy tailwater and Tippy-to-High Bridge reach first; if fish are scattered there, compare the High Bridge-Bear Creek middle corridor and lower migratory river for newer arrivals.",
-            "detail": "Earlier fish can already be established in tailwater holding areas while newer fish continue moving through the lower and middle migratory corridor. Numbers can still be uneven between sections.",
-            "tip": "Treat Tippy, High Bridge, and Bear Creek as different checks—not one uniform gauge reach—and let direct fish activity decide where to slow down.",
+            "headline": "Coho salmon are accumulating through more of the Big Manistee.",
+            "whereToStart": "Start in the Lower river (M-55–Bear Creek). Add the Middle river (Bear Creek–High Bridge) after direct fish activity supports the move.",
+            "detail": "More Coho are present, but concentrations remain selective.",
+            "tip": "Follow travel water into substantial holding areas before moving upstream.",
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -19212,15 +19304,15 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "2026-09-09"
             ],
             "sourceRefreshSlots": {},
-            "headline": "There is not enough reliable information for a Migration Timing call.",
-            "tip": "Do not move farther upstream or stay lower based on this timing read. Fish the section identified by Migration Stage and begin in its most established holding water; change sections only when direct fish activity or a dependable later read supports it.",
+            "headline": "There is not enough reliable Big Manistee evidence for a Migration Timing call.",
+            "tip": "Keep the section named by Migration Stage. Do not shift sections from this timing read.",
             "detail": "There are not enough dependable past seasons to judge whether this migration is early, normal, or late.",
             "reasonCodes": [
               "conditions_baseline_missing",
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -19241,27 +19333,27 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "gauge_missing"
             ],
             "rulesVersion": "big-manistee-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": null,
             "label": "Unavailable",
-            "headline": "There is no dependable Fishability read right now.",
-            "detail": "A recent river-level reading is missing, so current flow and direction cannot be judged responsibly.",
-            "tip": "Do not plan from the last known level. Check again after the next update, and verify the river at the first access before choosing where or how to fish.",
+            "headline": "A current Wellston Fishability reading is unavailable.",
+            "detail": "Without current Wellston flow and direction, Upper-river presentation conditions cannot be determined.",
+            "tip": "Do not extend an old or missing Wellston read through the Big Manistee. Verify current conditions directly.",
             "reasonCodes": [
               "gauge_missing"
             ],
             "rulesVersion": "big-manistee-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 50,
             "maximum": 100,
             "label": "Moderate",
-            "headline": "Today’s Coho activity outlook is moderate.",
-            "detail": "Some useful factors are present, but the response window is mixed. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Current river behavior is unavailable. Early lake-fresh Coho can remain reactive when measured water temperatures are suitable; this score applies only to fish already in the river. The measured conditions represent the Wellston/Tippy tailwater; water temperature, clarity, and presentation conditions can differ through the middle and lower migratory river. One important reading is unavailable or comes from tomorrow’s forecast, so the outlook is kept conservative.",
-            "tip": "Start with 5–9 AM. If the sky changes from the forecast, favor the darkest practical window.",
+            "headline": "Today’s Upper-river Coho responsiveness is moderate.",
+            "detail": "Conditions offer mixed support for Coho responsiveness. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Moderate confidence reflects missing or forecast inputs; Wellston still represents only the Upper river.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify downstream sections directly.",
             "reasonCodes": [
               "activity_confidence_moderate",
               "activity_today",
@@ -19313,10 +19405,13 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 19,
+            "displayScore": 20,
+            "scoreIsApproximate": true,
             "stage": "beginning",
             "maximum": 100,
             "riverCeiling": 50,
@@ -19325,14 +19420,14 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "curveDirection": "rising",
             "winterHoldingContext": false,
             "label": "Limited presence",
-            "headline": "Some Coho salmon are likely in the river, but seasonal presence is still developing.",
-            "detail": "This part of the season usually brings limited presence, with more fish expected to enter and become established through several dependable river sections. This is a seasonal estimate, not a live fish count.",
-            "tip": "Plan for an emerging but uneven river opportunity. Cover water efficiently, and do not assume every promising stop holds fish.",
+            "headline": "Seasonal Coho salmon presence is limited and building.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the Big Manistee Coho salmon ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": null,
           "weather": {
@@ -19550,14 +19645,14 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             ]
           },
           "interpretationNote": null,
-          "secondaryNote": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It best represents the Tippy tailwater and upper migratory corridor; flow, temperature, access, and fishability can differ downstream through High Bridge, Bear Creek, the lower river, and Manistee Lake.",
+          "secondaryNote": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It represents the Upper river (High Bridge–Tippy Dam), especially the Tippy Dam area. Conditions can differ in the Middle river, Lower river, Manistee Lake, and harbor.",
           "safety": {
             "regulationReminder": "The Big Manistee below Tippy is a Type 3 reach extending to the railroad bridge below M-55, with a year-round one-Rainbow-Trout limit and special artificial-lure rules during the August 1–November 15 window. Follow current Michigan regulations, DNR closure notices, dam-safety information, and posted boundaries. Fishing methods can change by reach and season.",
-            "gaugeBasis": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It best represents the Tippy tailwater and upper migratory corridor; flow, temperature, access, and fishability can differ downstream through High Bridge, Bear Creek, the lower river, and Manistee Lake.",
+            "gaugeBasis": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It represents the Upper river (High Bridge–Tippy Dam), especially the Tippy Dam area. Conditions can differ in the Middle river, Lower river, Manistee Lake, and harbor.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-big-manistee-steelhead-activity.1"
+          "configVersion": "2026-08-10-big-manistee-copy.1"
         }
       },
       {
@@ -19576,6 +19671,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
           "nextConditionRefreshAt": "2026-10-01T05:00:00.000Z",
           "runStage": {
             "stage": "beginning",
+            "copyStrategy": "big_manistee_tailwater",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -19598,14 +19694,14 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "peakToEndDays": 41
             },
             "label": "Beginning",
-            "headline": "Coho salmon are accumulating through more of the Big Manistee below Tippy Dam.",
-            "whereToStart": "Check the Tippy tailwater and Tippy-to-High Bridge reach first; if fish are scattered there, compare the High Bridge-Bear Creek middle corridor and lower migratory river for newer arrivals.",
-            "detail": "Earlier fish can already be established in tailwater holding areas while newer fish continue moving through the lower and middle migratory corridor. Numbers can still be uneven between sections.",
-            "tip": "Treat Tippy, High Bridge, and Bear Creek as different checks—not one uniform gauge reach—and let direct fish activity decide where to slow down.",
+            "headline": "Coho salmon are accumulating through more of the Big Manistee.",
+            "whereToStart": "Start in the Lower river (M-55–Bear Creek). Add the Middle river (Bear Creek–High Bridge) after direct fish activity supports the move.",
+            "detail": "More Coho are present, but concentrations remain selective.",
+            "tip": "Follow travel water into substantial holding areas before moving upstream.",
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -19637,15 +19733,15 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "2026-09-09"
             ],
             "sourceRefreshSlots": {},
-            "headline": "There is not enough reliable information for a Migration Timing call.",
-            "tip": "Do not move farther upstream or stay lower based on this timing read. Fish the section identified by Migration Stage and begin in its most established holding water; change sections only when direct fish activity or a dependable later read supports it.",
+            "headline": "There is not enough reliable Big Manistee evidence for a Migration Timing call.",
+            "tip": "Keep the section named by Migration Stage. Do not shift sections from this timing read.",
             "detail": "There are not enough dependable past seasons to judge whether this migration is early, normal, or late.",
             "reasonCodes": [
               "conditions_baseline_missing",
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -19659,9 +19755,9 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
           "push": {
             "score": 30,
             "label": "No clear push",
-            "headline": "Today's water does not show a clear signal for a fresh wave of fish.",
-            "detail": "The river is holding steady with no meaningful rise yet. Water temperature is favorable for fall migration and is relatively steady. Recent weather estimates indicate very little rain around the river.",
-            "tip": "Fish established holding water from the head through the inside seam and tail. Do not spend the day racing between lower travel lanes for a wave the water does not support.",
+            "headline": "Upper-river water does not show a clear fresh-movement signal.",
+            "detail": "The river is holding steady with no meaningful rise yet. Water temperature is favorable for fall migration and is relatively steady. Recent watershed weather shows little rain.",
+            "tip": "Keep Migration Stage’s section primary. Do not shift to fresh-entry water from this read.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
@@ -19680,14 +19776,14 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 93,
             "label": "Excellent",
-            "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river.",
-            "tip": "Begin on the primary travel lane feeding deep holding water. Work each hole from its head through the inside seam and tail, then keep moving until fish establish a pattern.",
+            "headline": "Upper-river flow is in its best presentation range.",
+            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read covers only the Upper river (High Bridge–Tippy Dam).",
+            "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band"
@@ -19698,15 +19794,15 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 76,
             "maximum": 100,
             "label": "Active",
-            "headline": "Today’s Coho activity outlook is active.",
-            "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. Early lake-fresh Coho can remain reactive when measured water temperatures are suitable; this score applies only to fish already in the river. The measured conditions represent the Wellston/Tippy tailwater; water temperature, clarity, and presentation conditions can differ through the middle and lower migratory river. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
-            "tip": "Start with 5–9 AM. If the sky changes from the forecast, favor the darkest practical window.",
+            "headline": "Today’s Upper-river Coho responsiveness is active.",
+            "detail": "Conditions support a meaningful Coho response. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Wellston flow and temperature represent the Upper river, especially the Tippy Dam area.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify downstream sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -19758,10 +19854,13 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 19,
+            "displayScore": 20,
+            "scoreIsApproximate": true,
             "stage": "beginning",
             "maximum": 100,
             "riverCeiling": 50,
@@ -19770,14 +19869,14 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "curveDirection": "rising",
             "winterHoldingContext": false,
             "label": "Limited presence",
-            "headline": "Some Coho salmon are likely in the river, but seasonal presence is still developing.",
-            "detail": "This part of the season usually brings limited presence, with more fish expected to enter and become established through several dependable river sections. This is a seasonal estimate, not a live fish count.",
-            "tip": "Plan for an emerging but uneven river opportunity. Cover water efficiently, and do not assume every promising stop holds fish.",
+            "headline": "Seasonal Coho salmon presence is limited and building.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the Big Manistee Coho salmon ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -20005,14 +20104,14 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             ]
           },
           "interpretationNote": null,
-          "secondaryNote": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It best represents the Tippy tailwater and upper migratory corridor; flow, temperature, access, and fishability can differ downstream through High Bridge, Bear Creek, the lower river, and Manistee Lake.",
+          "secondaryNote": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It represents the Upper river (High Bridge–Tippy Dam), especially the Tippy Dam area. Conditions can differ in the Middle river, Lower river, Manistee Lake, and harbor.",
           "safety": {
             "regulationReminder": "The Big Manistee below Tippy is a Type 3 reach extending to the railroad bridge below M-55, with a year-round one-Rainbow-Trout limit and special artificial-lure rules during the August 1–November 15 window. Follow current Michigan regulations, DNR closure notices, dam-safety information, and posted boundaries. Fishing methods can change by reach and season.",
-            "gaugeBasis": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It best represents the Tippy tailwater and upper migratory corridor; flow, temperature, access, and fishability can differ downstream through High Bridge, Bear Creek, the lower river, and Manistee Lake.",
+            "gaugeBasis": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It represents the Upper river (High Bridge–Tippy Dam), especially the Tippy Dam area. Conditions can differ in the Middle river, Lower river, Manistee Lake, and harbor.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-big-manistee-steelhead-activity.1"
+          "configVersion": "2026-08-10-big-manistee-copy.1"
         }
       },
       {
@@ -20031,6 +20130,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
           "nextConditionRefreshAt": "2026-10-01T05:00:00.000Z",
           "runStage": {
             "stage": "beginning",
+            "copyStrategy": "big_manistee_tailwater",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -20053,14 +20153,14 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "peakToEndDays": 41
             },
             "label": "Beginning",
-            "headline": "Coho salmon are accumulating through more of the Big Manistee below Tippy Dam.",
-            "whereToStart": "Check the Tippy tailwater and Tippy-to-High Bridge reach first; if fish are scattered there, compare the High Bridge-Bear Creek middle corridor and lower migratory river for newer arrivals.",
-            "detail": "Earlier fish can already be established in tailwater holding areas while newer fish continue moving through the lower and middle migratory corridor. Numbers can still be uneven between sections.",
-            "tip": "Treat Tippy, High Bridge, and Bear Creek as different checks—not one uniform gauge reach—and let direct fish activity decide where to slow down.",
+            "headline": "Coho salmon are accumulating through more of the Big Manistee.",
+            "whereToStart": "Start in the Lower river (M-55–Bear Creek). Add the Middle river (Bear Creek–High Bridge) after direct fish activity supports the move.",
+            "detail": "More Coho are present, but concentrations remain selective.",
+            "tip": "Follow travel water into substantial holding areas before moving upstream.",
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -20092,15 +20192,15 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "2026-09-09"
             ],
             "sourceRefreshSlots": {},
-            "headline": "There is not enough reliable information for a Migration Timing call.",
-            "tip": "Do not move farther upstream or stay lower based on this timing read. Fish the section identified by Migration Stage and begin in its most established holding water; change sections only when direct fish activity or a dependable later read supports it.",
+            "headline": "There is not enough reliable Big Manistee evidence for a Migration Timing call.",
+            "tip": "Keep the section named by Migration Stage. Do not shift sections from this timing read.",
             "detail": "There are not enough dependable past seasons to judge whether this migration is early, normal, or late.",
             "reasonCodes": [
               "conditions_baseline_missing",
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -20114,9 +20214,9 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
           "push": {
             "score": 25,
             "label": "No clear push",
-            "headline": "Today's water does not show a clear signal for a fresh wave of fish.",
-            "detail": "The river is holding steady with no meaningful rise yet. Overall flow is already high. Water temperature is favorable for fall migration and is relatively steady. Recent weather estimates indicate very little rain around the river.",
-            "tip": "Fish established holding water from the head through the inside seam and tail. Do not spend the day racing between lower travel lanes for a wave the water does not support.",
+            "headline": "Upper-river water does not show a clear fresh-movement signal.",
+            "detail": "The river is holding steady with no meaningful rise yet; overall flow is already high. Water temperature is favorable for fall migration and is relatively steady. Recent watershed weather shows little rain.",
+            "tip": "Keep Migration Stage’s section primary. Do not shift to fresh-entry water from this read.",
             "reasonCodes": [
               "gauge_fresh",
               "push_high_flow_context",
@@ -20135,14 +20235,14 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 73,
             "label": "Good",
-            "headline": "The river is fishable, but higher flow is moving at a faster pace and narrowing the easiest water.",
-            "detail": "Higher flow is pushing more current through the main channel, but softer edges and protected lanes remain workable. The higher flow is not climbing, so softer edges beside the main current should remain well defined. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river.",
-            "tip": "Start tight to the bank on inside bends and below current-breaking cover. Shorten the presentation and keep it in the slower edge instead of forcing the main flow.",
+            "headline": "High Upper-river flow remains fishable in slower water.",
+            "detail": "Higher flow pushes useful presentation water toward softer edges. Steady flow should keep presentation lanes consistent. This read covers only the Upper river (High Bridge–Tippy Dam).",
+            "tip": "Prioritize inside seams, protected edges, and current breaks.",
             "reasonCodes": [
               "gauge_fresh",
               "high_fishable_flow_band"
@@ -20153,15 +20253,15 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 72,
             "maximum": 100,
             "label": "Active",
-            "headline": "Today’s Coho activity outlook is active.",
-            "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. Early lake-fresh Coho can remain reactive when measured water temperatures are suitable; this score applies only to fish already in the river. The measured conditions represent the Wellston/Tippy tailwater; water temperature, clarity, and presentation conditions can differ through the middle and lower migratory river. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
-            "tip": "Start with 5–9 AM. If the sky changes from the forecast, favor the darkest practical window.",
+            "headline": "Today’s Upper-river Coho responsiveness is active.",
+            "detail": "Conditions support a meaningful Coho response. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Wellston flow and temperature represent the Upper river, especially the Tippy Dam area.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify downstream sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -20213,10 +20313,13 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 19,
+            "displayScore": 20,
+            "scoreIsApproximate": true,
             "stage": "beginning",
             "maximum": 100,
             "riverCeiling": 50,
@@ -20225,14 +20328,14 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "curveDirection": "rising",
             "winterHoldingContext": false,
             "label": "Limited presence",
-            "headline": "Some Coho salmon are likely in the river, but seasonal presence is still developing.",
-            "detail": "This part of the season usually brings limited presence, with more fish expected to enter and become established through several dependable river sections. This is a seasonal estimate, not a live fish count.",
-            "tip": "Plan for an emerging but uneven river opportunity. Cover water efficiently, and do not assume every promising stop holds fish.",
+            "headline": "Seasonal Coho salmon presence is limited and building.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the Big Manistee Coho salmon ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -20460,14 +20563,14 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             ]
           },
           "interpretationNote": null,
-          "secondaryNote": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It best represents the Tippy tailwater and upper migratory corridor; flow, temperature, access, and fishability can differ downstream through High Bridge, Bear Creek, the lower river, and Manistee Lake.",
+          "secondaryNote": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It represents the Upper river (High Bridge–Tippy Dam), especially the Tippy Dam area. Conditions can differ in the Middle river, Lower river, Manistee Lake, and harbor.",
           "safety": {
             "regulationReminder": "The Big Manistee below Tippy is a Type 3 reach extending to the railroad bridge below M-55, with a year-round one-Rainbow-Trout limit and special artificial-lure rules during the August 1–November 15 window. Follow current Michigan regulations, DNR closure notices, dam-safety information, and posted boundaries. Fishing methods can change by reach and season.",
-            "gaugeBasis": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It best represents the Tippy tailwater and upper migratory corridor; flow, temperature, access, and fishability can differ downstream through High Bridge, Bear Creek, the lower river, and Manistee Lake.",
+            "gaugeBasis": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It represents the Upper river (High Bridge–Tippy Dam), especially the Tippy Dam area. Conditions can differ in the Middle river, Lower river, Manistee Lake, and harbor.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-big-manistee-steelhead-activity.1"
+          "configVersion": "2026-08-10-big-manistee-copy.1"
         }
       },
       {
@@ -20486,6 +20589,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
           "nextConditionRefreshAt": "2026-10-01T05:00:00.000Z",
           "runStage": {
             "stage": "beginning",
+            "copyStrategy": "big_manistee_tailwater",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -20508,14 +20612,14 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "peakToEndDays": 41
             },
             "label": "Beginning",
-            "headline": "Coho salmon are accumulating through more of the Big Manistee below Tippy Dam.",
-            "whereToStart": "Check the Tippy tailwater and Tippy-to-High Bridge reach first; if fish are scattered there, compare the High Bridge-Bear Creek middle corridor and lower migratory river for newer arrivals.",
-            "detail": "Earlier fish can already be established in tailwater holding areas while newer fish continue moving through the lower and middle migratory corridor. Numbers can still be uneven between sections.",
-            "tip": "Treat Tippy, High Bridge, and Bear Creek as different checks—not one uniform gauge reach—and let direct fish activity decide where to slow down.",
+            "headline": "Coho salmon are accumulating through more of the Big Manistee.",
+            "whereToStart": "Start in the Lower river (M-55–Bear Creek). Add the Middle river (Bear Creek–High Bridge) after direct fish activity supports the move.",
+            "detail": "More Coho are present, but concentrations remain selective.",
+            "tip": "Follow travel water into substantial holding areas before moving upstream.",
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -20547,15 +20651,15 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "2026-09-09"
             ],
             "sourceRefreshSlots": {},
-            "headline": "There is not enough reliable information for a Migration Timing call.",
-            "tip": "Do not move farther upstream or stay lower based on this timing read. Fish the section identified by Migration Stage and begin in its most established holding water; change sections only when direct fish activity or a dependable later read supports it.",
+            "headline": "There is not enough reliable Big Manistee evidence for a Migration Timing call.",
+            "tip": "Keep the section named by Migration Stage. Do not shift sections from this timing read.",
             "detail": "There are not enough dependable past seasons to judge whether this migration is early, normal, or late.",
             "reasonCodes": [
               "conditions_baseline_missing",
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -20569,9 +20673,9 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
           "push": {
             "score": 25,
             "label": "No clear push",
-            "headline": "Today's water does not show a clear signal for a fresh wave of fish.",
-            "detail": "The river is holding steady with no meaningful rise yet. Overall flow is already high. Water temperature is favorable for fall migration and is relatively steady. Recent weather estimates indicate very little rain around the river.",
-            "tip": "Fish established holding water from the head through the inside seam and tail. Do not spend the day racing between lower travel lanes for a wave the water does not support.",
+            "headline": "Upper-river water does not show a clear fresh-movement signal.",
+            "detail": "The river is holding steady with no meaningful rise yet; overall flow is already high. Water temperature is favorable for fall migration and is relatively steady. Recent watershed weather shows little rain.",
+            "tip": "Keep Migration Stage’s section primary. Do not shift to fresh-entry water from this read.",
             "reasonCodes": [
               "gauge_fresh",
               "push_high_flow_context",
@@ -20590,14 +20694,14 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 45,
             "label": "Tough",
-            "headline": "The river is running very high, leaving fewer practical places to fish effectively.",
-            "detail": "Very high flow is reducing access and the amount of water where a presentation can be controlled. The river is not climbing quickly, but practical fishing water remains compressed into the slowest edges. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river.",
-            "tip": "Fish only bank-side soft pockets, protected inside turns, and current breaks. Make short controlled presentations and skip every main-channel lane.",
+            "headline": "Very high Upper-river flow leaves little controllable presentation water.",
+            "detail": "Very high flow compresses controllable water into protected edges. Steady flow should keep presentation lanes consistent. This read covers only the Upper river (High Bridge–Tippy Dam).",
+            "tip": "Favor protected margins and short controlled presentations. Choose another day if control is not dependable.",
             "reasonCodes": [
               "gauge_fresh",
               "very_high_flow_band"
@@ -20608,15 +20712,15 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 68,
             "maximum": 100,
             "label": "Active",
-            "headline": "Today’s Coho activity outlook is active.",
-            "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: The river level or its recent change is less favorable. Early lake-fresh Coho can remain reactive when measured water temperatures are suitable; this score applies only to fish already in the river. The measured conditions represent the Wellston/Tippy tailwater; water temperature, clarity, and presentation conditions can differ through the middle and lower migratory river. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
-            "tip": "Start with 5–9 AM. If the sky changes from the forecast, favor the darkest practical window.",
+            "headline": "Today’s Upper-river Coho responsiveness is active.",
+            "detail": "Conditions support a meaningful Coho response. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Wellston flow and temperature represent the Upper river, especially the Tippy Dam area.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify downstream sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -20668,10 +20772,13 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 19,
+            "displayScore": 20,
+            "scoreIsApproximate": true,
             "stage": "beginning",
             "maximum": 100,
             "riverCeiling": 50,
@@ -20680,14 +20787,14 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "curveDirection": "rising",
             "winterHoldingContext": false,
             "label": "Limited presence",
-            "headline": "Some Coho salmon are likely in the river, but seasonal presence is still developing.",
-            "detail": "This part of the season usually brings limited presence, with more fish expected to enter and become established through several dependable river sections. This is a seasonal estimate, not a live fish count.",
-            "tip": "Plan for an emerging but uneven river opportunity. Cover water efficiently, and do not assume every promising stop holds fish.",
+            "headline": "Seasonal Coho salmon presence is limited and building.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the Big Manistee Coho salmon ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -20915,14 +21022,14 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             ]
           },
           "interpretationNote": null,
-          "secondaryNote": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It best represents the Tippy tailwater and upper migratory corridor; flow, temperature, access, and fishability can differ downstream through High Bridge, Bear Creek, the lower river, and Manistee Lake.",
+          "secondaryNote": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It represents the Upper river (High Bridge–Tippy Dam), especially the Tippy Dam area. Conditions can differ in the Middle river, Lower river, Manistee Lake, and harbor.",
           "safety": {
             "regulationReminder": "The Big Manistee below Tippy is a Type 3 reach extending to the railroad bridge below M-55, with a year-round one-Rainbow-Trout limit and special artificial-lure rules during the August 1–November 15 window. Follow current Michigan regulations, DNR closure notices, dam-safety information, and posted boundaries. Fishing methods can change by reach and season.",
-            "gaugeBasis": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It best represents the Tippy tailwater and upper migratory corridor; flow, temperature, access, and fishability can differ downstream through High Bridge, Bear Creek, the lower river, and Manistee Lake.",
+            "gaugeBasis": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It represents the Upper river (High Bridge–Tippy Dam), especially the Tippy Dam area. Conditions can differ in the Middle river, Lower river, Manistee Lake, and harbor.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-big-manistee-steelhead-activity.1"
+          "configVersion": "2026-08-10-big-manistee-copy.1"
         }
       }
     ]
@@ -20947,6 +21054,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
           "nextConditionRefreshAt": "2026-09-02T05:00:00.000Z",
           "runStage": {
             "stage": "pre_run",
+            "copyStrategy": "big_manistee_tailwater",
             "stagingContext": true,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -20969,15 +21077,15 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "peakToEndDays": 41
             },
             "label": "Before migration",
-            "headline": "Coho salmon may be staging in Lake Michigan, Manistee Lake, and near the river mouth.",
-            "whereToStart": "Manistee Lake, the harbor, the river mouth, and the first deep travel water in the lower migratory river toward M-55.",
-            "detail": "Early Coho salmon can begin checking the Big Manistee, but the Wellston gauge and Tippy tailwater should not be treated as proof that the entire lower corridor is occupied.",
-            "tip": "Use the lake-to-river transition for staging context. Treat an early river fish as real evidence, not as a reason to claim broad river presence.",
+            "headline": "Coho salmon may be staging near the river entrance.",
+            "whereToStart": "Start at Manistee Lake, the harbor, and the river entrance. Add the Lower river (M-55–Bear Creek) only for an early-fish check.",
+            "detail": "Staging context does not confirm dependable river entry. Coho opportunity remains sectional.",
+            "tip": "Keep the river check brief. Do not move into the Middle river (Bear Creek–High Bridge) or Upper river (High Bridge–Tippy Dam) from calendar timing alone.",
             "reasonCodes": [
               "stage_pre_run",
               "stage_pre_run_staging"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Evaluating",
@@ -20996,13 +21104,13 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "historicalYears": 0,
             "sourceDates": [],
             "sourceRefreshSlots": {},
-            "headline": "Migration Timing is still taking shape.",
-            "detail": "The early river and temperature pattern is still developing, so an Ahead, Typical, or Delayed call would be premature.",
-            "tip": "Keep the trip centered on the river mouth and earliest lower-river holding water. Move inland only when Migration Stage advances or direct fish activity supports it.",
+            "headline": "Big Manistee Migration Timing is still taking shape.",
+            "detail": "Wellston flow and measured temperature do not yet support an Ahead, Typical, or Delayed call.",
+            "tip": "Keep the section named by Migration Stage until this read has enough Upper-river evidence.",
             "reasonCodes": [
               "conditions_checkpoint_evaluating"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -21016,21 +21124,21 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
           "push": {
             "score": null,
             "label": "Waiting for migration",
-            "headline": "Fish have not started entering the river, so there is no Push read yet.",
-            "detail": "Push is meant to spot water conditions that may help fish enter or move during the active migration. Before that, most opportunity should remain in the lake, harbor, or river-mouth transition.",
-            "tip": "Keep the trip in the lake, harbor, and river-mouth zone. Do not move inland just because rain or cooling resembles an in-season movement event.",
+            "headline": "Dependable Big Manistee river entry has not started.",
+            "detail": "Wellston flow and temperature are not scored as an in-season fresh-movement signal yet.",
+            "tip": "Use Migration Stage. Do not move inland because offseason water resembles a Push.",
             "reasonCodes": [
               "push_tracking_not_started"
             ],
             "rulesVersion": "big-manistee-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 93,
             "label": "Excellent",
-            "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river.",
-            "tip": "Begin on the primary travel lane feeding deep holding water. Work each hole from its head through the inside seam and tail, then keep moving until fish establish a pattern.",
+            "headline": "Upper-river flow is in its best presentation range.",
+            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read covers only the Upper river (High Bridge–Tippy Dam).",
+            "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band"
@@ -21041,15 +21149,15 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 20,
             "maximum": 100,
             "label": "Reserved",
-            "headline": "Today’s Coho activity outlook is reserved.",
-            "detail": "Fish may respond selectively, with important environmental limitations. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Water temperature limits responsiveness. Dependable river presence has not begun. The score applies only to a sparse early Coho that may already have entered. The measured conditions represent the Wellston/Tippy tailwater; water temperature, clarity, and presentation conditions can differ through the middle and lower migratory river. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
-            "tip": "Start with 5–9 AM. If the sky changes from the forecast, favor the darkest practical window.",
+            "headline": "Today’s Upper-river responsiveness is reserved, but dependable Coho presence has not begun.",
+            "detail": "Coho may respond selectively under current limitations. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. This applies only to an early Coho already in the river.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify downstream sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -21102,10 +21210,13 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
                 "cloudCoverPct": 85,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 0,
+            "displayScore": 0,
+            "scoreIsApproximate": false,
             "stage": "pre_run",
             "maximum": 100,
             "riverCeiling": 50,
@@ -21114,14 +21225,14 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "curveDirection": "outside",
             "winterHoldingContext": false,
             "label": "Not expected yet",
-            "headline": "A dependable presence of Coho salmon is not expected in the river yet.",
-            "detail": "Most Coho salmon are not expected to have entered the river in dependable numbers. Any fish already present would be early exceptions.",
-            "tip": "Treat this as no dependable in-river opportunity yet. Keep expectations at zero, and do not interpret an isolated early fish as evidence of dependable river presence.",
+            "headline": "Dependable Coho salmon presence is not expected in the Big Manistee yet.",
+            "detail": "The seasonal estimate remains at zero. Any river fish would be an early exception.",
+            "tip": "Use Migration Stage for Manistee Lake, harbor, and river-entrance context.",
             "reasonCodes": [
               "stage_pre_run",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -21354,14 +21465,14 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "good_fishability_low_presence"
             ]
           },
-          "secondaryNote": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It best represents the Tippy tailwater and upper migratory corridor; flow, temperature, access, and fishability can differ downstream through High Bridge, Bear Creek, the lower river, and Manistee Lake.",
+          "secondaryNote": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It represents the Upper river (High Bridge–Tippy Dam), especially the Tippy Dam area. Conditions can differ in the Middle river, Lower river, Manistee Lake, and harbor.",
           "safety": {
             "regulationReminder": "The Big Manistee below Tippy is a Type 3 reach extending to the railroad bridge below M-55, with a year-round one-Rainbow-Trout limit and special artificial-lure rules during the August 1–November 15 window. Follow current Michigan regulations, DNR closure notices, dam-safety information, and posted boundaries. Fishing methods can change by reach and season.",
-            "gaugeBasis": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It best represents the Tippy tailwater and upper migratory corridor; flow, temperature, access, and fishability can differ downstream through High Bridge, Bear Creek, the lower river, and Manistee Lake.",
+            "gaugeBasis": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It represents the Upper river (High Bridge–Tippy Dam), especially the Tippy Dam area. Conditions can differ in the Middle river, Lower river, Manistee Lake, and harbor.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-big-manistee-steelhead-activity.1"
+          "configVersion": "2026-08-10-big-manistee-copy.1"
         }
       },
       {
@@ -21380,6 +21491,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
           "nextConditionRefreshAt": "2026-09-21T05:00:00.000Z",
           "runStage": {
             "stage": "beginning",
+            "copyStrategy": "big_manistee_tailwater",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -21402,14 +21514,14 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "peakToEndDays": 41
             },
             "label": "Beginning",
-            "headline": "Coho salmon are accumulating through more of the Big Manistee below Tippy Dam.",
-            "whereToStart": "Check the Tippy tailwater and Tippy-to-High Bridge reach first; if fish are scattered there, compare the High Bridge-Bear Creek middle corridor and lower migratory river for newer arrivals.",
-            "detail": "Earlier fish can already be established in tailwater holding areas while newer fish continue moving through the lower and middle migratory corridor. Numbers can still be uneven between sections.",
-            "tip": "Treat Tippy, High Bridge, and Bear Creek as different checks—not one uniform gauge reach—and let direct fish activity decide where to slow down.",
+            "headline": "Coho salmon are accumulating through more of the Big Manistee.",
+            "whereToStart": "Start in the Lower river (M-55–Bear Creek). Add the Middle river (Bear Creek–High Bridge) after direct fish activity supports the move.",
+            "detail": "More Coho are present, but concentrations remain selective.",
+            "tip": "Follow travel water into substantial holding areas before moving upstream.",
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -21441,15 +21553,15 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "2026-09-09"
             ],
             "sourceRefreshSlots": {},
-            "headline": "There is not enough reliable information for a Migration Timing call.",
-            "tip": "Do not move farther upstream or stay lower based on this timing read. Fish the section identified by Migration Stage and begin in its most established holding water; change sections only when direct fish activity or a dependable later read supports it.",
+            "headline": "There is not enough reliable Big Manistee evidence for a Migration Timing call.",
+            "tip": "Keep the section named by Migration Stage. Do not shift sections from this timing read.",
             "detail": "There are not enough dependable past seasons to judge whether this migration is early, normal, or late.",
             "reasonCodes": [
               "conditions_baseline_missing",
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -21463,9 +21575,9 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
           "push": {
             "score": 27,
             "label": "No clear push",
-            "headline": "Today's water does not show a clear signal for a fresh wave of fish.",
-            "detail": "The river is holding steady with no meaningful rise yet. Water is on the warm side for fall migration and is relatively steady. Recent weather estimates indicate very little rain around the river.",
-            "tip": "Fish established holding water from the head through the inside seam and tail. Do not spend the day racing between lower travel lanes for a wave the water does not support.",
+            "headline": "Upper-river water does not show a clear fresh-movement signal.",
+            "detail": "The river is holding steady with no meaningful rise yet. Water is on the warm side for fall migration and is relatively steady. Recent watershed weather shows little rain.",
+            "tip": "Keep Migration Stage’s section primary. Do not shift to fresh-entry water from this read.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
@@ -21484,14 +21596,14 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 93,
             "label": "Excellent",
-            "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river.",
-            "tip": "Begin on the primary travel lane feeding deep holding water. Work each hole from its head through the inside seam and tail, then keep moving until fish establish a pattern.",
+            "headline": "Upper-river flow is in its best presentation range.",
+            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read covers only the Upper river (High Bridge–Tippy Dam).",
+            "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band"
@@ -21502,15 +21614,15 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 83,
             "maximum": 100,
             "label": "Highly active",
-            "headline": "Today’s Coho activity outlook is highly active.",
-            "detail": "Conditions strongly favor a response from Coho that are present and capable of reacting. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Water temperature limits responsiveness. Early lake-fresh Coho can remain reactive when measured water temperatures are suitable; this score applies only to fish already in the river. The measured conditions represent the Wellston/Tippy tailwater; water temperature, clarity, and presentation conditions can differ through the middle and lower migratory river. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
-            "tip": "Start with 5–9 AM. If the sky changes from the forecast, favor the darkest practical window.",
+            "headline": "Today’s Upper-river Coho responsiveness is highly active.",
+            "detail": "Conditions strongly support Coho responsiveness. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Wellston flow and temperature represent the Upper river, especially the Tippy Dam area.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify downstream sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -21562,10 +21674,13 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
                 "cloudCoverPct": 100,
                 "precipitationIn": 0.08
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 10,
+            "displayScore": 10,
+            "scoreIsApproximate": true,
             "stage": "beginning",
             "maximum": 100,
             "riverCeiling": 50,
@@ -21574,14 +21689,14 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "curveDirection": "rising",
             "winterHoldingContext": false,
             "label": "Low presence",
-            "headline": "A small number of Coho salmon may be in the river, and seasonal presence is still building.",
-            "detail": "This part of the season usually brings low presence, with more fish expected to enter and become established through several dependable river sections. This is a seasonal estimate, not a live fish count.",
-            "tip": "Treat this as an early, low-odds river opportunity. Expect scattered results, and use direct fish activity before committing the full day.",
+            "headline": "Seasonal Coho salmon presence is low and building.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the Big Manistee Coho salmon ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -21815,14 +21930,14 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "good_fishability_low_presence"
             ]
           },
-          "secondaryNote": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It best represents the Tippy tailwater and upper migratory corridor; flow, temperature, access, and fishability can differ downstream through High Bridge, Bear Creek, the lower river, and Manistee Lake.",
+          "secondaryNote": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It represents the Upper river (High Bridge–Tippy Dam), especially the Tippy Dam area. Conditions can differ in the Middle river, Lower river, Manistee Lake, and harbor.",
           "safety": {
             "regulationReminder": "The Big Manistee below Tippy is a Type 3 reach extending to the railroad bridge below M-55, with a year-round one-Rainbow-Trout limit and special artificial-lure rules during the August 1–November 15 window. Follow current Michigan regulations, DNR closure notices, dam-safety information, and posted boundaries. Fishing methods can change by reach and season.",
-            "gaugeBasis": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It best represents the Tippy tailwater and upper migratory corridor; flow, temperature, access, and fishability can differ downstream through High Bridge, Bear Creek, the lower river, and Manistee Lake.",
+            "gaugeBasis": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It represents the Upper river (High Bridge–Tippy Dam), especially the Tippy Dam area. Conditions can differ in the Middle river, Lower river, Manistee Lake, and harbor.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-big-manistee-steelhead-activity.1"
+          "configVersion": "2026-08-10-big-manistee-copy.1"
         }
       },
       {
@@ -21841,6 +21956,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
           "nextConditionRefreshAt": "2026-10-11T05:00:00.000Z",
           "runStage": {
             "stage": "building",
+            "copyStrategy": "big_manistee_tailwater",
             "stagingContext": false,
             "broadBuildingContext": true,
             "winterHoldingContext": false,
@@ -21863,14 +21979,14 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "peakToEndDays": 41
             },
             "label": "Building",
-            "headline": "The Big Manistee Coho salmon opportunity is broadening through the migratory corridor.",
-            "whereToStart": "Sample select Tippy-to-High Bridge pools, the High Bridge-Bear Creek middle corridor, and one or two substantial lower-river bends toward M-55.",
-            "detail": "More than one migratory reach is now plausible, but this remains sectional opportunity—not evidence that fish occupy every reach or good-looking hole. Wellston directly measures only the regulated tailwater.",
-            "tip": "Use the gauge for the Tippy tailwater. Treat lower-river clarity, access, and holding water as separate reach questions.",
+            "headline": "Coho salmon are established in select Big Manistee sections.",
+            "whereToStart": "Start in the Upper river (High Bridge–Tippy Dam), emphasizing the Tippy Dam area. Compare the Middle river (Bear Creek–High Bridge) when direct activity favors it.",
+            "detail": "More than one section may hold Coho, but concentrations remain selective.",
+            "tip": "Use Wellston conditions only for the Upper river. Verify downstream water directly.",
             "reasonCodes": [
               "stage_building"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -21923,15 +22039,15 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "2026-09-30"
             ],
             "sourceRefreshSlots": {},
-            "headline": "There is not enough reliable information for a Migration Timing call.",
-            "tip": "Do not move farther upstream or stay lower based on this timing read. Fish the section identified by Migration Stage and begin in its most established holding water; change sections only when direct fish activity or a dependable later read supports it.",
+            "headline": "There is not enough reliable Big Manistee evidence for a Migration Timing call.",
+            "tip": "Keep the section named by Migration Stage. Do not shift sections from this timing read.",
             "detail": "There are not enough dependable past seasons to judge whether this migration is early, normal, or late.",
             "reasonCodes": [
               "conditions_baseline_missing",
               "conditions_insufficient",
               "conditions_checkpoint_building_established"
             ],
-            "copyVersion": "river-run-copy-v27",
+            "copyVersion": "river-run-copy-v34",
             "previousCheckpointId": "building_start",
             "previousCheckpointDate": "2026-10-01",
             "previousTimingLabel": "Insufficient evidence"
@@ -21948,9 +22064,9 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
           "push": {
             "score": 30,
             "label": "No clear push",
-            "headline": "Today's water does not show a clear signal for a fresh wave of fish.",
-            "detail": "The river is holding steady with no meaningful rise yet. Water temperature is favorable for fall migration and is relatively steady. Recent weather estimates indicate very little rain around the river.",
-            "tip": "Fish established holding water from the head through the inside seam and tail. Do not spend the day racing between lower travel lanes for a wave the water does not support.",
+            "headline": "Upper-river water does not show a clear fresh-movement signal.",
+            "detail": "The river is holding steady with no meaningful rise yet. Water temperature is favorable for fall migration and is relatively steady. Recent watershed weather shows little rain.",
+            "tip": "Keep Migration Stage’s section primary. Do not shift to fresh-entry water from this read.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
@@ -21969,14 +22085,14 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 93,
             "label": "Excellent",
-            "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river.",
-            "tip": "Begin on the primary travel lane feeding deep holding water. Work each hole from its head through the inside seam and tail, then keep moving until fish establish a pattern.",
+            "headline": "Upper-river flow is in its best presentation range.",
+            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read covers only the Upper river (High Bridge–Tippy Dam).",
+            "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band"
@@ -21987,15 +22103,15 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 85,
             "maximum": 100,
             "label": "Highly active",
-            "headline": "Today’s Coho activity outlook is highly active.",
-            "detail": "Conditions strongly favor a response from Coho that are present and capable of reacting. The strongest window is 9 AM–1 PM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. More Coho are entering and settling into the river; measured water temperature matters, but this score describes reaction conditions rather than movement or abundance. The measured conditions represent the Wellston/Tippy tailwater; water temperature, clarity, and presentation conditions can differ through the middle and lower migratory river. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
-            "tip": "Start with 9 AM–1 PM. If the sky changes from the forecast, favor the darkest practical window.",
+            "headline": "Today’s Upper-river Coho responsiveness is highly active.",
+            "detail": "Conditions strongly support Coho responsiveness. 9 AM–1 PM and 1–5 PM are the leading windows, but neither has a clear advantage. Wellston flow and temperature represent the Upper river, especially the Tippy Dam area.",
+            "tip": "Choose between 9 AM–1 PM and 1–5 PM using actual light. Verify downstream sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -22047,10 +22163,13 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
                 "cloudCoverPct": 100,
                 "precipitationIn": 0.08
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 33,
+            "displayScore": 35,
+            "scoreIsApproximate": true,
             "stage": "building",
             "maximum": 100,
             "riverCeiling": 50,
@@ -22059,14 +22178,14 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "curveDirection": "rising",
             "winterHoldingContext": false,
             "label": "High presence",
-            "headline": "Coho salmon are likely present through more dependable river sections as seasonal presence builds toward its strongest point.",
-            "detail": "Seasonal presence is usually elevated relative to the rest of the season, with more fish expected to enter and become established through several dependable river sections. This is a seasonal estimate, not a live fish count.",
-            "tip": "Treat this as one of the stronger parts of this river's moderate seasonal opportunity. Give each stop a complete pass, but do not mistake this seasonal estimate for a live fish count.",
+            "headline": "Seasonal Coho salmon presence is high and building.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the Big Manistee Coho salmon ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_building",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -22294,14 +22413,14 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             ]
           },
           "interpretationNote": null,
-          "secondaryNote": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It best represents the Tippy tailwater and upper migratory corridor; flow, temperature, access, and fishability can differ downstream through High Bridge, Bear Creek, the lower river, and Manistee Lake.",
+          "secondaryNote": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It represents the Upper river (High Bridge–Tippy Dam), especially the Tippy Dam area. Conditions can differ in the Middle river, Lower river, Manistee Lake, and harbor.",
           "safety": {
             "regulationReminder": "The Big Manistee below Tippy is a Type 3 reach extending to the railroad bridge below M-55, with a year-round one-Rainbow-Trout limit and special artificial-lure rules during the August 1–November 15 window. Follow current Michigan regulations, DNR closure notices, dam-safety information, and posted boundaries. Fishing methods can change by reach and season.",
-            "gaugeBasis": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It best represents the Tippy tailwater and upper migratory corridor; flow, temperature, access, and fishability can differ downstream through High Bridge, Bear Creek, the lower river, and Manistee Lake.",
+            "gaugeBasis": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It represents the Upper river (High Bridge–Tippy Dam), especially the Tippy Dam area. Conditions can differ in the Middle river, Lower river, Manistee Lake, and harbor.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-big-manistee-steelhead-activity.1"
+          "configVersion": "2026-08-10-big-manistee-copy.1"
         }
       },
       {
@@ -22320,6 +22439,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
           "nextConditionRefreshAt": "2026-10-21T05:00:00.000Z",
           "runStage": {
             "stage": "peak",
+            "copyStrategy": "big_manistee_tailwater",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -22342,14 +22462,14 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "peakToEndDays": 41
             },
             "label": "Peak",
-            "headline": "This is typically the strongest part of the Big Manistee Coho salmon window.",
-            "whereToStart": "Compare the Tippy tailwater, Tippy-to-High Bridge reach, High Bridge-Bear Creek middle corridor, and major lower-river holes toward M-55.",
-            "detail": "This is the best seasonal chance to find fish in more than one migratory reach, but the opportunity remains sectional and concentrations can change sharply from one access or hole to the next.",
-            "tip": "Use Wellston for the regulated tailwater response, then make lower-river decisions from local water conditions rather than extrapolation.",
+            "headline": "This is the strongest seasonal Big Manistee Coho salmon window.",
+            "whereToStart": "Start in the Upper river (High Bridge–Tippy Dam), emphasizing the Tippy Dam area. Compare the Middle river (Bear Creek–High Bridge) for fresher fish.",
+            "detail": "This is still sectional opportunity; Coho will not be evenly distributed.",
+            "tip": "Use Wellston only for Upper-river conditions and leave visible spawning fish undisturbed.",
             "reasonCodes": [
               "stage_peak"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -22416,15 +22536,15 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "2026-10-14"
             ],
             "sourceRefreshSlots": {},
-            "headline": "There is not enough reliable information for a Migration Timing call.",
-            "tip": "Do not move farther upstream or stay lower based on this timing read. Fish the section identified by Migration Stage and begin in its most established holding water; change sections only when direct fish activity or a dependable later read supports it.",
+            "headline": "There is not enough reliable Big Manistee evidence for a Migration Timing call.",
+            "tip": "Keep the section named by Migration Stage. Do not shift sections from this timing read.",
             "detail": "There are not enough dependable past seasons to judge whether this migration is early, normal, or late.",
             "reasonCodes": [
               "conditions_baseline_missing",
               "conditions_insufficient",
               "conditions_checkpoint_peak_start"
             ],
-            "copyVersion": "river-run-copy-v27",
+            "copyVersion": "river-run-copy-v34",
             "previousCheckpointId": "building_established",
             "previousCheckpointDate": "2026-10-01",
             "previousTimingLabel": "Insufficient evidence"
@@ -22441,9 +22561,9 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
           "push": {
             "score": 30,
             "label": "No clear push",
-            "headline": "Today's water does not show a clear signal for a fresh wave of fish.",
-            "detail": "The river is holding steady with no meaningful rise yet. Water temperature is favorable for fall migration and is relatively steady. Recent weather estimates indicate very little rain around the river.",
-            "tip": "Fish established holding water from the head through the inside seam and tail. Do not spend the day racing between lower travel lanes for a wave the water does not support.",
+            "headline": "Upper-river water does not show a clear fresh-movement signal.",
+            "detail": "The river is holding steady with no meaningful rise yet. Water temperature is favorable for fall migration and is relatively steady. Recent watershed weather shows little rain.",
+            "tip": "Keep Migration Stage’s section primary. Do not shift to fresh-entry water from this read.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
@@ -22462,14 +22582,14 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 93,
             "label": "Excellent",
-            "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river.",
-            "tip": "Begin on the primary travel lane feeding deep holding water. Work each hole from its head through the inside seam and tail, then keep moving until fish establish a pattern.",
+            "headline": "Upper-river flow is in its best presentation range.",
+            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read covers only the Upper river (High Bridge–Tippy Dam).",
+            "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band"
@@ -22480,15 +22600,15 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 79,
             "maximum": 100,
             "label": "Active",
-            "headline": "Today’s Coho activity outlook is active.",
-            "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. Broad seasonal presence can make fish easier to locate, but this score measures the responsiveness of Coho already present rather than their abundance. The measured conditions represent the Wellston/Tippy tailwater; water temperature, clarity, and presentation conditions can differ through the middle and lower migratory river. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
-            "tip": "Start with 5–9 AM. If the sky changes from the forecast, favor the darkest practical window.",
+            "headline": "Today’s Upper-river Coho responsiveness is active.",
+            "detail": "Conditions support a meaningful Coho response. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Wellston flow and temperature represent the Upper river, especially the Tippy Dam area.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify downstream sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -22540,10 +22660,13 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
                 "cloudCoverPct": 65,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 50,
+            "displayScore": 50,
+            "scoreIsApproximate": false,
             "stage": "peak",
             "maximum": 100,
             "riverCeiling": 50,
@@ -22552,14 +22675,14 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "curveDirection": "near_peak",
             "winterHoldingContext": false,
             "label": "Peak presence",
-            "headline": "Coho salmon are likely near their highest seasonal presence in the river.",
-            "detail": "This is the part of the season when in-river presence is usually strongest. Fish are most likely distributed through several dependable river sections. The read does not place fish in a specific pool or confirm a live count.",
-            "tip": "Plan for a dependable but potentially uneven river opportunity near its seasonal high point. Confirm fish activity before committing the full day.",
+            "headline": "Seasonal Coho salmon presence is near its expected Big Manistee peak.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the Big Manistee Coho salmon ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_peak",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -22793,14 +22916,14 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "peak_presence_weak_push"
             ]
           },
-          "secondaryNote": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It best represents the Tippy tailwater and upper migratory corridor; flow, temperature, access, and fishability can differ downstream through High Bridge, Bear Creek, the lower river, and Manistee Lake.",
+          "secondaryNote": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It represents the Upper river (High Bridge–Tippy Dam), especially the Tippy Dam area. Conditions can differ in the Middle river, Lower river, Manistee Lake, and harbor.",
           "safety": {
             "regulationReminder": "The Big Manistee below Tippy is a Type 3 reach extending to the railroad bridge below M-55, with a year-round one-Rainbow-Trout limit and special artificial-lure rules during the August 1–November 15 window. Follow current Michigan regulations, DNR closure notices, dam-safety information, and posted boundaries. Fishing methods can change by reach and season.",
-            "gaugeBasis": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It best represents the Tippy tailwater and upper migratory corridor; flow, temperature, access, and fishability can differ downstream through High Bridge, Bear Creek, the lower river, and Manistee Lake.",
+            "gaugeBasis": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It represents the Upper river (High Bridge–Tippy Dam), especially the Tippy Dam area. Conditions can differ in the Middle river, Lower river, Manistee Lake, and harbor.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-big-manistee-steelhead-activity.1"
+          "configVersion": "2026-08-10-big-manistee-copy.1"
         }
       },
       {
@@ -22819,6 +22942,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
           "nextConditionRefreshAt": "2026-10-11T05:00:00.000Z",
           "runStage": {
             "stage": "building",
+            "copyStrategy": "big_manistee_tailwater",
             "stagingContext": false,
             "broadBuildingContext": true,
             "winterHoldingContext": false,
@@ -22841,14 +22965,14 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "peakToEndDays": 41
             },
             "label": "Building",
-            "headline": "The Big Manistee Coho salmon opportunity is broadening through the migratory corridor.",
-            "whereToStart": "Sample select Tippy-to-High Bridge pools, the High Bridge-Bear Creek middle corridor, and one or two substantial lower-river bends toward M-55.",
-            "detail": "More than one migratory reach is now plausible, but this remains sectional opportunity—not evidence that fish occupy every reach or good-looking hole. Wellston directly measures only the regulated tailwater.",
-            "tip": "Use the gauge for the Tippy tailwater. Treat lower-river clarity, access, and holding water as separate reach questions.",
+            "headline": "Coho salmon are established in select Big Manistee sections.",
+            "whereToStart": "Start in the Upper river (High Bridge–Tippy Dam), emphasizing the Tippy Dam area. Compare the Middle river (Bear Creek–High Bridge) when direct activity favors it.",
+            "detail": "More than one section may hold Coho, but concentrations remain selective.",
+            "tip": "Use Wellston conditions only for the Upper river. Verify downstream water directly.",
             "reasonCodes": [
               "stage_building"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -22901,15 +23025,15 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "2026-09-30"
             ],
             "sourceRefreshSlots": {},
-            "headline": "There is not enough reliable information for a Migration Timing call.",
-            "tip": "Do not move farther upstream or stay lower based on this timing read. Fish the section identified by Migration Stage and begin in its most established holding water; change sections only when direct fish activity or a dependable later read supports it.",
+            "headline": "There is not enough reliable Big Manistee evidence for a Migration Timing call.",
+            "tip": "Keep the section named by Migration Stage. Do not shift sections from this timing read.",
             "detail": "There are not enough dependable past seasons to judge whether this migration is early, normal, or late.",
             "reasonCodes": [
               "conditions_baseline_missing",
               "conditions_insufficient",
               "conditions_checkpoint_building_established"
             ],
-            "copyVersion": "river-run-copy-v27",
+            "copyVersion": "river-run-copy-v34",
             "previousCheckpointId": "building_start",
             "previousCheckpointDate": "2026-10-01",
             "previousTimingLabel": "Insufficient evidence"
@@ -22926,9 +23050,9 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
           "push": {
             "score": 13,
             "label": "Weak",
-            "headline": "Today's water shows little support for a fresh wave of fish.",
-            "detail": "The river is holding steady with no meaningful rise yet. Overall flow is already high. Water is on the warm side for fall migration but is warming sharply. Recent weather estimates indicate very little rain around the river.",
-            "tip": "Skip the fresh-arrival hunt. Begin in established holding holes and fish each one thoroughly before moving; leave lower travel lanes as a secondary check.",
+            "headline": "Upper-river water shows little support for fresh movement.",
+            "detail": "The river is holding steady with no meaningful rise yet; overall flow is already high. Water is on the warm side for fall migration but is warming sharply. Recent watershed weather shows little rain.",
+            "tip": "Keep Migration Stage’s section primary. Do not shift to fresh-entry water from this read.",
             "reasonCodes": [
               "gauge_fresh",
               "push_high_flow_context",
@@ -22947,14 +23071,14 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 45,
             "label": "Tough",
-            "headline": "The river is running very high, leaving fewer practical places to fish effectively.",
-            "detail": "Very high flow is reducing access and the amount of water where a presentation can be controlled. The river is not climbing quickly, but practical fishing water remains compressed into the slowest edges. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river.",
-            "tip": "Fish only bank-side soft pockets, protected inside turns, and current breaks. Make short controlled presentations and skip every main-channel lane.",
+            "headline": "Very high Upper-river flow leaves little controllable presentation water.",
+            "detail": "Very high flow compresses controllable water into protected edges. Steady flow should keep presentation lanes consistent. This read covers only the Upper river (High Bridge–Tippy Dam).",
+            "tip": "Favor protected margins and short controlled presentations. Choose another day if control is not dependable.",
             "reasonCodes": [
               "gauge_fresh",
               "very_high_flow_band"
@@ -22965,15 +23089,15 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 55,
             "maximum": 100,
             "label": "Moderate",
-            "headline": "Today’s Coho activity outlook is moderate.",
-            "detail": "Some useful factors are present, but the response window is mixed. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: The river level or its recent change is less favorable. More Coho are entering and settling into the river; measured water temperature matters, but this score describes reaction conditions rather than movement or abundance. The measured conditions represent the Wellston/Tippy tailwater; water temperature, clarity, and presentation conditions can differ through the middle and lower migratory river. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
-            "tip": "Start with 5–9 AM. If the sky changes from the forecast, favor the darkest practical window.",
+            "headline": "Today’s Upper-river Coho responsiveness is moderate.",
+            "detail": "Conditions offer mixed support for Coho responsiveness. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Wellston flow and temperature represent the Upper river, especially the Tippy Dam area.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify downstream sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -23025,10 +23149,13 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
                 "cloudCoverPct": 0,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 33,
+            "displayScore": 35,
+            "scoreIsApproximate": true,
             "stage": "building",
             "maximum": 100,
             "riverCeiling": 50,
@@ -23037,14 +23164,14 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "curveDirection": "rising",
             "winterHoldingContext": false,
             "label": "High presence",
-            "headline": "Coho salmon are likely present through more dependable river sections as seasonal presence builds toward its strongest point.",
-            "detail": "Seasonal presence is usually elevated relative to the rest of the season, with more fish expected to enter and become established through several dependable river sections. This is a seasonal estimate, not a live fish count.",
-            "tip": "Treat this as one of the stronger parts of this river's moderate seasonal opportunity. Give each stop a complete pass, but do not mistake this seasonal estimate for a live fish count.",
+            "headline": "Seasonal Coho salmon presence is high and building.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the Big Manistee Coho salmon ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_building",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -23272,14 +23399,14 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             ]
           },
           "interpretationNote": null,
-          "secondaryNote": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It best represents the Tippy tailwater and upper migratory corridor; flow, temperature, access, and fishability can differ downstream through High Bridge, Bear Creek, the lower river, and Manistee Lake.",
+          "secondaryNote": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It represents the Upper river (High Bridge–Tippy Dam), especially the Tippy Dam area. Conditions can differ in the Middle river, Lower river, Manistee Lake, and harbor.",
           "safety": {
             "regulationReminder": "The Big Manistee below Tippy is a Type 3 reach extending to the railroad bridge below M-55, with a year-round one-Rainbow-Trout limit and special artificial-lure rules during the August 1–November 15 window. Follow current Michigan regulations, DNR closure notices, dam-safety information, and posted boundaries. Fishing methods can change by reach and season.",
-            "gaugeBasis": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It best represents the Tippy tailwater and upper migratory corridor; flow, temperature, access, and fishability can differ downstream through High Bridge, Bear Creek, the lower river, and Manistee Lake.",
+            "gaugeBasis": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It represents the Upper river (High Bridge–Tippy Dam), especially the Tippy Dam area. Conditions can differ in the Middle river, Lower river, Manistee Lake, and harbor.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-big-manistee-steelhead-activity.1"
+          "configVersion": "2026-08-10-big-manistee-copy.1"
         }
       },
       {
@@ -23298,6 +23425,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
           "nextConditionRefreshAt": "2026-09-21T05:00:00.000Z",
           "runStage": {
             "stage": "beginning",
+            "copyStrategy": "big_manistee_tailwater",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -23320,14 +23448,14 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "peakToEndDays": 41
             },
             "label": "Beginning",
-            "headline": "Coho salmon are accumulating through more of the Big Manistee below Tippy Dam.",
-            "whereToStart": "Check the Tippy tailwater and Tippy-to-High Bridge reach first; if fish are scattered there, compare the High Bridge-Bear Creek middle corridor and lower migratory river for newer arrivals.",
-            "detail": "Earlier fish can already be established in tailwater holding areas while newer fish continue moving through the lower and middle migratory corridor. Numbers can still be uneven between sections.",
-            "tip": "Treat Tippy, High Bridge, and Bear Creek as different checks—not one uniform gauge reach—and let direct fish activity decide where to slow down.",
+            "headline": "Coho salmon are accumulating through more of the Big Manistee.",
+            "whereToStart": "Start in the Lower river (M-55–Bear Creek). Add the Middle river (Bear Creek–High Bridge) after direct fish activity supports the move.",
+            "detail": "More Coho are present, but concentrations remain selective.",
+            "tip": "Follow travel water into substantial holding areas before moving upstream.",
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -23359,15 +23487,15 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "2026-09-09"
             ],
             "sourceRefreshSlots": {},
-            "headline": "There is not enough reliable information for a Migration Timing call.",
-            "tip": "Do not move farther upstream or stay lower based on this timing read. Fish the section identified by Migration Stage and begin in its most established holding water; change sections only when direct fish activity or a dependable later read supports it.",
+            "headline": "There is not enough reliable Big Manistee evidence for a Migration Timing call.",
+            "tip": "Keep the section named by Migration Stage. Do not shift sections from this timing read.",
             "detail": "There are not enough dependable past seasons to judge whether this migration is early, normal, or late.",
             "reasonCodes": [
               "conditions_baseline_missing",
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -23381,9 +23509,9 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
           "push": {
             "score": 27,
             "label": "No clear push",
-            "headline": "Today's water does not show a clear signal for a fresh wave of fish.",
-            "detail": "The river is holding steady with no meaningful rise yet. Water is on the warm side for fall migration and is relatively steady. Recent weather estimates indicate very little rain around the river.",
-            "tip": "Fish established holding water from the head through the inside seam and tail. Do not spend the day racing between lower travel lanes for a wave the water does not support.",
+            "headline": "Upper-river water does not show a clear fresh-movement signal.",
+            "detail": "The river is holding steady with no meaningful rise yet. Water is on the warm side for fall migration and is relatively steady. Recent watershed weather shows little rain.",
+            "tip": "Keep Migration Stage’s section primary. Do not shift to fresh-entry water from this read.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
@@ -23402,14 +23530,14 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 93,
             "label": "Excellent",
-            "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river.",
-            "tip": "Begin on the primary travel lane feeding deep holding water. Work each hole from its head through the inside seam and tail, then keep moving until fish establish a pattern.",
+            "headline": "Upper-river flow is in its best presentation range.",
+            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read covers only the Upper river (High Bridge–Tippy Dam).",
+            "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band"
@@ -23420,15 +23548,15 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 29,
             "maximum": 100,
             "label": "Reserved",
-            "headline": "Today’s Coho activity outlook is reserved.",
-            "detail": "Fish may respond selectively, with important environmental limitations. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Water temperature limits responsiveness. Early lake-fresh Coho can remain reactive when measured water temperatures are suitable; this score applies only to fish already in the river. The measured conditions represent the Wellston/Tippy tailwater; water temperature, clarity, and presentation conditions can differ through the middle and lower migratory river. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
-            "tip": "Start with 5–9 AM. If the sky changes from the forecast, favor the darkest practical window.",
+            "headline": "Today’s Upper-river Coho responsiveness is reserved.",
+            "detail": "Coho may respond selectively under current limitations. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Wellston flow and temperature represent the Upper river, especially the Tippy Dam area.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify downstream sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -23481,10 +23609,13 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
                 "cloudCoverPct": 100,
                 "precipitationIn": 0.08
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 10,
+            "displayScore": 10,
+            "scoreIsApproximate": true,
             "stage": "beginning",
             "maximum": 100,
             "riverCeiling": 50,
@@ -23493,14 +23624,14 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "curveDirection": "rising",
             "winterHoldingContext": false,
             "label": "Low presence",
-            "headline": "A small number of Coho salmon may be in the river, and seasonal presence is still building.",
-            "detail": "This part of the season usually brings low presence, with more fish expected to enter and become established through several dependable river sections. This is a seasonal estimate, not a live fish count.",
-            "tip": "Treat this as an early, low-odds river opportunity. Expect scattered results, and use direct fish activity before committing the full day.",
+            "headline": "Seasonal Coho salmon presence is low and building.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the Big Manistee Coho salmon ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -23734,14 +23865,14 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "good_fishability_low_presence"
             ]
           },
-          "secondaryNote": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It best represents the Tippy tailwater and upper migratory corridor; flow, temperature, access, and fishability can differ downstream through High Bridge, Bear Creek, the lower river, and Manistee Lake.",
+          "secondaryNote": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It represents the Upper river (High Bridge–Tippy Dam), especially the Tippy Dam area. Conditions can differ in the Middle river, Lower river, Manistee Lake, and harbor.",
           "safety": {
             "regulationReminder": "The Big Manistee below Tippy is a Type 3 reach extending to the railroad bridge below M-55, with a year-round one-Rainbow-Trout limit and special artificial-lure rules during the August 1–November 15 window. Follow current Michigan regulations, DNR closure notices, dam-safety information, and posted boundaries. Fishing methods can change by reach and season.",
-            "gaugeBasis": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It best represents the Tippy tailwater and upper migratory corridor; flow, temperature, access, and fishability can differ downstream through High Bridge, Bear Creek, the lower river, and Manistee Lake.",
+            "gaugeBasis": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It represents the Upper river (High Bridge–Tippy Dam), especially the Tippy Dam area. Conditions can differ in the Middle river, Lower river, Manistee Lake, and harbor.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-big-manistee-steelhead-activity.1"
+          "configVersion": "2026-08-10-big-manistee-copy.1"
         }
       },
       {
@@ -23760,6 +23891,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
           "nextConditionRefreshAt": "2026-09-21T05:00:00.000Z",
           "runStage": {
             "stage": "beginning",
+            "copyStrategy": "big_manistee_tailwater",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -23782,14 +23914,14 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "peakToEndDays": 41
             },
             "label": "Beginning",
-            "headline": "Coho salmon are accumulating through more of the Big Manistee below Tippy Dam.",
-            "whereToStart": "Check the Tippy tailwater and Tippy-to-High Bridge reach first; if fish are scattered there, compare the High Bridge-Bear Creek middle corridor and lower migratory river for newer arrivals.",
-            "detail": "Earlier fish can already be established in tailwater holding areas while newer fish continue moving through the lower and middle migratory corridor. Numbers can still be uneven between sections.",
-            "tip": "Treat Tippy, High Bridge, and Bear Creek as different checks—not one uniform gauge reach—and let direct fish activity decide where to slow down.",
+            "headline": "Coho salmon are accumulating through more of the Big Manistee.",
+            "whereToStart": "Start in the Lower river (M-55–Bear Creek). Add the Middle river (Bear Creek–High Bridge) after direct fish activity supports the move.",
+            "detail": "More Coho are present, but concentrations remain selective.",
+            "tip": "Follow travel water into substantial holding areas before moving upstream.",
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -23821,15 +23953,15 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "2026-09-09"
             ],
             "sourceRefreshSlots": {},
-            "headline": "There is not enough reliable information for a Migration Timing call.",
-            "tip": "Do not move farther upstream or stay lower based on this timing read. Fish the section identified by Migration Stage and begin in its most established holding water; change sections only when direct fish activity or a dependable later read supports it.",
+            "headline": "There is not enough reliable Big Manistee evidence for a Migration Timing call.",
+            "tip": "Keep the section named by Migration Stage. Do not shift sections from this timing read.",
             "detail": "There are not enough dependable past seasons to judge whether this migration is early, normal, or late.",
             "reasonCodes": [
               "conditions_baseline_missing",
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -23843,9 +23975,9 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
           "push": {
             "score": 27,
             "label": "No clear push",
-            "headline": "Today's water does not show a clear signal for a fresh wave of fish.",
-            "detail": "The river is holding steady with no meaningful rise yet. Water is on the warm side for fall migration and is relatively steady. Recent weather estimates indicate very little rain around the river.",
-            "tip": "Fish established holding water from the head through the inside seam and tail. Do not spend the day racing between lower travel lanes for a wave the water does not support.",
+            "headline": "Upper-river water does not show a clear fresh-movement signal.",
+            "detail": "The river is holding steady with no meaningful rise yet. Water is on the warm side for fall migration and is relatively steady. Recent watershed weather shows little rain.",
+            "tip": "Keep Migration Stage’s section primary. Do not shift to fresh-entry water from this read.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
@@ -23864,14 +23996,14 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 93,
             "label": "Excellent",
-            "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river.",
-            "tip": "Begin on the primary travel lane feeding deep holding water. Work each hole from its head through the inside seam and tail, then keep moving until fish establish a pattern.",
+            "headline": "Upper-river flow is in its best presentation range.",
+            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read covers only the Upper river (High Bridge–Tippy Dam).",
+            "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band"
@@ -23882,15 +24014,15 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 20,
             "maximum": 100,
             "label": "Reserved",
-            "headline": "Today’s Coho activity outlook is reserved.",
-            "detail": "Fish may respond selectively, with important environmental limitations. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Water temperature limits responsiveness. Early lake-fresh Coho can remain reactive when measured water temperatures are suitable; this score applies only to fish already in the river. The measured conditions represent the Wellston/Tippy tailwater; water temperature, clarity, and presentation conditions can differ through the middle and lower migratory river. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
-            "tip": "Start with 5–9 AM. If the sky changes from the forecast, favor the darkest practical window.",
+            "headline": "Today’s Upper-river Coho responsiveness is reserved.",
+            "detail": "Coho may respond selectively under current limitations. 5–9 AM and 9 AM–1 PM are the leading windows, but neither has a clear advantage. Wellston flow and temperature represent the Upper river, especially the Tippy Dam area.",
+            "tip": "Choose between 5–9 AM and 9 AM–1 PM using actual light. Verify downstream sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -23943,10 +24075,13 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
                 "cloudCoverPct": 100,
                 "precipitationIn": 0.08
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 10,
+            "displayScore": 10,
+            "scoreIsApproximate": true,
             "stage": "beginning",
             "maximum": 100,
             "riverCeiling": 50,
@@ -23955,14 +24090,14 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "curveDirection": "rising",
             "winterHoldingContext": false,
             "label": "Low presence",
-            "headline": "A small number of Coho salmon may be in the river, and seasonal presence is still building.",
-            "detail": "This part of the season usually brings low presence, with more fish expected to enter and become established through several dependable river sections. This is a seasonal estimate, not a live fish count.",
-            "tip": "Treat this as an early, low-odds river opportunity. Expect scattered results, and use direct fish activity before committing the full day.",
+            "headline": "Seasonal Coho salmon presence is low and building.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the Big Manistee Coho salmon ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -24196,14 +24331,14 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "good_fishability_low_presence"
             ]
           },
-          "secondaryNote": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It best represents the Tippy tailwater and upper migratory corridor; flow, temperature, access, and fishability can differ downstream through High Bridge, Bear Creek, the lower river, and Manistee Lake.",
+          "secondaryNote": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It represents the Upper river (High Bridge–Tippy Dam), especially the Tippy Dam area. Conditions can differ in the Middle river, Lower river, Manistee Lake, and harbor.",
           "safety": {
             "regulationReminder": "The Big Manistee below Tippy is a Type 3 reach extending to the railroad bridge below M-55, with a year-round one-Rainbow-Trout limit and special artificial-lure rules during the August 1–November 15 window. Follow current Michigan regulations, DNR closure notices, dam-safety information, and posted boundaries. Fishing methods can change by reach and season.",
-            "gaugeBasis": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It best represents the Tippy tailwater and upper migratory corridor; flow, temperature, access, and fishability can differ downstream through High Bridge, Bear Creek, the lower river, and Manistee Lake.",
+            "gaugeBasis": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It represents the Upper river (High Bridge–Tippy Dam), especially the Tippy Dam area. Conditions can differ in the Middle river, Lower river, Manistee Lake, and harbor.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-big-manistee-steelhead-activity.1"
+          "configVersion": "2026-08-10-big-manistee-copy.1"
         }
       },
       {
@@ -24222,6 +24357,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
           "nextConditionRefreshAt": "2026-10-21T05:00:00.000Z",
           "runStage": {
             "stage": "peak",
+            "copyStrategy": "big_manistee_tailwater",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -24244,14 +24380,14 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "peakToEndDays": 41
             },
             "label": "Peak",
-            "headline": "This is typically the strongest part of the Big Manistee Coho salmon window.",
-            "whereToStart": "Compare the Tippy tailwater, Tippy-to-High Bridge reach, High Bridge-Bear Creek middle corridor, and major lower-river holes toward M-55.",
-            "detail": "This is the best seasonal chance to find fish in more than one migratory reach, but the opportunity remains sectional and concentrations can change sharply from one access or hole to the next.",
-            "tip": "Use Wellston for the regulated tailwater response, then make lower-river decisions from local water conditions rather than extrapolation.",
+            "headline": "This is the strongest seasonal Big Manistee Coho salmon window.",
+            "whereToStart": "Start in the Upper river (High Bridge–Tippy Dam), emphasizing the Tippy Dam area. Compare the Middle river (Bear Creek–High Bridge) for fresher fish.",
+            "detail": "This is still sectional opportunity; Coho will not be evenly distributed.",
+            "tip": "Use Wellston only for Upper-river conditions and leave visible spawning fish undisturbed.",
             "reasonCodes": [
               "stage_peak"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -24318,15 +24454,15 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "2026-10-14"
             ],
             "sourceRefreshSlots": {},
-            "headline": "There is not enough reliable information for a Migration Timing call.",
-            "tip": "Do not move farther upstream or stay lower based on this timing read. Fish the section identified by Migration Stage and begin in its most established holding water; change sections only when direct fish activity or a dependable later read supports it.",
+            "headline": "There is not enough reliable Big Manistee evidence for a Migration Timing call.",
+            "tip": "Keep the section named by Migration Stage. Do not shift sections from this timing read.",
             "detail": "There are not enough dependable past seasons to judge whether this migration is early, normal, or late.",
             "reasonCodes": [
               "conditions_baseline_missing",
               "conditions_insufficient",
               "conditions_checkpoint_peak_start"
             ],
-            "copyVersion": "river-run-copy-v27",
+            "copyVersion": "river-run-copy-v34",
             "previousCheckpointId": "building_established",
             "previousCheckpointDate": "2026-10-01",
             "previousTimingLabel": "Insufficient evidence"
@@ -24343,9 +24479,9 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
           "push": {
             "score": 25,
             "label": "No clear push",
-            "headline": "The river is rising hard, but extreme flow makes this an unreliable fresh-movement read.",
-            "detail": "The river is holding steady with no meaningful rise yet. Overall flow is extremely high. Water temperature is favorable for fall migration and is relatively steady. Recent weather estimates indicate very little rain around the river.",
-            "tip": "Do not chase movement in the main channel. If Fishability remains usable, fish only protected margins, inside turns, and soft current with short controlled presentations.",
+            "headline": "Extreme Upper-river flow prevents a dependable fresh-movement signal.",
+            "detail": "The river is holding steady with no meaningful rise yet; overall flow is extremely high. Water temperature is favorable for fall migration and is relatively steady. Recent watershed weather shows little rain.",
+            "tip": "Keep Migration Stage’s section primary. Do not shift to fresh-entry water from this read.",
             "reasonCodes": [
               "gauge_fresh",
               "push_severe_high_flow_context",
@@ -24365,14 +24501,14 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 20,
             "label": "Poor",
-            "headline": "The river is too high and unsettled for a dependable fishing recommendation.",
-            "detail": "Excessive flow is overwhelming normal holding water and making access and presentation unreliable. The river is not climbing quickly, but it must fall substantially before normal holding lanes and presentation control return. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river.",
-            "tip": "Choose a lower-water day for the better fishing opportunity. If you fish now, stay tight to protected banks, slow inside turns, and the downstream side of major current breaks; keep presentations short and leave the main flow alone.",
+            "headline": "The Upper river is blown out for a dependable presentation plan.",
+            "detail": "Excessive flow overwhelms normal lanes and presentation control. Steady flow should keep presentation lanes consistent. This read covers only the Upper river (High Bridge–Tippy Dam).",
+            "tip": "Choose another day and verify current conditions through authoritative local sources.",
             "reasonCodes": [
               "gauge_fresh",
               "blown_out_flow_band",
@@ -24384,15 +24520,15 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 20,
             "maximum": 100,
             "label": "Reserved",
-            "headline": "Today’s Coho activity outlook is reserved.",
-            "detail": "Fish may respond selectively, with important environmental limitations. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: The river level or its recent change is less favorable. Broad seasonal presence can make fish easier to locate, but this score measures the responsiveness of Coho already present rather than their abundance. The measured conditions represent the Wellston/Tippy tailwater; water temperature, clarity, and presentation conditions can differ through the middle and lower migratory river. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
-            "tip": "Start with 5–9 AM. If the sky changes from the forecast, favor the darkest practical window.",
+            "headline": "Today’s Upper-river Coho responsiveness is reserved.",
+            "detail": "Coho may respond selectively under current limitations. 5–9 AM and 9 AM–1 PM are the leading windows, but neither has a clear advantage. Wellston flow and temperature represent the Upper river, especially the Tippy Dam area.",
+            "tip": "Choose between 5–9 AM and 9 AM–1 PM using actual light. Verify downstream sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -24445,10 +24581,13 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
                 "cloudCoverPct": 100,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 50,
+            "displayScore": 50,
+            "scoreIsApproximate": false,
             "stage": "peak",
             "maximum": 100,
             "riverCeiling": 50,
@@ -24457,14 +24596,14 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "curveDirection": "near_peak",
             "winterHoldingContext": false,
             "label": "Peak presence",
-            "headline": "Coho salmon are likely near their highest seasonal presence in the river.",
-            "detail": "This is the part of the season when in-river presence is usually strongest. Fish are most likely distributed through several dependable river sections. The read does not place fish in a specific pool or confirm a live count.",
-            "tip": "Plan for a dependable but potentially uneven river opportunity near its seasonal high point. Confirm fish activity before committing the full day.",
+            "headline": "Seasonal Coho salmon presence is near its expected Big Manistee peak.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the Big Manistee Coho salmon ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_peak",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -24698,14 +24837,14 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "peak_presence_weak_push"
             ]
           },
-          "secondaryNote": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It best represents the Tippy tailwater and upper migratory corridor; flow, temperature, access, and fishability can differ downstream through High Bridge, Bear Creek, the lower river, and Manistee Lake.",
+          "secondaryNote": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It represents the Upper river (High Bridge–Tippy Dam), especially the Tippy Dam area. Conditions can differ in the Middle river, Lower river, Manistee Lake, and harbor.",
           "safety": {
             "regulationReminder": "The Big Manistee below Tippy is a Type 3 reach extending to the railroad bridge below M-55, with a year-round one-Rainbow-Trout limit and special artificial-lure rules during the August 1–November 15 window. Follow current Michigan regulations, DNR closure notices, dam-safety information, and posted boundaries. Fishing methods can change by reach and season.",
-            "gaugeBasis": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It best represents the Tippy tailwater and upper migratory corridor; flow, temperature, access, and fishability can differ downstream through High Bridge, Bear Creek, the lower river, and Manistee Lake.",
+            "gaugeBasis": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It represents the Upper river (High Bridge–Tippy Dam), especially the Tippy Dam area. Conditions can differ in the Middle river, Lower river, Manistee Lake, and harbor.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-big-manistee-steelhead-activity.1"
+          "configVersion": "2026-08-10-big-manistee-copy.1"
         }
       },
       {
@@ -24724,6 +24863,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
           "nextConditionRefreshAt": "2026-11-06T05:00:00.000Z",
           "runStage": {
             "stage": "tapering",
+            "copyStrategy": "big_manistee_tailwater",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -24746,14 +24886,14 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "peakToEndDays": 41
             },
             "label": "Tapering",
-            "headline": "The Big Manistee can remain productive for Coho salmon, although fresh arrivals are becoming less consistent.",
-            "whereToStart": "Begin with shaded pools below Tippy and the slower edges of High Bridge bends, then check Bear Creek for late moving fish.",
-            "detail": "Older fish may remain while new movement becomes more dependent on cooling water and a measured hydraulic response.",
-            "tip": "Prioritize established holding water and do not treat rain alone as a confirmed push.",
+            "headline": "Coho salmon remain present, but fresh arrivals are less consistent.",
+            "whereToStart": "Start in the Upper river (High Bridge–Tippy Dam), especially the Tippy Dam area. Add the Middle river (Bear Creek–High Bridge) only when direct activity supports it.",
+            "detail": "The run is declining and increasingly concentrated in established holding water.",
+            "tip": "Look for genuinely fresh fish and leave visible spawning or deteriorated fish alone.",
             "reasonCodes": [
               "stage_tapering"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Timing complete",
@@ -24839,7 +24979,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "conditions_checkpoint_peak_complete",
               "conditions_timing_complete"
             ],
-            "copyVersion": "river-run-copy-v27",
+            "copyVersion": "river-run-copy-v34",
             "previousCheckpointId": "peak_start",
             "previousCheckpointDate": "2026-10-15",
             "previousTimingLabel": "Insufficient evidence"
@@ -24856,9 +24996,9 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
           "push": {
             "score": 30,
             "label": "No clear push",
-            "headline": "Today's water does not show a clear signal for a fresh wave of fish.",
-            "detail": "The river is holding steady with no meaningful rise yet. Water temperature is favorable for fall migration and is relatively steady. Recent weather estimates indicate very little rain around the river.",
-            "tip": "Fish established holding water from the head through the inside seam and tail. Do not spend the day racing between lower travel lanes for a wave the water does not support.",
+            "headline": "Upper-river water does not show a clear fresh-movement signal.",
+            "detail": "The river is holding steady with no meaningful rise yet. Water temperature is favorable for fall migration and is relatively steady. Recent watershed weather shows little rain.",
+            "tip": "Keep Migration Stage’s section primary. Do not shift to fresh-entry water from this read.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
@@ -24877,14 +25017,14 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 93,
             "label": "Excellent",
-            "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river.",
-            "tip": "Begin on the primary travel lane feeding deep holding water. Work each hole from its head through the inside seam and tail, then keep moving until fish establish a pattern.",
+            "headline": "Upper-river flow is in its best presentation range.",
+            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read covers only the Upper river (High Bridge–Tippy Dam).",
+            "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band"
@@ -24895,15 +25035,15 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 81,
             "maximum": 100,
             "label": "Highly active",
-            "headline": "Today’s Coho activity outlook is highly active.",
-            "detail": "Conditions strongly favor a response from Coho that are present and capable of reacting. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. This score represents a Coho of unknown condition at this point in the season. A newly arrived or fresher fish may be more active than this score, while a spawning or deteriorating fish may be less responsive. The measured conditions represent the Wellston/Tippy tailwater; water temperature, clarity, and presentation conditions can differ through the middle and lower migratory river. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
-            "tip": "Compare the four time windows, but treat every difference as conditional on finding a living Coho still capable of responding.",
+            "headline": "Today’s Upper-river Coho responsiveness is highly active.",
+            "detail": "Conditions strongly support Coho responsiveness. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Late-run Coho condition varies widely, so individual fish may respond above or below this outlook.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify downstream sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -24956,10 +25096,13 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
                 "cloudCoverPct": 100,
                 "precipitationIn": 0.08
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 38,
+            "displayScore": 40,
+            "scoreIsApproximate": true,
             "stage": "tapering",
             "maximum": 100,
             "riverCeiling": 50,
@@ -24968,14 +25111,14 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "curveDirection": "falling",
             "winterHoldingContext": false,
             "label": "High presence",
-            "headline": "Seasonal timing still supports Coho salmon through dependable river sections, although fresh arrivals may be less consistent than near peak.",
-            "detail": "Seasonal presence is usually elevated relative to the rest of the season. Fish are still likely established through several dependable river sections, while fresh arrivals often become less consistent later in the season. This is a seasonal estimate, not a live fish count.",
-            "tip": "Plan around fish already likely to be in the river. A meaningful seasonal presence may remain, but remember that this seasonal estimate cannot tell whether a fresh wave is entering today.",
+            "headline": "Seasonal Coho salmon presence is high and declining.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the Big Manistee Coho salmon ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_tapering",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -25203,14 +25346,14 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             ]
           },
           "interpretationNote": null,
-          "secondaryNote": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It best represents the Tippy tailwater and upper migratory corridor; flow, temperature, access, and fishability can differ downstream through High Bridge, Bear Creek, the lower river, and Manistee Lake.",
+          "secondaryNote": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It represents the Upper river (High Bridge–Tippy Dam), especially the Tippy Dam area. Conditions can differ in the Middle river, Lower river, Manistee Lake, and harbor.",
           "safety": {
             "regulationReminder": "The Big Manistee below Tippy is a Type 3 reach extending to the railroad bridge below M-55, with a year-round one-Rainbow-Trout limit and special artificial-lure rules during the August 1–November 15 window. Follow current Michigan regulations, DNR closure notices, dam-safety information, and posted boundaries. Fishing methods can change by reach and season.",
-            "gaugeBasis": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It best represents the Tippy tailwater and upper migratory corridor; flow, temperature, access, and fishability can differ downstream through High Bridge, Bear Creek, the lower river, and Manistee Lake.",
+            "gaugeBasis": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It represents the Upper river (High Bridge–Tippy Dam), especially the Tippy Dam area. Conditions can differ in the Middle river, Lower river, Manistee Lake, and harbor.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-big-manistee-steelhead-activity.1"
+          "configVersion": "2026-08-10-big-manistee-copy.1"
         }
       },
       {
@@ -25229,6 +25372,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
           "nextConditionRefreshAt": "2026-11-21T05:00:00.000Z",
           "runStage": {
             "stage": "ending",
+            "copyStrategy": "big_manistee_tailwater",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -25251,14 +25395,14 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "peakToEndDays": 41
             },
             "label": "Ending",
-            "headline": "Only a residual late Coho salmon opportunity remains in the Big Manistee.",
-            "whereToStart": "Limit the search to the deepest Tippy-area pools, High Bridge inside bends, and one or two proven Bear Creek-area holes.",
-            "detail": "Most remaining fish have been in the system for some time. A genuinely fresh fish is possible, but no longer represents a dependable new migration wave.",
-            "tip": "Keep expectations narrow, leave spawning or visibly deteriorated fish alone, and shift effort when direct evidence is absent.",
+            "headline": "Only a residual late Coho salmon opportunity remains.",
+            "whereToStart": "Start in the Upper river (High Bridge–Tippy Dam), emphasizing established water near Tippy Dam.",
+            "detail": "A fresh fish is possible, but no longer represents a dependable movement wave.",
+            "tip": "Keep expectations narrow and stop searching when direct evidence is absent.",
             "reasonCodes": [
               "stage_ending"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Timing complete",
@@ -25344,7 +25488,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "conditions_checkpoint_peak_complete",
               "conditions_timing_complete"
             ],
-            "copyVersion": "river-run-copy-v27",
+            "copyVersion": "river-run-copy-v34",
             "previousCheckpointId": "peak_start",
             "previousCheckpointDate": "2026-10-15",
             "previousTimingLabel": "Insufficient evidence"
@@ -25361,9 +25505,9 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
           "push": {
             "score": 30,
             "label": "No clear push",
-            "headline": "Today's water does not show a clear signal for a fresh wave of fish.",
-            "detail": "The river is holding steady with no meaningful rise yet. Water temperature is favorable for fall migration and is relatively steady. Recent weather estimates indicate very little rain around the river.",
-            "tip": "Fish established holding water from the head through the inside seam and tail. Do not spend the day racing between lower travel lanes for a wave the water does not support.",
+            "headline": "Upper-river water does not show a clear fresh-movement signal.",
+            "detail": "The river is holding steady with no meaningful rise yet. Water temperature is favorable for fall migration and is relatively steady. Recent watershed weather shows little rain.",
+            "tip": "Keep Migration Stage’s section primary. Do not shift to fresh-entry water from this read.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
@@ -25382,14 +25526,14 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 93,
             "label": "Excellent",
-            "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river.",
-            "tip": "Begin on the primary travel lane feeding deep holding water. Work each hole from its head through the inside seam and tail, then keep moving until fish establish a pattern.",
+            "headline": "Upper-river flow is in its best presentation range.",
+            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read covers only the Upper river (High Bridge–Tippy Dam).",
+            "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band"
@@ -25400,15 +25544,15 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 55,
             "maximum": 100,
             "label": "Moderate",
-            "headline": "Today’s Coho activity outlook is moderate.",
-            "detail": "Some useful factors are present, but the response window is mixed. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. This score represents a remaining Coho of unknown condition late in the season. A newly arrived or fresher fish may be more active than this score, while a spent or deteriorating fish may respond less or not at all. The measured conditions represent the Wellston/Tippy tailwater; water temperature, clarity, and presentation conditions can differ through the middle and lower migratory river. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
-            "tip": "No late-season window should be treated as broadly favorable; use the block scores only for a living Coho that is still capable of reacting.",
+            "headline": "Today’s Upper-river Coho responsiveness is moderate.",
+            "detail": "Conditions offer mixed support for Coho responsiveness. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Late-run Coho condition varies widely, so individual fish may respond above or below this outlook.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify downstream sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -25461,10 +25605,13 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
                 "cloudCoverPct": 100,
                 "precipitationIn": 0.08
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 20,
+            "displayScore": 20,
+            "scoreIsApproximate": true,
             "stage": "ending",
             "maximum": 100,
             "riverCeiling": 50,
@@ -25473,14 +25620,14 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "curveDirection": "falling",
             "winterHoldingContext": false,
             "label": "Limited presence",
-            "headline": "Seasonal timing still supports some Coho salmon in established holding water, but they are less likely to occupy every dependable section.",
-            "detail": "This part of the season usually supports limited presence concentrated in the river's most dependable holes and slower holding water. This is a seasonal estimate, not a live fish count.",
-            "tip": "Treat this as a lower-odds late-season opportunity. Keep the trip flexible, and require direct fish activity before committing more time.",
+            "headline": "Seasonal Coho salmon presence is limited and declining.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the Big Manistee Coho salmon ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_ending",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -25708,14 +25855,14 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             ]
           },
           "interpretationNote": null,
-          "secondaryNote": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It best represents the Tippy tailwater and upper migratory corridor; flow, temperature, access, and fishability can differ downstream through High Bridge, Bear Creek, the lower river, and Manistee Lake.",
+          "secondaryNote": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It represents the Upper river (High Bridge–Tippy Dam), especially the Tippy Dam area. Conditions can differ in the Middle river, Lower river, Manistee Lake, and harbor.",
           "safety": {
             "regulationReminder": "The Big Manistee below Tippy is a Type 3 reach extending to the railroad bridge below M-55, with a year-round one-Rainbow-Trout limit and special artificial-lure rules during the August 1–November 15 window. Follow current Michigan regulations, DNR closure notices, dam-safety information, and posted boundaries. Fishing methods can change by reach and season.",
-            "gaugeBasis": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It best represents the Tippy tailwater and upper migratory corridor; flow, temperature, access, and fishability can differ downstream through High Bridge, Bear Creek, the lower river, and Manistee Lake.",
+            "gaugeBasis": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It represents the Upper river (High Bridge–Tippy Dam), especially the Tippy Dam area. Conditions can differ in the Middle river, Lower river, Manistee Lake, and harbor.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-big-manistee-steelhead-activity.1"
+          "configVersion": "2026-08-10-big-manistee-copy.1"
         }
       },
       {
@@ -25734,6 +25881,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
           "nextConditionRefreshAt": "2026-12-02T05:00:00.000Z",
           "runStage": {
             "stage": "post_run",
+            "copyStrategy": "big_manistee_tailwater",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -25756,14 +25904,14 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "peakToEndDays": 41
             },
             "label": "After migration",
-            "headline": "A few late Coho salmon may remain in established Big Manistee holding water.",
-            "whereToStart": "There is no dependable starting reach; if you still go, make one careful check of a proven deep pool below Tippy or near High Bridge.",
-            "detail": "The seasonal presence tail is not a live abundance estimate and does not imply a fresh river push.",
-            "tip": "Do not convert residual presence into a new-run signal.",
+            "headline": "Only a residual late Coho salmon opportunity remains.",
+            "whereToStart": "There is no dependable starting section. If you go, make one careful Upper river (High Bridge–Tippy Dam) check near Tippy Dam.",
+            "detail": "The seasonal tail does not indicate a fresh movement event.",
+            "tip": "Do not build a broad corridor search around isolated late fish.",
             "reasonCodes": [
               "stage_post_run"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Timing complete",
@@ -25849,7 +25997,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "conditions_checkpoint_peak_complete",
               "conditions_timing_complete"
             ],
-            "copyVersion": "river-run-copy-v27",
+            "copyVersion": "river-run-copy-v34",
             "previousCheckpointId": "peak_start",
             "previousCheckpointDate": "2026-10-15",
             "previousTimingLabel": "Insufficient evidence"
@@ -25873,14 +26021,14 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "push_tracking_complete"
             ],
             "rulesVersion": "big-manistee-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 93,
             "label": "Excellent",
-            "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river.",
-            "tip": "Begin on the primary travel lane feeding deep holding water. Work each hole from its head through the inside seam and tail, then keep moving until fish establish a pattern.",
+            "headline": "Upper-river flow is in its best presentation range.",
+            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read covers only the Upper river (High Bridge–Tippy Dam).",
+            "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band"
@@ -25891,15 +26039,15 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 37,
             "maximum": 100,
             "label": "Reserved",
-            "headline": "Today’s Coho activity outlook is reserved.",
-            "detail": "Fish may respond selectively, with important environmental limitations. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. This score represents a remaining Coho of unknown condition late in the season. A newly arrived or fresher fish may be more active than this score, while a spent or deteriorating fish may respond less or not at all. The measured conditions represent the Wellston/Tippy tailwater; water temperature, clarity, and presentation conditions can differ through the middle and lower migratory river. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
-            "tip": "No late-season window should be treated as broadly favorable; use the block scores only for a living Coho that is still capable of reacting.",
+            "headline": "Today’s Upper-river Coho responsiveness is reserved.",
+            "detail": "Coho may respond selectively under current limitations. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Late-run Coho condition varies widely, so individual fish may respond above or below this outlook.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify downstream sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -25952,10 +26100,13 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
                 "cloudCoverPct": 100,
                 "precipitationIn": 0.08
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 9,
+            "displayScore": 10,
+            "scoreIsApproximate": true,
             "stage": "post_run",
             "maximum": 100,
             "riverCeiling": 50,
@@ -25964,14 +26115,14 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "curveDirection": "falling",
             "winterHoldingContext": false,
             "label": "Low presence",
-            "headline": "Some Coho salmon may still be in the river, with seasonal presence more likely to be scattered.",
-            "detail": "This part of the season usually supports low presence through several dependable river sections, while fresh arrivals often become less consistent later in the season. This is a seasonal estimate, not a live fish count.",
-            "tip": "Treat any remaining fish as a bonus rather than a dependable trip plan. Keep expectations narrow and be ready to shift to another seasonal species.",
+            "headline": "Seasonal Coho salmon presence is low and declining.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the Big Manistee Coho salmon ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_post_run",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -26206,14 +26357,14 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "post_run_residual_presence"
             ]
           },
-          "secondaryNote": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It best represents the Tippy tailwater and upper migratory corridor; flow, temperature, access, and fishability can differ downstream through High Bridge, Bear Creek, the lower river, and Manistee Lake.",
+          "secondaryNote": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It represents the Upper river (High Bridge–Tippy Dam), especially the Tippy Dam area. Conditions can differ in the Middle river, Lower river, Manistee Lake, and harbor.",
           "safety": {
             "regulationReminder": "The Big Manistee below Tippy is a Type 3 reach extending to the railroad bridge below M-55, with a year-round one-Rainbow-Trout limit and special artificial-lure rules during the August 1–November 15 window. Follow current Michigan regulations, DNR closure notices, dam-safety information, and posted boundaries. Fishing methods can change by reach and season.",
-            "gaugeBasis": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It best represents the Tippy tailwater and upper migratory corridor; flow, temperature, access, and fishability can differ downstream through High Bridge, Bear Creek, the lower river, and Manistee Lake.",
+            "gaugeBasis": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It represents the Upper river (High Bridge–Tippy Dam), especially the Tippy Dam area. Conditions can differ in the Middle river, Lower river, Manistee Lake, and harbor.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-big-manistee-steelhead-activity.1"
+          "configVersion": "2026-08-10-big-manistee-copy.1"
         }
       },
       {
@@ -26232,6 +26383,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
           "nextConditionRefreshAt": "2026-10-21T05:00:00.000Z",
           "runStage": {
             "stage": "peak",
+            "copyStrategy": "big_manistee_tailwater",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -26254,14 +26406,14 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "peakToEndDays": 41
             },
             "label": "Peak",
-            "headline": "This is typically the strongest part of the Big Manistee Coho salmon window.",
-            "whereToStart": "Compare the Tippy tailwater, Tippy-to-High Bridge reach, High Bridge-Bear Creek middle corridor, and major lower-river holes toward M-55.",
-            "detail": "This is the best seasonal chance to find fish in more than one migratory reach, but the opportunity remains sectional and concentrations can change sharply from one access or hole to the next.",
-            "tip": "Use Wellston for the regulated tailwater response, then make lower-river decisions from local water conditions rather than extrapolation.",
+            "headline": "This is the strongest seasonal Big Manistee Coho salmon window.",
+            "whereToStart": "Start in the Upper river (High Bridge–Tippy Dam), emphasizing the Tippy Dam area. Compare the Middle river (Bear Creek–High Bridge) for fresher fish.",
+            "detail": "This is still sectional opportunity; Coho will not be evenly distributed.",
+            "tip": "Use Wellston only for Upper-river conditions and leave visible spawning fish undisturbed.",
             "reasonCodes": [
               "stage_peak"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -26328,15 +26480,15 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "2026-10-14"
             ],
             "sourceRefreshSlots": {},
-            "headline": "There is not enough reliable information for a Migration Timing call.",
-            "tip": "Do not move farther upstream or stay lower based on this timing read. Fish the section identified by Migration Stage and begin in its most established holding water; change sections only when direct fish activity or a dependable later read supports it.",
+            "headline": "There is not enough reliable Big Manistee evidence for a Migration Timing call.",
+            "tip": "Keep the section named by Migration Stage. Do not shift sections from this timing read.",
             "detail": "There are not enough dependable past seasons to judge whether this migration is early, normal, or late.",
             "reasonCodes": [
               "conditions_baseline_missing",
               "conditions_insufficient",
               "conditions_checkpoint_peak_start"
             ],
-            "copyVersion": "river-run-copy-v27",
+            "copyVersion": "river-run-copy-v34",
             "previousCheckpointId": "building_established",
             "previousCheckpointDate": "2026-10-01",
             "previousTimingLabel": "Insufficient evidence"
@@ -26361,14 +26513,14 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "temperature_unavailable"
             ],
             "rulesVersion": "big-manistee-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 93,
             "label": "Excellent",
-            "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river.",
-            "tip": "Begin on the primary travel lane feeding deep holding water. Work each hole from its head through the inside seam and tail, then keep moving until fish establish a pattern.",
+            "headline": "Upper-river flow is in its best presentation range.",
+            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read covers only the Upper river (High Bridge–Tippy Dam).",
+            "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band"
@@ -26379,15 +26531,15 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 55,
             "maximum": 100,
             "label": "Moderate",
-            "headline": "Today’s Coho activity outlook is moderate.",
-            "detail": "Some useful factors are present, but the response window is mixed. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Measured water temperature is unavailable. Broad seasonal presence can make fish easier to locate, but this score measures the responsiveness of Coho already present rather than their abundance. The measured conditions represent the Wellston/Tippy tailwater; water temperature, clarity, and presentation conditions can differ through the middle and lower migratory river. One important reading is unavailable or comes from tomorrow’s forecast, so the outlook is kept conservative.",
-            "tip": "Start with 5–9 AM. If the sky changes from the forecast, favor the darkest practical window.",
+            "headline": "Today’s Upper-river Coho responsiveness is moderate.",
+            "detail": "Conditions offer mixed support for Coho responsiveness. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Moderate confidence reflects missing or forecast inputs; Wellston still represents only the Upper river.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify downstream sections directly.",
             "reasonCodes": [
               "activity_confidence_moderate",
               "activity_today",
@@ -26439,10 +26591,13 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
                 "cloudCoverPct": 75,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 50,
+            "displayScore": 50,
+            "scoreIsApproximate": false,
             "stage": "peak",
             "maximum": 100,
             "riverCeiling": 50,
@@ -26451,14 +26606,14 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "curveDirection": "near_peak",
             "winterHoldingContext": false,
             "label": "Peak presence",
-            "headline": "Coho salmon are likely near their highest seasonal presence in the river.",
-            "detail": "This is the part of the season when in-river presence is usually strongest. Fish are most likely distributed through several dependable river sections. The read does not place fish in a specific pool or confirm a live count.",
-            "tip": "Plan for a dependable but potentially uneven river opportunity near its seasonal high point. Confirm fish activity before committing the full day.",
+            "headline": "Seasonal Coho salmon presence is near its expected Big Manistee peak.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the Big Manistee Coho salmon ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_peak",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -26669,14 +26824,14 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             ]
           },
           "interpretationNote": null,
-          "secondaryNote": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It best represents the Tippy tailwater and upper migratory corridor; flow, temperature, access, and fishability can differ downstream through High Bridge, Bear Creek, the lower river, and Manistee Lake.",
+          "secondaryNote": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It represents the Upper river (High Bridge–Tippy Dam), especially the Tippy Dam area. Conditions can differ in the Middle river, Lower river, Manistee Lake, and harbor.",
           "safety": {
             "regulationReminder": "The Big Manistee below Tippy is a Type 3 reach extending to the railroad bridge below M-55, with a year-round one-Rainbow-Trout limit and special artificial-lure rules during the August 1–November 15 window. Follow current Michigan regulations, DNR closure notices, dam-safety information, and posted boundaries. Fishing methods can change by reach and season.",
-            "gaugeBasis": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It best represents the Tippy tailwater and upper migratory corridor; flow, temperature, access, and fishability can differ downstream through High Bridge, Bear Creek, the lower river, and Manistee Lake.",
+            "gaugeBasis": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It represents the Upper river (High Bridge–Tippy Dam), especially the Tippy Dam area. Conditions can differ in the Middle river, Lower river, Manistee Lake, and harbor.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-big-manistee-steelhead-activity.1"
+          "configVersion": "2026-08-10-big-manistee-copy.1"
         }
       },
       {
@@ -26695,6 +26850,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
           "nextConditionRefreshAt": "2026-10-21T05:00:00.000Z",
           "runStage": {
             "stage": "peak",
+            "copyStrategy": "big_manistee_tailwater",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -26717,14 +26873,14 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "peakToEndDays": 41
             },
             "label": "Peak",
-            "headline": "This is typically the strongest part of the Big Manistee Coho salmon window.",
-            "whereToStart": "Compare the Tippy tailwater, Tippy-to-High Bridge reach, High Bridge-Bear Creek middle corridor, and major lower-river holes toward M-55.",
-            "detail": "This is the best seasonal chance to find fish in more than one migratory reach, but the opportunity remains sectional and concentrations can change sharply from one access or hole to the next.",
-            "tip": "Use Wellston for the regulated tailwater response, then make lower-river decisions from local water conditions rather than extrapolation.",
+            "headline": "This is the strongest seasonal Big Manistee Coho salmon window.",
+            "whereToStart": "Start in the Upper river (High Bridge–Tippy Dam), emphasizing the Tippy Dam area. Compare the Middle river (Bear Creek–High Bridge) for fresher fish.",
+            "detail": "This is still sectional opportunity; Coho will not be evenly distributed.",
+            "tip": "Use Wellston only for Upper-river conditions and leave visible spawning fish undisturbed.",
             "reasonCodes": [
               "stage_peak"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -26791,15 +26947,15 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "2026-10-14"
             ],
             "sourceRefreshSlots": {},
-            "headline": "There is not enough reliable information for a Migration Timing call.",
-            "tip": "Do not move farther upstream or stay lower based on this timing read. Fish the section identified by Migration Stage and begin in its most established holding water; change sections only when direct fish activity or a dependable later read supports it.",
+            "headline": "There is not enough reliable Big Manistee evidence for a Migration Timing call.",
+            "tip": "Keep the section named by Migration Stage. Do not shift sections from this timing read.",
             "detail": "There are not enough dependable past seasons to judge whether this migration is early, normal, or late.",
             "reasonCodes": [
               "conditions_baseline_missing",
               "conditions_insufficient",
               "conditions_checkpoint_peak_start"
             ],
-            "copyVersion": "river-run-copy-v27",
+            "copyVersion": "river-run-copy-v34",
             "previousCheckpointId": "building_established",
             "previousCheckpointDate": "2026-10-01",
             "previousTimingLabel": "Insufficient evidence"
@@ -26823,27 +26979,27 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "gauge_missing"
             ],
             "rulesVersion": "big-manistee-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": null,
             "label": "Unavailable",
-            "headline": "There is no dependable Fishability read right now.",
-            "detail": "A recent river-level reading is missing, so current flow and direction cannot be judged responsibly.",
-            "tip": "Do not plan from the last known level. Check again after the next update, and verify the river at the first access before choosing where or how to fish.",
+            "headline": "A current Wellston Fishability reading is unavailable.",
+            "detail": "Without current Wellston flow and direction, Upper-river presentation conditions cannot be determined.",
+            "tip": "Do not extend an old or missing Wellston read through the Big Manistee. Verify current conditions directly.",
             "reasonCodes": [
               "gauge_missing"
             ],
             "rulesVersion": "big-manistee-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 52,
             "maximum": 100,
             "label": "Moderate",
-            "headline": "Today’s Coho activity outlook is moderate.",
-            "detail": "Some useful factors are present, but the response window is mixed. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Current river behavior is unavailable. Broad seasonal presence can make fish easier to locate, but this score measures the responsiveness of Coho already present rather than their abundance. The measured conditions represent the Wellston/Tippy tailwater; water temperature, clarity, and presentation conditions can differ through the middle and lower migratory river. One important reading is unavailable or comes from tomorrow’s forecast, so the outlook is kept conservative.",
-            "tip": "Start with 5–9 AM. If the sky changes from the forecast, favor the darkest practical window.",
+            "headline": "Today’s Upper-river Coho responsiveness is moderate.",
+            "detail": "Conditions offer mixed support for Coho responsiveness. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Moderate confidence reflects missing or forecast inputs; Wellston still represents only the Upper river.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify downstream sections directly.",
             "reasonCodes": [
               "activity_confidence_moderate",
               "activity_today",
@@ -26895,10 +27051,13 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
                 "cloudCoverPct": 75,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 50,
+            "displayScore": 50,
+            "scoreIsApproximate": false,
             "stage": "peak",
             "maximum": 100,
             "riverCeiling": 50,
@@ -26907,14 +27066,14 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "curveDirection": "near_peak",
             "winterHoldingContext": false,
             "label": "Peak presence",
-            "headline": "Coho salmon are likely near their highest seasonal presence in the river.",
-            "detail": "This is the part of the season when in-river presence is usually strongest. Fish are most likely distributed through several dependable river sections. The read does not place fish in a specific pool or confirm a live count.",
-            "tip": "Plan for a dependable but potentially uneven river opportunity near its seasonal high point. Confirm fish activity before committing the full day.",
+            "headline": "Seasonal Coho salmon presence is near its expected Big Manistee peak.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the Big Manistee Coho salmon ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_peak",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": null,
           "weather": {
@@ -27132,14 +27291,14 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             ]
           },
           "interpretationNote": null,
-          "secondaryNote": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It best represents the Tippy tailwater and upper migratory corridor; flow, temperature, access, and fishability can differ downstream through High Bridge, Bear Creek, the lower river, and Manistee Lake.",
+          "secondaryNote": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It represents the Upper river (High Bridge–Tippy Dam), especially the Tippy Dam area. Conditions can differ in the Middle river, Lower river, Manistee Lake, and harbor.",
           "safety": {
             "regulationReminder": "The Big Manistee below Tippy is a Type 3 reach extending to the railroad bridge below M-55, with a year-round one-Rainbow-Trout limit and special artificial-lure rules during the August 1–November 15 window. Follow current Michigan regulations, DNR closure notices, dam-safety information, and posted boundaries. Fishing methods can change by reach and season.",
-            "gaugeBasis": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It best represents the Tippy tailwater and upper migratory corridor; flow, temperature, access, and fishability can differ downstream through High Bridge, Bear Creek, the lower river, and Manistee Lake.",
+            "gaugeBasis": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It represents the Upper river (High Bridge–Tippy Dam), especially the Tippy Dam area. Conditions can differ in the Middle river, Lower river, Manistee Lake, and harbor.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-big-manistee-steelhead-activity.1"
+          "configVersion": "2026-08-10-big-manistee-copy.1"
         }
       }
     ]
@@ -27149,8 +27308,8 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
     "label": "Fish In River",
     "scenarios": [
       {
-        "id": "presence_post_run_offseason",
-        "label": "0 / 100 · Offseason · outside",
+        "id": "presence_fall_run_complete_outside",
+        "label": "null / 100 · Fall run complete · outside",
         "note": "Canonical Big Manistee River Fall Coho production copy · owner audit",
         "snapshot": {
           "riverId": "big_manistee",
@@ -27164,6 +27323,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
           "nextConditionRefreshAt": "2026-08-20T05:00:00.000Z",
           "runStage": {
             "stage": "post_run",
+            "copyStrategy": "big_manistee_tailwater",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -27185,16 +27345,16 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "startToPeakDays": 40,
               "peakToEndDays": 41
             },
-            "label": "Offseason",
-            "headline": "The Big Manistee Coho salmon run is outside its researched window.",
-            "whereToStart": "No dependable Big Manistee location for this fall migration model right now.",
-            "detail": "This fall-spawn profile has ended; another seasonal experience must supply any later species guidance.",
-            "tip": "Do not use this profile to score a different season.",
+            "label": "Fall run complete",
+            "headline": "The Big Manistee Coho salmon fall run is complete.",
+            "whereToStart": "There is no active Big Manistee starting section in this fall-run model.",
+            "detail": "Coho salmon staging typically begins in early September. This seasonal estimate is inactive until then.",
+            "tip": "Check back in early September when Big Manistee fall-run tracking resumes.",
             "reasonCodes": [
               "stage_post_run",
               "stage_offseason"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Not monitoring yet",
@@ -27213,13 +27373,13 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "historicalYears": 0,
             "sourceDates": [],
             "sourceRefreshSlots": {},
-            "headline": "Migration Timing is not active right now.",
-            "detail": "Timing monitoring begins before the expected river entry, but that seasonal observation window is not active yet.",
-            "tip": "Check Migration Stage for the current seasonal position and return to Migration Timing when early monitoring begins.",
+            "headline": "Big Manistee Migration Timing is not monitoring yet.",
+            "detail": "Season-to-date Wellston flow and temperature monitoring resumes in early September.",
+            "tip": "Check back in early September when Big Manistee timing monitoring resumes.",
             "reasonCodes": [
               "conditions_monitoring_inactive"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -27233,21 +27393,21 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
           "push": {
             "score": null,
             "label": "Offseason",
-            "headline": "Push is not active outside the river migration season.",
-            "detail": "Rain, river level, and water temperature can still change, but they do not provide a useful fresh-arrival signal for this species right now.",
-            "tip": "Do not use Push to plan for this species outside its migration season. Follow an active species instead, or return when early monitoring begins.",
+            "headline": "Big Manistee Push is outside its fall movement window.",
+            "detail": "Current Wellston flow and temperature do not provide an in-season fresh-movement signal for this run.",
+            "tip": "Check back in early September.",
             "reasonCodes": [
               "push_tracking_offseason"
             ],
             "rulesVersion": "big-manistee-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 93,
             "label": "Excellent",
-            "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river.",
-            "tip": "Begin on the primary travel lane feeding deep holding water. Work each hole from its head through the inside seam and tail, then keep moving until fish establish a pattern.",
+            "headline": "Upper-river flow is in its best presentation range.",
+            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read covers only the Upper river (High Bridge–Tippy Dam).",
+            "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band"
@@ -27258,11 +27418,12 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": null,
           "fishInRiver": {
-            "score": 0,
+            "score": null,
+            "scoreIsApproximate": false,
             "stage": "post_run",
             "maximum": 100,
             "riverCeiling": 50,
@@ -27270,15 +27431,15 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "curveFraction": 0,
             "curveDirection": "outside",
             "winterHoldingContext": false,
-            "label": "Offseason",
-            "headline": "Coho salmon are outside their river migration season.",
-            "detail": "A dependable seasonal presence of Coho salmon is not expected in the river right now.",
-            "tip": "Do not build a river trip around this species right now. Target a species with an active seasonal window and return as the next migration approaches.",
+            "label": "Fall run complete",
+            "headline": "The Big Manistee Coho salmon fall run is complete.",
+            "detail": "Coho salmon staging typically begins in early September. This seasonal estimate is inactive until then.",
+            "tip": "Check back in early September when Big Manistee fall-run tracking resumes.",
             "reasonCodes": [
               "stage_post_run",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -27504,21 +27665,15 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "data_quality_fresh"
             ]
           },
-          "interpretationNote": {
-            "headline": "The river should fish well, but seasonal fish presence is still low.",
-            "detail": "Good flow makes presentations easier, but it does not put fish in the river. Begin in the deepest established holding water and skip broad searches through fast travel lanes as seasonal presence thins.",
-            "reasonCodes": [
-              "good_fishability_low_presence"
-            ]
-          },
-          "secondaryNote": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It best represents the Tippy tailwater and upper migratory corridor; flow, temperature, access, and fishability can differ downstream through High Bridge, Bear Creek, the lower river, and Manistee Lake.",
+          "interpretationNote": null,
+          "secondaryNote": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It represents the Upper river (High Bridge–Tippy Dam), especially the Tippy Dam area. Conditions can differ in the Middle river, Lower river, Manistee Lake, and harbor.",
           "safety": {
             "regulationReminder": "The Big Manistee below Tippy is a Type 3 reach extending to the railroad bridge below M-55, with a year-round one-Rainbow-Trout limit and special artificial-lure rules during the August 1–November 15 window. Follow current Michigan regulations, DNR closure notices, dam-safety information, and posted boundaries. Fishing methods can change by reach and season.",
-            "gaugeBasis": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It best represents the Tippy tailwater and upper migratory corridor; flow, temperature, access, and fishability can differ downstream through High Bridge, Bear Creek, the lower river, and Manistee Lake.",
+            "gaugeBasis": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It represents the Upper river (High Bridge–Tippy Dam), especially the Tippy Dam area. Conditions can differ in the Middle river, Lower river, Manistee Lake, and harbor.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-big-manistee-steelhead-activity.1"
+          "configVersion": "2026-08-10-big-manistee-copy.1"
         }
       },
       {
@@ -27537,6 +27692,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
           "nextConditionRefreshAt": "2026-08-21T05:00:00.000Z",
           "runStage": {
             "stage": "pre_run",
+            "copyStrategy": "big_manistee_tailwater",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -27559,14 +27715,14 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "peakToEndDays": 41
             },
             "label": "Before migration",
-            "headline": "Coho salmon have not begun their dependable Big Manistee river run.",
-            "whereToStart": "Lake Michigan, Manistee Lake, the harbor, and the river mouth.",
-            "detail": "The fixed seasonal calendar has not reached dependable Coho salmon river presence yet.",
-            "tip": "Keep staging context separate from river presence until the river window opens.",
+            "headline": "Coho salmon have not begun dependable Big Manistee river entry.",
+            "whereToStart": "Stay with Manistee Lake, the harbor, and the river entrance.",
+            "detail": "The river-entry window has not opened yet. An isolated river fish would be an early exception.",
+            "tip": "Do not build an inland trip around Coho salmon yet.",
             "reasonCodes": [
               "stage_pre_run"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Not monitoring yet",
@@ -27585,13 +27741,13 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "historicalYears": 0,
             "sourceDates": [],
             "sourceRefreshSlots": {},
-            "headline": "Migration Timing is not active right now.",
-            "detail": "Timing monitoring begins before the expected river entry, but that seasonal observation window is not active yet.",
-            "tip": "Check Migration Stage for the current seasonal position and return to Migration Timing when early monitoring begins.",
+            "headline": "Big Manistee Migration Timing is not monitoring yet.",
+            "detail": "Season-to-date Wellston flow and temperature monitoring resumes in early September.",
+            "tip": "Check back in early September when Big Manistee timing monitoring resumes.",
             "reasonCodes": [
               "conditions_monitoring_inactive"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -27605,21 +27761,21 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
           "push": {
             "score": null,
             "label": "Waiting for migration",
-            "headline": "Fish have not started entering the river, so there is no Push read yet.",
-            "detail": "Push is meant to spot water conditions that may help fish enter or move during the active migration. Before that, most opportunity should remain in the lake, harbor, or river-mouth transition.",
-            "tip": "Keep the trip in the lake, harbor, and river-mouth zone. Do not move inland just because rain or cooling resembles an in-season movement event.",
+            "headline": "Dependable Big Manistee river entry has not started.",
+            "detail": "Wellston flow and temperature are not scored as an in-season fresh-movement signal yet.",
+            "tip": "Use Migration Stage. Do not move inland because offseason water resembles a Push.",
             "reasonCodes": [
               "push_tracking_not_started"
             ],
             "rulesVersion": "big-manistee-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 93,
             "label": "Excellent",
-            "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river.",
-            "tip": "Begin on the primary travel lane feeding deep holding water. Work each hole from its head through the inside seam and tail, then keep moving until fish establish a pattern.",
+            "headline": "Upper-river flow is in its best presentation range.",
+            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read covers only the Upper river (High Bridge–Tippy Dam).",
+            "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band"
@@ -27630,11 +27786,13 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": null,
           "fishInRiver": {
             "score": 0,
+            "displayScore": 0,
+            "scoreIsApproximate": false,
             "stage": "pre_run",
             "maximum": 100,
             "riverCeiling": 50,
@@ -27643,14 +27801,14 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "curveDirection": "outside",
             "winterHoldingContext": false,
             "label": "Not expected yet",
-            "headline": "A dependable presence of Coho salmon is not expected in the river yet.",
-            "detail": "Most Coho salmon are not expected to have entered the river in dependable numbers. Any fish already present would be early exceptions.",
-            "tip": "Treat this as no dependable in-river opportunity yet. Keep expectations at zero, and do not interpret an isolated early fish as evidence of dependable river presence.",
+            "headline": "Dependable Coho salmon presence is not expected in the Big Manistee yet.",
+            "detail": "The seasonal estimate remains at zero. Any river fish would be an early exception.",
+            "tip": "Use Migration Stage for Manistee Lake, harbor, and river-entrance context.",
             "reasonCodes": [
               "stage_pre_run",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -27883,14 +28041,14 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "good_fishability_low_presence"
             ]
           },
-          "secondaryNote": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It best represents the Tippy tailwater and upper migratory corridor; flow, temperature, access, and fishability can differ downstream through High Bridge, Bear Creek, the lower river, and Manistee Lake.",
+          "secondaryNote": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It represents the Upper river (High Bridge–Tippy Dam), especially the Tippy Dam area. Conditions can differ in the Middle river, Lower river, Manistee Lake, and harbor.",
           "safety": {
             "regulationReminder": "The Big Manistee below Tippy is a Type 3 reach extending to the railroad bridge below M-55, with a year-round one-Rainbow-Trout limit and special artificial-lure rules during the August 1–November 15 window. Follow current Michigan regulations, DNR closure notices, dam-safety information, and posted boundaries. Fishing methods can change by reach and season.",
-            "gaugeBasis": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It best represents the Tippy tailwater and upper migratory corridor; flow, temperature, access, and fishability can differ downstream through High Bridge, Bear Creek, the lower river, and Manistee Lake.",
+            "gaugeBasis": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It represents the Upper river (High Bridge–Tippy Dam), especially the Tippy Dam area. Conditions can differ in the Middle river, Lower river, Manistee Lake, and harbor.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-big-manistee-steelhead-activity.1"
+          "configVersion": "2026-08-10-big-manistee-copy.1"
         }
       },
       {
@@ -27909,6 +28067,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
           "nextConditionRefreshAt": "2026-09-11T05:00:00.000Z",
           "runStage": {
             "stage": "beginning",
+            "copyStrategy": "big_manistee_tailwater",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -27931,14 +28090,14 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "peakToEndDays": 41
             },
             "label": "Beginning",
-            "headline": "The first Coho salmon are beginning to enter the Big Manistee below Tippy Dam.",
-            "whereToStart": "Make a quick Tippy-tailwater check. If it is empty or sparse, compare the High Bridge-Bear Creek middle corridor with the lower migratory river toward M-55, where newer fish are more likely still traveling.",
-            "detail": "The dam concentrates migrants, but early fish are not necessarily distributed through the full 25-mile corridor. Wellston describes the tailwater and upper corridor only.",
-            "tip": "Start near the tailwater, then cover deep travel and holding water downstream rather than assuming every reach is equally populated.",
+            "headline": "The first Coho salmon are entering the Big Manistee.",
+            "whereToStart": "Start in the Lower river (M-55–Bear Creek). Add the Middle river (Bear Creek–High Bridge) after direct fish activity supports the move.",
+            "detail": "Early fish remain scattered. Coho opportunity is limited to select water.",
+            "tip": "Cover travel water and the first substantial holding areas before moving upstream.",
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -27970,15 +28129,15 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "2026-09-09"
             ],
             "sourceRefreshSlots": {},
-            "headline": "There is not enough reliable information for a Migration Timing call.",
-            "tip": "Do not move farther upstream or stay lower based on this timing read. Fish the section identified by Migration Stage and begin in its most established holding water; change sections only when direct fish activity or a dependable later read supports it.",
+            "headline": "There is not enough reliable Big Manistee evidence for a Migration Timing call.",
+            "tip": "Keep the section named by Migration Stage. Do not shift sections from this timing read.",
             "detail": "There are not enough dependable past seasons to judge whether this migration is early, normal, or late.",
             "reasonCodes": [
               "conditions_baseline_missing",
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -27992,9 +28151,9 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
           "push": {
             "score": 30,
             "label": "No clear push",
-            "headline": "Today's water does not show a clear signal for a fresh wave of fish.",
-            "detail": "The river is holding steady with no meaningful rise yet. Water temperature is favorable for fall migration and is relatively steady. Recent weather estimates indicate very little rain around the river.",
-            "tip": "Fish established holding water from the head through the inside seam and tail. Do not spend the day racing between lower travel lanes for a wave the water does not support.",
+            "headline": "Upper-river water does not show a clear fresh-movement signal.",
+            "detail": "The river is holding steady with no meaningful rise yet. Water temperature is favorable for fall migration and is relatively steady. Recent watershed weather shows little rain.",
+            "tip": "Keep Migration Stage’s section primary. Do not shift to fresh-entry water from this read.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
@@ -28013,14 +28172,14 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 93,
             "label": "Excellent",
-            "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river.",
-            "tip": "Begin on the primary travel lane feeding deep holding water. Work each hole from its head through the inside seam and tail, then keep moving until fish establish a pattern.",
+            "headline": "Upper-river flow is in its best presentation range.",
+            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read covers only the Upper river (High Bridge–Tippy Dam).",
+            "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band"
@@ -28031,15 +28190,15 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 76,
             "maximum": 100,
             "label": "Active",
-            "headline": "Today’s Coho activity outlook is active.",
-            "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. Early lake-fresh Coho can remain reactive when measured water temperatures are suitable; this score applies only to fish already in the river. The measured conditions represent the Wellston/Tippy tailwater; water temperature, clarity, and presentation conditions can differ through the middle and lower migratory river. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
-            "tip": "Start with 5–9 AM. If the sky changes from the forecast, favor the darkest practical window.",
+            "headline": "Today’s Upper-river Coho responsiveness is active.",
+            "detail": "Conditions support a meaningful Coho response. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Wellston flow and temperature represent the Upper river, especially the Tippy Dam area.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify downstream sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -28091,10 +28250,13 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 5,
+            "displayScore": 5,
+            "scoreIsApproximate": true,
             "stage": "beginning",
             "maximum": 100,
             "riverCeiling": 50,
@@ -28103,14 +28265,14 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "curveDirection": "rising",
             "winterHoldingContext": false,
             "label": "Low presence",
-            "headline": "A small number of Coho salmon may be in the river, and seasonal presence is still building.",
-            "detail": "This part of the season usually brings low presence, with more fish expected to enter and become established through several dependable river sections. This is a seasonal estimate, not a live fish count.",
-            "tip": "Treat this as an early, low-odds river opportunity. Expect scattered results, and use direct fish activity before committing the full day.",
+            "headline": "Seasonal Coho salmon presence is low and building.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the Big Manistee Coho salmon ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -28344,14 +28506,14 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "good_fishability_low_presence"
             ]
           },
-          "secondaryNote": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It best represents the Tippy tailwater and upper migratory corridor; flow, temperature, access, and fishability can differ downstream through High Bridge, Bear Creek, the lower river, and Manistee Lake.",
+          "secondaryNote": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It represents the Upper river (High Bridge–Tippy Dam), especially the Tippy Dam area. Conditions can differ in the Middle river, Lower river, Manistee Lake, and harbor.",
           "safety": {
             "regulationReminder": "The Big Manistee below Tippy is a Type 3 reach extending to the railroad bridge below M-55, with a year-round one-Rainbow-Trout limit and special artificial-lure rules during the August 1–November 15 window. Follow current Michigan regulations, DNR closure notices, dam-safety information, and posted boundaries. Fishing methods can change by reach and season.",
-            "gaugeBasis": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It best represents the Tippy tailwater and upper migratory corridor; flow, temperature, access, and fishability can differ downstream through High Bridge, Bear Creek, the lower river, and Manistee Lake.",
+            "gaugeBasis": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It represents the Upper river (High Bridge–Tippy Dam), especially the Tippy Dam area. Conditions can differ in the Middle river, Lower river, Manistee Lake, and harbor.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-big-manistee-steelhead-activity.1"
+          "configVersion": "2026-08-10-big-manistee-copy.1"
         }
       },
       {
@@ -28370,6 +28532,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
           "nextConditionRefreshAt": "2026-09-22T05:00:00.000Z",
           "runStage": {
             "stage": "beginning",
+            "copyStrategy": "big_manistee_tailwater",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -28392,14 +28555,14 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "peakToEndDays": 41
             },
             "label": "Beginning",
-            "headline": "Coho salmon are accumulating through more of the Big Manistee below Tippy Dam.",
-            "whereToStart": "Check the Tippy tailwater and Tippy-to-High Bridge reach first; if fish are scattered there, compare the High Bridge-Bear Creek middle corridor and lower migratory river for newer arrivals.",
-            "detail": "Earlier fish can already be established in tailwater holding areas while newer fish continue moving through the lower and middle migratory corridor. Numbers can still be uneven between sections.",
-            "tip": "Treat Tippy, High Bridge, and Bear Creek as different checks—not one uniform gauge reach—and let direct fish activity decide where to slow down.",
+            "headline": "Coho salmon are accumulating through more of the Big Manistee.",
+            "whereToStart": "Start in the Lower river (M-55–Bear Creek). Add the Middle river (Bear Creek–High Bridge) after direct fish activity supports the move.",
+            "detail": "More Coho are present, but concentrations remain selective.",
+            "tip": "Follow travel water into substantial holding areas before moving upstream.",
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -28431,15 +28594,15 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "2026-09-09"
             ],
             "sourceRefreshSlots": {},
-            "headline": "There is not enough reliable information for a Migration Timing call.",
-            "tip": "Do not move farther upstream or stay lower based on this timing read. Fish the section identified by Migration Stage and begin in its most established holding water; change sections only when direct fish activity or a dependable later read supports it.",
+            "headline": "There is not enough reliable Big Manistee evidence for a Migration Timing call.",
+            "tip": "Keep the section named by Migration Stage. Do not shift sections from this timing read.",
             "detail": "There are not enough dependable past seasons to judge whether this migration is early, normal, or late.",
             "reasonCodes": [
               "conditions_baseline_missing",
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -28453,9 +28616,9 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
           "push": {
             "score": 30,
             "label": "No clear push",
-            "headline": "Today's water does not show a clear signal for a fresh wave of fish.",
-            "detail": "The river is holding steady with no meaningful rise yet. Water temperature is favorable for fall migration and is relatively steady. Recent weather estimates indicate very little rain around the river.",
-            "tip": "Fish established holding water from the head through the inside seam and tail. Do not spend the day racing between lower travel lanes for a wave the water does not support.",
+            "headline": "Upper-river water does not show a clear fresh-movement signal.",
+            "detail": "The river is holding steady with no meaningful rise yet. Water temperature is favorable for fall migration and is relatively steady. Recent watershed weather shows little rain.",
+            "tip": "Keep Migration Stage’s section primary. Do not shift to fresh-entry water from this read.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
@@ -28474,14 +28637,14 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 93,
             "label": "Excellent",
-            "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river.",
-            "tip": "Begin on the primary travel lane feeding deep holding water. Work each hole from its head through the inside seam and tail, then keep moving until fish establish a pattern.",
+            "headline": "Upper-river flow is in its best presentation range.",
+            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read covers only the Upper river (High Bridge–Tippy Dam).",
+            "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band"
@@ -28492,15 +28655,15 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 76,
             "maximum": 100,
             "label": "Active",
-            "headline": "Today’s Coho activity outlook is active.",
-            "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. Early lake-fresh Coho can remain reactive when measured water temperatures are suitable; this score applies only to fish already in the river. The measured conditions represent the Wellston/Tippy tailwater; water temperature, clarity, and presentation conditions can differ through the middle and lower migratory river. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
-            "tip": "Start with 5–9 AM. If the sky changes from the forecast, favor the darkest practical window.",
+            "headline": "Today’s Upper-river Coho responsiveness is active.",
+            "detail": "Conditions support a meaningful Coho response. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Wellston flow and temperature represent the Upper river, especially the Tippy Dam area.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify downstream sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -28552,10 +28715,13 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 11,
+            "displayScore": 15,
+            "scoreIsApproximate": true,
             "stage": "beginning",
             "maximum": 100,
             "riverCeiling": 50,
@@ -28564,14 +28730,14 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "curveDirection": "rising",
             "winterHoldingContext": false,
             "label": "Limited presence",
-            "headline": "Some Coho salmon are likely in the river, but seasonal presence is still developing.",
-            "detail": "This part of the season usually brings limited presence, with more fish expected to enter and become established through several dependable river sections. This is a seasonal estimate, not a live fish count.",
-            "tip": "Plan for an emerging but uneven river opportunity. Cover water efficiently, and do not assume every promising stop holds fish.",
+            "headline": "Seasonal Coho salmon presence is limited and building.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the Big Manistee Coho salmon ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -28805,14 +28971,14 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "good_fishability_low_presence"
             ]
           },
-          "secondaryNote": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It best represents the Tippy tailwater and upper migratory corridor; flow, temperature, access, and fishability can differ downstream through High Bridge, Bear Creek, the lower river, and Manistee Lake.",
+          "secondaryNote": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It represents the Upper river (High Bridge–Tippy Dam), especially the Tippy Dam area. Conditions can differ in the Middle river, Lower river, Manistee Lake, and harbor.",
           "safety": {
             "regulationReminder": "The Big Manistee below Tippy is a Type 3 reach extending to the railroad bridge below M-55, with a year-round one-Rainbow-Trout limit and special artificial-lure rules during the August 1–November 15 window. Follow current Michigan regulations, DNR closure notices, dam-safety information, and posted boundaries. Fishing methods can change by reach and season.",
-            "gaugeBasis": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It best represents the Tippy tailwater and upper migratory corridor; flow, temperature, access, and fishability can differ downstream through High Bridge, Bear Creek, the lower river, and Manistee Lake.",
+            "gaugeBasis": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It represents the Upper river (High Bridge–Tippy Dam), especially the Tippy Dam area. Conditions can differ in the Middle river, Lower river, Manistee Lake, and harbor.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-big-manistee-steelhead-activity.1"
+          "configVersion": "2026-08-10-big-manistee-copy.1"
         }
       },
       {
@@ -28831,6 +28997,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
           "nextConditionRefreshAt": "2026-10-03T05:00:00.000Z",
           "runStage": {
             "stage": "building",
+            "copyStrategy": "big_manistee_tailwater",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -28853,14 +29020,14 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "peakToEndDays": 41
             },
             "label": "Building",
-            "headline": "More Coho salmon are becoming established below Tippy Dam.",
-            "whereToStart": "Begin in the Tippy tailwater, then compare the Tippy-to-High Bridge reach with deeper bends in the High Bridge-Bear Creek middle corridor before committing to one section.",
-            "detail": "Earlier fish can be established near the dam while newer arrivals remain distributed farther downstream. The river is not a single uniform gauge reach.",
-            "tip": "Work substantial holding water and current breaks section by section. Do not turn a Wellston reading into a claim about the lower river.",
+            "headline": "Coho salmon are becoming established through more of the river.",
+            "whereToStart": "Start in the Middle river (Bear Creek–High Bridge). Add the Upper river (High Bridge–Tippy Dam), especially the Tippy Dam area, when direct activity supports it.",
+            "detail": "Coho may occupy more than one section, but the opportunity remains selective.",
+            "tip": "Compare one section at a time; Wellston does not describe the Middle or Lower river.",
             "reasonCodes": [
               "stage_building"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -28913,15 +29080,15 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "2026-09-30"
             ],
             "sourceRefreshSlots": {},
-            "headline": "There is not enough reliable information for a Migration Timing call.",
-            "tip": "Do not move farther upstream or stay lower based on this timing read. Fish the section identified by Migration Stage and begin in its most established holding water; change sections only when direct fish activity or a dependable later read supports it.",
+            "headline": "There is not enough reliable Big Manistee evidence for a Migration Timing call.",
+            "tip": "Keep the section named by Migration Stage. Do not shift sections from this timing read.",
             "detail": "There are not enough dependable past seasons to judge whether this migration is early, normal, or late.",
             "reasonCodes": [
               "conditions_baseline_missing",
               "conditions_insufficient",
               "conditions_checkpoint_building_established"
             ],
-            "copyVersion": "river-run-copy-v27",
+            "copyVersion": "river-run-copy-v34",
             "previousCheckpointId": "building_start",
             "previousCheckpointDate": "2026-10-01",
             "previousTimingLabel": "Insufficient evidence"
@@ -28938,9 +29105,9 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
           "push": {
             "score": 30,
             "label": "No clear push",
-            "headline": "Today's water does not show a clear signal for a fresh wave of fish.",
-            "detail": "The river is holding steady with no meaningful rise yet. Water temperature is favorable for fall migration and is relatively steady. Recent weather estimates indicate very little rain around the river.",
-            "tip": "Fish established holding water from the head through the inside seam and tail. Do not spend the day racing between lower travel lanes for a wave the water does not support.",
+            "headline": "Upper-river water does not show a clear fresh-movement signal.",
+            "detail": "The river is holding steady with no meaningful rise yet. Water temperature is favorable for fall migration and is relatively steady. Recent watershed weather shows little rain.",
+            "tip": "Keep Migration Stage’s section primary. Do not shift to fresh-entry water from this read.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
@@ -28959,14 +29126,14 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 93,
             "label": "Excellent",
-            "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river.",
-            "tip": "Begin on the primary travel lane feeding deep holding water. Work each hole from its head through the inside seam and tail, then keep moving until fish establish a pattern.",
+            "headline": "Upper-river flow is in its best presentation range.",
+            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read covers only the Upper river (High Bridge–Tippy Dam).",
+            "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band"
@@ -28977,15 +29144,15 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 75,
             "maximum": 100,
             "label": "Active",
-            "headline": "Today’s Coho activity outlook is active.",
-            "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. More Coho are entering and settling into the river; measured water temperature matters, but this score describes reaction conditions rather than movement or abundance. The measured conditions represent the Wellston/Tippy tailwater; water temperature, clarity, and presentation conditions can differ through the middle and lower migratory river. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
-            "tip": "Start with 5–9 AM. If the sky changes from the forecast, favor the darkest practical window.",
+            "headline": "Today’s Upper-river Coho responsiveness is active.",
+            "detail": "Conditions support a meaningful Coho response. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Wellston flow and temperature represent the Upper river, especially the Tippy Dam area.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify downstream sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -29037,10 +29204,13 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 21,
+            "displayScore": 25,
+            "scoreIsApproximate": true,
             "stage": "building",
             "maximum": 100,
             "riverCeiling": 50,
@@ -29049,14 +29219,14 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "curveDirection": "rising",
             "winterHoldingContext": false,
             "label": "Moderate presence",
-            "headline": "A meaningful seasonal presence of Coho salmon is likely in the river and still building.",
-            "detail": "This part of the season usually brings moderate presence, with more fish expected to enter and become established through several dependable river sections. This is a seasonal estimate, not a live fish count.",
-            "tip": "Plan for a credible river opportunity that is still improving. Stay mobile until direct fish activity gives you a reason to slow down.",
+            "headline": "Seasonal Coho salmon presence is moderate and building.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the Big Manistee Coho salmon ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_building",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -29284,14 +29454,14 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             ]
           },
           "interpretationNote": null,
-          "secondaryNote": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It best represents the Tippy tailwater and upper migratory corridor; flow, temperature, access, and fishability can differ downstream through High Bridge, Bear Creek, the lower river, and Manistee Lake.",
+          "secondaryNote": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It represents the Upper river (High Bridge–Tippy Dam), especially the Tippy Dam area. Conditions can differ in the Middle river, Lower river, Manistee Lake, and harbor.",
           "safety": {
             "regulationReminder": "The Big Manistee below Tippy is a Type 3 reach extending to the railroad bridge below M-55, with a year-round one-Rainbow-Trout limit and special artificial-lure rules during the August 1–November 15 window. Follow current Michigan regulations, DNR closure notices, dam-safety information, and posted boundaries. Fishing methods can change by reach and season.",
-            "gaugeBasis": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It best represents the Tippy tailwater and upper migratory corridor; flow, temperature, access, and fishability can differ downstream through High Bridge, Bear Creek, the lower river, and Manistee Lake.",
+            "gaugeBasis": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It represents the Upper river (High Bridge–Tippy Dam), especially the Tippy Dam area. Conditions can differ in the Middle river, Lower river, Manistee Lake, and harbor.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-big-manistee-steelhead-activity.1"
+          "configVersion": "2026-08-10-big-manistee-copy.1"
         }
       },
       {
@@ -29310,6 +29480,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
           "nextConditionRefreshAt": "2026-10-10T05:00:00.000Z",
           "runStage": {
             "stage": "building",
+            "copyStrategy": "big_manistee_tailwater",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -29332,14 +29503,14 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "peakToEndDays": 41
             },
             "label": "Building",
-            "headline": "More Coho salmon are becoming established below Tippy Dam.",
-            "whereToStart": "Begin in the Tippy tailwater, then compare the Tippy-to-High Bridge reach with deeper bends in the High Bridge-Bear Creek middle corridor before committing to one section.",
-            "detail": "Earlier fish can be established near the dam while newer arrivals remain distributed farther downstream. The river is not a single uniform gauge reach.",
-            "tip": "Work substantial holding water and current breaks section by section. Do not turn a Wellston reading into a claim about the lower river.",
+            "headline": "Coho salmon are becoming established through more of the river.",
+            "whereToStart": "Start in the Middle river (Bear Creek–High Bridge). Add the Upper river (High Bridge–Tippy Dam), especially the Tippy Dam area, when direct activity supports it.",
+            "detail": "Coho may occupy more than one section, but the opportunity remains selective.",
+            "tip": "Compare one section at a time; Wellston does not describe the Middle or Lower river.",
             "reasonCodes": [
               "stage_building"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -29392,15 +29563,15 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "2026-09-30"
             ],
             "sourceRefreshSlots": {},
-            "headline": "There is not enough reliable information for a Migration Timing call.",
-            "tip": "Do not move farther upstream or stay lower based on this timing read. Fish the section identified by Migration Stage and begin in its most established holding water; change sections only when direct fish activity or a dependable later read supports it.",
+            "headline": "There is not enough reliable Big Manistee evidence for a Migration Timing call.",
+            "tip": "Keep the section named by Migration Stage. Do not shift sections from this timing read.",
             "detail": "There are not enough dependable past seasons to judge whether this migration is early, normal, or late.",
             "reasonCodes": [
               "conditions_baseline_missing",
               "conditions_insufficient",
               "conditions_checkpoint_building_established"
             ],
-            "copyVersion": "river-run-copy-v27",
+            "copyVersion": "river-run-copy-v34",
             "previousCheckpointId": "building_start",
             "previousCheckpointDate": "2026-10-01",
             "previousTimingLabel": "Insufficient evidence"
@@ -29417,9 +29588,9 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
           "push": {
             "score": 30,
             "label": "No clear push",
-            "headline": "Today's water does not show a clear signal for a fresh wave of fish.",
-            "detail": "The river is holding steady with no meaningful rise yet. Water temperature is favorable for fall migration and is relatively steady. Recent weather estimates indicate very little rain around the river.",
-            "tip": "Fish established holding water from the head through the inside seam and tail. Do not spend the day racing between lower travel lanes for a wave the water does not support.",
+            "headline": "Upper-river water does not show a clear fresh-movement signal.",
+            "detail": "The river is holding steady with no meaningful rise yet. Water temperature is favorable for fall migration and is relatively steady. Recent watershed weather shows little rain.",
+            "tip": "Keep Migration Stage’s section primary. Do not shift to fresh-entry water from this read.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
@@ -29438,14 +29609,14 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 93,
             "label": "Excellent",
-            "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river.",
-            "tip": "Begin on the primary travel lane feeding deep holding water. Work each hole from its head through the inside seam and tail, then keep moving until fish establish a pattern.",
+            "headline": "Upper-river flow is in its best presentation range.",
+            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read covers only the Upper river (High Bridge–Tippy Dam).",
+            "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band"
@@ -29456,15 +29627,15 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 75,
             "maximum": 100,
             "label": "Active",
-            "headline": "Today’s Coho activity outlook is active.",
-            "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. More Coho are entering and settling into the river; measured water temperature matters, but this score describes reaction conditions rather than movement or abundance. The measured conditions represent the Wellston/Tippy tailwater; water temperature, clarity, and presentation conditions can differ through the middle and lower migratory river. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
-            "tip": "Start with 5–9 AM. If the sky changes from the forecast, favor the darkest practical window.",
+            "headline": "Today’s Upper-river Coho responsiveness is active.",
+            "detail": "Conditions support a meaningful Coho response. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Wellston flow and temperature represent the Upper river, especially the Tippy Dam area.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify downstream sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -29516,10 +29687,13 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 31,
+            "displayScore": 35,
+            "scoreIsApproximate": true,
             "stage": "building",
             "maximum": 100,
             "riverCeiling": 50,
@@ -29528,14 +29702,14 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "curveDirection": "rising",
             "winterHoldingContext": false,
             "label": "High presence",
-            "headline": "Coho salmon are likely present through more dependable river sections as seasonal presence builds toward its strongest point.",
-            "detail": "Seasonal presence is usually elevated relative to the rest of the season, with more fish expected to enter and become established through several dependable river sections. This is a seasonal estimate, not a live fish count.",
-            "tip": "Treat this as one of the stronger parts of this river's moderate seasonal opportunity. Give each stop a complete pass, but do not mistake this seasonal estimate for a live fish count.",
+            "headline": "Seasonal Coho salmon presence is high and building.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the Big Manistee Coho salmon ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_building",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -29763,14 +29937,14 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             ]
           },
           "interpretationNote": null,
-          "secondaryNote": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It best represents the Tippy tailwater and upper migratory corridor; flow, temperature, access, and fishability can differ downstream through High Bridge, Bear Creek, the lower river, and Manistee Lake.",
+          "secondaryNote": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It represents the Upper river (High Bridge–Tippy Dam), especially the Tippy Dam area. Conditions can differ in the Middle river, Lower river, Manistee Lake, and harbor.",
           "safety": {
             "regulationReminder": "The Big Manistee below Tippy is a Type 3 reach extending to the railroad bridge below M-55, with a year-round one-Rainbow-Trout limit and special artificial-lure rules during the August 1–November 15 window. Follow current Michigan regulations, DNR closure notices, dam-safety information, and posted boundaries. Fishing methods can change by reach and season.",
-            "gaugeBasis": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It best represents the Tippy tailwater and upper migratory corridor; flow, temperature, access, and fishability can differ downstream through High Bridge, Bear Creek, the lower river, and Manistee Lake.",
+            "gaugeBasis": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It represents the Upper river (High Bridge–Tippy Dam), especially the Tippy Dam area. Conditions can differ in the Middle river, Lower river, Manistee Lake, and harbor.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-big-manistee-steelhead-activity.1"
+          "configVersion": "2026-08-10-big-manistee-copy.1"
         }
       },
       {
@@ -29789,6 +29963,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
           "nextConditionRefreshAt": "2026-10-14T05:00:00.000Z",
           "runStage": {
             "stage": "building",
+            "copyStrategy": "big_manistee_tailwater",
             "stagingContext": false,
             "broadBuildingContext": true,
             "winterHoldingContext": false,
@@ -29811,14 +29986,14 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "peakToEndDays": 41
             },
             "label": "Building",
-            "headline": "The Big Manistee Coho salmon opportunity is broadening through the migratory corridor.",
-            "whereToStart": "Sample select Tippy-to-High Bridge pools, the High Bridge-Bear Creek middle corridor, and one or two substantial lower-river bends toward M-55.",
-            "detail": "More than one migratory reach is now plausible, but this remains sectional opportunity—not evidence that fish occupy every reach or good-looking hole. Wellston directly measures only the regulated tailwater.",
-            "tip": "Use the gauge for the Tippy tailwater. Treat lower-river clarity, access, and holding water as separate reach questions.",
+            "headline": "Coho salmon are established in select Big Manistee sections.",
+            "whereToStart": "Start in the Upper river (High Bridge–Tippy Dam), emphasizing the Tippy Dam area. Compare the Middle river (Bear Creek–High Bridge) when direct activity favors it.",
+            "detail": "More than one section may hold Coho, but concentrations remain selective.",
+            "tip": "Use Wellston conditions only for the Upper river. Verify downstream water directly.",
             "reasonCodes": [
               "stage_building"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -29871,15 +30046,15 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "2026-09-30"
             ],
             "sourceRefreshSlots": {},
-            "headline": "There is not enough reliable information for a Migration Timing call.",
-            "tip": "Do not move farther upstream or stay lower based on this timing read. Fish the section identified by Migration Stage and begin in its most established holding water; change sections only when direct fish activity or a dependable later read supports it.",
+            "headline": "There is not enough reliable Big Manistee evidence for a Migration Timing call.",
+            "tip": "Keep the section named by Migration Stage. Do not shift sections from this timing read.",
             "detail": "There are not enough dependable past seasons to judge whether this migration is early, normal, or late.",
             "reasonCodes": [
               "conditions_baseline_missing",
               "conditions_insufficient",
               "conditions_checkpoint_building_established"
             ],
-            "copyVersion": "river-run-copy-v27",
+            "copyVersion": "river-run-copy-v34",
             "previousCheckpointId": "building_start",
             "previousCheckpointDate": "2026-10-01",
             "previousTimingLabel": "Insufficient evidence"
@@ -29896,9 +30071,9 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
           "push": {
             "score": 30,
             "label": "No clear push",
-            "headline": "Today's water does not show a clear signal for a fresh wave of fish.",
-            "detail": "The river is holding steady with no meaningful rise yet. Water temperature is favorable for fall migration and is relatively steady. Recent weather estimates indicate very little rain around the river.",
-            "tip": "Fish established holding water from the head through the inside seam and tail. Do not spend the day racing between lower travel lanes for a wave the water does not support.",
+            "headline": "Upper-river water does not show a clear fresh-movement signal.",
+            "detail": "The river is holding steady with no meaningful rise yet. Water temperature is favorable for fall migration and is relatively steady. Recent watershed weather shows little rain.",
+            "tip": "Keep Migration Stage’s section primary. Do not shift to fresh-entry water from this read.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
@@ -29917,14 +30092,14 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 93,
             "label": "Excellent",
-            "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river.",
-            "tip": "Begin on the primary travel lane feeding deep holding water. Work each hole from its head through the inside seam and tail, then keep moving until fish establish a pattern.",
+            "headline": "Upper-river flow is in its best presentation range.",
+            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read covers only the Upper river (High Bridge–Tippy Dam).",
+            "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band"
@@ -29935,15 +30110,15 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 75,
             "maximum": 100,
             "label": "Active",
-            "headline": "Today’s Coho activity outlook is active.",
-            "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. More Coho are entering and settling into the river; measured water temperature matters, but this score describes reaction conditions rather than movement or abundance. The measured conditions represent the Wellston/Tippy tailwater; water temperature, clarity, and presentation conditions can differ through the middle and lower migratory river. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
-            "tip": "Start with 5–9 AM. If the sky changes from the forecast, favor the darkest practical window.",
+            "headline": "Today’s Upper-river Coho responsiveness is active.",
+            "detail": "Conditions support a meaningful Coho response. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Wellston flow and temperature represent the Upper river, especially the Tippy Dam area.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify downstream sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -29995,10 +30170,13 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 40,
+            "displayScore": 40,
+            "scoreIsApproximate": true,
             "stage": "building",
             "maximum": 100,
             "riverCeiling": 50,
@@ -30007,14 +30185,14 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "curveDirection": "rising",
             "winterHoldingContext": false,
             "label": "High presence",
-            "headline": "Coho salmon are likely present through more dependable river sections as seasonal presence builds toward its strongest point.",
-            "detail": "The migration is approaching its strongest seasonal point, and fish are likely distributed through several dependable river sections. This is a seasonal estimate, not a live fish count.",
-            "tip": "Treat this as one of the stronger parts of this river's moderate seasonal opportunity. Give each stop a complete pass, but do not mistake this seasonal estimate for a live fish count.",
+            "headline": "Seasonal Coho salmon presence is high and building.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the Big Manistee Coho salmon ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_building",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -30242,14 +30420,14 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             ]
           },
           "interpretationNote": null,
-          "secondaryNote": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It best represents the Tippy tailwater and upper migratory corridor; flow, temperature, access, and fishability can differ downstream through High Bridge, Bear Creek, the lower river, and Manistee Lake.",
+          "secondaryNote": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It represents the Upper river (High Bridge–Tippy Dam), especially the Tippy Dam area. Conditions can differ in the Middle river, Lower river, Manistee Lake, and harbor.",
           "safety": {
             "regulationReminder": "The Big Manistee below Tippy is a Type 3 reach extending to the railroad bridge below M-55, with a year-round one-Rainbow-Trout limit and special artificial-lure rules during the August 1–November 15 window. Follow current Michigan regulations, DNR closure notices, dam-safety information, and posted boundaries. Fishing methods can change by reach and season.",
-            "gaugeBasis": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It best represents the Tippy tailwater and upper migratory corridor; flow, temperature, access, and fishability can differ downstream through High Bridge, Bear Creek, the lower river, and Manistee Lake.",
+            "gaugeBasis": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It represents the Upper river (High Bridge–Tippy Dam), especially the Tippy Dam area. Conditions can differ in the Middle river, Lower river, Manistee Lake, and harbor.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-big-manistee-steelhead-activity.1"
+          "configVersion": "2026-08-10-big-manistee-copy.1"
         }
       },
       {
@@ -30268,6 +30446,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
           "nextConditionRefreshAt": "2026-10-16T05:00:00.000Z",
           "runStage": {
             "stage": "building",
+            "copyStrategy": "big_manistee_tailwater",
             "stagingContext": false,
             "broadBuildingContext": true,
             "winterHoldingContext": false,
@@ -30290,14 +30469,14 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "peakToEndDays": 41
             },
             "label": "Building",
-            "headline": "Coho salmon are moving into the Big Manistee's strongest seasonal window.",
-            "whereToStart": "Start in the Tippy-to-High Bridge reach for accumulated fish, then compare the High Bridge-Bear Creek middle corridor and lower-river bends toward M-55 for fresher arrivals.",
-            "detail": "Multiple waves have had time to spread through the corridor, and the tailwater reach is building toward its heaviest-use period. Reach-to-reach clarity and fish freshness can still differ sharply.",
-            "tip": "Use Wellston to judge the tailwater response, but compare several sections before assuming the most crowded water holds the freshest fish.",
+            "headline": "Coho salmon are approaching their strongest Big Manistee window.",
+            "whereToStart": "Start in the Upper river (High Bridge–Tippy Dam), emphasizing the Tippy Dam area. Compare the Middle river (Bear Creek–High Bridge) for fresher fish.",
+            "detail": "Seasonal opportunity is broadening, but Coho remain concentrated in select water.",
+            "tip": "Use Wellston only for Upper-river conditions and verify downstream water directly.",
             "reasonCodes": [
               "stage_building"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -30364,15 +30543,15 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "2026-10-14"
             ],
             "sourceRefreshSlots": {},
-            "headline": "There is not enough reliable information for a Migration Timing call.",
-            "tip": "Do not move farther upstream or stay lower based on this timing read. Fish the section identified by Migration Stage and begin in its most established holding water; change sections only when direct fish activity or a dependable later read supports it.",
+            "headline": "There is not enough reliable Big Manistee evidence for a Migration Timing call.",
+            "tip": "Keep the section named by Migration Stage. Do not shift sections from this timing read.",
             "detail": "There are not enough dependable past seasons to judge whether this migration is early, normal, or late.",
             "reasonCodes": [
               "conditions_baseline_missing",
               "conditions_insufficient",
               "conditions_checkpoint_peak_start"
             ],
-            "copyVersion": "river-run-copy-v27",
+            "copyVersion": "river-run-copy-v34",
             "previousCheckpointId": "building_established",
             "previousCheckpointDate": "2026-10-01",
             "previousTimingLabel": "Insufficient evidence"
@@ -30389,9 +30568,9 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
           "push": {
             "score": 30,
             "label": "No clear push",
-            "headline": "Today's water does not show a clear signal for a fresh wave of fish.",
-            "detail": "The river is holding steady with no meaningful rise yet. Water temperature is favorable for fall migration and is relatively steady. Recent weather estimates indicate very little rain around the river.",
-            "tip": "Fish established holding water from the head through the inside seam and tail. Do not spend the day racing between lower travel lanes for a wave the water does not support.",
+            "headline": "Upper-river water does not show a clear fresh-movement signal.",
+            "detail": "The river is holding steady with no meaningful rise yet. Water temperature is favorable for fall migration and is relatively steady. Recent watershed weather shows little rain.",
+            "tip": "Keep Migration Stage’s section primary. Do not shift to fresh-entry water from this read.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
@@ -30410,14 +30589,14 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 93,
             "label": "Excellent",
-            "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river.",
-            "tip": "Begin on the primary travel lane feeding deep holding water. Work each hole from its head through the inside seam and tail, then keep moving until fish establish a pattern.",
+            "headline": "Upper-river flow is in its best presentation range.",
+            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read covers only the Upper river (High Bridge–Tippy Dam).",
+            "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band"
@@ -30428,15 +30607,15 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 75,
             "maximum": 100,
             "label": "Active",
-            "headline": "Today’s Coho activity outlook is active.",
-            "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. More Coho are entering and settling into the river; measured water temperature matters, but this score describes reaction conditions rather than movement or abundance. The measured conditions represent the Wellston/Tippy tailwater; water temperature, clarity, and presentation conditions can differ through the middle and lower migratory river. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
-            "tip": "Start with 5–9 AM. If the sky changes from the forecast, favor the darkest practical window.",
+            "headline": "Today’s Upper-river Coho responsiveness is active.",
+            "detail": "Conditions support a meaningful Coho response. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Wellston flow and temperature represent the Upper river, especially the Tippy Dam area.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify downstream sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -30488,10 +30667,13 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 45,
+            "displayScore": 45,
+            "scoreIsApproximate": true,
             "stage": "building",
             "maximum": 100,
             "riverCeiling": 50,
@@ -30500,14 +30682,14 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "curveDirection": "rising",
             "winterHoldingContext": false,
             "label": "Peak presence",
-            "headline": "Coho salmon are likely present through more dependable river sections as seasonal presence builds toward its strongest point.",
-            "detail": "The migration is approaching its strongest seasonal point, and fish are likely distributed through several dependable river sections. This is a seasonal estimate, not a live fish count.",
-            "tip": "Treat this as one of the stronger parts of this river's moderate seasonal opportunity. Give each stop a complete pass, but do not mistake this seasonal estimate for a live fish count.",
+            "headline": "Seasonal Coho salmon presence is near its expected Big Manistee peak.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the Big Manistee Coho salmon ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_building",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -30735,14 +30917,14 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             ]
           },
           "interpretationNote": null,
-          "secondaryNote": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It best represents the Tippy tailwater and upper migratory corridor; flow, temperature, access, and fishability can differ downstream through High Bridge, Bear Creek, the lower river, and Manistee Lake.",
+          "secondaryNote": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It represents the Upper river (High Bridge–Tippy Dam), especially the Tippy Dam area. Conditions can differ in the Middle river, Lower river, Manistee Lake, and harbor.",
           "safety": {
             "regulationReminder": "The Big Manistee below Tippy is a Type 3 reach extending to the railroad bridge below M-55, with a year-round one-Rainbow-Trout limit and special artificial-lure rules during the August 1–November 15 window. Follow current Michigan regulations, DNR closure notices, dam-safety information, and posted boundaries. Fishing methods can change by reach and season.",
-            "gaugeBasis": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It best represents the Tippy tailwater and upper migratory corridor; flow, temperature, access, and fishability can differ downstream through High Bridge, Bear Creek, the lower river, and Manistee Lake.",
+            "gaugeBasis": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It represents the Upper river (High Bridge–Tippy Dam), especially the Tippy Dam area. Conditions can differ in the Middle river, Lower river, Manistee Lake, and harbor.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-big-manistee-steelhead-activity.1"
+          "configVersion": "2026-08-10-big-manistee-copy.1"
         }
       },
       {
@@ -30761,6 +30943,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
           "nextConditionRefreshAt": "2026-10-21T05:00:00.000Z",
           "runStage": {
             "stage": "peak",
+            "copyStrategy": "big_manistee_tailwater",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -30783,14 +30966,14 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "peakToEndDays": 41
             },
             "label": "Peak",
-            "headline": "This is typically the strongest part of the Big Manistee Coho salmon window.",
-            "whereToStart": "Compare the Tippy tailwater, Tippy-to-High Bridge reach, High Bridge-Bear Creek middle corridor, and major lower-river holes toward M-55.",
-            "detail": "This is the best seasonal chance to find fish in more than one migratory reach, but the opportunity remains sectional and concentrations can change sharply from one access or hole to the next.",
-            "tip": "Use Wellston for the regulated tailwater response, then make lower-river decisions from local water conditions rather than extrapolation.",
+            "headline": "This is the strongest seasonal Big Manistee Coho salmon window.",
+            "whereToStart": "Start in the Upper river (High Bridge–Tippy Dam), emphasizing the Tippy Dam area. Compare the Middle river (Bear Creek–High Bridge) for fresher fish.",
+            "detail": "This is still sectional opportunity; Coho will not be evenly distributed.",
+            "tip": "Use Wellston only for Upper-river conditions and leave visible spawning fish undisturbed.",
             "reasonCodes": [
               "stage_peak"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -30857,15 +31040,15 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "2026-10-14"
             ],
             "sourceRefreshSlots": {},
-            "headline": "There is not enough reliable information for a Migration Timing call.",
-            "tip": "Do not move farther upstream or stay lower based on this timing read. Fish the section identified by Migration Stage and begin in its most established holding water; change sections only when direct fish activity or a dependable later read supports it.",
+            "headline": "There is not enough reliable Big Manistee evidence for a Migration Timing call.",
+            "tip": "Keep the section named by Migration Stage. Do not shift sections from this timing read.",
             "detail": "There are not enough dependable past seasons to judge whether this migration is early, normal, or late.",
             "reasonCodes": [
               "conditions_baseline_missing",
               "conditions_insufficient",
               "conditions_checkpoint_peak_start"
             ],
-            "copyVersion": "river-run-copy-v27",
+            "copyVersion": "river-run-copy-v34",
             "previousCheckpointId": "building_established",
             "previousCheckpointDate": "2026-10-01",
             "previousTimingLabel": "Insufficient evidence"
@@ -30882,9 +31065,9 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
           "push": {
             "score": 30,
             "label": "No clear push",
-            "headline": "Today's water does not show a clear signal for a fresh wave of fish.",
-            "detail": "The river is holding steady with no meaningful rise yet. Water temperature is favorable for fall migration and is relatively steady. Recent weather estimates indicate very little rain around the river.",
-            "tip": "Fish established holding water from the head through the inside seam and tail. Do not spend the day racing between lower travel lanes for a wave the water does not support.",
+            "headline": "Upper-river water does not show a clear fresh-movement signal.",
+            "detail": "The river is holding steady with no meaningful rise yet. Water temperature is favorable for fall migration and is relatively steady. Recent watershed weather shows little rain.",
+            "tip": "Keep Migration Stage’s section primary. Do not shift to fresh-entry water from this read.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
@@ -30903,14 +31086,14 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 93,
             "label": "Excellent",
-            "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river.",
-            "tip": "Begin on the primary travel lane feeding deep holding water. Work each hole from its head through the inside seam and tail, then keep moving until fish establish a pattern.",
+            "headline": "Upper-river flow is in its best presentation range.",
+            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read covers only the Upper river (High Bridge–Tippy Dam).",
+            "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band"
@@ -30921,15 +31104,15 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 75,
             "maximum": 100,
             "label": "Active",
-            "headline": "Today’s Coho activity outlook is active.",
-            "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. Broad seasonal presence can make fish easier to locate, but this score measures the responsiveness of Coho already present rather than their abundance. The measured conditions represent the Wellston/Tippy tailwater; water temperature, clarity, and presentation conditions can differ through the middle and lower migratory river. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
-            "tip": "Start with 5–9 AM. If the sky changes from the forecast, favor the darkest practical window.",
+            "headline": "Today’s Upper-river Coho responsiveness is active.",
+            "detail": "Conditions support a meaningful Coho response. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Wellston flow and temperature represent the Upper river, especially the Tippy Dam area.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify downstream sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -30981,10 +31164,13 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 50,
+            "displayScore": 50,
+            "scoreIsApproximate": false,
             "stage": "peak",
             "maximum": 100,
             "riverCeiling": 50,
@@ -30993,14 +31179,14 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "curveDirection": "near_peak",
             "winterHoldingContext": false,
             "label": "Peak presence",
-            "headline": "Coho salmon are likely near their highest seasonal presence in the river.",
-            "detail": "This is the part of the season when in-river presence is usually strongest. Fish are most likely distributed through several dependable river sections. The read does not place fish in a specific pool or confirm a live count.",
-            "tip": "Plan for a dependable but potentially uneven river opportunity near its seasonal high point. Confirm fish activity before committing the full day.",
+            "headline": "Seasonal Coho salmon presence is near its expected Big Manistee peak.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the Big Manistee Coho salmon ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_peak",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -31234,14 +31420,14 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "peak_presence_weak_push"
             ]
           },
-          "secondaryNote": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It best represents the Tippy tailwater and upper migratory corridor; flow, temperature, access, and fishability can differ downstream through High Bridge, Bear Creek, the lower river, and Manistee Lake.",
+          "secondaryNote": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It represents the Upper river (High Bridge–Tippy Dam), especially the Tippy Dam area. Conditions can differ in the Middle river, Lower river, Manistee Lake, and harbor.",
           "safety": {
             "regulationReminder": "The Big Manistee below Tippy is a Type 3 reach extending to the railroad bridge below M-55, with a year-round one-Rainbow-Trout limit and special artificial-lure rules during the August 1–November 15 window. Follow current Michigan regulations, DNR closure notices, dam-safety information, and posted boundaries. Fishing methods can change by reach and season.",
-            "gaugeBasis": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It best represents the Tippy tailwater and upper migratory corridor; flow, temperature, access, and fishability can differ downstream through High Bridge, Bear Creek, the lower river, and Manistee Lake.",
+            "gaugeBasis": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It represents the Upper river (High Bridge–Tippy Dam), especially the Tippy Dam area. Conditions can differ in the Middle river, Lower river, Manistee Lake, and harbor.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-big-manistee-steelhead-activity.1"
+          "configVersion": "2026-08-10-big-manistee-copy.1"
         }
       },
       {
@@ -31260,6 +31446,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
           "nextConditionRefreshAt": "2026-10-22T05:00:00.000Z",
           "runStage": {
             "stage": "peak",
+            "copyStrategy": "big_manistee_tailwater",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -31282,14 +31469,14 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "peakToEndDays": 41
             },
             "label": "Peak",
-            "headline": "This is typically the strongest part of the Big Manistee Coho salmon window.",
-            "whereToStart": "Compare the Tippy tailwater, Tippy-to-High Bridge reach, High Bridge-Bear Creek middle corridor, and major lower-river holes toward M-55.",
-            "detail": "This is the best seasonal chance to find fish in more than one migratory reach, but the opportunity remains sectional and concentrations can change sharply from one access or hole to the next.",
-            "tip": "Use Wellston for the regulated tailwater response, then make lower-river decisions from local water conditions rather than extrapolation.",
+            "headline": "This is the strongest seasonal Big Manistee Coho salmon window.",
+            "whereToStart": "Start in the Upper river (High Bridge–Tippy Dam), emphasizing the Tippy Dam area. Compare the Middle river (Bear Creek–High Bridge) for fresher fish.",
+            "detail": "This is still sectional opportunity; Coho will not be evenly distributed.",
+            "tip": "Use Wellston only for Upper-river conditions and leave visible spawning fish undisturbed.",
             "reasonCodes": [
               "stage_peak"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -31356,15 +31543,15 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "2026-10-14"
             ],
             "sourceRefreshSlots": {},
-            "headline": "There is not enough reliable information for a Migration Timing call.",
-            "tip": "Do not move farther upstream or stay lower based on this timing read. Fish the section identified by Migration Stage and begin in its most established holding water; change sections only when direct fish activity or a dependable later read supports it.",
+            "headline": "There is not enough reliable Big Manistee evidence for a Migration Timing call.",
+            "tip": "Keep the section named by Migration Stage. Do not shift sections from this timing read.",
             "detail": "There are not enough dependable past seasons to judge whether this migration is early, normal, or late.",
             "reasonCodes": [
               "conditions_baseline_missing",
               "conditions_insufficient",
               "conditions_checkpoint_peak_start"
             ],
-            "copyVersion": "river-run-copy-v27",
+            "copyVersion": "river-run-copy-v34",
             "previousCheckpointId": "building_established",
             "previousCheckpointDate": "2026-10-01",
             "previousTimingLabel": "Insufficient evidence"
@@ -31381,9 +31568,9 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
           "push": {
             "score": 30,
             "label": "No clear push",
-            "headline": "Today's water does not show a clear signal for a fresh wave of fish.",
-            "detail": "The river is holding steady with no meaningful rise yet. Water temperature is favorable for fall migration and is relatively steady. Recent weather estimates indicate very little rain around the river.",
-            "tip": "Fish established holding water from the head through the inside seam and tail. Do not spend the day racing between lower travel lanes for a wave the water does not support.",
+            "headline": "Upper-river water does not show a clear fresh-movement signal.",
+            "detail": "The river is holding steady with no meaningful rise yet. Water temperature is favorable for fall migration and is relatively steady. Recent watershed weather shows little rain.",
+            "tip": "Keep Migration Stage’s section primary. Do not shift to fresh-entry water from this read.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
@@ -31402,14 +31589,14 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 93,
             "label": "Excellent",
-            "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river.",
-            "tip": "Begin on the primary travel lane feeding deep holding water. Work each hole from its head through the inside seam and tail, then keep moving until fish establish a pattern.",
+            "headline": "Upper-river flow is in its best presentation range.",
+            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read covers only the Upper river (High Bridge–Tippy Dam).",
+            "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band"
@@ -31420,15 +31607,15 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 75,
             "maximum": 100,
             "label": "Active",
-            "headline": "Today’s Coho activity outlook is active.",
-            "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. Broad seasonal presence can make fish easier to locate, but this score measures the responsiveness of Coho already present rather than their abundance. The measured conditions represent the Wellston/Tippy tailwater; water temperature, clarity, and presentation conditions can differ through the middle and lower migratory river. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
-            "tip": "Start with 5–9 AM. If the sky changes from the forecast, favor the darkest practical window.",
+            "headline": "Today’s Upper-river Coho responsiveness is active.",
+            "detail": "Conditions support a meaningful Coho response. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Wellston flow and temperature represent the Upper river, especially the Tippy Dam area.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify downstream sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -31480,10 +31667,13 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 50,
+            "displayScore": 50,
+            "scoreIsApproximate": false,
             "stage": "peak",
             "maximum": 100,
             "riverCeiling": 50,
@@ -31492,14 +31682,14 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "curveDirection": "falling",
             "winterHoldingContext": false,
             "label": "Peak presence",
-            "headline": "Seasonal timing still supports Coho salmon being near their strongest in-river presence, even if the migration may be just beyond its usual peak.",
-            "detail": "This point in the season may sit just beyond the usual peak while the seasonal pattern still supports fish through several dependable river sections. This is a seasonal estimate, not a live fish count.",
-            "tip": "Plan around fish already likely to be in the river. Seasonal presence is still near its high point, but remember that this seasonal estimate cannot tell whether a fresh wave is entering today.",
+            "headline": "Seasonal Coho salmon presence is near its expected Big Manistee peak.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the Big Manistee Coho salmon ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_peak",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -31733,14 +31923,14 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "peak_presence_weak_push"
             ]
           },
-          "secondaryNote": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It best represents the Tippy tailwater and upper migratory corridor; flow, temperature, access, and fishability can differ downstream through High Bridge, Bear Creek, the lower river, and Manistee Lake.",
+          "secondaryNote": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It represents the Upper river (High Bridge–Tippy Dam), especially the Tippy Dam area. Conditions can differ in the Middle river, Lower river, Manistee Lake, and harbor.",
           "safety": {
             "regulationReminder": "The Big Manistee below Tippy is a Type 3 reach extending to the railroad bridge below M-55, with a year-round one-Rainbow-Trout limit and special artificial-lure rules during the August 1–November 15 window. Follow current Michigan regulations, DNR closure notices, dam-safety information, and posted boundaries. Fishing methods can change by reach and season.",
-            "gaugeBasis": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It best represents the Tippy tailwater and upper migratory corridor; flow, temperature, access, and fishability can differ downstream through High Bridge, Bear Creek, the lower river, and Manistee Lake.",
+            "gaugeBasis": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It represents the Upper river (High Bridge–Tippy Dam), especially the Tippy Dam area. Conditions can differ in the Middle river, Lower river, Manistee Lake, and harbor.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-big-manistee-steelhead-activity.1"
+          "configVersion": "2026-08-10-big-manistee-copy.1"
         }
       },
       {
@@ -31759,6 +31949,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
           "nextConditionRefreshAt": "2026-11-02T05:00:00.000Z",
           "runStage": {
             "stage": "tapering",
+            "copyStrategy": "big_manistee_tailwater",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -31781,14 +31972,14 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "peakToEndDays": 41
             },
             "label": "Tapering",
-            "headline": "The Big Manistee can remain productive for Coho salmon, although fresh arrivals are becoming less consistent.",
-            "whereToStart": "Begin with shaded pools below Tippy and the slower edges of High Bridge bends, then check Bear Creek for late moving fish.",
-            "detail": "Older fish may remain while new movement becomes more dependent on cooling water and a measured hydraulic response.",
-            "tip": "Prioritize established holding water and do not treat rain alone as a confirmed push.",
+            "headline": "Coho salmon remain present, but fresh arrivals are less consistent.",
+            "whereToStart": "Start in the Upper river (High Bridge–Tippy Dam), especially the Tippy Dam area. Add the Middle river (Bear Creek–High Bridge) only when direct activity supports it.",
+            "detail": "The run is declining and increasingly concentrated in established holding water.",
+            "tip": "Look for genuinely fresh fish and leave visible spawning or deteriorated fish alone.",
             "reasonCodes": [
               "stage_tapering"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Timing complete",
@@ -31874,7 +32065,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "conditions_checkpoint_peak_complete",
               "conditions_timing_complete"
             ],
-            "copyVersion": "river-run-copy-v27",
+            "copyVersion": "river-run-copy-v34",
             "previousCheckpointId": "peak_start",
             "previousCheckpointDate": "2026-10-15",
             "previousTimingLabel": "Insufficient evidence"
@@ -31891,9 +32082,9 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
           "push": {
             "score": 30,
             "label": "No clear push",
-            "headline": "Today's water does not show a clear signal for a fresh wave of fish.",
-            "detail": "The river is holding steady with no meaningful rise yet. Water temperature is favorable for fall migration and is relatively steady. Recent weather estimates indicate very little rain around the river.",
-            "tip": "Fish established holding water from the head through the inside seam and tail. Do not spend the day racing between lower travel lanes for a wave the water does not support.",
+            "headline": "Upper-river water does not show a clear fresh-movement signal.",
+            "detail": "The river is holding steady with no meaningful rise yet. Water temperature is favorable for fall migration and is relatively steady. Recent watershed weather shows little rain.",
+            "tip": "Keep Migration Stage’s section primary. Do not shift to fresh-entry water from this read.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
@@ -31912,14 +32103,14 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 93,
             "label": "Excellent",
-            "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river.",
-            "tip": "Begin on the primary travel lane feeding deep holding water. Work each hole from its head through the inside seam and tail, then keep moving until fish establish a pattern.",
+            "headline": "Upper-river flow is in its best presentation range.",
+            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read covers only the Upper river (High Bridge–Tippy Dam).",
+            "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band"
@@ -31930,15 +32121,15 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 74,
             "maximum": 100,
             "label": "Active",
-            "headline": "Today’s Coho activity outlook is active.",
-            "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. This score represents a Coho of unknown condition at this point in the season. A newly arrived or fresher fish may be more active than this score, while a spawning or deteriorating fish may be less responsive. The measured conditions represent the Wellston/Tippy tailwater; water temperature, clarity, and presentation conditions can differ through the middle and lower migratory river. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
-            "tip": "Compare the four time windows, but treat every difference as conditional on finding a living Coho still capable of responding.",
+            "headline": "Today’s Upper-river Coho responsiveness is active.",
+            "detail": "Conditions support a meaningful Coho response. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Late-run Coho condition varies widely, so individual fish may respond above or below this outlook.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify downstream sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -31991,10 +32182,13 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 44,
+            "displayScore": 40,
+            "scoreIsApproximate": true,
             "stage": "tapering",
             "maximum": 100,
             "riverCeiling": 50,
@@ -32003,14 +32197,14 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "curveDirection": "falling",
             "winterHoldingContext": false,
             "label": "High presence",
-            "headline": "Seasonal timing still supports meaningful Coho salmon presence through dependable river sections, even as the usual peak window may be easing.",
-            "detail": "Seasonal presence remains elevated relative to the rest of the season. Fish are still likely established through several dependable river sections, but fresh arrivals may be less consistent than around the usual peak. This is a seasonal estimate, not a live fish count.",
-            "tip": "Plan around fish already likely to be in the river. Seasonal presence is still near its high point, but remember that this seasonal estimate cannot tell whether a fresh wave is entering today.",
+            "headline": "Seasonal Coho salmon presence is high and declining.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the Big Manistee Coho salmon ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_tapering",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -32238,14 +32432,14 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             ]
           },
           "interpretationNote": null,
-          "secondaryNote": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It best represents the Tippy tailwater and upper migratory corridor; flow, temperature, access, and fishability can differ downstream through High Bridge, Bear Creek, the lower river, and Manistee Lake.",
+          "secondaryNote": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It represents the Upper river (High Bridge–Tippy Dam), especially the Tippy Dam area. Conditions can differ in the Middle river, Lower river, Manistee Lake, and harbor.",
           "safety": {
             "regulationReminder": "The Big Manistee below Tippy is a Type 3 reach extending to the railroad bridge below M-55, with a year-round one-Rainbow-Trout limit and special artificial-lure rules during the August 1–November 15 window. Follow current Michigan regulations, DNR closure notices, dam-safety information, and posted boundaries. Fishing methods can change by reach and season.",
-            "gaugeBasis": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It best represents the Tippy tailwater and upper migratory corridor; flow, temperature, access, and fishability can differ downstream through High Bridge, Bear Creek, the lower river, and Manistee Lake.",
+            "gaugeBasis": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It represents the Upper river (High Bridge–Tippy Dam), especially the Tippy Dam area. Conditions can differ in the Middle river, Lower river, Manistee Lake, and harbor.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-big-manistee-steelhead-activity.1"
+          "configVersion": "2026-08-10-big-manistee-copy.1"
         }
       },
       {
@@ -32264,6 +32458,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
           "nextConditionRefreshAt": "2026-11-05T05:00:00.000Z",
           "runStage": {
             "stage": "tapering",
+            "copyStrategy": "big_manistee_tailwater",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -32286,14 +32481,14 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "peakToEndDays": 41
             },
             "label": "Tapering",
-            "headline": "The Big Manistee can remain productive for Coho salmon, although fresh arrivals are becoming less consistent.",
-            "whereToStart": "Begin with shaded pools below Tippy and the slower edges of High Bridge bends, then check Bear Creek for late moving fish.",
-            "detail": "Older fish may remain while new movement becomes more dependent on cooling water and a measured hydraulic response.",
-            "tip": "Prioritize established holding water and do not treat rain alone as a confirmed push.",
+            "headline": "Coho salmon remain present, but fresh arrivals are less consistent.",
+            "whereToStart": "Start in the Upper river (High Bridge–Tippy Dam), especially the Tippy Dam area. Add the Middle river (Bear Creek–High Bridge) only when direct activity supports it.",
+            "detail": "The run is declining and increasingly concentrated in established holding water.",
+            "tip": "Look for genuinely fresh fish and leave visible spawning or deteriorated fish alone.",
             "reasonCodes": [
               "stage_tapering"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Timing complete",
@@ -32379,7 +32574,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "conditions_checkpoint_peak_complete",
               "conditions_timing_complete"
             ],
-            "copyVersion": "river-run-copy-v27",
+            "copyVersion": "river-run-copy-v34",
             "previousCheckpointId": "peak_start",
             "previousCheckpointDate": "2026-10-15",
             "previousTimingLabel": "Insufficient evidence"
@@ -32396,9 +32591,9 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
           "push": {
             "score": 30,
             "label": "No clear push",
-            "headline": "Today's water does not show a clear signal for a fresh wave of fish.",
-            "detail": "The river is holding steady with no meaningful rise yet. Water temperature is favorable for fall migration and is relatively steady. Recent weather estimates indicate very little rain around the river.",
-            "tip": "Fish established holding water from the head through the inside seam and tail. Do not spend the day racing between lower travel lanes for a wave the water does not support.",
+            "headline": "Upper-river water does not show a clear fresh-movement signal.",
+            "detail": "The river is holding steady with no meaningful rise yet. Water temperature is favorable for fall migration and is relatively steady. Recent watershed weather shows little rain.",
+            "tip": "Keep Migration Stage’s section primary. Do not shift to fresh-entry water from this read.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
@@ -32417,14 +32612,14 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 93,
             "label": "Excellent",
-            "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river.",
-            "tip": "Begin on the primary travel lane feeding deep holding water. Work each hole from its head through the inside seam and tail, then keep moving until fish establish a pattern.",
+            "headline": "Upper-river flow is in its best presentation range.",
+            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read covers only the Upper river (High Bridge–Tippy Dam).",
+            "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band"
@@ -32435,15 +32630,15 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 69,
             "maximum": 100,
             "label": "Active",
-            "headline": "Today’s Coho activity outlook is active.",
-            "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. This score represents a Coho of unknown condition at this point in the season. A newly arrived or fresher fish may be more active than this score, while a spawning or deteriorating fish may be less responsive. The measured conditions represent the Wellston/Tippy tailwater; water temperature, clarity, and presentation conditions can differ through the middle and lower migratory river. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
-            "tip": "Compare the four time windows, but treat every difference as conditional on finding a living Coho still capable of responding.",
+            "headline": "Today’s Upper-river Coho responsiveness is active.",
+            "detail": "Conditions support a meaningful Coho response. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Late-run Coho condition varies widely, so individual fish may respond above or below this outlook.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify downstream sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -32496,10 +32691,13 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 39,
+            "displayScore": 40,
+            "scoreIsApproximate": true,
             "stage": "tapering",
             "maximum": 100,
             "riverCeiling": 50,
@@ -32508,14 +32706,14 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "curveDirection": "falling",
             "winterHoldingContext": false,
             "label": "High presence",
-            "headline": "Seasonal timing still supports Coho salmon through dependable river sections, although fresh arrivals may be less consistent than near peak.",
-            "detail": "Seasonal presence is usually elevated relative to the rest of the season. Fish are still likely established through several dependable river sections, while fresh arrivals often become less consistent later in the season. This is a seasonal estimate, not a live fish count.",
-            "tip": "Plan around fish already likely to be in the river. A meaningful seasonal presence may remain, but remember that this seasonal estimate cannot tell whether a fresh wave is entering today.",
+            "headline": "Seasonal Coho salmon presence is high and declining.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the Big Manistee Coho salmon ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_tapering",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -32743,14 +32941,14 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             ]
           },
           "interpretationNote": null,
-          "secondaryNote": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It best represents the Tippy tailwater and upper migratory corridor; flow, temperature, access, and fishability can differ downstream through High Bridge, Bear Creek, the lower river, and Manistee Lake.",
+          "secondaryNote": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It represents the Upper river (High Bridge–Tippy Dam), especially the Tippy Dam area. Conditions can differ in the Middle river, Lower river, Manistee Lake, and harbor.",
           "safety": {
             "regulationReminder": "The Big Manistee below Tippy is a Type 3 reach extending to the railroad bridge below M-55, with a year-round one-Rainbow-Trout limit and special artificial-lure rules during the August 1–November 15 window. Follow current Michigan regulations, DNR closure notices, dam-safety information, and posted boundaries. Fishing methods can change by reach and season.",
-            "gaugeBasis": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It best represents the Tippy tailwater and upper migratory corridor; flow, temperature, access, and fishability can differ downstream through High Bridge, Bear Creek, the lower river, and Manistee Lake.",
+            "gaugeBasis": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It represents the Upper river (High Bridge–Tippy Dam), especially the Tippy Dam area. Conditions can differ in the Middle river, Lower river, Manistee Lake, and harbor.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-big-manistee-steelhead-activity.1"
+          "configVersion": "2026-08-10-big-manistee-copy.1"
         }
       },
       {
@@ -32769,6 +32967,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
           "nextConditionRefreshAt": "2026-11-11T05:00:00.000Z",
           "runStage": {
             "stage": "tapering",
+            "copyStrategy": "big_manistee_tailwater",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -32792,13 +32991,13 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             },
             "label": "Tapering",
             "headline": "The Big Manistee Coho salmon run is entering its late taper.",
-            "whereToStart": "Target the deepest pools below Tippy, slower inside bends near High Bridge, and current seams around Bear Creek; go lower only on a fresh response.",
-            "detail": "Fish can remain numerous in selected holding and spawning reaches, but fresh silver arrivals are becoming the exception and river-wide distribution is less dependable.",
-            "tip": "Fish selected deep water carefully, avoid shallow spawning fish, and do not let one late arrival stand in for a broad new wave.",
+            "whereToStart": "Start in the Upper river (High Bridge–Tippy Dam), especially the Tippy Dam area. Add the Middle river (Bear Creek–High Bridge) only when direct activity supports it.",
+            "detail": "Fresh arrivals are becoming exceptions and dependable distribution is narrowing.",
+            "tip": "Fish selected holding water carefully and leave visible spawning fish undisturbed.",
             "reasonCodes": [
               "stage_tapering"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Timing complete",
@@ -32884,7 +33083,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "conditions_checkpoint_peak_complete",
               "conditions_timing_complete"
             ],
-            "copyVersion": "river-run-copy-v27",
+            "copyVersion": "river-run-copy-v34",
             "previousCheckpointId": "peak_start",
             "previousCheckpointDate": "2026-10-15",
             "previousTimingLabel": "Insufficient evidence"
@@ -32901,9 +33100,9 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
           "push": {
             "score": 30,
             "label": "No clear push",
-            "headline": "Today's water does not show a clear signal for a fresh wave of fish.",
-            "detail": "The river is holding steady with no meaningful rise yet. Water temperature is favorable for fall migration and is relatively steady. Recent weather estimates indicate very little rain around the river.",
-            "tip": "Fish established holding water from the head through the inside seam and tail. Do not spend the day racing between lower travel lanes for a wave the water does not support.",
+            "headline": "Upper-river water does not show a clear fresh-movement signal.",
+            "detail": "The river is holding steady with no meaningful rise yet. Water temperature is favorable for fall migration and is relatively steady. Recent watershed weather shows little rain.",
+            "tip": "Keep Migration Stage’s section primary. Do not shift to fresh-entry water from this read.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
@@ -32922,14 +33121,14 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 93,
             "label": "Excellent",
-            "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river.",
-            "tip": "Begin on the primary travel lane feeding deep holding water. Work each hole from its head through the inside seam and tail, then keep moving until fish establish a pattern.",
+            "headline": "Upper-river flow is in its best presentation range.",
+            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read covers only the Upper river (High Bridge–Tippy Dam).",
+            "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band"
@@ -32940,15 +33139,15 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 60,
             "maximum": 100,
             "label": "Active",
-            "headline": "Today’s Coho activity outlook is active.",
-            "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. This score represents a Coho of unknown condition at this point in the season. A newly arrived or fresher fish may be more active than this score, while a spawning or deteriorating fish may be less responsive. The measured conditions represent the Wellston/Tippy tailwater; water temperature, clarity, and presentation conditions can differ through the middle and lower migratory river. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
-            "tip": "Compare the four time windows, but treat every difference as conditional on finding a living Coho still capable of responding.",
+            "headline": "Today’s Upper-river Coho responsiveness is active.",
+            "detail": "Conditions support a meaningful Coho response. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Late-run Coho condition varies widely, so individual fish may respond above or below this outlook.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify downstream sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -33001,10 +33200,13 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 30,
+            "displayScore": 30,
+            "scoreIsApproximate": true,
             "stage": "tapering",
             "maximum": 100,
             "riverCeiling": 50,
@@ -33013,14 +33215,14 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "curveDirection": "falling",
             "winterHoldingContext": false,
             "label": "Moderate presence",
-            "headline": "Seasonal timing still supports meaningful Coho salmon presence, especially in established holding water.",
-            "detail": "This part of the season usually supports moderate presence through several dependable river sections, while fresh arrivals often become less consistent later in the season. This is a seasonal estimate, not a live fish count.",
-            "tip": "Plan for a worthwhile but less consistent river opportunity. Expect more searching than near the seasonal high, and let direct fish activity determine how long you stay.",
+            "headline": "Seasonal Coho salmon presence is moderate and declining.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the Big Manistee Coho salmon ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_tapering",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -33248,14 +33450,14 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             ]
           },
           "interpretationNote": null,
-          "secondaryNote": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It best represents the Tippy tailwater and upper migratory corridor; flow, temperature, access, and fishability can differ downstream through High Bridge, Bear Creek, the lower river, and Manistee Lake.",
+          "secondaryNote": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It represents the Upper river (High Bridge–Tippy Dam), especially the Tippy Dam area. Conditions can differ in the Middle river, Lower river, Manistee Lake, and harbor.",
           "safety": {
             "regulationReminder": "The Big Manistee below Tippy is a Type 3 reach extending to the railroad bridge below M-55, with a year-round one-Rainbow-Trout limit and special artificial-lure rules during the August 1–November 15 window. Follow current Michigan regulations, DNR closure notices, dam-safety information, and posted boundaries. Fishing methods can change by reach and season.",
-            "gaugeBasis": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It best represents the Tippy tailwater and upper migratory corridor; flow, temperature, access, and fishability can differ downstream through High Bridge, Bear Creek, the lower river, and Manistee Lake.",
+            "gaugeBasis": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It represents the Upper river (High Bridge–Tippy Dam), especially the Tippy Dam area. Conditions can differ in the Middle river, Lower river, Manistee Lake, and harbor.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-big-manistee-steelhead-activity.1"
+          "configVersion": "2026-08-10-big-manistee-copy.1"
         }
       },
       {
@@ -33274,6 +33476,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
           "nextConditionRefreshAt": "2026-11-21T05:00:00.000Z",
           "runStage": {
             "stage": "ending",
+            "copyStrategy": "big_manistee_tailwater",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -33296,14 +33499,14 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "peakToEndDays": 41
             },
             "label": "Ending",
-            "headline": "Only a residual late Coho salmon opportunity remains in the Big Manistee.",
-            "whereToStart": "Limit the search to the deepest Tippy-area pools, High Bridge inside bends, and one or two proven Bear Creek-area holes.",
-            "detail": "Most remaining fish have been in the system for some time. A genuinely fresh fish is possible, but no longer represents a dependable new migration wave.",
-            "tip": "Keep expectations narrow, leave spawning or visibly deteriorated fish alone, and shift effort when direct evidence is absent.",
+            "headline": "Only a residual late Coho salmon opportunity remains.",
+            "whereToStart": "Start in the Upper river (High Bridge–Tippy Dam), emphasizing established water near Tippy Dam.",
+            "detail": "A fresh fish is possible, but no longer represents a dependable movement wave.",
+            "tip": "Keep expectations narrow and stop searching when direct evidence is absent.",
             "reasonCodes": [
               "stage_ending"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Timing complete",
@@ -33389,7 +33592,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "conditions_checkpoint_peak_complete",
               "conditions_timing_complete"
             ],
-            "copyVersion": "river-run-copy-v27",
+            "copyVersion": "river-run-copy-v34",
             "previousCheckpointId": "peak_start",
             "previousCheckpointDate": "2026-10-15",
             "previousTimingLabel": "Insufficient evidence"
@@ -33406,9 +33609,9 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
           "push": {
             "score": 30,
             "label": "No clear push",
-            "headline": "Today's water does not show a clear signal for a fresh wave of fish.",
-            "detail": "The river is holding steady with no meaningful rise yet. Water temperature is favorable for fall migration and is relatively steady. Recent weather estimates indicate very little rain around the river.",
-            "tip": "Fish established holding water from the head through the inside seam and tail. Do not spend the day racing between lower travel lanes for a wave the water does not support.",
+            "headline": "Upper-river water does not show a clear fresh-movement signal.",
+            "detail": "The river is holding steady with no meaningful rise yet. Water temperature is favorable for fall migration and is relatively steady. Recent watershed weather shows little rain.",
+            "tip": "Keep Migration Stage’s section primary. Do not shift to fresh-entry water from this read.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
@@ -33427,14 +33630,14 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 93,
             "label": "Excellent",
-            "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river.",
-            "tip": "Begin on the primary travel lane feeding deep holding water. Work each hole from its head through the inside seam and tail, then keep moving until fish establish a pattern.",
+            "headline": "Upper-river flow is in its best presentation range.",
+            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read covers only the Upper river (High Bridge–Tippy Dam).",
+            "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band"
@@ -33445,15 +33648,15 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 46,
             "maximum": 100,
             "label": "Moderate",
-            "headline": "Today’s Coho activity outlook is moderate.",
-            "detail": "Some useful factors are present, but the response window is mixed. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. This score represents a remaining Coho of unknown condition late in the season. A newly arrived or fresher fish may be more active than this score, while a spent or deteriorating fish may respond less or not at all. The measured conditions represent the Wellston/Tippy tailwater; water temperature, clarity, and presentation conditions can differ through the middle and lower migratory river. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
-            "tip": "No late-season window should be treated as broadly favorable; use the block scores only for a living Coho that is still capable of reacting.",
+            "headline": "Today’s Upper-river Coho responsiveness is moderate.",
+            "detail": "Conditions offer mixed support for Coho responsiveness. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Late-run Coho condition varies widely, so individual fish may respond above or below this outlook.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify downstream sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -33506,10 +33709,13 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 20,
+            "displayScore": 20,
+            "scoreIsApproximate": true,
             "stage": "ending",
             "maximum": 100,
             "riverCeiling": 50,
@@ -33518,14 +33724,14 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "curveDirection": "falling",
             "winterHoldingContext": false,
             "label": "Limited presence",
-            "headline": "Seasonal timing still supports some Coho salmon in established holding water, but they are less likely to occupy every dependable section.",
-            "detail": "This part of the season usually supports limited presence concentrated in the river's most dependable holes and slower holding water. This is a seasonal estimate, not a live fish count.",
-            "tip": "Treat this as a lower-odds late-season opportunity. Keep the trip flexible, and require direct fish activity before committing more time.",
+            "headline": "Seasonal Coho salmon presence is limited and declining.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the Big Manistee Coho salmon ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_ending",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -33753,14 +33959,14 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             ]
           },
           "interpretationNote": null,
-          "secondaryNote": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It best represents the Tippy tailwater and upper migratory corridor; flow, temperature, access, and fishability can differ downstream through High Bridge, Bear Creek, the lower river, and Manistee Lake.",
+          "secondaryNote": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It represents the Upper river (High Bridge–Tippy Dam), especially the Tippy Dam area. Conditions can differ in the Middle river, Lower river, Manistee Lake, and harbor.",
           "safety": {
             "regulationReminder": "The Big Manistee below Tippy is a Type 3 reach extending to the railroad bridge below M-55, with a year-round one-Rainbow-Trout limit and special artificial-lure rules during the August 1–November 15 window. Follow current Michigan regulations, DNR closure notices, dam-safety information, and posted boundaries. Fishing methods can change by reach and season.",
-            "gaugeBasis": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It best represents the Tippy tailwater and upper migratory corridor; flow, temperature, access, and fishability can differ downstream through High Bridge, Bear Creek, the lower river, and Manistee Lake.",
+            "gaugeBasis": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It represents the Upper river (High Bridge–Tippy Dam), especially the Tippy Dam area. Conditions can differ in the Middle river, Lower river, Manistee Lake, and harbor.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-big-manistee-steelhead-activity.1"
+          "configVersion": "2026-08-10-big-manistee-copy.1"
         }
       },
       {
@@ -33779,6 +33985,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
           "nextConditionRefreshAt": "2026-12-01T05:00:00.000Z",
           "runStage": {
             "stage": "ending",
+            "copyStrategy": "big_manistee_tailwater",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -33801,14 +34008,14 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "peakToEndDays": 41
             },
             "label": "Ending",
-            "headline": "Only a residual late Coho salmon opportunity remains in the Big Manistee.",
-            "whereToStart": "Limit the search to the deepest Tippy-area pools, High Bridge inside bends, and one or two proven Bear Creek-area holes.",
-            "detail": "Most remaining fish have been in the system for some time. A genuinely fresh fish is possible, but no longer represents a dependable new migration wave.",
-            "tip": "Keep expectations narrow, leave spawning or visibly deteriorated fish alone, and shift effort when direct evidence is absent.",
+            "headline": "Only a residual late Coho salmon opportunity remains.",
+            "whereToStart": "Start in the Upper river (High Bridge–Tippy Dam), emphasizing established water near Tippy Dam.",
+            "detail": "A fresh fish is possible, but no longer represents a dependable movement wave.",
+            "tip": "Keep expectations narrow and stop searching when direct evidence is absent.",
             "reasonCodes": [
               "stage_ending"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Timing complete",
@@ -33894,7 +34101,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "conditions_checkpoint_peak_complete",
               "conditions_timing_complete"
             ],
-            "copyVersion": "river-run-copy-v27",
+            "copyVersion": "river-run-copy-v34",
             "previousCheckpointId": "peak_start",
             "previousCheckpointDate": "2026-10-15",
             "previousTimingLabel": "Insufficient evidence"
@@ -33911,9 +34118,9 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
           "push": {
             "score": 30,
             "label": "No clear push",
-            "headline": "Today's water does not show a clear signal for a fresh wave of fish.",
-            "detail": "The river is holding steady with no meaningful rise yet. Water temperature is favorable for fall migration and is relatively steady. Recent weather estimates indicate very little rain around the river.",
-            "tip": "Fish established holding water from the head through the inside seam and tail. Do not spend the day racing between lower travel lanes for a wave the water does not support.",
+            "headline": "Upper-river water does not show a clear fresh-movement signal.",
+            "detail": "The river is holding steady with no meaningful rise yet. Water temperature is favorable for fall migration and is relatively steady. Recent watershed weather shows little rain.",
+            "tip": "Keep Migration Stage’s section primary. Do not shift to fresh-entry water from this read.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
@@ -33932,14 +34139,14 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 93,
             "label": "Excellent",
-            "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river.",
-            "tip": "Begin on the primary travel lane feeding deep holding water. Work each hole from its head through the inside seam and tail, then keep moving until fish establish a pattern.",
+            "headline": "Upper-river flow is in its best presentation range.",
+            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read covers only the Upper river (High Bridge–Tippy Dam).",
+            "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band"
@@ -33950,15 +34157,15 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 32,
             "maximum": 100,
             "label": "Reserved",
-            "headline": "Today’s Coho activity outlook is reserved.",
-            "detail": "Fish may respond selectively, with important environmental limitations. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. This score represents a remaining Coho of unknown condition late in the season. A newly arrived or fresher fish may be more active than this score, while a spent or deteriorating fish may respond less or not at all. The measured conditions represent the Wellston/Tippy tailwater; water temperature, clarity, and presentation conditions can differ through the middle and lower migratory river. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
-            "tip": "No late-season window should be treated as broadly favorable; use the block scores only for a living Coho that is still capable of reacting.",
+            "headline": "Today’s Upper-river Coho responsiveness is reserved.",
+            "detail": "Coho may respond selectively under current limitations. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Late-run Coho condition varies widely, so individual fish may respond above or below this outlook.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify downstream sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -34011,10 +34218,13 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 10,
+            "displayScore": 10,
+            "scoreIsApproximate": true,
             "stage": "ending",
             "maximum": 100,
             "riverCeiling": 50,
@@ -34023,14 +34233,14 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "curveDirection": "falling",
             "winterHoldingContext": false,
             "label": "Low presence",
-            "headline": "Some Coho salmon may still be in the river, with seasonal presence more likely to be scattered.",
-            "detail": "This part of the season usually supports low presence through several dependable river sections, while fresh arrivals often become less consistent later in the season. This is a seasonal estimate, not a live fish count.",
-            "tip": "Treat any remaining fish as a bonus rather than a dependable trip plan. Keep expectations narrow and be ready to shift to another seasonal species.",
+            "headline": "Seasonal Coho salmon presence is low and declining.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the Big Manistee Coho salmon ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_ending",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -34264,14 +34474,14 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "good_fishability_low_presence"
             ]
           },
-          "secondaryNote": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It best represents the Tippy tailwater and upper migratory corridor; flow, temperature, access, and fishability can differ downstream through High Bridge, Bear Creek, the lower river, and Manistee Lake.",
+          "secondaryNote": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It represents the Upper river (High Bridge–Tippy Dam), especially the Tippy Dam area. Conditions can differ in the Middle river, Lower river, Manistee Lake, and harbor.",
           "safety": {
             "regulationReminder": "The Big Manistee below Tippy is a Type 3 reach extending to the railroad bridge below M-55, with a year-round one-Rainbow-Trout limit and special artificial-lure rules during the August 1–November 15 window. Follow current Michigan regulations, DNR closure notices, dam-safety information, and posted boundaries. Fishing methods can change by reach and season.",
-            "gaugeBasis": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It best represents the Tippy tailwater and upper migratory corridor; flow, temperature, access, and fishability can differ downstream through High Bridge, Bear Creek, the lower river, and Manistee Lake.",
+            "gaugeBasis": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It represents the Upper river (High Bridge–Tippy Dam), especially the Tippy Dam area. Conditions can differ in the Middle river, Lower river, Manistee Lake, and harbor.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-big-manistee-steelhead-activity.1"
+          "configVersion": "2026-08-10-big-manistee-copy.1"
         }
       },
       {
@@ -34290,6 +34500,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
           "nextConditionRefreshAt": "2026-12-11T05:00:00.000Z",
           "runStage": {
             "stage": "post_run",
+            "copyStrategy": "big_manistee_tailwater",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -34312,14 +34523,14 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "peakToEndDays": 41
             },
             "label": "After migration",
-            "headline": "A few late Coho salmon may remain in established Big Manistee holding water.",
-            "whereToStart": "There is no dependable starting reach; if you still go, make one careful check of a proven deep pool below Tippy or near High Bridge.",
-            "detail": "The seasonal presence tail is not a live abundance estimate and does not imply a fresh river push.",
-            "tip": "Do not convert residual presence into a new-run signal.",
+            "headline": "Only a residual late Coho salmon opportunity remains.",
+            "whereToStart": "There is no dependable starting section. If you go, make one careful Upper river (High Bridge–Tippy Dam) check near Tippy Dam.",
+            "detail": "The seasonal tail does not indicate a fresh movement event.",
+            "tip": "Do not build a broad corridor search around isolated late fish.",
             "reasonCodes": [
               "stage_post_run"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Timing complete",
@@ -34405,7 +34616,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "conditions_checkpoint_peak_complete",
               "conditions_timing_complete"
             ],
-            "copyVersion": "river-run-copy-v27",
+            "copyVersion": "river-run-copy-v34",
             "previousCheckpointId": "peak_start",
             "previousCheckpointDate": "2026-10-15",
             "previousTimingLabel": "Insufficient evidence"
@@ -34429,14 +34640,14 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "push_tracking_complete"
             ],
             "rulesVersion": "big-manistee-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 93,
             "label": "Excellent",
-            "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river.",
-            "tip": "Begin on the primary travel lane feeding deep holding water. Work each hole from its head through the inside seam and tail, then keep moving until fish establish a pattern.",
+            "headline": "Upper-river flow is in its best presentation range.",
+            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read covers only the Upper river (High Bridge–Tippy Dam).",
+            "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band"
@@ -34447,15 +34658,15 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 32,
             "maximum": 100,
             "label": "Reserved",
-            "headline": "Today’s Coho activity outlook is reserved.",
-            "detail": "Fish may respond selectively, with important environmental limitations. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. This score represents a remaining Coho of unknown condition late in the season. A newly arrived or fresher fish may be more active than this score, while a spent or deteriorating fish may respond less or not at all. The measured conditions represent the Wellston/Tippy tailwater; water temperature, clarity, and presentation conditions can differ through the middle and lower migratory river. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
-            "tip": "No late-season window should be treated as broadly favorable; use the block scores only for a living Coho that is still capable of reacting.",
+            "headline": "Today’s Upper-river Coho responsiveness is reserved.",
+            "detail": "Coho may respond selectively under current limitations. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Late-run Coho condition varies widely, so individual fish may respond above or below this outlook.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify downstream sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -34508,10 +34719,13 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 0,
+            "displayScore": 0,
+            "scoreIsApproximate": false,
             "stage": "post_run",
             "maximum": 100,
             "riverCeiling": 50,
@@ -34520,14 +34734,14 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "curveDirection": "falling",
             "winterHoldingContext": false,
             "label": "Migration complete",
-            "headline": "The season no longer supports a dependable in-river migration.",
-            "detail": "A few Coho salmon may remain, but their presence is likely isolated rather than part of a consistent opportunity through the river's dependable sections.",
-            "tip": "Do not build a trip around scattered late fish. Shift to another seasonal species, and leave any actively spawning fish undisturbed.",
+            "headline": "The Big Manistee Coho salmon migration no longer has dependable seasonal presence.",
+            "detail": "The seasonal estimate has reached zero. Isolated late fish are not a dependable migration opportunity.",
+            "tip": "Do not build a three-section search around isolated late fish.",
             "reasonCodes": [
               "stage_post_run",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -34761,14 +34975,14 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "good_fishability_low_presence"
             ]
           },
-          "secondaryNote": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It best represents the Tippy tailwater and upper migratory corridor; flow, temperature, access, and fishability can differ downstream through High Bridge, Bear Creek, the lower river, and Manistee Lake.",
+          "secondaryNote": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It represents the Upper river (High Bridge–Tippy Dam), especially the Tippy Dam area. Conditions can differ in the Middle river, Lower river, Manistee Lake, and harbor.",
           "safety": {
             "regulationReminder": "The Big Manistee below Tippy is a Type 3 reach extending to the railroad bridge below M-55, with a year-round one-Rainbow-Trout limit and special artificial-lure rules during the August 1–November 15 window. Follow current Michigan regulations, DNR closure notices, dam-safety information, and posted boundaries. Fishing methods can change by reach and season.",
-            "gaugeBasis": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It best represents the Tippy tailwater and upper migratory corridor; flow, temperature, access, and fishability can differ downstream through High Bridge, Bear Creek, the lower river, and Manistee Lake.",
+            "gaugeBasis": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It represents the Upper river (High Bridge–Tippy Dam), especially the Tippy Dam area. Conditions can differ in the Middle river, Lower river, Manistee Lake, and harbor.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-big-manistee-steelhead-activity.1"
+          "configVersion": "2026-08-10-big-manistee-copy.1"
         }
       }
     ]
@@ -34793,6 +35007,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
           "nextConditionRefreshAt": "2026-10-01T05:00:00.000Z",
           "runStage": {
             "stage": "beginning",
+            "copyStrategy": "big_manistee_tailwater",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -34815,14 +35030,14 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "peakToEndDays": 41
             },
             "label": "Beginning",
-            "headline": "Coho salmon are accumulating through more of the Big Manistee below Tippy Dam.",
-            "whereToStart": "Check the Tippy tailwater and Tippy-to-High Bridge reach first; if fish are scattered there, compare the High Bridge-Bear Creek middle corridor and lower migratory river for newer arrivals.",
-            "detail": "Earlier fish can already be established in tailwater holding areas while newer fish continue moving through the lower and middle migratory corridor. Numbers can still be uneven between sections.",
-            "tip": "Treat Tippy, High Bridge, and Bear Creek as different checks—not one uniform gauge reach—and let direct fish activity decide where to slow down.",
+            "headline": "Coho salmon are accumulating through more of the Big Manistee.",
+            "whereToStart": "Start in the Lower river (M-55–Bear Creek). Add the Middle river (Bear Creek–High Bridge) after direct fish activity supports the move.",
+            "detail": "More Coho are present, but concentrations remain selective.",
+            "tip": "Follow travel water into substantial holding areas before moving upstream.",
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -34854,15 +35069,15 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "2026-09-09"
             ],
             "sourceRefreshSlots": {},
-            "headline": "There is not enough reliable information for a Migration Timing call.",
-            "tip": "Do not move farther upstream or stay lower based on this timing read. Fish the section identified by Migration Stage and begin in its most established holding water; change sections only when direct fish activity or a dependable later read supports it.",
+            "headline": "There is not enough reliable Big Manistee evidence for a Migration Timing call.",
+            "tip": "Keep the section named by Migration Stage. Do not shift sections from this timing read.",
             "detail": "There are not enough dependable past seasons to judge whether this migration is early, normal, or late.",
             "reasonCodes": [
               "conditions_baseline_missing",
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -34876,9 +35091,9 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
           "push": {
             "score": 71,
             "label": "Strong",
-            "headline": "Today's river rise and water temperature strongly support the possibility of a fresh wave moving into the river.",
-            "detail": "The river has made a clear rise since yesterday. Overall flow is already high. Water temperature is favorable for fall migration and is cooling. Additional rain does not improve the read while the river is already high.",
-            "tip": "Begin on lower-river travel lanes and inside seams, then work the first resting holes along that route. Keep moving until fish establish a pattern; the signal still does not prove a wave entered.",
+            "headline": "Upper-river water strongly supports possible fresh movement.",
+            "detail": "The river has made a clear rise since yesterday; overall flow is already high. Water temperature is favorable for fall migration and is cooling. Rain adds no support while Wellston flow is already high.",
+            "tip": "Use the Lower river as the fresh-entry comparison, then return to Migration Stage’s section.",
             "reasonCodes": [
               "gauge_fresh",
               "push_high_flow_context",
@@ -34896,14 +35111,14 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 32,
             "label": "Tough",
-            "headline": "The river is running very high, leaving fewer practical places to fish effectively.",
-            "detail": "Very high flow is reducing access and the amount of water where a presentation can be controlled. The rising water is pushing hard through the main channel and compressing practical fishing water along protected edges. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river.",
-            "tip": "Fish only protected margins, inside bends, and the downstream side of major current breaks. Leave the main-channel current alone while the rise continues.",
+            "headline": "Very high Upper-river flow leaves little controllable presentation water.",
+            "detail": "Very high flow compresses controllable water into protected edges. A clear rise is moving controllable water toward current breaks. This read covers only the Upper river (High Bridge–Tippy Dam).",
+            "tip": "Favor protected margins and short controlled presentations. Choose another day if control is not dependable.",
             "reasonCodes": [
               "gauge_fresh",
               "very_high_flow_band"
@@ -34914,15 +35129,15 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 72,
             "maximum": 100,
             "label": "Active",
-            "headline": "Today’s Coho activity outlook is active.",
-            "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: The river level or its recent change is less favorable. Early lake-fresh Coho can remain reactive when measured water temperatures are suitable; this score applies only to fish already in the river. The measured conditions represent the Wellston/Tippy tailwater; water temperature, clarity, and presentation conditions can differ through the middle and lower migratory river. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
-            "tip": "Start with 5–9 AM. If the sky changes from the forecast, favor the darkest practical window.",
+            "headline": "Today’s Upper-river Coho responsiveness is active.",
+            "detail": "Conditions support a meaningful Coho response. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Wellston flow and temperature represent the Upper river, especially the Tippy Dam area.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify downstream sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -34974,10 +35189,13 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 19,
+            "displayScore": 20,
+            "scoreIsApproximate": true,
             "stage": "beginning",
             "maximum": 100,
             "riverCeiling": 50,
@@ -34986,14 +35204,14 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "curveDirection": "rising",
             "winterHoldingContext": false,
             "label": "Limited presence",
-            "headline": "Some Coho salmon are likely in the river, but seasonal presence is still developing.",
-            "detail": "This part of the season usually brings limited presence, with more fish expected to enter and become established through several dependable river sections. This is a seasonal estimate, not a live fish count.",
-            "tip": "Plan for an emerging but uneven river opportunity. Cover water efficiently, and do not assume every promising stop holds fish.",
+            "headline": "Seasonal Coho salmon presence is limited and building.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the Big Manistee Coho salmon ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -35227,14 +35445,14 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "strong_push_low_fishability"
             ]
           },
-          "secondaryNote": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It best represents the Tippy tailwater and upper migratory corridor; flow, temperature, access, and fishability can differ downstream through High Bridge, Bear Creek, the lower river, and Manistee Lake.",
+          "secondaryNote": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It represents the Upper river (High Bridge–Tippy Dam), especially the Tippy Dam area. Conditions can differ in the Middle river, Lower river, Manistee Lake, and harbor.",
           "safety": {
             "regulationReminder": "The Big Manistee below Tippy is a Type 3 reach extending to the railroad bridge below M-55, with a year-round one-Rainbow-Trout limit and special artificial-lure rules during the August 1–November 15 window. Follow current Michigan regulations, DNR closure notices, dam-safety information, and posted boundaries. Fishing methods can change by reach and season.",
-            "gaugeBasis": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It best represents the Tippy tailwater and upper migratory corridor; flow, temperature, access, and fishability can differ downstream through High Bridge, Bear Creek, the lower river, and Manistee Lake.",
+            "gaugeBasis": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It represents the Upper river (High Bridge–Tippy Dam), especially the Tippy Dam area. Conditions can differ in the Middle river, Lower river, Manistee Lake, and harbor.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-big-manistee-steelhead-activity.1"
+          "configVersion": "2026-08-10-big-manistee-copy.1"
         }
       },
       {
@@ -35253,6 +35471,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
           "nextConditionRefreshAt": "2026-10-01T05:00:00.000Z",
           "runStage": {
             "stage": "beginning",
+            "copyStrategy": "big_manistee_tailwater",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -35275,14 +35494,14 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "peakToEndDays": 41
             },
             "label": "Beginning",
-            "headline": "Coho salmon are accumulating through more of the Big Manistee below Tippy Dam.",
-            "whereToStart": "Check the Tippy tailwater and Tippy-to-High Bridge reach first; if fish are scattered there, compare the High Bridge-Bear Creek middle corridor and lower migratory river for newer arrivals.",
-            "detail": "Earlier fish can already be established in tailwater holding areas while newer fish continue moving through the lower and middle migratory corridor. Numbers can still be uneven between sections.",
-            "tip": "Treat Tippy, High Bridge, and Bear Creek as different checks—not one uniform gauge reach—and let direct fish activity decide where to slow down.",
+            "headline": "Coho salmon are accumulating through more of the Big Manistee.",
+            "whereToStart": "Start in the Lower river (M-55–Bear Creek). Add the Middle river (Bear Creek–High Bridge) after direct fish activity supports the move.",
+            "detail": "More Coho are present, but concentrations remain selective.",
+            "tip": "Follow travel water into substantial holding areas before moving upstream.",
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -35314,15 +35533,15 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "2026-09-09"
             ],
             "sourceRefreshSlots": {},
-            "headline": "There is not enough reliable information for a Migration Timing call.",
-            "tip": "Do not move farther upstream or stay lower based on this timing read. Fish the section identified by Migration Stage and begin in its most established holding water; change sections only when direct fish activity or a dependable later read supports it.",
+            "headline": "There is not enough reliable Big Manistee evidence for a Migration Timing call.",
+            "tip": "Keep the section named by Migration Stage. Do not shift sections from this timing read.",
             "detail": "There are not enough dependable past seasons to judge whether this migration is early, normal, or late.",
             "reasonCodes": [
               "conditions_baseline_missing",
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -35336,9 +35555,9 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
           "push": {
             "score": 0,
             "label": "Weak",
-            "headline": "Today's water shows little support for a fresh wave of fish.",
-            "detail": "The river is falling instead of showing a fresh rise. Water temperature remains too warm to support a strong Push but is warming sharply. Recent weather estimates indicate very little rain around the river.",
-            "tip": "Do not build the day around new arrivals while the river remains warm. Start in established holding water at first or last light and leave lower travel lanes secondary.",
+            "headline": "Upper-river water shows little support for fresh movement.",
+            "detail": "The river is falling instead of showing a fresh rise. Water temperature remains too warm to support a strong Push but is warming sharply. Recent watershed weather shows little rain.",
+            "tip": "Keep Migration Stage’s section primary. Do not shift to fresh-entry water from this read.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
@@ -35358,14 +35577,14 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 90,
             "label": "Excellent",
-            "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The river is settling, which should sharpen seams and make established holding water easier to read. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river.",
-            "tip": "Begin on the primary seam feeding deep holding water. Work each hole from head to tail, giving the deeper downstream half one final pass as the river settles.",
+            "headline": "Upper-river flow is in its best presentation range.",
+            "detail": "The flow band offers the broadest mix of depth and presentation control. Falling flow should sharpen established seams. This read covers only the Upper river (High Bridge–Tippy Dam).",
+            "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band"
@@ -35376,15 +35595,15 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 19,
             "maximum": 100,
             "label": "Inactive",
-            "headline": "Today’s Coho activity outlook is inactive.",
-            "detail": "Conditions provide little environmental support for an aggressive response. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Water temperature limits responsiveness. Early lake-fresh Coho can remain reactive when measured water temperatures are suitable; this score applies only to fish already in the river. The measured conditions represent the Wellston/Tippy tailwater; water temperature, clarity, and presentation conditions can differ through the middle and lower migratory river. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
-            "tip": "Start with 5–9 AM. If the sky changes from the forecast, favor the darkest practical window.",
+            "headline": "Today’s Upper-river Coho responsiveness is inactive.",
+            "detail": "Conditions offer little support for an aggressive Coho response. 5–9 AM and 9 AM–1 PM are the leading windows, but neither has a clear advantage. Wellston flow and temperature represent the Upper river, especially the Tippy Dam area.",
+            "tip": "Choose between 5–9 AM and 9 AM–1 PM using actual light. Verify downstream sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -35437,10 +35656,13 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 19,
+            "displayScore": 20,
+            "scoreIsApproximate": true,
             "stage": "beginning",
             "maximum": 100,
             "riverCeiling": 50,
@@ -35449,14 +35671,14 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "curveDirection": "rising",
             "winterHoldingContext": false,
             "label": "Limited presence",
-            "headline": "Some Coho salmon are likely in the river, but seasonal presence is still developing.",
-            "detail": "This part of the season usually brings limited presence, with more fish expected to enter and become established through several dependable river sections. This is a seasonal estimate, not a live fish count.",
-            "tip": "Plan for an emerging but uneven river opportunity. Cover water efficiently, and do not assume every promising stop holds fish.",
+            "headline": "Seasonal Coho salmon presence is limited and building.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the Big Manistee Coho salmon ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -35684,14 +35906,14 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             ]
           },
           "interpretationNote": null,
-          "secondaryNote": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It best represents the Tippy tailwater and upper migratory corridor; flow, temperature, access, and fishability can differ downstream through High Bridge, Bear Creek, the lower river, and Manistee Lake.",
+          "secondaryNote": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It represents the Upper river (High Bridge–Tippy Dam), especially the Tippy Dam area. Conditions can differ in the Middle river, Lower river, Manistee Lake, and harbor.",
           "safety": {
             "regulationReminder": "The Big Manistee below Tippy is a Type 3 reach extending to the railroad bridge below M-55, with a year-round one-Rainbow-Trout limit and special artificial-lure rules during the August 1–November 15 window. Follow current Michigan regulations, DNR closure notices, dam-safety information, and posted boundaries. Fishing methods can change by reach and season.",
-            "gaugeBasis": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It best represents the Tippy tailwater and upper migratory corridor; flow, temperature, access, and fishability can differ downstream through High Bridge, Bear Creek, the lower river, and Manistee Lake.",
+            "gaugeBasis": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It represents the Upper river (High Bridge–Tippy Dam), especially the Tippy Dam area. Conditions can differ in the Middle river, Lower river, Manistee Lake, and harbor.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-big-manistee-steelhead-activity.1"
+          "configVersion": "2026-08-10-big-manistee-copy.1"
         }
       },
       {
@@ -35710,6 +35932,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
           "nextConditionRefreshAt": "2026-09-21T05:00:00.000Z",
           "runStage": {
             "stage": "beginning",
+            "copyStrategy": "big_manistee_tailwater",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -35732,14 +35955,14 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "peakToEndDays": 41
             },
             "label": "Beginning",
-            "headline": "Coho salmon are accumulating through more of the Big Manistee below Tippy Dam.",
-            "whereToStart": "Check the Tippy tailwater and Tippy-to-High Bridge reach first; if fish are scattered there, compare the High Bridge-Bear Creek middle corridor and lower migratory river for newer arrivals.",
-            "detail": "Earlier fish can already be established in tailwater holding areas while newer fish continue moving through the lower and middle migratory corridor. Numbers can still be uneven between sections.",
-            "tip": "Treat Tippy, High Bridge, and Bear Creek as different checks—not one uniform gauge reach—and let direct fish activity decide where to slow down.",
+            "headline": "Coho salmon are accumulating through more of the Big Manistee.",
+            "whereToStart": "Start in the Lower river (M-55–Bear Creek). Add the Middle river (Bear Creek–High Bridge) after direct fish activity supports the move.",
+            "detail": "More Coho are present, but concentrations remain selective.",
+            "tip": "Follow travel water into substantial holding areas before moving upstream.",
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -35771,15 +35994,15 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "2026-09-09"
             ],
             "sourceRefreshSlots": {},
-            "headline": "There is not enough reliable information for a Migration Timing call.",
-            "tip": "Do not move farther upstream or stay lower based on this timing read. Fish the section identified by Migration Stage and begin in its most established holding water; change sections only when direct fish activity or a dependable later read supports it.",
+            "headline": "There is not enough reliable Big Manistee evidence for a Migration Timing call.",
+            "tip": "Keep the section named by Migration Stage. Do not shift sections from this timing read.",
             "detail": "There are not enough dependable past seasons to judge whether this migration is early, normal, or late.",
             "reasonCodes": [
               "conditions_baseline_missing",
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -35801,14 +36024,14 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "temperature_unavailable"
             ],
             "rulesVersion": "big-manistee-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 93,
             "label": "Excellent",
-            "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river.",
-            "tip": "Begin on the primary travel lane feeding deep holding water. Work each hole from its head through the inside seam and tail, then keep moving until fish establish a pattern.",
+            "headline": "Upper-river flow is in its best presentation range.",
+            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read covers only the Upper river (High Bridge–Tippy Dam).",
+            "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band"
@@ -35819,15 +36042,15 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 53,
             "maximum": 100,
             "label": "Moderate",
-            "headline": "Today’s Coho activity outlook is moderate.",
-            "detail": "Some useful factors are present, but the response window is mixed. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Measured water temperature is unavailable. Early lake-fresh Coho can remain reactive when measured water temperatures are suitable; this score applies only to fish already in the river. The measured conditions represent the Wellston/Tippy tailwater; water temperature, clarity, and presentation conditions can differ through the middle and lower migratory river. One important reading is unavailable or comes from tomorrow’s forecast, so the outlook is kept conservative.",
-            "tip": "Start with 5–9 AM. If the sky changes from the forecast, favor the darkest practical window.",
+            "headline": "Today’s Upper-river Coho responsiveness is moderate.",
+            "detail": "Conditions offer mixed support for Coho responsiveness. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Moderate confidence reflects missing or forecast inputs; Wellston still represents only the Upper river.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify downstream sections directly.",
             "reasonCodes": [
               "activity_confidence_moderate",
               "activity_today",
@@ -35879,10 +36102,13 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 10,
+            "displayScore": 10,
+            "scoreIsApproximate": true,
             "stage": "beginning",
             "maximum": 100,
             "riverCeiling": 50,
@@ -35891,14 +36117,14 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "curveDirection": "rising",
             "winterHoldingContext": false,
             "label": "Low presence",
-            "headline": "A small number of Coho salmon may be in the river, and seasonal presence is still building.",
-            "detail": "This part of the season usually brings low presence, with more fish expected to enter and become established through several dependable river sections. This is a seasonal estimate, not a live fish count.",
-            "tip": "Treat this as an early, low-odds river opportunity. Expect scattered results, and use direct fish activity before committing the full day.",
+            "headline": "Seasonal Coho salmon presence is low and building.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the Big Manistee Coho salmon ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -36115,14 +36341,14 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "good_fishability_low_presence"
             ]
           },
-          "secondaryNote": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It best represents the Tippy tailwater and upper migratory corridor; flow, temperature, access, and fishability can differ downstream through High Bridge, Bear Creek, the lower river, and Manistee Lake.",
+          "secondaryNote": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It represents the Upper river (High Bridge–Tippy Dam), especially the Tippy Dam area. Conditions can differ in the Middle river, Lower river, Manistee Lake, and harbor.",
           "safety": {
             "regulationReminder": "The Big Manistee below Tippy is a Type 3 reach extending to the railroad bridge below M-55, with a year-round one-Rainbow-Trout limit and special artificial-lure rules during the August 1–November 15 window. Follow current Michigan regulations, DNR closure notices, dam-safety information, and posted boundaries. Fishing methods can change by reach and season.",
-            "gaugeBasis": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It best represents the Tippy tailwater and upper migratory corridor; flow, temperature, access, and fishability can differ downstream through High Bridge, Bear Creek, the lower river, and Manistee Lake.",
+            "gaugeBasis": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It represents the Upper river (High Bridge–Tippy Dam), especially the Tippy Dam area. Conditions can differ in the Middle river, Lower river, Manistee Lake, and harbor.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-big-manistee-steelhead-activity.1"
+          "configVersion": "2026-08-10-big-manistee-copy.1"
         }
       },
       {
@@ -36141,6 +36367,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
           "nextConditionRefreshAt": "2026-08-16T05:00:00.000Z",
           "runStage": {
             "stage": "post_run",
+            "copyStrategy": "big_manistee_tailwater",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -36162,16 +36389,16 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "startToPeakDays": 40,
               "peakToEndDays": 41
             },
-            "label": "Offseason",
-            "headline": "The Big Manistee Coho salmon run is outside its researched window.",
-            "whereToStart": "No dependable Big Manistee location for this fall migration model right now.",
-            "detail": "This fall-spawn profile has ended; another seasonal experience must supply any later species guidance.",
-            "tip": "Do not use this profile to score a different season.",
+            "label": "Fall run complete",
+            "headline": "The Big Manistee Coho salmon fall run is complete.",
+            "whereToStart": "There is no active Big Manistee starting section in this fall-run model.",
+            "detail": "Coho salmon staging typically begins in early September. This seasonal estimate is inactive until then.",
+            "tip": "Check back in early September when Big Manistee fall-run tracking resumes.",
             "reasonCodes": [
               "stage_post_run",
               "stage_offseason"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Not monitoring yet",
@@ -36190,13 +36417,13 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "historicalYears": 0,
             "sourceDates": [],
             "sourceRefreshSlots": {},
-            "headline": "Migration Timing is not active right now.",
-            "detail": "Timing monitoring begins before the expected river entry, but that seasonal observation window is not active yet.",
-            "tip": "Check Migration Stage for the current seasonal position and return to Migration Timing when early monitoring begins.",
+            "headline": "Big Manistee Migration Timing is not monitoring yet.",
+            "detail": "Season-to-date Wellston flow and temperature monitoring resumes in early September.",
+            "tip": "Check back in early September when Big Manistee timing monitoring resumes.",
             "reasonCodes": [
               "conditions_monitoring_inactive"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -36210,21 +36437,21 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
           "push": {
             "score": null,
             "label": "Offseason",
-            "headline": "Push is not active outside the river migration season.",
-            "detail": "Rain, river level, and water temperature can still change, but they do not provide a useful fresh-arrival signal for this species right now.",
-            "tip": "Do not use Push to plan for this species outside its migration season. Follow an active species instead, or return when early monitoring begins.",
+            "headline": "Big Manistee Push is outside its fall movement window.",
+            "detail": "Current Wellston flow and temperature do not provide an in-season fresh-movement signal for this run.",
+            "tip": "Check back in early September.",
             "reasonCodes": [
               "push_tracking_offseason"
             ],
             "rulesVersion": "big-manistee-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 93,
             "label": "Excellent",
-            "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river.",
-            "tip": "Begin on the primary travel lane feeding deep holding water. Work each hole from its head through the inside seam and tail, then keep moving until fish establish a pattern.",
+            "headline": "Upper-river flow is in its best presentation range.",
+            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read covers only the Upper river (High Bridge–Tippy Dam).",
+            "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band"
@@ -36235,11 +36462,12 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": null,
           "fishInRiver": {
-            "score": 0,
+            "score": null,
+            "scoreIsApproximate": false,
             "stage": "post_run",
             "maximum": 100,
             "riverCeiling": 50,
@@ -36247,15 +36475,15 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "curveFraction": 0,
             "curveDirection": "outside",
             "winterHoldingContext": false,
-            "label": "Offseason",
-            "headline": "Coho salmon are outside their river migration season.",
-            "detail": "A dependable seasonal presence of Coho salmon is not expected in the river right now.",
-            "tip": "Do not build a river trip around this species right now. Target a species with an active seasonal window and return as the next migration approaches.",
+            "label": "Fall run complete",
+            "headline": "The Big Manistee Coho salmon fall run is complete.",
+            "detail": "Coho salmon staging typically begins in early September. This seasonal estimate is inactive until then.",
+            "tip": "Check back in early September when Big Manistee fall-run tracking resumes.",
             "reasonCodes": [
               "stage_post_run",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -36481,21 +36709,15 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "data_quality_fresh"
             ]
           },
-          "interpretationNote": {
-            "headline": "The river should fish well, but seasonal fish presence is still low.",
-            "detail": "Good flow makes presentations easier, but it does not put fish in the river. Begin in the deepest established holding water and skip broad searches through fast travel lanes as seasonal presence thins.",
-            "reasonCodes": [
-              "good_fishability_low_presence"
-            ]
-          },
-          "secondaryNote": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It best represents the Tippy tailwater and upper migratory corridor; flow, temperature, access, and fishability can differ downstream through High Bridge, Bear Creek, the lower river, and Manistee Lake.",
+          "interpretationNote": null,
+          "secondaryNote": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It represents the Upper river (High Bridge–Tippy Dam), especially the Tippy Dam area. Conditions can differ in the Middle river, Lower river, Manistee Lake, and harbor.",
           "safety": {
             "regulationReminder": "The Big Manistee below Tippy is a Type 3 reach extending to the railroad bridge below M-55, with a year-round one-Rainbow-Trout limit and special artificial-lure rules during the August 1–November 15 window. Follow current Michigan regulations, DNR closure notices, dam-safety information, and posted boundaries. Fishing methods can change by reach and season.",
-            "gaugeBasis": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It best represents the Tippy tailwater and upper migratory corridor; flow, temperature, access, and fishability can differ downstream through High Bridge, Bear Creek, the lower river, and Manistee Lake.",
+            "gaugeBasis": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It represents the Upper river (High Bridge–Tippy Dam), especially the Tippy Dam area. Conditions can differ in the Middle river, Lower river, Manistee Lake, and harbor.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-big-manistee-steelhead-activity.1"
+          "configVersion": "2026-08-10-big-manistee-copy.1"
         }
       }
     ]
@@ -36520,6 +36742,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
           "nextConditionRefreshAt": "2026-10-01T05:00:00.000Z",
           "runStage": {
             "stage": "beginning",
+            "copyStrategy": "big_manistee_tailwater",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -36542,14 +36765,14 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "peakToEndDays": 41
             },
             "label": "Beginning",
-            "headline": "Coho salmon are accumulating through more of the Big Manistee below Tippy Dam.",
-            "whereToStart": "Check the Tippy tailwater and Tippy-to-High Bridge reach first; if fish are scattered there, compare the High Bridge-Bear Creek middle corridor and lower migratory river for newer arrivals.",
-            "detail": "Earlier fish can already be established in tailwater holding areas while newer fish continue moving through the lower and middle migratory corridor. Numbers can still be uneven between sections.",
-            "tip": "Treat Tippy, High Bridge, and Bear Creek as different checks—not one uniform gauge reach—and let direct fish activity decide where to slow down.",
+            "headline": "Coho salmon are accumulating through more of the Big Manistee.",
+            "whereToStart": "Start in the Lower river (M-55–Bear Creek). Add the Middle river (Bear Creek–High Bridge) after direct fish activity supports the move.",
+            "detail": "More Coho are present, but concentrations remain selective.",
+            "tip": "Follow travel water into substantial holding areas before moving upstream.",
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -36581,15 +36804,15 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "2026-09-09"
             ],
             "sourceRefreshSlots": {},
-            "headline": "There is not enough reliable information for a Migration Timing call.",
-            "tip": "Do not move farther upstream or stay lower based on this timing read. Fish the section identified by Migration Stage and begin in its most established holding water; change sections only when direct fish activity or a dependable later read supports it.",
+            "headline": "There is not enough reliable Big Manistee evidence for a Migration Timing call.",
+            "tip": "Keep the section named by Migration Stage. Do not shift sections from this timing read.",
             "detail": "There are not enough dependable past seasons to judge whether this migration is early, normal, or late.",
             "reasonCodes": [
               "conditions_baseline_missing",
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -36603,9 +36826,9 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
           "push": {
             "score": 30,
             "label": "No clear push",
-            "headline": "Today's water does not show a clear signal for a fresh wave of fish.",
-            "detail": "The river is holding steady with no meaningful rise yet. Water temperature is favorable for fall migration and is relatively steady. Recent weather estimates indicate very little rain around the river.",
-            "tip": "Fish established holding water from the head through the inside seam and tail. Do not spend the day racing between lower travel lanes for a wave the water does not support.",
+            "headline": "Upper-river water does not show a clear fresh-movement signal.",
+            "detail": "The river is holding steady with no meaningful rise yet. Water temperature is favorable for fall migration and is relatively steady. Recent watershed weather shows little rain.",
+            "tip": "Keep Migration Stage’s section primary. Do not shift to fresh-entry water from this read.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
@@ -36624,14 +36847,14 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 93,
             "label": "Excellent",
-            "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river.",
-            "tip": "Begin on the primary travel lane feeding deep holding water. Work each hole from its head through the inside seam and tail, then keep moving until fish establish a pattern.",
+            "headline": "Upper-river flow is in its best presentation range.",
+            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read covers only the Upper river (High Bridge–Tippy Dam).",
+            "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band"
@@ -36642,15 +36865,15 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 76,
             "maximum": 100,
             "label": "Active",
-            "headline": "Today’s Coho activity outlook is active.",
-            "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. Early lake-fresh Coho can remain reactive when measured water temperatures are suitable; this score applies only to fish already in the river. The measured conditions represent the Wellston/Tippy tailwater; water temperature, clarity, and presentation conditions can differ through the middle and lower migratory river. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
-            "tip": "Start with 5–9 AM. If the sky changes from the forecast, favor the darkest practical window.",
+            "headline": "Today’s Upper-river Coho responsiveness is active.",
+            "detail": "Conditions support a meaningful Coho response. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Wellston flow and temperature represent the Upper river, especially the Tippy Dam area.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify downstream sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -36702,10 +36925,13 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 19,
+            "displayScore": 20,
+            "scoreIsApproximate": true,
             "stage": "beginning",
             "maximum": 100,
             "riverCeiling": 50,
@@ -36714,14 +36940,14 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "curveDirection": "rising",
             "winterHoldingContext": false,
             "label": "Limited presence",
-            "headline": "Some Coho salmon are likely in the river, but seasonal presence is still developing.",
-            "detail": "This part of the season usually brings limited presence, with more fish expected to enter and become established through several dependable river sections. This is a seasonal estimate, not a live fish count.",
-            "tip": "Plan for an emerging but uneven river opportunity. Cover water efficiently, and do not assume every promising stop holds fish.",
+            "headline": "Seasonal Coho salmon presence is limited and building.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the Big Manistee Coho salmon ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -36949,14 +37175,14 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             ]
           },
           "interpretationNote": null,
-          "secondaryNote": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It best represents the Tippy tailwater and upper migratory corridor; flow, temperature, access, and fishability can differ downstream through High Bridge, Bear Creek, the lower river, and Manistee Lake.",
+          "secondaryNote": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It represents the Upper river (High Bridge–Tippy Dam), especially the Tippy Dam area. Conditions can differ in the Middle river, Lower river, Manistee Lake, and harbor.",
           "safety": {
             "regulationReminder": "The Big Manistee below Tippy is a Type 3 reach extending to the railroad bridge below M-55, with a year-round one-Rainbow-Trout limit and special artificial-lure rules during the August 1–November 15 window. Follow current Michigan regulations, DNR closure notices, dam-safety information, and posted boundaries. Fishing methods can change by reach and season.",
-            "gaugeBasis": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It best represents the Tippy tailwater and upper migratory corridor; flow, temperature, access, and fishability can differ downstream through High Bridge, Bear Creek, the lower river, and Manistee Lake.",
+            "gaugeBasis": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It represents the Upper river (High Bridge–Tippy Dam), especially the Tippy Dam area. Conditions can differ in the Middle river, Lower river, Manistee Lake, and harbor.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-big-manistee-steelhead-activity.1"
+          "configVersion": "2026-08-10-big-manistee-copy.1"
         }
       },
       {
@@ -36975,6 +37201,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
           "nextConditionRefreshAt": "2026-10-01T05:00:00.000Z",
           "runStage": {
             "stage": "beginning",
+            "copyStrategy": "big_manistee_tailwater",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -36997,14 +37224,14 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "peakToEndDays": 41
             },
             "label": "Beginning",
-            "headline": "Coho salmon are accumulating through more of the Big Manistee below Tippy Dam.",
-            "whereToStart": "Check the Tippy tailwater and Tippy-to-High Bridge reach first; if fish are scattered there, compare the High Bridge-Bear Creek middle corridor and lower migratory river for newer arrivals.",
-            "detail": "Earlier fish can already be established in tailwater holding areas while newer fish continue moving through the lower and middle migratory corridor. Numbers can still be uneven between sections.",
-            "tip": "Treat Tippy, High Bridge, and Bear Creek as different checks—not one uniform gauge reach—and let direct fish activity decide where to slow down.",
+            "headline": "Coho salmon are accumulating through more of the Big Manistee.",
+            "whereToStart": "Start in the Lower river (M-55–Bear Creek). Add the Middle river (Bear Creek–High Bridge) after direct fish activity supports the move.",
+            "detail": "More Coho are present, but concentrations remain selective.",
+            "tip": "Follow travel water into substantial holding areas before moving upstream.",
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -37036,15 +37263,15 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "2026-09-09"
             ],
             "sourceRefreshSlots": {},
-            "headline": "There is not enough reliable information for a Migration Timing call.",
-            "tip": "Do not move farther upstream or stay lower based on this timing read. Fish the section identified by Migration Stage and begin in its most established holding water; change sections only when direct fish activity or a dependable later read supports it.",
+            "headline": "There is not enough reliable Big Manistee evidence for a Migration Timing call.",
+            "tip": "Keep the section named by Migration Stage. Do not shift sections from this timing read.",
             "detail": "There are not enough dependable past seasons to judge whether this migration is early, normal, or late.",
             "reasonCodes": [
               "conditions_baseline_missing",
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -37058,9 +37285,9 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
           "push": {
             "score": 20,
             "label": "Weak",
-            "headline": "The water may support fresh movement, but an aging river reading limits confidence.",
-            "detail": "The river is holding steady with no meaningful rise yet. Water temperature is favorable for fall migration and is relatively steady. Recent weather estimates indicate very little rain around the river. The latest river-level reading is aging, so confidence is reduced.",
-            "tip": "Do not relocate the trip around this Push read. Begin in established holding water, verify the river at the first access, and add travel lanes only after confirming workable conditions.",
+            "headline": "Upper-river water shows little support for fresh movement.",
+            "detail": "The river is holding steady with no meaningful rise yet. Water temperature is favorable for fall migration and is relatively steady. The Wellston reading is aging, so confidence is reduced.",
+            "tip": "Keep Migration Stage’s section primary. Do not shift to fresh-entry water from this read.",
             "reasonCodes": [
               "gauge_stale",
               "push_normal_flow_context",
@@ -37080,14 +37307,14 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 55,
             "label": "Fishable",
-            "headline": "The last river reading was fishable, but it is aging and may no longer describe the water accurately.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. Because the latest reading is aging, the river may have changed since it was reported. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river.",
-            "tip": "Do not choose a reach from this reading alone. Check the water at the first access, and begin only in bank-side water where you can control the entire presentation.",
+            "headline": "The aging Wellston reading limits Upper-river Fishability confidence.",
+            "detail": "The flow band offers the broadest mix of depth and presentation control. The Upper river may have changed since the last Wellston reading. This read covers only the Upper river (High Bridge–Tippy Dam).",
+            "tip": "Verify the Upper river directly before choosing presentation water.",
             "reasonCodes": [
               "gauge_stale",
               "ideal_flow_band",
@@ -37101,15 +37328,15 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               ]
             },
             "rulesVersion": "big-manistee-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 50,
             "maximum": 100,
             "label": "Moderate",
-            "headline": "Today’s Coho activity outlook is moderate.",
-            "detail": "Some useful factors are present, but the response window is mixed. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Current river behavior is unavailable. Early lake-fresh Coho can remain reactive when measured water temperatures are suitable; this score applies only to fish already in the river. The measured conditions represent the Wellston/Tippy tailwater; water temperature, clarity, and presentation conditions can differ through the middle and lower migratory river. One important reading is unavailable or comes from tomorrow’s forecast, so the outlook is kept conservative.",
-            "tip": "Start with 5–9 AM. If the sky changes from the forecast, favor the darkest practical window.",
+            "headline": "Today’s Upper-river Coho responsiveness is moderate.",
+            "detail": "Conditions offer mixed support for Coho responsiveness. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Moderate confidence reflects missing or forecast inputs; Wellston still represents only the Upper river.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify downstream sections directly.",
             "reasonCodes": [
               "activity_confidence_moderate",
               "activity_today",
@@ -37161,10 +37388,13 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 19,
+            "displayScore": 20,
+            "scoreIsApproximate": true,
             "stage": "beginning",
             "maximum": 100,
             "riverCeiling": 50,
@@ -37173,14 +37403,14 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "curveDirection": "rising",
             "winterHoldingContext": false,
             "label": "Limited presence",
-            "headline": "Some Coho salmon are likely in the river, but seasonal presence is still developing.",
-            "detail": "This part of the season usually brings limited presence, with more fish expected to enter and become established through several dependable river sections. This is a seasonal estimate, not a live fish count.",
-            "tip": "Plan for an emerging but uneven river opportunity. Cover water efficiently, and do not assume every promising stop holds fish.",
+            "headline": "Seasonal Coho salmon presence is limited and building.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the Big Manistee Coho salmon ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -37408,14 +37638,14 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             ]
           },
           "interpretationNote": null,
-          "secondaryNote": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It best represents the Tippy tailwater and upper migratory corridor; flow, temperature, access, and fishability can differ downstream through High Bridge, Bear Creek, the lower river, and Manistee Lake.",
+          "secondaryNote": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It represents the Upper river (High Bridge–Tippy Dam), especially the Tippy Dam area. Conditions can differ in the Middle river, Lower river, Manistee Lake, and harbor.",
           "safety": {
             "regulationReminder": "The Big Manistee below Tippy is a Type 3 reach extending to the railroad bridge below M-55, with a year-round one-Rainbow-Trout limit and special artificial-lure rules during the August 1–November 15 window. Follow current Michigan regulations, DNR closure notices, dam-safety information, and posted boundaries. Fishing methods can change by reach and season.",
-            "gaugeBasis": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It best represents the Tippy tailwater and upper migratory corridor; flow, temperature, access, and fishability can differ downstream through High Bridge, Bear Creek, the lower river, and Manistee Lake.",
+            "gaugeBasis": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It represents the Upper river (High Bridge–Tippy Dam), especially the Tippy Dam area. Conditions can differ in the Middle river, Lower river, Manistee Lake, and harbor.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-big-manistee-steelhead-activity.1"
+          "configVersion": "2026-08-10-big-manistee-copy.1"
         }
       },
       {
@@ -37434,6 +37664,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
           "nextConditionRefreshAt": "2026-10-01T05:00:00.000Z",
           "runStage": {
             "stage": "beginning",
+            "copyStrategy": "big_manistee_tailwater",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -37456,14 +37687,14 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "peakToEndDays": 41
             },
             "label": "Beginning",
-            "headline": "Coho salmon are accumulating through more of the Big Manistee below Tippy Dam.",
-            "whereToStart": "Check the Tippy tailwater and Tippy-to-High Bridge reach first; if fish are scattered there, compare the High Bridge-Bear Creek middle corridor and lower migratory river for newer arrivals.",
-            "detail": "Earlier fish can already be established in tailwater holding areas while newer fish continue moving through the lower and middle migratory corridor. Numbers can still be uneven between sections.",
-            "tip": "Treat Tippy, High Bridge, and Bear Creek as different checks—not one uniform gauge reach—and let direct fish activity decide where to slow down.",
+            "headline": "Coho salmon are accumulating through more of the Big Manistee.",
+            "whereToStart": "Start in the Lower river (M-55–Bear Creek). Add the Middle river (Bear Creek–High Bridge) after direct fish activity supports the move.",
+            "detail": "More Coho are present, but concentrations remain selective.",
+            "tip": "Follow travel water into substantial holding areas before moving upstream.",
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -37495,15 +37726,15 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "2026-09-09"
             ],
             "sourceRefreshSlots": {},
-            "headline": "There is not enough reliable information for a Migration Timing call.",
-            "tip": "Do not move farther upstream or stay lower based on this timing read. Fish the section identified by Migration Stage and begin in its most established holding water; change sections only when direct fish activity or a dependable later read supports it.",
+            "headline": "There is not enough reliable Big Manistee evidence for a Migration Timing call.",
+            "tip": "Keep the section named by Migration Stage. Do not shift sections from this timing read.",
             "detail": "There are not enough dependable past seasons to judge whether this migration is early, normal, or late.",
             "reasonCodes": [
               "conditions_baseline_missing",
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -37524,27 +37755,27 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "gauge_missing"
             ],
             "rulesVersion": "big-manistee-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": null,
             "label": "Unavailable",
-            "headline": "There is no dependable Fishability read right now.",
-            "detail": "A recent river-level reading is missing, so current flow and direction cannot be judged responsibly.",
-            "tip": "Do not plan from the last known level. Check again after the next update, and verify the river at the first access before choosing where or how to fish.",
+            "headline": "A current Wellston Fishability reading is unavailable.",
+            "detail": "Without current Wellston flow and direction, Upper-river presentation conditions cannot be determined.",
+            "tip": "Do not extend an old or missing Wellston read through the Big Manistee. Verify current conditions directly.",
             "reasonCodes": [
               "gauge_missing"
             ],
             "rulesVersion": "big-manistee-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 50,
             "maximum": 100,
             "label": "Moderate",
-            "headline": "Today’s Coho activity outlook is moderate.",
-            "detail": "Some useful factors are present, but the response window is mixed. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Current river behavior is unavailable. Early lake-fresh Coho can remain reactive when measured water temperatures are suitable; this score applies only to fish already in the river. The measured conditions represent the Wellston/Tippy tailwater; water temperature, clarity, and presentation conditions can differ through the middle and lower migratory river. One important reading is unavailable or comes from tomorrow’s forecast, so the outlook is kept conservative.",
-            "tip": "Start with 5–9 AM. If the sky changes from the forecast, favor the darkest practical window.",
+            "headline": "Today’s Upper-river Coho responsiveness is moderate.",
+            "detail": "Conditions offer mixed support for Coho responsiveness. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Moderate confidence reflects missing or forecast inputs; Wellston still represents only the Upper river.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify downstream sections directly.",
             "reasonCodes": [
               "activity_confidence_moderate",
               "activity_today",
@@ -37596,10 +37827,13 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 19,
+            "displayScore": 20,
+            "scoreIsApproximate": true,
             "stage": "beginning",
             "maximum": 100,
             "riverCeiling": 50,
@@ -37608,14 +37842,14 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "curveDirection": "rising",
             "winterHoldingContext": false,
             "label": "Limited presence",
-            "headline": "Some Coho salmon are likely in the river, but seasonal presence is still developing.",
-            "detail": "This part of the season usually brings limited presence, with more fish expected to enter and become established through several dependable river sections. This is a seasonal estimate, not a live fish count.",
-            "tip": "Plan for an emerging but uneven river opportunity. Cover water efficiently, and do not assume every promising stop holds fish.",
+            "headline": "Seasonal Coho salmon presence is limited and building.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the Big Manistee Coho salmon ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": null,
           "weather": {
@@ -37833,14 +38067,14 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             ]
           },
           "interpretationNote": null,
-          "secondaryNote": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It best represents the Tippy tailwater and upper migratory corridor; flow, temperature, access, and fishability can differ downstream through High Bridge, Bear Creek, the lower river, and Manistee Lake.",
+          "secondaryNote": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It represents the Upper river (High Bridge–Tippy Dam), especially the Tippy Dam area. Conditions can differ in the Middle river, Lower river, Manistee Lake, and harbor.",
           "safety": {
             "regulationReminder": "The Big Manistee below Tippy is a Type 3 reach extending to the railroad bridge below M-55, with a year-round one-Rainbow-Trout limit and special artificial-lure rules during the August 1–November 15 window. Follow current Michigan regulations, DNR closure notices, dam-safety information, and posted boundaries. Fishing methods can change by reach and season.",
-            "gaugeBasis": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It best represents the Tippy tailwater and upper migratory corridor; flow, temperature, access, and fishability can differ downstream through High Bridge, Bear Creek, the lower river, and Manistee Lake.",
+            "gaugeBasis": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It represents the Upper river (High Bridge–Tippy Dam), especially the Tippy Dam area. Conditions can differ in the Middle river, Lower river, Manistee Lake, and harbor.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-big-manistee-steelhead-activity.1"
+          "configVersion": "2026-08-10-big-manistee-copy.1"
         }
       },
       {
@@ -37859,6 +38093,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
           "nextConditionRefreshAt": "2026-10-01T05:00:00.000Z",
           "runStage": {
             "stage": "beginning",
+            "copyStrategy": "big_manistee_tailwater",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -37881,14 +38116,14 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "peakToEndDays": 41
             },
             "label": "Beginning",
-            "headline": "Coho salmon are accumulating through more of the Big Manistee below Tippy Dam.",
-            "whereToStart": "Check the Tippy tailwater and Tippy-to-High Bridge reach first; if fish are scattered there, compare the High Bridge-Bear Creek middle corridor and lower migratory river for newer arrivals.",
-            "detail": "Earlier fish can already be established in tailwater holding areas while newer fish continue moving through the lower and middle migratory corridor. Numbers can still be uneven between sections.",
-            "tip": "Treat Tippy, High Bridge, and Bear Creek as different checks—not one uniform gauge reach—and let direct fish activity decide where to slow down.",
+            "headline": "Coho salmon are accumulating through more of the Big Manistee.",
+            "whereToStart": "Start in the Lower river (M-55–Bear Creek). Add the Middle river (Bear Creek–High Bridge) after direct fish activity supports the move.",
+            "detail": "More Coho are present, but concentrations remain selective.",
+            "tip": "Follow travel water into substantial holding areas before moving upstream.",
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -37920,15 +38155,15 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "2026-09-09"
             ],
             "sourceRefreshSlots": {},
-            "headline": "There is not enough reliable information for a Migration Timing call.",
-            "tip": "Do not move farther upstream or stay lower based on this timing read. Fish the section identified by Migration Stage and begin in its most established holding water; change sections only when direct fish activity or a dependable later read supports it.",
+            "headline": "There is not enough reliable Big Manistee evidence for a Migration Timing call.",
+            "tip": "Keep the section named by Migration Stage. Do not shift sections from this timing read.",
             "detail": "There are not enough dependable past seasons to judge whether this migration is early, normal, or late.",
             "reasonCodes": [
               "conditions_baseline_missing",
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -37950,14 +38185,14 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "temperature_unavailable"
             ],
             "rulesVersion": "big-manistee-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 93,
             "label": "Excellent",
-            "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river.",
-            "tip": "Begin on the primary travel lane feeding deep holding water. Work each hole from its head through the inside seam and tail, then keep moving until fish establish a pattern.",
+            "headline": "Upper-river flow is in its best presentation range.",
+            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read covers only the Upper river (High Bridge–Tippy Dam).",
+            "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band"
@@ -37968,15 +38203,15 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 53,
             "maximum": 100,
             "label": "Moderate",
-            "headline": "Today’s Coho activity outlook is moderate.",
-            "detail": "Some useful factors are present, but the response window is mixed. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Measured water temperature is unavailable. Early lake-fresh Coho can remain reactive when measured water temperatures are suitable; this score applies only to fish already in the river. The measured conditions represent the Wellston/Tippy tailwater; water temperature, clarity, and presentation conditions can differ through the middle and lower migratory river. One important reading is unavailable or comes from tomorrow’s forecast, so the outlook is kept conservative.",
-            "tip": "Start with 5–9 AM. If the sky changes from the forecast, favor the darkest practical window.",
+            "headline": "Today’s Upper-river Coho responsiveness is moderate.",
+            "detail": "Conditions offer mixed support for Coho responsiveness. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Moderate confidence reflects missing or forecast inputs; Wellston still represents only the Upper river.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify downstream sections directly.",
             "reasonCodes": [
               "activity_confidence_moderate",
               "activity_today",
@@ -38028,10 +38263,13 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 19,
+            "displayScore": 20,
+            "scoreIsApproximate": true,
             "stage": "beginning",
             "maximum": 100,
             "riverCeiling": 50,
@@ -38040,14 +38278,14 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "curveDirection": "rising",
             "winterHoldingContext": false,
             "label": "Limited presence",
-            "headline": "Some Coho salmon are likely in the river, but seasonal presence is still developing.",
-            "detail": "This part of the season usually brings limited presence, with more fish expected to enter and become established through several dependable river sections. This is a seasonal estimate, not a live fish count.",
-            "tip": "Plan for an emerging but uneven river opportunity. Cover water efficiently, and do not assume every promising stop holds fish.",
+            "headline": "Seasonal Coho salmon presence is limited and building.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the Big Manistee Coho salmon ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -38258,14 +38496,14 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             ]
           },
           "interpretationNote": null,
-          "secondaryNote": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It best represents the Tippy tailwater and upper migratory corridor; flow, temperature, access, and fishability can differ downstream through High Bridge, Bear Creek, the lower river, and Manistee Lake.",
+          "secondaryNote": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It represents the Upper river (High Bridge–Tippy Dam), especially the Tippy Dam area. Conditions can differ in the Middle river, Lower river, Manistee Lake, and harbor.",
           "safety": {
             "regulationReminder": "The Big Manistee below Tippy is a Type 3 reach extending to the railroad bridge below M-55, with a year-round one-Rainbow-Trout limit and special artificial-lure rules during the August 1–November 15 window. Follow current Michigan regulations, DNR closure notices, dam-safety information, and posted boundaries. Fishing methods can change by reach and season.",
-            "gaugeBasis": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It best represents the Tippy tailwater and upper migratory corridor; flow, temperature, access, and fishability can differ downstream through High Bridge, Bear Creek, the lower river, and Manistee Lake.",
+            "gaugeBasis": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It represents the Upper river (High Bridge–Tippy Dam), especially the Tippy Dam area. Conditions can differ in the Middle river, Lower river, Manistee Lake, and harbor.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-big-manistee-steelhead-activity.1"
+          "configVersion": "2026-08-10-big-manistee-copy.1"
         }
       }
     ]

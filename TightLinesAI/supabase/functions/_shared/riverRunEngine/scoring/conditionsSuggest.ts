@@ -115,7 +115,21 @@ export function scoreConditionsSuggest(input: {
     input.localDate,
   );
   const pereMarquette = input.run.runStageCopyStrategy === "pere_marquette";
+  const bigManistee = input.run.runStageCopyStrategy ===
+    "big_manistee_tailwater";
+  const muskegon = input.run.runStageCopyStrategy ===
+    "muskegon_croton_tailwater";
+  const stJoseph = input.run.runStageCopyStrategy === "st_joseph_corridor";
   const pmFallEntryComplete = pereMarquette &&
+    input.run.runType === "fall_entry" &&
+    compareLocalDates(input.localDate, checkpointState.window.endDate) > 0;
+  const bigManisteeFallEntryComplete = bigManistee &&
+    input.run.runType === "fall_entry" &&
+    compareLocalDates(input.localDate, checkpointState.window.endDate) > 0;
+  const muskegonFallEntryComplete = muskegon &&
+    input.run.runType === "fall_entry" &&
+    compareLocalDates(input.localDate, checkpointState.window.endDate) > 0;
+  const stJosephFallEntryComplete = stJoseph &&
     input.run.runType === "fall_entry" &&
     compareLocalDates(input.localDate, checkpointState.window.endDate) > 0;
   const monitoringInactive = compareLocalDates(
@@ -125,13 +139,17 @@ export function scoreConditionsSuggest(input: {
     compareLocalDates(
             input.localDate,
             checkpointState.window.postRunLateCopyEndDate,
-          ) > 0 && !pmFallEntryComplete;
+          ) > 0 &&
+      !pmFallEntryComplete && !bigManisteeFallEntryComplete &&
+      !muskegonFallEntryComplete && !stJosephFallEntryComplete;
   if (monitoringInactive) {
     return inactiveResult({
       observationStartDate: checkpointState.window.stagingStartDate,
       nextCheckpointDate: checkpointState.nextCheckpoint?.checkpointDate,
       stJoseph: input.run.runStageCopyStrategy === "st_joseph_corridor",
       pereMarquette,
+      bigManistee,
+      muskegon,
     });
   }
   if (!checkpointState.activeCheckpoint) {
@@ -141,6 +159,8 @@ export function scoreConditionsSuggest(input: {
       nextCheckpointDate: checkpointState.nextCheckpoint?.checkpointDate,
       stJoseph: input.run.runStageCopyStrategy === "st_joseph_corridor",
       pereMarquette,
+      bigManistee,
+      muskegon,
     });
   }
 
@@ -188,6 +208,8 @@ export function scoreConditionsSuggest(input: {
       nextCheckpointDate: checkpointState.nextCheckpoint?.checkpointDate,
       stJoseph: input.run.runStageCopyStrategy === "st_joseph_corridor",
       pereMarquette,
+      bigManistee,
+      muskegon,
     });
   }
   if (!checkpointState.complete) return activeResult;
@@ -199,6 +221,9 @@ export function scoreConditionsSuggest(input: {
       !pereMarquette &&
       compareLocalDates(input.localDate, checkpointState.window.endDate) > 0,
     pmFallEntryComplete,
+    bigManisteeFallEntryComplete,
+    muskegonFallEntryComplete,
+    stJosephFallEntryComplete,
   });
 }
 
@@ -207,6 +232,8 @@ function inactiveResult(input: {
   nextCheckpointDate?: string;
   stJoseph: boolean;
   pereMarquette: boolean;
+  bigManistee: boolean;
+  muskegon: boolean;
 }): ConditionsSuggestResult {
   return {
     label: "Not monitoring yet",
@@ -227,9 +254,21 @@ function inactiveResult(input: {
     sourceRefreshSlots: {},
     headline: input.pereMarquette
       ? "PM Migration Timing is not monitoring yet."
+      : input.bigManistee
+      ? "Big Manistee Migration Timing is not monitoring yet."
+      : input.muskegon
+      ? "Muskegon Migration Timing is not monitoring yet."
       : "Migration Timing is not active right now.",
     detail: input.pereMarquette
       ? `Season-to-date Scottville flow and M-37 temperature monitoring resumes ${
+        seasonalReturnPhrase(input.observationStartDate.slice(5))
+      }.`
+      : input.bigManistee
+      ? `Season-to-date Wellston flow and temperature monitoring resumes ${
+        seasonalReturnPhrase(input.observationStartDate.slice(5))
+      }.`
+      : input.muskegon
+      ? `Season-to-date Croton flow and measured-temperature monitoring resumes ${
         seasonalReturnPhrase(input.observationStartDate.slice(5))
       }.`
       : "Timing monitoring begins before the expected river entry, but that seasonal observation window is not active yet.",
@@ -239,6 +278,14 @@ function inactiveResult(input: {
       ? `Check back ${
         seasonalReturnPhrase(input.observationStartDate.slice(5))
       } when PM timing monitoring resumes.`
+      : input.bigManistee
+      ? `Check back ${
+        seasonalReturnPhrase(input.observationStartDate.slice(5))
+      } when Big Manistee timing monitoring resumes.`
+      : input.muskegon
+      ? `Check back ${
+        seasonalReturnPhrase(input.observationStartDate.slice(5))
+      } when Muskegon timing monitoring resumes.`
       : "Check Migration Stage for the current seasonal position and return to Migration Timing when early monitoring begins.",
     reasonCodes: ["conditions_monitoring_inactive"],
     copyVersion: RIVER_RUN_COPY_VERSION,
@@ -300,6 +347,10 @@ function scoreCheckpoint(input: {
   if (evidenceGate) {
     return insufficientResult({
       pereMarquette: input.run.runStageCopyStrategy === "pere_marquette",
+      bigManistee: input.run.runStageCopyStrategy ===
+        "big_manistee_tailwater",
+      muskegon: input.run.runStageCopyStrategy ===
+        "muskegon_croton_tailwater",
       checkpoint: input.checkpoint,
       nextCheckpointDate: input.nextCheckpointDate,
       completedCheckpointCount: input.completedCheckpointCount,
@@ -327,6 +378,10 @@ function scoreCheckpoint(input: {
   if (!summary || summary.transitionCount < 4) {
     return insufficientResult({
       pereMarquette: input.run.runStageCopyStrategy === "pere_marquette",
+      bigManistee: input.run.runStageCopyStrategy ===
+        "big_manistee_tailwater",
+      muskegon: input.run.runStageCopyStrategy ===
+        "muskegon_croton_tailwater",
       checkpoint: input.checkpoint,
       nextCheckpointDate: input.nextCheckpointDate,
       completedCheckpointCount: input.completedCheckpointCount,
@@ -448,6 +503,10 @@ function scoreCheckpoint(input: {
       oppositeCheckpointTempered,
       stJoseph: input.run.runStageCopyStrategy === "st_joseph_corridor",
       pereMarquette: input.run.runStageCopyStrategy === "pere_marquette",
+      bigManistee: input.run.runStageCopyStrategy ===
+        "big_manistee_tailwater",
+      muskegon: input.run.runStageCopyStrategy ===
+        "muskegon_croton_tailwater",
     }),
     reasonCodes: [...reasonCodes],
     copyVersion: RIVER_RUN_COPY_VERSION,
@@ -714,8 +773,12 @@ function conditionsCopy(input: {
   oppositeCheckpointTempered: boolean;
   stJoseph: boolean;
   pereMarquette: boolean;
+  bigManistee: boolean;
+  muskegon: boolean;
 }): Pick<PrimitiveDisplay, "headline" | "detail" | "tip"> {
   if (input.pereMarquette) return pereMarquetteConditionsCopy(input);
+  if (input.bigManistee) return bigManisteeConditionsCopy(input);
+  if (input.muskegon) return muskegonConditionsCopy(input);
   if (input.oppositeCheckpointTempered) {
     return {
       headline:
@@ -768,6 +831,106 @@ function conditionsCopy(input: {
           : "Start in the lower river and fish the first deep holding water connected to lake-entry travel lanes. Do not assume the middle and upper river have filled in yet.",
       };
   }
+}
+
+function bigManisteeConditionsCopy(input: {
+  label: Exclude<ConditionsTimingLabel, "Insufficient evidence">;
+  signalsStronglyMixed: boolean;
+  oppositeCheckpointTempered: boolean;
+}): Pick<PrimitiveDisplay, "headline" | "detail" | "tip"> {
+  if (input.oppositeCheckpointTempered) {
+    return {
+      headline:
+        "Big Manistee migration timing remains Typical after a change in direction.",
+      detail:
+        "Recent Wellston flow and temperature evidence reversed. The season-long Upper-river pattern does not support changing the prior call yet.",
+      tip:
+        "Keep the section named by Migration Stage. Do not shift sections from this reversal alone.",
+    };
+  }
+  if (input.signalsStronglyMixed) {
+    return {
+      headline:
+        "Big Manistee migration timing remains Typical because the signals are mixed.",
+      detail:
+        "Wellston river-rise activity and measured cooling point in opposite directions. Together they do not support an early or late call.",
+      tip:
+        "Keep the section named by Migration Stage. Use Push only for current fresh-movement support.",
+    };
+  }
+  const copy = ({
+    Ahead: {
+      headline: "Big Manistee migration is developing earlier than usual.",
+      detail:
+        "Season-to-date Wellston river-rise activity and measured cooling are stronger than the usual Upper-river pattern.",
+      tip:
+        "Start one section upstream from Migration Stage, capped at the Upper river (High Bridge–Tippy Dam).",
+    },
+    Typical: {
+      headline:
+        "Big Manistee migration is progressing at its usual seasonal pace.",
+      detail:
+        "Season-to-date Wellston river-rise activity and measured cooling are close to the usual Upper-river pattern.",
+      tip: "Keep the Big Manistee section named by Migration Stage.",
+    },
+    Delayed: {
+      headline: "Big Manistee migration is developing later than usual.",
+      detail:
+        "Season-to-date Wellston river-rise activity and measured cooling are weaker than the usual Upper-river pattern.",
+      tip:
+        "Start one section downstream from Migration Stage, capped at the Lower river (M-55–Bear Creek).",
+    },
+  } as const)[input.label];
+  return copy;
+}
+
+function muskegonConditionsCopy(input: {
+  label: Exclude<ConditionsTimingLabel, "Insufficient evidence">;
+  signalsStronglyMixed: boolean;
+  oppositeCheckpointTempered: boolean;
+}): Pick<PrimitiveDisplay, "headline" | "detail" | "tip"> {
+  if (input.oppositeCheckpointTempered) {
+    return {
+      headline:
+        "Muskegon migration timing remains Typical after a change in direction.",
+      detail:
+        "Recent Croton flow and measured-temperature evidence reversed. The season-long pattern does not support changing the prior call yet.",
+      tip:
+        "Keep the section named by Migration Stage. Do not shift sections from this reversal alone.",
+    };
+  }
+  if (input.signalsStronglyMixed) {
+    return {
+      headline:
+        "Muskegon migration timing remains Typical because the signals are mixed.",
+      detail:
+        "Croton river-rise activity and measured cooling point in opposite directions. Together they do not support an early or late call.",
+      tip:
+        "Keep the section named by Migration Stage. Use Push only for current movement support near Croton Dam.",
+    };
+  }
+  return ({
+    Ahead: {
+      headline: "Muskegon migration is developing earlier than usual.",
+      detail:
+        "Season-to-date Croton river-rise activity and measured cooling are stronger than the usual pattern.",
+      tip:
+        "Start one section upstream from Migration Stage, capped at the Upper river (Newaygo–Croton Dam).",
+    },
+    Typical: {
+      headline: "Muskegon migration is progressing at its usual seasonal pace.",
+      detail:
+        "Season-to-date Croton river-rise activity and measured cooling are close to the usual pattern.",
+      tip: "Keep the Muskegon section named by Migration Stage.",
+    },
+    Delayed: {
+      headline: "Muskegon migration is developing later than usual.",
+      detail:
+        "Season-to-date Croton river-rise activity and measured cooling are weaker than the usual pattern.",
+      tip:
+        "Start one section downstream from Migration Stage, capped at the Lower river (Muskegon Lake–M-120).",
+    },
+  } as const)[input.label];
 }
 
 function pereMarquetteConditionsCopy(input: {
@@ -828,6 +991,8 @@ function awaitingResult(input: {
   nextCheckpointDate?: string;
   stJoseph: boolean;
   pereMarquette: boolean;
+  bigManistee: boolean;
+  muskegon: boolean;
 }): ConditionsSuggestResult {
   return {
     label: "Evaluating",
@@ -848,11 +1013,19 @@ function awaitingResult(input: {
     sourceRefreshSlots: {},
     headline: input.pereMarquette
       ? "PM Migration Timing is still taking shape."
+      : input.bigManistee
+      ? "Big Manistee Migration Timing is still taking shape."
+      : input.muskegon
+      ? "Muskegon Migration Timing is still taking shape."
       : input.observationStarted
       ? "Migration Timing is still taking shape."
       : "It is too early for a dependable timing read.",
     detail: input.pereMarquette
       ? "Scottville river-rise activity and M-37 cooling do not yet support an Ahead, Typical, or Delayed call."
+      : input.bigManistee
+      ? "Wellston flow and measured temperature do not yet support an Ahead, Typical, or Delayed call."
+      : input.muskegon
+      ? "Croton flow and measured temperature do not yet support an Ahead, Typical, or Delayed call."
       : input.observationStarted
       ? "The early river and temperature pattern is still developing, so an Ahead, Typical, or Delayed call would be premature."
       : "The migration has not developed enough to compare its pace with a typical season.",
@@ -862,6 +1035,10 @@ function awaitingResult(input: {
         : "Keep the trip in Lake Michigan, the St. Joseph harbor, and river-mouth water. Do not use an incomplete Niles timing read to justify an inland corridor trip."
       : input.pereMarquette
       ? "Keep the section named by Migration Stage. Do not shift PM sections until this read has enough evidence."
+      : input.bigManistee
+      ? "Keep the section named by Migration Stage until this read has enough Upper-river evidence."
+      : input.muskegon
+      ? "Keep the section named by Migration Stage until this read has enough Croton-area evidence."
       : input.observationStarted
       ? "Keep the trip centered on the river mouth and earliest lower-river holding water. Move inland only when Migration Stage advances or direct fish activity supports it."
       : "Keep the trip in the lake, harbor, and river-mouth zone. Do not use Migration Timing to justify an inland river trip before a dependable seasonal pattern exists.",
@@ -874,12 +1051,12 @@ function stJosephTimingTip(
   state: "ahead" | "typical" | "delayed",
 ): string {
   if (state === "ahead") {
-    return "Start one legal section upriver from the normal Migration Stage plan—Buchanan or Niles before South Bend-Mishawaka—and still check lower-Michigan travel water when Push supports fresh entry.";
+    return "Start one approved section upriver from the Migration Stage plan. Keep the Lower river as a fresh-entry check when Push supports it.";
   }
   if (state === "delayed") {
-    return "Stay in the St. Joseph harbor-to-Berrien Springs corridor and its first deep holding water. Do not assume Niles or Indiana has filled in from a delayed Niles timing pattern.";
+    return "Stay in the Lower river (St. Joseph harbor–Berrien Springs). Do not assume the Middle or Upper river has filled in.";
   }
-  return "Use the section named by Migration Stage. Compare established Niles-area holding water with lower travel lanes only when Push supports it; verify Indiana sections independently.";
+  return "Use the section named by Migration Stage. Add a Lower-river fresh-entry check only when Push supports it.";
 }
 
 function completeResult(input: {
@@ -887,12 +1064,33 @@ function completeResult(input: {
   mainRunWindowPassed: boolean;
   winterHoldingHandoff: boolean;
   pmFallEntryComplete: boolean;
+  bigManisteeFallEntryComplete: boolean;
+  muskegonFallEntryComplete: boolean;
+  stJosephFallEntryComplete: boolean;
 }): ConditionsSuggestResult {
   const timingLabel = input.checkpointResult.timingLabel;
   const finalDetail = input.pmFallEntryComplete
     ? timingLabel === "Insufficient evidence"
       ? "The PM fall-entry timing window closed without enough reliable evidence for an early, typical, or delayed call."
       : `Earlier in fall, PM migration timing was ${
+        timingPhrase(timingLabel)
+      }. The fall-entry timing window is now complete.`
+    : input.bigManisteeFallEntryComplete
+    ? timingLabel === "Insufficient evidence"
+      ? "The Big Manistee fall-entry timing window closed without enough reliable evidence for an early, typical, or delayed call."
+      : `Earlier in fall, Big Manistee migration timing was ${
+        timingPhrase(timingLabel)
+      }. The fall-entry timing window is now complete.`
+    : input.muskegonFallEntryComplete
+    ? timingLabel === "Insufficient evidence"
+      ? "The Muskegon fall-entry timing window closed without enough reliable evidence for an early, typical, or delayed call."
+      : `Earlier in fall, Muskegon migration timing was ${
+        timingPhrase(timingLabel)
+      }. The fall-entry timing window is now complete.`
+    : input.stJosephFallEntryComplete
+    ? timingLabel === "Insufficient evidence"
+      ? "The St. Joseph fall-entry timing window closed without enough reliable evidence for an early, typical, or delayed call."
+      : `Earlier in fall, St. Joseph migration timing was ${
         timingPhrase(timingLabel)
       }. The fall-entry timing window is now complete.`
     : input.winterHoldingHandoff
@@ -915,12 +1113,24 @@ function completeResult(input: {
     label: "Timing complete",
     headline: input.pmFallEntryComplete
       ? "PM fall-entry Migration Timing is complete."
+      : input.bigManisteeFallEntryComplete
+      ? "Big Manistee fall-entry Migration Timing is complete."
+      : input.muskegonFallEntryComplete
+      ? "Muskegon fall-entry Migration Timing is complete."
+      : input.stJosephFallEntryComplete
+      ? "St. Joseph fall-entry Migration Timing is complete."
       : input.mainRunWindowPassed
       ? "This season's Migration Timing read is complete."
       : "The early-season timing read is complete.",
     detail: finalDetail,
     tip: input.pmFallEntryComplete
       ? "Do not use completed fall timing to infer current presence or activity. PM fall monitoring resumes in early September."
+      : input.bigManisteeFallEntryComplete
+      ? "Do not use completed fall timing to infer current presence or activity. Big Manistee fall monitoring resumes in early September."
+      : input.muskegonFallEntryComplete
+      ? "Do not use completed fall timing to infer current presence or activity. Muskegon fall monitoring resumes in early September."
+      : input.stJosephFallEntryComplete
+      ? "Do not use completed fall timing to infer current presence or activity. St. Joseph fall-entry monitoring resumes around September 10."
       : input.winterHoldingHandoff
       ? "Stop planning around whether fall entry was early or late. Use the winter fishery read to judge current activity and presentation."
       : input.mainRunWindowPassed
@@ -938,6 +1148,8 @@ function completeResult(input: {
 
 function insufficientResult(input: {
   pereMarquette: boolean;
+  bigManistee: boolean;
+  muskegon: boolean;
   checkpoint: ConditionsSuggestCheckpoint;
   nextCheckpointDate?: string;
   completedCheckpointCount: number;
@@ -978,7 +1190,12 @@ function insufficientResult(input: {
     temperatureSourceId: input.baseline?.temperatureSourceId,
     sourceDates: input.sourceDates,
     sourceRefreshSlots: input.sourceRefreshSlots,
-    ...insufficientCopy(insufficientReason, input.pereMarquette),
+    ...insufficientCopy(
+      insufficientReason,
+      input.pereMarquette,
+      input.bigManistee,
+      input.muskegon,
+    ),
     reasonCodes: [
       ...new Set([
         ...input.reasonCodes,
@@ -992,13 +1209,23 @@ function insufficientResult(input: {
 function insufficientCopy(
   reason?: RiverRunReasonCode,
   pereMarquette = false,
+  bigManistee = false,
+  muskegon = false,
 ): Pick<PrimitiveDisplay, "headline" | "detail" | "tip"> {
   const base = {
     headline: pereMarquette
       ? "There is not enough reliable PM evidence for a Migration Timing call."
+      : bigManistee
+      ? "There is not enough reliable Big Manistee evidence for a Migration Timing call."
+      : muskegon
+      ? "There is not enough reliable Muskegon evidence for a Migration Timing call."
       : "There is not enough reliable information for a Migration Timing call.",
     tip: pereMarquette
       ? "Keep the PM section named by Migration Stage. Do not shift upstream or downstream from this timing read."
+      : bigManistee
+      ? "Keep the section named by Migration Stage. Do not shift sections from this timing read."
+      : muskegon
+      ? "Keep the Muskegon section named by Migration Stage. Do not shift sections from this timing read."
       : "Do not move farther upstream or stay lower based on this timing read. Fish the section identified by Migration Stage and begin in its most established holding water; change sections only when direct fish activity or a dependable later read supports it.",
   };
   switch (reason) {

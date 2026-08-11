@@ -49,14 +49,18 @@ Deno.test("St. Joseph Chinook is a 3/10 sectional late-August-November run", () 
   assertEquals(scoreFishInRiver(run, "2026-11-08").score, 0);
 });
 
-Deno.test("St. Joseph Chinook copy stays selective across the five-ladder corridor", () => {
+Deno.test("St. Joseph Chinook copy stays selective across three approved sections", () => {
   const staging = resolveRunStage(run, "2026-08-18");
   assertMatch(staging.whereToStart ?? "", /harbor/i);
   const beginning = resolveRunStage(run, "2026-09-03");
   assertMatch(beginning.whereToStart ?? "", /Berrien Springs/i);
   const peak = resolveRunStage(run, "2026-09-25");
+  assertMatch(
+    peak.whereToStart ?? "",
+    /Middle river \(Berrien Springs–Niles\)/i,
+  );
   assertMatch(peak.whereToStart ?? "", /Niles/i);
-  assertMatch(peak.whereToStart ?? "", /South Bend/i);
+  assertMatch(peak.whereToStart ?? "", /Upper river/i);
   assertMatch(peak.whereToStart ?? "", /Twin Branch/i);
   for (
     const date of [

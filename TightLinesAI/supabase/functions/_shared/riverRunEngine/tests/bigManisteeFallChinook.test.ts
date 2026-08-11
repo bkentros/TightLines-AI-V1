@@ -81,7 +81,9 @@ Deno.test("Big Manistee Chinook Activity is enabled with independent tailwater c
 });
 
 Deno.test("Big Manistee Chinook Activity limits early warm-water reads to the measured reach", () => {
-  const scoreForStage = (stage: "pre_run" | "beginning" | "building" | "peak") =>
+  const scoreForStage = (
+    stage: "pre_run" | "beginning" | "building" | "peak",
+  ) =>
     scoreActivity({
       rules: run.activity!,
       requestDate: "2026-08-20",
@@ -247,19 +249,22 @@ Deno.test("Big Manistee calendar and presence curve are independent of PM dates"
   }
 });
 
-Deno.test("Big Manistee stage copy names the tailwater and never borrows PM geography", () => {
+Deno.test("Big Manistee stage copy uses the approved sections and never borrows PM geography", () => {
   const staging = resolveRunStage(run, "2026-08-01");
   assertMatch(staging.whereToStart ?? "", /Manistee Lake/i);
-  assertMatch(staging.whereToStart ?? "", /lower migratory river/i);
+  assertMatch(staging.whereToStart ?? "", /Lower river \(M-55–Bear Creek\)/i);
 
   const beginning = resolveRunStage(run, "2026-08-15");
-  assertMatch(beginning.whereToStart ?? "", /Tippy.?tailwater/i);
-  assertMatch(beginning.detail, /Wellston/i);
+  assertMatch(beginning.whereToStart ?? "", /Lower river/i);
+  assertMatch(beginning.whereToStart ?? "", /Middle river/i);
 
   const peak = resolveRunStage(run, "2026-09-30");
   assertEquals(peak.stage, "peak");
-  assertMatch(peak.whereToStart ?? "", /High Bridge/i);
-  assertMatch(peak.whereToStart ?? "", /Bear Creek/i);
+  assertMatch(
+    peak.whereToStart ?? "",
+    /Upper river \(High Bridge–Tippy Dam\)/i,
+  );
+  assertMatch(peak.whereToStart ?? "", /Tippy Dam area/i);
 
   for (
     const localDate of [
@@ -313,9 +318,9 @@ Deno.test("Big Manistee stage copy changes across every researched Chinook subph
   );
   assertMatch(
     resolveRunStage(run, "2026-09-20").headline,
-    /strongest seasonal window/i,
+    /approaching their strongest/i,
   );
-  assertMatch(resolveRunStage(run, "2026-10-06").detail, /spawning/i);
+  assertMatch(resolveRunStage(run, "2026-10-06").detail, /later mix/i);
   assertMatch(resolveRunStage(run, "2026-10-27").headline, /residual/i);
 });
 

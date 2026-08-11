@@ -419,7 +419,7 @@ export const BIG_MANISTEE_RIVER_PROFILE: RiverProfile = {
     },
   ],
   foundation: {
-    version: "big-manistee-foundation-v1",
+    version: "big-manistee-foundation-v2",
     corridorLengthMiles: 25,
     upstreamTerminus:
       "Tippy Dam; upstream obstruction and migratory-fishery terminus",
@@ -429,18 +429,18 @@ export const BIG_MANISTEE_RIVER_PROFILE: RiverProfile = {
     reaches: [
       {
         reachId: "big_manistee_tippy_tailwater",
-        displayName: "Tippy tailwater to High Bridge",
+        displayName: "Upper river (High Bridge–Tippy Dam)",
         order: 1,
         role: "tailwater",
         gaugeRepresented: true,
         notes:
-          "Cold, high-gradient upper migratory reach. Wellston is the only primary gauge and should constrain Fishability copy to this tailwater/upper-corridor segment.",
+          "The entire High Bridge–Tippy Dam corridor is the approved Upper river. The Tippy Dam area is the primary emphasis within it, not a fourth public section. Wellston constrains live-condition copy to this upper section.",
         sourceNotes:
           "Michigan DNR Tippy Dam Recreation Area General Management Plan; USGS 04125550 metadata and EGLE hydrologic report identifying the station approximately 700 feet below Tippy Dam.",
       },
       {
         reachId: "big_manistee_high_bridge_to_bear_creek",
-        displayName: "High Bridge to Bear Creek",
+        displayName: "Middle river (Bear Creek–High Bridge)",
         order: 2,
         role: "middle",
         gaugeRepresented: false,
@@ -451,7 +451,7 @@ export const BIG_MANISTEE_RIVER_PROFILE: RiverProfile = {
       },
       {
         reachId: "big_manistee_bear_creek_to_m55",
-        displayName: "Bear Creek to the railroad bridge below M-55",
+        displayName: "Lower river (M-55–Bear Creek)",
         order: 3,
         role: "lower",
         gaugeRepresented: false,
@@ -470,6 +470,34 @@ export const BIG_MANISTEE_RIVER_PROFILE: RiverProfile = {
           "Terminal lake/harbor context is not interchangeable with the freshwater tailwater gauge and must not receive Wellston-specific Fishability claims.",
         sourceNotes:
           "U.S. Fish and Wildlife Service Manistee River recreational corridor description; USGS Manistee Lake monitoring-location context.",
+      },
+    ],
+    locations: [
+      {
+        locationId: "big_manistee_tippy_dam",
+        officialName: "Tippy Dam",
+        aliases: ["Tippy", "Tippy Hydroelectric Dam"],
+        state: "MI",
+        latitude: 44.2585,
+        longitude: -85.9417,
+        coordinateSource:
+          "Michigan DNR Tippy Dam Recreation Area mapping; approximate structure point",
+        coordinateStatus: "provisional",
+        reachId: "big_manistee_tippy_tailwater",
+        kind: "barrier",
+        fishPassage: "impassable",
+        publicUpstreamLimit: true,
+        publicAccess: "restricted",
+        fishingSuitability: {
+          bank: "limited",
+          wading: "unknown",
+          boat: "limited",
+        },
+        beginnerSuitable: false,
+        restrictionNotes:
+          "Tippy Dam blocks upstream passage for Chinook, Coho, and Steelhead. River Run recommendations end below the dam. Follow current signs, booms, closures, and dam-safety notices.",
+        sourceNotes:
+          "Michigan DNR Slagle Creek Status Report 2014-183 and Manistee River Hodenpyl-to-Red Bridge Status Report 2004-2 explicitly state that Tippy Dam blocks upstream fish migration; passage last verified 2026-08-10.",
       },
     ],
     primaryGaugeReachId: "big_manistee_tippy_tailwater",
@@ -503,7 +531,7 @@ export const BIG_MANISTEE_RIVER_PROFILE: RiverProfile = {
         "Michigan DNR FO-200.25, 2026 Michigan Fishing Regulations, current Tippy Dam Recreation Area page, and Consumers Energy dam-safety information.",
     },
     evidenceNotes:
-      "Foundation research completed August 5, 2026. Sources include USGS 04125550 continuous/daily metadata and values, USGS 04124000 and 04123500 contextual metadata, Michigan DNR FO-200.25 and 2026 regulations, Michigan DNR Tippy Dam management material, the DNR 2022–2023 creel survey, U.S. Fish and Wildlife Service Manistee River corridor material, and Michigan EGLE hydrologic analysis. Wellston is completely regulated by Tippy and represents the tailwater/upper corridor only. No species timing, strength, presence curve, hydraulic threshold, or Fishability band is configured here.",
+      "Foundation reverified and owner-approved August 10, 2026. Public sections are Lower river (M-55–Bear Creek), Middle river (Bear Creek–High Bridge), and Upper river (High Bridge–Tippy Dam), with Tippy-area emphasis inside the Upper river. Tippy is an impassable upstream migration barrier. Wellston is completely regulated by Tippy and represents the Upper river only. No species timing, strength, presence curve, hydraulic threshold, or Fishability band is configured here.",
   },
   conditionRefreshSchedule: {
     activeSlots: [
@@ -525,7 +553,7 @@ export const BIG_MANISTEE_RIVER_PROFILE: RiverProfile = {
   },
   supportStatus: "beta",
   gaugeLimitationCopy:
-    "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It best represents the Tippy tailwater and upper migratory corridor; flow, temperature, access, and fishability can differ downstream through High Bridge, Bear Creek, the lower river, and Manistee Lake.",
+    "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It represents the Upper river (High Bridge–Tippy Dam), especially the Tippy Dam area. Conditions can differ in the Middle river, Lower river, Manistee Lake, and harbor.",
   regulationReminderCopy:
     "The Big Manistee below Tippy is a Type 3 reach extending to the railroad bridge below M-55, with a year-round one-Rainbow-Trout limit and special artificial-lure rules during the August 1–November 15 window. Follow current Michigan regulations, DNR closure notices, dam-safety information, and posted boundaries. Fishing methods can change by reach and season.",
 };
@@ -578,7 +606,7 @@ export const MUSKEGON_RIVER_PROFILE: RiverProfile = {
     role: "primary",
   }],
   foundation: {
-    version: "muskegon-foundation-v1",
+    version: "muskegon-foundation-v2",
     corridorLengthMiles: 42,
     upstreamTerminus:
       "Croton Dam; hard upstream barrier and migratory-fishery terminus",
@@ -588,51 +616,105 @@ export const MUSKEGON_RIVER_PROFILE: RiverProfile = {
     reaches: [
       {
         reachId: "muskegon_croton_tailwater",
-        displayName: "Croton tailwater",
-        order: 1,
+        displayName: "Upper river (Newaygo–Croton Dam)",
+        order: 3,
         role: "tailwater",
         gaugeRepresented: true,
         notes:
-          "Immediately below Croton Dam. The USGS gauge directly represents this regulated tailwater only.",
+          "The entire Newaygo–Croton Dam corridor is the approved Upper river. The Croton Dam area is the primary emphasis within it, not a fourth public section. USGS 04121970 directly represents only the immediate regulated tailwater.",
         sourceNotes:
           "USGS 04121970 station metadata; Michigan DNR Central Lake Michigan Management Unit access and fishery description.",
       },
       {
-        reachId: "muskegon_croton_to_newaygo",
-        displayName: "Croton-to-Newaygo corridor",
+        reachId: "muskegon_m120_to_newaygo",
+        displayName: "Middle river (M-120–Newaygo)",
         order: 2,
         role: "middle",
         gaugeRepresented: false,
         notes:
-          "Shallower swift big-river corridor with mixed sand, cobble, and boulder. Public geography does not imply permission at every bank or parcel.",
+          "The approved middle migratory section. It is not directly represented by the Croton tailwater gauge, and public geography does not imply permission at every bank or parcel.",
         sourceNotes:
           "Michigan DNR Central Lake Michigan Management Unit; 2022–2023 Muskegon River creel survey Site 151.",
       },
       {
-        reachId: "muskegon_newaygo_to_m120",
-        displayName: "Newaygo-to-M-120 lower migratory corridor",
-        order: 3,
+        reachId: "muskegon_lake_to_m120",
+        displayName: "Lower river (Muskegon Lake–M-120)",
+        order: 1,
         role: "lower",
         gaugeRepresented: false,
         notes:
-          "Deeper lower corridor generally better suited to boats; submerged wood and reach-specific access require caution.",
+          "The approved lakeward migratory section. It is generally deeper and not directly represented by the Croton tailwater gauge; submerged wood and reach-specific access require caution.",
         sourceNotes:
           "Michigan DNR Central Lake Michigan Management Unit; 2022–2023 Muskegon River creel survey Site 152.",
       },
       {
         reachId: "muskegon_lake_context",
-        displayName: "Lower river, Muskegon Lake, and channel context",
+        displayName: "Muskegon Lake, channel, and river-entrance context",
         order: 4,
         role: "mouth_context",
         gaugeRepresented: false,
         notes:
-          "Lakeward staging and entry context is not interchangeable with the Croton tailwater gauge.",
+          "Staging context is separate from the Lower river and is not proof of river entry. It is not interchangeable with the Croton tailwater gauge.",
         sourceNotes:
           "Michigan DNR Central Lake Michigan Management Unit fishing-water descriptions.",
       },
     ],
+    locations: [
+      {
+        locationId: "muskegon_croton_dam",
+        officialName: "Croton Dam",
+        aliases: ["Croton Hydroelectric Plant", "Croton Hardy Dam"],
+        state: "MI",
+        latitude: 43.4389,
+        longitude: -85.6662,
+        coordinateSource:
+          "Michigan DNR Muskegon River access mapping; approximate structure point",
+        coordinateStatus: "provisional",
+        reachId: "muskegon_croton_tailwater",
+        kind: "barrier",
+        fishPassage: "impassable",
+        publicUpstreamLimit: true,
+        publicAccess: "restricted",
+        fishingSuitability: {
+          bank: "limited",
+          wading: "unknown",
+          boat: "limited",
+        },
+        beginnerSuitable: false,
+        restrictionNotes:
+          "Croton Dam blocks upstream passage for Chinook, Coho, and Steelhead. River Run recommendations end below the dam. Follow current signs, booms, closures, and dam-safety notices.",
+        sourceNotes:
+          "Michigan DNR Muskegon Lake Status Report 0448 (2025) states that Croton Dam is the first upstream fish-passage barrier and Lake Michigan and Muskegon Lake migratory fish cannot pass it; last verified 2026-08-11.",
+      },
+      {
+        locationId: "muskegon_newaygo_dam_removed",
+        officialName: "Newaygo Dam site",
+        aliases: ["former Newaygo Dam"],
+        state: "MI",
+        latitude: 43.4222,
+        longitude: -85.802,
+        coordinateSource:
+          "USGS 04122001 Bridge Street at Newaygo station metadata; approximate former-dam vicinity",
+        coordinateStatus: "provisional",
+        reachId: "muskegon_croton_tailwater",
+        kind: "barrier",
+        fishPassage: "passable",
+        publicUpstreamLimit: false,
+        publicAccess: "unknown",
+        fishingSuitability: {
+          bank: "unknown",
+          wading: "unknown",
+          boat: "unknown",
+        },
+        beginnerSuitable: false,
+        restrictionNotes:
+          "Newaygo Dam was completely removed in 1969. Never describe it as an active barrier, dam tailwater, or migration endpoint.",
+        sourceNotes:
+          "Michigan DNR Muskegon Lake Status Report 0448 (2025) and USGS 04122001 station history; removal status last verified 2026-08-11.",
+      },
+    ],
     primaryGaugeReachId: "muskegon_croton_tailwater",
-    contextualGaugeSiteIds: ["04122000"],
+    contextualGaugeSiteIds: ["04122001"],
     weatherStrategy: {
       mode: "single_point",
       primaryWeatherPointId: "muskegon_croton_weather",
@@ -662,7 +744,7 @@ export const MUSKEGON_RIVER_PROFILE: RiverProfile = {
         "Michigan DNR FO-200 and current fishing regulations; DNR Central Lake Michigan Management Unit; Consumers Energy Croton recreation and dam-safety information.",
     },
     evidenceNotes:
-      "Research completed August 6, 2026. Croton Dam is the hard upstream migration boundary. USGS 04121970 is about 1,000 feet below the dam and has discharge from 1995 and measured water temperature supporting a common 2007–2025 audit. It must never be extrapolated as direct measurement of the Newaygo, lower-river, Muskegon Lake, or channel reaches.",
+      "Foundation reverified and owner-approved August 11, 2026. Public sections are Lower river (Muskegon Lake–M-120), Middle river (M-120–Newaygo), and Upper river (Newaygo–Croton Dam), with Croton-area emphasis inside the Upper river. Croton Dam is the impassable upstream migration boundary for all three target species; Newaygo Dam was removed in 1969. USGS 04121970 is about 1,000 feet below Croton Dam and represents only the immediate regulated tailwater. USGS 04122001 at Newaygo is partial-record high-water context and powers no primitive.",
   },
   conditionRefreshSchedule: {
     activeSlots: ["00:00", "04:00", "08:00", "12:00", "16:00", "20:00"],
@@ -676,7 +758,7 @@ export const MUSKEGON_RIVER_PROFILE: RiverProfile = {
   },
   supportStatus: "beta",
   gaugeLimitationCopy:
-    "Based on USGS 04121970 immediately below Croton Dam. It represents the regulated Croton tailwater; flow, temperature, access, and safety can differ through Newaygo, the lower river, Muskegon Lake, and the channel.",
+    "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
   regulationReminderCopy:
     "Croton Dam is the hard upstream migration boundary. Fish only legal water below the dam, use established public access, respect private land and posted closures, and check current Michigan regulations and dam-safety notices.",
 };

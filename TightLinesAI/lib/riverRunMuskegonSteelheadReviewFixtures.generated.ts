@@ -24,6 +24,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
           "nextConditionRefreshAt": "2026-08-20T05:00:00.000Z",
           "runStage": {
             "stage": "post_run",
+            "copyStrategy": "muskegon_croton_tailwater",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -45,16 +46,16 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "startToPeakDays": 51,
               "peakToEndDays": 37
             },
-            "label": "Offseason",
-            "headline": "Steelhead are outside the Muskegon fall-entry model.",
-            "whereToStart": "No active fall-entry starting reach; use the winter Steelhead read for current holding-water guidance instead.",
-            "detail": "This profile no longer evaluates fall migration; winter activity requires a holding-focused seasonal read.",
-            "tip": "The fall-entry read is finished. Use the winter Steelhead read instead.",
+            "label": "Fall entry complete",
+            "headline": "Muskegon Steelhead fall entry is complete.",
+            "whereToStart": "There is no active Muskegon starting section in this fall-entry model.",
+            "detail": "Steelhead may remain in the river. This model no longer estimates current presence or activity.",
+            "tip": "Check back in early September when Muskegon fall-entry tracking resumes.",
             "reasonCodes": [
               "stage_post_run",
               "stage_offseason"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Not monitoring yet",
@@ -73,13 +74,13 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
             "historicalYears": 0,
             "sourceDates": [],
             "sourceRefreshSlots": {},
-            "headline": "Migration Timing is not active right now.",
-            "detail": "Timing monitoring begins before the expected river entry, but that seasonal observation window is not active yet.",
-            "tip": "Check Migration Stage for the current seasonal position and return to Migration Timing when early monitoring begins.",
+            "headline": "Muskegon Migration Timing is not monitoring yet.",
+            "detail": "Season-to-date Croton flow and measured-temperature monitoring resumes in early September.",
+            "tip": "Check back in early September when Muskegon timing monitoring resumes.",
             "reasonCodes": [
               "conditions_monitoring_inactive"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -92,22 +93,22 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
           },
           "push": {
             "score": null,
-            "label": "Offseason",
-            "headline": "Push is not active outside the river migration season.",
-            "detail": "Rain, river level, and water temperature can still change, but they do not provide a useful fresh-arrival signal for this species right now.",
-            "tip": "Do not use Push to plan for this species outside its migration season. Follow an active species instead, or return when early monitoring begins.",
+            "label": "Fall entry complete",
+            "headline": "Muskegon Steelhead fall-entry Push is complete.",
+            "detail": "Current water may affect Steelhead still in the river. This fall model no longer scores fresh-entry support.",
+            "tip": "Do not use a completed fall Push to infer current presence. Check back in early September.",
             "reasonCodes": [
-              "push_tracking_offseason"
+              "push_tracking_complete"
             ],
             "rulesVersion": "muskegon-fall-steelhead-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 93,
             "label": "Excellent",
-            "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river.",
-            "tip": "Begin on the primary travel lane feeding deep holding water. Work each hole from its head through the inside seam and tail, then keep moving until fish establish a pattern.",
+            "headline": "Croton-area flow is in its best presentation range.",
+            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read applies only near Croton Dam within the Upper river (Newaygo–Croton Dam).",
+            "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band"
@@ -118,11 +119,12 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": null,
           "fishInRiver": {
-            "score": 0,
+            "score": null,
+            "scoreIsApproximate": false,
             "stage": "post_run",
             "maximum": 100,
             "riverCeiling": 90,
@@ -130,15 +132,15 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
             "curveFraction": 0,
             "curveDirection": "outside",
             "winterHoldingContext": false,
-            "label": "Offseason",
-            "headline": "Steelhead are outside their river migration season.",
-            "detail": "A dependable seasonal presence of Steelhead is not expected in the river right now.",
-            "tip": "Do not build a river trip around this species right now. Target a species with an active seasonal window and return as the next migration approaches.",
+            "label": "Fall entry complete",
+            "headline": "Muskegon Steelhead fall entry is complete.",
+            "detail": "Steelhead may remain in the river. This fall-entry model no longer estimates their current seasonal presence.",
+            "tip": "Check back in early September when Muskegon fall movement tracking resumes.",
             "reasonCodes": [
               "stage_post_run",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -364,21 +366,15 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "data_quality_fresh"
             ]
           },
-          "interpretationNote": {
-            "headline": "The river should fish well, but seasonal fish presence is still low.",
-            "detail": "Good flow makes presentations easier, but it does not put fish in the river. Begin in the deepest established holding water and skip broad searches through fast travel lanes as seasonal presence thins.",
-            "reasonCodes": [
-              "good_fishability_low_presence"
-            ]
-          },
-          "secondaryNote": "Based on USGS 04121970 immediately below Croton Dam. It represents the regulated Croton tailwater; flow, temperature, access, and safety can differ through Newaygo, the lower river, Muskegon Lake, and the channel.",
+          "interpretationNote": null,
+          "secondaryNote": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
           "safety": {
             "regulationReminder": "Croton Dam is the hard upstream migration boundary. Fish only legal water below the dam, use established public access, respect private land and posted closures, and check current Michigan regulations and dam-safety notices.",
-            "gaugeBasis": "Based on USGS 04121970 immediately below Croton Dam. It represents the regulated Croton tailwater; flow, temperature, access, and safety can differ through Newaygo, the lower river, Muskegon Lake, and the channel.",
+            "gaugeBasis": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-muskegon-steelhead-activity.1"
+          "configVersion": "2026-08-11-muskegon-copy.1"
         }
       },
       {
@@ -397,6 +393,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
           "nextConditionRefreshAt": "2026-09-02T05:00:00.000Z",
           "runStage": {
             "stage": "pre_run",
+            "copyStrategy": "muskegon_croton_tailwater",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -419,14 +416,14 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "peakToEndDays": 37
             },
             "label": "Before migration",
-            "headline": "Steelhead fall entry has not started yet.",
-            "whereToStart": "Muskegon Lake, the Lake Michigan channel, and the river mouth for fall-entry context—not the inland corridor yet.",
-            "detail": "Dependable fall entry is not expected through the Muskegon Lake-to-Croton corridor yet.",
-            "tip": "Check again when fish begin staging near the lake and river mouth.",
+            "headline": "Dependable Muskegon Steelhead fall entry has not started.",
+            "whereToStart": "Stay with Muskegon Lake, the Lake Michigan channel, and the river entrance.",
+            "detail": "The fall-entry window has not opened yet. An isolated river fish would be an early exception.",
+            "tip": "Check again when early Steelhead begin appearing near the river entrance.",
             "reasonCodes": [
               "stage_pre_run"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Not monitoring yet",
@@ -445,13 +442,13 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
             "historicalYears": 0,
             "sourceDates": [],
             "sourceRefreshSlots": {},
-            "headline": "Migration Timing is not active right now.",
-            "detail": "Timing monitoring begins before the expected river entry, but that seasonal observation window is not active yet.",
-            "tip": "Check Migration Stage for the current seasonal position and return to Migration Timing when early monitoring begins.",
+            "headline": "Muskegon Migration Timing is not monitoring yet.",
+            "detail": "Season-to-date Croton flow and measured-temperature monitoring resumes in early September.",
+            "tip": "Check back in early September when Muskegon timing monitoring resumes.",
             "reasonCodes": [
               "conditions_monitoring_inactive"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -465,21 +462,21 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
           "push": {
             "score": null,
             "label": "Waiting for migration",
-            "headline": "Dependable fall entry has not started, so Push is not active yet.",
-            "detail": "An occasional early steelhead is possible, but Push is reserved for the expected entry window, when rain, river level, and water temperature can provide a responsible fresh-movement read.",
-            "tip": "Keep most effort near the lake, harbor, and river-mouth transition. Do not move inland just because rain or cooling resembles an in-season movement event.",
+            "headline": "Dependable Muskegon Steelhead fall entry has not started.",
+            "detail": "Croton flow and measured temperature are not scored as an in-season fresh-movement signal yet.",
+            "tip": "Use Migration Stage. Do not move inland because offseason water resembles a Push.",
             "reasonCodes": [
               "push_tracking_not_started"
             ],
             "rulesVersion": "muskegon-fall-steelhead-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 93,
             "label": "Excellent",
-            "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river.",
-            "tip": "Begin on the primary travel lane feeding deep holding water. Work each hole from its head through the inside seam and tail, then keep moving until fish establish a pattern.",
+            "headline": "Croton-area flow is in its best presentation range.",
+            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read applies only near Croton Dam within the Upper river (Newaygo–Croton Dam).",
+            "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band"
@@ -490,11 +487,13 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": null,
           "fishInRiver": {
             "score": 0,
+            "displayScore": 0,
+            "scoreIsApproximate": false,
             "stage": "pre_run",
             "maximum": 100,
             "riverCeiling": 90,
@@ -503,14 +502,14 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
             "curveDirection": "outside",
             "winterHoldingContext": false,
             "label": "Not expected yet",
-            "headline": "Steelhead are not expected in meaningful numbers yet.",
-            "detail": "Most Steelhead are not expected to have entered the river in dependable numbers. Any fish already present would be early exceptions.",
-            "tip": "Treat this as no dependable in-river opportunity yet. Keep expectations at zero, and do not interpret an isolated early fish as evidence of dependable river presence.",
+            "headline": "Dependable Steelhead presence is not expected in the Muskegon River yet.",
+            "detail": "The seasonal estimate remains at zero. Any river fish would be an early exception.",
+            "tip": "Use Migration Stage for Muskegon Lake, channel, and river-entrance context.",
             "reasonCodes": [
               "stage_pre_run",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -743,14 +742,14 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "good_fishability_low_presence"
             ]
           },
-          "secondaryNote": "Based on USGS 04121970 immediately below Croton Dam. It represents the regulated Croton tailwater; flow, temperature, access, and safety can differ through Newaygo, the lower river, Muskegon Lake, and the channel.",
+          "secondaryNote": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
           "safety": {
             "regulationReminder": "Croton Dam is the hard upstream migration boundary. Fish only legal water below the dam, use established public access, respect private land and posted closures, and check current Michigan regulations and dam-safety notices.",
-            "gaugeBasis": "Based on USGS 04121970 immediately below Croton Dam. It represents the regulated Croton tailwater; flow, temperature, access, and safety can differ through Newaygo, the lower river, Muskegon Lake, and the channel.",
+            "gaugeBasis": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-muskegon-steelhead-activity.1"
+          "configVersion": "2026-08-11-muskegon-copy.1"
         }
       },
       {
@@ -769,6 +768,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
           "nextConditionRefreshAt": "2026-09-11T05:00:00.000Z",
           "runStage": {
             "stage": "pre_run",
+            "copyStrategy": "muskegon_croton_tailwater",
             "stagingContext": true,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -791,15 +791,15 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "peakToEndDays": 37
             },
             "label": "Before migration",
-            "headline": "Steelhead fall entry is approaching the Muskegon River.",
-            "whereToStart": "Muskegon Lake, the channel, and deep lower-river travel water below M-120 for new fall entrants; do not treat a fish already near Croton as proof of a broad new entry.",
-            "detail": "New entrants are most honestly evaluated from Muskegon Lake through the lower river. An isolated fish farther upstream does not establish a corridor-wide fall build.",
-            "tip": "One fish is just one fish. Wait for the season and river conditions to point to a wider run.",
+            "headline": "Early Steelhead may begin entering the Muskegon River.",
+            "whereToStart": "Start at Muskegon Lake and the river entrance. Add the Lower river (Muskegon Lake–M-120) only for an early-Steelhead check.",
+            "detail": "An early Steelhead is possible, but one fish does not establish the broader fall-entry build.",
+            "tip": "Keep the river check brief and do not infer a separate strain from timing alone.",
             "reasonCodes": [
               "stage_pre_run",
               "stage_pre_run_staging"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Evaluating",
@@ -818,13 +818,13 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
             "historicalYears": 0,
             "sourceDates": [],
             "sourceRefreshSlots": {},
-            "headline": "Migration Timing is still taking shape.",
-            "detail": "The early river and temperature pattern is still developing, so an Ahead, Typical, or Delayed call would be premature.",
-            "tip": "Keep the trip centered on the river mouth and earliest lower-river holding water. Move inland only when Migration Stage advances or direct fish activity supports it.",
+            "headline": "Muskegon Migration Timing is still taking shape.",
+            "detail": "Croton flow and measured temperature do not yet support an Ahead, Typical, or Delayed call.",
+            "tip": "Keep the section named by Migration Stage until this read has enough Croton-area evidence.",
             "reasonCodes": [
               "conditions_checkpoint_evaluating"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -838,21 +838,21 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
           "push": {
             "score": null,
             "label": "Waiting for migration",
-            "headline": "Dependable fall entry has not started, so Push is not active yet.",
-            "detail": "An occasional early steelhead is possible, but Push is reserved for the expected entry window, when rain, river level, and water temperature can provide a responsible fresh-movement read.",
-            "tip": "Keep most effort near the lake, harbor, and river-mouth transition. Do not move inland just because rain or cooling resembles an in-season movement event.",
+            "headline": "Dependable Muskegon Steelhead fall entry has not started.",
+            "detail": "Croton flow and measured temperature are not scored as an in-season fresh-movement signal yet.",
+            "tip": "Use Migration Stage. Do not move inland because offseason water resembles a Push.",
             "reasonCodes": [
               "push_tracking_not_started"
             ],
             "rulesVersion": "muskegon-fall-steelhead-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 93,
             "label": "Excellent",
-            "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river.",
-            "tip": "Begin on the primary travel lane feeding deep holding water. Work each hole from its head through the inside seam and tail, then keep moving until fish establish a pattern.",
+            "headline": "Croton-area flow is in its best presentation range.",
+            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read applies only near Croton Dam within the Upper river (Newaygo–Croton Dam).",
+            "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band"
@@ -863,15 +863,15 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 65,
             "maximum": 100,
             "label": "Active",
-            "headline": "Today’s Steelhead activity outlook is active.",
-            "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. Dependable river presence has not begun. The score applies only to a sparse early Steelhead that may already have entered. The measured conditions represent the Croton tailwater immediately below Croton Dam. Water temperature, clarity, and fishing conditions can be different through Newaygo, the lower river, Muskegon Lake, and the channel. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
-            "tip": "Start with 5–9 AM. If conditions change, favor the window that best combines workable light with measured water temperature.",
+            "headline": "Today’s Croton-area responsiveness is active, but dependable Steelhead presence has not begun.",
+            "detail": "Conditions support a meaningful Steelhead response. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. This applies only to an early Steelhead already near Croton Dam.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify downstream sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -923,10 +923,13 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 0,
+            "displayScore": 0,
+            "scoreIsApproximate": false,
             "stage": "pre_run",
             "maximum": 100,
             "riverCeiling": 90,
@@ -935,14 +938,14 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
             "curveDirection": "outside",
             "winterHoldingContext": false,
             "label": "Not expected yet",
-            "headline": "Steelhead are not expected in meaningful numbers yet.",
-            "detail": "Most Steelhead are not expected to have entered the river in dependable numbers. Any fish already present would be early exceptions.",
-            "tip": "Treat this as no dependable in-river opportunity yet. Keep expectations at zero, and do not interpret an isolated early fish as evidence of dependable river presence.",
+            "headline": "Dependable Steelhead presence is not expected in the Muskegon River yet.",
+            "detail": "The seasonal estimate remains at zero. Any river fish would be an early exception.",
+            "tip": "Use Migration Stage for Muskegon Lake, channel, and river-entrance context.",
             "reasonCodes": [
               "stage_pre_run",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -1175,14 +1178,14 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "good_fishability_low_presence"
             ]
           },
-          "secondaryNote": "Based on USGS 04121970 immediately below Croton Dam. It represents the regulated Croton tailwater; flow, temperature, access, and safety can differ through Newaygo, the lower river, Muskegon Lake, and the channel.",
+          "secondaryNote": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
           "safety": {
             "regulationReminder": "Croton Dam is the hard upstream migration boundary. Fish only legal water below the dam, use established public access, respect private land and posted closures, and check current Michigan regulations and dam-safety notices.",
-            "gaugeBasis": "Based on USGS 04121970 immediately below Croton Dam. It represents the regulated Croton tailwater; flow, temperature, access, and safety can differ through Newaygo, the lower river, Muskegon Lake, and the channel.",
+            "gaugeBasis": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-muskegon-steelhead-activity.1"
+          "configVersion": "2026-08-11-muskegon-copy.1"
         }
       },
       {
@@ -1201,6 +1204,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
           "nextConditionRefreshAt": "2026-09-26T05:00:00.000Z",
           "runStage": {
             "stage": "beginning",
+            "copyStrategy": "muskegon_croton_tailwater",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -1223,14 +1227,14 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "peakToEndDays": 37
             },
             "label": "Beginning",
-            "headline": "The first fall Steelhead are entering the Muskegon's long migratory corridor.",
-            "whereToStart": "Deep lower-river travel water from Muskegon Lake toward M-120 first, then substantial Newaygo-to-M-120 resting water; check Croton only after those fresh-entry reaches.",
-            "detail": "New fish can be scattered from the lower river into middle-corridor resting water while earlier arrivals may already be nearer Croton.",
-            "tip": "Check lower-river travel lanes and good resting holes before assuming the newest fish are up by Croton.",
+            "headline": "The first fall Steelhead are entering and moving through the Muskegon River.",
+            "whereToStart": "Start in the Lower river (Muskegon Lake–M-120). Add the Middle river (M-120–Newaygo) after direct fish activity supports the move.",
+            "detail": "New fish remain scattered while earlier arrivals may already be farther upstream.",
+            "tip": "Cover travel water and the first substantial holding areas before moving upstream.",
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -1268,15 +1272,15 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "2026-09-24"
             ],
             "sourceRefreshSlots": {},
-            "headline": "There is not enough reliable information for a Migration Timing call.",
-            "tip": "Do not move farther upstream or stay lower based on this timing read. Fish the section identified by Migration Stage and begin in its most established holding water; change sections only when direct fish activity or a dependable later read supports it.",
+            "headline": "There is not enough reliable Muskegon evidence for a Migration Timing call.",
+            "tip": "Keep the Muskegon section named by Migration Stage. Do not shift sections from this timing read.",
             "detail": "There are not enough dependable past seasons to judge whether this migration is early, normal, or late.",
             "reasonCodes": [
               "conditions_baseline_missing",
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -1290,9 +1294,9 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
           "push": {
             "score": 18,
             "label": "Weak",
-            "headline": "Today's water shows little support for a fresh wave of fish.",
-            "detail": "The river is holding steady with no meaningful rise yet. Water temperature remains too warm to support a strong Push and is relatively steady. Recent weather estimates indicate very little rain around the river.",
-            "tip": "Do not build the day around new arrivals while the river remains warm. Start in established holding water at first or last light and leave lower travel lanes secondary.",
+            "headline": "Croton-area water shows little support for fresh movement.",
+            "detail": "The river is holding steady with no meaningful rise yet. Water temperature remains too warm to support a strong Push and is relatively steady. Recent watershed weather shows little rain.",
+            "tip": "Keep Migration Stage’s section primary. Do not shift sections from this read.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
@@ -1312,14 +1316,14 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-fall-steelhead-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 93,
             "label": "Excellent",
-            "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river.",
-            "tip": "Begin on the primary travel lane feeding deep holding water. Work each hole from its head through the inside seam and tail, then keep moving until fish establish a pattern.",
+            "headline": "Croton-area flow is in its best presentation range.",
+            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read applies only near Croton Dam within the Upper river (Newaygo–Croton Dam).",
+            "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band"
@@ -1330,15 +1334,15 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 65,
             "maximum": 100,
             "label": "Active",
-            "headline": "Today’s Steelhead activity outlook is active.",
-            "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. Early fall Steelhead are entering with energy reserves intact. This score describes feeding or aggressive responsiveness for fish already in the river, not fresh movement. The measured conditions represent the Croton tailwater immediately below Croton Dam. Water temperature, clarity, and fishing conditions can be different through Newaygo, the lower river, Muskegon Lake, and the channel. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
-            "tip": "Start with 5–9 AM. If conditions change, favor the window that best combines workable light with measured water temperature.",
+            "headline": "Today’s Croton-area Steelhead responsiveness is active.",
+            "detail": "Conditions support a meaningful Steelhead response. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Croton flow and temperature represent only the area near the dam.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify downstream sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -1390,10 +1394,13 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 5,
+            "displayScore": 5,
+            "scoreIsApproximate": true,
             "stage": "beginning",
             "maximum": 100,
             "riverCeiling": 90,
@@ -1402,14 +1409,14 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
             "curveDirection": "rising",
             "winterHoldingContext": false,
             "label": "Low presence",
-            "headline": "A small number of Steelhead may be in the river, and seasonal presence is still building.",
-            "detail": "This part of the season usually brings low presence, with more fish expected to enter and spread through the river. This is a seasonal estimate, not a live fish count.",
-            "tip": "Treat this as an early, low-odds river opportunity. Expect scattered results, and use direct fish activity before committing the full day.",
+            "headline": "Seasonal Steelhead presence is low and building.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the Muskegon Steelhead ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -1643,14 +1650,14 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "good_fishability_low_presence"
             ]
           },
-          "secondaryNote": "Based on USGS 04121970 immediately below Croton Dam. It represents the regulated Croton tailwater; flow, temperature, access, and safety can differ through Newaygo, the lower river, Muskegon Lake, and the channel.",
+          "secondaryNote": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
           "safety": {
             "regulationReminder": "Croton Dam is the hard upstream migration boundary. Fish only legal water below the dam, use established public access, respect private land and posted closures, and check current Michigan regulations and dam-safety notices.",
-            "gaugeBasis": "Based on USGS 04121970 immediately below Croton Dam. It represents the regulated Croton tailwater; flow, temperature, access, and safety can differ through Newaygo, the lower river, Muskegon Lake, and the channel.",
+            "gaugeBasis": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-muskegon-steelhead-activity.1"
+          "configVersion": "2026-08-11-muskegon-copy.1"
         }
       },
       {
@@ -1669,6 +1676,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
           "nextConditionRefreshAt": "2026-10-06T05:00:00.000Z",
           "runStage": {
             "stage": "beginning",
+            "copyStrategy": "muskegon_croton_tailwater",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -1691,14 +1699,14 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "peakToEndDays": 37
             },
             "label": "Beginning",
-            "headline": "The first fall Steelhead are entering the Muskegon's long migratory corridor.",
-            "whereToStart": "Deep lower-river travel water from Muskegon Lake toward M-120 first, then substantial Newaygo-to-M-120 resting water; check Croton only after those fresh-entry reaches.",
-            "detail": "New fish can be scattered from the lower river into middle-corridor resting water while earlier arrivals may already be nearer Croton.",
-            "tip": "Check lower-river travel lanes and good resting holes before assuming the newest fish are up by Croton.",
+            "headline": "The first fall Steelhead are entering and moving through the Muskegon River.",
+            "whereToStart": "Start in the Lower river (Muskegon Lake–M-120). Add the Middle river (M-120–Newaygo) after direct fish activity supports the move.",
+            "detail": "New fish remain scattered while earlier arrivals may already be farther upstream.",
+            "tip": "Cover travel water and the first substantial holding areas before moving upstream.",
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -1736,15 +1744,15 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "2026-09-24"
             ],
             "sourceRefreshSlots": {},
-            "headline": "There is not enough reliable information for a Migration Timing call.",
-            "tip": "Do not move farther upstream or stay lower based on this timing read. Fish the section identified by Migration Stage and begin in its most established holding water; change sections only when direct fish activity or a dependable later read supports it.",
+            "headline": "There is not enough reliable Muskegon evidence for a Migration Timing call.",
+            "tip": "Keep the Muskegon section named by Migration Stage. Do not shift sections from this timing read.",
             "detail": "There are not enough dependable past seasons to judge whether this migration is early, normal, or late.",
             "reasonCodes": [
               "conditions_baseline_missing",
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -1758,9 +1766,9 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
           "push": {
             "score": 18,
             "label": "Weak",
-            "headline": "Today's water shows little support for a fresh wave of fish.",
-            "detail": "The river is holding steady with no meaningful rise yet. Water temperature remains too warm to support a strong Push and is relatively steady. Recent weather estimates indicate very little rain around the river.",
-            "tip": "Do not build the day around new arrivals while the river remains warm. Start in established holding water at first or last light and leave lower travel lanes secondary.",
+            "headline": "Croton-area water shows little support for fresh movement.",
+            "detail": "The river is holding steady with no meaningful rise yet. Water temperature remains too warm to support a strong Push and is relatively steady. Recent watershed weather shows little rain.",
+            "tip": "Keep Migration Stage’s section primary. Do not shift sections from this read.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
@@ -1780,14 +1788,14 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-fall-steelhead-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 93,
             "label": "Excellent",
-            "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river.",
-            "tip": "Begin on the primary travel lane feeding deep holding water. Work each hole from its head through the inside seam and tail, then keep moving until fish establish a pattern.",
+            "headline": "Croton-area flow is in its best presentation range.",
+            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read applies only near Croton Dam within the Upper river (Newaygo–Croton Dam).",
+            "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band"
@@ -1798,15 +1806,15 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 65,
             "maximum": 100,
             "label": "Active",
-            "headline": "Today’s Steelhead activity outlook is active.",
-            "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. Early fall Steelhead are entering with energy reserves intact. This score describes feeding or aggressive responsiveness for fish already in the river, not fresh movement. The measured conditions represent the Croton tailwater immediately below Croton Dam. Water temperature, clarity, and fishing conditions can be different through Newaygo, the lower river, Muskegon Lake, and the channel. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
-            "tip": "Start with 5–9 AM. If conditions change, favor the window that best combines workable light with measured water temperature.",
+            "headline": "Today’s Croton-area Steelhead responsiveness is active.",
+            "detail": "Conditions support a meaningful Steelhead response. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Croton flow and temperature represent only the area near the dam.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify downstream sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -1858,10 +1866,13 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 14,
+            "displayScore": 15,
+            "scoreIsApproximate": true,
             "stage": "beginning",
             "maximum": 100,
             "riverCeiling": 90,
@@ -1870,14 +1881,14 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
             "curveDirection": "rising",
             "winterHoldingContext": false,
             "label": "Low presence",
-            "headline": "A small number of Steelhead may be in the river, and seasonal presence is still building.",
-            "detail": "This part of the season usually brings low presence, with more fish expected to enter and spread through the river. This is a seasonal estimate, not a live fish count.",
-            "tip": "Treat this as an early, low-odds river opportunity. Expect scattered results, and use direct fish activity before committing the full day.",
+            "headline": "Seasonal Steelhead presence is low and building.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the Muskegon Steelhead ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -2111,14 +2122,14 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "good_fishability_low_presence"
             ]
           },
-          "secondaryNote": "Based on USGS 04121970 immediately below Croton Dam. It represents the regulated Croton tailwater; flow, temperature, access, and safety can differ through Newaygo, the lower river, Muskegon Lake, and the channel.",
+          "secondaryNote": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
           "safety": {
             "regulationReminder": "Croton Dam is the hard upstream migration boundary. Fish only legal water below the dam, use established public access, respect private land and posted closures, and check current Michigan regulations and dam-safety notices.",
-            "gaugeBasis": "Based on USGS 04121970 immediately below Croton Dam. It represents the regulated Croton tailwater; flow, temperature, access, and safety can differ through Newaygo, the lower river, Muskegon Lake, and the channel.",
+            "gaugeBasis": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-muskegon-steelhead-activity.1"
+          "configVersion": "2026-08-11-muskegon-copy.1"
         }
       },
       {
@@ -2137,6 +2148,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
           "nextConditionRefreshAt": "2026-10-16T05:00:00.000Z",
           "runStage": {
             "stage": "building",
+            "copyStrategy": "muskegon_croton_tailwater",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -2160,13 +2172,13 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
             },
             "label": "Building",
             "headline": "Steelhead are becoming established through more of the Muskegon River.",
-            "whereToStart": "Newaygo-to-M-120 holding water first, then compare Croton-to-Newaygo pools with the deep lower river for accumulated versus newer fish.",
-            "detail": "Earlier arrivals can hold nearer Croton while newer fish continue entering below M-120; freshness and concentrations can differ sharply by reach.",
-            "tip": "Check at least two sections of river, then stay where you find the best signs of fish.",
+            "whereToStart": "Start in the Middle river (M-120–Newaygo). Check the Croton Dam area in the Upper river (Newaygo–Croton Dam) for earlier arrivals.",
+            "detail": "Earlier arrivals can hold near Croton while newer fish remain farther downstream.",
+            "tip": "Croton measurements apply only near the dam. Verify downstream water directly.",
             "reasonCodes": [
               "stage_building"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -2224,15 +2236,15 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "2026-10-14"
             ],
             "sourceRefreshSlots": {},
-            "headline": "There is not enough reliable information for a Migration Timing call.",
-            "tip": "Do not move farther upstream or stay lower based on this timing read. Fish the section identified by Migration Stage and begin in its most established holding water; change sections only when direct fish activity or a dependable later read supports it.",
+            "headline": "There is not enough reliable Muskegon evidence for a Migration Timing call.",
+            "tip": "Keep the Muskegon section named by Migration Stage. Do not shift sections from this timing read.",
             "detail": "There are not enough dependable past seasons to judge whether this migration is early, normal, or late.",
             "reasonCodes": [
               "conditions_baseline_missing",
               "conditions_insufficient",
               "conditions_checkpoint_building_established"
             ],
-            "copyVersion": "river-run-copy-v27",
+            "copyVersion": "river-run-copy-v34",
             "previousCheckpointId": "building_start",
             "previousCheckpointDate": "2026-10-11",
             "previousTimingLabel": "Insufficient evidence"
@@ -2249,9 +2261,9 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
           "push": {
             "score": 18,
             "label": "Weak",
-            "headline": "Today's water shows little support for a fresh wave of fish.",
-            "detail": "The river is holding steady with no meaningful rise yet. Water temperature remains too warm to support a strong Push and is relatively steady. Recent weather estimates indicate very little rain around the river.",
-            "tip": "Do not build the day around new arrivals while the river remains warm. Start in established holding water at first or last light and leave lower travel lanes secondary.",
+            "headline": "Croton-area water shows little support for fresh movement.",
+            "detail": "The river is holding steady with no meaningful rise yet. Water temperature remains too warm to support a strong Push and is relatively steady. Recent watershed weather shows little rain.",
+            "tip": "Keep Migration Stage’s section primary. Do not shift sections from this read.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
@@ -2271,14 +2283,14 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-fall-steelhead-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 93,
             "label": "Excellent",
-            "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river.",
-            "tip": "Begin on the primary travel lane feeding deep holding water. Work each hole from its head through the inside seam and tail, then keep moving until fish establish a pattern.",
+            "headline": "Croton-area flow is in its best presentation range.",
+            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read applies only near Croton Dam within the Upper river (Newaygo–Croton Dam).",
+            "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band"
@@ -2289,15 +2301,15 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 65,
             "maximum": 100,
             "label": "Active",
-            "headline": "Today’s Steelhead activity outlook is active.",
-            "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. Steelhead are becoming more established through the river. The score describes feeding or aggressive responsiveness, while movement and abundance remain separate reads. The measured conditions represent the Croton tailwater immediately below Croton Dam. Water temperature, clarity, and fishing conditions can be different through Newaygo, the lower river, Muskegon Lake, and the channel. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
-            "tip": "Start with 5–9 AM. If conditions change, favor the window that best combines workable light with measured water temperature.",
+            "headline": "Today’s Croton-area Steelhead responsiveness is active.",
+            "detail": "Conditions support a meaningful Steelhead response. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Croton flow and temperature represent only the area near the dam.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify downstream sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -2349,10 +2361,13 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 31,
+            "displayScore": 30,
+            "scoreIsApproximate": true,
             "stage": "building",
             "maximum": 100,
             "riverCeiling": 90,
@@ -2361,14 +2376,14 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
             "curveDirection": "rising",
             "winterHoldingContext": false,
             "label": "Limited presence",
-            "headline": "Some Steelhead are likely in the river, but seasonal presence is still developing.",
-            "detail": "This part of the season usually brings limited presence, with more fish expected to enter and spread through the river. This is a seasonal estimate, not a live fish count.",
-            "tip": "Plan for an emerging but uneven river opportunity. Cover water efficiently, and do not assume every promising stop holds fish.",
+            "headline": "Seasonal Steelhead presence is limited and building.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the Muskegon Steelhead ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_building",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -2596,14 +2611,14 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
             ]
           },
           "interpretationNote": null,
-          "secondaryNote": "Based on USGS 04121970 immediately below Croton Dam. It represents the regulated Croton tailwater; flow, temperature, access, and safety can differ through Newaygo, the lower river, Muskegon Lake, and the channel.",
+          "secondaryNote": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
           "safety": {
             "regulationReminder": "Croton Dam is the hard upstream migration boundary. Fish only legal water below the dam, use established public access, respect private land and posted closures, and check current Michigan regulations and dam-safety notices.",
-            "gaugeBasis": "Based on USGS 04121970 immediately below Croton Dam. It represents the regulated Croton tailwater; flow, temperature, access, and safety can differ through Newaygo, the lower river, Muskegon Lake, and the channel.",
+            "gaugeBasis": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-muskegon-steelhead-activity.1"
+          "configVersion": "2026-08-11-muskegon-copy.1"
         }
       },
       {
@@ -2622,6 +2637,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
           "nextConditionRefreshAt": "2026-10-26T05:00:00.000Z",
           "runStage": {
             "stage": "building",
+            "copyStrategy": "muskegon_croton_tailwater",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -2645,13 +2661,13 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
             },
             "label": "Building",
             "headline": "Steelhead are becoming established through more of the Muskegon River.",
-            "whereToStart": "Newaygo-to-M-120 holding water first, then compare Croton-to-Newaygo pools with the deep lower river for accumulated versus newer fish.",
-            "detail": "Earlier arrivals can hold nearer Croton while newer fish continue entering below M-120; freshness and concentrations can differ sharply by reach.",
-            "tip": "Check at least two sections of river, then stay where you find the best signs of fish.",
+            "whereToStart": "Start in the Middle river (M-120–Newaygo). Check the Croton Dam area in the Upper river (Newaygo–Croton Dam) for earlier arrivals.",
+            "detail": "Earlier arrivals can hold near Croton while newer fish remain farther downstream.",
+            "tip": "Croton measurements apply only near the dam. Verify downstream water directly.",
             "reasonCodes": [
               "stage_building"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -2709,15 +2725,15 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "2026-10-14"
             ],
             "sourceRefreshSlots": {},
-            "headline": "There is not enough reliable information for a Migration Timing call.",
-            "tip": "Do not move farther upstream or stay lower based on this timing read. Fish the section identified by Migration Stage and begin in its most established holding water; change sections only when direct fish activity or a dependable later read supports it.",
+            "headline": "There is not enough reliable Muskegon evidence for a Migration Timing call.",
+            "tip": "Keep the Muskegon section named by Migration Stage. Do not shift sections from this timing read.",
             "detail": "There are not enough dependable past seasons to judge whether this migration is early, normal, or late.",
             "reasonCodes": [
               "conditions_baseline_missing",
               "conditions_insufficient",
               "conditions_checkpoint_building_established"
             ],
-            "copyVersion": "river-run-copy-v27",
+            "copyVersion": "river-run-copy-v34",
             "previousCheckpointId": "building_start",
             "previousCheckpointDate": "2026-10-11",
             "previousTimingLabel": "Insufficient evidence"
@@ -2734,9 +2750,9 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
           "push": {
             "score": 18,
             "label": "Weak",
-            "headline": "Today's water shows little support for a fresh wave of fish.",
-            "detail": "The river is holding steady with no meaningful rise yet. Water temperature remains too warm to support a strong Push and is relatively steady. Recent weather estimates indicate very little rain around the river.",
-            "tip": "Do not build the day around new arrivals while the river remains warm. Start in established holding water at first or last light and leave lower travel lanes secondary.",
+            "headline": "Croton-area water shows little support for fresh movement.",
+            "detail": "The river is holding steady with no meaningful rise yet. Water temperature remains too warm to support a strong Push and is relatively steady. Recent watershed weather shows little rain.",
+            "tip": "Keep Migration Stage’s section primary. Do not shift sections from this read.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
@@ -2756,14 +2772,14 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-fall-steelhead-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 93,
             "label": "Excellent",
-            "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river.",
-            "tip": "Begin on the primary travel lane feeding deep holding water. Work each hole from its head through the inside seam and tail, then keep moving until fish establish a pattern.",
+            "headline": "Croton-area flow is in its best presentation range.",
+            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read applies only near Croton Dam within the Upper river (Newaygo–Croton Dam).",
+            "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band"
@@ -2774,15 +2790,15 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 65,
             "maximum": 100,
             "label": "Active",
-            "headline": "Today’s Steelhead activity outlook is active.",
-            "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. Steelhead are becoming more established through the river. The score describes feeding or aggressive responsiveness, while movement and abundance remain separate reads. The measured conditions represent the Croton tailwater immediately below Croton Dam. Water temperature, clarity, and fishing conditions can be different through Newaygo, the lower river, Muskegon Lake, and the channel. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
-            "tip": "Start with 5–9 AM. If conditions change, favor the window that best combines workable light with measured water temperature.",
+            "headline": "Today’s Croton-area Steelhead responsiveness is active.",
+            "detail": "Conditions support a meaningful Steelhead response. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Croton flow and temperature represent only the area near the dam.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify downstream sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -2834,10 +2850,13 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 47,
+            "displayScore": 45,
+            "scoreIsApproximate": true,
             "stage": "building",
             "maximum": 100,
             "riverCeiling": 90,
@@ -2846,14 +2865,14 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
             "curveDirection": "rising",
             "winterHoldingContext": false,
             "label": "Moderate presence",
-            "headline": "A meaningful number of Steelhead are likely in the river, with seasonal presence still building.",
-            "detail": "This part of the season usually brings moderate presence, with more fish expected to enter and spread through the river. This is a seasonal estimate, not a live fish count.",
-            "tip": "Plan for a credible river opportunity that is still improving. Stay mobile until direct fish activity gives you a reason to slow down.",
+            "headline": "Seasonal Steelhead presence is moderate and building.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the Muskegon Steelhead ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_building",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -3081,14 +3100,14 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
             ]
           },
           "interpretationNote": null,
-          "secondaryNote": "Based on USGS 04121970 immediately below Croton Dam. It represents the regulated Croton tailwater; flow, temperature, access, and safety can differ through Newaygo, the lower river, Muskegon Lake, and the channel.",
+          "secondaryNote": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
           "safety": {
             "regulationReminder": "Croton Dam is the hard upstream migration boundary. Fish only legal water below the dam, use established public access, respect private land and posted closures, and check current Michigan regulations and dam-safety notices.",
-            "gaugeBasis": "Based on USGS 04121970 immediately below Croton Dam. It represents the regulated Croton tailwater; flow, temperature, access, and safety can differ through Newaygo, the lower river, Muskegon Lake, and the channel.",
+            "gaugeBasis": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-muskegon-steelhead-activity.1"
+          "configVersion": "2026-08-11-muskegon-copy.1"
         }
       },
       {
@@ -3107,6 +3126,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
           "nextConditionRefreshAt": "2026-11-02T05:00:00.000Z",
           "runStage": {
             "stage": "building",
+            "copyStrategy": "muskegon_croton_tailwater",
             "stagingContext": false,
             "broadBuildingContext": true,
             "winterHoldingContext": false,
@@ -3129,14 +3149,14 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "peakToEndDays": 37
             },
             "label": "Building",
-            "headline": "Steelhead are broadly established below Croton Dam.",
-            "whereToStart": "Compare Croton-to-Newaygo holding water, Newaygo-to-M-120 bends, and lower-river travel lanes below M-120; use Push to decide whether lakeward water deserves extra time.",
-            "detail": "Multiple entry periods can place fish in upper, middle, and lower reaches, although Croton directly measures only the tailwater.",
-            "tip": "Check at least two sections of river, then stay where you find the best signs of fish.",
+            "headline": "Steelhead are broadly established through the Muskegon River.",
+            "whereToStart": "Start in the Upper river (Newaygo–Croton Dam), emphasizing the Croton Dam area. Compare the Middle river (M-120–Newaygo) for fresher fish.",
+            "detail": "Multiple entry periods support broad presence, not equal numbers in every section.",
+            "tip": "Croton measurements apply only near the dam. Verify downstream water directly.",
             "reasonCodes": [
               "stage_building"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -3194,15 +3214,15 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "2026-10-14"
             ],
             "sourceRefreshSlots": {},
-            "headline": "There is not enough reliable information for a Migration Timing call.",
-            "tip": "Do not move farther upstream or stay lower based on this timing read. Fish the section identified by Migration Stage and begin in its most established holding water; change sections only when direct fish activity or a dependable later read supports it.",
+            "headline": "There is not enough reliable Muskegon evidence for a Migration Timing call.",
+            "tip": "Keep the Muskegon section named by Migration Stage. Do not shift sections from this timing read.",
             "detail": "There are not enough dependable past seasons to judge whether this migration is early, normal, or late.",
             "reasonCodes": [
               "conditions_baseline_missing",
               "conditions_insufficient",
               "conditions_checkpoint_building_established"
             ],
-            "copyVersion": "river-run-copy-v27",
+            "copyVersion": "river-run-copy-v34",
             "previousCheckpointId": "building_start",
             "previousCheckpointDate": "2026-10-11",
             "previousTimingLabel": "Insufficient evidence"
@@ -3219,9 +3239,9 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
           "push": {
             "score": 18,
             "label": "Weak",
-            "headline": "Today's water shows little support for a fresh wave of fish.",
-            "detail": "The river is holding steady with no meaningful rise yet. Water temperature remains too warm to support a strong Push and is relatively steady. Recent weather estimates indicate very little rain around the river.",
-            "tip": "Do not build the day around new arrivals while the river remains warm. Start in established holding water at first or last light and leave lower travel lanes secondary.",
+            "headline": "Croton-area water shows little support for fresh movement.",
+            "detail": "The river is holding steady with no meaningful rise yet. Water temperature remains too warm to support a strong Push and is relatively steady. Recent watershed weather shows little rain.",
+            "tip": "Keep Migration Stage’s section primary. Do not shift sections from this read.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
@@ -3241,14 +3261,14 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-fall-steelhead-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 93,
             "label": "Excellent",
-            "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river.",
-            "tip": "Begin on the primary travel lane feeding deep holding water. Work each hole from its head through the inside seam and tail, then keep moving until fish establish a pattern.",
+            "headline": "Croton-area flow is in its best presentation range.",
+            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read applies only near Croton Dam within the Upper river (Newaygo–Croton Dam).",
+            "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band"
@@ -3259,15 +3279,15 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 65,
             "maximum": 100,
             "label": "Active",
-            "headline": "Today’s Steelhead activity outlook is active.",
-            "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. Steelhead are becoming more established through the river. The score describes feeding or aggressive responsiveness, while movement and abundance remain separate reads. The measured conditions represent the Croton tailwater immediately below Croton Dam. Water temperature, clarity, and fishing conditions can be different through Newaygo, the lower river, Muskegon Lake, and the channel. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
-            "tip": "Start with 5–9 AM. If conditions change, favor the window that best combines workable light with measured water temperature.",
+            "headline": "Today’s Croton-area Steelhead responsiveness is active.",
+            "detail": "Conditions support a meaningful Steelhead response. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Croton flow and temperature represent only the area near the dam.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify downstream sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -3319,10 +3339,13 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 59,
+            "displayScore": 60,
+            "scoreIsApproximate": true,
             "stage": "building",
             "maximum": 100,
             "riverCeiling": 90,
@@ -3331,14 +3354,14 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
             "curveDirection": "rising",
             "winterHoldingContext": false,
             "label": "High presence",
-            "headline": "Steelhead are likely spread through more of the river as seasonal presence builds toward its strongest point.",
-            "detail": "Seasonal presence is usually elevated relative to the rest of the season, with more fish expected to enter and spread through the river. This is a seasonal estimate, not a live fish count.",
-            "tip": "Treat this as one of the stronger parts of a strong river season. Give each stop a complete pass, but do not mistake this seasonal estimate for a live fish count.",
+            "headline": "Seasonal Steelhead presence is high and building.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the Muskegon Steelhead ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_building",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -3566,14 +3589,14 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
             ]
           },
           "interpretationNote": null,
-          "secondaryNote": "Based on USGS 04121970 immediately below Croton Dam. It represents the regulated Croton tailwater; flow, temperature, access, and safety can differ through Newaygo, the lower river, Muskegon Lake, and the channel.",
+          "secondaryNote": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
           "safety": {
             "regulationReminder": "Croton Dam is the hard upstream migration boundary. Fish only legal water below the dam, use established public access, respect private land and posted closures, and check current Michigan regulations and dam-safety notices.",
-            "gaugeBasis": "Based on USGS 04121970 immediately below Croton Dam. It represents the regulated Croton tailwater; flow, temperature, access, and safety can differ through Newaygo, the lower river, Muskegon Lake, and the channel.",
+            "gaugeBasis": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-muskegon-steelhead-activity.1"
+          "configVersion": "2026-08-11-muskegon-copy.1"
         }
       },
       {
@@ -3592,6 +3615,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
           "nextConditionRefreshAt": "2026-11-11T05:00:00.000Z",
           "runStage": {
             "stage": "building",
+            "copyStrategy": "muskegon_croton_tailwater",
             "stagingContext": false,
             "broadBuildingContext": true,
             "winterHoldingContext": false,
@@ -3614,14 +3638,14 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "peakToEndDays": 37
             },
             "label": "Building",
-            "headline": "Steelhead are broadly established below Croton Dam.",
-            "whereToStart": "Compare Croton-to-Newaygo holding water, Newaygo-to-M-120 bends, and lower-river travel lanes below M-120; use Push to decide whether lakeward water deserves extra time.",
-            "detail": "Multiple entry periods can place fish in upper, middle, and lower reaches, although Croton directly measures only the tailwater.",
-            "tip": "Check at least two sections of river, then stay where you find the best signs of fish.",
+            "headline": "Steelhead are broadly established through the Muskegon River.",
+            "whereToStart": "Start in the Upper river (Newaygo–Croton Dam), emphasizing the Croton Dam area. Compare the Middle river (M-120–Newaygo) for fresher fish.",
+            "detail": "Multiple entry periods support broad presence, not equal numbers in every section.",
+            "tip": "Croton measurements apply only near the dam. Verify downstream water directly.",
             "reasonCodes": [
               "stage_building"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -3705,15 +3729,15 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "2026-11-09"
             ],
             "sourceRefreshSlots": {},
-            "headline": "There is not enough reliable information for a Migration Timing call.",
-            "tip": "Do not move farther upstream or stay lower based on this timing read. Fish the section identified by Migration Stage and begin in its most established holding water; change sections only when direct fish activity or a dependable later read supports it.",
+            "headline": "There is not enough reliable Muskegon evidence for a Migration Timing call.",
+            "tip": "Keep the Muskegon section named by Migration Stage. Do not shift sections from this timing read.",
             "detail": "There are not enough dependable past seasons to judge whether this migration is early, normal, or late.",
             "reasonCodes": [
               "conditions_baseline_missing",
               "conditions_insufficient",
               "conditions_checkpoint_peak_start"
             ],
-            "copyVersion": "river-run-copy-v27",
+            "copyVersion": "river-run-copy-v34",
             "previousCheckpointId": "building_established",
             "previousCheckpointDate": "2026-10-15",
             "previousTimingLabel": "Insufficient evidence"
@@ -3730,9 +3754,9 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
           "push": {
             "score": 18,
             "label": "Weak",
-            "headline": "Today's water shows little support for a fresh wave of fish.",
-            "detail": "The river is holding steady with no meaningful rise yet. Water temperature remains too warm to support a strong Push and is relatively steady. Recent weather estimates indicate very little rain around the river.",
-            "tip": "Do not build the day around new arrivals while the river remains warm. Start in established holding water at first or last light and leave lower travel lanes secondary.",
+            "headline": "Croton-area water shows little support for fresh movement.",
+            "detail": "The river is holding steady with no meaningful rise yet. Water temperature remains too warm to support a strong Push and is relatively steady. Recent watershed weather shows little rain.",
+            "tip": "Keep Migration Stage’s section primary. Do not shift sections from this read.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
@@ -3752,14 +3776,14 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-fall-steelhead-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 93,
             "label": "Excellent",
-            "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river.",
-            "tip": "Begin on the primary travel lane feeding deep holding water. Work each hole from its head through the inside seam and tail, then keep moving until fish establish a pattern.",
+            "headline": "Croton-area flow is in its best presentation range.",
+            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read applies only near Croton Dam within the Upper river (Newaygo–Croton Dam).",
+            "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band"
@@ -3770,15 +3794,15 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 65,
             "maximum": 100,
             "label": "Active",
-            "headline": "Today’s Steelhead activity outlook is active.",
-            "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. Steelhead are becoming more established through the river. The score describes feeding or aggressive responsiveness, while movement and abundance remain separate reads. The measured conditions represent the Croton tailwater immediately below Croton Dam. Water temperature, clarity, and fishing conditions can be different through Newaygo, the lower river, Muskegon Lake, and the channel. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
-            "tip": "Start with 5–9 AM. If conditions change, favor the window that best combines workable light with measured water temperature.",
+            "headline": "Today’s Croton-area Steelhead responsiveness is active.",
+            "detail": "Conditions support a meaningful Steelhead response. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Croton flow and temperature represent only the area near the dam.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify downstream sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -3830,10 +3854,13 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 75,
+            "displayScore": 75,
+            "scoreIsApproximate": true,
             "stage": "building",
             "maximum": 100,
             "riverCeiling": 90,
@@ -3842,14 +3869,14 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
             "curveDirection": "rising",
             "winterHoldingContext": false,
             "label": "High presence",
-            "headline": "Steelhead are likely spread through more of the river as seasonal presence builds toward its strongest point.",
-            "detail": "The migration is approaching its strongest seasonal point, and fish are likely distributed through more of the river. This is a seasonal estimate, not a live fish count.",
-            "tip": "Treat this as one of the stronger parts of a strong river season. Give each stop a complete pass, but do not mistake this seasonal estimate for a live fish count.",
+            "headline": "Seasonal Steelhead presence is high and building.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the Muskegon Steelhead ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_building",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -4077,14 +4104,14 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
             ]
           },
           "interpretationNote": null,
-          "secondaryNote": "Based on USGS 04121970 immediately below Croton Dam. It represents the regulated Croton tailwater; flow, temperature, access, and safety can differ through Newaygo, the lower river, Muskegon Lake, and the channel.",
+          "secondaryNote": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
           "safety": {
             "regulationReminder": "Croton Dam is the hard upstream migration boundary. Fish only legal water below the dam, use established public access, respect private land and posted closures, and check current Michigan regulations and dam-safety notices.",
-            "gaugeBasis": "Based on USGS 04121970 immediately below Croton Dam. It represents the regulated Croton tailwater; flow, temperature, access, and safety can differ through Newaygo, the lower river, Muskegon Lake, and the channel.",
+            "gaugeBasis": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-muskegon-steelhead-activity.1"
+          "configVersion": "2026-08-11-muskegon-copy.1"
         }
       },
       {
@@ -4103,6 +4130,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
           "nextConditionRefreshAt": "2026-11-16T05:00:00.000Z",
           "runStage": {
             "stage": "peak",
+            "copyStrategy": "muskegon_croton_tailwater",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -4125,14 +4153,14 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "peakToEndDays": 37
             },
             "label": "Peak",
-            "headline": "This is typically the strongest Muskegon fall Steelhead entry opportunity.",
-            "whereToStart": "Compare the Croton tailwater, Croton-to-Newaygo pools, Newaygo-to-M-120 bends, and substantial lower-river holes toward Muskegon Lake.",
-            "detail": "Repeated entry periods support broad corridor presence, but fresh fish, established holders, clarity, and access still differ from Croton to Muskegon Lake.",
-            "tip": "Use Push to choose between lower travel water and upper holding water, then make sure the water you find matches the read.",
+            "headline": "This is typically the strongest Muskegon fall Steelhead opportunity.",
+            "whereToStart": "Start in the Upper river (Newaygo–Croton Dam), emphasizing the Croton Dam area. Compare the Middle river (M-120–Newaygo) for fresher fish.",
+            "detail": "Steelhead can be broadly present, but freshness and concentrations still vary by section.",
+            "tip": "Croton measurements apply only near the dam. Verify downstream water directly.",
             "reasonCodes": [
               "stage_peak"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -4216,15 +4244,15 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "2026-11-09"
             ],
             "sourceRefreshSlots": {},
-            "headline": "There is not enough reliable information for a Migration Timing call.",
-            "tip": "Do not move farther upstream or stay lower based on this timing read. Fish the section identified by Migration Stage and begin in its most established holding water; change sections only when direct fish activity or a dependable later read supports it.",
+            "headline": "There is not enough reliable Muskegon evidence for a Migration Timing call.",
+            "tip": "Keep the Muskegon section named by Migration Stage. Do not shift sections from this timing read.",
             "detail": "There are not enough dependable past seasons to judge whether this migration is early, normal, or late.",
             "reasonCodes": [
               "conditions_baseline_missing",
               "conditions_insufficient",
               "conditions_checkpoint_peak_start"
             ],
-            "copyVersion": "river-run-copy-v27",
+            "copyVersion": "river-run-copy-v34",
             "previousCheckpointId": "building_established",
             "previousCheckpointDate": "2026-10-15",
             "previousTimingLabel": "Insufficient evidence"
@@ -4241,9 +4269,9 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
           "push": {
             "score": 18,
             "label": "Weak",
-            "headline": "Today's water shows little support for a fresh wave of fish.",
-            "detail": "The river is holding steady with no meaningful rise yet. Water temperature remains too warm to support a strong Push and is relatively steady. Recent weather estimates indicate very little rain around the river.",
-            "tip": "Do not build the day around new arrivals while the river remains warm. Start in established holding water at first or last light and leave lower travel lanes secondary.",
+            "headline": "Croton-area water shows little support for fresh movement.",
+            "detail": "The river is holding steady with no meaningful rise yet. Water temperature remains too warm to support a strong Push and is relatively steady. Recent watershed weather shows little rain.",
+            "tip": "Keep Migration Stage’s section primary. Do not shift sections from this read.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
@@ -4263,14 +4291,14 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-fall-steelhead-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 93,
             "label": "Excellent",
-            "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river.",
-            "tip": "Begin on the primary travel lane feeding deep holding water. Work each hole from its head through the inside seam and tail, then keep moving until fish establish a pattern.",
+            "headline": "Croton-area flow is in its best presentation range.",
+            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read applies only near Croton Dam within the Upper river (Newaygo–Croton Dam).",
+            "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band"
@@ -4281,15 +4309,15 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 65,
             "maximum": 100,
             "label": "Active",
-            "headline": "Today’s Steelhead activity outlook is active.",
-            "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. Broad fall presence can make Steelhead easier to locate, but this score measures feeding or aggressive responsiveness rather than how many fish are present. The measured conditions represent the Croton tailwater immediately below Croton Dam. Water temperature, clarity, and fishing conditions can be different through Newaygo, the lower river, Muskegon Lake, and the channel. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
-            "tip": "Start with 5–9 AM. If conditions change, favor the window that best combines workable light with measured water temperature.",
+            "headline": "Today’s Croton-area Steelhead responsiveness is active.",
+            "detail": "Conditions support a meaningful Steelhead response. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Croton flow and temperature represent only the area near the dam.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify downstream sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -4341,10 +4369,13 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 90,
+            "displayScore": 90,
+            "scoreIsApproximate": false,
             "stage": "peak",
             "maximum": 100,
             "riverCeiling": 90,
@@ -4353,14 +4384,14 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
             "curveDirection": "near_peak",
             "winterHoldingContext": false,
             "label": "Peak presence",
-            "headline": "Steelhead are likely near their highest seasonal presence in the river.",
-            "detail": "This is the part of the season when in-river presence is usually strongest. The read describes the river as a whole; it does not place fish in a specific pool or confirm a live count.",
-            "tip": "Plan for the strongest seasonal presence this river usually offers, while remembering that this estimate cannot confirm fish at a specific spot or describe today's river conditions.",
+            "headline": "Seasonal Steelhead presence is near its expected Muskegon peak.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the Muskegon Steelhead ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_peak",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -4594,14 +4625,14 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "peak_presence_weak_push"
             ]
           },
-          "secondaryNote": "Based on USGS 04121970 immediately below Croton Dam. It represents the regulated Croton tailwater; flow, temperature, access, and safety can differ through Newaygo, the lower river, Muskegon Lake, and the channel.",
+          "secondaryNote": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
           "safety": {
             "regulationReminder": "Croton Dam is the hard upstream migration boundary. Fish only legal water below the dam, use established public access, respect private land and posted closures, and check current Michigan regulations and dam-safety notices.",
-            "gaugeBasis": "Based on USGS 04121970 immediately below Croton Dam. It represents the regulated Croton tailwater; flow, temperature, access, and safety can differ through Newaygo, the lower river, Muskegon Lake, and the channel.",
+            "gaugeBasis": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-muskegon-steelhead-activity.1"
+          "configVersion": "2026-08-11-muskegon-copy.1"
         }
       },
       {
@@ -4620,6 +4651,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
           "nextConditionRefreshAt": "2026-12-01T05:00:00.000Z",
           "runStage": {
             "stage": "peak",
+            "copyStrategy": "muskegon_croton_tailwater",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -4642,14 +4674,14 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "peakToEndDays": 37
             },
             "label": "Peak",
-            "headline": "This is typically the strongest Muskegon fall Steelhead entry opportunity.",
-            "whereToStart": "Compare the Croton tailwater, Croton-to-Newaygo pools, Newaygo-to-M-120 bends, and substantial lower-river holes toward Muskegon Lake.",
-            "detail": "Repeated entry periods support broad corridor presence, but fresh fish, established holders, clarity, and access still differ from Croton to Muskegon Lake.",
-            "tip": "Use Push to choose between lower travel water and upper holding water, then make sure the water you find matches the read.",
+            "headline": "This is typically the strongest Muskegon fall Steelhead opportunity.",
+            "whereToStart": "Start in the Upper river (Newaygo–Croton Dam), emphasizing the Croton Dam area. Compare the Middle river (M-120–Newaygo) for fresher fish.",
+            "detail": "Steelhead can be broadly present, but freshness and concentrations still vary by section.",
+            "tip": "Croton measurements apply only near the dam. Verify downstream water directly.",
             "reasonCodes": [
               "stage_peak"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Timing complete",
@@ -4752,7 +4784,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "conditions_checkpoint_peak_complete",
               "conditions_timing_complete"
             ],
-            "copyVersion": "river-run-copy-v27",
+            "copyVersion": "river-run-copy-v34",
             "previousCheckpointId": "peak_start",
             "previousCheckpointDate": "2026-11-10",
             "previousTimingLabel": "Insufficient evidence"
@@ -4769,9 +4801,9 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
           "push": {
             "score": 18,
             "label": "Weak",
-            "headline": "Today's water shows little support for a fresh wave of fish.",
-            "detail": "The river is holding steady with no meaningful rise yet. Water temperature remains too warm to support a strong Push and is relatively steady. Recent weather estimates indicate very little rain around the river.",
-            "tip": "Do not build the day around new arrivals while the river remains warm. Start in established holding water at first or last light and leave lower travel lanes secondary.",
+            "headline": "Croton-area water shows little support for fresh movement.",
+            "detail": "The river is holding steady with no meaningful rise yet. Water temperature remains too warm to support a strong Push and is relatively steady. Recent watershed weather shows little rain.",
+            "tip": "Keep Migration Stage’s section primary. Do not shift sections from this read.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
@@ -4791,14 +4823,14 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-fall-steelhead-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 93,
             "label": "Excellent",
-            "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river.",
-            "tip": "Begin on the primary travel lane feeding deep holding water. Work each hole from its head through the inside seam and tail, then keep moving until fish establish a pattern.",
+            "headline": "Croton-area flow is in its best presentation range.",
+            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read applies only near Croton Dam within the Upper river (Newaygo–Croton Dam).",
+            "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band"
@@ -4809,15 +4841,15 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 65,
             "maximum": 100,
             "label": "Active",
-            "headline": "Today’s Steelhead activity outlook is active.",
-            "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. Broad fall presence can make Steelhead easier to locate, but this score measures feeding or aggressive responsiveness rather than how many fish are present. The measured conditions represent the Croton tailwater immediately below Croton Dam. Water temperature, clarity, and fishing conditions can be different through Newaygo, the lower river, Muskegon Lake, and the channel. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
-            "tip": "Start with 5–9 AM. If conditions change, favor the window that best combines workable light with measured water temperature.",
+            "headline": "Today’s Croton-area Steelhead responsiveness is active.",
+            "detail": "Conditions support a meaningful Steelhead response. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Croton flow and temperature represent only the area near the dam.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify downstream sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -4869,10 +4901,13 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 90,
+            "displayScore": 90,
+            "scoreIsApproximate": false,
             "stage": "peak",
             "maximum": 100,
             "riverCeiling": 90,
@@ -4881,14 +4916,14 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
             "curveDirection": "near_peak",
             "winterHoldingContext": false,
             "label": "Peak presence",
-            "headline": "Steelhead are likely near their highest seasonal presence in the river.",
-            "detail": "This is the part of the season when in-river presence is usually strongest. The read describes the river as a whole; it does not place fish in a specific pool or confirm a live count.",
-            "tip": "Plan for the strongest seasonal presence this river usually offers, while remembering that this estimate cannot confirm fish at a specific spot or describe today's river conditions.",
+            "headline": "Seasonal Steelhead presence is near its expected Muskegon peak.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the Muskegon Steelhead ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_peak",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -5122,14 +5157,14 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "peak_presence_weak_push"
             ]
           },
-          "secondaryNote": "Based on USGS 04121970 immediately below Croton Dam. It represents the regulated Croton tailwater; flow, temperature, access, and safety can differ through Newaygo, the lower river, Muskegon Lake, and the channel.",
+          "secondaryNote": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
           "safety": {
             "regulationReminder": "Croton Dam is the hard upstream migration boundary. Fish only legal water below the dam, use established public access, respect private land and posted closures, and check current Michigan regulations and dam-safety notices.",
-            "gaugeBasis": "Based on USGS 04121970 immediately below Croton Dam. It represents the regulated Croton tailwater; flow, temperature, access, and safety can differ through Newaygo, the lower river, Muskegon Lake, and the channel.",
+            "gaugeBasis": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-muskegon-steelhead-activity.1"
+          "configVersion": "2026-08-11-muskegon-copy.1"
         }
       },
       {
@@ -5148,6 +5183,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
           "nextConditionRefreshAt": "2026-12-06T05:00:00.000Z",
           "runStage": {
             "stage": "peak",
+            "copyStrategy": "muskegon_croton_tailwater",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -5170,14 +5206,14 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "peakToEndDays": 37
             },
             "label": "Peak",
-            "headline": "This is typically the strongest Muskegon fall Steelhead entry opportunity.",
-            "whereToStart": "Compare the Croton tailwater, Croton-to-Newaygo pools, Newaygo-to-M-120 bends, and substantial lower-river holes toward Muskegon Lake.",
-            "detail": "Repeated entry periods support broad corridor presence, but fresh fish, established holders, clarity, and access still differ from Croton to Muskegon Lake.",
-            "tip": "Use Push to choose between lower travel water and upper holding water, then make sure the water you find matches the read.",
+            "headline": "This is typically the strongest Muskegon fall Steelhead opportunity.",
+            "whereToStart": "Start in the Upper river (Newaygo–Croton Dam), emphasizing the Croton Dam area. Compare the Middle river (M-120–Newaygo) for fresher fish.",
+            "detail": "Steelhead can be broadly present, but freshness and concentrations still vary by section.",
+            "tip": "Croton measurements apply only near the dam. Verify downstream water directly.",
             "reasonCodes": [
               "stage_peak"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Timing complete",
@@ -5280,7 +5316,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "conditions_checkpoint_peak_complete",
               "conditions_timing_complete"
             ],
-            "copyVersion": "river-run-copy-v27",
+            "copyVersion": "river-run-copy-v34",
             "previousCheckpointId": "peak_start",
             "previousCheckpointDate": "2026-11-10",
             "previousTimingLabel": "Insufficient evidence"
@@ -5297,9 +5333,9 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
           "push": {
             "score": 18,
             "label": "Weak",
-            "headline": "Today's water shows little support for a fresh wave of fish.",
-            "detail": "The river is holding steady with no meaningful rise yet. Water temperature remains too warm to support a strong Push and is relatively steady. Recent weather estimates indicate very little rain around the river.",
-            "tip": "Do not build the day around new arrivals while the river remains warm. Start in established holding water at first or last light and leave lower travel lanes secondary.",
+            "headline": "Croton-area water shows little support for fresh movement.",
+            "detail": "The river is holding steady with no meaningful rise yet. Water temperature remains too warm to support a strong Push and is relatively steady. Recent watershed weather shows little rain.",
+            "tip": "Keep Migration Stage’s section primary. Do not shift sections from this read.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
@@ -5319,14 +5355,14 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-fall-steelhead-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 93,
             "label": "Excellent",
-            "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river.",
-            "tip": "Begin on the primary travel lane feeding deep holding water. Work each hole from its head through the inside seam and tail, then keep moving until fish establish a pattern.",
+            "headline": "Croton-area flow is in its best presentation range.",
+            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read applies only near Croton Dam within the Upper river (Newaygo–Croton Dam).",
+            "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band"
@@ -5337,15 +5373,15 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 65,
             "maximum": 100,
             "label": "Active",
-            "headline": "Today’s Steelhead activity outlook is active.",
-            "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. Broad fall presence can make Steelhead easier to locate, but this score measures feeding or aggressive responsiveness rather than how many fish are present. The measured conditions represent the Croton tailwater immediately below Croton Dam. Water temperature, clarity, and fishing conditions can be different through Newaygo, the lower river, Muskegon Lake, and the channel. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
-            "tip": "Start with 5–9 AM. If conditions change, favor the window that best combines workable light with measured water temperature.",
+            "headline": "Today’s Croton-area Steelhead responsiveness is active.",
+            "detail": "Conditions support a meaningful Steelhead response. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Croton flow and temperature represent only the area near the dam.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify downstream sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -5397,10 +5433,13 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 90,
+            "displayScore": 90,
+            "scoreIsApproximate": false,
             "stage": "peak",
             "maximum": 100,
             "riverCeiling": 90,
@@ -5409,14 +5448,14 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
             "curveDirection": "near_peak",
             "winterHoldingContext": false,
             "label": "Peak presence",
-            "headline": "Steelhead are likely near their highest seasonal presence in the river.",
-            "detail": "This is the part of the season when in-river presence is usually strongest. The read describes the river as a whole; it does not place fish in a specific pool or confirm a live count.",
-            "tip": "Plan for the strongest seasonal presence this river usually offers, while remembering that this estimate cannot confirm fish at a specific spot or describe today's river conditions.",
+            "headline": "Seasonal Steelhead presence is near its expected Muskegon peak.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the Muskegon Steelhead ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_peak",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -5650,14 +5689,14 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "peak_presence_weak_push"
             ]
           },
-          "secondaryNote": "Based on USGS 04121970 immediately below Croton Dam. It represents the regulated Croton tailwater; flow, temperature, access, and safety can differ through Newaygo, the lower river, Muskegon Lake, and the channel.",
+          "secondaryNote": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
           "safety": {
             "regulationReminder": "Croton Dam is the hard upstream migration boundary. Fish only legal water below the dam, use established public access, respect private land and posted closures, and check current Michigan regulations and dam-safety notices.",
-            "gaugeBasis": "Based on USGS 04121970 immediately below Croton Dam. It represents the regulated Croton tailwater; flow, temperature, access, and safety can differ through Newaygo, the lower river, Muskegon Lake, and the channel.",
+            "gaugeBasis": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-muskegon-steelhead-activity.1"
+          "configVersion": "2026-08-11-muskegon-copy.1"
         }
       },
       {
@@ -5676,6 +5715,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
           "nextConditionRefreshAt": "2026-12-21T05:00:00.000Z",
           "runStage": {
             "stage": "ending",
+            "copyStrategy": "muskegon_croton_tailwater",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -5698,14 +5738,14 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "peakToEndDays": 37
             },
             "label": "Holding transition",
-            "headline": "Steelhead remain in the Muskegon as fall entry hands off to winter holding.",
-            "whereToStart": "Deep, speed-controlled holding water below Croton, around Newaygo, and in substantial M-120-area bends with nearby feeding current.",
-            "detail": "The migration phase is ending, not the fishery. Retained fish increasingly use deep water beside efficient feeding current.",
-            "tip": "Look for deep water, softer current, and an easy feeding lane nearby.",
+            "headline": "Muskegon Steelhead fall entry is nearing its endpoint.",
+            "whereToStart": "Start in established Upper river (Newaygo–Croton Dam) water near Croton Dam.",
+            "detail": "This seasonal entry phase is ending. Steelhead may remain after this model stops.",
+            "tip": "Do not use a late Stage to infer current activity or a new movement wave.",
             "reasonCodes": [
               "stage_ending"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Timing complete",
@@ -5808,7 +5848,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "conditions_checkpoint_peak_complete",
               "conditions_timing_complete"
             ],
-            "copyVersion": "river-run-copy-v27",
+            "copyVersion": "river-run-copy-v34",
             "previousCheckpointId": "peak_start",
             "previousCheckpointDate": "2026-11-10",
             "previousTimingLabel": "Insufficient evidence"
@@ -5825,9 +5865,9 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
           "push": {
             "score": 18,
             "label": "Weak",
-            "headline": "Today's water shows little support for a fresh wave of fish.",
-            "detail": "The river is holding steady with no meaningful rise yet. Water temperature remains too warm to support a strong Push and is relatively steady. Recent weather estimates indicate very little rain around the river.",
-            "tip": "Do not build the day around new arrivals while the river remains warm. Start in established holding water at first or last light and leave lower travel lanes secondary.",
+            "headline": "Croton-area water shows little support for fresh movement.",
+            "detail": "The river is holding steady with no meaningful rise yet. Water temperature remains too warm to support a strong Push and is relatively steady. Recent watershed weather shows little rain.",
+            "tip": "Keep Migration Stage’s section primary. Do not shift sections from this read.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
@@ -5847,14 +5887,14 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-fall-steelhead-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 93,
             "label": "Excellent",
-            "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river.",
-            "tip": "Begin on the primary travel lane feeding deep holding water. Work each hole from its head through the inside seam and tail, then keep moving until fish establish a pattern.",
+            "headline": "Croton-area flow is in its best presentation range.",
+            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read applies only near Croton Dam within the Upper river (Newaygo–Croton Dam).",
+            "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band"
@@ -5865,15 +5905,15 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 65,
             "maximum": 100,
             "label": "Active",
-            "headline": "Today’s Steelhead activity outlook is active.",
-            "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. These Steelhead remain alive in the river as they transition into winter holding. Their responsiveness follows measured water temperature and current conditions rather than a terminal biological decline. The measured conditions represent the Croton tailwater immediately below Croton Dam. Water temperature, clarity, and fishing conditions can be different through Newaygo, the lower river, Muskegon Lake, and the channel. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
-            "tip": "Compare the four time windows, but expect a shorter response in cold water and keep the result separate from the winter holding outlook.",
+            "headline": "Today’s Croton-area Steelhead responsiveness is active.",
+            "detail": "Conditions support a meaningful Steelhead response. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Cold late-fall water can shorten response windows without meaning Steelhead have left the river.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify downstream sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -5925,10 +5965,13 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 81,
+            "displayScore": 85,
+            "scoreIsApproximate": true,
             "stage": "ending",
             "maximum": 100,
             "riverCeiling": 90,
@@ -5937,14 +5980,14 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
             "curveDirection": "falling",
             "winterHoldingContext": false,
             "label": "Peak presence",
-            "headline": "Steelhead remain near their strongest fall presence as winter holding approaches.",
-            "detail": "The slight decline reflects fewer fresh arrivals—not fish simply leaving the river. This is a seasonal opportunity estimate, not a live fish count.",
-            "tip": "Treat the retained presence as strong, but expect the fishery to be shifting away from fresh fall entry. Verify current river conditions before choosing a presentation.",
+            "headline": "Seasonal Steelhead presence is near its expected Muskegon peak.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the Muskegon Steelhead ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_ending",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -6172,14 +6215,14 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
             ]
           },
           "interpretationNote": null,
-          "secondaryNote": "Based on USGS 04121970 immediately below Croton Dam. It represents the regulated Croton tailwater; flow, temperature, access, and safety can differ through Newaygo, the lower river, Muskegon Lake, and the channel.",
+          "secondaryNote": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
           "safety": {
             "regulationReminder": "Croton Dam is the hard upstream migration boundary. Fish only legal water below the dam, use established public access, respect private land and posted closures, and check current Michigan regulations and dam-safety notices.",
-            "gaugeBasis": "Based on USGS 04121970 immediately below Croton Dam. It represents the regulated Croton tailwater; flow, temperature, access, and safety can differ through Newaygo, the lower river, Muskegon Lake, and the channel.",
+            "gaugeBasis": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-muskegon-steelhead-activity.1"
+          "configVersion": "2026-08-11-muskegon-copy.1"
         }
       },
       {
@@ -6198,9 +6241,10 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
           "nextConditionRefreshAt": "2026-12-24T05:00:00.000Z",
           "runStage": {
             "stage": "post_run",
+            "copyStrategy": "muskegon_croton_tailwater",
             "stagingContext": false,
             "broadBuildingContext": false,
-            "winterHoldingContext": true,
+            "winterHoldingContext": false,
             "window": {
               "snapshotDate": "2026-12-23",
               "preRunStartDate": "2026-08-20",
@@ -6219,16 +6263,16 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "startToPeakDays": 51,
               "peakToEndDays": 37
             },
-            "label": "Winter holding",
-            "headline": "Steelhead have transitioned from fall entry into winter holding below Croton Dam.",
-            "whereToStart": "Deep, speed-controlled holding water below Croton, through the Croton-to-Newaygo corridor, and in substantial Newaygo-to-M-120 bends; compare lower-river wintering holes only when local conditions support them.",
-            "detail": "The fish have not left the river. Colder water shifts the useful question from entry toward daily activity, feeding position, and efficient holding water across the long corridor.",
-            "tip": "Use the winter Steelhead read to see how active the fish may be. Fish staying in the river does not mean new fish are moving in.",
+            "label": "Fall entry complete",
+            "headline": "Muskegon Steelhead fall entry is complete.",
+            "whereToStart": "There is no active Muskegon starting section in this fall-entry model.",
+            "detail": "Steelhead may remain in the river. This model no longer estimates current presence or activity.",
+            "tip": "Check back in early September when Muskegon fall-entry tracking resumes.",
             "reasonCodes": [
               "stage_post_run",
-              "stage_winter_holding"
+              "stage_offseason"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Timing complete",
@@ -6322,16 +6366,16 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "2026-11-20"
             ],
             "sourceRefreshSlots": {},
-            "headline": "This season's Migration Timing read is complete.",
-            "tip": "Stop planning around whether fall entry was early or late. Use the winter fishery read to judge current activity and presentation.",
-            "detail": "There was not enough reliable season-long river and temperature information to make an early, normal, or late call. Steelhead presence has now shifted into winter holding, where current activity matters more than fall timing.",
+            "headline": "Muskegon fall-entry Migration Timing is complete.",
+            "tip": "Do not use completed fall timing to infer current presence or activity. Muskegon fall monitoring resumes in early September.",
+            "detail": "The Muskegon fall-entry timing window closed without enough reliable evidence for an early, typical, or delayed call.",
             "reasonCodes": [
               "conditions_baseline_missing",
               "conditions_insufficient",
               "conditions_checkpoint_peak_complete",
               "conditions_timing_complete"
             ],
-            "copyVersion": "river-run-copy-v27",
+            "copyVersion": "river-run-copy-v34",
             "previousCheckpointId": "peak_start",
             "previousCheckpointDate": "2026-11-10",
             "previousTimingLabel": "Insufficient evidence"
@@ -6347,22 +6391,22 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
           },
           "push": {
             "score": null,
-            "label": "Winter holding",
-            "headline": "The season's fresh-movement read is complete.",
-            "detail": "Steelhead may remain in the river, but the fall-entry signal has handed off to winter holding. Winter activity requires a different water-temperature and feeding read.",
-            "tip": "Use the winter fishery read for activity and presentation decisions. Do not treat a muted Push as evidence that steelhead left the river.",
+            "label": "Fall entry complete",
+            "headline": "Muskegon Steelhead fall-entry Push is complete.",
+            "detail": "Current water may affect Steelhead still in the river. This fall model no longer scores fresh-entry support.",
+            "tip": "Do not use a completed fall Push to infer current presence. Check back in early September.",
             "reasonCodes": [
               "push_tracking_complete"
             ],
             "rulesVersion": "muskegon-fall-steelhead-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 93,
             "label": "Excellent",
-            "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river.",
-            "tip": "Begin on the primary travel lane feeding deep holding water. Work each hole from its head through the inside seam and tail, then keep moving until fish establish a pattern.",
+            "headline": "Croton-area flow is in its best presentation range.",
+            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read applies only near Croton Dam within the Upper river (Newaygo–Croton Dam).",
+            "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band"
@@ -6373,88 +6417,45 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
-            "score": 65,
+            "score": null,
             "maximum": 100,
-            "label": "Active",
-            "headline": "Today’s Steelhead activity outlook is active.",
-            "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. Steelhead remain alive in winter holding after the fall-entry period. Use the dedicated winter read when available; this score only describes current responsiveness. The measured conditions represent the Croton tailwater immediately below Croton Dam. Water temperature, clarity, and fishing conditions can be different through Newaygo, the lower river, Muskegon Lake, and the channel. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
-            "tip": "Compare the four time windows, but expect a shorter response in cold water and keep the result separate from the winter holding outlook.",
+            "label": "Fall entry complete",
+            "headline": "Muskegon Steelhead fall-entry Activity is complete.",
+            "detail": "Steelhead may remain in the river. This fall-entry model no longer scores their current responsiveness.",
+            "tip": "Do not use this completed fall outlook to infer current activity. Check back in early September.",
             "reasonCodes": [
-              "activity_confidence_full",
-              "activity_today",
-              "activity_run_present"
+              "activity_fall_entry_complete"
             ],
             "rulesVersion": "muskegon-fall-steelhead-activity-v1",
             "targetDate": "2026-12-23",
             "targetDayLabel": "Today",
-            "confidence": "Full",
+            "confidence": "Limited",
             "conditionalPresence": false,
-            "blocks": [
-              {
-                "id": "05-09",
-                "label": "5–9 AM",
-                "score": 67,
-                "activityLabel": "Active",
-                "positiveDriver": "Clouds or lower light make this window more favorable.",
-                "limitingFactor": "Rain adds little extra cover.",
-                "cloudCoverPct": 60,
-                "precipitationIn": 0
-              },
-              {
-                "id": "09-13",
-                "label": "9 AM–1 PM",
-                "score": 62,
-                "activityLabel": "Active",
-                "positiveDriver": "The river level and its recent change are favorable.",
-                "limitingFactor": "Rain adds little extra cover.",
-                "cloudCoverPct": 60,
-                "precipitationIn": 0
-              },
-              {
-                "id": "13-17",
-                "label": "1–5 PM",
-                "score": 62,
-                "activityLabel": "Active",
-                "positiveDriver": "The river level and its recent change are favorable.",
-                "limitingFactor": "Rain adds little extra cover.",
-                "cloudCoverPct": 60,
-                "precipitationIn": 0
-              },
-              {
-                "id": "17-21",
-                "label": "5–9 PM",
-                "score": 66,
-                "activityLabel": "Active",
-                "positiveDriver": "Clouds or lower light make this window more favorable.",
-                "limitingFactor": "Rain adds little extra cover.",
-                "cloudCoverPct": 60,
-                "precipitationIn": 0
-              }
-            ]
+            "blocks": [],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
-            "score": 80,
+            "score": null,
+            "scoreIsApproximate": false,
             "stage": "post_run",
             "maximum": 100,
             "riverCeiling": 90,
             "historicalRunStrength": "strong",
-            "curveFraction": 0.89,
+            "curveFraction": 0,
             "curveDirection": "outside",
-            "winterHoldingContext": true,
-            "handoffScore": 80,
-            "label": "Winter holding",
-            "headline": "Steelhead remain strongly present as the fishery shifts into winter holding.",
-            "detail": "Fall entry finished at 80/100. That retained-presence reference stays visible, but it is not a winter activity score; winter opportunity depends on water temperature, feeding activity, and presentation.",
-            "tip": "Open the Winter Holding read for current activity, likely holding water, and presentation guidance. Treat 80/100 as retained seasonal presence—not proof that fish are active today.",
+            "winterHoldingContext": false,
+            "label": "Fall entry complete",
+            "headline": "Muskegon Steelhead fall entry is complete.",
+            "detail": "Steelhead may remain in the river. This fall-entry model no longer estimates their current seasonal presence.",
+            "tip": "Check back in early September when Muskegon fall movement tracking resumes.",
             "reasonCodes": [
               "stage_post_run",
-              "historical_presence_curve",
-              "fish_presence_winter_handoff"
+              "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -6681,21 +6682,15 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "data_quality_limited"
             ]
           },
-          "interpretationNote": {
-            "headline": "Steelhead are still in the river, but winter conditions now control the day.",
-            "detail": "The fall-entry period ended with strong retained presence. Use the winter fishery read to judge activity and presentation; Push and Migration Timing are intentionally complete because they answer the wrong question now.",
-            "reasonCodes": [
-              "winter_holding_read_required"
-            ]
-          },
-          "secondaryNote": "Based on USGS 04121970 immediately below Croton Dam. It represents the regulated Croton tailwater; flow, temperature, access, and safety can differ through Newaygo, the lower river, Muskegon Lake, and the channel.",
+          "interpretationNote": null,
+          "secondaryNote": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
           "safety": {
             "regulationReminder": "Croton Dam is the hard upstream migration boundary. Fish only legal water below the dam, use established public access, respect private land and posted closures, and check current Michigan regulations and dam-safety notices.",
-            "gaugeBasis": "Based on USGS 04121970 immediately below Croton Dam. It represents the regulated Croton tailwater; flow, temperature, access, and safety can differ through Newaygo, the lower river, Muskegon Lake, and the channel.",
+            "gaugeBasis": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-muskegon-steelhead-activity.1"
+          "configVersion": "2026-08-11-muskegon-copy.1"
         }
       }
     ]
@@ -6720,6 +6715,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
           "nextConditionRefreshAt": "2026-07-25T05:00:00.000Z",
           "runStage": {
             "stage": "post_run",
+            "copyStrategy": "muskegon_croton_tailwater",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -6741,16 +6737,16 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "startToPeakDays": 51,
               "peakToEndDays": 37
             },
-            "label": "Offseason",
-            "headline": "Steelhead are outside the Muskegon fall-entry model.",
-            "whereToStart": "No active fall-entry starting reach; use the winter Steelhead read for current holding-water guidance instead.",
-            "detail": "This profile no longer evaluates fall migration; winter activity requires a holding-focused seasonal read.",
-            "tip": "The fall-entry read is finished. Use the winter Steelhead read instead.",
+            "label": "Fall entry complete",
+            "headline": "Muskegon Steelhead fall entry is complete.",
+            "whereToStart": "There is no active Muskegon starting section in this fall-entry model.",
+            "detail": "Steelhead may remain in the river. This model no longer estimates current presence or activity.",
+            "tip": "Check back in early September when Muskegon fall-entry tracking resumes.",
             "reasonCodes": [
               "stage_post_run",
               "stage_offseason"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Not monitoring yet",
@@ -6769,13 +6765,13 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
             "historicalYears": 0,
             "sourceDates": [],
             "sourceRefreshSlots": {},
-            "headline": "Migration Timing is not active right now.",
-            "detail": "Timing monitoring begins before the expected river entry, but that seasonal observation window is not active yet.",
-            "tip": "Check Migration Stage for the current seasonal position and return to Migration Timing when early monitoring begins.",
+            "headline": "Muskegon Migration Timing is not monitoring yet.",
+            "detail": "Season-to-date Croton flow and measured-temperature monitoring resumes in early September.",
+            "tip": "Check back in early September when Muskegon timing monitoring resumes.",
             "reasonCodes": [
               "conditions_monitoring_inactive"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -6788,22 +6784,22 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
           },
           "push": {
             "score": null,
-            "label": "Offseason",
-            "headline": "Push is not active outside the river migration season.",
-            "detail": "Rain, river level, and water temperature can still change, but they do not provide a useful fresh-arrival signal for this species right now.",
-            "tip": "Do not use Push to plan for this species outside its migration season. Follow an active species instead, or return when early monitoring begins.",
+            "label": "Fall entry complete",
+            "headline": "Muskegon Steelhead fall-entry Push is complete.",
+            "detail": "Current water may affect Steelhead still in the river. This fall model no longer scores fresh-entry support.",
+            "tip": "Do not use a completed fall Push to infer current presence. Check back in early September.",
             "reasonCodes": [
-              "push_tracking_offseason"
+              "push_tracking_complete"
             ],
             "rulesVersion": "muskegon-fall-steelhead-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 93,
             "label": "Excellent",
-            "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river.",
-            "tip": "Begin on the primary travel lane feeding deep holding water. Work each hole from its head through the inside seam and tail, then keep moving until fish establish a pattern.",
+            "headline": "Croton-area flow is in its best presentation range.",
+            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read applies only near Croton Dam within the Upper river (Newaygo–Croton Dam).",
+            "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band"
@@ -6814,11 +6810,12 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": null,
           "fishInRiver": {
-            "score": 0,
+            "score": null,
+            "scoreIsApproximate": false,
             "stage": "post_run",
             "maximum": 100,
             "riverCeiling": 90,
@@ -6826,15 +6823,15 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
             "curveFraction": 0,
             "curveDirection": "outside",
             "winterHoldingContext": false,
-            "label": "Offseason",
-            "headline": "Steelhead are outside their river migration season.",
-            "detail": "A dependable seasonal presence of Steelhead is not expected in the river right now.",
-            "tip": "Do not build a river trip around this species right now. Target a species with an active seasonal window and return as the next migration approaches.",
+            "label": "Fall entry complete",
+            "headline": "Muskegon Steelhead fall entry is complete.",
+            "detail": "Steelhead may remain in the river. This fall-entry model no longer estimates their current seasonal presence.",
+            "tip": "Check back in early September when Muskegon fall movement tracking resumes.",
             "reasonCodes": [
               "stage_post_run",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -7060,21 +7057,15 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "data_quality_fresh"
             ]
           },
-          "interpretationNote": {
-            "headline": "The river should fish well, but seasonal fish presence is still low.",
-            "detail": "Good flow makes presentations easier, but it does not put fish in the river. Begin in the deepest established holding water and skip broad searches through fast travel lanes as seasonal presence thins.",
-            "reasonCodes": [
-              "good_fishability_low_presence"
-            ]
-          },
-          "secondaryNote": "Based on USGS 04121970 immediately below Croton Dam. It represents the regulated Croton tailwater; flow, temperature, access, and safety can differ through Newaygo, the lower river, Muskegon Lake, and the channel.",
+          "interpretationNote": null,
+          "secondaryNote": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
           "safety": {
             "regulationReminder": "Croton Dam is the hard upstream migration boundary. Fish only legal water below the dam, use established public access, respect private land and posted closures, and check current Michigan regulations and dam-safety notices.",
-            "gaugeBasis": "Based on USGS 04121970 immediately below Croton Dam. It represents the regulated Croton tailwater; flow, temperature, access, and safety can differ through Newaygo, the lower river, Muskegon Lake, and the channel.",
+            "gaugeBasis": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-muskegon-steelhead-activity.1"
+          "configVersion": "2026-08-11-muskegon-copy.1"
         }
       },
       {
@@ -7093,6 +7084,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
           "nextConditionRefreshAt": "2026-08-06T05:00:00.000Z",
           "runStage": {
             "stage": "post_run",
+            "copyStrategy": "muskegon_croton_tailwater",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -7114,16 +7106,16 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "startToPeakDays": 51,
               "peakToEndDays": 37
             },
-            "label": "Offseason",
-            "headline": "Steelhead are outside the Muskegon fall-entry model.",
-            "whereToStart": "No active fall-entry starting reach; use the winter Steelhead read for current holding-water guidance instead.",
-            "detail": "This profile no longer evaluates fall migration; winter activity requires a holding-focused seasonal read.",
-            "tip": "The fall-entry read is finished. Use the winter Steelhead read instead.",
+            "label": "Fall entry complete",
+            "headline": "Muskegon Steelhead fall entry is complete.",
+            "whereToStart": "There is no active Muskegon starting section in this fall-entry model.",
+            "detail": "Steelhead may remain in the river. This model no longer estimates current presence or activity.",
+            "tip": "Check back in early September when Muskegon fall-entry tracking resumes.",
             "reasonCodes": [
               "stage_post_run",
               "stage_offseason"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Not monitoring yet",
@@ -7142,13 +7134,13 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
             "historicalYears": 0,
             "sourceDates": [],
             "sourceRefreshSlots": {},
-            "headline": "Migration Timing is not active right now.",
-            "detail": "Timing monitoring begins before the expected river entry, but that seasonal observation window is not active yet.",
-            "tip": "Check Migration Stage for the current seasonal position and return to Migration Timing when early monitoring begins.",
+            "headline": "Muskegon Migration Timing is not monitoring yet.",
+            "detail": "Season-to-date Croton flow and measured-temperature monitoring resumes in early September.",
+            "tip": "Check back in early September when Muskegon timing monitoring resumes.",
             "reasonCodes": [
               "conditions_monitoring_inactive"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -7161,22 +7153,22 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
           },
           "push": {
             "score": null,
-            "label": "Offseason",
-            "headline": "Push is not active outside the river migration season.",
-            "detail": "Rain, river level, and water temperature can still change, but they do not provide a useful fresh-arrival signal for this species right now.",
-            "tip": "Do not use Push to plan for this species outside its migration season. Follow an active species instead, or return when early monitoring begins.",
+            "label": "Fall entry complete",
+            "headline": "Muskegon Steelhead fall-entry Push is complete.",
+            "detail": "Current water may affect Steelhead still in the river. This fall model no longer scores fresh-entry support.",
+            "tip": "Do not use a completed fall Push to infer current presence. Check back in early September.",
             "reasonCodes": [
-              "push_tracking_offseason"
+              "push_tracking_complete"
             ],
             "rulesVersion": "muskegon-fall-steelhead-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 93,
             "label": "Excellent",
-            "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river.",
-            "tip": "Begin on the primary travel lane feeding deep holding water. Work each hole from its head through the inside seam and tail, then keep moving until fish establish a pattern.",
+            "headline": "Croton-area flow is in its best presentation range.",
+            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read applies only near Croton Dam within the Upper river (Newaygo–Croton Dam).",
+            "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band"
@@ -7187,11 +7179,12 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": null,
           "fishInRiver": {
-            "score": 0,
+            "score": null,
+            "scoreIsApproximate": false,
             "stage": "post_run",
             "maximum": 100,
             "riverCeiling": 90,
@@ -7199,15 +7192,15 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
             "curveFraction": 0,
             "curveDirection": "outside",
             "winterHoldingContext": false,
-            "label": "Offseason",
-            "headline": "Steelhead are outside their river migration season.",
-            "detail": "A dependable seasonal presence of Steelhead is not expected in the river right now.",
-            "tip": "Do not build a river trip around this species right now. Target a species with an active seasonal window and return as the next migration approaches.",
+            "label": "Fall entry complete",
+            "headline": "Muskegon Steelhead fall entry is complete.",
+            "detail": "Steelhead may remain in the river. This fall-entry model no longer estimates their current seasonal presence.",
+            "tip": "Check back in early September when Muskegon fall movement tracking resumes.",
             "reasonCodes": [
               "stage_post_run",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -7433,21 +7426,15 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "data_quality_fresh"
             ]
           },
-          "interpretationNote": {
-            "headline": "The river should fish well, but seasonal fish presence is still low.",
-            "detail": "Good flow makes presentations easier, but it does not put fish in the river. Begin in the deepest established holding water and skip broad searches through fast travel lanes as seasonal presence thins.",
-            "reasonCodes": [
-              "good_fishability_low_presence"
-            ]
-          },
-          "secondaryNote": "Based on USGS 04121970 immediately below Croton Dam. It represents the regulated Croton tailwater; flow, temperature, access, and safety can differ through Newaygo, the lower river, Muskegon Lake, and the channel.",
+          "interpretationNote": null,
+          "secondaryNote": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
           "safety": {
             "regulationReminder": "Croton Dam is the hard upstream migration boundary. Fish only legal water below the dam, use established public access, respect private land and posted closures, and check current Michigan regulations and dam-safety notices.",
-            "gaugeBasis": "Based on USGS 04121970 immediately below Croton Dam. It represents the regulated Croton tailwater; flow, temperature, access, and safety can differ through Newaygo, the lower river, Muskegon Lake, and the channel.",
+            "gaugeBasis": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-muskegon-steelhead-activity.1"
+          "configVersion": "2026-08-11-muskegon-copy.1"
         }
       },
       {
@@ -7466,6 +7453,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
           "nextConditionRefreshAt": "2026-08-16T05:00:00.000Z",
           "runStage": {
             "stage": "post_run",
+            "copyStrategy": "muskegon_croton_tailwater",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -7487,16 +7475,16 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "startToPeakDays": 51,
               "peakToEndDays": 37
             },
-            "label": "Offseason",
-            "headline": "Steelhead are outside the Muskegon fall-entry model.",
-            "whereToStart": "No active fall-entry starting reach; use the winter Steelhead read for current holding-water guidance instead.",
-            "detail": "This profile no longer evaluates fall migration; winter activity requires a holding-focused seasonal read.",
-            "tip": "The fall-entry read is finished. Use the winter Steelhead read instead.",
+            "label": "Fall entry complete",
+            "headline": "Muskegon Steelhead fall entry is complete.",
+            "whereToStart": "There is no active Muskegon starting section in this fall-entry model.",
+            "detail": "Steelhead may remain in the river. This model no longer estimates current presence or activity.",
+            "tip": "Check back in early September when Muskegon fall-entry tracking resumes.",
             "reasonCodes": [
               "stage_post_run",
               "stage_offseason"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Not monitoring yet",
@@ -7515,13 +7503,13 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
             "historicalYears": 0,
             "sourceDates": [],
             "sourceRefreshSlots": {},
-            "headline": "Migration Timing is not active right now.",
-            "detail": "Timing monitoring begins before the expected river entry, but that seasonal observation window is not active yet.",
-            "tip": "Check Migration Stage for the current seasonal position and return to Migration Timing when early monitoring begins.",
+            "headline": "Muskegon Migration Timing is not monitoring yet.",
+            "detail": "Season-to-date Croton flow and measured-temperature monitoring resumes in early September.",
+            "tip": "Check back in early September when Muskegon timing monitoring resumes.",
             "reasonCodes": [
               "conditions_monitoring_inactive"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -7534,22 +7522,22 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
           },
           "push": {
             "score": null,
-            "label": "Offseason",
-            "headline": "Push is not active outside the river migration season.",
-            "detail": "Rain, river level, and water temperature can still change, but they do not provide a useful fresh-arrival signal for this species right now.",
-            "tip": "Do not use Push to plan for this species outside its migration season. Follow an active species instead, or return when early monitoring begins.",
+            "label": "Fall entry complete",
+            "headline": "Muskegon Steelhead fall-entry Push is complete.",
+            "detail": "Current water may affect Steelhead still in the river. This fall model no longer scores fresh-entry support.",
+            "tip": "Do not use a completed fall Push to infer current presence. Check back in early September.",
             "reasonCodes": [
-              "push_tracking_offseason"
+              "push_tracking_complete"
             ],
             "rulesVersion": "muskegon-fall-steelhead-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 93,
             "label": "Excellent",
-            "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river.",
-            "tip": "Begin on the primary travel lane feeding deep holding water. Work each hole from its head through the inside seam and tail, then keep moving until fish establish a pattern.",
+            "headline": "Croton-area flow is in its best presentation range.",
+            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read applies only near Croton Dam within the Upper river (Newaygo–Croton Dam).",
+            "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band"
@@ -7560,11 +7548,12 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": null,
           "fishInRiver": {
-            "score": 0,
+            "score": null,
+            "scoreIsApproximate": false,
             "stage": "post_run",
             "maximum": 100,
             "riverCeiling": 90,
@@ -7572,15 +7561,15 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
             "curveFraction": 0,
             "curveDirection": "outside",
             "winterHoldingContext": false,
-            "label": "Offseason",
-            "headline": "Steelhead are outside their river migration season.",
-            "detail": "A dependable seasonal presence of Steelhead is not expected in the river right now.",
-            "tip": "Do not build a river trip around this species right now. Target a species with an active seasonal window and return as the next migration approaches.",
+            "label": "Fall entry complete",
+            "headline": "Muskegon Steelhead fall entry is complete.",
+            "detail": "Steelhead may remain in the river. This fall-entry model no longer estimates their current seasonal presence.",
+            "tip": "Check back in early September when Muskegon fall movement tracking resumes.",
             "reasonCodes": [
               "stage_post_run",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -7806,21 +7795,15 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "data_quality_fresh"
             ]
           },
-          "interpretationNote": {
-            "headline": "The river should fish well, but seasonal fish presence is still low.",
-            "detail": "Good flow makes presentations easier, but it does not put fish in the river. Begin in the deepest established holding water and skip broad searches through fast travel lanes as seasonal presence thins.",
-            "reasonCodes": [
-              "good_fishability_low_presence"
-            ]
-          },
-          "secondaryNote": "Based on USGS 04121970 immediately below Croton Dam. It represents the regulated Croton tailwater; flow, temperature, access, and safety can differ through Newaygo, the lower river, Muskegon Lake, and the channel.",
+          "interpretationNote": null,
+          "secondaryNote": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
           "safety": {
             "regulationReminder": "Croton Dam is the hard upstream migration boundary. Fish only legal water below the dam, use established public access, respect private land and posted closures, and check current Michigan regulations and dam-safety notices.",
-            "gaugeBasis": "Based on USGS 04121970 immediately below Croton Dam. It represents the regulated Croton tailwater; flow, temperature, access, and safety can differ through Newaygo, the lower river, Muskegon Lake, and the channel.",
+            "gaugeBasis": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-muskegon-steelhead-activity.1"
+          "configVersion": "2026-08-11-muskegon-copy.1"
         }
       },
       {
@@ -7839,6 +7822,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
           "nextConditionRefreshAt": "2026-08-16T05:00:00.000Z",
           "runStage": {
             "stage": "post_run",
+            "copyStrategy": "muskegon_croton_tailwater",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -7860,16 +7844,16 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "startToPeakDays": 51,
               "peakToEndDays": 37
             },
-            "label": "Offseason",
-            "headline": "Steelhead are outside the Muskegon fall-entry model.",
-            "whereToStart": "No active fall-entry starting reach; use the winter Steelhead read for current holding-water guidance instead.",
-            "detail": "This profile no longer evaluates fall migration; winter activity requires a holding-focused seasonal read.",
-            "tip": "The fall-entry read is finished. Use the winter Steelhead read instead.",
+            "label": "Fall entry complete",
+            "headline": "Muskegon Steelhead fall entry is complete.",
+            "whereToStart": "There is no active Muskegon starting section in this fall-entry model.",
+            "detail": "Steelhead may remain in the river. This model no longer estimates current presence or activity.",
+            "tip": "Check back in early September when Muskegon fall-entry tracking resumes.",
             "reasonCodes": [
               "stage_post_run",
               "stage_offseason"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Not monitoring yet",
@@ -7888,13 +7872,13 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
             "historicalYears": 0,
             "sourceDates": [],
             "sourceRefreshSlots": {},
-            "headline": "Migration Timing is not active right now.",
-            "detail": "Timing monitoring begins before the expected river entry, but that seasonal observation window is not active yet.",
-            "tip": "Check Migration Stage for the current seasonal position and return to Migration Timing when early monitoring begins.",
+            "headline": "Muskegon Migration Timing is not monitoring yet.",
+            "detail": "Season-to-date Croton flow and measured-temperature monitoring resumes in early September.",
+            "tip": "Check back in early September when Muskegon timing monitoring resumes.",
             "reasonCodes": [
               "conditions_monitoring_inactive"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -7907,22 +7891,22 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
           },
           "push": {
             "score": null,
-            "label": "Offseason",
-            "headline": "Push is not active outside the river migration season.",
-            "detail": "Rain, river level, and water temperature can still change, but they do not provide a useful fresh-arrival signal for this species right now.",
-            "tip": "Do not use Push to plan for this species outside its migration season. Follow an active species instead, or return when early monitoring begins.",
+            "label": "Fall entry complete",
+            "headline": "Muskegon Steelhead fall-entry Push is complete.",
+            "detail": "Current water may affect Steelhead still in the river. This fall model no longer scores fresh-entry support.",
+            "tip": "Do not use a completed fall Push to infer current presence. Check back in early September.",
             "reasonCodes": [
-              "push_tracking_offseason"
+              "push_tracking_complete"
             ],
             "rulesVersion": "muskegon-fall-steelhead-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 93,
             "label": "Excellent",
-            "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river.",
-            "tip": "Begin on the primary travel lane feeding deep holding water. Work each hole from its head through the inside seam and tail, then keep moving until fish establish a pattern.",
+            "headline": "Croton-area flow is in its best presentation range.",
+            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read applies only near Croton Dam within the Upper river (Newaygo–Croton Dam).",
+            "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band"
@@ -7933,11 +7917,12 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": null,
           "fishInRiver": {
-            "score": 0,
+            "score": null,
+            "scoreIsApproximate": false,
             "stage": "post_run",
             "maximum": 100,
             "riverCeiling": 90,
@@ -7945,15 +7930,15 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
             "curveFraction": 0,
             "curveDirection": "outside",
             "winterHoldingContext": false,
-            "label": "Offseason",
-            "headline": "Steelhead are outside their river migration season.",
-            "detail": "A dependable seasonal presence of Steelhead is not expected in the river right now.",
-            "tip": "Do not build a river trip around this species right now. Target a species with an active seasonal window and return as the next migration approaches.",
+            "label": "Fall entry complete",
+            "headline": "Muskegon Steelhead fall entry is complete.",
+            "detail": "Steelhead may remain in the river. This fall-entry model no longer estimates their current seasonal presence.",
+            "tip": "Check back in early September when Muskegon fall movement tracking resumes.",
             "reasonCodes": [
               "stage_post_run",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -8179,21 +8164,15 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "data_quality_fresh"
             ]
           },
-          "interpretationNote": {
-            "headline": "The river should fish well, but seasonal fish presence is still low.",
-            "detail": "Good flow makes presentations easier, but it does not put fish in the river. Begin in the deepest established holding water and skip broad searches through fast travel lanes as seasonal presence thins.",
-            "reasonCodes": [
-              "good_fishability_low_presence"
-            ]
-          },
-          "secondaryNote": "Based on USGS 04121970 immediately below Croton Dam. It represents the regulated Croton tailwater; flow, temperature, access, and safety can differ through Newaygo, the lower river, Muskegon Lake, and the channel.",
+          "interpretationNote": null,
+          "secondaryNote": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
           "safety": {
             "regulationReminder": "Croton Dam is the hard upstream migration boundary. Fish only legal water below the dam, use established public access, respect private land and posted closures, and check current Michigan regulations and dam-safety notices.",
-            "gaugeBasis": "Based on USGS 04121970 immediately below Croton Dam. It represents the regulated Croton tailwater; flow, temperature, access, and safety can differ through Newaygo, the lower river, Muskegon Lake, and the channel.",
+            "gaugeBasis": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-muskegon-steelhead-activity.1"
+          "configVersion": "2026-08-11-muskegon-copy.1"
         }
       },
       {
@@ -8212,6 +8191,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
           "nextConditionRefreshAt": "2026-08-16T05:00:00.000Z",
           "runStage": {
             "stage": "post_run",
+            "copyStrategy": "muskegon_croton_tailwater",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -8233,16 +8213,16 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "startToPeakDays": 51,
               "peakToEndDays": 37
             },
-            "label": "Offseason",
-            "headline": "Steelhead are outside the Muskegon fall-entry model.",
-            "whereToStart": "No active fall-entry starting reach; use the winter Steelhead read for current holding-water guidance instead.",
-            "detail": "This profile no longer evaluates fall migration; winter activity requires a holding-focused seasonal read.",
-            "tip": "The fall-entry read is finished. Use the winter Steelhead read instead.",
+            "label": "Fall entry complete",
+            "headline": "Muskegon Steelhead fall entry is complete.",
+            "whereToStart": "There is no active Muskegon starting section in this fall-entry model.",
+            "detail": "Steelhead may remain in the river. This model no longer estimates current presence or activity.",
+            "tip": "Check back in early September when Muskegon fall-entry tracking resumes.",
             "reasonCodes": [
               "stage_post_run",
               "stage_offseason"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Not monitoring yet",
@@ -8261,13 +8241,13 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
             "historicalYears": 0,
             "sourceDates": [],
             "sourceRefreshSlots": {},
-            "headline": "Migration Timing is not active right now.",
-            "detail": "Timing monitoring begins before the expected river entry, but that seasonal observation window is not active yet.",
-            "tip": "Check Migration Stage for the current seasonal position and return to Migration Timing when early monitoring begins.",
+            "headline": "Muskegon Migration Timing is not monitoring yet.",
+            "detail": "Season-to-date Croton flow and measured-temperature monitoring resumes in early September.",
+            "tip": "Check back in early September when Muskegon timing monitoring resumes.",
             "reasonCodes": [
               "conditions_monitoring_inactive"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -8280,22 +8260,22 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
           },
           "push": {
             "score": null,
-            "label": "Offseason",
-            "headline": "Push is not active outside the river migration season.",
-            "detail": "Rain, river level, and water temperature can still change, but they do not provide a useful fresh-arrival signal for this species right now.",
-            "tip": "Do not use Push to plan for this species outside its migration season. Follow an active species instead, or return when early monitoring begins.",
+            "label": "Fall entry complete",
+            "headline": "Muskegon Steelhead fall-entry Push is complete.",
+            "detail": "Current water may affect Steelhead still in the river. This fall model no longer scores fresh-entry support.",
+            "tip": "Do not use a completed fall Push to infer current presence. Check back in early September.",
             "reasonCodes": [
-              "push_tracking_offseason"
+              "push_tracking_complete"
             ],
             "rulesVersion": "muskegon-fall-steelhead-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 93,
             "label": "Excellent",
-            "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river.",
-            "tip": "Begin on the primary travel lane feeding deep holding water. Work each hole from its head through the inside seam and tail, then keep moving until fish establish a pattern.",
+            "headline": "Croton-area flow is in its best presentation range.",
+            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read applies only near Croton Dam within the Upper river (Newaygo–Croton Dam).",
+            "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band"
@@ -8306,11 +8286,12 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": null,
           "fishInRiver": {
-            "score": 0,
+            "score": null,
+            "scoreIsApproximate": false,
             "stage": "post_run",
             "maximum": 100,
             "riverCeiling": 90,
@@ -8318,15 +8299,15 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
             "curveFraction": 0,
             "curveDirection": "outside",
             "winterHoldingContext": false,
-            "label": "Offseason",
-            "headline": "Steelhead are outside their river migration season.",
-            "detail": "A dependable seasonal presence of Steelhead is not expected in the river right now.",
-            "tip": "Do not build a river trip around this species right now. Target a species with an active seasonal window and return as the next migration approaches.",
+            "label": "Fall entry complete",
+            "headline": "Muskegon Steelhead fall entry is complete.",
+            "detail": "Steelhead may remain in the river. This fall-entry model no longer estimates their current seasonal presence.",
+            "tip": "Check back in early September when Muskegon fall movement tracking resumes.",
             "reasonCodes": [
               "stage_post_run",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -8552,21 +8533,15 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "data_quality_fresh"
             ]
           },
-          "interpretationNote": {
-            "headline": "The river should fish well, but seasonal fish presence is still low.",
-            "detail": "Good flow makes presentations easier, but it does not put fish in the river. Begin in the deepest established holding water and skip broad searches through fast travel lanes as seasonal presence thins.",
-            "reasonCodes": [
-              "good_fishability_low_presence"
-            ]
-          },
-          "secondaryNote": "Based on USGS 04121970 immediately below Croton Dam. It represents the regulated Croton tailwater; flow, temperature, access, and safety can differ through Newaygo, the lower river, Muskegon Lake, and the channel.",
+          "interpretationNote": null,
+          "secondaryNote": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
           "safety": {
             "regulationReminder": "Croton Dam is the hard upstream migration boundary. Fish only legal water below the dam, use established public access, respect private land and posted closures, and check current Michigan regulations and dam-safety notices.",
-            "gaugeBasis": "Based on USGS 04121970 immediately below Croton Dam. It represents the regulated Croton tailwater; flow, temperature, access, and safety can differ through Newaygo, the lower river, Muskegon Lake, and the channel.",
+            "gaugeBasis": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-muskegon-steelhead-activity.1"
+          "configVersion": "2026-08-11-muskegon-copy.1"
         }
       },
       {
@@ -8585,6 +8560,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
           "nextConditionRefreshAt": "2026-08-16T05:00:00.000Z",
           "runStage": {
             "stage": "post_run",
+            "copyStrategy": "muskegon_croton_tailwater",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -8606,16 +8582,16 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "startToPeakDays": 51,
               "peakToEndDays": 37
             },
-            "label": "Offseason",
-            "headline": "Steelhead are outside the Muskegon fall-entry model.",
-            "whereToStart": "No active fall-entry starting reach; use the winter Steelhead read for current holding-water guidance instead.",
-            "detail": "This profile no longer evaluates fall migration; winter activity requires a holding-focused seasonal read.",
-            "tip": "The fall-entry read is finished. Use the winter Steelhead read instead.",
+            "label": "Fall entry complete",
+            "headline": "Muskegon Steelhead fall entry is complete.",
+            "whereToStart": "There is no active Muskegon starting section in this fall-entry model.",
+            "detail": "Steelhead may remain in the river. This model no longer estimates current presence or activity.",
+            "tip": "Check back in early September when Muskegon fall-entry tracking resumes.",
             "reasonCodes": [
               "stage_post_run",
               "stage_offseason"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Not monitoring yet",
@@ -8634,13 +8610,13 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
             "historicalYears": 0,
             "sourceDates": [],
             "sourceRefreshSlots": {},
-            "headline": "Migration Timing is not active right now.",
-            "detail": "Timing monitoring begins before the expected river entry, but that seasonal observation window is not active yet.",
-            "tip": "Check Migration Stage for the current seasonal position and return to Migration Timing when early monitoring begins.",
+            "headline": "Muskegon Migration Timing is not monitoring yet.",
+            "detail": "Season-to-date Croton flow and measured-temperature monitoring resumes in early September.",
+            "tip": "Check back in early September when Muskegon timing monitoring resumes.",
             "reasonCodes": [
               "conditions_monitoring_inactive"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -8653,22 +8629,22 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
           },
           "push": {
             "score": null,
-            "label": "Offseason",
-            "headline": "Push is not active outside the river migration season.",
-            "detail": "Rain, river level, and water temperature can still change, but they do not provide a useful fresh-arrival signal for this species right now.",
-            "tip": "Do not use Push to plan for this species outside its migration season. Follow an active species instead, or return when early monitoring begins.",
+            "label": "Fall entry complete",
+            "headline": "Muskegon Steelhead fall-entry Push is complete.",
+            "detail": "Current water may affect Steelhead still in the river. This fall model no longer scores fresh-entry support.",
+            "tip": "Do not use a completed fall Push to infer current presence. Check back in early September.",
             "reasonCodes": [
-              "push_tracking_offseason"
+              "push_tracking_complete"
             ],
             "rulesVersion": "muskegon-fall-steelhead-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 93,
             "label": "Excellent",
-            "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river.",
-            "tip": "Begin on the primary travel lane feeding deep holding water. Work each hole from its head through the inside seam and tail, then keep moving until fish establish a pattern.",
+            "headline": "Croton-area flow is in its best presentation range.",
+            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read applies only near Croton Dam within the Upper river (Newaygo–Croton Dam).",
+            "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band"
@@ -8679,11 +8655,12 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": null,
           "fishInRiver": {
-            "score": 0,
+            "score": null,
+            "scoreIsApproximate": false,
             "stage": "post_run",
             "maximum": 100,
             "riverCeiling": 90,
@@ -8691,15 +8668,15 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
             "curveFraction": 0,
             "curveDirection": "outside",
             "winterHoldingContext": false,
-            "label": "Offseason",
-            "headline": "Steelhead are outside their river migration season.",
-            "detail": "A dependable seasonal presence of Steelhead is not expected in the river right now.",
-            "tip": "Do not build a river trip around this species right now. Target a species with an active seasonal window and return as the next migration approaches.",
+            "label": "Fall entry complete",
+            "headline": "Muskegon Steelhead fall entry is complete.",
+            "detail": "Steelhead may remain in the river. This fall-entry model no longer estimates their current seasonal presence.",
+            "tip": "Check back in early September when Muskegon fall movement tracking resumes.",
             "reasonCodes": [
               "stage_post_run",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -8925,21 +8902,15 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "data_quality_fresh"
             ]
           },
-          "interpretationNote": {
-            "headline": "The river should fish well, but seasonal fish presence is still low.",
-            "detail": "Good flow makes presentations easier, but it does not put fish in the river. Begin in the deepest established holding water and skip broad searches through fast travel lanes as seasonal presence thins.",
-            "reasonCodes": [
-              "good_fishability_low_presence"
-            ]
-          },
-          "secondaryNote": "Based on USGS 04121970 immediately below Croton Dam. It represents the regulated Croton tailwater; flow, temperature, access, and safety can differ through Newaygo, the lower river, Muskegon Lake, and the channel.",
+          "interpretationNote": null,
+          "secondaryNote": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
           "safety": {
             "regulationReminder": "Croton Dam is the hard upstream migration boundary. Fish only legal water below the dam, use established public access, respect private land and posted closures, and check current Michigan regulations and dam-safety notices.",
-            "gaugeBasis": "Based on USGS 04121970 immediately below Croton Dam. It represents the regulated Croton tailwater; flow, temperature, access, and safety can differ through Newaygo, the lower river, Muskegon Lake, and the channel.",
+            "gaugeBasis": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-muskegon-steelhead-activity.1"
+          "configVersion": "2026-08-11-muskegon-copy.1"
         }
       },
       {
@@ -8958,6 +8929,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
           "nextConditionRefreshAt": "2026-10-07T05:00:00.000Z",
           "runStage": {
             "stage": "beginning",
+            "copyStrategy": "muskegon_croton_tailwater",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -8980,14 +8952,14 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "peakToEndDays": 37
             },
             "label": "Beginning",
-            "headline": "The first fall Steelhead are entering the Muskegon's long migratory corridor.",
-            "whereToStart": "Deep lower-river travel water from Muskegon Lake toward M-120 first, then substantial Newaygo-to-M-120 resting water; check Croton only after those fresh-entry reaches.",
-            "detail": "New fish can be scattered from the lower river into middle-corridor resting water while earlier arrivals may already be nearer Croton.",
-            "tip": "Check lower-river travel lanes and good resting holes before assuming the newest fish are up by Croton.",
+            "headline": "The first fall Steelhead are entering and moving through the Muskegon River.",
+            "whereToStart": "Start in the Lower river (Muskegon Lake–M-120). Add the Middle river (M-120–Newaygo) after direct fish activity supports the move.",
+            "detail": "New fish remain scattered while earlier arrivals may already be farther upstream.",
+            "tip": "Cover travel water and the first substantial holding areas before moving upstream.",
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Typical",
@@ -9044,16 +9016,16 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "2026-09-23": "16:00",
               "2026-09-24": "16:00"
             },
-            "headline": "The migration appears to be progressing at a normal seasonal pace.",
-            "detail": "River rises and cooling are close to what is usually seen by this point in the season.",
-            "tip": "Fish the core river section identified by Migration Stage. Begin where a travel lane feeds established holding water, then adjust presentation—not seasonal location—using Fishability.",
+            "headline": "Muskegon migration is progressing at its usual seasonal pace.",
+            "detail": "Season-to-date Croton river-rise activity and measured cooling are close to the usual pattern.",
+            "tip": "Keep the Muskegon section named by Migration Stage.",
             "reasonCodes": [
               "gauge_fresh",
               "temperature_measured",
               "conditions_checkpoint_river_start",
               "conditions_typical"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -9067,9 +9039,9 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
           "push": {
             "score": 18,
             "label": "Weak",
-            "headline": "Today's water shows little support for a fresh wave of fish.",
-            "detail": "The river is holding steady with no meaningful rise yet. Water temperature remains too warm to support a strong Push and is relatively steady. Recent weather estimates indicate very little rain around the river.",
-            "tip": "Do not build the day around new arrivals while the river remains warm. Start in established holding water at first or last light and leave lower travel lanes secondary.",
+            "headline": "Croton-area water shows little support for fresh movement.",
+            "detail": "The river is holding steady with no meaningful rise yet. Water temperature remains too warm to support a strong Push and is relatively steady. Recent watershed weather shows little rain.",
+            "tip": "Keep Migration Stage’s section primary. Do not shift sections from this read.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
@@ -9089,14 +9061,14 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-fall-steelhead-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 93,
             "label": "Excellent",
-            "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river.",
-            "tip": "Begin on the primary travel lane feeding deep holding water. Work each hole from its head through the inside seam and tail, then keep moving until fish establish a pattern.",
+            "headline": "Croton-area flow is in its best presentation range.",
+            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read applies only near Croton Dam within the Upper river (Newaygo–Croton Dam).",
+            "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band"
@@ -9107,15 +9079,15 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 65,
             "maximum": 100,
             "label": "Active",
-            "headline": "Today’s Steelhead activity outlook is active.",
-            "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. Early fall Steelhead are entering with energy reserves intact. This score describes feeding or aggressive responsiveness for fish already in the river, not fresh movement. The measured conditions represent the Croton tailwater immediately below Croton Dam. Water temperature, clarity, and fishing conditions can be different through Newaygo, the lower river, Muskegon Lake, and the channel. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
-            "tip": "Start with 5–9 AM. If conditions change, favor the window that best combines workable light with measured water temperature.",
+            "headline": "Today’s Croton-area Steelhead responsiveness is active.",
+            "detail": "Conditions support a meaningful Steelhead response. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Croton flow and temperature represent only the area near the dam.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify downstream sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -9167,10 +9139,13 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 15,
+            "displayScore": 15,
+            "scoreIsApproximate": true,
             "stage": "beginning",
             "maximum": 100,
             "riverCeiling": 90,
@@ -9179,14 +9154,14 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
             "curveDirection": "rising",
             "winterHoldingContext": false,
             "label": "Low presence",
-            "headline": "A small number of Steelhead may be in the river, and seasonal presence is still building.",
-            "detail": "This part of the season usually brings low presence, with more fish expected to enter and spread through the river. This is a seasonal estimate, not a live fish count.",
-            "tip": "Treat this as an early, low-odds river opportunity. Expect scattered results, and use direct fish activity before committing the full day.",
+            "headline": "Seasonal Steelhead presence is low and building.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the Muskegon Steelhead ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -9420,14 +9395,14 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "good_fishability_low_presence"
             ]
           },
-          "secondaryNote": "Based on USGS 04121970 immediately below Croton Dam. It represents the regulated Croton tailwater; flow, temperature, access, and safety can differ through Newaygo, the lower river, Muskegon Lake, and the channel.",
+          "secondaryNote": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
           "safety": {
             "regulationReminder": "Croton Dam is the hard upstream migration boundary. Fish only legal water below the dam, use established public access, respect private land and posted closures, and check current Michigan regulations and dam-safety notices.",
-            "gaugeBasis": "Based on USGS 04121970 immediately below Croton Dam. It represents the regulated Croton tailwater; flow, temperature, access, and safety can differ through Newaygo, the lower river, Muskegon Lake, and the channel.",
+            "gaugeBasis": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-muskegon-steelhead-activity.1"
+          "configVersion": "2026-08-11-muskegon-copy.1"
         }
       }
     ]
@@ -9452,6 +9427,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
           "nextConditionRefreshAt": "2026-10-01T05:00:00.000Z",
           "runStage": {
             "stage": "beginning",
+            "copyStrategy": "muskegon_croton_tailwater",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -9474,14 +9450,14 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "peakToEndDays": 37
             },
             "label": "Beginning",
-            "headline": "The first fall Steelhead are entering the Muskegon's long migratory corridor.",
-            "whereToStart": "Deep lower-river travel water from Muskegon Lake toward M-120 first, then substantial Newaygo-to-M-120 resting water; check Croton only after those fresh-entry reaches.",
-            "detail": "New fish can be scattered from the lower river into middle-corridor resting water while earlier arrivals may already be nearer Croton.",
-            "tip": "Check lower-river travel lanes and good resting holes before assuming the newest fish are up by Croton.",
+            "headline": "The first fall Steelhead are entering and moving through the Muskegon River.",
+            "whereToStart": "Start in the Lower river (Muskegon Lake–M-120). Add the Middle river (M-120–Newaygo) after direct fish activity supports the move.",
+            "detail": "New fish remain scattered while earlier arrivals may already be farther upstream.",
+            "tip": "Cover travel water and the first substantial holding areas before moving upstream.",
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -9519,15 +9495,15 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "2026-09-24"
             ],
             "sourceRefreshSlots": {},
-            "headline": "There is not enough reliable information for a Migration Timing call.",
-            "tip": "Do not move farther upstream or stay lower based on this timing read. Fish the section identified by Migration Stage and begin in its most established holding water; change sections only when direct fish activity or a dependable later read supports it.",
+            "headline": "There is not enough reliable Muskegon evidence for a Migration Timing call.",
+            "tip": "Keep the Muskegon section named by Migration Stage. Do not shift sections from this timing read.",
             "detail": "There are not enough dependable past seasons to judge whether this migration is early, normal, or late.",
             "reasonCodes": [
               "conditions_baseline_missing",
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -9541,9 +9517,9 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
           "push": {
             "score": 18,
             "label": "Weak",
-            "headline": "Today's water shows little support for a fresh wave of fish.",
-            "detail": "The river is holding steady with no meaningful rise yet. Water temperature remains too warm to support a strong Push and is relatively steady. Recent weather estimates indicate very little rain around the river.",
-            "tip": "Do not build the day around new arrivals while the river remains warm. Start in established holding water at first or last light and leave lower travel lanes secondary.",
+            "headline": "Croton-area water shows little support for fresh movement.",
+            "detail": "The river is holding steady with no meaningful rise yet. Water temperature remains too warm to support a strong Push and is relatively steady. Recent watershed weather shows little rain.",
+            "tip": "Keep Migration Stage’s section primary. Do not shift sections from this read.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
@@ -9563,14 +9539,14 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-fall-steelhead-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 93,
             "label": "Excellent",
-            "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river.",
-            "tip": "Begin on the primary travel lane feeding deep holding water. Work each hole from its head through the inside seam and tail, then keep moving until fish establish a pattern.",
+            "headline": "Croton-area flow is in its best presentation range.",
+            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read applies only near Croton Dam within the Upper river (Newaygo–Croton Dam).",
+            "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band"
@@ -9581,15 +9557,15 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 65,
             "maximum": 100,
             "label": "Active",
-            "headline": "Today’s Steelhead activity outlook is active.",
-            "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. Early fall Steelhead are entering with energy reserves intact. This score describes feeding or aggressive responsiveness for fish already in the river, not fresh movement. The measured conditions represent the Croton tailwater immediately below Croton Dam. Water temperature, clarity, and fishing conditions can be different through Newaygo, the lower river, Muskegon Lake, and the channel. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
-            "tip": "Start with 5–9 AM. If conditions change, favor the window that best combines workable light with measured water temperature.",
+            "headline": "Today’s Croton-area Steelhead responsiveness is active.",
+            "detail": "Conditions support a meaningful Steelhead response. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Croton flow and temperature represent only the area near the dam.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify downstream sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -9641,10 +9617,13 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 9,
+            "displayScore": 10,
+            "scoreIsApproximate": true,
             "stage": "beginning",
             "maximum": 100,
             "riverCeiling": 90,
@@ -9653,14 +9632,14 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
             "curveDirection": "rising",
             "winterHoldingContext": false,
             "label": "Low presence",
-            "headline": "A small number of Steelhead may be in the river, and seasonal presence is still building.",
-            "detail": "This part of the season usually brings low presence, with more fish expected to enter and spread through the river. This is a seasonal estimate, not a live fish count.",
-            "tip": "Treat this as an early, low-odds river opportunity. Expect scattered results, and use direct fish activity before committing the full day.",
+            "headline": "Seasonal Steelhead presence is low and building.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the Muskegon Steelhead ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -9894,14 +9873,14 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "good_fishability_low_presence"
             ]
           },
-          "secondaryNote": "Based on USGS 04121970 immediately below Croton Dam. It represents the regulated Croton tailwater; flow, temperature, access, and safety can differ through Newaygo, the lower river, Muskegon Lake, and the channel.",
+          "secondaryNote": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
           "safety": {
             "regulationReminder": "Croton Dam is the hard upstream migration boundary. Fish only legal water below the dam, use established public access, respect private land and posted closures, and check current Michigan regulations and dam-safety notices.",
-            "gaugeBasis": "Based on USGS 04121970 immediately below Croton Dam. It represents the regulated Croton tailwater; flow, temperature, access, and safety can differ through Newaygo, the lower river, Muskegon Lake, and the channel.",
+            "gaugeBasis": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-muskegon-steelhead-activity.1"
+          "configVersion": "2026-08-11-muskegon-copy.1"
         }
       },
       {
@@ -9920,6 +9899,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
           "nextConditionRefreshAt": "2026-10-01T05:00:00.000Z",
           "runStage": {
             "stage": "beginning",
+            "copyStrategy": "muskegon_croton_tailwater",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -9942,14 +9922,14 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "peakToEndDays": 37
             },
             "label": "Beginning",
-            "headline": "The first fall Steelhead are entering the Muskegon's long migratory corridor.",
-            "whereToStart": "Deep lower-river travel water from Muskegon Lake toward M-120 first, then substantial Newaygo-to-M-120 resting water; check Croton only after those fresh-entry reaches.",
-            "detail": "New fish can be scattered from the lower river into middle-corridor resting water while earlier arrivals may already be nearer Croton.",
-            "tip": "Check lower-river travel lanes and good resting holes before assuming the newest fish are up by Croton.",
+            "headline": "The first fall Steelhead are entering and moving through the Muskegon River.",
+            "whereToStart": "Start in the Lower river (Muskegon Lake–M-120). Add the Middle river (M-120–Newaygo) after direct fish activity supports the move.",
+            "detail": "New fish remain scattered while earlier arrivals may already be farther upstream.",
+            "tip": "Cover travel water and the first substantial holding areas before moving upstream.",
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -9987,15 +9967,15 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "2026-09-24"
             ],
             "sourceRefreshSlots": {},
-            "headline": "There is not enough reliable information for a Migration Timing call.",
-            "tip": "Do not move farther upstream or stay lower based on this timing read. Fish the section identified by Migration Stage and begin in its most established holding water; change sections only when direct fish activity or a dependable later read supports it.",
+            "headline": "There is not enough reliable Muskegon evidence for a Migration Timing call.",
+            "tip": "Keep the Muskegon section named by Migration Stage. Do not shift sections from this timing read.",
             "detail": "There are not enough dependable past seasons to judge whether this migration is early, normal, or late.",
             "reasonCodes": [
               "conditions_baseline_missing",
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -10009,9 +9989,9 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
           "push": {
             "score": 0,
             "label": "Weak",
-            "headline": "Today's water shows little support for a fresh wave of fish.",
-            "detail": "The river is falling instead of showing a fresh rise. Water temperature remains too warm to support a strong Push but is warming sharply. Recent weather estimates indicate very little rain around the river.",
-            "tip": "Do not build the day around new arrivals while the river remains warm. Start in established holding water at first or last light and leave lower travel lanes secondary.",
+            "headline": "Croton-area water shows little support for fresh movement.",
+            "detail": "The river is falling instead of showing a fresh rise. Water temperature remains too warm to support a strong Push but is warming sharply. Recent watershed weather shows little rain.",
+            "tip": "Keep Migration Stage’s section primary. Do not shift sections from this read.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
@@ -10031,14 +10011,14 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-fall-steelhead-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 90,
             "label": "Excellent",
-            "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The river is settling, which should sharpen seams and make established holding water easier to read. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river.",
-            "tip": "Begin on the primary seam feeding deep holding water. Work each hole from head to tail, giving the deeper downstream half one final pass as the river settles.",
+            "headline": "Croton-area flow is in its best presentation range.",
+            "detail": "The flow band offers the broadest mix of depth and presentation control. Falling flow should sharpen established seams. This read applies only near Croton Dam within the Upper river (Newaygo–Croton Dam).",
+            "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band"
@@ -10049,15 +10029,15 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 7,
             "maximum": 100,
             "label": "Inactive",
-            "headline": "Today’s Steelhead activity outlook is inactive.",
-            "detail": "Conditions provide little environmental support for an aggressive response. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Water temperature limits responsiveness. Early fall Steelhead are entering with energy reserves intact. This score describes feeding or aggressive responsiveness for fish already in the river, not fresh movement. The measured conditions represent the Croton tailwater immediately below Croton Dam. Water temperature, clarity, and fishing conditions can be different through Newaygo, the lower river, Muskegon Lake, and the channel. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
-            "tip": "Start with 5–9 AM. If conditions change, favor the window that best combines workable light with measured water temperature.",
+            "headline": "Today’s Croton-area Steelhead responsiveness is inactive.",
+            "detail": "Conditions offer little support for an aggressive Steelhead response. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Croton flow and temperature represent only the area near the dam.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify downstream sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -10110,10 +10090,13 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 9,
+            "displayScore": 10,
+            "scoreIsApproximate": true,
             "stage": "beginning",
             "maximum": 100,
             "riverCeiling": 90,
@@ -10122,14 +10105,14 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
             "curveDirection": "rising",
             "winterHoldingContext": false,
             "label": "Low presence",
-            "headline": "A small number of Steelhead may be in the river, and seasonal presence is still building.",
-            "detail": "This part of the season usually brings low presence, with more fish expected to enter and spread through the river. This is a seasonal estimate, not a live fish count.",
-            "tip": "Treat this as an early, low-odds river opportunity. Expect scattered results, and use direct fish activity before committing the full day.",
+            "headline": "Seasonal Steelhead presence is low and building.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the Muskegon Steelhead ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -10363,14 +10346,14 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "good_fishability_low_presence"
             ]
           },
-          "secondaryNote": "Based on USGS 04121970 immediately below Croton Dam. It represents the regulated Croton tailwater; flow, temperature, access, and safety can differ through Newaygo, the lower river, Muskegon Lake, and the channel.",
+          "secondaryNote": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
           "safety": {
             "regulationReminder": "Croton Dam is the hard upstream migration boundary. Fish only legal water below the dam, use established public access, respect private land and posted closures, and check current Michigan regulations and dam-safety notices.",
-            "gaugeBasis": "Based on USGS 04121970 immediately below Croton Dam. It represents the regulated Croton tailwater; flow, temperature, access, and safety can differ through Newaygo, the lower river, Muskegon Lake, and the channel.",
+            "gaugeBasis": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-muskegon-steelhead-activity.1"
+          "configVersion": "2026-08-11-muskegon-copy.1"
         }
       },
       {
@@ -10389,6 +10372,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
           "nextConditionRefreshAt": "2026-10-01T05:00:00.000Z",
           "runStage": {
             "stage": "beginning",
+            "copyStrategy": "muskegon_croton_tailwater",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -10411,14 +10395,14 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "peakToEndDays": 37
             },
             "label": "Beginning",
-            "headline": "The first fall Steelhead are entering the Muskegon's long migratory corridor.",
-            "whereToStart": "Deep lower-river travel water from Muskegon Lake toward M-120 first, then substantial Newaygo-to-M-120 resting water; check Croton only after those fresh-entry reaches.",
-            "detail": "New fish can be scattered from the lower river into middle-corridor resting water while earlier arrivals may already be nearer Croton.",
-            "tip": "Check lower-river travel lanes and good resting holes before assuming the newest fish are up by Croton.",
+            "headline": "The first fall Steelhead are entering and moving through the Muskegon River.",
+            "whereToStart": "Start in the Lower river (Muskegon Lake–M-120). Add the Middle river (M-120–Newaygo) after direct fish activity supports the move.",
+            "detail": "New fish remain scattered while earlier arrivals may already be farther upstream.",
+            "tip": "Cover travel water and the first substantial holding areas before moving upstream.",
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -10456,15 +10440,15 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "2026-09-24"
             ],
             "sourceRefreshSlots": {},
-            "headline": "There is not enough reliable information for a Migration Timing call.",
-            "tip": "Do not move farther upstream or stay lower based on this timing read. Fish the section identified by Migration Stage and begin in its most established holding water; change sections only when direct fish activity or a dependable later read supports it.",
+            "headline": "There is not enough reliable Muskegon evidence for a Migration Timing call.",
+            "tip": "Keep the Muskegon section named by Migration Stage. Do not shift sections from this timing read.",
             "detail": "There are not enough dependable past seasons to judge whether this migration is early, normal, or late.",
             "reasonCodes": [
               "conditions_baseline_missing",
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -10478,9 +10462,9 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
           "push": {
             "score": 47,
             "label": "No clear push",
-            "headline": "Today's water does not show a clear signal for a fresh wave of fish.",
-            "detail": "The river has started to rise since yesterday. Water temperature remains too warm to support a strong Push and is cooling. Recent rain around the river adds some support while the river begins to rise.",
-            "tip": "Do not build the day around new arrivals while the river remains warm. Start in established holding water at first or last light and leave lower travel lanes secondary.",
+            "headline": "Croton-area water does not show a clear fresh-movement signal.",
+            "detail": "The river has started to rise since yesterday. Water temperature remains too warm to support a strong Push and is cooling. Rain adds limited support while Croton begins to rise.",
+            "tip": "Keep Migration Stage’s section primary. Do not shift sections from this read.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
@@ -10499,14 +10483,14 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-fall-steelhead-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 88,
             "label": "Excellent",
-            "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The early rise is adding pace and depth, with inside seams and the upstream edges of holes changing first. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river.",
-            "tip": "Begin on the soft inside edge of the primary travel lane, then fish the first deep resting hole above it. Recheck that edge as added depth changes the lane.",
+            "headline": "Croton-area flow is in its best presentation range.",
+            "detail": "The flow band offers the broadest mix of depth and presentation control. A modest rise is shifting lanes toward softer edges. This read applies only near Croton Dam within the Upper river (Newaygo–Croton Dam).",
+            "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band"
@@ -10517,15 +10501,15 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 64,
             "maximum": 100,
             "label": "Active",
-            "headline": "Today’s Steelhead activity outlook is active.",
-            "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. Early fall Steelhead are entering with energy reserves intact. This score describes feeding or aggressive responsiveness for fish already in the river, not fresh movement. The measured conditions represent the Croton tailwater immediately below Croton Dam. Water temperature, clarity, and fishing conditions can be different through Newaygo, the lower river, Muskegon Lake, and the channel. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
-            "tip": "Start with 5–9 AM. If conditions change, favor the window that best combines workable light with measured water temperature.",
+            "headline": "Today’s Croton-area Steelhead responsiveness is active.",
+            "detail": "Conditions support a meaningful Steelhead response. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Croton flow and temperature represent only the area near the dam.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify downstream sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -10577,10 +10561,13 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 9,
+            "displayScore": 10,
+            "scoreIsApproximate": true,
             "stage": "beginning",
             "maximum": 100,
             "riverCeiling": 90,
@@ -10589,14 +10576,14 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
             "curveDirection": "rising",
             "winterHoldingContext": false,
             "label": "Low presence",
-            "headline": "A small number of Steelhead may be in the river, and seasonal presence is still building.",
-            "detail": "This part of the season usually brings low presence, with more fish expected to enter and spread through the river. This is a seasonal estimate, not a live fish count.",
-            "tip": "Treat this as an early, low-odds river opportunity. Expect scattered results, and use direct fish activity before committing the full day.",
+            "headline": "Seasonal Steelhead presence is low and building.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the Muskegon Steelhead ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -10830,14 +10817,14 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "good_fishability_low_presence"
             ]
           },
-          "secondaryNote": "Based on USGS 04121970 immediately below Croton Dam. It represents the regulated Croton tailwater; flow, temperature, access, and safety can differ through Newaygo, the lower river, Muskegon Lake, and the channel.",
+          "secondaryNote": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
           "safety": {
             "regulationReminder": "Croton Dam is the hard upstream migration boundary. Fish only legal water below the dam, use established public access, respect private land and posted closures, and check current Michigan regulations and dam-safety notices.",
-            "gaugeBasis": "Based on USGS 04121970 immediately below Croton Dam. It represents the regulated Croton tailwater; flow, temperature, access, and safety can differ through Newaygo, the lower river, Muskegon Lake, and the channel.",
+            "gaugeBasis": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-muskegon-steelhead-activity.1"
+          "configVersion": "2026-08-11-muskegon-copy.1"
         }
       },
       {
@@ -10856,6 +10843,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
           "nextConditionRefreshAt": "2026-10-01T05:00:00.000Z",
           "runStage": {
             "stage": "beginning",
+            "copyStrategy": "muskegon_croton_tailwater",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -10878,14 +10866,14 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "peakToEndDays": 37
             },
             "label": "Beginning",
-            "headline": "The first fall Steelhead are entering the Muskegon's long migratory corridor.",
-            "whereToStart": "Deep lower-river travel water from Muskegon Lake toward M-120 first, then substantial Newaygo-to-M-120 resting water; check Croton only after those fresh-entry reaches.",
-            "detail": "New fish can be scattered from the lower river into middle-corridor resting water while earlier arrivals may already be nearer Croton.",
-            "tip": "Check lower-river travel lanes and good resting holes before assuming the newest fish are up by Croton.",
+            "headline": "The first fall Steelhead are entering and moving through the Muskegon River.",
+            "whereToStart": "Start in the Lower river (Muskegon Lake–M-120). Add the Middle river (M-120–Newaygo) after direct fish activity supports the move.",
+            "detail": "New fish remain scattered while earlier arrivals may already be farther upstream.",
+            "tip": "Cover travel water and the first substantial holding areas before moving upstream.",
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -10923,15 +10911,15 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "2026-09-24"
             ],
             "sourceRefreshSlots": {},
-            "headline": "There is not enough reliable information for a Migration Timing call.",
-            "tip": "Do not move farther upstream or stay lower based on this timing read. Fish the section identified by Migration Stage and begin in its most established holding water; change sections only when direct fish activity or a dependable later read supports it.",
+            "headline": "There is not enough reliable Muskegon evidence for a Migration Timing call.",
+            "tip": "Keep the Muskegon section named by Migration Stage. Do not shift sections from this timing read.",
             "detail": "There are not enough dependable past seasons to judge whether this migration is early, normal, or late.",
             "reasonCodes": [
               "conditions_baseline_missing",
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -10945,9 +10933,9 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
           "push": {
             "score": 62,
             "label": "Possible",
-            "headline": "Today's water offers some support for fresh fish moving into or through the river.",
-            "detail": "The river has made a clear rise since yesterday. Water temperature remains too warm to support a strong Push and is cooling. The river has already made a meaningful rise, so that measured response carries the useful movement signal and rainfall adds no separate weight.",
-            "tip": "Do not build the day around new arrivals while the river remains warm. Start in established holding water at first or last light and leave lower travel lanes secondary.",
+            "headline": "Croton-area water offers some support for fresh movement.",
+            "detail": "The river has made a clear rise since yesterday. Water temperature remains too warm to support a strong Push and is cooling. Croton already reflects the rain response, so rain adds no extra credit.",
+            "tip": "Keep Migration Stage’s section primary and add one Croton Dam-area movement check.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
@@ -10966,14 +10954,14 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-fall-steelhead-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 80,
             "label": "Good",
-            "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. Depth and current are changing enough to move the most controllable presentations toward inside seams and current breaks. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river.",
-            "tip": "Move off the center lane. Work inside seams, the downstream side of current breaks, and the first deep resting pocket with short controlled presentations.",
+            "headline": "Croton-area flow is in its best presentation range.",
+            "detail": "The flow band offers the broadest mix of depth and presentation control. A clear rise is moving controllable water toward current breaks. This read applies only near Croton Dam within the Upper river (Newaygo–Croton Dam).",
+            "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band"
@@ -10984,15 +10972,15 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 67,
             "maximum": 100,
             "label": "Active",
-            "headline": "Today’s Steelhead activity outlook is active.",
-            "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. Early fall Steelhead are entering with energy reserves intact. This score describes feeding or aggressive responsiveness for fish already in the river, not fresh movement. The measured conditions represent the Croton tailwater immediately below Croton Dam. Water temperature, clarity, and fishing conditions can be different through Newaygo, the lower river, Muskegon Lake, and the channel. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
-            "tip": "Start with 5–9 AM. If conditions change, favor the window that best combines workable light with measured water temperature.",
+            "headline": "Today’s Croton-area Steelhead responsiveness is active.",
+            "detail": "Conditions support a meaningful Steelhead response. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Croton flow and temperature represent only the area near the dam.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify downstream sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -11044,10 +11032,13 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 9,
+            "displayScore": 10,
+            "scoreIsApproximate": true,
             "stage": "beginning",
             "maximum": 100,
             "riverCeiling": 90,
@@ -11056,14 +11047,14 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
             "curveDirection": "rising",
             "winterHoldingContext": false,
             "label": "Low presence",
-            "headline": "A small number of Steelhead may be in the river, and seasonal presence is still building.",
-            "detail": "This part of the season usually brings low presence, with more fish expected to enter and spread through the river. This is a seasonal estimate, not a live fish count.",
-            "tip": "Treat this as an early, low-odds river opportunity. Expect scattered results, and use direct fish activity before committing the full day.",
+            "headline": "Seasonal Steelhead presence is low and building.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the Muskegon Steelhead ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -11297,14 +11288,14 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "good_fishability_low_presence"
             ]
           },
-          "secondaryNote": "Based on USGS 04121970 immediately below Croton Dam. It represents the regulated Croton tailwater; flow, temperature, access, and safety can differ through Newaygo, the lower river, Muskegon Lake, and the channel.",
+          "secondaryNote": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
           "safety": {
             "regulationReminder": "Croton Dam is the hard upstream migration boundary. Fish only legal water below the dam, use established public access, respect private land and posted closures, and check current Michigan regulations and dam-safety notices.",
-            "gaugeBasis": "Based on USGS 04121970 immediately below Croton Dam. It represents the regulated Croton tailwater; flow, temperature, access, and safety can differ through Newaygo, the lower river, Muskegon Lake, and the channel.",
+            "gaugeBasis": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-muskegon-steelhead-activity.1"
+          "configVersion": "2026-08-11-muskegon-copy.1"
         }
       },
       {
@@ -11323,6 +11314,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
           "nextConditionRefreshAt": "2026-10-01T05:00:00.000Z",
           "runStage": {
             "stage": "beginning",
+            "copyStrategy": "muskegon_croton_tailwater",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -11345,14 +11337,14 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "peakToEndDays": 37
             },
             "label": "Beginning",
-            "headline": "The first fall Steelhead are entering the Muskegon's long migratory corridor.",
-            "whereToStart": "Deep lower-river travel water from Muskegon Lake toward M-120 first, then substantial Newaygo-to-M-120 resting water; check Croton only after those fresh-entry reaches.",
-            "detail": "New fish can be scattered from the lower river into middle-corridor resting water while earlier arrivals may already be nearer Croton.",
-            "tip": "Check lower-river travel lanes and good resting holes before assuming the newest fish are up by Croton.",
+            "headline": "The first fall Steelhead are entering and moving through the Muskegon River.",
+            "whereToStart": "Start in the Lower river (Muskegon Lake–M-120). Add the Middle river (M-120–Newaygo) after direct fish activity supports the move.",
+            "detail": "New fish remain scattered while earlier arrivals may already be farther upstream.",
+            "tip": "Cover travel water and the first substantial holding areas before moving upstream.",
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -11390,15 +11382,15 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "2026-09-24"
             ],
             "sourceRefreshSlots": {},
-            "headline": "There is not enough reliable information for a Migration Timing call.",
-            "tip": "Do not move farther upstream or stay lower based on this timing read. Fish the section identified by Migration Stage and begin in its most established holding water; change sections only when direct fish activity or a dependable later read supports it.",
+            "headline": "There is not enough reliable Muskegon evidence for a Migration Timing call.",
+            "tip": "Keep the Muskegon section named by Migration Stage. Do not shift sections from this timing read.",
             "detail": "There are not enough dependable past seasons to judge whether this migration is early, normal, or late.",
             "reasonCodes": [
               "conditions_baseline_missing",
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -11412,9 +11404,9 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
           "push": {
             "score": 88,
             "label": "Very strong",
-            "headline": "Today's water shows the strongest support for a fresh wave moving into the river.",
-            "detail": "The river is rising quickly, creating conditions fish often use to move. Water is on the warm side for fall migration and is cooling sharply. The river has already made a meaningful rise, so that measured response carries the useful movement signal and rainfall adds no separate weight.",
-            "tip": "Start low and fish softer travel lanes, newly formed inside seams, and the first resting water above them. Skip any lane Fishability says is too fast or difficult to control.",
+            "headline": "Croton-area water offers its strongest support for fresh movement.",
+            "detail": "The river is rising quickly, creating conditions fish often use to move. Water is on the warm side for fall migration and is cooling sharply. Croton already reflects the rain response, so rain adds no extra credit.",
+            "tip": "Prioritize movement water near Croton Dam, then verify any downstream section directly.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
@@ -11432,14 +11424,14 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-fall-steelhead-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 68,
             "label": "Fishable",
-            "headline": "The river is rising fast, and usable fishing water is shifting toward slower margins and current breaks.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The fast rise is quickly replacing settled lanes with heavier current and newly formed soft edges. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river.",
-            "tip": "Leave the main channel alone. Fish newly formed soft margins, inside bends, and the downstream side of current breaks with short controlled presentations.",
+            "headline": "A fast Croton-area rise is shifting usable water toward protected edges.",
+            "detail": "The flow band offers the broadest mix of depth and presentation control. A fast rise is replacing settled lanes with heavier current. This read applies only near Croton Dam within the Upper river (Newaygo–Croton Dam).",
+            "tip": "Favor protected margins and short controlled presentations. Choose another day if control is not dependable.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band"
@@ -11450,15 +11442,15 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 74,
             "maximum": 100,
             "label": "Active",
-            "headline": "Today’s Steelhead activity outlook is active.",
-            "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 AM: The measured water temperature is favorable for Steelhead. The main limitation: Rain adds little extra cover. Early fall Steelhead are entering with energy reserves intact. This score describes feeding or aggressive responsiveness for fish already in the river, not fresh movement. The measured conditions represent the Croton tailwater immediately below Croton Dam. Water temperature, clarity, and fishing conditions can be different through Newaygo, the lower river, Muskegon Lake, and the channel. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
-            "tip": "Start with 5–9 AM. If conditions change, favor the window that best combines workable light with measured water temperature.",
+            "headline": "Today’s Croton-area Steelhead responsiveness is active.",
+            "detail": "Conditions support a meaningful Steelhead response. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Croton flow and temperature represent only the area near the dam.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify downstream sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -11510,10 +11502,13 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 9,
+            "displayScore": 10,
+            "scoreIsApproximate": true,
             "stage": "beginning",
             "maximum": 100,
             "riverCeiling": 90,
@@ -11522,14 +11517,14 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
             "curveDirection": "rising",
             "winterHoldingContext": false,
             "label": "Low presence",
-            "headline": "A small number of Steelhead may be in the river, and seasonal presence is still building.",
-            "detail": "This part of the season usually brings low presence, with more fish expected to enter and spread through the river. This is a seasonal estimate, not a live fish count.",
-            "tip": "Treat this as an early, low-odds river opportunity. Expect scattered results, and use direct fish activity before committing the full day.",
+            "headline": "Seasonal Steelhead presence is low and building.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the Muskegon Steelhead ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -11757,14 +11752,14 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
             ]
           },
           "interpretationNote": null,
-          "secondaryNote": "Based on USGS 04121970 immediately below Croton Dam. It represents the regulated Croton tailwater; flow, temperature, access, and safety can differ through Newaygo, the lower river, Muskegon Lake, and the channel.",
+          "secondaryNote": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
           "safety": {
             "regulationReminder": "Croton Dam is the hard upstream migration boundary. Fish only legal water below the dam, use established public access, respect private land and posted closures, and check current Michigan regulations and dam-safety notices.",
-            "gaugeBasis": "Based on USGS 04121970 immediately below Croton Dam. It represents the regulated Croton tailwater; flow, temperature, access, and safety can differ through Newaygo, the lower river, Muskegon Lake, and the channel.",
+            "gaugeBasis": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-muskegon-steelhead-activity.1"
+          "configVersion": "2026-08-11-muskegon-copy.1"
         }
       },
       {
@@ -11783,6 +11778,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
           "nextConditionRefreshAt": "2026-10-01T05:00:00.000Z",
           "runStage": {
             "stage": "beginning",
+            "copyStrategy": "muskegon_croton_tailwater",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -11805,14 +11801,14 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "peakToEndDays": 37
             },
             "label": "Beginning",
-            "headline": "The first fall Steelhead are entering the Muskegon's long migratory corridor.",
-            "whereToStart": "Deep lower-river travel water from Muskegon Lake toward M-120 first, then substantial Newaygo-to-M-120 resting water; check Croton only after those fresh-entry reaches.",
-            "detail": "New fish can be scattered from the lower river into middle-corridor resting water while earlier arrivals may already be nearer Croton.",
-            "tip": "Check lower-river travel lanes and good resting holes before assuming the newest fish are up by Croton.",
+            "headline": "The first fall Steelhead are entering and moving through the Muskegon River.",
+            "whereToStart": "Start in the Lower river (Muskegon Lake–M-120). Add the Middle river (M-120–Newaygo) after direct fish activity supports the move.",
+            "detail": "New fish remain scattered while earlier arrivals may already be farther upstream.",
+            "tip": "Cover travel water and the first substantial holding areas before moving upstream.",
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -11850,15 +11846,15 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "2026-09-24"
             ],
             "sourceRefreshSlots": {},
-            "headline": "There is not enough reliable information for a Migration Timing call.",
-            "tip": "Do not move farther upstream or stay lower based on this timing read. Fish the section identified by Migration Stage and begin in its most established holding water; change sections only when direct fish activity or a dependable later read supports it.",
+            "headline": "There is not enough reliable Muskegon evidence for a Migration Timing call.",
+            "tip": "Keep the Muskegon section named by Migration Stage. Do not shift sections from this timing read.",
             "detail": "There are not enough dependable past seasons to judge whether this migration is early, normal, or late.",
             "reasonCodes": [
               "conditions_baseline_missing",
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -11872,9 +11868,9 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
           "push": {
             "score": 37,
             "label": "No clear push",
-            "headline": "Today's water does not show a clear signal for a fresh wave of fish.",
-            "detail": "The river is holding steady with no meaningful rise yet. Water temperature remains too warm to support a strong Push and is cooling. Recent rain around the river may help, but the river has not responded enough for rain alone to create a strong Push.",
-            "tip": "Do not build the day around new arrivals while the river remains warm. Start in established holding water at first or last light and leave lower travel lanes secondary.",
+            "headline": "Croton-area water does not show a clear fresh-movement signal.",
+            "detail": "The river is holding steady with no meaningful rise yet. Water temperature remains too warm to support a strong Push and is cooling. Rain is only a precursor because Croton has not responded.",
+            "tip": "Keep Migration Stage’s section primary. Do not shift sections from this read.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
@@ -11894,14 +11890,14 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-fall-steelhead-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 93,
             "label": "Excellent",
-            "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river.",
-            "tip": "Begin on the primary travel lane feeding deep holding water. Work each hole from its head through the inside seam and tail, then keep moving until fish establish a pattern.",
+            "headline": "Croton-area flow is in its best presentation range.",
+            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read applies only near Croton Dam within the Upper river (Newaygo–Croton Dam).",
+            "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band"
@@ -11912,15 +11908,15 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 67,
             "maximum": 100,
             "label": "Active",
-            "headline": "Today’s Steelhead activity outlook is active.",
-            "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. Early fall Steelhead are entering with energy reserves intact. This score describes feeding or aggressive responsiveness for fish already in the river, not fresh movement. The measured conditions represent the Croton tailwater immediately below Croton Dam. Water temperature, clarity, and fishing conditions can be different through Newaygo, the lower river, Muskegon Lake, and the channel. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
-            "tip": "Start with 5–9 AM. If conditions change, favor the window that best combines workable light with measured water temperature.",
+            "headline": "Today’s Croton-area Steelhead responsiveness is active.",
+            "detail": "Conditions support a meaningful Steelhead response. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Croton flow and temperature represent only the area near the dam.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify downstream sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -11972,10 +11968,13 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 9,
+            "displayScore": 10,
+            "scoreIsApproximate": true,
             "stage": "beginning",
             "maximum": 100,
             "riverCeiling": 90,
@@ -11984,14 +11983,14 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
             "curveDirection": "rising",
             "winterHoldingContext": false,
             "label": "Low presence",
-            "headline": "A small number of Steelhead may be in the river, and seasonal presence is still building.",
-            "detail": "This part of the season usually brings low presence, with more fish expected to enter and spread through the river. This is a seasonal estimate, not a live fish count.",
-            "tip": "Treat this as an early, low-odds river opportunity. Expect scattered results, and use direct fish activity before committing the full day.",
+            "headline": "Seasonal Steelhead presence is low and building.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the Muskegon Steelhead ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -12225,14 +12224,14 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "good_fishability_low_presence"
             ]
           },
-          "secondaryNote": "Based on USGS 04121970 immediately below Croton Dam. It represents the regulated Croton tailwater; flow, temperature, access, and safety can differ through Newaygo, the lower river, Muskegon Lake, and the channel.",
+          "secondaryNote": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
           "safety": {
             "regulationReminder": "Croton Dam is the hard upstream migration boundary. Fish only legal water below the dam, use established public access, respect private land and posted closures, and check current Michigan regulations and dam-safety notices.",
-            "gaugeBasis": "Based on USGS 04121970 immediately below Croton Dam. It represents the regulated Croton tailwater; flow, temperature, access, and safety can differ through Newaygo, the lower river, Muskegon Lake, and the channel.",
+            "gaugeBasis": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-muskegon-steelhead-activity.1"
+          "configVersion": "2026-08-11-muskegon-copy.1"
         }
       },
       {
@@ -12251,6 +12250,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
           "nextConditionRefreshAt": "2026-10-01T05:00:00.000Z",
           "runStage": {
             "stage": "beginning",
+            "copyStrategy": "muskegon_croton_tailwater",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -12273,14 +12273,14 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "peakToEndDays": 37
             },
             "label": "Beginning",
-            "headline": "The first fall Steelhead are entering the Muskegon's long migratory corridor.",
-            "whereToStart": "Deep lower-river travel water from Muskegon Lake toward M-120 first, then substantial Newaygo-to-M-120 resting water; check Croton only after those fresh-entry reaches.",
-            "detail": "New fish can be scattered from the lower river into middle-corridor resting water while earlier arrivals may already be nearer Croton.",
-            "tip": "Check lower-river travel lanes and good resting holes before assuming the newest fish are up by Croton.",
+            "headline": "The first fall Steelhead are entering and moving through the Muskegon River.",
+            "whereToStart": "Start in the Lower river (Muskegon Lake–M-120). Add the Middle river (M-120–Newaygo) after direct fish activity supports the move.",
+            "detail": "New fish remain scattered while earlier arrivals may already be farther upstream.",
+            "tip": "Cover travel water and the first substantial holding areas before moving upstream.",
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -12318,15 +12318,15 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "2026-09-24"
             ],
             "sourceRefreshSlots": {},
-            "headline": "There is not enough reliable information for a Migration Timing call.",
-            "tip": "Do not move farther upstream or stay lower based on this timing read. Fish the section identified by Migration Stage and begin in its most established holding water; change sections only when direct fish activity or a dependable later read supports it.",
+            "headline": "There is not enough reliable Muskegon evidence for a Migration Timing call.",
+            "tip": "Keep the Muskegon section named by Migration Stage. Do not shift sections from this timing read.",
             "detail": "There are not enough dependable past seasons to judge whether this migration is early, normal, or late.",
             "reasonCodes": [
               "conditions_baseline_missing",
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -12340,9 +12340,9 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
           "push": {
             "score": 32,
             "label": "No clear push",
-            "headline": "Today's water does not show a clear signal for a fresh wave of fish.",
-            "detail": "There is not enough recent river-level history to tell whether the river is rising or falling. Water temperature remains too warm to support a strong Push and is cooling. Recent rain around the river may help, but the river has not responded enough for rain alone to create a strong Push. Without a dependable river trend, there is no clear Push.",
-            "tip": "Do not build the day around new arrivals while the river remains warm. Start in established holding water at first or last light and leave lower travel lanes secondary.",
+            "headline": "Croton-area water does not show a clear fresh-movement signal.",
+            "detail": "There is not enough recent river-level history to tell whether the river is rising or falling. Water temperature remains too warm to support a strong Push and is cooling. Without a dependable Croton trend, the read cannot show a clear Push.",
+            "tip": "Keep Migration Stage’s section primary. Do not shift sections from this read.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
@@ -12363,14 +12363,14 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-fall-steelhead-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 69,
             "label": "Fishable",
-            "headline": "The river appears fishable, but its direction is unclear, so confidence is limited.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. There is not enough recent information to tell whether the river is rising or falling, which lowers confidence in the read. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river.",
-            "tip": "Start at a bank-side inside bend or soft seam where the full presentation stays under control. Skip faster water until the river's direction is verified.",
+            "headline": "Croton-area flow is workable, but its direction is unknown.",
+            "detail": "The flow band offers the broadest mix of depth and presentation control. Recent Croton history cannot establish the flow direction. This read applies only near Croton Dam within the Upper river (Newaygo–Croton Dam).",
+            "tip": "Verify the Croton area directly before choosing presentation water.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band",
@@ -12384,15 +12384,15 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               ]
             },
             "rulesVersion": "muskegon-croton-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 67,
             "maximum": 100,
             "label": "Active",
-            "headline": "Today’s Steelhead activity outlook is active.",
-            "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. Early fall Steelhead are entering with energy reserves intact. This score describes feeding or aggressive responsiveness for fish already in the river, not fresh movement. The measured conditions represent the Croton tailwater immediately below Croton Dam. Water temperature, clarity, and fishing conditions can be different through Newaygo, the lower river, Muskegon Lake, and the channel. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
-            "tip": "Start with 5–9 AM. If conditions change, favor the window that best combines workable light with measured water temperature.",
+            "headline": "Today’s Croton-area Steelhead responsiveness is active.",
+            "detail": "Conditions support a meaningful Steelhead response. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Croton flow and temperature represent only the area near the dam.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify downstream sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -12444,10 +12444,13 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 9,
+            "displayScore": 10,
+            "scoreIsApproximate": true,
             "stage": "beginning",
             "maximum": 100,
             "riverCeiling": 90,
@@ -12456,14 +12459,14 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
             "curveDirection": "rising",
             "winterHoldingContext": false,
             "label": "Low presence",
-            "headline": "A small number of Steelhead may be in the river, and seasonal presence is still building.",
-            "detail": "This part of the season usually brings low presence, with more fish expected to enter and spread through the river. This is a seasonal estimate, not a live fish count.",
-            "tip": "Treat this as an early, low-odds river opportunity. Expect scattered results, and use direct fish activity before committing the full day.",
+            "headline": "Seasonal Steelhead presence is low and building.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the Muskegon Steelhead ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -12691,14 +12694,14 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
             ]
           },
           "interpretationNote": null,
-          "secondaryNote": "Based on USGS 04121970 immediately below Croton Dam. It represents the regulated Croton tailwater; flow, temperature, access, and safety can differ through Newaygo, the lower river, Muskegon Lake, and the channel.",
+          "secondaryNote": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
           "safety": {
             "regulationReminder": "Croton Dam is the hard upstream migration boundary. Fish only legal water below the dam, use established public access, respect private land and posted closures, and check current Michigan regulations and dam-safety notices.",
-            "gaugeBasis": "Based on USGS 04121970 immediately below Croton Dam. It represents the regulated Croton tailwater; flow, temperature, access, and safety can differ through Newaygo, the lower river, Muskegon Lake, and the channel.",
+            "gaugeBasis": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-muskegon-steelhead-activity.1"
+          "configVersion": "2026-08-11-muskegon-copy.1"
         }
       },
       {
@@ -12717,6 +12720,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
           "nextConditionRefreshAt": "2026-10-01T05:00:00.000Z",
           "runStage": {
             "stage": "beginning",
+            "copyStrategy": "muskegon_croton_tailwater",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -12739,14 +12743,14 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "peakToEndDays": 37
             },
             "label": "Beginning",
-            "headline": "The first fall Steelhead are entering the Muskegon's long migratory corridor.",
-            "whereToStart": "Deep lower-river travel water from Muskegon Lake toward M-120 first, then substantial Newaygo-to-M-120 resting water; check Croton only after those fresh-entry reaches.",
-            "detail": "New fish can be scattered from the lower river into middle-corridor resting water while earlier arrivals may already be nearer Croton.",
-            "tip": "Check lower-river travel lanes and good resting holes before assuming the newest fish are up by Croton.",
+            "headline": "The first fall Steelhead are entering and moving through the Muskegon River.",
+            "whereToStart": "Start in the Lower river (Muskegon Lake–M-120). Add the Middle river (M-120–Newaygo) after direct fish activity supports the move.",
+            "detail": "New fish remain scattered while earlier arrivals may already be farther upstream.",
+            "tip": "Cover travel water and the first substantial holding areas before moving upstream.",
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -12784,15 +12788,15 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "2026-09-24"
             ],
             "sourceRefreshSlots": {},
-            "headline": "There is not enough reliable information for a Migration Timing call.",
-            "tip": "Do not move farther upstream or stay lower based on this timing read. Fish the section identified by Migration Stage and begin in its most established holding water; change sections only when direct fish activity or a dependable later read supports it.",
+            "headline": "There is not enough reliable Muskegon evidence for a Migration Timing call.",
+            "tip": "Keep the Muskegon section named by Migration Stage. Do not shift sections from this timing read.",
             "detail": "There are not enough dependable past seasons to judge whether this migration is early, normal, or late.",
             "reasonCodes": [
               "conditions_baseline_missing",
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -12806,9 +12810,9 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
           "push": {
             "score": 55,
             "label": "Possible",
-            "headline": "The water may support fresh movement, but an aging river reading limits confidence.",
-            "detail": "The river is rising quickly, creating conditions fish often use to move. Water is on the warm side for fall migration and is cooling sharply. The river has already made a meaningful rise, so that measured response carries the useful movement signal and rainfall adds no separate weight. The latest river-level reading is aging, so confidence is reduced.",
-            "tip": "Do not relocate the trip around this Push read. Begin in established holding water, verify the river at the first access, and add travel lanes only after confirming workable conditions.",
+            "headline": "Croton-area water offers some support for fresh movement.",
+            "detail": "The river is rising quickly, creating conditions fish often use to move. Water is on the warm side for fall migration and is cooling sharply. The Croton reading is aging, so confidence is reduced.",
+            "tip": "Keep Migration Stage’s section primary and add one Croton Dam-area movement check.",
             "reasonCodes": [
               "gauge_stale",
               "push_normal_flow_context",
@@ -12829,14 +12833,14 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               ]
             },
             "rulesVersion": "muskegon-fall-steelhead-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 55,
             "label": "Fishable",
-            "headline": "The last river reading was fishable, but it is aging and may no longer describe the water accurately.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. Because the latest reading is aging, the river may have changed since it was reported. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river.",
-            "tip": "Do not choose a reach from this reading alone. Check the water at the first access, and begin only in bank-side water where you can control the entire presentation.",
+            "headline": "The aging Croton reading limits Croton-area Fishability confidence.",
+            "detail": "The flow band offers the broadest mix of depth and presentation control. The Croton area may have changed since the last Croton reading. This read applies only near Croton Dam within the Upper river (Newaygo–Croton Dam).",
+            "tip": "Verify the Croton area directly before choosing presentation water.",
             "reasonCodes": [
               "gauge_stale",
               "ideal_flow_band",
@@ -12850,15 +12854,15 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               ]
             },
             "rulesVersion": "muskegon-croton-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 50,
             "maximum": 100,
             "label": "Moderate",
-            "headline": "Today’s Steelhead activity outlook is moderate.",
-            "detail": "Some useful factors are present, but the response window is mixed. The strongest window is 5–9 AM: The measured water temperature is favorable for Steelhead. The main limitation: Current river behavior is unavailable. Early fall Steelhead are entering with energy reserves intact. This score describes feeding or aggressive responsiveness for fish already in the river, not fresh movement. The measured conditions represent the Croton tailwater immediately below Croton Dam. Water temperature, clarity, and fishing conditions can be different through Newaygo, the lower river, Muskegon Lake, and the channel. One important reading is unavailable or comes from tomorrow’s forecast, so the outlook is kept conservative.",
-            "tip": "Start with 5–9 AM. If conditions change, favor the window that best combines workable light with measured water temperature.",
+            "headline": "Today’s Croton-area Steelhead responsiveness is moderate.",
+            "detail": "Conditions offer mixed support for Steelhead responsiveness. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Moderate confidence reflects missing or forecast inputs; river measurements still represent only the Croton Dam area.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify downstream sections directly.",
             "reasonCodes": [
               "activity_confidence_moderate",
               "activity_today",
@@ -12910,10 +12914,13 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 9,
+            "displayScore": 10,
+            "scoreIsApproximate": true,
             "stage": "beginning",
             "maximum": 100,
             "riverCeiling": 90,
@@ -12922,14 +12929,14 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
             "curveDirection": "rising",
             "winterHoldingContext": false,
             "label": "Low presence",
-            "headline": "A small number of Steelhead may be in the river, and seasonal presence is still building.",
-            "detail": "This part of the season usually brings low presence, with more fish expected to enter and spread through the river. This is a seasonal estimate, not a live fish count.",
-            "tip": "Treat this as an early, low-odds river opportunity. Expect scattered results, and use direct fish activity before committing the full day.",
+            "headline": "Seasonal Steelhead presence is low and building.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the Muskegon Steelhead ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -13157,14 +13164,14 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
             ]
           },
           "interpretationNote": null,
-          "secondaryNote": "Based on USGS 04121970 immediately below Croton Dam. It represents the regulated Croton tailwater; flow, temperature, access, and safety can differ through Newaygo, the lower river, Muskegon Lake, and the channel.",
+          "secondaryNote": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
           "safety": {
             "regulationReminder": "Croton Dam is the hard upstream migration boundary. Fish only legal water below the dam, use established public access, respect private land and posted closures, and check current Michigan regulations and dam-safety notices.",
-            "gaugeBasis": "Based on USGS 04121970 immediately below Croton Dam. It represents the regulated Croton tailwater; flow, temperature, access, and safety can differ through Newaygo, the lower river, Muskegon Lake, and the channel.",
+            "gaugeBasis": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-muskegon-steelhead-activity.1"
+          "configVersion": "2026-08-11-muskegon-copy.1"
         }
       },
       {
@@ -13183,6 +13190,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
           "nextConditionRefreshAt": "2026-10-01T05:00:00.000Z",
           "runStage": {
             "stage": "beginning",
+            "copyStrategy": "muskegon_croton_tailwater",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -13205,14 +13213,14 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "peakToEndDays": 37
             },
             "label": "Beginning",
-            "headline": "The first fall Steelhead are entering the Muskegon's long migratory corridor.",
-            "whereToStart": "Deep lower-river travel water from Muskegon Lake toward M-120 first, then substantial Newaygo-to-M-120 resting water; check Croton only after those fresh-entry reaches.",
-            "detail": "New fish can be scattered from the lower river into middle-corridor resting water while earlier arrivals may already be nearer Croton.",
-            "tip": "Check lower-river travel lanes and good resting holes before assuming the newest fish are up by Croton.",
+            "headline": "The first fall Steelhead are entering and moving through the Muskegon River.",
+            "whereToStart": "Start in the Lower river (Muskegon Lake–M-120). Add the Middle river (M-120–Newaygo) after direct fish activity supports the move.",
+            "detail": "New fish remain scattered while earlier arrivals may already be farther upstream.",
+            "tip": "Cover travel water and the first substantial holding areas before moving upstream.",
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -13250,15 +13258,15 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "2026-09-24"
             ],
             "sourceRefreshSlots": {},
-            "headline": "There is not enough reliable information for a Migration Timing call.",
-            "tip": "Do not move farther upstream or stay lower based on this timing read. Fish the section identified by Migration Stage and begin in its most established holding water; change sections only when direct fish activity or a dependable later read supports it.",
+            "headline": "There is not enough reliable Muskegon evidence for a Migration Timing call.",
+            "tip": "Keep the Muskegon section named by Migration Stage. Do not shift sections from this timing read.",
             "detail": "There are not enough dependable past seasons to judge whether this migration is early, normal, or late.",
             "reasonCodes": [
               "conditions_baseline_missing",
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -13272,9 +13280,9 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
           "push": {
             "score": 49,
             "label": "No clear push",
-            "headline": "The river is rising hard, but extreme flow makes this an unreliable fresh-movement read.",
-            "detail": "The river is rising quickly, creating conditions fish often use to move. Overall flow is extremely high. Water is on the warm side for fall migration and is cooling sharply. Additional rain does not improve the read while the river is already high.",
-            "tip": "Do not chase movement in the main channel. If Fishability remains usable, fish only protected margins, inside turns, and soft current with short controlled presentations.",
+            "headline": "Extreme Croton-area flow prevents a dependable fresh-movement signal.",
+            "detail": "The river is rising quickly, creating conditions fish often use to move; overall flow is extremely high. Water is on the warm side for fall migration and is cooling sharply. Rain adds no support while Croton-area flow is already high.",
+            "tip": "Keep Migration Stage’s section primary. Do not shift sections from this read.",
             "reasonCodes": [
               "gauge_fresh",
               "push_severe_high_flow_context",
@@ -13295,14 +13303,14 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               ]
             },
             "rulesVersion": "muskegon-fall-steelhead-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 0,
             "label": "Poor",
-            "headline": "The river is blown out and still rising fast, so normal fishing water is not dependable.",
-            "detail": "Excessive flow is overwhelming normal holding water and making access and presentation unreliable. The fast rise is forcing usable fishing water out of the main flow and into the slowest protected margins. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river.",
-            "tip": "Choose a lower-water day for the better fishing opportunity. If you fish now, stay tight to protected banks, slow inside turns, and the downstream side of major current breaks; keep presentations short and leave the main flow alone.",
+            "headline": "The Croton area is blown out for a dependable presentation plan.",
+            "detail": "Excessive flow overwhelms normal lanes and presentation control. A fast rise is replacing settled lanes with heavier current. This read applies only near Croton Dam within the Upper river (Newaygo–Croton Dam).",
+            "tip": "Choose another day and verify current conditions through authoritative local sources.",
             "reasonCodes": [
               "gauge_fresh",
               "blown_out_flow_band",
@@ -13315,15 +13323,15 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 12,
             "maximum": 100,
             "label": "Inactive",
-            "headline": "Today’s Steelhead activity outlook is inactive.",
-            "detail": "Conditions provide little environmental support for an aggressive response. The strongest window is 5–9 AM: The measured water temperature is favorable for Steelhead. The main limitation: The river level or its recent change is less favorable. Early fall Steelhead are entering with energy reserves intact. This score describes feeding or aggressive responsiveness for fish already in the river, not fresh movement. The measured conditions represent the Croton tailwater immediately below Croton Dam. Water temperature, clarity, and fishing conditions can be different through Newaygo, the lower river, Muskegon Lake, and the channel. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
-            "tip": "Start with 5–9 AM. If conditions change, favor the window that best combines workable light with measured water temperature.",
+            "headline": "Today’s Croton-area Steelhead responsiveness is inactive.",
+            "detail": "Conditions offer little support for an aggressive Steelhead response. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Croton flow and temperature represent only the area near the dam.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify downstream sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -13376,10 +13384,13 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 9,
+            "displayScore": 10,
+            "scoreIsApproximate": true,
             "stage": "beginning",
             "maximum": 100,
             "riverCeiling": 90,
@@ -13388,14 +13399,14 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
             "curveDirection": "rising",
             "winterHoldingContext": false,
             "label": "Low presence",
-            "headline": "A small number of Steelhead may be in the river, and seasonal presence is still building.",
-            "detail": "This part of the season usually brings low presence, with more fish expected to enter and spread through the river. This is a seasonal estimate, not a live fish count.",
-            "tip": "Treat this as an early, low-odds river opportunity. Expect scattered results, and use direct fish activity before committing the full day.",
+            "headline": "Seasonal Steelhead presence is low and building.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the Muskegon Steelhead ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -13623,14 +13634,14 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
             ]
           },
           "interpretationNote": null,
-          "secondaryNote": "Based on USGS 04121970 immediately below Croton Dam. It represents the regulated Croton tailwater; flow, temperature, access, and safety can differ through Newaygo, the lower river, Muskegon Lake, and the channel.",
+          "secondaryNote": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
           "safety": {
             "regulationReminder": "Croton Dam is the hard upstream migration boundary. Fish only legal water below the dam, use established public access, respect private land and posted closures, and check current Michigan regulations and dam-safety notices.",
-            "gaugeBasis": "Based on USGS 04121970 immediately below Croton Dam. It represents the regulated Croton tailwater; flow, temperature, access, and safety can differ through Newaygo, the lower river, Muskegon Lake, and the channel.",
+            "gaugeBasis": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-muskegon-steelhead-activity.1"
+          "configVersion": "2026-08-11-muskegon-copy.1"
         }
       },
       {
@@ -13649,6 +13660,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
           "nextConditionRefreshAt": "2026-10-01T05:00:00.000Z",
           "runStage": {
             "stage": "beginning",
+            "copyStrategy": "muskegon_croton_tailwater",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -13671,14 +13683,14 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "peakToEndDays": 37
             },
             "label": "Beginning",
-            "headline": "The first fall Steelhead are entering the Muskegon's long migratory corridor.",
-            "whereToStart": "Deep lower-river travel water from Muskegon Lake toward M-120 first, then substantial Newaygo-to-M-120 resting water; check Croton only after those fresh-entry reaches.",
-            "detail": "New fish can be scattered from the lower river into middle-corridor resting water while earlier arrivals may already be nearer Croton.",
-            "tip": "Check lower-river travel lanes and good resting holes before assuming the newest fish are up by Croton.",
+            "headline": "The first fall Steelhead are entering and moving through the Muskegon River.",
+            "whereToStart": "Start in the Lower river (Muskegon Lake–M-120). Add the Middle river (M-120–Newaygo) after direct fish activity supports the move.",
+            "detail": "New fish remain scattered while earlier arrivals may already be farther upstream.",
+            "tip": "Cover travel water and the first substantial holding areas before moving upstream.",
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -13716,15 +13728,15 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "2026-09-24"
             ],
             "sourceRefreshSlots": {},
-            "headline": "There is not enough reliable information for a Migration Timing call.",
-            "tip": "Do not move farther upstream or stay lower based on this timing read. Fish the section identified by Migration Stage and begin in its most established holding water; change sections only when direct fish activity or a dependable later read supports it.",
+            "headline": "There is not enough reliable Muskegon evidence for a Migration Timing call.",
+            "tip": "Keep the Muskegon section named by Migration Stage. Do not shift sections from this timing read.",
             "detail": "There are not enough dependable past seasons to judge whether this migration is early, normal, or late.",
             "reasonCodes": [
               "conditions_baseline_missing",
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -13745,27 +13757,27 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "gauge_missing"
             ],
             "rulesVersion": "muskegon-fall-steelhead-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": null,
             "label": "Unavailable",
-            "headline": "There is no dependable Fishability read right now.",
-            "detail": "A recent river-level reading is missing, so current flow and direction cannot be judged responsibly.",
-            "tip": "Do not plan from the last known level. Check again after the next update, and verify the river at the first access before choosing where or how to fish.",
+            "headline": "A current Croton Fishability reading is unavailable.",
+            "detail": "Without current Croton flow and direction, presentation conditions near the dam cannot be determined.",
+            "tip": "Do not extend an old or missing Croton read through the Muskegon River. Verify current conditions directly.",
             "reasonCodes": [
               "gauge_missing"
             ],
             "rulesVersion": "muskegon-croton-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 42,
             "maximum": 100,
             "label": "Moderate",
-            "headline": "Today’s Steelhead activity outlook is moderate.",
-            "detail": "Some useful factors are present, but the response window is mixed. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Current river behavior is unavailable. Early fall Steelhead are entering with energy reserves intact. This score describes feeding or aggressive responsiveness for fish already in the river, not fresh movement. The measured conditions represent the Croton tailwater immediately below Croton Dam. Water temperature, clarity, and fishing conditions can be different through Newaygo, the lower river, Muskegon Lake, and the channel. One important reading is unavailable or comes from tomorrow’s forecast, so the outlook is kept conservative.",
-            "tip": "Start with 5–9 AM. If conditions change, favor the window that best combines workable light with measured water temperature.",
+            "headline": "Today’s Croton-area Steelhead responsiveness is moderate.",
+            "detail": "Conditions offer mixed support for Steelhead responsiveness. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Moderate confidence reflects missing or forecast inputs; river measurements still represent only the Croton Dam area.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify downstream sections directly.",
             "reasonCodes": [
               "activity_confidence_moderate",
               "activity_today",
@@ -13817,10 +13829,13 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 9,
+            "displayScore": 10,
+            "scoreIsApproximate": true,
             "stage": "beginning",
             "maximum": 100,
             "riverCeiling": 90,
@@ -13829,14 +13844,14 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
             "curveDirection": "rising",
             "winterHoldingContext": false,
             "label": "Low presence",
-            "headline": "A small number of Steelhead may be in the river, and seasonal presence is still building.",
-            "detail": "This part of the season usually brings low presence, with more fish expected to enter and spread through the river. This is a seasonal estimate, not a live fish count.",
-            "tip": "Treat this as an early, low-odds river opportunity. Expect scattered results, and use direct fish activity before committing the full day.",
+            "headline": "Seasonal Steelhead presence is low and building.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the Muskegon Steelhead ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": null,
           "weather": {
@@ -14054,14 +14069,14 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
             ]
           },
           "interpretationNote": null,
-          "secondaryNote": "Based on USGS 04121970 immediately below Croton Dam. It represents the regulated Croton tailwater; flow, temperature, access, and safety can differ through Newaygo, the lower river, Muskegon Lake, and the channel.",
+          "secondaryNote": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
           "safety": {
             "regulationReminder": "Croton Dam is the hard upstream migration boundary. Fish only legal water below the dam, use established public access, respect private land and posted closures, and check current Michigan regulations and dam-safety notices.",
-            "gaugeBasis": "Based on USGS 04121970 immediately below Croton Dam. It represents the regulated Croton tailwater; flow, temperature, access, and safety can differ through Newaygo, the lower river, Muskegon Lake, and the channel.",
+            "gaugeBasis": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-muskegon-steelhead-activity.1"
+          "configVersion": "2026-08-11-muskegon-copy.1"
         }
       },
       {
@@ -14080,6 +14095,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
           "nextConditionRefreshAt": "2026-10-01T05:00:00.000Z",
           "runStage": {
             "stage": "beginning",
+            "copyStrategy": "muskegon_croton_tailwater",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -14102,14 +14118,14 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "peakToEndDays": 37
             },
             "label": "Beginning",
-            "headline": "The first fall Steelhead are entering the Muskegon's long migratory corridor.",
-            "whereToStart": "Deep lower-river travel water from Muskegon Lake toward M-120 first, then substantial Newaygo-to-M-120 resting water; check Croton only after those fresh-entry reaches.",
-            "detail": "New fish can be scattered from the lower river into middle-corridor resting water while earlier arrivals may already be nearer Croton.",
-            "tip": "Check lower-river travel lanes and good resting holes before assuming the newest fish are up by Croton.",
+            "headline": "The first fall Steelhead are entering and moving through the Muskegon River.",
+            "whereToStart": "Start in the Lower river (Muskegon Lake–M-120). Add the Middle river (M-120–Newaygo) after direct fish activity supports the move.",
+            "detail": "New fish remain scattered while earlier arrivals may already be farther upstream.",
+            "tip": "Cover travel water and the first substantial holding areas before moving upstream.",
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -14147,15 +14163,15 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "2026-09-24"
             ],
             "sourceRefreshSlots": {},
-            "headline": "There is not enough reliable information for a Migration Timing call.",
-            "tip": "Do not move farther upstream or stay lower based on this timing read. Fish the section identified by Migration Stage and begin in its most established holding water; change sections only when direct fish activity or a dependable later read supports it.",
+            "headline": "There is not enough reliable Muskegon evidence for a Migration Timing call.",
+            "tip": "Keep the Muskegon section named by Migration Stage. Do not shift sections from this timing read.",
             "detail": "There are not enough dependable past seasons to judge whether this migration is early, normal, or late.",
             "reasonCodes": [
               "conditions_baseline_missing",
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -14177,14 +14193,14 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "temperature_unavailable"
             ],
             "rulesVersion": "muskegon-fall-steelhead-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 93,
             "label": "Excellent",
-            "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river.",
-            "tip": "Begin on the primary travel lane feeding deep holding water. Work each hole from its head through the inside seam and tail, then keep moving until fish establish a pattern.",
+            "headline": "Croton-area flow is in its best presentation range.",
+            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read applies only near Croton Dam within the Upper river (Newaygo–Croton Dam).",
+            "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band"
@@ -14195,15 +14211,15 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 53,
             "maximum": 100,
             "label": "Moderate",
-            "headline": "Today’s Steelhead activity outlook is moderate.",
-            "detail": "Some useful factors are present, but the response window is mixed. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Measured water temperature is unavailable. Early fall Steelhead are entering with energy reserves intact. This score describes feeding or aggressive responsiveness for fish already in the river, not fresh movement. The measured conditions represent the Croton tailwater immediately below Croton Dam. Water temperature, clarity, and fishing conditions can be different through Newaygo, the lower river, Muskegon Lake, and the channel. One important reading is unavailable or comes from tomorrow’s forecast, so the outlook is kept conservative.",
-            "tip": "Start with 5–9 AM. If conditions change, favor the window that best combines workable light with measured water temperature.",
+            "headline": "Today’s Croton-area Steelhead responsiveness is moderate.",
+            "detail": "Conditions offer mixed support for Steelhead responsiveness. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Moderate confidence reflects missing or forecast inputs; river measurements still represent only the Croton Dam area.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify downstream sections directly.",
             "reasonCodes": [
               "activity_confidence_moderate",
               "activity_today",
@@ -14255,10 +14271,13 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 9,
+            "displayScore": 10,
+            "scoreIsApproximate": true,
             "stage": "beginning",
             "maximum": 100,
             "riverCeiling": 90,
@@ -14267,14 +14286,14 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
             "curveDirection": "rising",
             "winterHoldingContext": false,
             "label": "Low presence",
-            "headline": "A small number of Steelhead may be in the river, and seasonal presence is still building.",
-            "detail": "This part of the season usually brings low presence, with more fish expected to enter and spread through the river. This is a seasonal estimate, not a live fish count.",
-            "tip": "Treat this as an early, low-odds river opportunity. Expect scattered results, and use direct fish activity before committing the full day.",
+            "headline": "Seasonal Steelhead presence is low and building.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the Muskegon Steelhead ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -14491,14 +14510,14 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "good_fishability_low_presence"
             ]
           },
-          "secondaryNote": "Based on USGS 04121970 immediately below Croton Dam. It represents the regulated Croton tailwater; flow, temperature, access, and safety can differ through Newaygo, the lower river, Muskegon Lake, and the channel.",
+          "secondaryNote": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
           "safety": {
             "regulationReminder": "Croton Dam is the hard upstream migration boundary. Fish only legal water below the dam, use established public access, respect private land and posted closures, and check current Michigan regulations and dam-safety notices.",
-            "gaugeBasis": "Based on USGS 04121970 immediately below Croton Dam. It represents the regulated Croton tailwater; flow, temperature, access, and safety can differ through Newaygo, the lower river, Muskegon Lake, and the channel.",
+            "gaugeBasis": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-muskegon-steelhead-activity.1"
+          "configVersion": "2026-08-11-muskegon-copy.1"
         }
       },
       {
@@ -14517,6 +14536,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
           "nextConditionRefreshAt": "2026-08-16T05:00:00.000Z",
           "runStage": {
             "stage": "post_run",
+            "copyStrategy": "muskegon_croton_tailwater",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -14538,16 +14558,16 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "startToPeakDays": 51,
               "peakToEndDays": 37
             },
-            "label": "Offseason",
-            "headline": "Steelhead are outside the Muskegon fall-entry model.",
-            "whereToStart": "No active fall-entry starting reach; use the winter Steelhead read for current holding-water guidance instead.",
-            "detail": "This profile no longer evaluates fall migration; winter activity requires a holding-focused seasonal read.",
-            "tip": "The fall-entry read is finished. Use the winter Steelhead read instead.",
+            "label": "Fall entry complete",
+            "headline": "Muskegon Steelhead fall entry is complete.",
+            "whereToStart": "There is no active Muskegon starting section in this fall-entry model.",
+            "detail": "Steelhead may remain in the river. This model no longer estimates current presence or activity.",
+            "tip": "Check back in early September when Muskegon fall-entry tracking resumes.",
             "reasonCodes": [
               "stage_post_run",
               "stage_offseason"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Not monitoring yet",
@@ -14566,13 +14586,13 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
             "historicalYears": 0,
             "sourceDates": [],
             "sourceRefreshSlots": {},
-            "headline": "Migration Timing is not active right now.",
-            "detail": "Timing monitoring begins before the expected river entry, but that seasonal observation window is not active yet.",
-            "tip": "Check Migration Stage for the current seasonal position and return to Migration Timing when early monitoring begins.",
+            "headline": "Muskegon Migration Timing is not monitoring yet.",
+            "detail": "Season-to-date Croton flow and measured-temperature monitoring resumes in early September.",
+            "tip": "Check back in early September when Muskegon timing monitoring resumes.",
             "reasonCodes": [
               "conditions_monitoring_inactive"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -14585,22 +14605,22 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
           },
           "push": {
             "score": null,
-            "label": "Offseason",
-            "headline": "Push is not active outside the river migration season.",
-            "detail": "Rain, river level, and water temperature can still change, but they do not provide a useful fresh-arrival signal for this species right now.",
-            "tip": "Do not use Push to plan for this species outside its migration season. Follow an active species instead, or return when early monitoring begins.",
+            "label": "Fall entry complete",
+            "headline": "Muskegon Steelhead fall-entry Push is complete.",
+            "detail": "Current water may affect Steelhead still in the river. This fall model no longer scores fresh-entry support.",
+            "tip": "Do not use a completed fall Push to infer current presence. Check back in early September.",
             "reasonCodes": [
-              "push_tracking_offseason"
+              "push_tracking_complete"
             ],
             "rulesVersion": "muskegon-fall-steelhead-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 93,
             "label": "Excellent",
-            "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river.",
-            "tip": "Begin on the primary travel lane feeding deep holding water. Work each hole from its head through the inside seam and tail, then keep moving until fish establish a pattern.",
+            "headline": "Croton-area flow is in its best presentation range.",
+            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read applies only near Croton Dam within the Upper river (Newaygo–Croton Dam).",
+            "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band"
@@ -14611,11 +14631,12 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": null,
           "fishInRiver": {
-            "score": 0,
+            "score": null,
+            "scoreIsApproximate": false,
             "stage": "post_run",
             "maximum": 100,
             "riverCeiling": 90,
@@ -14623,15 +14644,15 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
             "curveFraction": 0,
             "curveDirection": "outside",
             "winterHoldingContext": false,
-            "label": "Offseason",
-            "headline": "Steelhead are outside their river migration season.",
-            "detail": "A dependable seasonal presence of Steelhead is not expected in the river right now.",
-            "tip": "Do not build a river trip around this species right now. Target a species with an active seasonal window and return as the next migration approaches.",
+            "label": "Fall entry complete",
+            "headline": "Muskegon Steelhead fall entry is complete.",
+            "detail": "Steelhead may remain in the river. This fall-entry model no longer estimates their current seasonal presence.",
+            "tip": "Check back in early September when Muskegon fall movement tracking resumes.",
             "reasonCodes": [
               "stage_post_run",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -14857,21 +14878,15 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "data_quality_fresh"
             ]
           },
-          "interpretationNote": {
-            "headline": "The river should fish well, but seasonal fish presence is still low.",
-            "detail": "Good flow makes presentations easier, but it does not put fish in the river. Begin in the deepest established holding water and skip broad searches through fast travel lanes as seasonal presence thins.",
-            "reasonCodes": [
-              "good_fishability_low_presence"
-            ]
-          },
-          "secondaryNote": "Based on USGS 04121970 immediately below Croton Dam. It represents the regulated Croton tailwater; flow, temperature, access, and safety can differ through Newaygo, the lower river, Muskegon Lake, and the channel.",
+          "interpretationNote": null,
+          "secondaryNote": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
           "safety": {
             "regulationReminder": "Croton Dam is the hard upstream migration boundary. Fish only legal water below the dam, use established public access, respect private land and posted closures, and check current Michigan regulations and dam-safety notices.",
-            "gaugeBasis": "Based on USGS 04121970 immediately below Croton Dam. It represents the regulated Croton tailwater; flow, temperature, access, and safety can differ through Newaygo, the lower river, Muskegon Lake, and the channel.",
+            "gaugeBasis": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-muskegon-steelhead-activity.1"
+          "configVersion": "2026-08-11-muskegon-copy.1"
         }
       },
       {
@@ -14890,6 +14905,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
           "nextConditionRefreshAt": "2026-08-16T05:00:00.000Z",
           "runStage": {
             "stage": "post_run",
+            "copyStrategy": "muskegon_croton_tailwater",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -14911,16 +14927,16 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "startToPeakDays": 51,
               "peakToEndDays": 37
             },
-            "label": "Offseason",
-            "headline": "Steelhead are outside the Muskegon fall-entry model.",
-            "whereToStart": "No active fall-entry starting reach; use the winter Steelhead read for current holding-water guidance instead.",
-            "detail": "This profile no longer evaluates fall migration; winter activity requires a holding-focused seasonal read.",
-            "tip": "The fall-entry read is finished. Use the winter Steelhead read instead.",
+            "label": "Fall entry complete",
+            "headline": "Muskegon Steelhead fall entry is complete.",
+            "whereToStart": "There is no active Muskegon starting section in this fall-entry model.",
+            "detail": "Steelhead may remain in the river. This model no longer estimates current presence or activity.",
+            "tip": "Check back in early September when Muskegon fall-entry tracking resumes.",
             "reasonCodes": [
               "stage_post_run",
               "stage_offseason"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Not monitoring yet",
@@ -14939,13 +14955,13 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
             "historicalYears": 0,
             "sourceDates": [],
             "sourceRefreshSlots": {},
-            "headline": "Migration Timing is not active right now.",
-            "detail": "Timing monitoring begins before the expected river entry, but that seasonal observation window is not active yet.",
-            "tip": "Check Migration Stage for the current seasonal position and return to Migration Timing when early monitoring begins.",
+            "headline": "Muskegon Migration Timing is not monitoring yet.",
+            "detail": "Season-to-date Croton flow and measured-temperature monitoring resumes in early September.",
+            "tip": "Check back in early September when Muskegon timing monitoring resumes.",
             "reasonCodes": [
               "conditions_monitoring_inactive"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -14958,22 +14974,22 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
           },
           "push": {
             "score": null,
-            "label": "Offseason",
-            "headline": "Push is not active outside the river migration season.",
-            "detail": "Rain, river level, and water temperature can still change, but they do not provide a useful fresh-arrival signal for this species right now.",
-            "tip": "Do not use Push to plan for this species outside its migration season. Follow an active species instead, or return when early monitoring begins.",
+            "label": "Fall entry complete",
+            "headline": "Muskegon Steelhead fall-entry Push is complete.",
+            "detail": "Current water may affect Steelhead still in the river. This fall model no longer scores fresh-entry support.",
+            "tip": "Do not use a completed fall Push to infer current presence. Check back in early September.",
             "reasonCodes": [
-              "push_tracking_offseason"
+              "push_tracking_complete"
             ],
             "rulesVersion": "muskegon-fall-steelhead-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 80,
             "label": "Good",
-            "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. Depth and current are changing enough to move the most controllable presentations toward inside seams and current breaks. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river.",
-            "tip": "Move off the center lane. Work inside seams, the downstream side of current breaks, and the first deep resting pocket with short controlled presentations.",
+            "headline": "Croton-area flow is in its best presentation range.",
+            "detail": "The flow band offers the broadest mix of depth and presentation control. A clear rise is moving controllable water toward current breaks. This read applies only near Croton Dam within the Upper river (Newaygo–Croton Dam).",
+            "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band"
@@ -14984,11 +15000,12 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": null,
           "fishInRiver": {
-            "score": 0,
+            "score": null,
+            "scoreIsApproximate": false,
             "stage": "post_run",
             "maximum": 100,
             "riverCeiling": 90,
@@ -14996,15 +15013,15 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
             "curveFraction": 0,
             "curveDirection": "outside",
             "winterHoldingContext": false,
-            "label": "Offseason",
-            "headline": "Steelhead are outside their river migration season.",
-            "detail": "A dependable seasonal presence of Steelhead is not expected in the river right now.",
-            "tip": "Do not build a river trip around this species right now. Target a species with an active seasonal window and return as the next migration approaches.",
+            "label": "Fall entry complete",
+            "headline": "Muskegon Steelhead fall entry is complete.",
+            "detail": "Steelhead may remain in the river. This fall-entry model no longer estimates their current seasonal presence.",
+            "tip": "Check back in early September when Muskegon fall movement tracking resumes.",
             "reasonCodes": [
               "stage_post_run",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -15230,21 +15247,15 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "data_quality_fresh"
             ]
           },
-          "interpretationNote": {
-            "headline": "The river should fish well, but seasonal fish presence is still low.",
-            "detail": "Good flow makes presentations easier, but it does not put fish in the river. Begin in the deepest established holding water and skip broad searches through fast travel lanes as seasonal presence thins.",
-            "reasonCodes": [
-              "good_fishability_low_presence"
-            ]
-          },
-          "secondaryNote": "Based on USGS 04121970 immediately below Croton Dam. It represents the regulated Croton tailwater; flow, temperature, access, and safety can differ through Newaygo, the lower river, Muskegon Lake, and the channel.",
+          "interpretationNote": null,
+          "secondaryNote": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
           "safety": {
             "regulationReminder": "Croton Dam is the hard upstream migration boundary. Fish only legal water below the dam, use established public access, respect private land and posted closures, and check current Michigan regulations and dam-safety notices.",
-            "gaugeBasis": "Based on USGS 04121970 immediately below Croton Dam. It represents the regulated Croton tailwater; flow, temperature, access, and safety can differ through Newaygo, the lower river, Muskegon Lake, and the channel.",
+            "gaugeBasis": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-muskegon-steelhead-activity.1"
+          "configVersion": "2026-08-11-muskegon-copy.1"
         }
       },
       {
@@ -15263,6 +15274,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
           "nextConditionRefreshAt": "2026-08-16T05:00:00.000Z",
           "runStage": {
             "stage": "post_run",
+            "copyStrategy": "muskegon_croton_tailwater",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -15284,16 +15296,16 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "startToPeakDays": 51,
               "peakToEndDays": 37
             },
-            "label": "Offseason",
-            "headline": "Steelhead are outside the Muskegon fall-entry model.",
-            "whereToStart": "No active fall-entry starting reach; use the winter Steelhead read for current holding-water guidance instead.",
-            "detail": "This profile no longer evaluates fall migration; winter activity requires a holding-focused seasonal read.",
-            "tip": "The fall-entry read is finished. Use the winter Steelhead read instead.",
+            "label": "Fall entry complete",
+            "headline": "Muskegon Steelhead fall entry is complete.",
+            "whereToStart": "There is no active Muskegon starting section in this fall-entry model.",
+            "detail": "Steelhead may remain in the river. This model no longer estimates current presence or activity.",
+            "tip": "Check back in early September when Muskegon fall-entry tracking resumes.",
             "reasonCodes": [
               "stage_post_run",
               "stage_offseason"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Not monitoring yet",
@@ -15312,13 +15324,13 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
             "historicalYears": 0,
             "sourceDates": [],
             "sourceRefreshSlots": {},
-            "headline": "Migration Timing is not active right now.",
-            "detail": "Timing monitoring begins before the expected river entry, but that seasonal observation window is not active yet.",
-            "tip": "Check Migration Stage for the current seasonal position and return to Migration Timing when early monitoring begins.",
+            "headline": "Muskegon Migration Timing is not monitoring yet.",
+            "detail": "Season-to-date Croton flow and measured-temperature monitoring resumes in early September.",
+            "tip": "Check back in early September when Muskegon timing monitoring resumes.",
             "reasonCodes": [
               "conditions_monitoring_inactive"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -15331,22 +15343,22 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
           },
           "push": {
             "score": null,
-            "label": "Offseason",
-            "headline": "Push is not active outside the river migration season.",
-            "detail": "Rain, river level, and water temperature can still change, but they do not provide a useful fresh-arrival signal for this species right now.",
-            "tip": "Do not use Push to plan for this species outside its migration season. Follow an active species instead, or return when early monitoring begins.",
+            "label": "Fall entry complete",
+            "headline": "Muskegon Steelhead fall-entry Push is complete.",
+            "detail": "Current water may affect Steelhead still in the river. This fall model no longer scores fresh-entry support.",
+            "tip": "Do not use a completed fall Push to infer current presence. Check back in early September.",
             "reasonCodes": [
-              "push_tracking_offseason"
+              "push_tracking_complete"
             ],
             "rulesVersion": "muskegon-fall-steelhead-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 80,
             "label": "Good",
-            "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. Depth and current are changing enough to move the most controllable presentations toward inside seams and current breaks. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river.",
-            "tip": "Move off the center lane. Work inside seams, the downstream side of current breaks, and the first deep resting pocket with short controlled presentations.",
+            "headline": "Croton-area flow is in its best presentation range.",
+            "detail": "The flow band offers the broadest mix of depth and presentation control. A clear rise is moving controllable water toward current breaks. This read applies only near Croton Dam within the Upper river (Newaygo–Croton Dam).",
+            "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band"
@@ -15357,11 +15369,12 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": null,
           "fishInRiver": {
-            "score": 0,
+            "score": null,
+            "scoreIsApproximate": false,
             "stage": "post_run",
             "maximum": 100,
             "riverCeiling": 90,
@@ -15369,15 +15382,15 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
             "curveFraction": 0,
             "curveDirection": "outside",
             "winterHoldingContext": false,
-            "label": "Offseason",
-            "headline": "Steelhead are outside their river migration season.",
-            "detail": "A dependable seasonal presence of Steelhead is not expected in the river right now.",
-            "tip": "Do not build a river trip around this species right now. Target a species with an active seasonal window and return as the next migration approaches.",
+            "label": "Fall entry complete",
+            "headline": "Muskegon Steelhead fall entry is complete.",
+            "detail": "Steelhead may remain in the river. This fall-entry model no longer estimates their current seasonal presence.",
+            "tip": "Check back in early September when Muskegon fall movement tracking resumes.",
             "reasonCodes": [
               "stage_post_run",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -15603,21 +15616,15 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "data_quality_fresh"
             ]
           },
-          "interpretationNote": {
-            "headline": "The river should fish well, but seasonal fish presence is still low.",
-            "detail": "Good flow makes presentations easier, but it does not put fish in the river. Begin in the deepest established holding water and skip broad searches through fast travel lanes as seasonal presence thins.",
-            "reasonCodes": [
-              "good_fishability_low_presence"
-            ]
-          },
-          "secondaryNote": "Based on USGS 04121970 immediately below Croton Dam. It represents the regulated Croton tailwater; flow, temperature, access, and safety can differ through Newaygo, the lower river, Muskegon Lake, and the channel.",
+          "interpretationNote": null,
+          "secondaryNote": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
           "safety": {
             "regulationReminder": "Croton Dam is the hard upstream migration boundary. Fish only legal water below the dam, use established public access, respect private land and posted closures, and check current Michigan regulations and dam-safety notices.",
-            "gaugeBasis": "Based on USGS 04121970 immediately below Croton Dam. It represents the regulated Croton tailwater; flow, temperature, access, and safety can differ through Newaygo, the lower river, Muskegon Lake, and the channel.",
+            "gaugeBasis": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-muskegon-steelhead-activity.1"
+          "configVersion": "2026-08-11-muskegon-copy.1"
         }
       },
       {
@@ -15636,6 +15643,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
           "nextConditionRefreshAt": "2026-10-01T05:00:00.000Z",
           "runStage": {
             "stage": "beginning",
+            "copyStrategy": "muskegon_croton_tailwater",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -15658,14 +15666,14 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "peakToEndDays": 37
             },
             "label": "Beginning",
-            "headline": "The first fall Steelhead are entering the Muskegon's long migratory corridor.",
-            "whereToStart": "Deep lower-river travel water from Muskegon Lake toward M-120 first, then substantial Newaygo-to-M-120 resting water; check Croton only after those fresh-entry reaches.",
-            "detail": "New fish can be scattered from the lower river into middle-corridor resting water while earlier arrivals may already be nearer Croton.",
-            "tip": "Check lower-river travel lanes and good resting holes before assuming the newest fish are up by Croton.",
+            "headline": "The first fall Steelhead are entering and moving through the Muskegon River.",
+            "whereToStart": "Start in the Lower river (Muskegon Lake–M-120). Add the Middle river (M-120–Newaygo) after direct fish activity supports the move.",
+            "detail": "New fish remain scattered while earlier arrivals may already be farther upstream.",
+            "tip": "Cover travel water and the first substantial holding areas before moving upstream.",
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -15703,15 +15711,15 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "2026-09-24"
             ],
             "sourceRefreshSlots": {},
-            "headline": "There is not enough reliable information for a Migration Timing call.",
-            "tip": "Do not move farther upstream or stay lower based on this timing read. Fish the section identified by Migration Stage and begin in its most established holding water; change sections only when direct fish activity or a dependable later read supports it.",
+            "headline": "There is not enough reliable Muskegon evidence for a Migration Timing call.",
+            "tip": "Keep the Muskegon section named by Migration Stage. Do not shift sections from this timing read.",
             "detail": "There are not enough dependable past seasons to judge whether this migration is early, normal, or late.",
             "reasonCodes": [
               "conditions_baseline_missing",
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -15725,9 +15733,9 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
           "push": {
             "score": 13,
             "label": "Weak",
-            "headline": "Today's water shows little support for a fresh wave of fish.",
-            "detail": "The river is holding steady with no meaningful rise yet. Overall flow remains low. Water temperature remains too warm to support a strong Push and is relatively steady. Recent weather estimates indicate very little rain around the river.",
-            "tip": "Do not build the day around new arrivals while the river remains warm. Start in established holding water at first or last light and leave lower travel lanes secondary.",
+            "headline": "Croton-area water shows little support for fresh movement.",
+            "detail": "The river is holding steady with no meaningful rise yet; overall flow remains low. Water temperature remains too warm to support a strong Push and is relatively steady. Recent watershed weather shows little rain.",
+            "tip": "Keep Migration Stage’s section primary. Do not shift sections from this read.",
             "reasonCodes": [
               "gauge_fresh",
               "push_low_flow_context",
@@ -15747,14 +15755,14 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-fall-steelhead-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 40,
             "label": "Tough",
-            "headline": "The river is fishable, but very low water will make fish easier to disturb and productive water harder to find.",
-            "detail": "Water is unusually low, reducing cover and concentrating the best depth into fewer places. The low water is holding rather than refilling, so the few deeper slots should remain easy to identify. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river.",
-            "tip": "Fish first or last light. Begin at the deepest shaded holes and slots, approach quietly, and keep foot traffic out of shallow travel lanes.",
+            "headline": "Very low Croton-area flow leaves limited depth and cover.",
+            "detail": "Unusually low flow concentrates useful depth into fewer places. Steady flow should keep presentation lanes consistent. This read applies only near Croton Dam within the Upper river (Newaygo–Croton Dam).",
+            "tip": "Use the deepest connected water and keep disturbance low.",
             "reasonCodes": [
               "gauge_fresh",
               "very_low_flow_band",
@@ -15766,15 +15774,15 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 57,
             "maximum": 100,
             "label": "Moderate",
-            "headline": "Today’s Steelhead activity outlook is moderate.",
-            "detail": "Some useful factors are present, but the response window is mixed. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: The river level or its recent change is less favorable. Early fall Steelhead are entering with energy reserves intact. This score describes feeding or aggressive responsiveness for fish already in the river, not fresh movement. The measured conditions represent the Croton tailwater immediately below Croton Dam. Water temperature, clarity, and fishing conditions can be different through Newaygo, the lower river, Muskegon Lake, and the channel. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
-            "tip": "Start with 5–9 AM. If conditions change, favor the window that best combines workable light with measured water temperature.",
+            "headline": "Today’s Croton-area Steelhead responsiveness is moderate.",
+            "detail": "Conditions offer mixed support for Steelhead responsiveness. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Croton flow and temperature represent only the area near the dam.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify downstream sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -15826,10 +15834,13 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 9,
+            "displayScore": 10,
+            "scoreIsApproximate": true,
             "stage": "beginning",
             "maximum": 100,
             "riverCeiling": 90,
@@ -15838,14 +15849,14 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
             "curveDirection": "rising",
             "winterHoldingContext": false,
             "label": "Low presence",
-            "headline": "A small number of Steelhead may be in the river, and seasonal presence is still building.",
-            "detail": "This part of the season usually brings low presence, with more fish expected to enter and spread through the river. This is a seasonal estimate, not a live fish count.",
-            "tip": "Treat this as an early, low-odds river opportunity. Expect scattered results, and use direct fish activity before committing the full day.",
+            "headline": "Seasonal Steelhead presence is low and building.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the Muskegon Steelhead ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -16073,14 +16084,14 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
             ]
           },
           "interpretationNote": null,
-          "secondaryNote": "Based on USGS 04121970 immediately below Croton Dam. It represents the regulated Croton tailwater; flow, temperature, access, and safety can differ through Newaygo, the lower river, Muskegon Lake, and the channel.",
+          "secondaryNote": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
           "safety": {
             "regulationReminder": "Croton Dam is the hard upstream migration boundary. Fish only legal water below the dam, use established public access, respect private land and posted closures, and check current Michigan regulations and dam-safety notices.",
-            "gaugeBasis": "Based on USGS 04121970 immediately below Croton Dam. It represents the regulated Croton tailwater; flow, temperature, access, and safety can differ through Newaygo, the lower river, Muskegon Lake, and the channel.",
+            "gaugeBasis": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-muskegon-steelhead-activity.1"
+          "configVersion": "2026-08-11-muskegon-copy.1"
         }
       }
     ]
@@ -16105,6 +16116,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
           "nextConditionRefreshAt": "2026-10-01T05:00:00.000Z",
           "runStage": {
             "stage": "beginning",
+            "copyStrategy": "muskegon_croton_tailwater",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -16127,14 +16139,14 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "peakToEndDays": 37
             },
             "label": "Beginning",
-            "headline": "The first fall Steelhead are entering the Muskegon's long migratory corridor.",
-            "whereToStart": "Deep lower-river travel water from Muskegon Lake toward M-120 first, then substantial Newaygo-to-M-120 resting water; check Croton only after those fresh-entry reaches.",
-            "detail": "New fish can be scattered from the lower river into middle-corridor resting water while earlier arrivals may already be nearer Croton.",
-            "tip": "Check lower-river travel lanes and good resting holes before assuming the newest fish are up by Croton.",
+            "headline": "The first fall Steelhead are entering and moving through the Muskegon River.",
+            "whereToStart": "Start in the Lower river (Muskegon Lake–M-120). Add the Middle river (M-120–Newaygo) after direct fish activity supports the move.",
+            "detail": "New fish remain scattered while earlier arrivals may already be farther upstream.",
+            "tip": "Cover travel water and the first substantial holding areas before moving upstream.",
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -16172,15 +16184,15 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "2026-09-24"
             ],
             "sourceRefreshSlots": {},
-            "headline": "There is not enough reliable information for a Migration Timing call.",
-            "tip": "Do not move farther upstream or stay lower based on this timing read. Fish the section identified by Migration Stage and begin in its most established holding water; change sections only when direct fish activity or a dependable later read supports it.",
+            "headline": "There is not enough reliable Muskegon evidence for a Migration Timing call.",
+            "tip": "Keep the Muskegon section named by Migration Stage. Do not shift sections from this timing read.",
             "detail": "There are not enough dependable past seasons to judge whether this migration is early, normal, or late.",
             "reasonCodes": [
               "conditions_baseline_missing",
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -16194,9 +16206,9 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
           "push": {
             "score": 18,
             "label": "Weak",
-            "headline": "Today's water shows little support for a fresh wave of fish.",
-            "detail": "The river is holding steady with no meaningful rise yet. Water temperature remains too warm to support a strong Push and is relatively steady. Recent weather estimates indicate very little rain around the river.",
-            "tip": "Do not build the day around new arrivals while the river remains warm. Start in established holding water at first or last light and leave lower travel lanes secondary.",
+            "headline": "Croton-area water shows little support for fresh movement.",
+            "detail": "The river is holding steady with no meaningful rise yet. Water temperature remains too warm to support a strong Push and is relatively steady. Recent watershed weather shows little rain.",
+            "tip": "Keep Migration Stage’s section primary. Do not shift sections from this read.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
@@ -16216,14 +16228,14 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-fall-steelhead-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 60,
             "label": "Fishable",
-            "headline": "The river is fishable, but lower water leaves less cover and less room for error.",
-            "detail": "Water is lower than ideal but still workable, with less depth and cover across the river. The lower flow is holding steady, so its limited depth and cover should remain consistent. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river.",
-            "tip": "Start with the deepest connected holding water, then fish shaded outside bends and cover. Approach quietly and make the first pass count.",
+            "headline": "Low Croton-area flow remains workable with less depth and cover.",
+            "detail": "Low flow reduces depth and cover across the Croton area. Steady flow should keep presentation lanes consistent. This read applies only near Croton Dam within the Upper river (Newaygo–Croton Dam).",
+            "tip": "Use the deepest connected water and keep disturbance low.",
             "reasonCodes": [
               "gauge_fresh",
               "low_flow_band"
@@ -16234,15 +16246,15 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 60,
             "maximum": 100,
             "label": "Active",
-            "headline": "Today’s Steelhead activity outlook is active.",
-            "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. Early fall Steelhead are entering with energy reserves intact. This score describes feeding or aggressive responsiveness for fish already in the river, not fresh movement. The measured conditions represent the Croton tailwater immediately below Croton Dam. Water temperature, clarity, and fishing conditions can be different through Newaygo, the lower river, Muskegon Lake, and the channel. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
-            "tip": "Start with 5–9 AM. If conditions change, favor the window that best combines workable light with measured water temperature.",
+            "headline": "Today’s Croton-area Steelhead responsiveness is active.",
+            "detail": "Conditions support a meaningful Steelhead response. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Croton flow and temperature represent only the area near the dam.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify downstream sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -16294,10 +16306,13 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 9,
+            "displayScore": 10,
+            "scoreIsApproximate": true,
             "stage": "beginning",
             "maximum": 100,
             "riverCeiling": 90,
@@ -16306,14 +16321,14 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
             "curveDirection": "rising",
             "winterHoldingContext": false,
             "label": "Low presence",
-            "headline": "A small number of Steelhead may be in the river, and seasonal presence is still building.",
-            "detail": "This part of the season usually brings low presence, with more fish expected to enter and spread through the river. This is a seasonal estimate, not a live fish count.",
-            "tip": "Treat this as an early, low-odds river opportunity. Expect scattered results, and use direct fish activity before committing the full day.",
+            "headline": "Seasonal Steelhead presence is low and building.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the Muskegon Steelhead ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -16541,14 +16556,14 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
             ]
           },
           "interpretationNote": null,
-          "secondaryNote": "Based on USGS 04121970 immediately below Croton Dam. It represents the regulated Croton tailwater; flow, temperature, access, and safety can differ through Newaygo, the lower river, Muskegon Lake, and the channel.",
+          "secondaryNote": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
           "safety": {
             "regulationReminder": "Croton Dam is the hard upstream migration boundary. Fish only legal water below the dam, use established public access, respect private land and posted closures, and check current Michigan regulations and dam-safety notices.",
-            "gaugeBasis": "Based on USGS 04121970 immediately below Croton Dam. It represents the regulated Croton tailwater; flow, temperature, access, and safety can differ through Newaygo, the lower river, Muskegon Lake, and the channel.",
+            "gaugeBasis": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-muskegon-steelhead-activity.1"
+          "configVersion": "2026-08-11-muskegon-copy.1"
         }
       },
       {
@@ -16567,6 +16582,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
           "nextConditionRefreshAt": "2026-10-01T05:00:00.000Z",
           "runStage": {
             "stage": "beginning",
+            "copyStrategy": "muskegon_croton_tailwater",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -16589,14 +16605,14 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "peakToEndDays": 37
             },
             "label": "Beginning",
-            "headline": "The first fall Steelhead are entering the Muskegon's long migratory corridor.",
-            "whereToStart": "Deep lower-river travel water from Muskegon Lake toward M-120 first, then substantial Newaygo-to-M-120 resting water; check Croton only after those fresh-entry reaches.",
-            "detail": "New fish can be scattered from the lower river into middle-corridor resting water while earlier arrivals may already be nearer Croton.",
-            "tip": "Check lower-river travel lanes and good resting holes before assuming the newest fish are up by Croton.",
+            "headline": "The first fall Steelhead are entering and moving through the Muskegon River.",
+            "whereToStart": "Start in the Lower river (Muskegon Lake–M-120). Add the Middle river (M-120–Newaygo) after direct fish activity supports the move.",
+            "detail": "New fish remain scattered while earlier arrivals may already be farther upstream.",
+            "tip": "Cover travel water and the first substantial holding areas before moving upstream.",
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -16634,15 +16650,15 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "2026-09-24"
             ],
             "sourceRefreshSlots": {},
-            "headline": "There is not enough reliable information for a Migration Timing call.",
-            "tip": "Do not move farther upstream or stay lower based on this timing read. Fish the section identified by Migration Stage and begin in its most established holding water; change sections only when direct fish activity or a dependable later read supports it.",
+            "headline": "There is not enough reliable Muskegon evidence for a Migration Timing call.",
+            "tip": "Keep the Muskegon section named by Migration Stage. Do not shift sections from this timing read.",
             "detail": "There are not enough dependable past seasons to judge whether this migration is early, normal, or late.",
             "reasonCodes": [
               "conditions_baseline_missing",
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -16656,9 +16672,9 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
           "push": {
             "score": 13,
             "label": "Weak",
-            "headline": "The river is rising hard, but extreme flow makes this an unreliable fresh-movement read.",
-            "detail": "The river is holding steady with no meaningful rise yet. Overall flow is extremely high. Water temperature remains too warm to support a strong Push and is relatively steady. Recent weather estimates indicate very little rain around the river.",
-            "tip": "Do not chase movement in the main channel. If Fishability remains usable, fish only protected margins, inside turns, and soft current with short controlled presentations.",
+            "headline": "Extreme Croton-area flow prevents a dependable fresh-movement signal.",
+            "detail": "The river is holding steady with no meaningful rise yet; overall flow is extremely high. Water temperature remains too warm to support a strong Push and is relatively steady. Recent watershed weather shows little rain.",
+            "tip": "Keep Migration Stage’s section primary. Do not shift sections from this read.",
             "reasonCodes": [
               "gauge_fresh",
               "push_severe_high_flow_context",
@@ -16679,14 +16695,14 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-fall-steelhead-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 20,
             "label": "Poor",
-            "headline": "The river is too high and unsettled for a dependable fishing recommendation.",
-            "detail": "Excessive flow is overwhelming normal holding water and making access and presentation unreliable. The river is not climbing quickly, but it must fall substantially before normal holding lanes and presentation control return. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river.",
-            "tip": "Choose a lower-water day for the better fishing opportunity. If you fish now, stay tight to protected banks, slow inside turns, and the downstream side of major current breaks; keep presentations short and leave the main flow alone.",
+            "headline": "The Croton area is blown out for a dependable presentation plan.",
+            "detail": "Excessive flow overwhelms normal lanes and presentation control. Steady flow should keep presentation lanes consistent. This read applies only near Croton Dam within the Upper river (Newaygo–Croton Dam).",
+            "tip": "Choose another day and verify current conditions through authoritative local sources.",
             "reasonCodes": [
               "gauge_fresh",
               "blown_out_flow_band",
@@ -16698,15 +16714,15 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 10,
             "maximum": 100,
             "label": "Inactive",
-            "headline": "Today’s Steelhead activity outlook is inactive.",
-            "detail": "Conditions provide little environmental support for an aggressive response. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: The river level or its recent change is less favorable. Early fall Steelhead are entering with energy reserves intact. This score describes feeding or aggressive responsiveness for fish already in the river, not fresh movement. The measured conditions represent the Croton tailwater immediately below Croton Dam. Water temperature, clarity, and fishing conditions can be different through Newaygo, the lower river, Muskegon Lake, and the channel. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
-            "tip": "Start with 5–9 AM. If conditions change, favor the window that best combines workable light with measured water temperature.",
+            "headline": "Today’s Croton-area Steelhead responsiveness is inactive.",
+            "detail": "Conditions offer little support for an aggressive Steelhead response. 5–9 AM and 9 AM–1 PM are the leading windows, but neither has a clear advantage. Croton flow and temperature represent only the area near the dam.",
+            "tip": "Choose between 5–9 AM and 9 AM–1 PM using actual light. Verify downstream sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -16759,10 +16775,13 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 9,
+            "displayScore": 10,
+            "scoreIsApproximate": true,
             "stage": "beginning",
             "maximum": 100,
             "riverCeiling": 90,
@@ -16771,14 +16790,14 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
             "curveDirection": "rising",
             "winterHoldingContext": false,
             "label": "Low presence",
-            "headline": "A small number of Steelhead may be in the river, and seasonal presence is still building.",
-            "detail": "This part of the season usually brings low presence, with more fish expected to enter and spread through the river. This is a seasonal estimate, not a live fish count.",
-            "tip": "Treat this as an early, low-odds river opportunity. Expect scattered results, and use direct fish activity before committing the full day.",
+            "headline": "Seasonal Steelhead presence is low and building.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the Muskegon Steelhead ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -17006,14 +17025,14 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
             ]
           },
           "interpretationNote": null,
-          "secondaryNote": "Based on USGS 04121970 immediately below Croton Dam. It represents the regulated Croton tailwater; flow, temperature, access, and safety can differ through Newaygo, the lower river, Muskegon Lake, and the channel.",
+          "secondaryNote": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
           "safety": {
             "regulationReminder": "Croton Dam is the hard upstream migration boundary. Fish only legal water below the dam, use established public access, respect private land and posted closures, and check current Michigan regulations and dam-safety notices.",
-            "gaugeBasis": "Based on USGS 04121970 immediately below Croton Dam. It represents the regulated Croton tailwater; flow, temperature, access, and safety can differ through Newaygo, the lower river, Muskegon Lake, and the channel.",
+            "gaugeBasis": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-muskegon-steelhead-activity.1"
+          "configVersion": "2026-08-11-muskegon-copy.1"
         }
       },
       {
@@ -17032,6 +17051,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
           "nextConditionRefreshAt": "2026-10-01T05:00:00.000Z",
           "runStage": {
             "stage": "beginning",
+            "copyStrategy": "muskegon_croton_tailwater",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -17054,14 +17074,14 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "peakToEndDays": 37
             },
             "label": "Beginning",
-            "headline": "The first fall Steelhead are entering the Muskegon's long migratory corridor.",
-            "whereToStart": "Deep lower-river travel water from Muskegon Lake toward M-120 first, then substantial Newaygo-to-M-120 resting water; check Croton only after those fresh-entry reaches.",
-            "detail": "New fish can be scattered from the lower river into middle-corridor resting water while earlier arrivals may already be nearer Croton.",
-            "tip": "Check lower-river travel lanes and good resting holes before assuming the newest fish are up by Croton.",
+            "headline": "The first fall Steelhead are entering and moving through the Muskegon River.",
+            "whereToStart": "Start in the Lower river (Muskegon Lake–M-120). Add the Middle river (M-120–Newaygo) after direct fish activity supports the move.",
+            "detail": "New fish remain scattered while earlier arrivals may already be farther upstream.",
+            "tip": "Cover travel water and the first substantial holding areas before moving upstream.",
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -17099,15 +17119,15 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "2026-09-24"
             ],
             "sourceRefreshSlots": {},
-            "headline": "There is not enough reliable information for a Migration Timing call.",
-            "tip": "Do not move farther upstream or stay lower based on this timing read. Fish the section identified by Migration Stage and begin in its most established holding water; change sections only when direct fish activity or a dependable later read supports it.",
+            "headline": "There is not enough reliable Muskegon evidence for a Migration Timing call.",
+            "tip": "Keep the Muskegon section named by Migration Stage. Do not shift sections from this timing read.",
             "detail": "There are not enough dependable past seasons to judge whether this migration is early, normal, or late.",
             "reasonCodes": [
               "conditions_baseline_missing",
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -17121,9 +17141,9 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
           "push": {
             "score": 35,
             "label": "No clear push",
-            "headline": "Today's water does not show a clear signal for a fresh wave of fish.",
-            "detail": "The river has started to rise since yesterday. Water temperature remains too warm to support a strong Push and is relatively steady. Recent weather estimates indicate very little rain around the river.",
-            "tip": "Do not build the day around new arrivals while the river remains warm. Start in established holding water at first or last light and leave lower travel lanes secondary.",
+            "headline": "Croton-area water does not show a clear fresh-movement signal.",
+            "detail": "The river has started to rise since yesterday. Water temperature remains too warm to support a strong Push and is relatively steady. Recent watershed weather shows little rain.",
+            "tip": "Keep Migration Stage’s section primary. Do not shift sections from this read.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
@@ -17142,14 +17162,14 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-fall-steelhead-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 88,
             "label": "Excellent",
-            "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The early rise is adding pace and depth, with inside seams and the upstream edges of holes changing first. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river.",
-            "tip": "Begin on the soft inside edge of the primary travel lane, then fish the first deep resting hole above it. Recheck that edge as added depth changes the lane.",
+            "headline": "Croton-area flow is in its best presentation range.",
+            "detail": "The flow band offers the broadest mix of depth and presentation control. A modest rise is shifting lanes toward softer edges. This read applies only near Croton Dam within the Upper river (Newaygo–Croton Dam).",
+            "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band"
@@ -17160,15 +17180,15 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 65,
             "maximum": 100,
             "label": "Active",
-            "headline": "Today’s Steelhead activity outlook is active.",
-            "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. Early fall Steelhead are entering with energy reserves intact. This score describes feeding or aggressive responsiveness for fish already in the river, not fresh movement. The measured conditions represent the Croton tailwater immediately below Croton Dam. Water temperature, clarity, and fishing conditions can be different through Newaygo, the lower river, Muskegon Lake, and the channel. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
-            "tip": "Start with 5–9 AM. If conditions change, favor the window that best combines workable light with measured water temperature.",
+            "headline": "Today’s Croton-area Steelhead responsiveness is active.",
+            "detail": "Conditions support a meaningful Steelhead response. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Croton flow and temperature represent only the area near the dam.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify downstream sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -17220,10 +17240,13 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 9,
+            "displayScore": 10,
+            "scoreIsApproximate": true,
             "stage": "beginning",
             "maximum": 100,
             "riverCeiling": 90,
@@ -17232,14 +17255,14 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
             "curveDirection": "rising",
             "winterHoldingContext": false,
             "label": "Low presence",
-            "headline": "A small number of Steelhead may be in the river, and seasonal presence is still building.",
-            "detail": "This part of the season usually brings low presence, with more fish expected to enter and spread through the river. This is a seasonal estimate, not a live fish count.",
-            "tip": "Treat this as an early, low-odds river opportunity. Expect scattered results, and use direct fish activity before committing the full day.",
+            "headline": "Seasonal Steelhead presence is low and building.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the Muskegon Steelhead ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -17473,14 +17496,14 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "good_fishability_low_presence"
             ]
           },
-          "secondaryNote": "Based on USGS 04121970 immediately below Croton Dam. It represents the regulated Croton tailwater; flow, temperature, access, and safety can differ through Newaygo, the lower river, Muskegon Lake, and the channel.",
+          "secondaryNote": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
           "safety": {
             "regulationReminder": "Croton Dam is the hard upstream migration boundary. Fish only legal water below the dam, use established public access, respect private land and posted closures, and check current Michigan regulations and dam-safety notices.",
-            "gaugeBasis": "Based on USGS 04121970 immediately below Croton Dam. It represents the regulated Croton tailwater; flow, temperature, access, and safety can differ through Newaygo, the lower river, Muskegon Lake, and the channel.",
+            "gaugeBasis": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-muskegon-steelhead-activity.1"
+          "configVersion": "2026-08-11-muskegon-copy.1"
         }
       },
       {
@@ -17499,6 +17522,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
           "nextConditionRefreshAt": "2026-10-01T05:00:00.000Z",
           "runStage": {
             "stage": "beginning",
+            "copyStrategy": "muskegon_croton_tailwater",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -17521,14 +17545,14 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "peakToEndDays": 37
             },
             "label": "Beginning",
-            "headline": "The first fall Steelhead are entering the Muskegon's long migratory corridor.",
-            "whereToStart": "Deep lower-river travel water from Muskegon Lake toward M-120 first, then substantial Newaygo-to-M-120 resting water; check Croton only after those fresh-entry reaches.",
-            "detail": "New fish can be scattered from the lower river into middle-corridor resting water while earlier arrivals may already be nearer Croton.",
-            "tip": "Check lower-river travel lanes and good resting holes before assuming the newest fish are up by Croton.",
+            "headline": "The first fall Steelhead are entering and moving through the Muskegon River.",
+            "whereToStart": "Start in the Lower river (Muskegon Lake–M-120). Add the Middle river (M-120–Newaygo) after direct fish activity supports the move.",
+            "detail": "New fish remain scattered while earlier arrivals may already be farther upstream.",
+            "tip": "Cover travel water and the first substantial holding areas before moving upstream.",
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -17566,15 +17590,15 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "2026-09-24"
             ],
             "sourceRefreshSlots": {},
-            "headline": "There is not enough reliable information for a Migration Timing call.",
-            "tip": "Do not move farther upstream or stay lower based on this timing read. Fish the section identified by Migration Stage and begin in its most established holding water; change sections only when direct fish activity or a dependable later read supports it.",
+            "headline": "There is not enough reliable Muskegon evidence for a Migration Timing call.",
+            "tip": "Keep the Muskegon section named by Migration Stage. Do not shift sections from this timing read.",
             "detail": "There are not enough dependable past seasons to judge whether this migration is early, normal, or late.",
             "reasonCodes": [
               "conditions_baseline_missing",
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -17588,9 +17612,9 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
           "push": {
             "score": 68,
             "label": "Possible",
-            "headline": "Today's water offers some support for fresh fish moving into or through the river.",
-            "detail": "The river is rising quickly, creating conditions fish often use to move. Water temperature remains too warm to support a strong Push and is relatively steady. The river has already made a meaningful rise, so that measured response carries the useful movement signal and rainfall adds no separate weight.",
-            "tip": "Do not build the day around new arrivals while the river remains warm. Start in established holding water at first or last light and leave lower travel lanes secondary.",
+            "headline": "Croton-area water offers some support for fresh movement.",
+            "detail": "The river is rising quickly, creating conditions fish often use to move. Water temperature remains too warm to support a strong Push and is relatively steady. Croton already reflects the rain response, so rain adds no extra credit.",
+            "tip": "Keep Migration Stage’s section primary and add one Croton Dam-area movement check.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
@@ -17609,14 +17633,14 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-fall-steelhead-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 40,
             "label": "Tough",
-            "headline": "The river is rising fast, and usable fishing water is shifting toward slower margins and current breaks.",
-            "detail": "Higher flow is pushing more current through the main channel, but softer edges and protected lanes remain workable. The fast rise is forcing usable fishing water out of the main flow and into the slowest protected margins. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river.",
-            "tip": "Leave the main channel alone. Fish newly formed soft margins, inside bends, and the downstream side of current breaks with short controlled presentations.",
+            "headline": "A fast Croton-area rise is shifting usable water toward protected edges.",
+            "detail": "Higher flow pushes useful presentation water toward softer edges. A fast rise is replacing settled lanes with heavier current. This read applies only near Croton Dam within the Upper river (Newaygo–Croton Dam).",
+            "tip": "Favor protected margins and short controlled presentations. Choose another day if control is not dependable.",
             "reasonCodes": [
               "gauge_fresh",
               "high_fishable_flow_band",
@@ -17630,15 +17654,15 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               ]
             },
             "rulesVersion": "muskegon-croton-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 61,
             "maximum": 100,
             "label": "Active",
-            "headline": "Today’s Steelhead activity outlook is active.",
-            "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. Early fall Steelhead are entering with energy reserves intact. This score describes feeding or aggressive responsiveness for fish already in the river, not fresh movement. The measured conditions represent the Croton tailwater immediately below Croton Dam. Water temperature, clarity, and fishing conditions can be different through Newaygo, the lower river, Muskegon Lake, and the channel. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
-            "tip": "Start with 5–9 AM. If conditions change, favor the window that best combines workable light with measured water temperature.",
+            "headline": "Today’s Croton-area Steelhead responsiveness is active.",
+            "detail": "Conditions support a meaningful Steelhead response. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Croton flow and temperature represent only the area near the dam.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify downstream sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -17690,10 +17714,13 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 9,
+            "displayScore": 10,
+            "scoreIsApproximate": true,
             "stage": "beginning",
             "maximum": 100,
             "riverCeiling": 90,
@@ -17702,14 +17729,14 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
             "curveDirection": "rising",
             "winterHoldingContext": false,
             "label": "Low presence",
-            "headline": "A small number of Steelhead may be in the river, and seasonal presence is still building.",
-            "detail": "This part of the season usually brings low presence, with more fish expected to enter and spread through the river. This is a seasonal estimate, not a live fish count.",
-            "tip": "Treat this as an early, low-odds river opportunity. Expect scattered results, and use direct fish activity before committing the full day.",
+            "headline": "Seasonal Steelhead presence is low and building.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the Muskegon Steelhead ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -17937,14 +17964,14 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
             ]
           },
           "interpretationNote": null,
-          "secondaryNote": "Based on USGS 04121970 immediately below Croton Dam. It represents the regulated Croton tailwater; flow, temperature, access, and safety can differ through Newaygo, the lower river, Muskegon Lake, and the channel.",
+          "secondaryNote": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
           "safety": {
             "regulationReminder": "Croton Dam is the hard upstream migration boundary. Fish only legal water below the dam, use established public access, respect private land and posted closures, and check current Michigan regulations and dam-safety notices.",
-            "gaugeBasis": "Based on USGS 04121970 immediately below Croton Dam. It represents the regulated Croton tailwater; flow, temperature, access, and safety can differ through Newaygo, the lower river, Muskegon Lake, and the channel.",
+            "gaugeBasis": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-muskegon-steelhead-activity.1"
+          "configVersion": "2026-08-11-muskegon-copy.1"
         }
       },
       {
@@ -17963,6 +17990,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
           "nextConditionRefreshAt": "2026-10-01T05:00:00.000Z",
           "runStage": {
             "stage": "beginning",
+            "copyStrategy": "muskegon_croton_tailwater",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -17985,14 +18013,14 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "peakToEndDays": 37
             },
             "label": "Beginning",
-            "headline": "The first fall Steelhead are entering the Muskegon's long migratory corridor.",
-            "whereToStart": "Deep lower-river travel water from Muskegon Lake toward M-120 first, then substantial Newaygo-to-M-120 resting water; check Croton only after those fresh-entry reaches.",
-            "detail": "New fish can be scattered from the lower river into middle-corridor resting water while earlier arrivals may already be nearer Croton.",
-            "tip": "Check lower-river travel lanes and good resting holes before assuming the newest fish are up by Croton.",
+            "headline": "The first fall Steelhead are entering and moving through the Muskegon River.",
+            "whereToStart": "Start in the Lower river (Muskegon Lake–M-120). Add the Middle river (M-120–Newaygo) after direct fish activity supports the move.",
+            "detail": "New fish remain scattered while earlier arrivals may already be farther upstream.",
+            "tip": "Cover travel water and the first substantial holding areas before moving upstream.",
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -18030,15 +18058,15 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "2026-09-24"
             ],
             "sourceRefreshSlots": {},
-            "headline": "There is not enough reliable information for a Migration Timing call.",
-            "tip": "Do not move farther upstream or stay lower based on this timing read. Fish the section identified by Migration Stage and begin in its most established holding water; change sections only when direct fish activity or a dependable later read supports it.",
+            "headline": "There is not enough reliable Muskegon evidence for a Migration Timing call.",
+            "tip": "Keep the Muskegon section named by Migration Stage. Do not shift sections from this timing read.",
             "detail": "There are not enough dependable past seasons to judge whether this migration is early, normal, or late.",
             "reasonCodes": [
               "conditions_baseline_missing",
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -18052,9 +18080,9 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
           "push": {
             "score": 13,
             "label": "Weak",
-            "headline": "Today's water shows little support for a fresh wave of fish.",
-            "detail": "There is not enough recent river-level history to tell whether the river is rising or falling. Water temperature remains too warm to support a strong Push and is relatively steady. Recent weather estimates indicate very little rain around the river. Without a dependable river trend, there is no clear Push.",
-            "tip": "Do not build the day around new arrivals while the river remains warm. Start in established holding water at first or last light and leave lower travel lanes secondary.",
+            "headline": "Croton-area water shows little support for fresh movement.",
+            "detail": "There is not enough recent river-level history to tell whether the river is rising or falling. Water temperature remains too warm to support a strong Push and is relatively steady. Without a dependable Croton trend, the read cannot show a clear Push.",
+            "tip": "Keep Migration Stage’s section primary. Do not shift sections from this read.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
@@ -18075,14 +18103,14 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-fall-steelhead-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 69,
             "label": "Fishable",
-            "headline": "The river appears fishable, but its direction is unclear, so confidence is limited.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. There is not enough recent information to tell whether the river is rising or falling, which lowers confidence in the read. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river.",
-            "tip": "Start at a bank-side inside bend or soft seam where the full presentation stays under control. Skip faster water until the river's direction is verified.",
+            "headline": "Croton-area flow is workable, but its direction is unknown.",
+            "detail": "The flow band offers the broadest mix of depth and presentation control. Recent Croton history cannot establish the flow direction. This read applies only near Croton Dam within the Upper river (Newaygo–Croton Dam).",
+            "tip": "Verify the Croton area directly before choosing presentation water.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band",
@@ -18096,15 +18124,15 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               ]
             },
             "rulesVersion": "muskegon-croton-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 65,
             "maximum": 100,
             "label": "Active",
-            "headline": "Today’s Steelhead activity outlook is active.",
-            "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. Early fall Steelhead are entering with energy reserves intact. This score describes feeding or aggressive responsiveness for fish already in the river, not fresh movement. The measured conditions represent the Croton tailwater immediately below Croton Dam. Water temperature, clarity, and fishing conditions can be different through Newaygo, the lower river, Muskegon Lake, and the channel. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
-            "tip": "Start with 5–9 AM. If conditions change, favor the window that best combines workable light with measured water temperature.",
+            "headline": "Today’s Croton-area Steelhead responsiveness is active.",
+            "detail": "Conditions support a meaningful Steelhead response. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Croton flow and temperature represent only the area near the dam.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify downstream sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -18156,10 +18184,13 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 9,
+            "displayScore": 10,
+            "scoreIsApproximate": true,
             "stage": "beginning",
             "maximum": 100,
             "riverCeiling": 90,
@@ -18168,14 +18199,14 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
             "curveDirection": "rising",
             "winterHoldingContext": false,
             "label": "Low presence",
-            "headline": "A small number of Steelhead may be in the river, and seasonal presence is still building.",
-            "detail": "This part of the season usually brings low presence, with more fish expected to enter and spread through the river. This is a seasonal estimate, not a live fish count.",
-            "tip": "Treat this as an early, low-odds river opportunity. Expect scattered results, and use direct fish activity before committing the full day.",
+            "headline": "Seasonal Steelhead presence is low and building.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the Muskegon Steelhead ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -18403,14 +18434,14 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
             ]
           },
           "interpretationNote": null,
-          "secondaryNote": "Based on USGS 04121970 immediately below Croton Dam. It represents the regulated Croton tailwater; flow, temperature, access, and safety can differ through Newaygo, the lower river, Muskegon Lake, and the channel.",
+          "secondaryNote": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
           "safety": {
             "regulationReminder": "Croton Dam is the hard upstream migration boundary. Fish only legal water below the dam, use established public access, respect private land and posted closures, and check current Michigan regulations and dam-safety notices.",
-            "gaugeBasis": "Based on USGS 04121970 immediately below Croton Dam. It represents the regulated Croton tailwater; flow, temperature, access, and safety can differ through Newaygo, the lower river, Muskegon Lake, and the channel.",
+            "gaugeBasis": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-muskegon-steelhead-activity.1"
+          "configVersion": "2026-08-11-muskegon-copy.1"
         }
       },
       {
@@ -18429,6 +18460,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
           "nextConditionRefreshAt": "2026-10-01T05:00:00.000Z",
           "runStage": {
             "stage": "beginning",
+            "copyStrategy": "muskegon_croton_tailwater",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -18451,14 +18483,14 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "peakToEndDays": 37
             },
             "label": "Beginning",
-            "headline": "The first fall Steelhead are entering the Muskegon's long migratory corridor.",
-            "whereToStart": "Deep lower-river travel water from Muskegon Lake toward M-120 first, then substantial Newaygo-to-M-120 resting water; check Croton only after those fresh-entry reaches.",
-            "detail": "New fish can be scattered from the lower river into middle-corridor resting water while earlier arrivals may already be nearer Croton.",
-            "tip": "Check lower-river travel lanes and good resting holes before assuming the newest fish are up by Croton.",
+            "headline": "The first fall Steelhead are entering and moving through the Muskegon River.",
+            "whereToStart": "Start in the Lower river (Muskegon Lake–M-120). Add the Middle river (M-120–Newaygo) after direct fish activity supports the move.",
+            "detail": "New fish remain scattered while earlier arrivals may already be farther upstream.",
+            "tip": "Cover travel water and the first substantial holding areas before moving upstream.",
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -18496,15 +18528,15 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "2026-09-24"
             ],
             "sourceRefreshSlots": {},
-            "headline": "There is not enough reliable information for a Migration Timing call.",
-            "tip": "Do not move farther upstream or stay lower based on this timing read. Fish the section identified by Migration Stage and begin in its most established holding water; change sections only when direct fish activity or a dependable later read supports it.",
+            "headline": "There is not enough reliable Muskegon evidence for a Migration Timing call.",
+            "tip": "Keep the Muskegon section named by Migration Stage. Do not shift sections from this timing read.",
             "detail": "There are not enough dependable past seasons to judge whether this migration is early, normal, or late.",
             "reasonCodes": [
               "conditions_baseline_missing",
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -18518,9 +18550,9 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
           "push": {
             "score": 8,
             "label": "Weak",
-            "headline": "The water may support fresh movement, but an aging river reading limits confidence.",
-            "detail": "The river is holding steady with no meaningful rise yet. Water temperature remains too warm to support a strong Push and is relatively steady. Recent weather estimates indicate very little rain around the river. The latest river-level reading is aging, so confidence is reduced.",
-            "tip": "Do not build the day around new arrivals while the river remains warm. Start in established holding water at first or last light and leave lower travel lanes secondary.",
+            "headline": "Croton-area water shows little support for fresh movement.",
+            "detail": "The river is holding steady with no meaningful rise yet. Water temperature remains too warm to support a strong Push and is relatively steady. The Croton reading is aging, so confidence is reduced.",
+            "tip": "Keep Migration Stage’s section primary. Do not shift sections from this read.",
             "reasonCodes": [
               "gauge_stale",
               "push_normal_flow_context",
@@ -18541,14 +18573,14 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-fall-steelhead-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 55,
             "label": "Fishable",
-            "headline": "The last river reading was fishable, but it is aging and may no longer describe the water accurately.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. Because the latest reading is aging, the river may have changed since it was reported. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river.",
-            "tip": "Do not choose a reach from this reading alone. Check the water at the first access, and begin only in bank-side water where you can control the entire presentation.",
+            "headline": "The aging Croton reading limits Croton-area Fishability confidence.",
+            "detail": "The flow band offers the broadest mix of depth and presentation control. The Croton area may have changed since the last Croton reading. This read applies only near Croton Dam within the Upper river (Newaygo–Croton Dam).",
+            "tip": "Verify the Croton area directly before choosing presentation water.",
             "reasonCodes": [
               "gauge_stale",
               "ideal_flow_band",
@@ -18562,15 +18594,15 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               ]
             },
             "rulesVersion": "muskegon-croton-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 42,
             "maximum": 100,
             "label": "Moderate",
-            "headline": "Today’s Steelhead activity outlook is moderate.",
-            "detail": "Some useful factors are present, but the response window is mixed. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Current river behavior is unavailable. Early fall Steelhead are entering with energy reserves intact. This score describes feeding or aggressive responsiveness for fish already in the river, not fresh movement. The measured conditions represent the Croton tailwater immediately below Croton Dam. Water temperature, clarity, and fishing conditions can be different through Newaygo, the lower river, Muskegon Lake, and the channel. One important reading is unavailable or comes from tomorrow’s forecast, so the outlook is kept conservative.",
-            "tip": "Start with 5–9 AM. If conditions change, favor the window that best combines workable light with measured water temperature.",
+            "headline": "Today’s Croton-area Steelhead responsiveness is moderate.",
+            "detail": "Conditions offer mixed support for Steelhead responsiveness. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Moderate confidence reflects missing or forecast inputs; river measurements still represent only the Croton Dam area.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify downstream sections directly.",
             "reasonCodes": [
               "activity_confidence_moderate",
               "activity_today",
@@ -18622,10 +18654,13 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 9,
+            "displayScore": 10,
+            "scoreIsApproximate": true,
             "stage": "beginning",
             "maximum": 100,
             "riverCeiling": 90,
@@ -18634,14 +18669,14 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
             "curveDirection": "rising",
             "winterHoldingContext": false,
             "label": "Low presence",
-            "headline": "A small number of Steelhead may be in the river, and seasonal presence is still building.",
-            "detail": "This part of the season usually brings low presence, with more fish expected to enter and spread through the river. This is a seasonal estimate, not a live fish count.",
-            "tip": "Treat this as an early, low-odds river opportunity. Expect scattered results, and use direct fish activity before committing the full day.",
+            "headline": "Seasonal Steelhead presence is low and building.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the Muskegon Steelhead ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -18869,14 +18904,14 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
             ]
           },
           "interpretationNote": null,
-          "secondaryNote": "Based on USGS 04121970 immediately below Croton Dam. It represents the regulated Croton tailwater; flow, temperature, access, and safety can differ through Newaygo, the lower river, Muskegon Lake, and the channel.",
+          "secondaryNote": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
           "safety": {
             "regulationReminder": "Croton Dam is the hard upstream migration boundary. Fish only legal water below the dam, use established public access, respect private land and posted closures, and check current Michigan regulations and dam-safety notices.",
-            "gaugeBasis": "Based on USGS 04121970 immediately below Croton Dam. It represents the regulated Croton tailwater; flow, temperature, access, and safety can differ through Newaygo, the lower river, Muskegon Lake, and the channel.",
+            "gaugeBasis": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-muskegon-steelhead-activity.1"
+          "configVersion": "2026-08-11-muskegon-copy.1"
         }
       },
       {
@@ -18895,6 +18930,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
           "nextConditionRefreshAt": "2026-10-01T05:00:00.000Z",
           "runStage": {
             "stage": "beginning",
+            "copyStrategy": "muskegon_croton_tailwater",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -18917,14 +18953,14 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "peakToEndDays": 37
             },
             "label": "Beginning",
-            "headline": "The first fall Steelhead are entering the Muskegon's long migratory corridor.",
-            "whereToStart": "Deep lower-river travel water from Muskegon Lake toward M-120 first, then substantial Newaygo-to-M-120 resting water; check Croton only after those fresh-entry reaches.",
-            "detail": "New fish can be scattered from the lower river into middle-corridor resting water while earlier arrivals may already be nearer Croton.",
-            "tip": "Check lower-river travel lanes and good resting holes before assuming the newest fish are up by Croton.",
+            "headline": "The first fall Steelhead are entering and moving through the Muskegon River.",
+            "whereToStart": "Start in the Lower river (Muskegon Lake–M-120). Add the Middle river (M-120–Newaygo) after direct fish activity supports the move.",
+            "detail": "New fish remain scattered while earlier arrivals may already be farther upstream.",
+            "tip": "Cover travel water and the first substantial holding areas before moving upstream.",
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -18962,15 +18998,15 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "2026-09-24"
             ],
             "sourceRefreshSlots": {},
-            "headline": "There is not enough reliable information for a Migration Timing call.",
-            "tip": "Do not move farther upstream or stay lower based on this timing read. Fish the section identified by Migration Stage and begin in its most established holding water; change sections only when direct fish activity or a dependable later read supports it.",
+            "headline": "There is not enough reliable Muskegon evidence for a Migration Timing call.",
+            "tip": "Keep the Muskegon section named by Migration Stage. Do not shift sections from this timing read.",
             "detail": "There are not enough dependable past seasons to judge whether this migration is early, normal, or late.",
             "reasonCodes": [
               "conditions_baseline_missing",
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -18991,27 +19027,27 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "gauge_missing"
             ],
             "rulesVersion": "muskegon-fall-steelhead-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": null,
             "label": "Unavailable",
-            "headline": "There is no dependable Fishability read right now.",
-            "detail": "A recent river-level reading is missing, so current flow and direction cannot be judged responsibly.",
-            "tip": "Do not plan from the last known level. Check again after the next update, and verify the river at the first access before choosing where or how to fish.",
+            "headline": "A current Croton Fishability reading is unavailable.",
+            "detail": "Without current Croton flow and direction, presentation conditions near the dam cannot be determined.",
+            "tip": "Do not extend an old or missing Croton read through the Muskegon River. Verify current conditions directly.",
             "reasonCodes": [
               "gauge_missing"
             ],
             "rulesVersion": "muskegon-croton-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 42,
             "maximum": 100,
             "label": "Moderate",
-            "headline": "Today’s Steelhead activity outlook is moderate.",
-            "detail": "Some useful factors are present, but the response window is mixed. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Current river behavior is unavailable. Early fall Steelhead are entering with energy reserves intact. This score describes feeding or aggressive responsiveness for fish already in the river, not fresh movement. The measured conditions represent the Croton tailwater immediately below Croton Dam. Water temperature, clarity, and fishing conditions can be different through Newaygo, the lower river, Muskegon Lake, and the channel. One important reading is unavailable or comes from tomorrow’s forecast, so the outlook is kept conservative.",
-            "tip": "Start with 5–9 AM. If conditions change, favor the window that best combines workable light with measured water temperature.",
+            "headline": "Today’s Croton-area Steelhead responsiveness is moderate.",
+            "detail": "Conditions offer mixed support for Steelhead responsiveness. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Moderate confidence reflects missing or forecast inputs; river measurements still represent only the Croton Dam area.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify downstream sections directly.",
             "reasonCodes": [
               "activity_confidence_moderate",
               "activity_today",
@@ -19063,10 +19099,13 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 9,
+            "displayScore": 10,
+            "scoreIsApproximate": true,
             "stage": "beginning",
             "maximum": 100,
             "riverCeiling": 90,
@@ -19075,14 +19114,14 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
             "curveDirection": "rising",
             "winterHoldingContext": false,
             "label": "Low presence",
-            "headline": "A small number of Steelhead may be in the river, and seasonal presence is still building.",
-            "detail": "This part of the season usually brings low presence, with more fish expected to enter and spread through the river. This is a seasonal estimate, not a live fish count.",
-            "tip": "Treat this as an early, low-odds river opportunity. Expect scattered results, and use direct fish activity before committing the full day.",
+            "headline": "Seasonal Steelhead presence is low and building.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the Muskegon Steelhead ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": null,
           "weather": {
@@ -19300,14 +19339,14 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
             ]
           },
           "interpretationNote": null,
-          "secondaryNote": "Based on USGS 04121970 immediately below Croton Dam. It represents the regulated Croton tailwater; flow, temperature, access, and safety can differ through Newaygo, the lower river, Muskegon Lake, and the channel.",
+          "secondaryNote": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
           "safety": {
             "regulationReminder": "Croton Dam is the hard upstream migration boundary. Fish only legal water below the dam, use established public access, respect private land and posted closures, and check current Michigan regulations and dam-safety notices.",
-            "gaugeBasis": "Based on USGS 04121970 immediately below Croton Dam. It represents the regulated Croton tailwater; flow, temperature, access, and safety can differ through Newaygo, the lower river, Muskegon Lake, and the channel.",
+            "gaugeBasis": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-muskegon-steelhead-activity.1"
+          "configVersion": "2026-08-11-muskegon-copy.1"
         }
       },
       {
@@ -19326,6 +19365,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
           "nextConditionRefreshAt": "2026-10-01T05:00:00.000Z",
           "runStage": {
             "stage": "beginning",
+            "copyStrategy": "muskegon_croton_tailwater",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -19348,14 +19388,14 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "peakToEndDays": 37
             },
             "label": "Beginning",
-            "headline": "The first fall Steelhead are entering the Muskegon's long migratory corridor.",
-            "whereToStart": "Deep lower-river travel water from Muskegon Lake toward M-120 first, then substantial Newaygo-to-M-120 resting water; check Croton only after those fresh-entry reaches.",
-            "detail": "New fish can be scattered from the lower river into middle-corridor resting water while earlier arrivals may already be nearer Croton.",
-            "tip": "Check lower-river travel lanes and good resting holes before assuming the newest fish are up by Croton.",
+            "headline": "The first fall Steelhead are entering and moving through the Muskegon River.",
+            "whereToStart": "Start in the Lower river (Muskegon Lake–M-120). Add the Middle river (M-120–Newaygo) after direct fish activity supports the move.",
+            "detail": "New fish remain scattered while earlier arrivals may already be farther upstream.",
+            "tip": "Cover travel water and the first substantial holding areas before moving upstream.",
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -19393,15 +19433,15 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "2026-09-24"
             ],
             "sourceRefreshSlots": {},
-            "headline": "There is not enough reliable information for a Migration Timing call.",
-            "tip": "Do not move farther upstream or stay lower based on this timing read. Fish the section identified by Migration Stage and begin in its most established holding water; change sections only when direct fish activity or a dependable later read supports it.",
+            "headline": "There is not enough reliable Muskegon evidence for a Migration Timing call.",
+            "tip": "Keep the Muskegon section named by Migration Stage. Do not shift sections from this timing read.",
             "detail": "There are not enough dependable past seasons to judge whether this migration is early, normal, or late.",
             "reasonCodes": [
               "conditions_baseline_missing",
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -19415,9 +19455,9 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
           "push": {
             "score": 18,
             "label": "Weak",
-            "headline": "Today's water shows little support for a fresh wave of fish.",
-            "detail": "The river is holding steady with no meaningful rise yet. Water temperature remains too warm to support a strong Push and is relatively steady. Recent weather estimates indicate very little rain around the river.",
-            "tip": "Do not build the day around new arrivals while the river remains warm. Start in established holding water at first or last light and leave lower travel lanes secondary.",
+            "headline": "Croton-area water shows little support for fresh movement.",
+            "detail": "The river is holding steady with no meaningful rise yet. Water temperature remains too warm to support a strong Push and is relatively steady. Recent watershed weather shows little rain.",
+            "tip": "Keep Migration Stage’s section primary. Do not shift sections from this read.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
@@ -19437,14 +19477,14 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-fall-steelhead-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 93,
             "label": "Excellent",
-            "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river.",
-            "tip": "Begin on the primary travel lane feeding deep holding water. Work each hole from its head through the inside seam and tail, then keep moving until fish establish a pattern.",
+            "headline": "Croton-area flow is in its best presentation range.",
+            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read applies only near Croton Dam within the Upper river (Newaygo–Croton Dam).",
+            "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band"
@@ -19455,15 +19495,15 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 65,
             "maximum": 100,
             "label": "Active",
-            "headline": "Today’s Steelhead activity outlook is active.",
-            "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. Early fall Steelhead are entering with energy reserves intact. This score describes feeding or aggressive responsiveness for fish already in the river, not fresh movement. The measured conditions represent the Croton tailwater immediately below Croton Dam. Water temperature, clarity, and fishing conditions can be different through Newaygo, the lower river, Muskegon Lake, and the channel. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
-            "tip": "Start with 5–9 AM. If conditions change, favor the window that best combines workable light with measured water temperature.",
+            "headline": "Today’s Croton-area Steelhead responsiveness is active.",
+            "detail": "Conditions support a meaningful Steelhead response. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Croton flow and temperature represent only the area near the dam.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify downstream sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -19515,10 +19555,13 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 9,
+            "displayScore": 10,
+            "scoreIsApproximate": true,
             "stage": "beginning",
             "maximum": 100,
             "riverCeiling": 90,
@@ -19527,14 +19570,14 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
             "curveDirection": "rising",
             "winterHoldingContext": false,
             "label": "Low presence",
-            "headline": "A small number of Steelhead may be in the river, and seasonal presence is still building.",
-            "detail": "This part of the season usually brings low presence, with more fish expected to enter and spread through the river. This is a seasonal estimate, not a live fish count.",
-            "tip": "Treat this as an early, low-odds river opportunity. Expect scattered results, and use direct fish activity before committing the full day.",
+            "headline": "Seasonal Steelhead presence is low and building.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the Muskegon Steelhead ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -19768,14 +19811,14 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "good_fishability_low_presence"
             ]
           },
-          "secondaryNote": "Based on USGS 04121970 immediately below Croton Dam. It represents the regulated Croton tailwater; flow, temperature, access, and safety can differ through Newaygo, the lower river, Muskegon Lake, and the channel.",
+          "secondaryNote": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
           "safety": {
             "regulationReminder": "Croton Dam is the hard upstream migration boundary. Fish only legal water below the dam, use established public access, respect private land and posted closures, and check current Michigan regulations and dam-safety notices.",
-            "gaugeBasis": "Based on USGS 04121970 immediately below Croton Dam. It represents the regulated Croton tailwater; flow, temperature, access, and safety can differ through Newaygo, the lower river, Muskegon Lake, and the channel.",
+            "gaugeBasis": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-muskegon-steelhead-activity.1"
+          "configVersion": "2026-08-11-muskegon-copy.1"
         }
       },
       {
@@ -19794,6 +19837,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
           "nextConditionRefreshAt": "2026-10-01T05:00:00.000Z",
           "runStage": {
             "stage": "beginning",
+            "copyStrategy": "muskegon_croton_tailwater",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -19816,14 +19860,14 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "peakToEndDays": 37
             },
             "label": "Beginning",
-            "headline": "The first fall Steelhead are entering the Muskegon's long migratory corridor.",
-            "whereToStart": "Deep lower-river travel water from Muskegon Lake toward M-120 first, then substantial Newaygo-to-M-120 resting water; check Croton only after those fresh-entry reaches.",
-            "detail": "New fish can be scattered from the lower river into middle-corridor resting water while earlier arrivals may already be nearer Croton.",
-            "tip": "Check lower-river travel lanes and good resting holes before assuming the newest fish are up by Croton.",
+            "headline": "The first fall Steelhead are entering and moving through the Muskegon River.",
+            "whereToStart": "Start in the Lower river (Muskegon Lake–M-120). Add the Middle river (M-120–Newaygo) after direct fish activity supports the move.",
+            "detail": "New fish remain scattered while earlier arrivals may already be farther upstream.",
+            "tip": "Cover travel water and the first substantial holding areas before moving upstream.",
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -19861,15 +19905,15 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "2026-09-24"
             ],
             "sourceRefreshSlots": {},
-            "headline": "There is not enough reliable information for a Migration Timing call.",
-            "tip": "Do not move farther upstream or stay lower based on this timing read. Fish the section identified by Migration Stage and begin in its most established holding water; change sections only when direct fish activity or a dependable later read supports it.",
+            "headline": "There is not enough reliable Muskegon evidence for a Migration Timing call.",
+            "tip": "Keep the Muskegon section named by Migration Stage. Do not shift sections from this timing read.",
             "detail": "There are not enough dependable past seasons to judge whether this migration is early, normal, or late.",
             "reasonCodes": [
               "conditions_baseline_missing",
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -19883,9 +19927,9 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
           "push": {
             "score": 18,
             "label": "Weak",
-            "headline": "Today's water shows little support for a fresh wave of fish.",
-            "detail": "The river is holding steady with no meaningful rise yet. Water temperature remains too warm to support a strong Push and is relatively steady. Recent weather estimates indicate very little rain around the river.",
-            "tip": "Do not build the day around new arrivals while the river remains warm. Start in established holding water at first or last light and leave lower travel lanes secondary.",
+            "headline": "Croton-area water shows little support for fresh movement.",
+            "detail": "The river is holding steady with no meaningful rise yet. Water temperature remains too warm to support a strong Push and is relatively steady. Recent watershed weather shows little rain.",
+            "tip": "Keep Migration Stage’s section primary. Do not shift sections from this read.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
@@ -19905,14 +19949,14 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-fall-steelhead-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 73,
             "label": "Good",
-            "headline": "The river is fishable, but higher flow is moving at a faster pace and narrowing the easiest water.",
-            "detail": "Higher flow is pushing more current through the main channel, but softer edges and protected lanes remain workable. The higher flow is not climbing, so softer edges beside the main current should remain well defined. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river.",
-            "tip": "Start tight to the bank on inside bends and below current-breaking cover. Shorten the presentation and keep it in the slower edge instead of forcing the main flow.",
+            "headline": "High Croton-area flow remains fishable in slower water.",
+            "detail": "Higher flow pushes useful presentation water toward softer edges. Steady flow should keep presentation lanes consistent. This read applies only near Croton Dam within the Upper river (Newaygo–Croton Dam).",
+            "tip": "Prioritize inside seams, protected edges, and current breaks.",
             "reasonCodes": [
               "gauge_fresh",
               "high_fishable_flow_band"
@@ -19923,15 +19967,15 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 62,
             "maximum": 100,
             "label": "Active",
-            "headline": "Today’s Steelhead activity outlook is active.",
-            "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. Early fall Steelhead are entering with energy reserves intact. This score describes feeding or aggressive responsiveness for fish already in the river, not fresh movement. The measured conditions represent the Croton tailwater immediately below Croton Dam. Water temperature, clarity, and fishing conditions can be different through Newaygo, the lower river, Muskegon Lake, and the channel. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
-            "tip": "Start with 5–9 AM. If conditions change, favor the window that best combines workable light with measured water temperature.",
+            "headline": "Today’s Croton-area Steelhead responsiveness is active.",
+            "detail": "Conditions support a meaningful Steelhead response. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Croton flow and temperature represent only the area near the dam.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify downstream sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -19983,10 +20027,13 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 9,
+            "displayScore": 10,
+            "scoreIsApproximate": true,
             "stage": "beginning",
             "maximum": 100,
             "riverCeiling": 90,
@@ -19995,14 +20042,14 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
             "curveDirection": "rising",
             "winterHoldingContext": false,
             "label": "Low presence",
-            "headline": "A small number of Steelhead may be in the river, and seasonal presence is still building.",
-            "detail": "This part of the season usually brings low presence, with more fish expected to enter and spread through the river. This is a seasonal estimate, not a live fish count.",
-            "tip": "Treat this as an early, low-odds river opportunity. Expect scattered results, and use direct fish activity before committing the full day.",
+            "headline": "Seasonal Steelhead presence is low and building.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the Muskegon Steelhead ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -20236,14 +20283,14 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "good_fishability_low_presence"
             ]
           },
-          "secondaryNote": "Based on USGS 04121970 immediately below Croton Dam. It represents the regulated Croton tailwater; flow, temperature, access, and safety can differ through Newaygo, the lower river, Muskegon Lake, and the channel.",
+          "secondaryNote": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
           "safety": {
             "regulationReminder": "Croton Dam is the hard upstream migration boundary. Fish only legal water below the dam, use established public access, respect private land and posted closures, and check current Michigan regulations and dam-safety notices.",
-            "gaugeBasis": "Based on USGS 04121970 immediately below Croton Dam. It represents the regulated Croton tailwater; flow, temperature, access, and safety can differ through Newaygo, the lower river, Muskegon Lake, and the channel.",
+            "gaugeBasis": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-muskegon-steelhead-activity.1"
+          "configVersion": "2026-08-11-muskegon-copy.1"
         }
       },
       {
@@ -20262,6 +20309,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
           "nextConditionRefreshAt": "2026-10-01T05:00:00.000Z",
           "runStage": {
             "stage": "beginning",
+            "copyStrategy": "muskegon_croton_tailwater",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -20284,14 +20332,14 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "peakToEndDays": 37
             },
             "label": "Beginning",
-            "headline": "The first fall Steelhead are entering the Muskegon's long migratory corridor.",
-            "whereToStart": "Deep lower-river travel water from Muskegon Lake toward M-120 first, then substantial Newaygo-to-M-120 resting water; check Croton only after those fresh-entry reaches.",
-            "detail": "New fish can be scattered from the lower river into middle-corridor resting water while earlier arrivals may already be nearer Croton.",
-            "tip": "Check lower-river travel lanes and good resting holes before assuming the newest fish are up by Croton.",
+            "headline": "The first fall Steelhead are entering and moving through the Muskegon River.",
+            "whereToStart": "Start in the Lower river (Muskegon Lake–M-120). Add the Middle river (M-120–Newaygo) after direct fish activity supports the move.",
+            "detail": "New fish remain scattered while earlier arrivals may already be farther upstream.",
+            "tip": "Cover travel water and the first substantial holding areas before moving upstream.",
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -20329,15 +20377,15 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "2026-09-24"
             ],
             "sourceRefreshSlots": {},
-            "headline": "There is not enough reliable information for a Migration Timing call.",
-            "tip": "Do not move farther upstream or stay lower based on this timing read. Fish the section identified by Migration Stage and begin in its most established holding water; change sections only when direct fish activity or a dependable later read supports it.",
+            "headline": "There is not enough reliable Muskegon evidence for a Migration Timing call.",
+            "tip": "Keep the Muskegon section named by Migration Stage. Do not shift sections from this timing read.",
             "detail": "There are not enough dependable past seasons to judge whether this migration is early, normal, or late.",
             "reasonCodes": [
               "conditions_baseline_missing",
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -20351,9 +20399,9 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
           "push": {
             "score": 13,
             "label": "Weak",
-            "headline": "Today's water shows little support for a fresh wave of fish.",
-            "detail": "The river is holding steady with no meaningful rise yet. Overall flow is already high. Water temperature remains too warm to support a strong Push and is relatively steady. Recent weather estimates indicate very little rain around the river.",
-            "tip": "Do not build the day around new arrivals while the river remains warm. Start in established holding water at first or last light and leave lower travel lanes secondary.",
+            "headline": "Croton-area water shows little support for fresh movement.",
+            "detail": "The river is holding steady with no meaningful rise yet; overall flow is already high. Water temperature remains too warm to support a strong Push and is relatively steady. Recent watershed weather shows little rain.",
+            "tip": "Keep Migration Stage’s section primary. Do not shift sections from this read.",
             "reasonCodes": [
               "gauge_fresh",
               "push_high_flow_context",
@@ -20373,14 +20421,14 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-fall-steelhead-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 45,
             "label": "Tough",
-            "headline": "The river is running very high, leaving fewer practical places to fish effectively.",
-            "detail": "Very high flow is reducing access and the amount of water where a presentation can be controlled. The river is not climbing quickly, but practical fishing water remains compressed into the slowest edges. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river.",
-            "tip": "Fish only bank-side soft pockets, protected inside turns, and current breaks. Make short controlled presentations and skip every main-channel lane.",
+            "headline": "Very high Croton-area flow leaves little controllable presentation water.",
+            "detail": "Very high flow compresses controllable water into protected edges. Steady flow should keep presentation lanes consistent. This read applies only near Croton Dam within the Upper river (Newaygo–Croton Dam).",
+            "tip": "Favor protected margins and short controlled presentations. Choose another day if control is not dependable.",
             "reasonCodes": [
               "gauge_fresh",
               "very_high_flow_band"
@@ -20391,15 +20439,15 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 57,
             "maximum": 100,
             "label": "Moderate",
-            "headline": "Today’s Steelhead activity outlook is moderate.",
-            "detail": "Some useful factors are present, but the response window is mixed. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: The river level or its recent change is less favorable. Early fall Steelhead are entering with energy reserves intact. This score describes feeding or aggressive responsiveness for fish already in the river, not fresh movement. The measured conditions represent the Croton tailwater immediately below Croton Dam. Water temperature, clarity, and fishing conditions can be different through Newaygo, the lower river, Muskegon Lake, and the channel. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
-            "tip": "Start with 5–9 AM. If conditions change, favor the window that best combines workable light with measured water temperature.",
+            "headline": "Today’s Croton-area Steelhead responsiveness is moderate.",
+            "detail": "Conditions offer mixed support for Steelhead responsiveness. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Croton flow and temperature represent only the area near the dam.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify downstream sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -20451,10 +20499,13 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 9,
+            "displayScore": 10,
+            "scoreIsApproximate": true,
             "stage": "beginning",
             "maximum": 100,
             "riverCeiling": 90,
@@ -20463,14 +20514,14 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
             "curveDirection": "rising",
             "winterHoldingContext": false,
             "label": "Low presence",
-            "headline": "A small number of Steelhead may be in the river, and seasonal presence is still building.",
-            "detail": "This part of the season usually brings low presence, with more fish expected to enter and spread through the river. This is a seasonal estimate, not a live fish count.",
-            "tip": "Treat this as an early, low-odds river opportunity. Expect scattered results, and use direct fish activity before committing the full day.",
+            "headline": "Seasonal Steelhead presence is low and building.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the Muskegon Steelhead ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -20698,14 +20749,14 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
             ]
           },
           "interpretationNote": null,
-          "secondaryNote": "Based on USGS 04121970 immediately below Croton Dam. It represents the regulated Croton tailwater; flow, temperature, access, and safety can differ through Newaygo, the lower river, Muskegon Lake, and the channel.",
+          "secondaryNote": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
           "safety": {
             "regulationReminder": "Croton Dam is the hard upstream migration boundary. Fish only legal water below the dam, use established public access, respect private land and posted closures, and check current Michigan regulations and dam-safety notices.",
-            "gaugeBasis": "Based on USGS 04121970 immediately below Croton Dam. It represents the regulated Croton tailwater; flow, temperature, access, and safety can differ through Newaygo, the lower river, Muskegon Lake, and the channel.",
+            "gaugeBasis": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-muskegon-steelhead-activity.1"
+          "configVersion": "2026-08-11-muskegon-copy.1"
         }
       }
     ]
@@ -20730,6 +20781,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
           "nextConditionRefreshAt": "2026-09-11T05:00:00.000Z",
           "runStage": {
             "stage": "pre_run",
+            "copyStrategy": "muskegon_croton_tailwater",
             "stagingContext": true,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -20752,15 +20804,15 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "peakToEndDays": 37
             },
             "label": "Before migration",
-            "headline": "Steelhead fall entry is approaching the Muskegon River.",
-            "whereToStart": "Muskegon Lake, the channel, and deep lower-river travel water below M-120 for new fall entrants; do not treat a fish already near Croton as proof of a broad new entry.",
-            "detail": "New entrants are most honestly evaluated from Muskegon Lake through the lower river. An isolated fish farther upstream does not establish a corridor-wide fall build.",
-            "tip": "One fish is just one fish. Wait for the season and river conditions to point to a wider run.",
+            "headline": "Early Steelhead may begin entering the Muskegon River.",
+            "whereToStart": "Start at Muskegon Lake and the river entrance. Add the Lower river (Muskegon Lake–M-120) only for an early-Steelhead check.",
+            "detail": "An early Steelhead is possible, but one fish does not establish the broader fall-entry build.",
+            "tip": "Keep the river check brief and do not infer a separate strain from timing alone.",
             "reasonCodes": [
               "stage_pre_run",
               "stage_pre_run_staging"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Evaluating",
@@ -20779,13 +20831,13 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
             "historicalYears": 0,
             "sourceDates": [],
             "sourceRefreshSlots": {},
-            "headline": "Migration Timing is still taking shape.",
-            "detail": "The early river and temperature pattern is still developing, so an Ahead, Typical, or Delayed call would be premature.",
-            "tip": "Keep the trip centered on the river mouth and earliest lower-river holding water. Move inland only when Migration Stage advances or direct fish activity supports it.",
+            "headline": "Muskegon Migration Timing is still taking shape.",
+            "detail": "Croton flow and measured temperature do not yet support an Ahead, Typical, or Delayed call.",
+            "tip": "Keep the section named by Migration Stage until this read has enough Croton-area evidence.",
             "reasonCodes": [
               "conditions_checkpoint_evaluating"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -20799,21 +20851,21 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
           "push": {
             "score": null,
             "label": "Waiting for migration",
-            "headline": "Dependable fall entry has not started, so Push is not active yet.",
-            "detail": "An occasional early steelhead is possible, but Push is reserved for the expected entry window, when rain, river level, and water temperature can provide a responsible fresh-movement read.",
-            "tip": "Keep most effort near the lake, harbor, and river-mouth transition. Do not move inland just because rain or cooling resembles an in-season movement event.",
+            "headline": "Dependable Muskegon Steelhead fall entry has not started.",
+            "detail": "Croton flow and measured temperature are not scored as an in-season fresh-movement signal yet.",
+            "tip": "Use Migration Stage. Do not move inland because offseason water resembles a Push.",
             "reasonCodes": [
               "push_tracking_not_started"
             ],
             "rulesVersion": "muskegon-fall-steelhead-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 93,
             "label": "Excellent",
-            "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river.",
-            "tip": "Begin on the primary travel lane feeding deep holding water. Work each hole from its head through the inside seam and tail, then keep moving until fish establish a pattern.",
+            "headline": "Croton-area flow is in its best presentation range.",
+            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read applies only near Croton Dam within the Upper river (Newaygo–Croton Dam).",
+            "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band"
@@ -20824,15 +20876,15 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 8,
             "maximum": 100,
             "label": "Inactive",
-            "headline": "Today’s Steelhead activity outlook is inactive.",
-            "detail": "Conditions provide little environmental support for an aggressive response. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Water temperature limits responsiveness. Dependable river presence has not begun. The score applies only to a sparse early Steelhead that may already have entered. The measured conditions represent the Croton tailwater immediately below Croton Dam. Water temperature, clarity, and fishing conditions can be different through Newaygo, the lower river, Muskegon Lake, and the channel. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
-            "tip": "Start with 5–9 AM. If conditions change, favor the window that best combines workable light with measured water temperature.",
+            "headline": "Today’s Croton-area responsiveness is inactive, but dependable Steelhead presence has not begun.",
+            "detail": "Conditions offer little support for an aggressive Steelhead response. 5–9 AM and 9 AM–1 PM are the leading windows, but neither has a clear advantage. This applies only to an early Steelhead already near Croton Dam.",
+            "tip": "Choose between 5–9 AM and 9 AM–1 PM using actual light. Verify downstream sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -20885,10 +20937,13 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
                 "cloudCoverPct": 85,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 0,
+            "displayScore": 0,
+            "scoreIsApproximate": false,
             "stage": "pre_run",
             "maximum": 100,
             "riverCeiling": 90,
@@ -20897,14 +20952,14 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
             "curveDirection": "outside",
             "winterHoldingContext": false,
             "label": "Not expected yet",
-            "headline": "Steelhead are not expected in meaningful numbers yet.",
-            "detail": "Most Steelhead are not expected to have entered the river in dependable numbers. Any fish already present would be early exceptions.",
-            "tip": "Treat this as no dependable in-river opportunity yet. Keep expectations at zero, and do not interpret an isolated early fish as evidence of dependable river presence.",
+            "headline": "Dependable Steelhead presence is not expected in the Muskegon River yet.",
+            "detail": "The seasonal estimate remains at zero. Any river fish would be an early exception.",
+            "tip": "Use Migration Stage for Muskegon Lake, channel, and river-entrance context.",
             "reasonCodes": [
               "stage_pre_run",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -21137,14 +21192,14 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "good_fishability_low_presence"
             ]
           },
-          "secondaryNote": "Based on USGS 04121970 immediately below Croton Dam. It represents the regulated Croton tailwater; flow, temperature, access, and safety can differ through Newaygo, the lower river, Muskegon Lake, and the channel.",
+          "secondaryNote": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
           "safety": {
             "regulationReminder": "Croton Dam is the hard upstream migration boundary. Fish only legal water below the dam, use established public access, respect private land and posted closures, and check current Michigan regulations and dam-safety notices.",
-            "gaugeBasis": "Based on USGS 04121970 immediately below Croton Dam. It represents the regulated Croton tailwater; flow, temperature, access, and safety can differ through Newaygo, the lower river, Muskegon Lake, and the channel.",
+            "gaugeBasis": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-muskegon-steelhead-activity.1"
+          "configVersion": "2026-08-11-muskegon-copy.1"
         }
       },
       {
@@ -21163,6 +21218,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
           "nextConditionRefreshAt": "2026-10-06T05:00:00.000Z",
           "runStage": {
             "stage": "beginning",
+            "copyStrategy": "muskegon_croton_tailwater",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -21185,14 +21241,14 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "peakToEndDays": 37
             },
             "label": "Beginning",
-            "headline": "The first fall Steelhead are entering the Muskegon's long migratory corridor.",
-            "whereToStart": "Deep lower-river travel water from Muskegon Lake toward M-120 first, then substantial Newaygo-to-M-120 resting water; check Croton only after those fresh-entry reaches.",
-            "detail": "New fish can be scattered from the lower river into middle-corridor resting water while earlier arrivals may already be nearer Croton.",
-            "tip": "Check lower-river travel lanes and good resting holes before assuming the newest fish are up by Croton.",
+            "headline": "The first fall Steelhead are entering and moving through the Muskegon River.",
+            "whereToStart": "Start in the Lower river (Muskegon Lake–M-120). Add the Middle river (M-120–Newaygo) after direct fish activity supports the move.",
+            "detail": "New fish remain scattered while earlier arrivals may already be farther upstream.",
+            "tip": "Cover travel water and the first substantial holding areas before moving upstream.",
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -21230,15 +21286,15 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "2026-09-24"
             ],
             "sourceRefreshSlots": {},
-            "headline": "There is not enough reliable information for a Migration Timing call.",
-            "tip": "Do not move farther upstream or stay lower based on this timing read. Fish the section identified by Migration Stage and begin in its most established holding water; change sections only when direct fish activity or a dependable later read supports it.",
+            "headline": "There is not enough reliable Muskegon evidence for a Migration Timing call.",
+            "tip": "Keep the Muskegon section named by Migration Stage. Do not shift sections from this timing read.",
             "detail": "There are not enough dependable past seasons to judge whether this migration is early, normal, or late.",
             "reasonCodes": [
               "conditions_baseline_missing",
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -21252,9 +21308,9 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
           "push": {
             "score": 27,
             "label": "No clear push",
-            "headline": "Today's water does not show a clear signal for a fresh wave of fish.",
-            "detail": "The river is holding steady with no meaningful rise yet. Water is on the warm side for fall migration and is relatively steady. Recent weather estimates indicate very little rain around the river.",
-            "tip": "Fish established holding water from the head through the inside seam and tail. Do not spend the day racing between lower travel lanes for a wave the water does not support.",
+            "headline": "Croton-area water does not show a clear fresh-movement signal.",
+            "detail": "The river is holding steady with no meaningful rise yet. Water is on the warm side for fall migration and is relatively steady. Recent watershed weather shows little rain.",
+            "tip": "Keep Migration Stage’s section primary. Do not shift sections from this read.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
@@ -21273,14 +21329,14 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-fall-steelhead-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 93,
             "label": "Excellent",
-            "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river.",
-            "tip": "Begin on the primary travel lane feeding deep holding water. Work each hole from its head through the inside seam and tail, then keep moving until fish establish a pattern.",
+            "headline": "Croton-area flow is in its best presentation range.",
+            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read applies only near Croton Dam within the Upper river (Newaygo–Croton Dam).",
+            "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band"
@@ -21291,15 +21347,15 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 80,
             "maximum": 100,
             "label": "Highly active",
-            "headline": "Today’s Steelhead activity outlook is highly active.",
-            "detail": "Conditions strongly favor a response from Steelhead that are present and capable of reacting. The strongest window is 5–9 AM: The measured water temperature is favorable for Steelhead. The main limitation: Rain adds little extra cover. Early fall Steelhead are entering with energy reserves intact. This score describes feeding or aggressive responsiveness for fish already in the river, not fresh movement. The measured conditions represent the Croton tailwater immediately below Croton Dam. Water temperature, clarity, and fishing conditions can be different through Newaygo, the lower river, Muskegon Lake, and the channel. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
-            "tip": "Start with 5–9 AM. If conditions change, favor the window that best combines workable light with measured water temperature.",
+            "headline": "Today’s Croton-area Steelhead responsiveness is highly active.",
+            "detail": "Conditions strongly support Steelhead responsiveness. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Croton flow and temperature represent only the area near the dam.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify downstream sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -21351,10 +21407,13 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
                 "cloudCoverPct": 100,
                 "precipitationIn": 0.08
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 14,
+            "displayScore": 15,
+            "scoreIsApproximate": true,
             "stage": "beginning",
             "maximum": 100,
             "riverCeiling": 90,
@@ -21363,14 +21422,14 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
             "curveDirection": "rising",
             "winterHoldingContext": false,
             "label": "Low presence",
-            "headline": "A small number of Steelhead may be in the river, and seasonal presence is still building.",
-            "detail": "This part of the season usually brings low presence, with more fish expected to enter and spread through the river. This is a seasonal estimate, not a live fish count.",
-            "tip": "Treat this as an early, low-odds river opportunity. Expect scattered results, and use direct fish activity before committing the full day.",
+            "headline": "Seasonal Steelhead presence is low and building.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the Muskegon Steelhead ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -21604,14 +21663,14 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "good_fishability_low_presence"
             ]
           },
-          "secondaryNote": "Based on USGS 04121970 immediately below Croton Dam. It represents the regulated Croton tailwater; flow, temperature, access, and safety can differ through Newaygo, the lower river, Muskegon Lake, and the channel.",
+          "secondaryNote": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
           "safety": {
             "regulationReminder": "Croton Dam is the hard upstream migration boundary. Fish only legal water below the dam, use established public access, respect private land and posted closures, and check current Michigan regulations and dam-safety notices.",
-            "gaugeBasis": "Based on USGS 04121970 immediately below Croton Dam. It represents the regulated Croton tailwater; flow, temperature, access, and safety can differ through Newaygo, the lower river, Muskegon Lake, and the channel.",
+            "gaugeBasis": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-muskegon-steelhead-activity.1"
+          "configVersion": "2026-08-11-muskegon-copy.1"
         }
       },
       {
@@ -21630,6 +21689,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
           "nextConditionRefreshAt": "2026-11-02T05:00:00.000Z",
           "runStage": {
             "stage": "building",
+            "copyStrategy": "muskegon_croton_tailwater",
             "stagingContext": false,
             "broadBuildingContext": true,
             "winterHoldingContext": false,
@@ -21652,14 +21712,14 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "peakToEndDays": 37
             },
             "label": "Building",
-            "headline": "Steelhead are broadly established below Croton Dam.",
-            "whereToStart": "Compare Croton-to-Newaygo holding water, Newaygo-to-M-120 bends, and lower-river travel lanes below M-120; use Push to decide whether lakeward water deserves extra time.",
-            "detail": "Multiple entry periods can place fish in upper, middle, and lower reaches, although Croton directly measures only the tailwater.",
-            "tip": "Check at least two sections of river, then stay where you find the best signs of fish.",
+            "headline": "Steelhead are broadly established through the Muskegon River.",
+            "whereToStart": "Start in the Upper river (Newaygo–Croton Dam), emphasizing the Croton Dam area. Compare the Middle river (M-120–Newaygo) for fresher fish.",
+            "detail": "Multiple entry periods support broad presence, not equal numbers in every section.",
+            "tip": "Croton measurements apply only near the dam. Verify downstream water directly.",
             "reasonCodes": [
               "stage_building"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -21717,15 +21777,15 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "2026-10-14"
             ],
             "sourceRefreshSlots": {},
-            "headline": "There is not enough reliable information for a Migration Timing call.",
-            "tip": "Do not move farther upstream or stay lower based on this timing read. Fish the section identified by Migration Stage and begin in its most established holding water; change sections only when direct fish activity or a dependable later read supports it.",
+            "headline": "There is not enough reliable Muskegon evidence for a Migration Timing call.",
+            "tip": "Keep the Muskegon section named by Migration Stage. Do not shift sections from this timing read.",
             "detail": "There are not enough dependable past seasons to judge whether this migration is early, normal, or late.",
             "reasonCodes": [
               "conditions_baseline_missing",
               "conditions_insufficient",
               "conditions_checkpoint_building_established"
             ],
-            "copyVersion": "river-run-copy-v27",
+            "copyVersion": "river-run-copy-v34",
             "previousCheckpointId": "building_start",
             "previousCheckpointDate": "2026-10-11",
             "previousTimingLabel": "Insufficient evidence"
@@ -21742,9 +21802,9 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
           "push": {
             "score": 30,
             "label": "No clear push",
-            "headline": "Today's water does not show a clear signal for a fresh wave of fish.",
-            "detail": "The river is holding steady with no meaningful rise yet. Water temperature is favorable for fall migration and is relatively steady. Recent weather estimates indicate very little rain around the river.",
-            "tip": "Fish established holding water from the head through the inside seam and tail. Do not spend the day racing between lower travel lanes for a wave the water does not support.",
+            "headline": "Croton-area water does not show a clear fresh-movement signal.",
+            "detail": "The river is holding steady with no meaningful rise yet. Water temperature is favorable for fall migration and is relatively steady. Recent watershed weather shows little rain.",
+            "tip": "Keep Migration Stage’s section primary. Do not shift sections from this read.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
@@ -21763,14 +21823,14 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-fall-steelhead-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 93,
             "label": "Excellent",
-            "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river.",
-            "tip": "Begin on the primary travel lane feeding deep holding water. Work each hole from its head through the inside seam and tail, then keep moving until fish establish a pattern.",
+            "headline": "Croton-area flow is in its best presentation range.",
+            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read applies only near Croton Dam within the Upper river (Newaygo–Croton Dam).",
+            "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band"
@@ -21781,15 +21841,15 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 90,
             "maximum": 100,
             "label": "Highly active",
-            "headline": "Today’s Steelhead activity outlook is highly active.",
-            "detail": "Conditions strongly favor a response from Steelhead that are present and capable of reacting. The strongest window is 9 AM–1 PM: The measured water temperature is favorable for Steelhead. The main limitation: Rain adds little extra cover. Steelhead are becoming more established through the river. The score describes feeding or aggressive responsiveness, while movement and abundance remain separate reads. The measured conditions represent the Croton tailwater immediately below Croton Dam. Water temperature, clarity, and fishing conditions can be different through Newaygo, the lower river, Muskegon Lake, and the channel. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
-            "tip": "Start with 9 AM–1 PM. If conditions change, favor the window that best combines workable light with measured water temperature.",
+            "headline": "Today’s Croton-area Steelhead responsiveness is highly active.",
+            "detail": "Conditions strongly support Steelhead responsiveness. 9 AM–1 PM and 1–5 PM are the leading windows, but neither has a clear advantage. Croton flow and temperature represent only the area near the dam.",
+            "tip": "Choose between 9 AM–1 PM and 1–5 PM using actual light. Verify downstream sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -21841,10 +21901,13 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
                 "cloudCoverPct": 100,
                 "precipitationIn": 0.08
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 59,
+            "displayScore": 60,
+            "scoreIsApproximate": true,
             "stage": "building",
             "maximum": 100,
             "riverCeiling": 90,
@@ -21853,14 +21916,14 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
             "curveDirection": "rising",
             "winterHoldingContext": false,
             "label": "High presence",
-            "headline": "Steelhead are likely spread through more of the river as seasonal presence builds toward its strongest point.",
-            "detail": "Seasonal presence is usually elevated relative to the rest of the season, with more fish expected to enter and spread through the river. This is a seasonal estimate, not a live fish count.",
-            "tip": "Treat this as one of the stronger parts of a strong river season. Give each stop a complete pass, but do not mistake this seasonal estimate for a live fish count.",
+            "headline": "Seasonal Steelhead presence is high and building.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the Muskegon Steelhead ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_building",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -22088,14 +22151,14 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
             ]
           },
           "interpretationNote": null,
-          "secondaryNote": "Based on USGS 04121970 immediately below Croton Dam. It represents the regulated Croton tailwater; flow, temperature, access, and safety can differ through Newaygo, the lower river, Muskegon Lake, and the channel.",
+          "secondaryNote": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
           "safety": {
             "regulationReminder": "Croton Dam is the hard upstream migration boundary. Fish only legal water below the dam, use established public access, respect private land and posted closures, and check current Michigan regulations and dam-safety notices.",
-            "gaugeBasis": "Based on USGS 04121970 immediately below Croton Dam. It represents the regulated Croton tailwater; flow, temperature, access, and safety can differ through Newaygo, the lower river, Muskegon Lake, and the channel.",
+            "gaugeBasis": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-muskegon-steelhead-activity.1"
+          "configVersion": "2026-08-11-muskegon-copy.1"
         }
       },
       {
@@ -22114,6 +22177,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
           "nextConditionRefreshAt": "2026-11-16T05:00:00.000Z",
           "runStage": {
             "stage": "peak",
+            "copyStrategy": "muskegon_croton_tailwater",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -22136,14 +22200,14 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "peakToEndDays": 37
             },
             "label": "Peak",
-            "headline": "This is typically the strongest Muskegon fall Steelhead entry opportunity.",
-            "whereToStart": "Compare the Croton tailwater, Croton-to-Newaygo pools, Newaygo-to-M-120 bends, and substantial lower-river holes toward Muskegon Lake.",
-            "detail": "Repeated entry periods support broad corridor presence, but fresh fish, established holders, clarity, and access still differ from Croton to Muskegon Lake.",
-            "tip": "Use Push to choose between lower travel water and upper holding water, then make sure the water you find matches the read.",
+            "headline": "This is typically the strongest Muskegon fall Steelhead opportunity.",
+            "whereToStart": "Start in the Upper river (Newaygo–Croton Dam), emphasizing the Croton Dam area. Compare the Middle river (M-120–Newaygo) for fresher fish.",
+            "detail": "Steelhead can be broadly present, but freshness and concentrations still vary by section.",
+            "tip": "Croton measurements apply only near the dam. Verify downstream water directly.",
             "reasonCodes": [
               "stage_peak"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -22227,15 +22291,15 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "2026-11-09"
             ],
             "sourceRefreshSlots": {},
-            "headline": "There is not enough reliable information for a Migration Timing call.",
-            "tip": "Do not move farther upstream or stay lower based on this timing read. Fish the section identified by Migration Stage and begin in its most established holding water; change sections only when direct fish activity or a dependable later read supports it.",
+            "headline": "There is not enough reliable Muskegon evidence for a Migration Timing call.",
+            "tip": "Keep the Muskegon section named by Migration Stage. Do not shift sections from this timing read.",
             "detail": "There are not enough dependable past seasons to judge whether this migration is early, normal, or late.",
             "reasonCodes": [
               "conditions_baseline_missing",
               "conditions_insufficient",
               "conditions_checkpoint_peak_start"
             ],
-            "copyVersion": "river-run-copy-v27",
+            "copyVersion": "river-run-copy-v34",
             "previousCheckpointId": "building_established",
             "previousCheckpointDate": "2026-10-15",
             "previousTimingLabel": "Insufficient evidence"
@@ -22252,9 +22316,9 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
           "push": {
             "score": 27,
             "label": "No clear push",
-            "headline": "Today's water does not show a clear signal for a fresh wave of fish.",
-            "detail": "The river is holding steady with no meaningful rise yet. Water is on the warm side for fall migration and is relatively steady. Recent weather estimates indicate very little rain around the river.",
-            "tip": "Fish established holding water from the head through the inside seam and tail. Do not spend the day racing between lower travel lanes for a wave the water does not support.",
+            "headline": "Croton-area water does not show a clear fresh-movement signal.",
+            "detail": "The river is holding steady with no meaningful rise yet. Water is on the warm side for fall migration and is relatively steady. Recent watershed weather shows little rain.",
+            "tip": "Keep Migration Stage’s section primary. Do not shift sections from this read.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
@@ -22273,14 +22337,14 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-fall-steelhead-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 93,
             "label": "Excellent",
-            "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river.",
-            "tip": "Begin on the primary travel lane feeding deep holding water. Work each hole from its head through the inside seam and tail, then keep moving until fish establish a pattern.",
+            "headline": "Croton-area flow is in its best presentation range.",
+            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read applies only near Croton Dam within the Upper river (Newaygo–Croton Dam).",
+            "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band"
@@ -22291,15 +22355,15 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 74,
             "maximum": 100,
             "label": "Active",
-            "headline": "Today’s Steelhead activity outlook is active.",
-            "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 AM: The measured water temperature is favorable for Steelhead. The main limitation: Rain adds little extra cover. Broad fall presence can make Steelhead easier to locate, but this score measures feeding or aggressive responsiveness rather than how many fish are present. The measured conditions represent the Croton tailwater immediately below Croton Dam. Water temperature, clarity, and fishing conditions can be different through Newaygo, the lower river, Muskegon Lake, and the channel. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
-            "tip": "Start with 5–9 AM. If conditions change, favor the window that best combines workable light with measured water temperature.",
+            "headline": "Today’s Croton-area Steelhead responsiveness is active.",
+            "detail": "Conditions support a meaningful Steelhead response. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Croton flow and temperature represent only the area near the dam.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify downstream sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -22351,10 +22415,13 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
                 "cloudCoverPct": 65,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 90,
+            "displayScore": 90,
+            "scoreIsApproximate": false,
             "stage": "peak",
             "maximum": 100,
             "riverCeiling": 90,
@@ -22363,14 +22430,14 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
             "curveDirection": "near_peak",
             "winterHoldingContext": false,
             "label": "Peak presence",
-            "headline": "Steelhead are likely near their highest seasonal presence in the river.",
-            "detail": "This is the part of the season when in-river presence is usually strongest. The read describes the river as a whole; it does not place fish in a specific pool or confirm a live count.",
-            "tip": "Plan for the strongest seasonal presence this river usually offers, while remembering that this estimate cannot confirm fish at a specific spot or describe today's river conditions.",
+            "headline": "Seasonal Steelhead presence is near its expected Muskegon peak.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the Muskegon Steelhead ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_peak",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -22604,14 +22671,14 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "peak_presence_weak_push"
             ]
           },
-          "secondaryNote": "Based on USGS 04121970 immediately below Croton Dam. It represents the regulated Croton tailwater; flow, temperature, access, and safety can differ through Newaygo, the lower river, Muskegon Lake, and the channel.",
+          "secondaryNote": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
           "safety": {
             "regulationReminder": "Croton Dam is the hard upstream migration boundary. Fish only legal water below the dam, use established public access, respect private land and posted closures, and check current Michigan regulations and dam-safety notices.",
-            "gaugeBasis": "Based on USGS 04121970 immediately below Croton Dam. It represents the regulated Croton tailwater; flow, temperature, access, and safety can differ through Newaygo, the lower river, Muskegon Lake, and the channel.",
+            "gaugeBasis": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-muskegon-steelhead-activity.1"
+          "configVersion": "2026-08-11-muskegon-copy.1"
         }
       },
       {
@@ -22630,6 +22697,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
           "nextConditionRefreshAt": "2026-11-02T05:00:00.000Z",
           "runStage": {
             "stage": "building",
+            "copyStrategy": "muskegon_croton_tailwater",
             "stagingContext": false,
             "broadBuildingContext": true,
             "winterHoldingContext": false,
@@ -22652,14 +22720,14 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "peakToEndDays": 37
             },
             "label": "Building",
-            "headline": "Steelhead are broadly established below Croton Dam.",
-            "whereToStart": "Compare Croton-to-Newaygo holding water, Newaygo-to-M-120 bends, and lower-river travel lanes below M-120; use Push to decide whether lakeward water deserves extra time.",
-            "detail": "Multiple entry periods can place fish in upper, middle, and lower reaches, although Croton directly measures only the tailwater.",
-            "tip": "Check at least two sections of river, then stay where you find the best signs of fish.",
+            "headline": "Steelhead are broadly established through the Muskegon River.",
+            "whereToStart": "Start in the Upper river (Newaygo–Croton Dam), emphasizing the Croton Dam area. Compare the Middle river (M-120–Newaygo) for fresher fish.",
+            "detail": "Multiple entry periods support broad presence, not equal numbers in every section.",
+            "tip": "Croton measurements apply only near the dam. Verify downstream water directly.",
             "reasonCodes": [
               "stage_building"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -22717,15 +22785,15 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "2026-10-14"
             ],
             "sourceRefreshSlots": {},
-            "headline": "There is not enough reliable information for a Migration Timing call.",
-            "tip": "Do not move farther upstream or stay lower based on this timing read. Fish the section identified by Migration Stage and begin in its most established holding water; change sections only when direct fish activity or a dependable later read supports it.",
+            "headline": "There is not enough reliable Muskegon evidence for a Migration Timing call.",
+            "tip": "Keep the Muskegon section named by Migration Stage. Do not shift sections from this timing read.",
             "detail": "There are not enough dependable past seasons to judge whether this migration is early, normal, or late.",
             "reasonCodes": [
               "conditions_baseline_missing",
               "conditions_insufficient",
               "conditions_checkpoint_building_established"
             ],
-            "copyVersion": "river-run-copy-v27",
+            "copyVersion": "river-run-copy-v34",
             "previousCheckpointId": "building_start",
             "previousCheckpointDate": "2026-10-11",
             "previousTimingLabel": "Insufficient evidence"
@@ -22742,9 +22810,9 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
           "push": {
             "score": 25,
             "label": "No clear push",
-            "headline": "Today's water does not show a clear signal for a fresh wave of fish.",
-            "detail": "The river is holding steady with no meaningful rise yet. Overall flow is already high. Water is cold enough for steelhead movement, but additional cooling increasingly favors slower holding behavior. Recent weather estimates indicate very little rain around the river.",
-            "tip": "Fish established holding water from the head through the inside seam and tail. Do not spend the day racing between lower travel lanes for a wave the water does not support.",
+            "headline": "Croton-area water does not show a clear fresh-movement signal.",
+            "detail": "The river is holding steady with no meaningful rise yet; overall flow is already high. Water is cold enough for steelhead movement, but additional cooling increasingly favors slower holding behavior. Recent watershed weather shows little rain.",
+            "tip": "Keep Migration Stage’s section primary. Do not shift sections from this read.",
             "reasonCodes": [
               "gauge_fresh",
               "push_high_flow_context",
@@ -22763,14 +22831,14 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-fall-steelhead-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 45,
             "label": "Tough",
-            "headline": "The river is running very high, leaving fewer practical places to fish effectively.",
-            "detail": "Very high flow is reducing access and the amount of water where a presentation can be controlled. The river is not climbing quickly, but practical fishing water remains compressed into the slowest edges. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river.",
-            "tip": "Fish only bank-side soft pockets, protected inside turns, and current breaks. Make short controlled presentations and skip every main-channel lane.",
+            "headline": "Very high Croton-area flow leaves little controllable presentation water.",
+            "detail": "Very high flow compresses controllable water into protected edges. Steady flow should keep presentation lanes consistent. This read applies only near Croton Dam within the Upper river (Newaygo–Croton Dam).",
+            "tip": "Favor protected margins and short controlled presentations. Choose another day if control is not dependable.",
             "reasonCodes": [
               "gauge_fresh",
               "very_high_flow_band"
@@ -22781,15 +22849,15 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 60,
             "maximum": 100,
             "label": "Active",
-            "headline": "Today’s Steelhead activity outlook is active.",
-            "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 AM: The measured water temperature remains usable. The main limitation: The river level or its recent change is less favorable. Steelhead are becoming more established through the river. The score describes feeding or aggressive responsiveness, while movement and abundance remain separate reads. The measured conditions represent the Croton tailwater immediately below Croton Dam. Water temperature, clarity, and fishing conditions can be different through Newaygo, the lower river, Muskegon Lake, and the channel. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
-            "tip": "Start with 5–9 AM. If conditions change, favor the window that best combines workable light with measured water temperature.",
+            "headline": "Today’s Croton-area Steelhead responsiveness is active.",
+            "detail": "Conditions support a meaningful Steelhead response. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Croton flow and temperature represent only the area near the dam.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify downstream sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -22841,10 +22909,13 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
                 "cloudCoverPct": 0,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 59,
+            "displayScore": 60,
+            "scoreIsApproximate": true,
             "stage": "building",
             "maximum": 100,
             "riverCeiling": 90,
@@ -22853,14 +22924,14 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
             "curveDirection": "rising",
             "winterHoldingContext": false,
             "label": "High presence",
-            "headline": "Steelhead are likely spread through more of the river as seasonal presence builds toward its strongest point.",
-            "detail": "Seasonal presence is usually elevated relative to the rest of the season, with more fish expected to enter and spread through the river. This is a seasonal estimate, not a live fish count.",
-            "tip": "Treat this as one of the stronger parts of a strong river season. Give each stop a complete pass, but do not mistake this seasonal estimate for a live fish count.",
+            "headline": "Seasonal Steelhead presence is high and building.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the Muskegon Steelhead ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_building",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -23088,14 +23159,14 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
             ]
           },
           "interpretationNote": null,
-          "secondaryNote": "Based on USGS 04121970 immediately below Croton Dam. It represents the regulated Croton tailwater; flow, temperature, access, and safety can differ through Newaygo, the lower river, Muskegon Lake, and the channel.",
+          "secondaryNote": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
           "safety": {
             "regulationReminder": "Croton Dam is the hard upstream migration boundary. Fish only legal water below the dam, use established public access, respect private land and posted closures, and check current Michigan regulations and dam-safety notices.",
-            "gaugeBasis": "Based on USGS 04121970 immediately below Croton Dam. It represents the regulated Croton tailwater; flow, temperature, access, and safety can differ through Newaygo, the lower river, Muskegon Lake, and the channel.",
+            "gaugeBasis": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-muskegon-steelhead-activity.1"
+          "configVersion": "2026-08-11-muskegon-copy.1"
         }
       },
       {
@@ -23114,6 +23185,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
           "nextConditionRefreshAt": "2026-10-06T05:00:00.000Z",
           "runStage": {
             "stage": "beginning",
+            "copyStrategy": "muskegon_croton_tailwater",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -23136,14 +23208,14 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "peakToEndDays": 37
             },
             "label": "Beginning",
-            "headline": "The first fall Steelhead are entering the Muskegon's long migratory corridor.",
-            "whereToStart": "Deep lower-river travel water from Muskegon Lake toward M-120 first, then substantial Newaygo-to-M-120 resting water; check Croton only after those fresh-entry reaches.",
-            "detail": "New fish can be scattered from the lower river into middle-corridor resting water while earlier arrivals may already be nearer Croton.",
-            "tip": "Check lower-river travel lanes and good resting holes before assuming the newest fish are up by Croton.",
+            "headline": "The first fall Steelhead are entering and moving through the Muskegon River.",
+            "whereToStart": "Start in the Lower river (Muskegon Lake–M-120). Add the Middle river (M-120–Newaygo) after direct fish activity supports the move.",
+            "detail": "New fish remain scattered while earlier arrivals may already be farther upstream.",
+            "tip": "Cover travel water and the first substantial holding areas before moving upstream.",
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -23181,15 +23253,15 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "2026-09-24"
             ],
             "sourceRefreshSlots": {},
-            "headline": "There is not enough reliable information for a Migration Timing call.",
-            "tip": "Do not move farther upstream or stay lower based on this timing read. Fish the section identified by Migration Stage and begin in its most established holding water; change sections only when direct fish activity or a dependable later read supports it.",
+            "headline": "There is not enough reliable Muskegon evidence for a Migration Timing call.",
+            "tip": "Keep the Muskegon section named by Migration Stage. Do not shift sections from this timing read.",
             "detail": "There are not enough dependable past seasons to judge whether this migration is early, normal, or late.",
             "reasonCodes": [
               "conditions_baseline_missing",
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -23203,9 +23275,9 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
           "push": {
             "score": 18,
             "label": "Weak",
-            "headline": "Today's water shows little support for a fresh wave of fish.",
-            "detail": "The river is holding steady with no meaningful rise yet. Water temperature remains too warm to support a strong Push and is relatively steady. Recent weather estimates indicate very little rain around the river.",
-            "tip": "Do not build the day around new arrivals while the river remains warm. Start in established holding water at first or last light and leave lower travel lanes secondary.",
+            "headline": "Croton-area water shows little support for fresh movement.",
+            "detail": "The river is holding steady with no meaningful rise yet. Water temperature remains too warm to support a strong Push and is relatively steady. Recent watershed weather shows little rain.",
+            "tip": "Keep Migration Stage’s section primary. Do not shift sections from this read.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
@@ -23225,14 +23297,14 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-fall-steelhead-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 93,
             "label": "Excellent",
-            "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river.",
-            "tip": "Begin on the primary travel lane feeding deep holding water. Work each hole from its head through the inside seam and tail, then keep moving until fish establish a pattern.",
+            "headline": "Croton-area flow is in its best presentation range.",
+            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read applies only near Croton Dam within the Upper river (Newaygo–Croton Dam).",
+            "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band"
@@ -23243,15 +23315,15 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 23,
             "maximum": 100,
             "label": "Reserved",
-            "headline": "Today’s Steelhead activity outlook is reserved.",
-            "detail": "Fish may respond selectively, with important environmental limitations. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Water temperature limits responsiveness. Early fall Steelhead are entering with energy reserves intact. This score describes feeding or aggressive responsiveness for fish already in the river, not fresh movement. The measured conditions represent the Croton tailwater immediately below Croton Dam. Water temperature, clarity, and fishing conditions can be different through Newaygo, the lower river, Muskegon Lake, and the channel. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
-            "tip": "Start with 5–9 AM. If conditions change, favor the window that best combines workable light with measured water temperature.",
+            "headline": "Today’s Croton-area Steelhead responsiveness is reserved.",
+            "detail": "Steelhead may respond selectively under current limitations. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Croton flow and temperature represent only the area near the dam.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify downstream sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -23304,10 +23376,13 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
                 "cloudCoverPct": 100,
                 "precipitationIn": 0.08
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 14,
+            "displayScore": 15,
+            "scoreIsApproximate": true,
             "stage": "beginning",
             "maximum": 100,
             "riverCeiling": 90,
@@ -23316,14 +23391,14 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
             "curveDirection": "rising",
             "winterHoldingContext": false,
             "label": "Low presence",
-            "headline": "A small number of Steelhead may be in the river, and seasonal presence is still building.",
-            "detail": "This part of the season usually brings low presence, with more fish expected to enter and spread through the river. This is a seasonal estimate, not a live fish count.",
-            "tip": "Treat this as an early, low-odds river opportunity. Expect scattered results, and use direct fish activity before committing the full day.",
+            "headline": "Seasonal Steelhead presence is low and building.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the Muskegon Steelhead ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -23557,14 +23632,14 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "good_fishability_low_presence"
             ]
           },
-          "secondaryNote": "Based on USGS 04121970 immediately below Croton Dam. It represents the regulated Croton tailwater; flow, temperature, access, and safety can differ through Newaygo, the lower river, Muskegon Lake, and the channel.",
+          "secondaryNote": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
           "safety": {
             "regulationReminder": "Croton Dam is the hard upstream migration boundary. Fish only legal water below the dam, use established public access, respect private land and posted closures, and check current Michigan regulations and dam-safety notices.",
-            "gaugeBasis": "Based on USGS 04121970 immediately below Croton Dam. It represents the regulated Croton tailwater; flow, temperature, access, and safety can differ through Newaygo, the lower river, Muskegon Lake, and the channel.",
+            "gaugeBasis": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-muskegon-steelhead-activity.1"
+          "configVersion": "2026-08-11-muskegon-copy.1"
         }
       },
       {
@@ -23583,6 +23658,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
           "nextConditionRefreshAt": "2026-10-06T05:00:00.000Z",
           "runStage": {
             "stage": "beginning",
+            "copyStrategy": "muskegon_croton_tailwater",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -23605,14 +23681,14 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "peakToEndDays": 37
             },
             "label": "Beginning",
-            "headline": "The first fall Steelhead are entering the Muskegon's long migratory corridor.",
-            "whereToStart": "Deep lower-river travel water from Muskegon Lake toward M-120 first, then substantial Newaygo-to-M-120 resting water; check Croton only after those fresh-entry reaches.",
-            "detail": "New fish can be scattered from the lower river into middle-corridor resting water while earlier arrivals may already be nearer Croton.",
-            "tip": "Check lower-river travel lanes and good resting holes before assuming the newest fish are up by Croton.",
+            "headline": "The first fall Steelhead are entering and moving through the Muskegon River.",
+            "whereToStart": "Start in the Lower river (Muskegon Lake–M-120). Add the Middle river (M-120–Newaygo) after direct fish activity supports the move.",
+            "detail": "New fish remain scattered while earlier arrivals may already be farther upstream.",
+            "tip": "Cover travel water and the first substantial holding areas before moving upstream.",
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -23650,15 +23726,15 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "2026-09-24"
             ],
             "sourceRefreshSlots": {},
-            "headline": "There is not enough reliable information for a Migration Timing call.",
-            "tip": "Do not move farther upstream or stay lower based on this timing read. Fish the section identified by Migration Stage and begin in its most established holding water; change sections only when direct fish activity or a dependable later read supports it.",
+            "headline": "There is not enough reliable Muskegon evidence for a Migration Timing call.",
+            "tip": "Keep the Muskegon section named by Migration Stage. Do not shift sections from this timing read.",
             "detail": "There are not enough dependable past seasons to judge whether this migration is early, normal, or late.",
             "reasonCodes": [
               "conditions_baseline_missing",
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -23672,9 +23748,9 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
           "push": {
             "score": 18,
             "label": "Weak",
-            "headline": "Today's water shows little support for a fresh wave of fish.",
-            "detail": "The river is holding steady with no meaningful rise yet. Water temperature remains too warm to support a strong Push and is relatively steady. Recent weather estimates indicate very little rain around the river.",
-            "tip": "Do not build the day around new arrivals while the river remains warm. Start in established holding water at first or last light and leave lower travel lanes secondary.",
+            "headline": "Croton-area water shows little support for fresh movement.",
+            "detail": "The river is holding steady with no meaningful rise yet. Water temperature remains too warm to support a strong Push and is relatively steady. Recent watershed weather shows little rain.",
+            "tip": "Keep Migration Stage’s section primary. Do not shift sections from this read.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
@@ -23694,14 +23770,14 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-fall-steelhead-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 93,
             "label": "Excellent",
-            "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river.",
-            "tip": "Begin on the primary travel lane feeding deep holding water. Work each hole from its head through the inside seam and tail, then keep moving until fish establish a pattern.",
+            "headline": "Croton-area flow is in its best presentation range.",
+            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read applies only near Croton Dam within the Upper river (Newaygo–Croton Dam).",
+            "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band"
@@ -23712,15 +23788,15 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 9,
             "maximum": 100,
             "label": "Inactive",
-            "headline": "Today’s Steelhead activity outlook is inactive.",
-            "detail": "Conditions provide little environmental support for an aggressive response. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Water temperature limits responsiveness. Early fall Steelhead are entering with energy reserves intact. This score describes feeding or aggressive responsiveness for fish already in the river, not fresh movement. The measured conditions represent the Croton tailwater immediately below Croton Dam. Water temperature, clarity, and fishing conditions can be different through Newaygo, the lower river, Muskegon Lake, and the channel. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
-            "tip": "Start with 5–9 AM. If conditions change, favor the window that best combines workable light with measured water temperature.",
+            "headline": "Today’s Croton-area Steelhead responsiveness is inactive.",
+            "detail": "Conditions offer little support for an aggressive Steelhead response. 5–9 AM and 9 AM–1 PM are the leading windows, but neither has a clear advantage. Croton flow and temperature represent only the area near the dam.",
+            "tip": "Choose between 5–9 AM and 9 AM–1 PM using actual light. Verify downstream sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -23773,10 +23849,13 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
                 "cloudCoverPct": 100,
                 "precipitationIn": 0.08
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 14,
+            "displayScore": 15,
+            "scoreIsApproximate": true,
             "stage": "beginning",
             "maximum": 100,
             "riverCeiling": 90,
@@ -23785,14 +23864,14 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
             "curveDirection": "rising",
             "winterHoldingContext": false,
             "label": "Low presence",
-            "headline": "A small number of Steelhead may be in the river, and seasonal presence is still building.",
-            "detail": "This part of the season usually brings low presence, with more fish expected to enter and spread through the river. This is a seasonal estimate, not a live fish count.",
-            "tip": "Treat this as an early, low-odds river opportunity. Expect scattered results, and use direct fish activity before committing the full day.",
+            "headline": "Seasonal Steelhead presence is low and building.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the Muskegon Steelhead ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -24026,14 +24105,14 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "good_fishability_low_presence"
             ]
           },
-          "secondaryNote": "Based on USGS 04121970 immediately below Croton Dam. It represents the regulated Croton tailwater; flow, temperature, access, and safety can differ through Newaygo, the lower river, Muskegon Lake, and the channel.",
+          "secondaryNote": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
           "safety": {
             "regulationReminder": "Croton Dam is the hard upstream migration boundary. Fish only legal water below the dam, use established public access, respect private land and posted closures, and check current Michigan regulations and dam-safety notices.",
-            "gaugeBasis": "Based on USGS 04121970 immediately below Croton Dam. It represents the regulated Croton tailwater; flow, temperature, access, and safety can differ through Newaygo, the lower river, Muskegon Lake, and the channel.",
+            "gaugeBasis": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-muskegon-steelhead-activity.1"
+          "configVersion": "2026-08-11-muskegon-copy.1"
         }
       },
       {
@@ -24052,6 +24131,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
           "nextConditionRefreshAt": "2026-11-16T05:00:00.000Z",
           "runStage": {
             "stage": "peak",
+            "copyStrategy": "muskegon_croton_tailwater",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -24074,14 +24154,14 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "peakToEndDays": 37
             },
             "label": "Peak",
-            "headline": "This is typically the strongest Muskegon fall Steelhead entry opportunity.",
-            "whereToStart": "Compare the Croton tailwater, Croton-to-Newaygo pools, Newaygo-to-M-120 bends, and substantial lower-river holes toward Muskegon Lake.",
-            "detail": "Repeated entry periods support broad corridor presence, but fresh fish, established holders, clarity, and access still differ from Croton to Muskegon Lake.",
-            "tip": "Use Push to choose between lower travel water and upper holding water, then make sure the water you find matches the read.",
+            "headline": "This is typically the strongest Muskegon fall Steelhead opportunity.",
+            "whereToStart": "Start in the Upper river (Newaygo–Croton Dam), emphasizing the Croton Dam area. Compare the Middle river (M-120–Newaygo) for fresher fish.",
+            "detail": "Steelhead can be broadly present, but freshness and concentrations still vary by section.",
+            "tip": "Croton measurements apply only near the dam. Verify downstream water directly.",
             "reasonCodes": [
               "stage_peak"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -24165,15 +24245,15 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "2026-11-09"
             ],
             "sourceRefreshSlots": {},
-            "headline": "There is not enough reliable information for a Migration Timing call.",
-            "tip": "Do not move farther upstream or stay lower based on this timing read. Fish the section identified by Migration Stage and begin in its most established holding water; change sections only when direct fish activity or a dependable later read supports it.",
+            "headline": "There is not enough reliable Muskegon evidence for a Migration Timing call.",
+            "tip": "Keep the Muskegon section named by Migration Stage. Do not shift sections from this timing read.",
             "detail": "There are not enough dependable past seasons to judge whether this migration is early, normal, or late.",
             "reasonCodes": [
               "conditions_baseline_missing",
               "conditions_insufficient",
               "conditions_checkpoint_peak_start"
             ],
-            "copyVersion": "river-run-copy-v27",
+            "copyVersion": "river-run-copy-v34",
             "previousCheckpointId": "building_established",
             "previousCheckpointDate": "2026-10-15",
             "previousTimingLabel": "Insufficient evidence"
@@ -24190,9 +24270,9 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
           "push": {
             "score": 13,
             "label": "Weak",
-            "headline": "The river is rising hard, but extreme flow makes this an unreliable fresh-movement read.",
-            "detail": "The river is holding steady with no meaningful rise yet. Overall flow is extremely high. Water temperature remains too warm to support a strong Push and is relatively steady. Recent weather estimates indicate very little rain around the river.",
-            "tip": "Do not chase movement in the main channel. If Fishability remains usable, fish only protected margins, inside turns, and soft current with short controlled presentations.",
+            "headline": "Extreme Croton-area flow prevents a dependable fresh-movement signal.",
+            "detail": "The river is holding steady with no meaningful rise yet; overall flow is extremely high. Water temperature remains too warm to support a strong Push and is relatively steady. Recent watershed weather shows little rain.",
+            "tip": "Keep Migration Stage’s section primary. Do not shift sections from this read.",
             "reasonCodes": [
               "gauge_fresh",
               "push_severe_high_flow_context",
@@ -24213,14 +24293,14 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-fall-steelhead-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 20,
             "label": "Poor",
-            "headline": "The river is too high and unsettled for a dependable fishing recommendation.",
-            "detail": "Excessive flow is overwhelming normal holding water and making access and presentation unreliable. The river is not climbing quickly, but it must fall substantially before normal holding lanes and presentation control return. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river.",
-            "tip": "Choose a lower-water day for the better fishing opportunity. If you fish now, stay tight to protected banks, slow inside turns, and the downstream side of major current breaks; keep presentations short and leave the main flow alone.",
+            "headline": "The Croton area is blown out for a dependable presentation plan.",
+            "detail": "Excessive flow overwhelms normal lanes and presentation control. Steady flow should keep presentation lanes consistent. This read applies only near Croton Dam within the Upper river (Newaygo–Croton Dam).",
+            "tip": "Choose another day and verify current conditions through authoritative local sources.",
             "reasonCodes": [
               "gauge_fresh",
               "blown_out_flow_band",
@@ -24232,15 +24312,15 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 11,
             "maximum": 100,
             "label": "Inactive",
-            "headline": "Today’s Steelhead activity outlook is inactive.",
-            "detail": "Conditions provide little environmental support for an aggressive response. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: The river level or its recent change is less favorable. Broad fall presence can make Steelhead easier to locate, but this score measures feeding or aggressive responsiveness rather than how many fish are present. The measured conditions represent the Croton tailwater immediately below Croton Dam. Water temperature, clarity, and fishing conditions can be different through Newaygo, the lower river, Muskegon Lake, and the channel. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
-            "tip": "Start with 5–9 AM. If conditions change, favor the window that best combines workable light with measured water temperature.",
+            "headline": "Today’s Croton-area Steelhead responsiveness is inactive.",
+            "detail": "Conditions offer little support for an aggressive Steelhead response. 5–9 AM and 9 AM–1 PM are the leading windows, but neither has a clear advantage. Croton flow and temperature represent only the area near the dam.",
+            "tip": "Choose between 5–9 AM and 9 AM–1 PM using actual light. Verify downstream sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -24293,10 +24373,13 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
                 "cloudCoverPct": 100,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 90,
+            "displayScore": 90,
+            "scoreIsApproximate": false,
             "stage": "peak",
             "maximum": 100,
             "riverCeiling": 90,
@@ -24305,14 +24388,14 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
             "curveDirection": "near_peak",
             "winterHoldingContext": false,
             "label": "Peak presence",
-            "headline": "Steelhead are likely near their highest seasonal presence in the river.",
-            "detail": "This is the part of the season when in-river presence is usually strongest. The read describes the river as a whole; it does not place fish in a specific pool or confirm a live count.",
-            "tip": "Plan for the strongest seasonal presence this river usually offers, while remembering that this estimate cannot confirm fish at a specific spot or describe today's river conditions.",
+            "headline": "Seasonal Steelhead presence is near its expected Muskegon peak.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the Muskegon Steelhead ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_peak",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -24546,14 +24629,14 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "peak_presence_weak_push"
             ]
           },
-          "secondaryNote": "Based on USGS 04121970 immediately below Croton Dam. It represents the regulated Croton tailwater; flow, temperature, access, and safety can differ through Newaygo, the lower river, Muskegon Lake, and the channel.",
+          "secondaryNote": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
           "safety": {
             "regulationReminder": "Croton Dam is the hard upstream migration boundary. Fish only legal water below the dam, use established public access, respect private land and posted closures, and check current Michigan regulations and dam-safety notices.",
-            "gaugeBasis": "Based on USGS 04121970 immediately below Croton Dam. It represents the regulated Croton tailwater; flow, temperature, access, and safety can differ through Newaygo, the lower river, Muskegon Lake, and the channel.",
+            "gaugeBasis": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-muskegon-steelhead-activity.1"
+          "configVersion": "2026-08-11-muskegon-copy.1"
         }
       },
       {
@@ -24572,6 +24655,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
           "nextConditionRefreshAt": "2026-12-06T05:00:00.000Z",
           "runStage": {
             "stage": "peak",
+            "copyStrategy": "muskegon_croton_tailwater",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -24594,14 +24678,14 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "peakToEndDays": 37
             },
             "label": "Peak",
-            "headline": "This is typically the strongest Muskegon fall Steelhead entry opportunity.",
-            "whereToStart": "Compare the Croton tailwater, Croton-to-Newaygo pools, Newaygo-to-M-120 bends, and substantial lower-river holes toward Muskegon Lake.",
-            "detail": "Repeated entry periods support broad corridor presence, but fresh fish, established holders, clarity, and access still differ from Croton to Muskegon Lake.",
-            "tip": "Use Push to choose between lower travel water and upper holding water, then make sure the water you find matches the read.",
+            "headline": "This is typically the strongest Muskegon fall Steelhead opportunity.",
+            "whereToStart": "Start in the Upper river (Newaygo–Croton Dam), emphasizing the Croton Dam area. Compare the Middle river (M-120–Newaygo) for fresher fish.",
+            "detail": "Steelhead can be broadly present, but freshness and concentrations still vary by section.",
+            "tip": "Croton measurements apply only near the dam. Verify downstream water directly.",
             "reasonCodes": [
               "stage_peak"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Timing complete",
@@ -24704,7 +24788,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "conditions_checkpoint_peak_complete",
               "conditions_timing_complete"
             ],
-            "copyVersion": "river-run-copy-v27",
+            "copyVersion": "river-run-copy-v34",
             "previousCheckpointId": "peak_start",
             "previousCheckpointDate": "2026-11-10",
             "previousTimingLabel": "Insufficient evidence"
@@ -24721,9 +24805,9 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
           "push": {
             "score": 30,
             "label": "No clear push",
-            "headline": "Today's water does not show a clear signal for a fresh wave of fish.",
-            "detail": "The river is holding steady with no meaningful rise yet. Water temperature is favorable for fall migration and is relatively steady. Recent weather estimates indicate very little rain around the river.",
-            "tip": "Fish established holding water from the head through the inside seam and tail. Do not spend the day racing between lower travel lanes for a wave the water does not support.",
+            "headline": "Croton-area water does not show a clear fresh-movement signal.",
+            "detail": "The river is holding steady with no meaningful rise yet. Water temperature is favorable for fall migration and is relatively steady. Recent watershed weather shows little rain.",
+            "tip": "Keep Migration Stage’s section primary. Do not shift sections from this read.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
@@ -24742,14 +24826,14 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-fall-steelhead-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 93,
             "label": "Excellent",
-            "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river.",
-            "tip": "Begin on the primary travel lane feeding deep holding water. Work each hole from its head through the inside seam and tail, then keep moving until fish establish a pattern.",
+            "headline": "Croton-area flow is in its best presentation range.",
+            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read applies only near Croton Dam within the Upper river (Newaygo–Croton Dam).",
+            "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band"
@@ -24760,15 +24844,15 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 92,
             "maximum": 100,
             "label": "Highly active",
-            "headline": "Today’s Steelhead activity outlook is highly active.",
-            "detail": "Conditions strongly favor a response from Steelhead that are present and capable of reacting. The strongest window is 5–9 AM: The measured water temperature is favorable for Steelhead. The main limitation: Rain adds little extra cover. Broad fall presence can make Steelhead easier to locate, but this score measures feeding or aggressive responsiveness rather than how many fish are present. The measured conditions represent the Croton tailwater immediately below Croton Dam. Water temperature, clarity, and fishing conditions can be different through Newaygo, the lower river, Muskegon Lake, and the channel. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
-            "tip": "Start with 5–9 AM. If conditions change, favor the window that best combines workable light with measured water temperature.",
+            "headline": "Today’s Croton-area Steelhead responsiveness is highly active.",
+            "detail": "Conditions strongly support Steelhead responsiveness. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Croton flow and temperature represent only the area near the dam.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify downstream sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -24820,10 +24904,13 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
                 "cloudCoverPct": 100,
                 "precipitationIn": 0.08
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 90,
+            "displayScore": 90,
+            "scoreIsApproximate": false,
             "stage": "peak",
             "maximum": 100,
             "riverCeiling": 90,
@@ -24832,14 +24919,14 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
             "curveDirection": "near_peak",
             "winterHoldingContext": false,
             "label": "Peak presence",
-            "headline": "Steelhead are likely near their highest seasonal presence in the river.",
-            "detail": "This is the part of the season when in-river presence is usually strongest. The read describes the river as a whole; it does not place fish in a specific pool or confirm a live count.",
-            "tip": "Plan for the strongest seasonal presence this river usually offers, while remembering that this estimate cannot confirm fish at a specific spot or describe today's river conditions.",
+            "headline": "Seasonal Steelhead presence is near its expected Muskegon peak.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the Muskegon Steelhead ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_peak",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -25073,14 +25160,14 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "peak_presence_weak_push"
             ]
           },
-          "secondaryNote": "Based on USGS 04121970 immediately below Croton Dam. It represents the regulated Croton tailwater; flow, temperature, access, and safety can differ through Newaygo, the lower river, Muskegon Lake, and the channel.",
+          "secondaryNote": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
           "safety": {
             "regulationReminder": "Croton Dam is the hard upstream migration boundary. Fish only legal water below the dam, use established public access, respect private land and posted closures, and check current Michigan regulations and dam-safety notices.",
-            "gaugeBasis": "Based on USGS 04121970 immediately below Croton Dam. It represents the regulated Croton tailwater; flow, temperature, access, and safety can differ through Newaygo, the lower river, Muskegon Lake, and the channel.",
+            "gaugeBasis": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-muskegon-steelhead-activity.1"
+          "configVersion": "2026-08-11-muskegon-copy.1"
         }
       },
       {
@@ -25099,6 +25186,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
           "nextConditionRefreshAt": "2026-12-21T05:00:00.000Z",
           "runStage": {
             "stage": "ending",
+            "copyStrategy": "muskegon_croton_tailwater",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -25121,14 +25209,14 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "peakToEndDays": 37
             },
             "label": "Holding transition",
-            "headline": "Steelhead remain in the Muskegon as fall entry hands off to winter holding.",
-            "whereToStart": "Deep, speed-controlled holding water below Croton, around Newaygo, and in substantial M-120-area bends with nearby feeding current.",
-            "detail": "The migration phase is ending, not the fishery. Retained fish increasingly use deep water beside efficient feeding current.",
-            "tip": "Look for deep water, softer current, and an easy feeding lane nearby.",
+            "headline": "Muskegon Steelhead fall entry is nearing its endpoint.",
+            "whereToStart": "Start in established Upper river (Newaygo–Croton Dam) water near Croton Dam.",
+            "detail": "This seasonal entry phase is ending. Steelhead may remain after this model stops.",
+            "tip": "Do not use a late Stage to infer current activity or a new movement wave.",
             "reasonCodes": [
               "stage_ending"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Timing complete",
@@ -25231,7 +25319,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "conditions_checkpoint_peak_complete",
               "conditions_timing_complete"
             ],
-            "copyVersion": "river-run-copy-v27",
+            "copyVersion": "river-run-copy-v34",
             "previousCheckpointId": "peak_start",
             "previousCheckpointDate": "2026-11-10",
             "previousTimingLabel": "Insufficient evidence"
@@ -25248,9 +25336,9 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
           "push": {
             "score": 30,
             "label": "No clear push",
-            "headline": "Today's water does not show a clear signal for a fresh wave of fish.",
-            "detail": "The river is holding steady with no meaningful rise yet. Water temperature is favorable for fall migration and is relatively steady. Recent weather estimates indicate very little rain around the river.",
-            "tip": "Fish established holding water from the head through the inside seam and tail. Do not spend the day racing between lower travel lanes for a wave the water does not support.",
+            "headline": "Croton-area water does not show a clear fresh-movement signal.",
+            "detail": "The river is holding steady with no meaningful rise yet. Water temperature is favorable for fall migration and is relatively steady. Recent watershed weather shows little rain.",
+            "tip": "Keep Migration Stage’s section primary. Do not shift sections from this read.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
@@ -25269,14 +25357,14 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-fall-steelhead-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 93,
             "label": "Excellent",
-            "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river.",
-            "tip": "Begin on the primary travel lane feeding deep holding water. Work each hole from its head through the inside seam and tail, then keep moving until fish establish a pattern.",
+            "headline": "Croton-area flow is in its best presentation range.",
+            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read applies only near Croton Dam within the Upper river (Newaygo–Croton Dam).",
+            "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band"
@@ -25287,15 +25375,15 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 92,
             "maximum": 100,
             "label": "Highly active",
-            "headline": "Today’s Steelhead activity outlook is highly active.",
-            "detail": "Conditions strongly favor a response from Steelhead that are present and capable of reacting. The strongest window is 5–9 AM: The measured water temperature is favorable for Steelhead. The main limitation: Rain adds little extra cover. These Steelhead remain alive in the river as they transition into winter holding. Their responsiveness follows measured water temperature and current conditions rather than a terminal biological decline. The measured conditions represent the Croton tailwater immediately below Croton Dam. Water temperature, clarity, and fishing conditions can be different through Newaygo, the lower river, Muskegon Lake, and the channel. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
-            "tip": "Compare the four time windows, but expect a shorter response in cold water and keep the result separate from the winter holding outlook.",
+            "headline": "Today’s Croton-area Steelhead responsiveness is highly active.",
+            "detail": "Conditions strongly support Steelhead responsiveness. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Cold late-fall water can shorten response windows without meaning Steelhead have left the river.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify downstream sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -25347,10 +25435,13 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
                 "cloudCoverPct": 100,
                 "precipitationIn": 0.08
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 81,
+            "displayScore": 85,
+            "scoreIsApproximate": true,
             "stage": "ending",
             "maximum": 100,
             "riverCeiling": 90,
@@ -25359,14 +25450,14 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
             "curveDirection": "falling",
             "winterHoldingContext": false,
             "label": "Peak presence",
-            "headline": "Steelhead remain near their strongest fall presence as winter holding approaches.",
-            "detail": "The slight decline reflects fewer fresh arrivals—not fish simply leaving the river. This is a seasonal opportunity estimate, not a live fish count.",
-            "tip": "Treat the retained presence as strong, but expect the fishery to be shifting away from fresh fall entry. Verify current river conditions before choosing a presentation.",
+            "headline": "Seasonal Steelhead presence is near its expected Muskegon peak.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the Muskegon Steelhead ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_ending",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -25594,19 +25685,19 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
             ]
           },
           "interpretationNote": null,
-          "secondaryNote": "Based on USGS 04121970 immediately below Croton Dam. It represents the regulated Croton tailwater; flow, temperature, access, and safety can differ through Newaygo, the lower river, Muskegon Lake, and the channel.",
+          "secondaryNote": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
           "safety": {
             "regulationReminder": "Croton Dam is the hard upstream migration boundary. Fish only legal water below the dam, use established public access, respect private land and posted closures, and check current Michigan regulations and dam-safety notices.",
-            "gaugeBasis": "Based on USGS 04121970 immediately below Croton Dam. It represents the regulated Croton tailwater; flow, temperature, access, and safety can differ through Newaygo, the lower river, Muskegon Lake, and the channel.",
+            "gaugeBasis": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-muskegon-steelhead-activity.1"
+          "configVersion": "2026-08-11-muskegon-copy.1"
         }
       },
       {
-        "id": "activity_post_run",
-        "label": "Winter holding · current responsiveness",
+        "id": "activity_fall_entry_complete",
+        "label": "Fall entry complete",
         "note": "Canonical Muskegon River Fall Steelhead production copy · owner audit",
         "snapshot": {
           "riverId": "muskegon",
@@ -25620,9 +25711,10 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
           "nextConditionRefreshAt": "2026-12-24T05:00:00.000Z",
           "runStage": {
             "stage": "post_run",
+            "copyStrategy": "muskegon_croton_tailwater",
             "stagingContext": false,
             "broadBuildingContext": false,
-            "winterHoldingContext": true,
+            "winterHoldingContext": false,
             "window": {
               "snapshotDate": "2026-12-23",
               "preRunStartDate": "2026-08-20",
@@ -25641,16 +25733,16 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "startToPeakDays": 51,
               "peakToEndDays": 37
             },
-            "label": "Winter holding",
-            "headline": "Steelhead have transitioned from fall entry into winter holding below Croton Dam.",
-            "whereToStart": "Deep, speed-controlled holding water below Croton, through the Croton-to-Newaygo corridor, and in substantial Newaygo-to-M-120 bends; compare lower-river wintering holes only when local conditions support them.",
-            "detail": "The fish have not left the river. Colder water shifts the useful question from entry toward daily activity, feeding position, and efficient holding water across the long corridor.",
-            "tip": "Use the winter Steelhead read to see how active the fish may be. Fish staying in the river does not mean new fish are moving in.",
+            "label": "Fall entry complete",
+            "headline": "Muskegon Steelhead fall entry is complete.",
+            "whereToStart": "There is no active Muskegon starting section in this fall-entry model.",
+            "detail": "Steelhead may remain in the river. This model no longer estimates current presence or activity.",
+            "tip": "Check back in early September when Muskegon fall-entry tracking resumes.",
             "reasonCodes": [
               "stage_post_run",
-              "stage_winter_holding"
+              "stage_offseason"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Timing complete",
@@ -25744,16 +25836,16 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "2026-11-20"
             ],
             "sourceRefreshSlots": {},
-            "headline": "This season's Migration Timing read is complete.",
-            "tip": "Stop planning around whether fall entry was early or late. Use the winter fishery read to judge current activity and presentation.",
-            "detail": "There was not enough reliable season-long river and temperature information to make an early, normal, or late call. Steelhead presence has now shifted into winter holding, where current activity matters more than fall timing.",
+            "headline": "Muskegon fall-entry Migration Timing is complete.",
+            "tip": "Do not use completed fall timing to infer current presence or activity. Muskegon fall monitoring resumes in early September.",
+            "detail": "The Muskegon fall-entry timing window closed without enough reliable evidence for an early, typical, or delayed call.",
             "reasonCodes": [
               "conditions_baseline_missing",
               "conditions_insufficient",
               "conditions_checkpoint_peak_complete",
               "conditions_timing_complete"
             ],
-            "copyVersion": "river-run-copy-v27",
+            "copyVersion": "river-run-copy-v34",
             "previousCheckpointId": "peak_start",
             "previousCheckpointDate": "2026-11-10",
             "previousTimingLabel": "Insufficient evidence"
@@ -25769,22 +25861,22 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
           },
           "push": {
             "score": null,
-            "label": "Winter holding",
-            "headline": "The season's fresh-movement read is complete.",
-            "detail": "Steelhead may remain in the river, but the fall-entry signal has handed off to winter holding. Winter activity requires a different water-temperature and feeding read.",
-            "tip": "Use the winter fishery read for activity and presentation decisions. Do not treat a muted Push as evidence that steelhead left the river.",
+            "label": "Fall entry complete",
+            "headline": "Muskegon Steelhead fall-entry Push is complete.",
+            "detail": "Current water may affect Steelhead still in the river. This fall model no longer scores fresh-entry support.",
+            "tip": "Do not use a completed fall Push to infer current presence. Check back in early September.",
             "reasonCodes": [
               "push_tracking_complete"
             ],
             "rulesVersion": "muskegon-fall-steelhead-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 93,
             "label": "Excellent",
-            "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river.",
-            "tip": "Begin on the primary travel lane feeding deep holding water. Work each hole from its head through the inside seam and tail, then keep moving until fish establish a pattern.",
+            "headline": "Croton-area flow is in its best presentation range.",
+            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read applies only near Croton Dam within the Upper river (Newaygo–Croton Dam).",
+            "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band"
@@ -25795,88 +25887,45 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
-            "score": 92,
+            "score": null,
             "maximum": 100,
-            "label": "Highly active",
-            "headline": "Today’s Steelhead activity outlook is highly active.",
-            "detail": "Conditions strongly favor a response from Steelhead that are present and capable of reacting. The strongest window is 5–9 AM: The measured water temperature is favorable for Steelhead. The main limitation: Rain adds little extra cover. Steelhead remain alive in winter holding after the fall-entry period. Use the dedicated winter read when available; this score only describes current responsiveness. The measured conditions represent the Croton tailwater immediately below Croton Dam. Water temperature, clarity, and fishing conditions can be different through Newaygo, the lower river, Muskegon Lake, and the channel. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
-            "tip": "Compare the four time windows, but expect a shorter response in cold water and keep the result separate from the winter holding outlook.",
+            "label": "Fall entry complete",
+            "headline": "Muskegon Steelhead fall-entry Activity is complete.",
+            "detail": "Steelhead may remain in the river. This fall-entry model no longer scores their current responsiveness.",
+            "tip": "Do not use this completed fall outlook to infer current activity. Check back in early September.",
             "reasonCodes": [
-              "activity_confidence_full",
-              "activity_today",
-              "activity_run_present"
+              "activity_fall_entry_complete"
             ],
             "rulesVersion": "muskegon-fall-steelhead-activity-v1",
             "targetDate": "2026-12-23",
             "targetDayLabel": "Today",
-            "confidence": "Full",
+            "confidence": "Limited",
             "conditionalPresence": false,
-            "blocks": [
-              {
-                "id": "05-09",
-                "label": "5–9 AM",
-                "score": 92,
-                "activityLabel": "Highly active",
-                "positiveDriver": "The measured water temperature is favorable for Steelhead.",
-                "limitingFactor": "Rain adds little extra cover.",
-                "cloudCoverPct": 100,
-                "precipitationIn": 0.08
-              },
-              {
-                "id": "09-13",
-                "label": "9 AM–1 PM",
-                "score": 91,
-                "activityLabel": "Highly active",
-                "positiveDriver": "The measured water temperature is favorable for Steelhead.",
-                "limitingFactor": "Rain adds little extra cover.",
-                "cloudCoverPct": 100,
-                "precipitationIn": 0.08
-              },
-              {
-                "id": "13-17",
-                "label": "1–5 PM",
-                "score": 90,
-                "activityLabel": "Highly active",
-                "positiveDriver": "The measured water temperature is favorable for Steelhead.",
-                "limitingFactor": "Rain adds little extra cover.",
-                "cloudCoverPct": 100,
-                "precipitationIn": 0.08
-              },
-              {
-                "id": "17-21",
-                "label": "5–9 PM",
-                "score": 92,
-                "activityLabel": "Highly active",
-                "positiveDriver": "The measured water temperature is favorable for Steelhead.",
-                "limitingFactor": "Rain adds little extra cover.",
-                "cloudCoverPct": 100,
-                "precipitationIn": 0.08
-              }
-            ]
+            "blocks": [],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
-            "score": 80,
+            "score": null,
+            "scoreIsApproximate": false,
             "stage": "post_run",
             "maximum": 100,
             "riverCeiling": 90,
             "historicalRunStrength": "strong",
-            "curveFraction": 0.89,
+            "curveFraction": 0,
             "curveDirection": "outside",
-            "winterHoldingContext": true,
-            "handoffScore": 80,
-            "label": "Winter holding",
-            "headline": "Steelhead remain strongly present as the fishery shifts into winter holding.",
-            "detail": "Fall entry finished at 80/100. That retained-presence reference stays visible, but it is not a winter activity score; winter opportunity depends on water temperature, feeding activity, and presentation.",
-            "tip": "Open the Winter Holding read for current activity, likely holding water, and presentation guidance. Treat 80/100 as retained seasonal presence—not proof that fish are active today.",
+            "winterHoldingContext": false,
+            "label": "Fall entry complete",
+            "headline": "Muskegon Steelhead fall entry is complete.",
+            "detail": "Steelhead may remain in the river. This fall-entry model no longer estimates their current seasonal presence.",
+            "tip": "Check back in early September when Muskegon fall movement tracking resumes.",
             "reasonCodes": [
               "stage_post_run",
-              "historical_presence_curve",
-              "fish_presence_winter_handoff"
+              "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -26103,21 +26152,15 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "data_quality_limited"
             ]
           },
-          "interpretationNote": {
-            "headline": "Steelhead are still in the river, but winter conditions now control the day.",
-            "detail": "The fall-entry period ended with strong retained presence. Use the winter fishery read to judge activity and presentation; Push and Migration Timing are intentionally complete because they answer the wrong question now.",
-            "reasonCodes": [
-              "winter_holding_read_required"
-            ]
-          },
-          "secondaryNote": "Based on USGS 04121970 immediately below Croton Dam. It represents the regulated Croton tailwater; flow, temperature, access, and safety can differ through Newaygo, the lower river, Muskegon Lake, and the channel.",
+          "interpretationNote": null,
+          "secondaryNote": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
           "safety": {
             "regulationReminder": "Croton Dam is the hard upstream migration boundary. Fish only legal water below the dam, use established public access, respect private land and posted closures, and check current Michigan regulations and dam-safety notices.",
-            "gaugeBasis": "Based on USGS 04121970 immediately below Croton Dam. It represents the regulated Croton tailwater; flow, temperature, access, and safety can differ through Newaygo, the lower river, Muskegon Lake, and the channel.",
+            "gaugeBasis": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-muskegon-steelhead-activity.1"
+          "configVersion": "2026-08-11-muskegon-copy.1"
         }
       },
       {
@@ -26136,6 +26179,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
           "nextConditionRefreshAt": "2026-11-16T05:00:00.000Z",
           "runStage": {
             "stage": "peak",
+            "copyStrategy": "muskegon_croton_tailwater",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -26158,14 +26202,14 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "peakToEndDays": 37
             },
             "label": "Peak",
-            "headline": "This is typically the strongest Muskegon fall Steelhead entry opportunity.",
-            "whereToStart": "Compare the Croton tailwater, Croton-to-Newaygo pools, Newaygo-to-M-120 bends, and substantial lower-river holes toward Muskegon Lake.",
-            "detail": "Repeated entry periods support broad corridor presence, but fresh fish, established holders, clarity, and access still differ from Croton to Muskegon Lake.",
-            "tip": "Use Push to choose between lower travel water and upper holding water, then make sure the water you find matches the read.",
+            "headline": "This is typically the strongest Muskegon fall Steelhead opportunity.",
+            "whereToStart": "Start in the Upper river (Newaygo–Croton Dam), emphasizing the Croton Dam area. Compare the Middle river (M-120–Newaygo) for fresher fish.",
+            "detail": "Steelhead can be broadly present, but freshness and concentrations still vary by section.",
+            "tip": "Croton measurements apply only near the dam. Verify downstream water directly.",
             "reasonCodes": [
               "stage_peak"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -26249,15 +26293,15 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "2026-11-09"
             ],
             "sourceRefreshSlots": {},
-            "headline": "There is not enough reliable information for a Migration Timing call.",
-            "tip": "Do not move farther upstream or stay lower based on this timing read. Fish the section identified by Migration Stage and begin in its most established holding water; change sections only when direct fish activity or a dependable later read supports it.",
+            "headline": "There is not enough reliable Muskegon evidence for a Migration Timing call.",
+            "tip": "Keep the Muskegon section named by Migration Stage. Do not shift sections from this timing read.",
             "detail": "There are not enough dependable past seasons to judge whether this migration is early, normal, or late.",
             "reasonCodes": [
               "conditions_baseline_missing",
               "conditions_insufficient",
               "conditions_checkpoint_peak_start"
             ],
-            "copyVersion": "river-run-copy-v27",
+            "copyVersion": "river-run-copy-v34",
             "previousCheckpointId": "building_established",
             "previousCheckpointDate": "2026-10-15",
             "previousTimingLabel": "Insufficient evidence"
@@ -26282,14 +26326,14 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "temperature_unavailable"
             ],
             "rulesVersion": "muskegon-fall-steelhead-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 93,
             "label": "Excellent",
-            "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river.",
-            "tip": "Begin on the primary travel lane feeding deep holding water. Work each hole from its head through the inside seam and tail, then keep moving until fish establish a pattern.",
+            "headline": "Croton-area flow is in its best presentation range.",
+            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read applies only near Croton Dam within the Upper river (Newaygo–Croton Dam).",
+            "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band"
@@ -26300,15 +26344,15 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 55,
             "maximum": 100,
             "label": "Moderate",
-            "headline": "Today’s Steelhead activity outlook is moderate.",
-            "detail": "Some useful factors are present, but the response window is mixed. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Measured water temperature is unavailable. Broad fall presence can make Steelhead easier to locate, but this score measures feeding or aggressive responsiveness rather than how many fish are present. The measured conditions represent the Croton tailwater immediately below Croton Dam. Water temperature, clarity, and fishing conditions can be different through Newaygo, the lower river, Muskegon Lake, and the channel. One important reading is unavailable or comes from tomorrow’s forecast, so the outlook is kept conservative.",
-            "tip": "Start with 5–9 AM. If conditions change, favor the window that best combines workable light with measured water temperature.",
+            "headline": "Today’s Croton-area Steelhead responsiveness is moderate.",
+            "detail": "Conditions offer mixed support for Steelhead responsiveness. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Moderate confidence reflects missing or forecast inputs; river measurements still represent only the Croton Dam area.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify downstream sections directly.",
             "reasonCodes": [
               "activity_confidence_moderate",
               "activity_today",
@@ -26360,10 +26404,13 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
                 "cloudCoverPct": 75,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 90,
+            "displayScore": 90,
+            "scoreIsApproximate": false,
             "stage": "peak",
             "maximum": 100,
             "riverCeiling": 90,
@@ -26372,14 +26419,14 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
             "curveDirection": "near_peak",
             "winterHoldingContext": false,
             "label": "Peak presence",
-            "headline": "Steelhead are likely near their highest seasonal presence in the river.",
-            "detail": "This is the part of the season when in-river presence is usually strongest. The read describes the river as a whole; it does not place fish in a specific pool or confirm a live count.",
-            "tip": "Plan for the strongest seasonal presence this river usually offers, while remembering that this estimate cannot confirm fish at a specific spot or describe today's river conditions.",
+            "headline": "Seasonal Steelhead presence is near its expected Muskegon peak.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the Muskegon Steelhead ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_peak",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -26590,14 +26637,14 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
             ]
           },
           "interpretationNote": null,
-          "secondaryNote": "Based on USGS 04121970 immediately below Croton Dam. It represents the regulated Croton tailwater; flow, temperature, access, and safety can differ through Newaygo, the lower river, Muskegon Lake, and the channel.",
+          "secondaryNote": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
           "safety": {
             "regulationReminder": "Croton Dam is the hard upstream migration boundary. Fish only legal water below the dam, use established public access, respect private land and posted closures, and check current Michigan regulations and dam-safety notices.",
-            "gaugeBasis": "Based on USGS 04121970 immediately below Croton Dam. It represents the regulated Croton tailwater; flow, temperature, access, and safety can differ through Newaygo, the lower river, Muskegon Lake, and the channel.",
+            "gaugeBasis": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-muskegon-steelhead-activity.1"
+          "configVersion": "2026-08-11-muskegon-copy.1"
         }
       },
       {
@@ -26616,6 +26663,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
           "nextConditionRefreshAt": "2026-11-16T05:00:00.000Z",
           "runStage": {
             "stage": "peak",
+            "copyStrategy": "muskegon_croton_tailwater",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -26638,14 +26686,14 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "peakToEndDays": 37
             },
             "label": "Peak",
-            "headline": "This is typically the strongest Muskegon fall Steelhead entry opportunity.",
-            "whereToStart": "Compare the Croton tailwater, Croton-to-Newaygo pools, Newaygo-to-M-120 bends, and substantial lower-river holes toward Muskegon Lake.",
-            "detail": "Repeated entry periods support broad corridor presence, but fresh fish, established holders, clarity, and access still differ from Croton to Muskegon Lake.",
-            "tip": "Use Push to choose between lower travel water and upper holding water, then make sure the water you find matches the read.",
+            "headline": "This is typically the strongest Muskegon fall Steelhead opportunity.",
+            "whereToStart": "Start in the Upper river (Newaygo–Croton Dam), emphasizing the Croton Dam area. Compare the Middle river (M-120–Newaygo) for fresher fish.",
+            "detail": "Steelhead can be broadly present, but freshness and concentrations still vary by section.",
+            "tip": "Croton measurements apply only near the dam. Verify downstream water directly.",
             "reasonCodes": [
               "stage_peak"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -26729,15 +26777,15 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "2026-11-09"
             ],
             "sourceRefreshSlots": {},
-            "headline": "There is not enough reliable information for a Migration Timing call.",
-            "tip": "Do not move farther upstream or stay lower based on this timing read. Fish the section identified by Migration Stage and begin in its most established holding water; change sections only when direct fish activity or a dependable later read supports it.",
+            "headline": "There is not enough reliable Muskegon evidence for a Migration Timing call.",
+            "tip": "Keep the Muskegon section named by Migration Stage. Do not shift sections from this timing read.",
             "detail": "There are not enough dependable past seasons to judge whether this migration is early, normal, or late.",
             "reasonCodes": [
               "conditions_baseline_missing",
               "conditions_insufficient",
               "conditions_checkpoint_peak_start"
             ],
-            "copyVersion": "river-run-copy-v27",
+            "copyVersion": "river-run-copy-v34",
             "previousCheckpointId": "building_established",
             "previousCheckpointDate": "2026-10-15",
             "previousTimingLabel": "Insufficient evidence"
@@ -26761,27 +26809,27 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "gauge_missing"
             ],
             "rulesVersion": "muskegon-fall-steelhead-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": null,
             "label": "Unavailable",
-            "headline": "There is no dependable Fishability read right now.",
-            "detail": "A recent river-level reading is missing, so current flow and direction cannot be judged responsibly.",
-            "tip": "Do not plan from the last known level. Check again after the next update, and verify the river at the first access before choosing where or how to fish.",
+            "headline": "A current Croton Fishability reading is unavailable.",
+            "detail": "Without current Croton flow and direction, presentation conditions near the dam cannot be determined.",
+            "tip": "Do not extend an old or missing Croton read through the Muskegon River. Verify current conditions directly.",
             "reasonCodes": [
               "gauge_missing"
             ],
             "rulesVersion": "muskegon-croton-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 43,
             "maximum": 100,
             "label": "Moderate",
-            "headline": "Today’s Steelhead activity outlook is moderate.",
-            "detail": "Some useful factors are present, but the response window is mixed. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Current river behavior is unavailable. Broad fall presence can make Steelhead easier to locate, but this score measures feeding or aggressive responsiveness rather than how many fish are present. The measured conditions represent the Croton tailwater immediately below Croton Dam. Water temperature, clarity, and fishing conditions can be different through Newaygo, the lower river, Muskegon Lake, and the channel. One important reading is unavailable or comes from tomorrow’s forecast, so the outlook is kept conservative.",
-            "tip": "Start with 5–9 AM. If conditions change, favor the window that best combines workable light with measured water temperature.",
+            "headline": "Today’s Croton-area Steelhead responsiveness is moderate.",
+            "detail": "Conditions offer mixed support for Steelhead responsiveness. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Moderate confidence reflects missing or forecast inputs; river measurements still represent only the Croton Dam area.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify downstream sections directly.",
             "reasonCodes": [
               "activity_confidence_moderate",
               "activity_today",
@@ -26833,10 +26881,13 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
                 "cloudCoverPct": 75,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 90,
+            "displayScore": 90,
+            "scoreIsApproximate": false,
             "stage": "peak",
             "maximum": 100,
             "riverCeiling": 90,
@@ -26845,14 +26896,14 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
             "curveDirection": "near_peak",
             "winterHoldingContext": false,
             "label": "Peak presence",
-            "headline": "Steelhead are likely near their highest seasonal presence in the river.",
-            "detail": "This is the part of the season when in-river presence is usually strongest. The read describes the river as a whole; it does not place fish in a specific pool or confirm a live count.",
-            "tip": "Plan for the strongest seasonal presence this river usually offers, while remembering that this estimate cannot confirm fish at a specific spot or describe today's river conditions.",
+            "headline": "Seasonal Steelhead presence is near its expected Muskegon peak.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the Muskegon Steelhead ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_peak",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": null,
           "weather": {
@@ -27070,14 +27121,14 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
             ]
           },
           "interpretationNote": null,
-          "secondaryNote": "Based on USGS 04121970 immediately below Croton Dam. It represents the regulated Croton tailwater; flow, temperature, access, and safety can differ through Newaygo, the lower river, Muskegon Lake, and the channel.",
+          "secondaryNote": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
           "safety": {
             "regulationReminder": "Croton Dam is the hard upstream migration boundary. Fish only legal water below the dam, use established public access, respect private land and posted closures, and check current Michigan regulations and dam-safety notices.",
-            "gaugeBasis": "Based on USGS 04121970 immediately below Croton Dam. It represents the regulated Croton tailwater; flow, temperature, access, and safety can differ through Newaygo, the lower river, Muskegon Lake, and the channel.",
+            "gaugeBasis": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-muskegon-steelhead-activity.1"
+          "configVersion": "2026-08-11-muskegon-copy.1"
         }
       }
     ]
@@ -27087,8 +27138,8 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
     "label": "Fish In River",
     "scenarios": [
       {
-        "id": "presence_post_run_offseason",
-        "label": "0 / 100 · Offseason · outside",
+        "id": "presence_fall_entry_complete_outside",
+        "label": "null / 100 · Fall entry complete · outside",
         "note": "Canonical Muskegon River Fall Steelhead production copy · owner audit",
         "snapshot": {
           "riverId": "muskegon",
@@ -27102,6 +27153,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
           "nextConditionRefreshAt": "2026-08-15T05:00:00.000Z",
           "runStage": {
             "stage": "post_run",
+            "copyStrategy": "muskegon_croton_tailwater",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -27123,16 +27175,16 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "startToPeakDays": 51,
               "peakToEndDays": 37
             },
-            "label": "Offseason",
-            "headline": "Steelhead are outside the Muskegon fall-entry model.",
-            "whereToStart": "No active fall-entry starting reach; use the winter Steelhead read for current holding-water guidance instead.",
-            "detail": "This profile no longer evaluates fall migration; winter activity requires a holding-focused seasonal read.",
-            "tip": "The fall-entry read is finished. Use the winter Steelhead read instead.",
+            "label": "Fall entry complete",
+            "headline": "Muskegon Steelhead fall entry is complete.",
+            "whereToStart": "There is no active Muskegon starting section in this fall-entry model.",
+            "detail": "Steelhead may remain in the river. This model no longer estimates current presence or activity.",
+            "tip": "Check back in early September when Muskegon fall-entry tracking resumes.",
             "reasonCodes": [
               "stage_post_run",
               "stage_offseason"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Not monitoring yet",
@@ -27151,13 +27203,13 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
             "historicalYears": 0,
             "sourceDates": [],
             "sourceRefreshSlots": {},
-            "headline": "Migration Timing is not active right now.",
-            "detail": "Timing monitoring begins before the expected river entry, but that seasonal observation window is not active yet.",
-            "tip": "Check Migration Stage for the current seasonal position and return to Migration Timing when early monitoring begins.",
+            "headline": "Muskegon Migration Timing is not monitoring yet.",
+            "detail": "Season-to-date Croton flow and measured-temperature monitoring resumes in early September.",
+            "tip": "Check back in early September when Muskegon timing monitoring resumes.",
             "reasonCodes": [
               "conditions_monitoring_inactive"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -27170,22 +27222,22 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
           },
           "push": {
             "score": null,
-            "label": "Offseason",
-            "headline": "Push is not active outside the river migration season.",
-            "detail": "Rain, river level, and water temperature can still change, but they do not provide a useful fresh-arrival signal for this species right now.",
-            "tip": "Do not use Push to plan for this species outside its migration season. Follow an active species instead, or return when early monitoring begins.",
+            "label": "Fall entry complete",
+            "headline": "Muskegon Steelhead fall-entry Push is complete.",
+            "detail": "Current water may affect Steelhead still in the river. This fall model no longer scores fresh-entry support.",
+            "tip": "Do not use a completed fall Push to infer current presence. Check back in early September.",
             "reasonCodes": [
-              "push_tracking_offseason"
+              "push_tracking_complete"
             ],
             "rulesVersion": "muskegon-fall-steelhead-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 93,
             "label": "Excellent",
-            "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river.",
-            "tip": "Begin on the primary travel lane feeding deep holding water. Work each hole from its head through the inside seam and tail, then keep moving until fish establish a pattern.",
+            "headline": "Croton-area flow is in its best presentation range.",
+            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read applies only near Croton Dam within the Upper river (Newaygo–Croton Dam).",
+            "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band"
@@ -27196,11 +27248,12 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": null,
           "fishInRiver": {
-            "score": 0,
+            "score": null,
+            "scoreIsApproximate": false,
             "stage": "post_run",
             "maximum": 100,
             "riverCeiling": 90,
@@ -27208,15 +27261,15 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
             "curveFraction": 0,
             "curveDirection": "outside",
             "winterHoldingContext": false,
-            "label": "Offseason",
-            "headline": "Steelhead are outside their river migration season.",
-            "detail": "A dependable seasonal presence of Steelhead is not expected in the river right now.",
-            "tip": "Do not build a river trip around this species right now. Target a species with an active seasonal window and return as the next migration approaches.",
+            "label": "Fall entry complete",
+            "headline": "Muskegon Steelhead fall entry is complete.",
+            "detail": "Steelhead may remain in the river. This fall-entry model no longer estimates their current seasonal presence.",
+            "tip": "Check back in early September when Muskegon fall movement tracking resumes.",
             "reasonCodes": [
               "stage_post_run",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -27442,21 +27495,15 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "data_quality_fresh"
             ]
           },
-          "interpretationNote": {
-            "headline": "The river should fish well, but seasonal fish presence is still low.",
-            "detail": "Good flow makes presentations easier, but it does not put fish in the river. Begin in the deepest established holding water and skip broad searches through fast travel lanes as seasonal presence thins.",
-            "reasonCodes": [
-              "good_fishability_low_presence"
-            ]
-          },
-          "secondaryNote": "Based on USGS 04121970 immediately below Croton Dam. It represents the regulated Croton tailwater; flow, temperature, access, and safety can differ through Newaygo, the lower river, Muskegon Lake, and the channel.",
+          "interpretationNote": null,
+          "secondaryNote": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
           "safety": {
             "regulationReminder": "Croton Dam is the hard upstream migration boundary. Fish only legal water below the dam, use established public access, respect private land and posted closures, and check current Michigan regulations and dam-safety notices.",
-            "gaugeBasis": "Based on USGS 04121970 immediately below Croton Dam. It represents the regulated Croton tailwater; flow, temperature, access, and safety can differ through Newaygo, the lower river, Muskegon Lake, and the channel.",
+            "gaugeBasis": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-muskegon-steelhead-activity.1"
+          "configVersion": "2026-08-11-muskegon-copy.1"
         }
       },
       {
@@ -27475,6 +27522,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
           "nextConditionRefreshAt": "2026-08-21T05:00:00.000Z",
           "runStage": {
             "stage": "pre_run",
+            "copyStrategy": "muskegon_croton_tailwater",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -27497,14 +27545,14 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "peakToEndDays": 37
             },
             "label": "Before migration",
-            "headline": "Steelhead fall entry has not started yet.",
-            "whereToStart": "Muskegon Lake, the Lake Michigan channel, and the river mouth for fall-entry context—not the inland corridor yet.",
-            "detail": "Dependable fall entry is not expected through the Muskegon Lake-to-Croton corridor yet.",
-            "tip": "Check again when fish begin staging near the lake and river mouth.",
+            "headline": "Dependable Muskegon Steelhead fall entry has not started.",
+            "whereToStart": "Stay with Muskegon Lake, the Lake Michigan channel, and the river entrance.",
+            "detail": "The fall-entry window has not opened yet. An isolated river fish would be an early exception.",
+            "tip": "Check again when early Steelhead begin appearing near the river entrance.",
             "reasonCodes": [
               "stage_pre_run"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Not monitoring yet",
@@ -27523,13 +27571,13 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
             "historicalYears": 0,
             "sourceDates": [],
             "sourceRefreshSlots": {},
-            "headline": "Migration Timing is not active right now.",
-            "detail": "Timing monitoring begins before the expected river entry, but that seasonal observation window is not active yet.",
-            "tip": "Check Migration Stage for the current seasonal position and return to Migration Timing when early monitoring begins.",
+            "headline": "Muskegon Migration Timing is not monitoring yet.",
+            "detail": "Season-to-date Croton flow and measured-temperature monitoring resumes in early September.",
+            "tip": "Check back in early September when Muskegon timing monitoring resumes.",
             "reasonCodes": [
               "conditions_monitoring_inactive"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -27543,21 +27591,21 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
           "push": {
             "score": null,
             "label": "Waiting for migration",
-            "headline": "Dependable fall entry has not started, so Push is not active yet.",
-            "detail": "An occasional early steelhead is possible, but Push is reserved for the expected entry window, when rain, river level, and water temperature can provide a responsible fresh-movement read.",
-            "tip": "Keep most effort near the lake, harbor, and river-mouth transition. Do not move inland just because rain or cooling resembles an in-season movement event.",
+            "headline": "Dependable Muskegon Steelhead fall entry has not started.",
+            "detail": "Croton flow and measured temperature are not scored as an in-season fresh-movement signal yet.",
+            "tip": "Use Migration Stage. Do not move inland because offseason water resembles a Push.",
             "reasonCodes": [
               "push_tracking_not_started"
             ],
             "rulesVersion": "muskegon-fall-steelhead-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 93,
             "label": "Excellent",
-            "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river.",
-            "tip": "Begin on the primary travel lane feeding deep holding water. Work each hole from its head through the inside seam and tail, then keep moving until fish establish a pattern.",
+            "headline": "Croton-area flow is in its best presentation range.",
+            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read applies only near Croton Dam within the Upper river (Newaygo–Croton Dam).",
+            "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band"
@@ -27568,11 +27616,13 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": null,
           "fishInRiver": {
             "score": 0,
+            "displayScore": 0,
+            "scoreIsApproximate": false,
             "stage": "pre_run",
             "maximum": 100,
             "riverCeiling": 90,
@@ -27581,14 +27631,14 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
             "curveDirection": "outside",
             "winterHoldingContext": false,
             "label": "Not expected yet",
-            "headline": "Steelhead are not expected in meaningful numbers yet.",
-            "detail": "Most Steelhead are not expected to have entered the river in dependable numbers. Any fish already present would be early exceptions.",
-            "tip": "Treat this as no dependable in-river opportunity yet. Keep expectations at zero, and do not interpret an isolated early fish as evidence of dependable river presence.",
+            "headline": "Dependable Steelhead presence is not expected in the Muskegon River yet.",
+            "detail": "The seasonal estimate remains at zero. Any river fish would be an early exception.",
+            "tip": "Use Migration Stage for Muskegon Lake, channel, and river-entrance context.",
             "reasonCodes": [
               "stage_pre_run",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -27821,14 +27871,14 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "good_fishability_low_presence"
             ]
           },
-          "secondaryNote": "Based on USGS 04121970 immediately below Croton Dam. It represents the regulated Croton tailwater; flow, temperature, access, and safety can differ through Newaygo, the lower river, Muskegon Lake, and the channel.",
+          "secondaryNote": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
           "safety": {
             "regulationReminder": "Croton Dam is the hard upstream migration boundary. Fish only legal water below the dam, use established public access, respect private land and posted closures, and check current Michigan regulations and dam-safety notices.",
-            "gaugeBasis": "Based on USGS 04121970 immediately below Croton Dam. It represents the regulated Croton tailwater; flow, temperature, access, and safety can differ through Newaygo, the lower river, Muskegon Lake, and the channel.",
+            "gaugeBasis": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-muskegon-steelhead-activity.1"
+          "configVersion": "2026-08-11-muskegon-copy.1"
         }
       },
       {
@@ -27847,6 +27897,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
           "nextConditionRefreshAt": "2026-09-26T05:00:00.000Z",
           "runStage": {
             "stage": "beginning",
+            "copyStrategy": "muskegon_croton_tailwater",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -27869,14 +27920,14 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "peakToEndDays": 37
             },
             "label": "Beginning",
-            "headline": "The first fall Steelhead are entering the Muskegon's long migratory corridor.",
-            "whereToStart": "Deep lower-river travel water from Muskegon Lake toward M-120 first, then substantial Newaygo-to-M-120 resting water; check Croton only after those fresh-entry reaches.",
-            "detail": "New fish can be scattered from the lower river into middle-corridor resting water while earlier arrivals may already be nearer Croton.",
-            "tip": "Check lower-river travel lanes and good resting holes before assuming the newest fish are up by Croton.",
+            "headline": "The first fall Steelhead are entering and moving through the Muskegon River.",
+            "whereToStart": "Start in the Lower river (Muskegon Lake–M-120). Add the Middle river (M-120–Newaygo) after direct fish activity supports the move.",
+            "detail": "New fish remain scattered while earlier arrivals may already be farther upstream.",
+            "tip": "Cover travel water and the first substantial holding areas before moving upstream.",
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -27914,15 +27965,15 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "2026-09-24"
             ],
             "sourceRefreshSlots": {},
-            "headline": "There is not enough reliable information for a Migration Timing call.",
-            "tip": "Do not move farther upstream or stay lower based on this timing read. Fish the section identified by Migration Stage and begin in its most established holding water; change sections only when direct fish activity or a dependable later read supports it.",
+            "headline": "There is not enough reliable Muskegon evidence for a Migration Timing call.",
+            "tip": "Keep the Muskegon section named by Migration Stage. Do not shift sections from this timing read.",
             "detail": "There are not enough dependable past seasons to judge whether this migration is early, normal, or late.",
             "reasonCodes": [
               "conditions_baseline_missing",
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -27936,9 +27987,9 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
           "push": {
             "score": 18,
             "label": "Weak",
-            "headline": "Today's water shows little support for a fresh wave of fish.",
-            "detail": "The river is holding steady with no meaningful rise yet. Water temperature remains too warm to support a strong Push and is relatively steady. Recent weather estimates indicate very little rain around the river.",
-            "tip": "Do not build the day around new arrivals while the river remains warm. Start in established holding water at first or last light and leave lower travel lanes secondary.",
+            "headline": "Croton-area water shows little support for fresh movement.",
+            "detail": "The river is holding steady with no meaningful rise yet. Water temperature remains too warm to support a strong Push and is relatively steady. Recent watershed weather shows little rain.",
+            "tip": "Keep Migration Stage’s section primary. Do not shift sections from this read.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
@@ -27958,14 +28009,14 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-fall-steelhead-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 93,
             "label": "Excellent",
-            "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river.",
-            "tip": "Begin on the primary travel lane feeding deep holding water. Work each hole from its head through the inside seam and tail, then keep moving until fish establish a pattern.",
+            "headline": "Croton-area flow is in its best presentation range.",
+            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read applies only near Croton Dam within the Upper river (Newaygo–Croton Dam).",
+            "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band"
@@ -27976,15 +28027,15 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 65,
             "maximum": 100,
             "label": "Active",
-            "headline": "Today’s Steelhead activity outlook is active.",
-            "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. Early fall Steelhead are entering with energy reserves intact. This score describes feeding or aggressive responsiveness for fish already in the river, not fresh movement. The measured conditions represent the Croton tailwater immediately below Croton Dam. Water temperature, clarity, and fishing conditions can be different through Newaygo, the lower river, Muskegon Lake, and the channel. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
-            "tip": "Start with 5–9 AM. If conditions change, favor the window that best combines workable light with measured water temperature.",
+            "headline": "Today’s Croton-area Steelhead responsiveness is active.",
+            "detail": "Conditions support a meaningful Steelhead response. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Croton flow and temperature represent only the area near the dam.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify downstream sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -28036,10 +28087,13 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 5,
+            "displayScore": 5,
+            "scoreIsApproximate": true,
             "stage": "beginning",
             "maximum": 100,
             "riverCeiling": 90,
@@ -28048,14 +28102,14 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
             "curveDirection": "rising",
             "winterHoldingContext": false,
             "label": "Low presence",
-            "headline": "A small number of Steelhead may be in the river, and seasonal presence is still building.",
-            "detail": "This part of the season usually brings low presence, with more fish expected to enter and spread through the river. This is a seasonal estimate, not a live fish count.",
-            "tip": "Treat this as an early, low-odds river opportunity. Expect scattered results, and use direct fish activity before committing the full day.",
+            "headline": "Seasonal Steelhead presence is low and building.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the Muskegon Steelhead ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -28289,14 +28343,14 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "good_fishability_low_presence"
             ]
           },
-          "secondaryNote": "Based on USGS 04121970 immediately below Croton Dam. It represents the regulated Croton tailwater; flow, temperature, access, and safety can differ through Newaygo, the lower river, Muskegon Lake, and the channel.",
+          "secondaryNote": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
           "safety": {
             "regulationReminder": "Croton Dam is the hard upstream migration boundary. Fish only legal water below the dam, use established public access, respect private land and posted closures, and check current Michigan regulations and dam-safety notices.",
-            "gaugeBasis": "Based on USGS 04121970 immediately below Croton Dam. It represents the regulated Croton tailwater; flow, temperature, access, and safety can differ through Newaygo, the lower river, Muskegon Lake, and the channel.",
+            "gaugeBasis": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-muskegon-steelhead-activity.1"
+          "configVersion": "2026-08-11-muskegon-copy.1"
         }
       },
       {
@@ -28315,6 +28369,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
           "nextConditionRefreshAt": "2026-10-09T05:00:00.000Z",
           "runStage": {
             "stage": "beginning",
+            "copyStrategy": "muskegon_croton_tailwater",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -28337,14 +28392,14 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "peakToEndDays": 37
             },
             "label": "Beginning",
-            "headline": "The first fall Steelhead are entering the Muskegon's long migratory corridor.",
-            "whereToStart": "Deep lower-river travel water from Muskegon Lake toward M-120 first, then substantial Newaygo-to-M-120 resting water; check Croton only after those fresh-entry reaches.",
-            "detail": "New fish can be scattered from the lower river into middle-corridor resting water while earlier arrivals may already be nearer Croton.",
-            "tip": "Check lower-river travel lanes and good resting holes before assuming the newest fish are up by Croton.",
+            "headline": "The first fall Steelhead are entering and moving through the Muskegon River.",
+            "whereToStart": "Start in the Lower river (Muskegon Lake–M-120). Add the Middle river (M-120–Newaygo) after direct fish activity supports the move.",
+            "detail": "New fish remain scattered while earlier arrivals may already be farther upstream.",
+            "tip": "Cover travel water and the first substantial holding areas before moving upstream.",
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -28382,15 +28437,15 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "2026-09-24"
             ],
             "sourceRefreshSlots": {},
-            "headline": "There is not enough reliable information for a Migration Timing call.",
-            "tip": "Do not move farther upstream or stay lower based on this timing read. Fish the section identified by Migration Stage and begin in its most established holding water; change sections only when direct fish activity or a dependable later read supports it.",
+            "headline": "There is not enough reliable Muskegon evidence for a Migration Timing call.",
+            "tip": "Keep the Muskegon section named by Migration Stage. Do not shift sections from this timing read.",
             "detail": "There are not enough dependable past seasons to judge whether this migration is early, normal, or late.",
             "reasonCodes": [
               "conditions_baseline_missing",
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -28404,9 +28459,9 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
           "push": {
             "score": 18,
             "label": "Weak",
-            "headline": "Today's water shows little support for a fresh wave of fish.",
-            "detail": "The river is holding steady with no meaningful rise yet. Water temperature remains too warm to support a strong Push and is relatively steady. Recent weather estimates indicate very little rain around the river.",
-            "tip": "Do not build the day around new arrivals while the river remains warm. Start in established holding water at first or last light and leave lower travel lanes secondary.",
+            "headline": "Croton-area water shows little support for fresh movement.",
+            "detail": "The river is holding steady with no meaningful rise yet. Water temperature remains too warm to support a strong Push and is relatively steady. Recent watershed weather shows little rain.",
+            "tip": "Keep Migration Stage’s section primary. Do not shift sections from this read.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
@@ -28426,14 +28481,14 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-fall-steelhead-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 93,
             "label": "Excellent",
-            "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river.",
-            "tip": "Begin on the primary travel lane feeding deep holding water. Work each hole from its head through the inside seam and tail, then keep moving until fish establish a pattern.",
+            "headline": "Croton-area flow is in its best presentation range.",
+            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read applies only near Croton Dam within the Upper river (Newaygo–Croton Dam).",
+            "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band"
@@ -28444,15 +28499,15 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 65,
             "maximum": 100,
             "label": "Active",
-            "headline": "Today’s Steelhead activity outlook is active.",
-            "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. Early fall Steelhead are entering with energy reserves intact. This score describes feeding or aggressive responsiveness for fish already in the river, not fresh movement. The measured conditions represent the Croton tailwater immediately below Croton Dam. Water temperature, clarity, and fishing conditions can be different through Newaygo, the lower river, Muskegon Lake, and the channel. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
-            "tip": "Start with 5–9 AM. If conditions change, favor the window that best combines workable light with measured water temperature.",
+            "headline": "Today’s Croton-area Steelhead responsiveness is active.",
+            "detail": "Conditions support a meaningful Steelhead response. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Croton flow and temperature represent only the area near the dam.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify downstream sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -28504,10 +28559,13 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 19,
+            "displayScore": 20,
+            "scoreIsApproximate": true,
             "stage": "beginning",
             "maximum": 100,
             "riverCeiling": 90,
@@ -28516,14 +28574,14 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
             "curveDirection": "rising",
             "winterHoldingContext": false,
             "label": "Limited presence",
-            "headline": "Some Steelhead are likely in the river, but seasonal presence is still developing.",
-            "detail": "This part of the season usually brings limited presence, with more fish expected to enter and spread through the river. This is a seasonal estimate, not a live fish count.",
-            "tip": "Plan for an emerging but uneven river opportunity. Cover water efficiently, and do not assume every promising stop holds fish.",
+            "headline": "Seasonal Steelhead presence is limited and building.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the Muskegon Steelhead ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -28757,14 +28815,14 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "good_fishability_low_presence"
             ]
           },
-          "secondaryNote": "Based on USGS 04121970 immediately below Croton Dam. It represents the regulated Croton tailwater; flow, temperature, access, and safety can differ through Newaygo, the lower river, Muskegon Lake, and the channel.",
+          "secondaryNote": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
           "safety": {
             "regulationReminder": "Croton Dam is the hard upstream migration boundary. Fish only legal water below the dam, use established public access, respect private land and posted closures, and check current Michigan regulations and dam-safety notices.",
-            "gaugeBasis": "Based on USGS 04121970 immediately below Croton Dam. It represents the regulated Croton tailwater; flow, temperature, access, and safety can differ through Newaygo, the lower river, Muskegon Lake, and the channel.",
+            "gaugeBasis": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-muskegon-steelhead-activity.1"
+          "configVersion": "2026-08-11-muskegon-copy.1"
         }
       },
       {
@@ -28783,6 +28841,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
           "nextConditionRefreshAt": "2026-10-19T05:00:00.000Z",
           "runStage": {
             "stage": "building",
+            "copyStrategy": "muskegon_croton_tailwater",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -28806,13 +28865,13 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
             },
             "label": "Building",
             "headline": "Steelhead are becoming established through more of the Muskegon River.",
-            "whereToStart": "Newaygo-to-M-120 holding water first, then compare Croton-to-Newaygo pools with the deep lower river for accumulated versus newer fish.",
-            "detail": "Earlier arrivals can hold nearer Croton while newer fish continue entering below M-120; freshness and concentrations can differ sharply by reach.",
-            "tip": "Check at least two sections of river, then stay where you find the best signs of fish.",
+            "whereToStart": "Start in the Middle river (M-120–Newaygo). Check the Croton Dam area in the Upper river (Newaygo–Croton Dam) for earlier arrivals.",
+            "detail": "Earlier arrivals can hold near Croton while newer fish remain farther downstream.",
+            "tip": "Croton measurements apply only near the dam. Verify downstream water directly.",
             "reasonCodes": [
               "stage_building"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -28870,15 +28929,15 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "2026-10-14"
             ],
             "sourceRefreshSlots": {},
-            "headline": "There is not enough reliable information for a Migration Timing call.",
-            "tip": "Do not move farther upstream or stay lower based on this timing read. Fish the section identified by Migration Stage and begin in its most established holding water; change sections only when direct fish activity or a dependable later read supports it.",
+            "headline": "There is not enough reliable Muskegon evidence for a Migration Timing call.",
+            "tip": "Keep the Muskegon section named by Migration Stage. Do not shift sections from this timing read.",
             "detail": "There are not enough dependable past seasons to judge whether this migration is early, normal, or late.",
             "reasonCodes": [
               "conditions_baseline_missing",
               "conditions_insufficient",
               "conditions_checkpoint_building_established"
             ],
-            "copyVersion": "river-run-copy-v27",
+            "copyVersion": "river-run-copy-v34",
             "previousCheckpointId": "building_start",
             "previousCheckpointDate": "2026-10-11",
             "previousTimingLabel": "Insufficient evidence"
@@ -28895,9 +28954,9 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
           "push": {
             "score": 18,
             "label": "Weak",
-            "headline": "Today's water shows little support for a fresh wave of fish.",
-            "detail": "The river is holding steady with no meaningful rise yet. Water temperature remains too warm to support a strong Push and is relatively steady. Recent weather estimates indicate very little rain around the river.",
-            "tip": "Do not build the day around new arrivals while the river remains warm. Start in established holding water at first or last light and leave lower travel lanes secondary.",
+            "headline": "Croton-area water shows little support for fresh movement.",
+            "detail": "The river is holding steady with no meaningful rise yet. Water temperature remains too warm to support a strong Push and is relatively steady. Recent watershed weather shows little rain.",
+            "tip": "Keep Migration Stage’s section primary. Do not shift sections from this read.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
@@ -28917,14 +28976,14 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-fall-steelhead-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 93,
             "label": "Excellent",
-            "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river.",
-            "tip": "Begin on the primary travel lane feeding deep holding water. Work each hole from its head through the inside seam and tail, then keep moving until fish establish a pattern.",
+            "headline": "Croton-area flow is in its best presentation range.",
+            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read applies only near Croton Dam within the Upper river (Newaygo–Croton Dam).",
+            "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band"
@@ -28935,15 +28994,15 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 65,
             "maximum": 100,
             "label": "Active",
-            "headline": "Today’s Steelhead activity outlook is active.",
-            "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. Steelhead are becoming more established through the river. The score describes feeding or aggressive responsiveness, while movement and abundance remain separate reads. The measured conditions represent the Croton tailwater immediately below Croton Dam. Water temperature, clarity, and fishing conditions can be different through Newaygo, the lower river, Muskegon Lake, and the channel. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
-            "tip": "Start with 5–9 AM. If conditions change, favor the window that best combines workable light with measured water temperature.",
+            "headline": "Today’s Croton-area Steelhead responsiveness is active.",
+            "detail": "Conditions support a meaningful Steelhead response. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Croton flow and temperature represent only the area near the dam.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify downstream sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -28995,10 +29054,13 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 36,
+            "displayScore": 40,
+            "scoreIsApproximate": true,
             "stage": "building",
             "maximum": 100,
             "riverCeiling": 90,
@@ -29007,14 +29069,14 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
             "curveDirection": "rising",
             "winterHoldingContext": false,
             "label": "Moderate presence",
-            "headline": "A meaningful number of Steelhead are likely in the river, with seasonal presence still building.",
-            "detail": "This part of the season usually brings moderate presence, with more fish expected to enter and spread through the river. This is a seasonal estimate, not a live fish count.",
-            "tip": "Plan for a credible river opportunity that is still improving. Stay mobile until direct fish activity gives you a reason to slow down.",
+            "headline": "Seasonal Steelhead presence is moderate and building.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the Muskegon Steelhead ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_building",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -29242,14 +29304,14 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
             ]
           },
           "interpretationNote": null,
-          "secondaryNote": "Based on USGS 04121970 immediately below Croton Dam. It represents the regulated Croton tailwater; flow, temperature, access, and safety can differ through Newaygo, the lower river, Muskegon Lake, and the channel.",
+          "secondaryNote": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
           "safety": {
             "regulationReminder": "Croton Dam is the hard upstream migration boundary. Fish only legal water below the dam, use established public access, respect private land and posted closures, and check current Michigan regulations and dam-safety notices.",
-            "gaugeBasis": "Based on USGS 04121970 immediately below Croton Dam. It represents the regulated Croton tailwater; flow, temperature, access, and safety can differ through Newaygo, the lower river, Muskegon Lake, and the channel.",
+            "gaugeBasis": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-muskegon-steelhead-activity.1"
+          "configVersion": "2026-08-11-muskegon-copy.1"
         }
       },
       {
@@ -29268,6 +29330,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
           "nextConditionRefreshAt": "2026-10-31T05:00:00.000Z",
           "runStage": {
             "stage": "building",
+            "copyStrategy": "muskegon_croton_tailwater",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -29291,13 +29354,13 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
             },
             "label": "Building",
             "headline": "Steelhead are becoming established through more of the Muskegon River.",
-            "whereToStart": "Newaygo-to-M-120 holding water first, then compare Croton-to-Newaygo pools with the deep lower river for accumulated versus newer fish.",
-            "detail": "Earlier arrivals can hold nearer Croton while newer fish continue entering below M-120; freshness and concentrations can differ sharply by reach.",
-            "tip": "Check at least two sections of river, then stay where you find the best signs of fish.",
+            "whereToStart": "Start in the Middle river (M-120–Newaygo). Check the Croton Dam area in the Upper river (Newaygo–Croton Dam) for earlier arrivals.",
+            "detail": "Earlier arrivals can hold near Croton while newer fish remain farther downstream.",
+            "tip": "Croton measurements apply only near the dam. Verify downstream water directly.",
             "reasonCodes": [
               "stage_building"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -29355,15 +29418,15 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "2026-10-14"
             ],
             "sourceRefreshSlots": {},
-            "headline": "There is not enough reliable information for a Migration Timing call.",
-            "tip": "Do not move farther upstream or stay lower based on this timing read. Fish the section identified by Migration Stage and begin in its most established holding water; change sections only when direct fish activity or a dependable later read supports it.",
+            "headline": "There is not enough reliable Muskegon evidence for a Migration Timing call.",
+            "tip": "Keep the Muskegon section named by Migration Stage. Do not shift sections from this timing read.",
             "detail": "There are not enough dependable past seasons to judge whether this migration is early, normal, or late.",
             "reasonCodes": [
               "conditions_baseline_missing",
               "conditions_insufficient",
               "conditions_checkpoint_building_established"
             ],
-            "copyVersion": "river-run-copy-v27",
+            "copyVersion": "river-run-copy-v34",
             "previousCheckpointId": "building_start",
             "previousCheckpointDate": "2026-10-11",
             "previousTimingLabel": "Insufficient evidence"
@@ -29380,9 +29443,9 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
           "push": {
             "score": 18,
             "label": "Weak",
-            "headline": "Today's water shows little support for a fresh wave of fish.",
-            "detail": "The river is holding steady with no meaningful rise yet. Water temperature remains too warm to support a strong Push and is relatively steady. Recent weather estimates indicate very little rain around the river.",
-            "tip": "Do not build the day around new arrivals while the river remains warm. Start in established holding water at first or last light and leave lower travel lanes secondary.",
+            "headline": "Croton-area water shows little support for fresh movement.",
+            "detail": "The river is holding steady with no meaningful rise yet. Water temperature remains too warm to support a strong Push and is relatively steady. Recent watershed weather shows little rain.",
+            "tip": "Keep Migration Stage’s section primary. Do not shift sections from this read.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
@@ -29402,14 +29465,14 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-fall-steelhead-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 93,
             "label": "Excellent",
-            "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river.",
-            "tip": "Begin on the primary travel lane feeding deep holding water. Work each hole from its head through the inside seam and tail, then keep moving until fish establish a pattern.",
+            "headline": "Croton-area flow is in its best presentation range.",
+            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read applies only near Croton Dam within the Upper river (Newaygo–Croton Dam).",
+            "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band"
@@ -29420,15 +29483,15 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 65,
             "maximum": 100,
             "label": "Active",
-            "headline": "Today’s Steelhead activity outlook is active.",
-            "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. Steelhead are becoming more established through the river. The score describes feeding or aggressive responsiveness, while movement and abundance remain separate reads. The measured conditions represent the Croton tailwater immediately below Croton Dam. Water temperature, clarity, and fishing conditions can be different through Newaygo, the lower river, Muskegon Lake, and the channel. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
-            "tip": "Start with 5–9 AM. If conditions change, favor the window that best combines workable light with measured water temperature.",
+            "headline": "Today’s Croton-area Steelhead responsiveness is active.",
+            "detail": "Conditions support a meaningful Steelhead response. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Croton flow and temperature represent only the area near the dam.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify downstream sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -29480,10 +29543,13 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 55,
+            "displayScore": 55,
+            "scoreIsApproximate": true,
             "stage": "building",
             "maximum": 100,
             "riverCeiling": 90,
@@ -29492,14 +29558,14 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
             "curveDirection": "rising",
             "winterHoldingContext": false,
             "label": "High presence",
-            "headline": "Steelhead are likely spread through more of the river as seasonal presence builds toward its strongest point.",
-            "detail": "Seasonal presence is usually elevated relative to the rest of the season, with more fish expected to enter and spread through the river. This is a seasonal estimate, not a live fish count.",
-            "tip": "Treat this as one of the stronger parts of a strong river season. Give each stop a complete pass, but do not mistake this seasonal estimate for a live fish count.",
+            "headline": "Seasonal Steelhead presence is high and building.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the Muskegon Steelhead ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_building",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -29727,14 +29793,14 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
             ]
           },
           "interpretationNote": null,
-          "secondaryNote": "Based on USGS 04121970 immediately below Croton Dam. It represents the regulated Croton tailwater; flow, temperature, access, and safety can differ through Newaygo, the lower river, Muskegon Lake, and the channel.",
+          "secondaryNote": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
           "safety": {
             "regulationReminder": "Croton Dam is the hard upstream migration boundary. Fish only legal water below the dam, use established public access, respect private land and posted closures, and check current Michigan regulations and dam-safety notices.",
-            "gaugeBasis": "Based on USGS 04121970 immediately below Croton Dam. It represents the regulated Croton tailwater; flow, temperature, access, and safety can differ through Newaygo, the lower river, Muskegon Lake, and the channel.",
+            "gaugeBasis": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-muskegon-steelhead-activity.1"
+          "configVersion": "2026-08-11-muskegon-copy.1"
         }
       },
       {
@@ -29753,6 +29819,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
           "nextConditionRefreshAt": "2026-11-10T05:00:00.000Z",
           "runStage": {
             "stage": "building",
+            "copyStrategy": "muskegon_croton_tailwater",
             "stagingContext": false,
             "broadBuildingContext": true,
             "winterHoldingContext": false,
@@ -29775,14 +29842,14 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "peakToEndDays": 37
             },
             "label": "Building",
-            "headline": "Steelhead are broadly established below Croton Dam.",
-            "whereToStart": "Compare Croton-to-Newaygo holding water, Newaygo-to-M-120 bends, and lower-river travel lanes below M-120; use Push to decide whether lakeward water deserves extra time.",
-            "detail": "Multiple entry periods can place fish in upper, middle, and lower reaches, although Croton directly measures only the tailwater.",
-            "tip": "Check at least two sections of river, then stay where you find the best signs of fish.",
+            "headline": "Steelhead are broadly established through the Muskegon River.",
+            "whereToStart": "Start in the Upper river (Newaygo–Croton Dam), emphasizing the Croton Dam area. Compare the Middle river (M-120–Newaygo) for fresher fish.",
+            "detail": "Multiple entry periods support broad presence, not equal numbers in every section.",
+            "tip": "Croton measurements apply only near the dam. Verify downstream water directly.",
             "reasonCodes": [
               "stage_building"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -29840,15 +29907,15 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "2026-10-14"
             ],
             "sourceRefreshSlots": {},
-            "headline": "There is not enough reliable information for a Migration Timing call.",
-            "tip": "Do not move farther upstream or stay lower based on this timing read. Fish the section identified by Migration Stage and begin in its most established holding water; change sections only when direct fish activity or a dependable later read supports it.",
+            "headline": "There is not enough reliable Muskegon evidence for a Migration Timing call.",
+            "tip": "Keep the Muskegon section named by Migration Stage. Do not shift sections from this timing read.",
             "detail": "There are not enough dependable past seasons to judge whether this migration is early, normal, or late.",
             "reasonCodes": [
               "conditions_baseline_missing",
               "conditions_insufficient",
               "conditions_checkpoint_building_established"
             ],
-            "copyVersion": "river-run-copy-v27",
+            "copyVersion": "river-run-copy-v34",
             "previousCheckpointId": "building_start",
             "previousCheckpointDate": "2026-10-11",
             "previousTimingLabel": "Insufficient evidence"
@@ -29865,9 +29932,9 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
           "push": {
             "score": 18,
             "label": "Weak",
-            "headline": "Today's water shows little support for a fresh wave of fish.",
-            "detail": "The river is holding steady with no meaningful rise yet. Water temperature remains too warm to support a strong Push and is relatively steady. Recent weather estimates indicate very little rain around the river.",
-            "tip": "Do not build the day around new arrivals while the river remains warm. Start in established holding water at first or last light and leave lower travel lanes secondary.",
+            "headline": "Croton-area water shows little support for fresh movement.",
+            "detail": "The river is holding steady with no meaningful rise yet. Water temperature remains too warm to support a strong Push and is relatively steady. Recent watershed weather shows little rain.",
+            "tip": "Keep Migration Stage’s section primary. Do not shift sections from this read.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
@@ -29887,14 +29954,14 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-fall-steelhead-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 93,
             "label": "Excellent",
-            "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river.",
-            "tip": "Begin on the primary travel lane feeding deep holding water. Work each hole from its head through the inside seam and tail, then keep moving until fish establish a pattern.",
+            "headline": "Croton-area flow is in its best presentation range.",
+            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read applies only near Croton Dam within the Upper river (Newaygo–Croton Dam).",
+            "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band"
@@ -29905,15 +29972,15 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 65,
             "maximum": 100,
             "label": "Active",
-            "headline": "Today’s Steelhead activity outlook is active.",
-            "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. Steelhead are becoming more established through the river. The score describes feeding or aggressive responsiveness, while movement and abundance remain separate reads. The measured conditions represent the Croton tailwater immediately below Croton Dam. Water temperature, clarity, and fishing conditions can be different through Newaygo, the lower river, Muskegon Lake, and the channel. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
-            "tip": "Start with 5–9 AM. If conditions change, favor the window that best combines workable light with measured water temperature.",
+            "headline": "Today’s Croton-area Steelhead responsiveness is active.",
+            "detail": "Conditions support a meaningful Steelhead response. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Croton flow and temperature represent only the area near the dam.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify downstream sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -29965,10 +30032,13 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 73,
+            "displayScore": 75,
+            "scoreIsApproximate": true,
             "stage": "building",
             "maximum": 100,
             "riverCeiling": 90,
@@ -29977,14 +30047,14 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
             "curveDirection": "rising",
             "winterHoldingContext": false,
             "label": "High presence",
-            "headline": "Steelhead are likely spread through more of the river as seasonal presence builds toward its strongest point.",
-            "detail": "The migration is approaching its strongest seasonal point, and fish are likely distributed through more of the river. This is a seasonal estimate, not a live fish count.",
-            "tip": "Treat this as one of the stronger parts of a strong river season. Give each stop a complete pass, but do not mistake this seasonal estimate for a live fish count.",
+            "headline": "Seasonal Steelhead presence is high and building.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the Muskegon Steelhead ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_building",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -30212,14 +30282,14 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
             ]
           },
           "interpretationNote": null,
-          "secondaryNote": "Based on USGS 04121970 immediately below Croton Dam. It represents the regulated Croton tailwater; flow, temperature, access, and safety can differ through Newaygo, the lower river, Muskegon Lake, and the channel.",
+          "secondaryNote": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
           "safety": {
             "regulationReminder": "Croton Dam is the hard upstream migration boundary. Fish only legal water below the dam, use established public access, respect private land and posted closures, and check current Michigan regulations and dam-safety notices.",
-            "gaugeBasis": "Based on USGS 04121970 immediately below Croton Dam. It represents the regulated Croton tailwater; flow, temperature, access, and safety can differ through Newaygo, the lower river, Muskegon Lake, and the channel.",
+            "gaugeBasis": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-muskegon-steelhead-activity.1"
+          "configVersion": "2026-08-11-muskegon-copy.1"
         }
       },
       {
@@ -30238,6 +30308,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
           "nextConditionRefreshAt": "2026-11-14T05:00:00.000Z",
           "runStage": {
             "stage": "building",
+            "copyStrategy": "muskegon_croton_tailwater",
             "stagingContext": false,
             "broadBuildingContext": true,
             "winterHoldingContext": false,
@@ -30260,14 +30331,14 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "peakToEndDays": 37
             },
             "label": "Building",
-            "headline": "Steelhead are broadly established below Croton Dam.",
-            "whereToStart": "Compare Croton-to-Newaygo holding water, Newaygo-to-M-120 bends, and lower-river travel lanes below M-120; use Push to decide whether lakeward water deserves extra time.",
-            "detail": "Multiple entry periods can place fish in upper, middle, and lower reaches, although Croton directly measures only the tailwater.",
-            "tip": "Check at least two sections of river, then stay where you find the best signs of fish.",
+            "headline": "Steelhead are broadly established through the Muskegon River.",
+            "whereToStart": "Start in the Upper river (Newaygo–Croton Dam), emphasizing the Croton Dam area. Compare the Middle river (M-120–Newaygo) for fresher fish.",
+            "detail": "Multiple entry periods support broad presence, not equal numbers in every section.",
+            "tip": "Croton measurements apply only near the dam. Verify downstream water directly.",
             "reasonCodes": [
               "stage_building"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -30351,15 +30422,15 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "2026-11-09"
             ],
             "sourceRefreshSlots": {},
-            "headline": "There is not enough reliable information for a Migration Timing call.",
-            "tip": "Do not move farther upstream or stay lower based on this timing read. Fish the section identified by Migration Stage and begin in its most established holding water; change sections only when direct fish activity or a dependable later read supports it.",
+            "headline": "There is not enough reliable Muskegon evidence for a Migration Timing call.",
+            "tip": "Keep the Muskegon section named by Migration Stage. Do not shift sections from this timing read.",
             "detail": "There are not enough dependable past seasons to judge whether this migration is early, normal, or late.",
             "reasonCodes": [
               "conditions_baseline_missing",
               "conditions_insufficient",
               "conditions_checkpoint_peak_start"
             ],
-            "copyVersion": "river-run-copy-v27",
+            "copyVersion": "river-run-copy-v34",
             "previousCheckpointId": "building_established",
             "previousCheckpointDate": "2026-10-15",
             "previousTimingLabel": "Insufficient evidence"
@@ -30376,9 +30447,9 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
           "push": {
             "score": 18,
             "label": "Weak",
-            "headline": "Today's water shows little support for a fresh wave of fish.",
-            "detail": "The river is holding steady with no meaningful rise yet. Water temperature remains too warm to support a strong Push and is relatively steady. Recent weather estimates indicate very little rain around the river.",
-            "tip": "Do not build the day around new arrivals while the river remains warm. Start in established holding water at first or last light and leave lower travel lanes secondary.",
+            "headline": "Croton-area water shows little support for fresh movement.",
+            "detail": "The river is holding steady with no meaningful rise yet. Water temperature remains too warm to support a strong Push and is relatively steady. Recent watershed weather shows little rain.",
+            "tip": "Keep Migration Stage’s section primary. Do not shift sections from this read.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
@@ -30398,14 +30469,14 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-fall-steelhead-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 93,
             "label": "Excellent",
-            "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river.",
-            "tip": "Begin on the primary travel lane feeding deep holding water. Work each hole from its head through the inside seam and tail, then keep moving until fish establish a pattern.",
+            "headline": "Croton-area flow is in its best presentation range.",
+            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read applies only near Croton Dam within the Upper river (Newaygo–Croton Dam).",
+            "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band"
@@ -30416,15 +30487,15 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 65,
             "maximum": 100,
             "label": "Active",
-            "headline": "Today’s Steelhead activity outlook is active.",
-            "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. Steelhead are becoming more established through the river. The score describes feeding or aggressive responsiveness, while movement and abundance remain separate reads. The measured conditions represent the Croton tailwater immediately below Croton Dam. Water temperature, clarity, and fishing conditions can be different through Newaygo, the lower river, Muskegon Lake, and the channel. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
-            "tip": "Start with 5–9 AM. If conditions change, favor the window that best combines workable light with measured water temperature.",
+            "headline": "Today’s Croton-area Steelhead responsiveness is active.",
+            "detail": "Conditions support a meaningful Steelhead response. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Croton flow and temperature represent only the area near the dam.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify downstream sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -30476,10 +30547,13 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 83,
+            "displayScore": 85,
+            "scoreIsApproximate": true,
             "stage": "building",
             "maximum": 100,
             "riverCeiling": 90,
@@ -30488,14 +30562,14 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
             "curveDirection": "rising",
             "winterHoldingContext": false,
             "label": "Peak presence",
-            "headline": "Steelhead are likely spread through more of the river as seasonal presence builds toward its strongest point.",
-            "detail": "The migration is approaching its strongest seasonal point, and fish are likely distributed through more of the river. This is a seasonal estimate, not a live fish count.",
-            "tip": "Treat this as one of the stronger parts of a strong river season. Give each stop a complete pass, but do not mistake this seasonal estimate for a live fish count.",
+            "headline": "Seasonal Steelhead presence is near its expected Muskegon peak.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the Muskegon Steelhead ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_building",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -30723,14 +30797,14 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
             ]
           },
           "interpretationNote": null,
-          "secondaryNote": "Based on USGS 04121970 immediately below Croton Dam. It represents the regulated Croton tailwater; flow, temperature, access, and safety can differ through Newaygo, the lower river, Muskegon Lake, and the channel.",
+          "secondaryNote": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
           "safety": {
             "regulationReminder": "Croton Dam is the hard upstream migration boundary. Fish only legal water below the dam, use established public access, respect private land and posted closures, and check current Michigan regulations and dam-safety notices.",
-            "gaugeBasis": "Based on USGS 04121970 immediately below Croton Dam. It represents the regulated Croton tailwater; flow, temperature, access, and safety can differ through Newaygo, the lower river, Muskegon Lake, and the channel.",
+            "gaugeBasis": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-muskegon-steelhead-activity.1"
+          "configVersion": "2026-08-11-muskegon-copy.1"
         }
       },
       {
@@ -30749,6 +30823,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
           "nextConditionRefreshAt": "2026-11-16T05:00:00.000Z",
           "runStage": {
             "stage": "peak",
+            "copyStrategy": "muskegon_croton_tailwater",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -30771,14 +30846,14 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "peakToEndDays": 37
             },
             "label": "Peak",
-            "headline": "This is typically the strongest Muskegon fall Steelhead entry opportunity.",
-            "whereToStart": "Compare the Croton tailwater, Croton-to-Newaygo pools, Newaygo-to-M-120 bends, and substantial lower-river holes toward Muskegon Lake.",
-            "detail": "Repeated entry periods support broad corridor presence, but fresh fish, established holders, clarity, and access still differ from Croton to Muskegon Lake.",
-            "tip": "Use Push to choose between lower travel water and upper holding water, then make sure the water you find matches the read.",
+            "headline": "This is typically the strongest Muskegon fall Steelhead opportunity.",
+            "whereToStart": "Start in the Upper river (Newaygo–Croton Dam), emphasizing the Croton Dam area. Compare the Middle river (M-120–Newaygo) for fresher fish.",
+            "detail": "Steelhead can be broadly present, but freshness and concentrations still vary by section.",
+            "tip": "Croton measurements apply only near the dam. Verify downstream water directly.",
             "reasonCodes": [
               "stage_peak"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -30862,15 +30937,15 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "2026-11-09"
             ],
             "sourceRefreshSlots": {},
-            "headline": "There is not enough reliable information for a Migration Timing call.",
-            "tip": "Do not move farther upstream or stay lower based on this timing read. Fish the section identified by Migration Stage and begin in its most established holding water; change sections only when direct fish activity or a dependable later read supports it.",
+            "headline": "There is not enough reliable Muskegon evidence for a Migration Timing call.",
+            "tip": "Keep the Muskegon section named by Migration Stage. Do not shift sections from this timing read.",
             "detail": "There are not enough dependable past seasons to judge whether this migration is early, normal, or late.",
             "reasonCodes": [
               "conditions_baseline_missing",
               "conditions_insufficient",
               "conditions_checkpoint_peak_start"
             ],
-            "copyVersion": "river-run-copy-v27",
+            "copyVersion": "river-run-copy-v34",
             "previousCheckpointId": "building_established",
             "previousCheckpointDate": "2026-10-15",
             "previousTimingLabel": "Insufficient evidence"
@@ -30887,9 +30962,9 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
           "push": {
             "score": 18,
             "label": "Weak",
-            "headline": "Today's water shows little support for a fresh wave of fish.",
-            "detail": "The river is holding steady with no meaningful rise yet. Water temperature remains too warm to support a strong Push and is relatively steady. Recent weather estimates indicate very little rain around the river.",
-            "tip": "Do not build the day around new arrivals while the river remains warm. Start in established holding water at first or last light and leave lower travel lanes secondary.",
+            "headline": "Croton-area water shows little support for fresh movement.",
+            "detail": "The river is holding steady with no meaningful rise yet. Water temperature remains too warm to support a strong Push and is relatively steady. Recent watershed weather shows little rain.",
+            "tip": "Keep Migration Stage’s section primary. Do not shift sections from this read.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
@@ -30909,14 +30984,14 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-fall-steelhead-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 93,
             "label": "Excellent",
-            "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river.",
-            "tip": "Begin on the primary travel lane feeding deep holding water. Work each hole from its head through the inside seam and tail, then keep moving until fish establish a pattern.",
+            "headline": "Croton-area flow is in its best presentation range.",
+            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read applies only near Croton Dam within the Upper river (Newaygo–Croton Dam).",
+            "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band"
@@ -30927,15 +31002,15 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 65,
             "maximum": 100,
             "label": "Active",
-            "headline": "Today’s Steelhead activity outlook is active.",
-            "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. Broad fall presence can make Steelhead easier to locate, but this score measures feeding or aggressive responsiveness rather than how many fish are present. The measured conditions represent the Croton tailwater immediately below Croton Dam. Water temperature, clarity, and fishing conditions can be different through Newaygo, the lower river, Muskegon Lake, and the channel. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
-            "tip": "Start with 5–9 AM. If conditions change, favor the window that best combines workable light with measured water temperature.",
+            "headline": "Today’s Croton-area Steelhead responsiveness is active.",
+            "detail": "Conditions support a meaningful Steelhead response. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Croton flow and temperature represent only the area near the dam.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify downstream sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -30987,10 +31062,13 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 90,
+            "displayScore": 90,
+            "scoreIsApproximate": false,
             "stage": "peak",
             "maximum": 100,
             "riverCeiling": 90,
@@ -30999,14 +31077,14 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
             "curveDirection": "near_peak",
             "winterHoldingContext": false,
             "label": "Peak presence",
-            "headline": "Steelhead are likely near their highest seasonal presence in the river.",
-            "detail": "This is the part of the season when in-river presence is usually strongest. The read describes the river as a whole; it does not place fish in a specific pool or confirm a live count.",
-            "tip": "Plan for the strongest seasonal presence this river usually offers, while remembering that this estimate cannot confirm fish at a specific spot or describe today's river conditions.",
+            "headline": "Seasonal Steelhead presence is near its expected Muskegon peak.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the Muskegon Steelhead ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_peak",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -31240,14 +31318,14 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "peak_presence_weak_push"
             ]
           },
-          "secondaryNote": "Based on USGS 04121970 immediately below Croton Dam. It represents the regulated Croton tailwater; flow, temperature, access, and safety can differ through Newaygo, the lower river, Muskegon Lake, and the channel.",
+          "secondaryNote": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
           "safety": {
             "regulationReminder": "Croton Dam is the hard upstream migration boundary. Fish only legal water below the dam, use established public access, respect private land and posted closures, and check current Michigan regulations and dam-safety notices.",
-            "gaugeBasis": "Based on USGS 04121970 immediately below Croton Dam. It represents the regulated Croton tailwater; flow, temperature, access, and safety can differ through Newaygo, the lower river, Muskegon Lake, and the channel.",
+            "gaugeBasis": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-muskegon-steelhead-activity.1"
+          "configVersion": "2026-08-11-muskegon-copy.1"
         }
       },
       {
@@ -31266,6 +31344,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
           "nextConditionRefreshAt": "2026-12-07T05:00:00.000Z",
           "runStage": {
             "stage": "tapering",
+            "copyStrategy": "muskegon_croton_tailwater",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -31288,14 +31367,14 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "peakToEndDays": 37
             },
             "label": "Late fall",
-            "headline": "Steelhead remain well established as fall entry slows.",
-            "whereToStart": "Established Croton-to-Newaygo and Newaygo-to-M-120 holding water, especially deep bends and controlled-speed edges; add lower travel lanes only on credible fresh-entry evidence.",
-            "detail": "Many fish remain, but colder water increasingly favors efficient holding positions over continuous upstream travel.",
-            "tip": "Start in slower holding water. Check lower travel lanes when the river shows signs that new fish may be moving.",
+            "headline": "Steelhead remain established as fall entry slows.",
+            "whereToStart": "Start in the Upper river (Newaygo–Croton Dam), especially the Croton Dam area. Add the Middle river (M-120–Newaygo) only when direct activity supports it.",
+            "detail": "Many fish may remain, but this card only describes the slowing fall-entry phase.",
+            "tip": "Use Push to judge current movement support; Stage does not confirm a fresh wave.",
             "reasonCodes": [
               "stage_tapering"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Timing complete",
@@ -31398,7 +31477,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "conditions_checkpoint_peak_complete",
               "conditions_timing_complete"
             ],
-            "copyVersion": "river-run-copy-v27",
+            "copyVersion": "river-run-copy-v34",
             "previousCheckpointId": "peak_start",
             "previousCheckpointDate": "2026-11-10",
             "previousTimingLabel": "Insufficient evidence"
@@ -31415,9 +31494,9 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
           "push": {
             "score": 18,
             "label": "Weak",
-            "headline": "Today's water shows little support for a fresh wave of fish.",
-            "detail": "The river is holding steady with no meaningful rise yet. Water temperature remains too warm to support a strong Push and is relatively steady. Recent weather estimates indicate very little rain around the river.",
-            "tip": "Do not build the day around new arrivals while the river remains warm. Start in established holding water at first or last light and leave lower travel lanes secondary.",
+            "headline": "Croton-area water shows little support for fresh movement.",
+            "detail": "The river is holding steady with no meaningful rise yet. Water temperature remains too warm to support a strong Push and is relatively steady. Recent watershed weather shows little rain.",
+            "tip": "Keep Migration Stage’s section primary. Do not shift sections from this read.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
@@ -31437,14 +31516,14 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-fall-steelhead-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 93,
             "label": "Excellent",
-            "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river.",
-            "tip": "Begin on the primary travel lane feeding deep holding water. Work each hole from its head through the inside seam and tail, then keep moving until fish establish a pattern.",
+            "headline": "Croton-area flow is in its best presentation range.",
+            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read applies only near Croton Dam within the Upper river (Newaygo–Croton Dam).",
+            "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band"
@@ -31455,15 +31534,15 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 65,
             "maximum": 100,
             "label": "Active",
-            "headline": "Today’s Steelhead activity outlook is active.",
-            "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. As late fall progresses, Steelhead often become more selective and less willing to move far for a presentation. The fish remain alive and are transitioning toward winter holding; actual responsiveness still depends strongly on water temperature and river conditions. The measured conditions represent the Croton tailwater immediately below Croton Dam. Water temperature, clarity, and fishing conditions can be different through Newaygo, the lower river, Muskegon Lake, and the channel. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
-            "tip": "Compare the four time windows, but expect a shorter response in cold water and keep the result separate from the winter holding outlook.",
+            "headline": "Today’s Croton-area Steelhead responsiveness is active.",
+            "detail": "Conditions support a meaningful Steelhead response. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Cold late-fall water can shorten response windows without meaning Steelhead have left the river.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify downstream sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -31515,10 +31594,13 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 89,
+            "displayScore": 90,
+            "scoreIsApproximate": true,
             "stage": "tapering",
             "maximum": 100,
             "riverCeiling": 90,
@@ -31527,14 +31609,14 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
             "curveDirection": "falling",
             "winterHoldingContext": false,
             "label": "Peak presence",
-            "headline": "Steelhead remain near their strongest fall presence as winter holding approaches.",
-            "detail": "The slight decline reflects fewer fresh arrivals—not fish simply leaving the river. This is a seasonal opportunity estimate, not a live fish count.",
-            "tip": "Treat the retained presence as strong, but expect the fishery to be shifting away from fresh fall entry. Verify current river conditions before choosing a presentation.",
+            "headline": "Seasonal Steelhead presence is near its expected Muskegon peak.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the Muskegon Steelhead ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_tapering",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -31762,14 +31844,14 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
             ]
           },
           "interpretationNote": null,
-          "secondaryNote": "Based on USGS 04121970 immediately below Croton Dam. It represents the regulated Croton tailwater; flow, temperature, access, and safety can differ through Newaygo, the lower river, Muskegon Lake, and the channel.",
+          "secondaryNote": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
           "safety": {
             "regulationReminder": "Croton Dam is the hard upstream migration boundary. Fish only legal water below the dam, use established public access, respect private land and posted closures, and check current Michigan regulations and dam-safety notices.",
-            "gaugeBasis": "Based on USGS 04121970 immediately below Croton Dam. It represents the regulated Croton tailwater; flow, temperature, access, and safety can differ through Newaygo, the lower river, Muskegon Lake, and the channel.",
+            "gaugeBasis": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-muskegon-steelhead-activity.1"
+          "configVersion": "2026-08-11-muskegon-copy.1"
         }
       },
       {
@@ -31788,6 +31870,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
           "nextConditionRefreshAt": "2026-12-22T05:00:00.000Z",
           "runStage": {
             "stage": "ending",
+            "copyStrategy": "muskegon_croton_tailwater",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -31810,14 +31893,14 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "peakToEndDays": 37
             },
             "label": "Holding transition",
-            "headline": "Steelhead remain in the Muskegon as fall entry hands off to winter holding.",
-            "whereToStart": "Deep, speed-controlled holding water below Croton, around Newaygo, and in substantial M-120-area bends with nearby feeding current.",
-            "detail": "The migration phase is ending, not the fishery. Retained fish increasingly use deep water beside efficient feeding current.",
-            "tip": "Look for deep water, softer current, and an easy feeding lane nearby.",
+            "headline": "Muskegon Steelhead fall entry is nearing its endpoint.",
+            "whereToStart": "Start in established Upper river (Newaygo–Croton Dam) water near Croton Dam.",
+            "detail": "This seasonal entry phase is ending. Steelhead may remain after this model stops.",
+            "tip": "Do not use a late Stage to infer current activity or a new movement wave.",
             "reasonCodes": [
               "stage_ending"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Timing complete",
@@ -31920,7 +32003,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "conditions_checkpoint_peak_complete",
               "conditions_timing_complete"
             ],
-            "copyVersion": "river-run-copy-v27",
+            "copyVersion": "river-run-copy-v34",
             "previousCheckpointId": "peak_start",
             "previousCheckpointDate": "2026-11-10",
             "previousTimingLabel": "Insufficient evidence"
@@ -31937,9 +32020,9 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
           "push": {
             "score": 18,
             "label": "Weak",
-            "headline": "Today's water shows little support for a fresh wave of fish.",
-            "detail": "The river is holding steady with no meaningful rise yet. Water temperature remains too warm to support a strong Push and is relatively steady. Recent weather estimates indicate very little rain around the river.",
-            "tip": "Do not build the day around new arrivals while the river remains warm. Start in established holding water at first or last light and leave lower travel lanes secondary.",
+            "headline": "Croton-area water shows little support for fresh movement.",
+            "detail": "The river is holding steady with no meaningful rise yet. Water temperature remains too warm to support a strong Push and is relatively steady. Recent watershed weather shows little rain.",
+            "tip": "Keep Migration Stage’s section primary. Do not shift sections from this read.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
@@ -31959,14 +32042,14 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-fall-steelhead-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 93,
             "label": "Excellent",
-            "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river.",
-            "tip": "Begin on the primary travel lane feeding deep holding water. Work each hole from its head through the inside seam and tail, then keep moving until fish establish a pattern.",
+            "headline": "Croton-area flow is in its best presentation range.",
+            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read applies only near Croton Dam within the Upper river (Newaygo–Croton Dam).",
+            "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band"
@@ -31977,15 +32060,15 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 65,
             "maximum": 100,
             "label": "Active",
-            "headline": "Today’s Steelhead activity outlook is active.",
-            "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. These Steelhead remain alive in the river as they transition into winter holding. Their responsiveness follows measured water temperature and current conditions rather than a terminal biological decline. The measured conditions represent the Croton tailwater immediately below Croton Dam. Water temperature, clarity, and fishing conditions can be different through Newaygo, the lower river, Muskegon Lake, and the channel. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
-            "tip": "Compare the four time windows, but expect a shorter response in cold water and keep the result separate from the winter holding outlook.",
+            "headline": "Today’s Croton-area Steelhead responsiveness is active.",
+            "detail": "Conditions support a meaningful Steelhead response. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Cold late-fall water can shorten response windows without meaning Steelhead have left the river.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify downstream sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -32037,10 +32120,13 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 81,
+            "displayScore": 80,
+            "scoreIsApproximate": true,
             "stage": "ending",
             "maximum": 100,
             "riverCeiling": 90,
@@ -32049,14 +32135,14 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
             "curveDirection": "falling",
             "winterHoldingContext": false,
             "label": "High presence",
-            "headline": "Steelhead presence remains high as the fall fishery shifts toward winter holding.",
-            "detail": "The slight decline reflects fewer fresh arrivals—not fish simply leaving the river. This is a seasonal opportunity estimate, not a live fish count.",
-            "tip": "Treat the retained presence as strong, but expect the fishery to be shifting away from fresh fall entry. Verify current river conditions before choosing a presentation.",
+            "headline": "Seasonal Steelhead presence is high and declining.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the Muskegon Steelhead ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_ending",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -32284,530 +32370,14 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
             ]
           },
           "interpretationNote": null,
-          "secondaryNote": "Based on USGS 04121970 immediately below Croton Dam. It represents the regulated Croton tailwater; flow, temperature, access, and safety can differ through Newaygo, the lower river, Muskegon Lake, and the channel.",
+          "secondaryNote": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
           "safety": {
             "regulationReminder": "Croton Dam is the hard upstream migration boundary. Fish only legal water below the dam, use established public access, respect private land and posted closures, and check current Michigan regulations and dam-safety notices.",
-            "gaugeBasis": "Based on USGS 04121970 immediately below Croton Dam. It represents the regulated Croton tailwater; flow, temperature, access, and safety can differ through Newaygo, the lower river, Muskegon Lake, and the channel.",
+            "gaugeBasis": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-muskegon-steelhead-activity.1"
-        }
-      },
-      {
-        "id": "presence_winter_holding_outside",
-        "label": "80 / 100 · Winter holding · outside",
-        "note": "Canonical Muskegon River Fall Steelhead production copy · owner audit",
-        "snapshot": {
-          "riverId": "muskegon",
-          "runId": "muskegon_fall_steelhead",
-          "localDate": "2026-12-23",
-          "timezone": "America/Detroit",
-          "progressionSnapshotAt": "2026-12-23T12:00:00.000Z",
-          "conditionRefreshAt": "2026-12-23T12:00:00.000Z",
-          "refreshSlot": "16:00",
-          "progressionExpiresAt": "2026-12-23T23:59:59.000Z",
-          "nextConditionRefreshAt": "2026-12-24T05:00:00.000Z",
-          "runStage": {
-            "stage": "post_run",
-            "stagingContext": false,
-            "broadBuildingContext": false,
-            "winterHoldingContext": true,
-            "window": {
-              "snapshotDate": "2026-12-23",
-              "preRunStartDate": "2026-08-20",
-              "stagingStartDate": "2026-09-10",
-              "startDate": "2026-09-25",
-              "beginningEndDate": "2026-10-10",
-              "buildingEstablishedStartDate": "2026-10-15",
-              "buildingBroadStartDate": "2026-11-01",
-              "peakStartDate": "2026-11-10",
-              "peakDate": "2026-11-15",
-              "peakEndDate": "2026-12-05",
-              "taperingEndDate": "2026-12-19",
-              "endDate": "2026-12-22",
-              "lateEndDate": "2026-12-23",
-              "postRunLateCopyEndDate": "2026-12-24",
-              "startToPeakDays": 51,
-              "peakToEndDays": 37
-            },
-            "label": "Winter holding",
-            "headline": "Steelhead have transitioned from fall entry into winter holding below Croton Dam.",
-            "whereToStart": "Deep, speed-controlled holding water below Croton, through the Croton-to-Newaygo corridor, and in substantial Newaygo-to-M-120 bends; compare lower-river wintering holes only when local conditions support them.",
-            "detail": "The fish have not left the river. Colder water shifts the useful question from entry toward daily activity, feeding position, and efficient holding water across the long corridor.",
-            "tip": "Use the winter Steelhead read to see how active the fish may be. Fish staying in the river does not mean new fish are moving in.",
-            "reasonCodes": [
-              "stage_post_run",
-              "stage_winter_holding"
-            ],
-            "copyVersion": "river-run-copy-v27"
-          },
-          "conditionsSuggest": {
-            "label": "Timing complete",
-            "timingLabel": "Insufficient evidence",
-            "candidateLabel": "Insufficient evidence",
-            "checkpointId": "peak_complete",
-            "checkpointDate": "2026-11-21",
-            "cutoffDate": "2026-11-20",
-            "observationStartDate": "2026-09-10",
-            "completedCheckpointCount": 5,
-            "currentIndex": null,
-            "currentPercentile": null,
-            "gaugeResponsePercentile": null,
-            "waterTemperaturePercentile": null,
-            "usableDays": 0,
-            "expectedDays": 72,
-            "coveragePercent": 0,
-            "historicalYears": 0,
-            "sourceDates": [
-              "2026-09-10",
-              "2026-09-11",
-              "2026-09-12",
-              "2026-09-13",
-              "2026-09-14",
-              "2026-09-15",
-              "2026-09-16",
-              "2026-09-17",
-              "2026-09-18",
-              "2026-09-19",
-              "2026-09-20",
-              "2026-09-21",
-              "2026-09-22",
-              "2026-09-23",
-              "2026-09-24",
-              "2026-09-25",
-              "2026-09-26",
-              "2026-09-27",
-              "2026-09-28",
-              "2026-09-29",
-              "2026-09-30",
-              "2026-10-01",
-              "2026-10-02",
-              "2026-10-03",
-              "2026-10-04",
-              "2026-10-05",
-              "2026-10-06",
-              "2026-10-07",
-              "2026-10-08",
-              "2026-10-09",
-              "2026-10-10",
-              "2026-10-11",
-              "2026-10-12",
-              "2026-10-13",
-              "2026-10-14",
-              "2026-10-15",
-              "2026-10-16",
-              "2026-10-17",
-              "2026-10-18",
-              "2026-10-19",
-              "2026-10-20",
-              "2026-10-21",
-              "2026-10-22",
-              "2026-10-23",
-              "2026-10-24",
-              "2026-10-25",
-              "2026-10-26",
-              "2026-10-27",
-              "2026-10-28",
-              "2026-10-29",
-              "2026-10-30",
-              "2026-10-31",
-              "2026-11-01",
-              "2026-11-02",
-              "2026-11-03",
-              "2026-11-04",
-              "2026-11-05",
-              "2026-11-06",
-              "2026-11-07",
-              "2026-11-08",
-              "2026-11-09",
-              "2026-11-10",
-              "2026-11-11",
-              "2026-11-12",
-              "2026-11-13",
-              "2026-11-14",
-              "2026-11-15",
-              "2026-11-16",
-              "2026-11-17",
-              "2026-11-18",
-              "2026-11-19",
-              "2026-11-20"
-            ],
-            "sourceRefreshSlots": {},
-            "headline": "This season's Migration Timing read is complete.",
-            "tip": "Stop planning around whether fall entry was early or late. Use the winter fishery read to judge current activity and presentation.",
-            "detail": "There was not enough reliable season-long river and temperature information to make an early, normal, or late call. Steelhead presence has now shifted into winter holding, where current activity matters more than fall timing.",
-            "reasonCodes": [
-              "conditions_baseline_missing",
-              "conditions_insufficient",
-              "conditions_checkpoint_peak_complete",
-              "conditions_timing_complete"
-            ],
-            "copyVersion": "river-run-copy-v27",
-            "previousCheckpointId": "peak_start",
-            "previousCheckpointDate": "2026-11-10",
-            "previousTimingLabel": "Insufficient evidence"
-          },
-          "pushHistory": {
-            "status": "none_recorded",
-            "minimumSupportiveScore": 50,
-            "trackingStartDate": "2026-09-25",
-            "trackingEndDate": "2026-12-22",
-            "throughDate": "2026-12-23",
-            "recentDailyReadsStatus": "available",
-            "recentDailyReads": []
-          },
-          "push": {
-            "score": null,
-            "label": "Winter holding",
-            "headline": "The season's fresh-movement read is complete.",
-            "detail": "Steelhead may remain in the river, but the fall-entry signal has handed off to winter holding. Winter activity requires a different water-temperature and feeding read.",
-            "tip": "Use the winter fishery read for activity and presentation decisions. Do not treat a muted Push as evidence that steelhead left the river.",
-            "reasonCodes": [
-              "push_tracking_complete"
-            ],
-            "rulesVersion": "muskegon-fall-steelhead-push-v1",
-            "copyVersion": "river-run-copy-v27"
-          },
-          "fishability": {
-            "score": 93,
-            "label": "Excellent",
-            "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river.",
-            "tip": "Begin on the primary travel lane feeding deep holding water. Work each hole from its head through the inside seam and tail, then keep moving until fish establish a pattern.",
-            "reasonCodes": [
-              "gauge_fresh",
-              "ideal_flow_band"
-            ],
-            "components": {
-              "bandBase": 88,
-              "trendModifier": 5,
-              "appliedCaps": []
-            },
-            "rulesVersion": "muskegon-croton-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
-          },
-          "activity": {
-            "score": 65,
-            "maximum": 100,
-            "label": "Active",
-            "headline": "Today’s Steelhead activity outlook is active.",
-            "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. Steelhead remain alive in winter holding after the fall-entry period. Use the dedicated winter read when available; this score only describes current responsiveness. The measured conditions represent the Croton tailwater immediately below Croton Dam. Water temperature, clarity, and fishing conditions can be different through Newaygo, the lower river, Muskegon Lake, and the channel. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
-            "tip": "Compare the four time windows, but expect a shorter response in cold water and keep the result separate from the winter holding outlook.",
-            "reasonCodes": [
-              "activity_confidence_full",
-              "activity_today",
-              "activity_run_present"
-            ],
-            "rulesVersion": "muskegon-fall-steelhead-activity-v1",
-            "targetDate": "2026-12-23",
-            "targetDayLabel": "Today",
-            "confidence": "Full",
-            "conditionalPresence": false,
-            "blocks": [
-              {
-                "id": "05-09",
-                "label": "5–9 AM",
-                "score": 67,
-                "activityLabel": "Active",
-                "positiveDriver": "Clouds or lower light make this window more favorable.",
-                "limitingFactor": "Rain adds little extra cover.",
-                "cloudCoverPct": 60,
-                "precipitationIn": 0
-              },
-              {
-                "id": "09-13",
-                "label": "9 AM–1 PM",
-                "score": 62,
-                "activityLabel": "Active",
-                "positiveDriver": "The river level and its recent change are favorable.",
-                "limitingFactor": "Rain adds little extra cover.",
-                "cloudCoverPct": 60,
-                "precipitationIn": 0
-              },
-              {
-                "id": "13-17",
-                "label": "1–5 PM",
-                "score": 62,
-                "activityLabel": "Active",
-                "positiveDriver": "The river level and its recent change are favorable.",
-                "limitingFactor": "Rain adds little extra cover.",
-                "cloudCoverPct": 60,
-                "precipitationIn": 0
-              },
-              {
-                "id": "17-21",
-                "label": "5–9 PM",
-                "score": 66,
-                "activityLabel": "Active",
-                "positiveDriver": "Clouds or lower light make this window more favorable.",
-                "limitingFactor": "Rain adds little extra cover.",
-                "cloudCoverPct": 60,
-                "precipitationIn": 0
-              }
-            ]
-          },
-          "fishInRiver": {
-            "score": 80,
-            "stage": "post_run",
-            "maximum": 100,
-            "riverCeiling": 90,
-            "historicalRunStrength": "strong",
-            "curveFraction": 0.89,
-            "curveDirection": "outside",
-            "winterHoldingContext": true,
-            "handoffScore": 80,
-            "label": "Winter holding",
-            "headline": "Steelhead remain strongly present as the fishery shifts into winter holding.",
-            "detail": "Fall entry finished at 80/100. That retained-presence reference stays visible, but it is not a winter activity score; winter opportunity depends on water temperature, feeding activity, and presentation.",
-            "tip": "Open the Winter Holding read for current activity, likely holding water, and presentation guidance. Treat 80/100 as retained seasonal presence—not proof that fish are active today.",
-            "reasonCodes": [
-              "stage_post_run",
-              "historical_presence_curve",
-              "fish_presence_winter_handoff"
-            ],
-            "copyVersion": "river-run-copy-v27"
-          },
-          "gauge": {
-            "provider": "USGS",
-            "siteId": "04121970",
-            "observedAt": "2026-12-23T15:00:00.000Z",
-            "primaryMetric": "flow_cfs",
-            "value": 1500,
-            "band": "ideal",
-            "trend": "stable",
-            "absoluteChange24h": 0,
-            "percentChange24h": 0
-          },
-          "weather": {
-            "provider": "OPEN_METEO",
-            "evidenceType": "modeled_grid",
-            "weatherPointId": "muskegon_croton_weather",
-            "rain24hIn": 0,
-            "rain48hIn": 0,
-            "rain72hIn": 0,
-            "hourlyActivityWeather": [
-              {
-                "time_local": "2026-12-23T00:00",
-                "cloud_cover_pct": 60,
-                "shortwave_w_m2": 60.96,
-                "clear_sky_shortwave_w_m2": 120,
-                "precipitation_in": 0
-              },
-              {
-                "time_local": "2026-12-23T01:00",
-                "cloud_cover_pct": 60,
-                "shortwave_w_m2": 60.96,
-                "clear_sky_shortwave_w_m2": 120,
-                "precipitation_in": 0
-              },
-              {
-                "time_local": "2026-12-23T02:00",
-                "cloud_cover_pct": 60,
-                "shortwave_w_m2": 60.96,
-                "clear_sky_shortwave_w_m2": 120,
-                "precipitation_in": 0
-              },
-              {
-                "time_local": "2026-12-23T03:00",
-                "cloud_cover_pct": 60,
-                "shortwave_w_m2": 60.96,
-                "clear_sky_shortwave_w_m2": 120,
-                "precipitation_in": 0
-              },
-              {
-                "time_local": "2026-12-23T04:00",
-                "cloud_cover_pct": 60,
-                "shortwave_w_m2": 60.96,
-                "clear_sky_shortwave_w_m2": 120,
-                "precipitation_in": 0
-              },
-              {
-                "time_local": "2026-12-23T05:00",
-                "cloud_cover_pct": 60,
-                "shortwave_w_m2": 60.96,
-                "clear_sky_shortwave_w_m2": 120,
-                "precipitation_in": 0
-              },
-              {
-                "time_local": "2026-12-23T06:00",
-                "cloud_cover_pct": 60,
-                "shortwave_w_m2": 60.96,
-                "clear_sky_shortwave_w_m2": 120,
-                "precipitation_in": 0
-              },
-              {
-                "time_local": "2026-12-23T07:00",
-                "cloud_cover_pct": 60,
-                "shortwave_w_m2": 60.96,
-                "clear_sky_shortwave_w_m2": 120,
-                "precipitation_in": 0
-              },
-              {
-                "time_local": "2026-12-23T08:00",
-                "cloud_cover_pct": 60,
-                "shortwave_w_m2": 330.2,
-                "clear_sky_shortwave_w_m2": 650,
-                "precipitation_in": 0
-              },
-              {
-                "time_local": "2026-12-23T09:00",
-                "cloud_cover_pct": 60,
-                "shortwave_w_m2": 330.2,
-                "clear_sky_shortwave_w_m2": 650,
-                "precipitation_in": 0
-              },
-              {
-                "time_local": "2026-12-23T10:00",
-                "cloud_cover_pct": 60,
-                "shortwave_w_m2": 330.2,
-                "clear_sky_shortwave_w_m2": 650,
-                "precipitation_in": 0
-              },
-              {
-                "time_local": "2026-12-23T11:00",
-                "cloud_cover_pct": 60,
-                "shortwave_w_m2": 330.2,
-                "clear_sky_shortwave_w_m2": 650,
-                "precipitation_in": 0
-              },
-              {
-                "time_local": "2026-12-23T12:00",
-                "cloud_cover_pct": 60,
-                "shortwave_w_m2": 330.2,
-                "clear_sky_shortwave_w_m2": 650,
-                "precipitation_in": 0
-              },
-              {
-                "time_local": "2026-12-23T13:00",
-                "cloud_cover_pct": 60,
-                "shortwave_w_m2": 330.2,
-                "clear_sky_shortwave_w_m2": 650,
-                "precipitation_in": 0
-              },
-              {
-                "time_local": "2026-12-23T14:00",
-                "cloud_cover_pct": 60,
-                "shortwave_w_m2": 330.2,
-                "clear_sky_shortwave_w_m2": 650,
-                "precipitation_in": 0
-              },
-              {
-                "time_local": "2026-12-23T15:00",
-                "cloud_cover_pct": 60,
-                "shortwave_w_m2": 330.2,
-                "clear_sky_shortwave_w_m2": 650,
-                "precipitation_in": 0
-              },
-              {
-                "time_local": "2026-12-23T16:00",
-                "cloud_cover_pct": 60,
-                "shortwave_w_m2": 330.2,
-                "clear_sky_shortwave_w_m2": 650,
-                "precipitation_in": 0
-              },
-              {
-                "time_local": "2026-12-23T17:00",
-                "cloud_cover_pct": 60,
-                "shortwave_w_m2": 330.2,
-                "clear_sky_shortwave_w_m2": 650,
-                "precipitation_in": 0
-              },
-              {
-                "time_local": "2026-12-23T18:00",
-                "cloud_cover_pct": 60,
-                "shortwave_w_m2": 330.2,
-                "clear_sky_shortwave_w_m2": 650,
-                "precipitation_in": 0
-              },
-              {
-                "time_local": "2026-12-23T19:00",
-                "cloud_cover_pct": 60,
-                "shortwave_w_m2": 60.96,
-                "clear_sky_shortwave_w_m2": 120,
-                "precipitation_in": 0
-              },
-              {
-                "time_local": "2026-12-23T20:00",
-                "cloud_cover_pct": 60,
-                "shortwave_w_m2": 60.96,
-                "clear_sky_shortwave_w_m2": 120,
-                "precipitation_in": 0
-              },
-              {
-                "time_local": "2026-12-23T21:00",
-                "cloud_cover_pct": 60,
-                "shortwave_w_m2": 60.96,
-                "clear_sky_shortwave_w_m2": 120,
-                "precipitation_in": 0
-              },
-              {
-                "time_local": "2026-12-23T22:00",
-                "cloud_cover_pct": 60,
-                "shortwave_w_m2": 60.96,
-                "clear_sky_shortwave_w_m2": 120,
-                "precipitation_in": 0
-              },
-              {
-                "time_local": "2026-12-23T23:00",
-                "cloud_cover_pct": 60,
-                "shortwave_w_m2": 60.96,
-                "clear_sky_shortwave_w_m2": 120,
-                "precipitation_in": 0
-              }
-            ]
-          },
-          "waterTemperature": {
-            "provider": "USGS",
-            "sourceId": "muskegon_croton_temperature",
-            "siteId": "04121970",
-            "observedAt": "2026-12-23T15:00:00.000Z",
-            "waterTempF": 61,
-            "trend": "neutral",
-            "sourceType": "same_gauge",
-            "attribution": "U.S. Geological Survey Water Data for the Nation."
-          },
-          "conditionsWaterTemperature": {
-            "provider": "USGS",
-            "sourceId": "muskegon_croton_temperature",
-            "siteId": "04121970",
-            "observedAt": "2026-12-23T15:00:00.000Z",
-            "waterTempF": 61,
-            "trend": "neutral",
-            "sourceType": "same_gauge",
-            "attribution": "U.S. Geological Survey Water Data for the Nation."
-          },
-          "freshness": {
-            "gauge": "fresh",
-            "weather": "fresh",
-            "waterTemperature": "fresh",
-            "conditionsWaterTemperature": "fresh",
-            "conditionsSuggestDaysUsable": 0
-          },
-          "dataQuality": {
-            "label": "Limited",
-            "reasonCodes": [
-              "gauge_fresh",
-              "weather_fresh",
-              "conditions_limited_source_days",
-              "data_quality_limited"
-            ]
-          },
-          "interpretationNote": {
-            "headline": "Steelhead are still in the river, but winter conditions now control the day.",
-            "detail": "The fall-entry period ended with strong retained presence. Use the winter fishery read to judge activity and presentation; Push and Migration Timing are intentionally complete because they answer the wrong question now.",
-            "reasonCodes": [
-              "winter_holding_read_required"
-            ]
-          },
-          "secondaryNote": "Based on USGS 04121970 immediately below Croton Dam. It represents the regulated Croton tailwater; flow, temperature, access, and safety can differ through Newaygo, the lower river, Muskegon Lake, and the channel.",
-          "safety": {
-            "regulationReminder": "Croton Dam is the hard upstream migration boundary. Fish only legal water below the dam, use established public access, respect private land and posted closures, and check current Michigan regulations and dam-safety notices.",
-            "gaugeBasis": "Based on USGS 04121970 immediately below Croton Dam. It represents the regulated Croton tailwater; flow, temperature, access, and safety can differ through Newaygo, the lower river, Muskegon Lake, and the channel.",
-            "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
-          },
-          "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-muskegon-steelhead-activity.1"
+          "configVersion": "2026-08-11-muskegon-copy.1"
         }
       }
     ]
@@ -32832,6 +32402,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
           "nextConditionRefreshAt": "2026-10-01T05:00:00.000Z",
           "runStage": {
             "stage": "beginning",
+            "copyStrategy": "muskegon_croton_tailwater",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -32854,14 +32425,14 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "peakToEndDays": 37
             },
             "label": "Beginning",
-            "headline": "The first fall Steelhead are entering the Muskegon's long migratory corridor.",
-            "whereToStart": "Deep lower-river travel water from Muskegon Lake toward M-120 first, then substantial Newaygo-to-M-120 resting water; check Croton only after those fresh-entry reaches.",
-            "detail": "New fish can be scattered from the lower river into middle-corridor resting water while earlier arrivals may already be nearer Croton.",
-            "tip": "Check lower-river travel lanes and good resting holes before assuming the newest fish are up by Croton.",
+            "headline": "The first fall Steelhead are entering and moving through the Muskegon River.",
+            "whereToStart": "Start in the Lower river (Muskegon Lake–M-120). Add the Middle river (M-120–Newaygo) after direct fish activity supports the move.",
+            "detail": "New fish remain scattered while earlier arrivals may already be farther upstream.",
+            "tip": "Cover travel water and the first substantial holding areas before moving upstream.",
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -32899,15 +32470,15 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "2026-09-24"
             ],
             "sourceRefreshSlots": {},
-            "headline": "There is not enough reliable information for a Migration Timing call.",
-            "tip": "Do not move farther upstream or stay lower based on this timing read. Fish the section identified by Migration Stage and begin in its most established holding water; change sections only when direct fish activity or a dependable later read supports it.",
+            "headline": "There is not enough reliable Muskegon evidence for a Migration Timing call.",
+            "tip": "Keep the Muskegon section named by Migration Stage. Do not shift sections from this timing read.",
             "detail": "There are not enough dependable past seasons to judge whether this migration is early, normal, or late.",
             "reasonCodes": [
               "conditions_baseline_missing",
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -32921,9 +32492,9 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
           "push": {
             "score": 70,
             "label": "Strong",
-            "headline": "Today's river rise and water temperature strongly support the possibility of a fresh wave moving into the river.",
-            "detail": "The river has made a clear rise since yesterday. Overall flow is already high. Water is on the warm side for fall migration and is cooling. Additional rain does not improve the read while the river is already high.",
-            "tip": "Begin on lower-river travel lanes and inside seams, then work the first resting holes along that route. Keep moving until fish establish a pattern; the signal still does not prove a wave entered.",
+            "headline": "Croton-area water strongly supports possible fresh movement.",
+            "detail": "The river has made a clear rise since yesterday; overall flow is already high. Water is on the warm side for fall migration and is cooling. Rain adds no support while Croton-area flow is already high.",
+            "tip": "Prioritize movement water near Croton Dam, then verify any downstream section directly.",
             "reasonCodes": [
               "gauge_fresh",
               "push_high_flow_context",
@@ -32941,14 +32512,14 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-fall-steelhead-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 32,
             "label": "Tough",
-            "headline": "The river is running very high, leaving fewer practical places to fish effectively.",
-            "detail": "Very high flow is reducing access and the amount of water where a presentation can be controlled. The rising water is pushing hard through the main channel and compressing practical fishing water along protected edges. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river.",
-            "tip": "Fish only protected margins, inside bends, and the downstream side of major current breaks. Leave the main-channel current alone while the rise continues.",
+            "headline": "Very high Croton-area flow leaves little controllable presentation water.",
+            "detail": "Very high flow compresses controllable water into protected edges. A clear rise is moving controllable water toward current breaks. This read applies only near Croton Dam within the Upper river (Newaygo–Croton Dam).",
+            "tip": "Favor protected margins and short controlled presentations. Choose another day if control is not dependable.",
             "reasonCodes": [
               "gauge_fresh",
               "very_high_flow_band"
@@ -32959,15 +32530,15 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 64,
             "maximum": 100,
             "label": "Active",
-            "headline": "Today’s Steelhead activity outlook is active.",
-            "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 AM: The measured water temperature remains usable. The main limitation: The river level or its recent change is less favorable. Early fall Steelhead are entering with energy reserves intact. This score describes feeding or aggressive responsiveness for fish already in the river, not fresh movement. The measured conditions represent the Croton tailwater immediately below Croton Dam. Water temperature, clarity, and fishing conditions can be different through Newaygo, the lower river, Muskegon Lake, and the channel. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
-            "tip": "Start with 5–9 AM. If conditions change, favor the window that best combines workable light with measured water temperature.",
+            "headline": "Today’s Croton-area Steelhead responsiveness is active.",
+            "detail": "Conditions support a meaningful Steelhead response. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Croton flow and temperature represent only the area near the dam.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify downstream sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -33019,10 +32590,13 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 9,
+            "displayScore": 10,
+            "scoreIsApproximate": true,
             "stage": "beginning",
             "maximum": 100,
             "riverCeiling": 90,
@@ -33031,14 +32605,14 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
             "curveDirection": "rising",
             "winterHoldingContext": false,
             "label": "Low presence",
-            "headline": "A small number of Steelhead may be in the river, and seasonal presence is still building.",
-            "detail": "This part of the season usually brings low presence, with more fish expected to enter and spread through the river. This is a seasonal estimate, not a live fish count.",
-            "tip": "Treat this as an early, low-odds river opportunity. Expect scattered results, and use direct fish activity before committing the full day.",
+            "headline": "Seasonal Steelhead presence is low and building.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the Muskegon Steelhead ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -33272,14 +32846,14 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "strong_push_low_fishability"
             ]
           },
-          "secondaryNote": "Based on USGS 04121970 immediately below Croton Dam. It represents the regulated Croton tailwater; flow, temperature, access, and safety can differ through Newaygo, the lower river, Muskegon Lake, and the channel.",
+          "secondaryNote": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
           "safety": {
             "regulationReminder": "Croton Dam is the hard upstream migration boundary. Fish only legal water below the dam, use established public access, respect private land and posted closures, and check current Michigan regulations and dam-safety notices.",
-            "gaugeBasis": "Based on USGS 04121970 immediately below Croton Dam. It represents the regulated Croton tailwater; flow, temperature, access, and safety can differ through Newaygo, the lower river, Muskegon Lake, and the channel.",
+            "gaugeBasis": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-muskegon-steelhead-activity.1"
+          "configVersion": "2026-08-11-muskegon-copy.1"
         }
       },
       {
@@ -33298,6 +32872,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
           "nextConditionRefreshAt": "2026-10-01T05:00:00.000Z",
           "runStage": {
             "stage": "beginning",
+            "copyStrategy": "muskegon_croton_tailwater",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -33320,14 +32895,14 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "peakToEndDays": 37
             },
             "label": "Beginning",
-            "headline": "The first fall Steelhead are entering the Muskegon's long migratory corridor.",
-            "whereToStart": "Deep lower-river travel water from Muskegon Lake toward M-120 first, then substantial Newaygo-to-M-120 resting water; check Croton only after those fresh-entry reaches.",
-            "detail": "New fish can be scattered from the lower river into middle-corridor resting water while earlier arrivals may already be nearer Croton.",
-            "tip": "Check lower-river travel lanes and good resting holes before assuming the newest fish are up by Croton.",
+            "headline": "The first fall Steelhead are entering and moving through the Muskegon River.",
+            "whereToStart": "Start in the Lower river (Muskegon Lake–M-120). Add the Middle river (M-120–Newaygo) after direct fish activity supports the move.",
+            "detail": "New fish remain scattered while earlier arrivals may already be farther upstream.",
+            "tip": "Cover travel water and the first substantial holding areas before moving upstream.",
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -33365,15 +32940,15 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "2026-09-24"
             ],
             "sourceRefreshSlots": {},
-            "headline": "There is not enough reliable information for a Migration Timing call.",
-            "tip": "Do not move farther upstream or stay lower based on this timing read. Fish the section identified by Migration Stage and begin in its most established holding water; change sections only when direct fish activity or a dependable later read supports it.",
+            "headline": "There is not enough reliable Muskegon evidence for a Migration Timing call.",
+            "tip": "Keep the Muskegon section named by Migration Stage. Do not shift sections from this timing read.",
             "detail": "There are not enough dependable past seasons to judge whether this migration is early, normal, or late.",
             "reasonCodes": [
               "conditions_baseline_missing",
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -33387,9 +32962,9 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
           "push": {
             "score": 0,
             "label": "Weak",
-            "headline": "Today's water shows little support for a fresh wave of fish.",
-            "detail": "The river is falling instead of showing a fresh rise. Water temperature remains too warm to support a strong Push but is warming sharply. Recent weather estimates indicate very little rain around the river.",
-            "tip": "Do not build the day around new arrivals while the river remains warm. Start in established holding water at first or last light and leave lower travel lanes secondary.",
+            "headline": "Croton-area water shows little support for fresh movement.",
+            "detail": "The river is falling instead of showing a fresh rise. Water temperature remains too warm to support a strong Push but is warming sharply. Recent watershed weather shows little rain.",
+            "tip": "Keep Migration Stage’s section primary. Do not shift sections from this read.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
@@ -33409,14 +32984,14 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-fall-steelhead-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 90,
             "label": "Excellent",
-            "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The river is settling, which should sharpen seams and make established holding water easier to read. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river.",
-            "tip": "Begin on the primary seam feeding deep holding water. Work each hole from head to tail, giving the deeper downstream half one final pass as the river settles.",
+            "headline": "Croton-area flow is in its best presentation range.",
+            "detail": "The flow band offers the broadest mix of depth and presentation control. Falling flow should sharpen established seams. This read applies only near Croton Dam within the Upper river (Newaygo–Croton Dam).",
+            "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band"
@@ -33427,15 +33002,15 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 7,
             "maximum": 100,
             "label": "Inactive",
-            "headline": "Today’s Steelhead activity outlook is inactive.",
-            "detail": "Conditions provide little environmental support for an aggressive response. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Water temperature limits responsiveness. Early fall Steelhead are entering with energy reserves intact. This score describes feeding or aggressive responsiveness for fish already in the river, not fresh movement. The measured conditions represent the Croton tailwater immediately below Croton Dam. Water temperature, clarity, and fishing conditions can be different through Newaygo, the lower river, Muskegon Lake, and the channel. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
-            "tip": "Start with 5–9 AM. If conditions change, favor the window that best combines workable light with measured water temperature.",
+            "headline": "Today’s Croton-area Steelhead responsiveness is inactive.",
+            "detail": "Conditions offer little support for an aggressive Steelhead response. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Croton flow and temperature represent only the area near the dam.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify downstream sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -33488,10 +33063,13 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 9,
+            "displayScore": 10,
+            "scoreIsApproximate": true,
             "stage": "beginning",
             "maximum": 100,
             "riverCeiling": 90,
@@ -33500,14 +33078,14 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
             "curveDirection": "rising",
             "winterHoldingContext": false,
             "label": "Low presence",
-            "headline": "A small number of Steelhead may be in the river, and seasonal presence is still building.",
-            "detail": "This part of the season usually brings low presence, with more fish expected to enter and spread through the river. This is a seasonal estimate, not a live fish count.",
-            "tip": "Treat this as an early, low-odds river opportunity. Expect scattered results, and use direct fish activity before committing the full day.",
+            "headline": "Seasonal Steelhead presence is low and building.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the Muskegon Steelhead ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -33741,14 +33319,14 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "good_fishability_low_presence"
             ]
           },
-          "secondaryNote": "Based on USGS 04121970 immediately below Croton Dam. It represents the regulated Croton tailwater; flow, temperature, access, and safety can differ through Newaygo, the lower river, Muskegon Lake, and the channel.",
+          "secondaryNote": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
           "safety": {
             "regulationReminder": "Croton Dam is the hard upstream migration boundary. Fish only legal water below the dam, use established public access, respect private land and posted closures, and check current Michigan regulations and dam-safety notices.",
-            "gaugeBasis": "Based on USGS 04121970 immediately below Croton Dam. It represents the regulated Croton tailwater; flow, temperature, access, and safety can differ through Newaygo, the lower river, Muskegon Lake, and the channel.",
+            "gaugeBasis": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-muskegon-steelhead-activity.1"
+          "configVersion": "2026-08-11-muskegon-copy.1"
         }
       },
       {
@@ -33767,6 +33345,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
           "nextConditionRefreshAt": "2026-09-21T05:00:00.000Z",
           "runStage": {
             "stage": "pre_run",
+            "copyStrategy": "muskegon_croton_tailwater",
             "stagingContext": true,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -33789,15 +33368,15 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "peakToEndDays": 37
             },
             "label": "Before migration",
-            "headline": "Steelhead fall entry is approaching the Muskegon River.",
-            "whereToStart": "Muskegon Lake, the channel, and deep lower-river travel water below M-120 for new fall entrants; do not treat a fish already near Croton as proof of a broad new entry.",
-            "detail": "New entrants are most honestly evaluated from Muskegon Lake through the lower river. An isolated fish farther upstream does not establish a corridor-wide fall build.",
-            "tip": "One fish is just one fish. Wait for the season and river conditions to point to a wider run.",
+            "headline": "Early Steelhead may begin entering the Muskegon River.",
+            "whereToStart": "Start at Muskegon Lake and the river entrance. Add the Lower river (Muskegon Lake–M-120) only for an early-Steelhead check.",
+            "detail": "An early Steelhead is possible, but one fish does not establish the broader fall-entry build.",
+            "tip": "Keep the river check brief and do not infer a separate strain from timing alone.",
             "reasonCodes": [
               "stage_pre_run",
               "stage_pre_run_staging"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Evaluating",
@@ -33816,13 +33395,13 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
             "historicalYears": 0,
             "sourceDates": [],
             "sourceRefreshSlots": {},
-            "headline": "Migration Timing is still taking shape.",
-            "detail": "The early river and temperature pattern is still developing, so an Ahead, Typical, or Delayed call would be premature.",
-            "tip": "Keep the trip centered on the river mouth and earliest lower-river holding water. Move inland only when Migration Stage advances or direct fish activity supports it.",
+            "headline": "Muskegon Migration Timing is still taking shape.",
+            "detail": "Croton flow and measured temperature do not yet support an Ahead, Typical, or Delayed call.",
+            "tip": "Keep the section named by Migration Stage until this read has enough Croton-area evidence.",
             "reasonCodes": [
               "conditions_checkpoint_evaluating"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -33836,21 +33415,21 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
           "push": {
             "score": null,
             "label": "Waiting for migration",
-            "headline": "Dependable fall entry has not started, so Push is not active yet.",
-            "detail": "An occasional early steelhead is possible, but Push is reserved for the expected entry window, when rain, river level, and water temperature can provide a responsible fresh-movement read.",
-            "tip": "Keep most effort near the lake, harbor, and river-mouth transition. Do not move inland just because rain or cooling resembles an in-season movement event.",
+            "headline": "Dependable Muskegon Steelhead fall entry has not started.",
+            "detail": "Croton flow and measured temperature are not scored as an in-season fresh-movement signal yet.",
+            "tip": "Use Migration Stage. Do not move inland because offseason water resembles a Push.",
             "reasonCodes": [
               "push_tracking_not_started"
             ],
             "rulesVersion": "muskegon-fall-steelhead-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 93,
             "label": "Excellent",
-            "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river.",
-            "tip": "Begin on the primary travel lane feeding deep holding water. Work each hole from its head through the inside seam and tail, then keep moving until fish establish a pattern.",
+            "headline": "Croton-area flow is in its best presentation range.",
+            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read applies only near Croton Dam within the Upper river (Newaygo–Croton Dam).",
+            "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band"
@@ -33861,15 +33440,15 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 53,
             "maximum": 100,
             "label": "Moderate",
-            "headline": "Today’s Steelhead activity outlook is moderate.",
-            "detail": "Some useful factors are present, but the response window is mixed. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Measured water temperature is unavailable. Dependable river presence has not begun. The score applies only to a sparse early Steelhead that may already have entered. The measured conditions represent the Croton tailwater immediately below Croton Dam. Water temperature, clarity, and fishing conditions can be different through Newaygo, the lower river, Muskegon Lake, and the channel. One important reading is unavailable or comes from tomorrow’s forecast, so the outlook is kept conservative.",
-            "tip": "Start with 5–9 AM. If conditions change, favor the window that best combines workable light with measured water temperature.",
+            "headline": "Today’s Croton-area responsiveness is moderate, but dependable Steelhead presence has not begun.",
+            "detail": "Conditions offer mixed support for Steelhead responsiveness. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. This applies only to an early Steelhead already near Croton Dam.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify downstream sections directly.",
             "reasonCodes": [
               "activity_confidence_moderate",
               "activity_today",
@@ -33921,10 +33500,13 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 0,
+            "displayScore": 0,
+            "scoreIsApproximate": false,
             "stage": "pre_run",
             "maximum": 100,
             "riverCeiling": 90,
@@ -33933,14 +33515,14 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
             "curveDirection": "outside",
             "winterHoldingContext": false,
             "label": "Not expected yet",
-            "headline": "Steelhead are not expected in meaningful numbers yet.",
-            "detail": "Most Steelhead are not expected to have entered the river in dependable numbers. Any fish already present would be early exceptions.",
-            "tip": "Treat this as no dependable in-river opportunity yet. Keep expectations at zero, and do not interpret an isolated early fish as evidence of dependable river presence.",
+            "headline": "Dependable Steelhead presence is not expected in the Muskegon River yet.",
+            "detail": "The seasonal estimate remains at zero. Any river fish would be an early exception.",
+            "tip": "Use Migration Stage for Muskegon Lake, channel, and river-entrance context.",
             "reasonCodes": [
               "stage_pre_run",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -34156,14 +33738,14 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "good_fishability_low_presence"
             ]
           },
-          "secondaryNote": "Based on USGS 04121970 immediately below Croton Dam. It represents the regulated Croton tailwater; flow, temperature, access, and safety can differ through Newaygo, the lower river, Muskegon Lake, and the channel.",
+          "secondaryNote": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
           "safety": {
             "regulationReminder": "Croton Dam is the hard upstream migration boundary. Fish only legal water below the dam, use established public access, respect private land and posted closures, and check current Michigan regulations and dam-safety notices.",
-            "gaugeBasis": "Based on USGS 04121970 immediately below Croton Dam. It represents the regulated Croton tailwater; flow, temperature, access, and safety can differ through Newaygo, the lower river, Muskegon Lake, and the channel.",
+            "gaugeBasis": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-muskegon-steelhead-activity.1"
+          "configVersion": "2026-08-11-muskegon-copy.1"
         }
       },
       {
@@ -34182,6 +33764,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
           "nextConditionRefreshAt": "2026-08-16T05:00:00.000Z",
           "runStage": {
             "stage": "post_run",
+            "copyStrategy": "muskegon_croton_tailwater",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -34203,16 +33786,16 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "startToPeakDays": 51,
               "peakToEndDays": 37
             },
-            "label": "Offseason",
-            "headline": "Steelhead are outside the Muskegon fall-entry model.",
-            "whereToStart": "No active fall-entry starting reach; use the winter Steelhead read for current holding-water guidance instead.",
-            "detail": "This profile no longer evaluates fall migration; winter activity requires a holding-focused seasonal read.",
-            "tip": "The fall-entry read is finished. Use the winter Steelhead read instead.",
+            "label": "Fall entry complete",
+            "headline": "Muskegon Steelhead fall entry is complete.",
+            "whereToStart": "There is no active Muskegon starting section in this fall-entry model.",
+            "detail": "Steelhead may remain in the river. This model no longer estimates current presence or activity.",
+            "tip": "Check back in early September when Muskegon fall-entry tracking resumes.",
             "reasonCodes": [
               "stage_post_run",
               "stage_offseason"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Not monitoring yet",
@@ -34231,13 +33814,13 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
             "historicalYears": 0,
             "sourceDates": [],
             "sourceRefreshSlots": {},
-            "headline": "Migration Timing is not active right now.",
-            "detail": "Timing monitoring begins before the expected river entry, but that seasonal observation window is not active yet.",
-            "tip": "Check Migration Stage for the current seasonal position and return to Migration Timing when early monitoring begins.",
+            "headline": "Muskegon Migration Timing is not monitoring yet.",
+            "detail": "Season-to-date Croton flow and measured-temperature monitoring resumes in early September.",
+            "tip": "Check back in early September when Muskegon timing monitoring resumes.",
             "reasonCodes": [
               "conditions_monitoring_inactive"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -34250,22 +33833,22 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
           },
           "push": {
             "score": null,
-            "label": "Offseason",
-            "headline": "Push is not active outside the river migration season.",
-            "detail": "Rain, river level, and water temperature can still change, but they do not provide a useful fresh-arrival signal for this species right now.",
-            "tip": "Do not use Push to plan for this species outside its migration season. Follow an active species instead, or return when early monitoring begins.",
+            "label": "Fall entry complete",
+            "headline": "Muskegon Steelhead fall-entry Push is complete.",
+            "detail": "Current water may affect Steelhead still in the river. This fall model no longer scores fresh-entry support.",
+            "tip": "Do not use a completed fall Push to infer current presence. Check back in early September.",
             "reasonCodes": [
-              "push_tracking_offseason"
+              "push_tracking_complete"
             ],
             "rulesVersion": "muskegon-fall-steelhead-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 93,
             "label": "Excellent",
-            "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river.",
-            "tip": "Begin on the primary travel lane feeding deep holding water. Work each hole from its head through the inside seam and tail, then keep moving until fish establish a pattern.",
+            "headline": "Croton-area flow is in its best presentation range.",
+            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read applies only near Croton Dam within the Upper river (Newaygo–Croton Dam).",
+            "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band"
@@ -34276,11 +33859,12 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": null,
           "fishInRiver": {
-            "score": 0,
+            "score": null,
+            "scoreIsApproximate": false,
             "stage": "post_run",
             "maximum": 100,
             "riverCeiling": 90,
@@ -34288,15 +33872,15 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
             "curveFraction": 0,
             "curveDirection": "outside",
             "winterHoldingContext": false,
-            "label": "Offseason",
-            "headline": "Steelhead are outside their river migration season.",
-            "detail": "A dependable seasonal presence of Steelhead is not expected in the river right now.",
-            "tip": "Do not build a river trip around this species right now. Target a species with an active seasonal window and return as the next migration approaches.",
+            "label": "Fall entry complete",
+            "headline": "Muskegon Steelhead fall entry is complete.",
+            "detail": "Steelhead may remain in the river. This fall-entry model no longer estimates their current seasonal presence.",
+            "tip": "Check back in early September when Muskegon fall movement tracking resumes.",
             "reasonCodes": [
               "stage_post_run",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -34522,21 +34106,15 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "data_quality_fresh"
             ]
           },
-          "interpretationNote": {
-            "headline": "The river should fish well, but seasonal fish presence is still low.",
-            "detail": "Good flow makes presentations easier, but it does not put fish in the river. Begin in the deepest established holding water and skip broad searches through fast travel lanes as seasonal presence thins.",
-            "reasonCodes": [
-              "good_fishability_low_presence"
-            ]
-          },
-          "secondaryNote": "Based on USGS 04121970 immediately below Croton Dam. It represents the regulated Croton tailwater; flow, temperature, access, and safety can differ through Newaygo, the lower river, Muskegon Lake, and the channel.",
+          "interpretationNote": null,
+          "secondaryNote": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
           "safety": {
             "regulationReminder": "Croton Dam is the hard upstream migration boundary. Fish only legal water below the dam, use established public access, respect private land and posted closures, and check current Michigan regulations and dam-safety notices.",
-            "gaugeBasis": "Based on USGS 04121970 immediately below Croton Dam. It represents the regulated Croton tailwater; flow, temperature, access, and safety can differ through Newaygo, the lower river, Muskegon Lake, and the channel.",
+            "gaugeBasis": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-muskegon-steelhead-activity.1"
+          "configVersion": "2026-08-11-muskegon-copy.1"
         }
       }
     ]
@@ -34561,6 +34139,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
           "nextConditionRefreshAt": "2026-10-02T05:00:00.000Z",
           "runStage": {
             "stage": "beginning",
+            "copyStrategy": "muskegon_croton_tailwater",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -34583,14 +34162,14 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "peakToEndDays": 37
             },
             "label": "Beginning",
-            "headline": "The first fall Steelhead are entering the Muskegon's long migratory corridor.",
-            "whereToStart": "Deep lower-river travel water from Muskegon Lake toward M-120 first, then substantial Newaygo-to-M-120 resting water; check Croton only after those fresh-entry reaches.",
-            "detail": "New fish can be scattered from the lower river into middle-corridor resting water while earlier arrivals may already be nearer Croton.",
-            "tip": "Check lower-river travel lanes and good resting holes before assuming the newest fish are up by Croton.",
+            "headline": "The first fall Steelhead are entering and moving through the Muskegon River.",
+            "whereToStart": "Start in the Lower river (Muskegon Lake–M-120). Add the Middle river (M-120–Newaygo) after direct fish activity supports the move.",
+            "detail": "New fish remain scattered while earlier arrivals may already be farther upstream.",
+            "tip": "Cover travel water and the first substantial holding areas before moving upstream.",
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -34628,15 +34207,15 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "2026-09-24"
             ],
             "sourceRefreshSlots": {},
-            "headline": "There is not enough reliable information for a Migration Timing call.",
-            "tip": "Do not move farther upstream or stay lower based on this timing read. Fish the section identified by Migration Stage and begin in its most established holding water; change sections only when direct fish activity or a dependable later read supports it.",
+            "headline": "There is not enough reliable Muskegon evidence for a Migration Timing call.",
+            "tip": "Keep the Muskegon section named by Migration Stage. Do not shift sections from this timing read.",
             "detail": "There are not enough dependable past seasons to judge whether this migration is early, normal, or late.",
             "reasonCodes": [
               "conditions_baseline_missing",
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -34650,9 +34229,9 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
           "push": {
             "score": 18,
             "label": "Weak",
-            "headline": "Today's water shows little support for a fresh wave of fish.",
-            "detail": "The river is holding steady with no meaningful rise yet. Water temperature remains too warm to support a strong Push and is relatively steady. Recent weather estimates indicate very little rain around the river.",
-            "tip": "Do not build the day around new arrivals while the river remains warm. Start in established holding water at first or last light and leave lower travel lanes secondary.",
+            "headline": "Croton-area water shows little support for fresh movement.",
+            "detail": "The river is holding steady with no meaningful rise yet. Water temperature remains too warm to support a strong Push and is relatively steady. Recent watershed weather shows little rain.",
+            "tip": "Keep Migration Stage’s section primary. Do not shift sections from this read.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
@@ -34672,14 +34251,14 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-fall-steelhead-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 93,
             "label": "Excellent",
-            "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river.",
-            "tip": "Begin on the primary travel lane feeding deep holding water. Work each hole from its head through the inside seam and tail, then keep moving until fish establish a pattern.",
+            "headline": "Croton-area flow is in its best presentation range.",
+            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read applies only near Croton Dam within the Upper river (Newaygo–Croton Dam).",
+            "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band"
@@ -34690,15 +34269,15 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 65,
             "maximum": 100,
             "label": "Active",
-            "headline": "Today’s Steelhead activity outlook is active.",
-            "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. Early fall Steelhead are entering with energy reserves intact. This score describes feeding or aggressive responsiveness for fish already in the river, not fresh movement. The measured conditions represent the Croton tailwater immediately below Croton Dam. Water temperature, clarity, and fishing conditions can be different through Newaygo, the lower river, Muskegon Lake, and the channel. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
-            "tip": "Start with 5–9 AM. If conditions change, favor the window that best combines workable light with measured water temperature.",
+            "headline": "Today’s Croton-area Steelhead responsiveness is active.",
+            "detail": "Conditions support a meaningful Steelhead response. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Croton flow and temperature represent only the area near the dam.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify downstream sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -34750,10 +34329,13 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 10,
+            "displayScore": 10,
+            "scoreIsApproximate": true,
             "stage": "beginning",
             "maximum": 100,
             "riverCeiling": 90,
@@ -34762,14 +34344,14 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
             "curveDirection": "rising",
             "winterHoldingContext": false,
             "label": "Low presence",
-            "headline": "A small number of Steelhead may be in the river, and seasonal presence is still building.",
-            "detail": "This part of the season usually brings low presence, with more fish expected to enter and spread through the river. This is a seasonal estimate, not a live fish count.",
-            "tip": "Treat this as an early, low-odds river opportunity. Expect scattered results, and use direct fish activity before committing the full day.",
+            "headline": "Seasonal Steelhead presence is low and building.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the Muskegon Steelhead ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -35003,14 +34585,14 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "good_fishability_low_presence"
             ]
           },
-          "secondaryNote": "Based on USGS 04121970 immediately below Croton Dam. It represents the regulated Croton tailwater; flow, temperature, access, and safety can differ through Newaygo, the lower river, Muskegon Lake, and the channel.",
+          "secondaryNote": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
           "safety": {
             "regulationReminder": "Croton Dam is the hard upstream migration boundary. Fish only legal water below the dam, use established public access, respect private land and posted closures, and check current Michigan regulations and dam-safety notices.",
-            "gaugeBasis": "Based on USGS 04121970 immediately below Croton Dam. It represents the regulated Croton tailwater; flow, temperature, access, and safety can differ through Newaygo, the lower river, Muskegon Lake, and the channel.",
+            "gaugeBasis": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-muskegon-steelhead-activity.1"
+          "configVersion": "2026-08-11-muskegon-copy.1"
         }
       },
       {
@@ -35029,6 +34611,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
           "nextConditionRefreshAt": "2026-10-01T05:00:00.000Z",
           "runStage": {
             "stage": "beginning",
+            "copyStrategy": "muskegon_croton_tailwater",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -35051,14 +34634,14 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "peakToEndDays": 37
             },
             "label": "Beginning",
-            "headline": "The first fall Steelhead are entering the Muskegon's long migratory corridor.",
-            "whereToStart": "Deep lower-river travel water from Muskegon Lake toward M-120 first, then substantial Newaygo-to-M-120 resting water; check Croton only after those fresh-entry reaches.",
-            "detail": "New fish can be scattered from the lower river into middle-corridor resting water while earlier arrivals may already be nearer Croton.",
-            "tip": "Check lower-river travel lanes and good resting holes before assuming the newest fish are up by Croton.",
+            "headline": "The first fall Steelhead are entering and moving through the Muskegon River.",
+            "whereToStart": "Start in the Lower river (Muskegon Lake–M-120). Add the Middle river (M-120–Newaygo) after direct fish activity supports the move.",
+            "detail": "New fish remain scattered while earlier arrivals may already be farther upstream.",
+            "tip": "Cover travel water and the first substantial holding areas before moving upstream.",
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -35096,15 +34679,15 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "2026-09-24"
             ],
             "sourceRefreshSlots": {},
-            "headline": "There is not enough reliable information for a Migration Timing call.",
-            "tip": "Do not move farther upstream or stay lower based on this timing read. Fish the section identified by Migration Stage and begin in its most established holding water; change sections only when direct fish activity or a dependable later read supports it.",
+            "headline": "There is not enough reliable Muskegon evidence for a Migration Timing call.",
+            "tip": "Keep the Muskegon section named by Migration Stage. Do not shift sections from this timing read.",
             "detail": "There are not enough dependable past seasons to judge whether this migration is early, normal, or late.",
             "reasonCodes": [
               "conditions_baseline_missing",
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -35118,9 +34701,9 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
           "push": {
             "score": 8,
             "label": "Weak",
-            "headline": "The water may support fresh movement, but an aging river reading limits confidence.",
-            "detail": "The river is holding steady with no meaningful rise yet. Water temperature remains too warm to support a strong Push and is relatively steady. Recent weather estimates indicate very little rain around the river. The latest river-level reading is aging, so confidence is reduced.",
-            "tip": "Do not build the day around new arrivals while the river remains warm. Start in established holding water at first or last light and leave lower travel lanes secondary.",
+            "headline": "Croton-area water shows little support for fresh movement.",
+            "detail": "The river is holding steady with no meaningful rise yet. Water temperature remains too warm to support a strong Push and is relatively steady. The Croton reading is aging, so confidence is reduced.",
+            "tip": "Keep Migration Stage’s section primary. Do not shift sections from this read.",
             "reasonCodes": [
               "gauge_stale",
               "push_normal_flow_context",
@@ -35141,14 +34724,14 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-fall-steelhead-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 55,
             "label": "Fishable",
-            "headline": "The last river reading was fishable, but it is aging and may no longer describe the water accurately.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. Because the latest reading is aging, the river may have changed since it was reported. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river.",
-            "tip": "Do not choose a reach from this reading alone. Check the water at the first access, and begin only in bank-side water where you can control the entire presentation.",
+            "headline": "The aging Croton reading limits Croton-area Fishability confidence.",
+            "detail": "The flow band offers the broadest mix of depth and presentation control. The Croton area may have changed since the last Croton reading. This read applies only near Croton Dam within the Upper river (Newaygo–Croton Dam).",
+            "tip": "Verify the Croton area directly before choosing presentation water.",
             "reasonCodes": [
               "gauge_stale",
               "ideal_flow_band",
@@ -35162,15 +34745,15 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               ]
             },
             "rulesVersion": "muskegon-croton-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 42,
             "maximum": 100,
             "label": "Moderate",
-            "headline": "Today’s Steelhead activity outlook is moderate.",
-            "detail": "Some useful factors are present, but the response window is mixed. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Current river behavior is unavailable. Early fall Steelhead are entering with energy reserves intact. This score describes feeding or aggressive responsiveness for fish already in the river, not fresh movement. The measured conditions represent the Croton tailwater immediately below Croton Dam. Water temperature, clarity, and fishing conditions can be different through Newaygo, the lower river, Muskegon Lake, and the channel. One important reading is unavailable or comes from tomorrow’s forecast, so the outlook is kept conservative.",
-            "tip": "Start with 5–9 AM. If conditions change, favor the window that best combines workable light with measured water temperature.",
+            "headline": "Today’s Croton-area Steelhead responsiveness is moderate.",
+            "detail": "Conditions offer mixed support for Steelhead responsiveness. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Moderate confidence reflects missing or forecast inputs; river measurements still represent only the Croton Dam area.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify downstream sections directly.",
             "reasonCodes": [
               "activity_confidence_moderate",
               "activity_today",
@@ -35222,10 +34805,13 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 9,
+            "displayScore": 10,
+            "scoreIsApproximate": true,
             "stage": "beginning",
             "maximum": 100,
             "riverCeiling": 90,
@@ -35234,14 +34820,14 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
             "curveDirection": "rising",
             "winterHoldingContext": false,
             "label": "Low presence",
-            "headline": "A small number of Steelhead may be in the river, and seasonal presence is still building.",
-            "detail": "This part of the season usually brings low presence, with more fish expected to enter and spread through the river. This is a seasonal estimate, not a live fish count.",
-            "tip": "Treat this as an early, low-odds river opportunity. Expect scattered results, and use direct fish activity before committing the full day.",
+            "headline": "Seasonal Steelhead presence is low and building.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the Muskegon Steelhead ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -35469,14 +35055,14 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
             ]
           },
           "interpretationNote": null,
-          "secondaryNote": "Based on USGS 04121970 immediately below Croton Dam. It represents the regulated Croton tailwater; flow, temperature, access, and safety can differ through Newaygo, the lower river, Muskegon Lake, and the channel.",
+          "secondaryNote": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
           "safety": {
             "regulationReminder": "Croton Dam is the hard upstream migration boundary. Fish only legal water below the dam, use established public access, respect private land and posted closures, and check current Michigan regulations and dam-safety notices.",
-            "gaugeBasis": "Based on USGS 04121970 immediately below Croton Dam. It represents the regulated Croton tailwater; flow, temperature, access, and safety can differ through Newaygo, the lower river, Muskegon Lake, and the channel.",
+            "gaugeBasis": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-muskegon-steelhead-activity.1"
+          "configVersion": "2026-08-11-muskegon-copy.1"
         }
       },
       {
@@ -35495,6 +35081,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
           "nextConditionRefreshAt": "2026-10-01T05:00:00.000Z",
           "runStage": {
             "stage": "beginning",
+            "copyStrategy": "muskegon_croton_tailwater",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -35517,14 +35104,14 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "peakToEndDays": 37
             },
             "label": "Beginning",
-            "headline": "The first fall Steelhead are entering the Muskegon's long migratory corridor.",
-            "whereToStart": "Deep lower-river travel water from Muskegon Lake toward M-120 first, then substantial Newaygo-to-M-120 resting water; check Croton only after those fresh-entry reaches.",
-            "detail": "New fish can be scattered from the lower river into middle-corridor resting water while earlier arrivals may already be nearer Croton.",
-            "tip": "Check lower-river travel lanes and good resting holes before assuming the newest fish are up by Croton.",
+            "headline": "The first fall Steelhead are entering and moving through the Muskegon River.",
+            "whereToStart": "Start in the Lower river (Muskegon Lake–M-120). Add the Middle river (M-120–Newaygo) after direct fish activity supports the move.",
+            "detail": "New fish remain scattered while earlier arrivals may already be farther upstream.",
+            "tip": "Cover travel water and the first substantial holding areas before moving upstream.",
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -35562,15 +35149,15 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "2026-09-24"
             ],
             "sourceRefreshSlots": {},
-            "headline": "There is not enough reliable information for a Migration Timing call.",
-            "tip": "Do not move farther upstream or stay lower based on this timing read. Fish the section identified by Migration Stage and begin in its most established holding water; change sections only when direct fish activity or a dependable later read supports it.",
+            "headline": "There is not enough reliable Muskegon evidence for a Migration Timing call.",
+            "tip": "Keep the Muskegon section named by Migration Stage. Do not shift sections from this timing read.",
             "detail": "There are not enough dependable past seasons to judge whether this migration is early, normal, or late.",
             "reasonCodes": [
               "conditions_baseline_missing",
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -35591,27 +35178,27 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "gauge_missing"
             ],
             "rulesVersion": "muskegon-fall-steelhead-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": null,
             "label": "Unavailable",
-            "headline": "There is no dependable Fishability read right now.",
-            "detail": "A recent river-level reading is missing, so current flow and direction cannot be judged responsibly.",
-            "tip": "Do not plan from the last known level. Check again after the next update, and verify the river at the first access before choosing where or how to fish.",
+            "headline": "A current Croton Fishability reading is unavailable.",
+            "detail": "Without current Croton flow and direction, presentation conditions near the dam cannot be determined.",
+            "tip": "Do not extend an old or missing Croton read through the Muskegon River. Verify current conditions directly.",
             "reasonCodes": [
               "gauge_missing"
             ],
             "rulesVersion": "muskegon-croton-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 42,
             "maximum": 100,
             "label": "Moderate",
-            "headline": "Today’s Steelhead activity outlook is moderate.",
-            "detail": "Some useful factors are present, but the response window is mixed. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Current river behavior is unavailable. Early fall Steelhead are entering with energy reserves intact. This score describes feeding or aggressive responsiveness for fish already in the river, not fresh movement. The measured conditions represent the Croton tailwater immediately below Croton Dam. Water temperature, clarity, and fishing conditions can be different through Newaygo, the lower river, Muskegon Lake, and the channel. One important reading is unavailable or comes from tomorrow’s forecast, so the outlook is kept conservative.",
-            "tip": "Start with 5–9 AM. If conditions change, favor the window that best combines workable light with measured water temperature.",
+            "headline": "Today’s Croton-area Steelhead responsiveness is moderate.",
+            "detail": "Conditions offer mixed support for Steelhead responsiveness. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Moderate confidence reflects missing or forecast inputs; river measurements still represent only the Croton Dam area.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify downstream sections directly.",
             "reasonCodes": [
               "activity_confidence_moderate",
               "activity_today",
@@ -35663,10 +35250,13 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 9,
+            "displayScore": 10,
+            "scoreIsApproximate": true,
             "stage": "beginning",
             "maximum": 100,
             "riverCeiling": 90,
@@ -35675,14 +35265,14 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
             "curveDirection": "rising",
             "winterHoldingContext": false,
             "label": "Low presence",
-            "headline": "A small number of Steelhead may be in the river, and seasonal presence is still building.",
-            "detail": "This part of the season usually brings low presence, with more fish expected to enter and spread through the river. This is a seasonal estimate, not a live fish count.",
-            "tip": "Treat this as an early, low-odds river opportunity. Expect scattered results, and use direct fish activity before committing the full day.",
+            "headline": "Seasonal Steelhead presence is low and building.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the Muskegon Steelhead ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": null,
           "weather": {
@@ -35900,14 +35490,14 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
             ]
           },
           "interpretationNote": null,
-          "secondaryNote": "Based on USGS 04121970 immediately below Croton Dam. It represents the regulated Croton tailwater; flow, temperature, access, and safety can differ through Newaygo, the lower river, Muskegon Lake, and the channel.",
+          "secondaryNote": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
           "safety": {
             "regulationReminder": "Croton Dam is the hard upstream migration boundary. Fish only legal water below the dam, use established public access, respect private land and posted closures, and check current Michigan regulations and dam-safety notices.",
-            "gaugeBasis": "Based on USGS 04121970 immediately below Croton Dam. It represents the regulated Croton tailwater; flow, temperature, access, and safety can differ through Newaygo, the lower river, Muskegon Lake, and the channel.",
+            "gaugeBasis": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-muskegon-steelhead-activity.1"
+          "configVersion": "2026-08-11-muskegon-copy.1"
         }
       },
       {
@@ -35926,6 +35516,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
           "nextConditionRefreshAt": "2026-10-01T05:00:00.000Z",
           "runStage": {
             "stage": "beginning",
+            "copyStrategy": "muskegon_croton_tailwater",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -35948,14 +35539,14 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "peakToEndDays": 37
             },
             "label": "Beginning",
-            "headline": "The first fall Steelhead are entering the Muskegon's long migratory corridor.",
-            "whereToStart": "Deep lower-river travel water from Muskegon Lake toward M-120 first, then substantial Newaygo-to-M-120 resting water; check Croton only after those fresh-entry reaches.",
-            "detail": "New fish can be scattered from the lower river into middle-corridor resting water while earlier arrivals may already be nearer Croton.",
-            "tip": "Check lower-river travel lanes and good resting holes before assuming the newest fish are up by Croton.",
+            "headline": "The first fall Steelhead are entering and moving through the Muskegon River.",
+            "whereToStart": "Start in the Lower river (Muskegon Lake–M-120). Add the Middle river (M-120–Newaygo) after direct fish activity supports the move.",
+            "detail": "New fish remain scattered while earlier arrivals may already be farther upstream.",
+            "tip": "Cover travel water and the first substantial holding areas before moving upstream.",
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -35993,15 +35584,15 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "2026-09-24"
             ],
             "sourceRefreshSlots": {},
-            "headline": "There is not enough reliable information for a Migration Timing call.",
-            "tip": "Do not move farther upstream or stay lower based on this timing read. Fish the section identified by Migration Stage and begin in its most established holding water; change sections only when direct fish activity or a dependable later read supports it.",
+            "headline": "There is not enough reliable Muskegon evidence for a Migration Timing call.",
+            "tip": "Keep the Muskegon section named by Migration Stage. Do not shift sections from this timing read.",
             "detail": "There are not enough dependable past seasons to judge whether this migration is early, normal, or late.",
             "reasonCodes": [
               "conditions_baseline_missing",
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -36023,14 +35614,14 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "temperature_unavailable"
             ],
             "rulesVersion": "muskegon-fall-steelhead-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 93,
             "label": "Excellent",
-            "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river.",
-            "tip": "Begin on the primary travel lane feeding deep holding water. Work each hole from its head through the inside seam and tail, then keep moving until fish establish a pattern.",
+            "headline": "Croton-area flow is in its best presentation range.",
+            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read applies only near Croton Dam within the Upper river (Newaygo–Croton Dam).",
+            "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band"
@@ -36041,15 +35632,15 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 53,
             "maximum": 100,
             "label": "Moderate",
-            "headline": "Today’s Steelhead activity outlook is moderate.",
-            "detail": "Some useful factors are present, but the response window is mixed. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Measured water temperature is unavailable. Early fall Steelhead are entering with energy reserves intact. This score describes feeding or aggressive responsiveness for fish already in the river, not fresh movement. The measured conditions represent the Croton tailwater immediately below Croton Dam. Water temperature, clarity, and fishing conditions can be different through Newaygo, the lower river, Muskegon Lake, and the channel. One important reading is unavailable or comes from tomorrow’s forecast, so the outlook is kept conservative.",
-            "tip": "Start with 5–9 AM. If conditions change, favor the window that best combines workable light with measured water temperature.",
+            "headline": "Today’s Croton-area Steelhead responsiveness is moderate.",
+            "detail": "Conditions offer mixed support for Steelhead responsiveness. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Moderate confidence reflects missing or forecast inputs; river measurements still represent only the Croton Dam area.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify downstream sections directly.",
             "reasonCodes": [
               "activity_confidence_moderate",
               "activity_today",
@@ -36101,10 +35692,13 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 9,
+            "displayScore": 10,
+            "scoreIsApproximate": true,
             "stage": "beginning",
             "maximum": 100,
             "riverCeiling": 90,
@@ -36113,14 +35707,14 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
             "curveDirection": "rising",
             "winterHoldingContext": false,
             "label": "Low presence",
-            "headline": "A small number of Steelhead may be in the river, and seasonal presence is still building.",
-            "detail": "This part of the season usually brings low presence, with more fish expected to enter and spread through the river. This is a seasonal estimate, not a live fish count.",
-            "tip": "Treat this as an early, low-odds river opportunity. Expect scattered results, and use direct fish activity before committing the full day.",
+            "headline": "Seasonal Steelhead presence is low and building.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the Muskegon Steelhead ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -36337,14 +35931,14 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "good_fishability_low_presence"
             ]
           },
-          "secondaryNote": "Based on USGS 04121970 immediately below Croton Dam. It represents the regulated Croton tailwater; flow, temperature, access, and safety can differ through Newaygo, the lower river, Muskegon Lake, and the channel.",
+          "secondaryNote": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
           "safety": {
             "regulationReminder": "Croton Dam is the hard upstream migration boundary. Fish only legal water below the dam, use established public access, respect private land and posted closures, and check current Michigan regulations and dam-safety notices.",
-            "gaugeBasis": "Based on USGS 04121970 immediately below Croton Dam. It represents the regulated Croton tailwater; flow, temperature, access, and safety can differ through Newaygo, the lower river, Muskegon Lake, and the channel.",
+            "gaugeBasis": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-muskegon-steelhead-activity.1"
+          "configVersion": "2026-08-11-muskegon-copy.1"
         }
       }
     ]

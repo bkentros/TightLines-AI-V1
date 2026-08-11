@@ -80,7 +80,7 @@ export const BETSIE_CONFIGURATION_DOCUMENT: RiverRunConfigurationDocument = {
 export const BIG_MANISTEE_CONFIGURATION_DOCUMENT:
   RiverRunConfigurationDocument = {
     schemaVersion: "river-run-config-v1",
-    configVersion: "2026-08-06-big-manistee-steelhead-activity.1",
+    configVersion: "2026-08-10-big-manistee-copy.1",
     movementEngineVersion: [
       getMovementEngineDefinition("fall_cooling").version,
       getMovementEngineDefinition("fall_entry_cooling").version,
@@ -101,7 +101,7 @@ export const BIG_MANISTEE_CONFIGURATION_DOCUMENT:
 
 export const MUSKEGON_CONFIGURATION_DOCUMENT: RiverRunConfigurationDocument = {
   schemaVersion: "river-run-config-v1",
-  configVersion: "2026-08-06-muskegon-steelhead-activity.1",
+  configVersion: "2026-08-11-muskegon-copy.1",
   movementEngineVersion: [
     getMovementEngineDefinition("fall_cooling").version,
     getMovementEngineDefinition("fall_entry_cooling").version,

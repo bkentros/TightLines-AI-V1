@@ -76,10 +76,20 @@ export function scoreActivity(input: {
   monitoringStartDate?: string;
 }): ActivityResult {
   if (input.fallEntryComplete) {
-    const river = input.copyStrategy === "betsie_homestead" ? "Betsie" : "PM";
+    const river = input.copyStrategy === "betsie_homestead"
+      ? "Betsie"
+      : input.copyStrategy === "big_manistee_tailwater"
+      ? "Big Manistee"
+      : input.copyStrategy === "muskegon_croton_tailwater"
+      ? "Muskegon"
+      : input.copyStrategy === "st_joseph_corridor"
+      ? "St. Joseph"
+      : "PM";
     const returnTiming = input.monitoringStartDate
       ? seasonalReturnPhrase(input.monitoringStartDate.slice(5))
-      : "when fall tracking resumes";
+      : input.copyStrategy === "betsie_homestead"
+      ? "in late August"
+      : "in early September";
     return {
       score: null,
       maximum: 100,
@@ -341,6 +351,9 @@ export function scoreActivity(input: {
     weatherOnly,
     pereMarquette: input.copyStrategy === "pere_marquette",
     betsieHomestead: input.copyStrategy === "betsie_homestead",
+    bigManistee: input.copyStrategy === "big_manistee_tailwater",
+    muskegon: input.copyStrategy === "muskegon_croton_tailwater",
+    stJoseph: input.copyStrategy === "st_joseph_corridor",
     hasWeather,
     blocksSeparated: hasWeather && sorted[0].score - sorted[1].score >= 3,
   });
@@ -392,11 +405,17 @@ function activityCopy(input: {
   weatherOnly: boolean;
   pereMarquette: boolean;
   betsieHomestead: boolean;
+  bigManistee: boolean;
+  muskegon: boolean;
+  stJoseph: boolean;
   hasWeather: boolean;
   blocksSeparated: boolean;
 }) {
   if (input.pereMarquette) return pereMarquetteActivityCopy(input);
   if (input.betsieHomestead) return betsieActivityCopy(input);
+  if (input.bigManistee) return bigManisteeActivityCopy(input);
+  if (input.muskegon) return muskegonActivityCopy(input);
+  if (input.stJoseph) return stJosephActivityCopy(input);
   const species = activitySpecies(input.profile);
   const day = input.tomorrow ? "Tomorrow’s" : "Today’s";
   const confidence = input.weatherOnly
@@ -456,6 +475,156 @@ function activityCopy(input: {
       : `${day} ${species} activity outlook is ${input.label.toLowerCase()}.`,
     detail:
       `${interpretation} ${bestWindow} ${lifecycle}${scope}${earlySeasonScope} ${confidence}`,
+    tip,
+  };
+}
+
+function stJosephActivityCopy(input: {
+  profile: ActivityRules["profile"];
+  label: string;
+  stage: RunStage;
+  conditionalPresence: boolean;
+  tomorrow: boolean;
+  confidence: ActivityConfidence;
+  bestBlock: ActivityBlock;
+  secondBlock: ActivityBlock;
+  hasWeather: boolean;
+  blocksSeparated: boolean;
+}): Pick<ActivityResult, "headline" | "detail" | "tip"> {
+  const species = activitySpecies(input.profile);
+  const day = input.tomorrow ? "Tomorrow’s" : "Today’s";
+  const headline = input.conditionalPresence
+    ? `${day} Niles responsiveness is ${input.label.toLowerCase()}, but dependable ${species} presence has not begun.`
+    : `${day} Niles ${species} responsiveness is ${input.label.toLowerCase()}.`;
+  const interpretation = ({
+    "Highly active": `Conditions strongly support ${species} responsiveness.`,
+    Active: `Conditions support a meaningful ${species} response.`,
+    Moderate: `Conditions offer mixed support for ${species} responsiveness.`,
+    Reserved: `${species} may respond selectively under current limitations.`,
+    Inactive:
+      `Conditions offer little support for an aggressive ${species} response.`,
+  } as Record<string, string>)[input.label] ??
+    `Conditions provide a ${species} responsiveness outlook.`;
+  const blockPoint = input.blocksSeparated
+    ? pmStrongestBlockPoint(input.bestBlock)
+    : input.hasWeather
+    ? `${input.bestBlock.label} and ${input.secondBlock.label} are the leading windows, but neither has a clear advantage.`
+    : "Hourly weather is unavailable, so no time block can be separated.";
+  const lifecycle = pmActivityLifecyclePoint(input.profile, input.stage);
+  const scopePoint = lifecycle ??
+    (input.conditionalPresence
+      ? `This applies only to an early ${species} already near Niles.`
+      : input.confidence === "Full"
+      ? "Flow and temperature represent only the Niles mainstem reach."
+      : `${input.confidence} confidence reflects missing or forecast inputs; river measurements still represent only Niles.`);
+  const tip = input.blocksSeparated
+    ? `Begin with ${input.bestBlock.label} at Niles. Verify the Lower and Upper river directly.`
+    : input.hasWeather
+    ? `Choose between ${input.bestBlock.label} and ${input.secondBlock.label} using actual light. Verify other sections directly.`
+    : "No dependable time window is available. Verify conditions directly.";
+  return {
+    headline,
+    detail: `${interpretation} ${blockPoint} ${scopePoint}`,
+    tip,
+  };
+}
+
+function bigManisteeActivityCopy(input: {
+  profile: ActivityRules["profile"];
+  label: string;
+  stage: RunStage;
+  conditionalPresence: boolean;
+  tomorrow: boolean;
+  confidence: ActivityConfidence;
+  bestBlock: ActivityBlock;
+  secondBlock: ActivityBlock;
+  hasWeather: boolean;
+  blocksSeparated: boolean;
+}): Pick<ActivityResult, "headline" | "detail" | "tip"> {
+  const species = activitySpecies(input.profile);
+  const day = input.tomorrow ? "Tomorrow’s" : "Today’s";
+  const headline = input.conditionalPresence
+    ? `${day} Upper-river responsiveness is ${input.label.toLowerCase()}, but dependable ${species} presence has not begun.`
+    : `${day} Upper-river ${species} responsiveness is ${input.label.toLowerCase()}.`;
+  const interpretation = ({
+    "Highly active": `Conditions strongly support ${species} responsiveness.`,
+    Active: `Conditions support a meaningful ${species} response.`,
+    Moderate: `Conditions offer mixed support for ${species} responsiveness.`,
+    Reserved: `${species} may respond selectively under current limitations.`,
+    Inactive:
+      `Conditions offer little support for an aggressive ${species} response.`,
+  } as Record<string, string>)[input.label] ??
+    `Conditions provide a ${species} responsiveness outlook.`;
+  const blockPoint = input.blocksSeparated
+    ? pmStrongestBlockPoint(input.bestBlock)
+    : input.hasWeather
+    ? `${input.bestBlock.label} and ${input.secondBlock.label} are the leading windows, but neither has a clear advantage.`
+    : "Hourly weather is unavailable, so no time block can be separated.";
+  const lifecycle = pmActivityLifecyclePoint(input.profile, input.stage);
+  const scopePoint = lifecycle ??
+    (input.conditionalPresence
+      ? `This applies only to an early ${species} already in the river.`
+      : input.confidence === "Full"
+      ? "Wellston flow and temperature represent the Upper river, especially the Tippy Dam area."
+      : `${input.confidence} confidence reflects missing or forecast inputs; Wellston still represents only the Upper river.`);
+  const tip = input.blocksSeparated
+    ? `Begin with ${input.bestBlock.label}. Apply this window in the Upper river and verify downstream sections directly.`
+    : input.hasWeather
+    ? `Choose between ${input.bestBlock.label} and ${input.secondBlock.label} using actual light. Verify downstream sections directly.`
+    : "No dependable time window is available. Verify conditions directly.";
+  return {
+    headline,
+    detail: `${interpretation} ${blockPoint} ${scopePoint}`,
+    tip,
+  };
+}
+
+function muskegonActivityCopy(input: {
+  profile: ActivityRules["profile"];
+  label: string;
+  stage: RunStage;
+  conditionalPresence: boolean;
+  tomorrow: boolean;
+  confidence: ActivityConfidence;
+  bestBlock: ActivityBlock;
+  secondBlock: ActivityBlock;
+  hasWeather: boolean;
+  blocksSeparated: boolean;
+}): Pick<ActivityResult, "headline" | "detail" | "tip"> {
+  const species = activitySpecies(input.profile);
+  const day = input.tomorrow ? "Tomorrow’s" : "Today’s";
+  const headline = input.conditionalPresence
+    ? `${day} Croton-area responsiveness is ${input.label.toLowerCase()}, but dependable ${species} presence has not begun.`
+    : `${day} Croton-area ${species} responsiveness is ${input.label.toLowerCase()}.`;
+  const interpretation = ({
+    "Highly active": `Conditions strongly support ${species} responsiveness.`,
+    Active: `Conditions support a meaningful ${species} response.`,
+    Moderate: `Conditions offer mixed support for ${species} responsiveness.`,
+    Reserved: `${species} may respond selectively under current limitations.`,
+    Inactive:
+      `Conditions offer little support for an aggressive ${species} response.`,
+  } as Record<string, string>)[input.label] ??
+    `Conditions provide a ${species} responsiveness outlook.`;
+  const blockPoint = input.blocksSeparated
+    ? pmStrongestBlockPoint(input.bestBlock)
+    : input.hasWeather
+    ? `${input.bestBlock.label} and ${input.secondBlock.label} are the leading windows, but neither has a clear advantage.`
+    : "Hourly weather is unavailable, so no time block can be separated.";
+  const lifecycle = pmActivityLifecyclePoint(input.profile, input.stage);
+  const scopePoint = lifecycle ??
+    (input.conditionalPresence
+      ? `This applies only to an early ${species} already near Croton Dam.`
+      : input.confidence === "Full"
+      ? "Croton flow and temperature represent only the area near the dam."
+      : `${input.confidence} confidence reflects missing or forecast inputs; river measurements still represent only the Croton Dam area.`);
+  const tip = input.blocksSeparated
+    ? `Begin with ${input.bestBlock.label} near Croton Dam. Verify every downstream section directly.`
+    : input.hasWeather
+    ? `Choose between ${input.bestBlock.label} and ${input.secondBlock.label} using actual light. Verify downstream sections directly.`
+    : "No dependable time window is available. Verify conditions directly.";
+  return {
+    headline,
+    detail: `${interpretation} ${blockPoint} ${scopePoint}`,
     tip,
   };
 }

@@ -65,6 +65,11 @@ Deno.test("Big Manistee foundation binds Wellston primary reach and source pair"
   assertEquals(primaryTemperature?.siteId, "04125550");
   assertEquals(primaryTemperature?.sourceType, "same_gauge");
   assert(!foundation.contextualGaugeSiteIds.includes("04125550"));
+  const tippy = foundation.locations?.find((location) =>
+    location.locationId === "big_manistee_tippy_dam"
+  );
+  assertEquals(tippy?.fishPassage, "impassable");
+  assertEquals(tippy?.publicUpstreamLimit, true);
 });
 
 Deno.test("Big Manistee foundation document binds all selectable fall runs", () => {
@@ -88,7 +93,7 @@ Deno.test("Big Manistee foundation document binds all selectable fall runs", () 
   );
   assert(
     BIG_MANISTEE_CONFIGURATION_DOCUMENT.configVersion.includes(
-      "big-manistee-steelhead-activity",
+      "big-manistee-copy",
     ),
   );
 });

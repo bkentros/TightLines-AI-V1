@@ -344,7 +344,7 @@ assert.ok(muskegonStage);
 for (const scenario of muskegonStage.scenarios) {
   assert.match(
     scenario.snapshot.runStage.whereToStart ?? "",
-    /Muskegon Lake|M-120|Newaygo|Croton|no dependable/i,
+    /Muskegon Lake|M-120|Newaygo|Croton|no dependable|no active Muskegon/i,
     `${scenario.id} must give Muskegon-specific starting guidance`,
   );
 }

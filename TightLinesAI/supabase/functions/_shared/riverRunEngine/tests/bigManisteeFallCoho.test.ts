@@ -177,19 +177,22 @@ Deno.test("Big Manistee Coho copy gives novice-safe named migratory reaches", ()
   );
   assertMatch(
     resolveRunStage(run, "2026-09-10").whereToStart ?? "",
-    /Tippy-tailwater/i,
+    /Lower river \(M-55–Bear Creek\)/i,
   );
   assertMatch(
     resolveRunStage(run, "2026-09-20").whereToStart ?? "",
-    /middle corridor/i,
+    /Middle river \(Bear Creek–High Bridge\)/i,
   );
   assertMatch(
     resolveRunStage(run, "2026-10-20").whereToStart ?? "",
-    /toward M-55/i,
+    /Upper river \(High Bridge–Tippy Dam\)/i,
   );
   for (const state of states) {
     const copy = JSON.stringify(state);
     assertEquals(/Scottville|Walhalla|Pere Marquette/i.test(copy), false);
-    assertEquals(/\bupper river\b/i.test(copy), false);
+    assertEquals(
+      /Tippy tailwater|toward M-55|middle corridor/i.test(copy),
+      false,
+    );
   }
 });

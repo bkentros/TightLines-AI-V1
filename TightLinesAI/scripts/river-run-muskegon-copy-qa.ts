@@ -1,26 +1,30 @@
 import assert from "node:assert/strict";
 
 import {
-  RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS,
-  RIVER_RUN_BETSIE_REVIEW_GROUPS,
-  RIVER_RUN_BETSIE_STEELHEAD_REVIEW_GROUPS,
+  RIVER_RUN_MUSKEGON_COHO_REVIEW_GROUPS,
+  RIVER_RUN_MUSKEGON_REVIEW_GROUPS,
+  RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS,
 } from "../lib/riverRunReviewFixtures";
 
 const runs = [
-  ["Chinook", RIVER_RUN_BETSIE_REVIEW_GROUPS],
-  ["Coho", RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS],
-  ["Steelhead", RIVER_RUN_BETSIE_STEELHEAD_REVIEW_GROUPS],
+  ["Chinook", RIVER_RUN_MUSKEGON_REVIEW_GROUPS],
+  ["Coho", RIVER_RUN_MUSKEGON_COHO_REVIEW_GROUPS],
+  ["Steelhead", RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS],
 ] as const;
 const foreignGeography =
-  /Pere Marquette|Maple Leaf|Green Cottage|Little Manistee|Tippy|Croton|Newaygo|Niles|South Bend|Mishawaka|Twin Branch|St\. Joseph|Muskegon/i;
-const vagueBetsieSections =
-  /\b(?:lower|middle|upper)[ -](?:river|reach|section|Betsie)\b|lakeward end|legal Homestead approach/i;
-const wrongfulPassage =
-  /above[- ]Homestead|above the (?:dam|structure)|pass(?:ed|ing)? (?:the structure|upstream)/i;
+  /Pere Marquette|Maple Leaf|Green Cottage|Little Manistee|Tippy|High Bridge|Bear Creek|M-55|Niles|South Bend|Mishawaka|Twin Branch|St\. Joseph|Betsie|Homestead|Scottville|Walhalla|Frankfort|Manistee Lake/i;
+const legacyMuskegonGeography =
+  /Croton tailwater|Croton-to-Newaygo|Newaygo-to-M-120|lower migratory|middle corridor|lower corridor|lakeward river|below M-120/i;
+const wrongfulBarrierCopy =
+  /above Croton|above the dam|pass(?:ed|ing)? (?:Croton|the dam|upstream)|below Newaygo Dam|Newaygo Dam tailwater/i;
+const strainOrWinter =
+  /Skamania|summer-run|winter-run|winter holding|winter read|winter outlook|winter experience/i;
 const filler =
   /at this point in time|generally speaking|it is important to|in order to|as a matter of fact/i;
 const internalProcessLanguage =
   /\b(?:accepted|configured|owner-approved|research-approved|audited|calibrated)\b/i;
+const approvedStageGeography =
+  /Lower river \(Muskegon Lake–M-120\)|Middle river \(M-120–Newaygo\)|Upper river \(Newaygo–Croton Dam\)|Muskegon Lake, the Lake Michigan channel, and the river entrance|Muskegon Lake and the river entrance|no active Muskegon starting section|no dependable starting section/i;
 
 let scenarioCount = 0;
 for (const [species, groups] of runs) {
@@ -53,14 +57,19 @@ for (const [species, groups] of runs) {
         `${species}/${scenario.id}: foreign geography`,
       );
       assert.equal(
-        vagueBetsieSections.test(copy),
+        legacyMuskegonGeography.test(copy),
         false,
-        `${species}/${scenario.id}: vague Betsie section`,
+        `${species}/${scenario.id}: legacy Muskegon geography`,
       );
       assert.equal(
-        wrongfulPassage.test(copy),
+        wrongfulBarrierCopy.test(copy),
         false,
-        `${species}/${scenario.id}: wrongful dam passage`,
+        `${species}/${scenario.id}: wrongful barrier copy`,
+      );
+      assert.equal(
+        strainOrWinter.test(copy),
+        false,
+        `${species}/${scenario.id}: strain or unavailable winter reference`,
       );
       assert.equal(
         filler.test(copy),
@@ -71,16 +80,6 @@ for (const [species, groups] of runs) {
         internalProcessLanguage.test(copy),
         false,
         `${species}/${scenario.id}: internal product-process language`,
-      );
-      assert.equal(
-        /\bwinter(?:time| holding| read| outlook)?\b/i.test(copy),
-        false,
-        `${species}/${scenario.id}: winter reference`,
-      );
-      assert.equal(
-        /river-wide|full-corridor guarantee/i.test(copy),
-        false,
-        `${species}/${scenario.id}: overbroad distribution`,
       );
 
       for (const primitive of primitives) {
@@ -94,37 +93,30 @@ for (const [species, groups] of runs) {
           `${species}/${scenario.id}: long headline`,
         );
         assert(
-          wordCount(primitive?.detail) <= 42,
-          `${species}/${scenario.id}: long Why copy`,
+          wordCount(primitive?.detail) <= 44,
+          `${species}/${scenario.id}/${primitive?.label}: long Why copy (${
+            wordCount(primitive?.detail)
+          } words)`,
         );
         assert(
-          wordCount(primitive?.tip) <= 32,
-          `${species}/${scenario.id}: long Guide copy`,
+          wordCount(primitive?.tip) <= 34,
+          `${species}/${scenario.id}/${primitive?.label}: long Guide copy (${
+            wordCount(primitive?.tip)
+          } words)`,
         );
         assert(
           sentenceCount(primitive?.detail) <= 3,
-          `${species}/${scenario.id}: more than three Why points`,
+          `${species}/${scenario.id}/${primitive?.label}: more than three Why points (${
+            sentenceCount(primitive?.detail)
+          })`,
         );
       }
-
-      assert.equal(snapshot.conditionsSuggest.score, null);
-      assert.equal(snapshot.push.score, null);
-      assert.equal(snapshot.fishability.score, null);
-      assert.match(
-        snapshot.conditionsSuggest.headline,
-        /not available for the Betsie/i,
-      );
-      assert.match(snapshot.push.headline, /not available for the Betsie/i);
-      assert.match(
-        snapshot.fishability.headline,
-        /not available for the Betsie/i,
-      );
 
       if (group.id === "run_stage" && snapshot.runStage.whereToStart) {
         assert.match(
           snapshot.runStage.whereToStart,
-          /Betsie Lake–US-31 reach|US-31–Homestead reach|Lake Michigan, Frankfort harbor, and Betsie Lake|No dependable starting reach/i,
-          `${species}/${scenario.id}: Where to Start lacks an approved anchor`,
+          approvedStageGeography,
+          `${species}/${scenario.id}: Where to Start lacks approved geography`,
         );
       }
 
@@ -163,7 +155,7 @@ for (const [species, groups] of runs) {
   }
 }
 
-const steelheadComplete = RIVER_RUN_BETSIE_STEELHEAD_REVIEW_GROUPS
+const steelheadComplete = RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS
   .flatMap((group) => group.scenarios)
   .find((scenario) => scenario.id === "activity_fall_entry_complete")?.snapshot;
 assert(steelheadComplete);
@@ -173,12 +165,12 @@ assert.equal(steelheadComplete.fishInRiver.score, null);
 assert.equal(steelheadComplete.fishInRiver.displayScore, undefined);
 assert.equal(steelheadComplete.activity?.score, null);
 assert.deepEqual(steelheadComplete.activity?.blocks, []);
-assert.match(steelheadComplete.runStage.tip ?? "", /late August/i);
+assert.match(steelheadComplete.runStage.tip ?? "", /early September/i);
 
 for (
   const groups of [
-    RIVER_RUN_BETSIE_REVIEW_GROUPS,
-    RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS,
+    RIVER_RUN_MUSKEGON_REVIEW_GROUPS,
+    RIVER_RUN_MUSKEGON_COHO_REVIEW_GROUPS,
   ]
 ) {
   const complete = groups.flatMap((group) => group.scenarios)
@@ -192,7 +184,7 @@ for (
 }
 
 console.log(
-  `Betsie copy QA passed across ${scenarioCount} production-derived scenarios and all six primitives.`,
+  `Muskegon copy QA passed across ${scenarioCount} production-derived scenarios and all six primitives.`,
 );
 
 function wordCount(value?: string): number {

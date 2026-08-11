@@ -160,7 +160,77 @@ function fishabilityCopy(input: {
   if (input.copyStrategy === "pere_marquette") {
     return pereMarquetteFishabilityCopy(input);
   }
+  if (input.copyStrategy === "big_manistee_tailwater") {
+    const bandPoint = bigManisteeFishabilityBandPoint(input.flowBand);
+    const trendPoint = bigManisteeFishabilityTrendPoint(
+      input.flowSignal,
+      input.flowBand,
+      input.gaugeFreshness,
+    );
+    return {
+      headline: bigManisteeFishabilityHeadline(
+        input.flowBand,
+        input.flowSignal,
+        input.gaugeFreshness,
+      ),
+      detail:
+        `${bandPoint} ${trendPoint} This read covers only the Upper river (High Bridge–Tippy Dam).`,
+      tip: bigManisteeFishabilityTip(
+        input.flowBand,
+        input.flowSignal,
+        input.gaugeFreshness,
+      ),
+    };
+  }
+  if (input.copyStrategy === "muskegon_croton_tailwater") {
+    const bandPoint = bigManisteeFishabilityBandPoint(input.flowBand)
+      .replaceAll("Upper river", "Croton area");
+    const trendPoint = bigManisteeFishabilityTrendPoint(
+      input.flowSignal,
+      input.flowBand,
+      input.gaugeFreshness,
+    ).replaceAll("Upper river", "Croton area").replaceAll(
+      "Wellston",
+      "Croton",
+    );
+    return {
+      headline: bigManisteeFishabilityHeadline(
+        input.flowBand,
+        input.flowSignal,
+        input.gaugeFreshness,
+      ).replaceAll("Upper-river", "Croton-area").replaceAll(
+        "Upper river",
+        "Croton area",
+      ).replaceAll("Wellston", "Croton"),
+      detail:
+        `${bandPoint} ${trendPoint} This read applies only near Croton Dam within the Upper river (Newaygo–Croton Dam).`,
+      tip: bigManisteeFishabilityTip(
+        input.flowBand,
+        input.flowSignal,
+        input.gaugeFreshness,
+      ).replaceAll("Upper river", "Croton area"),
+    };
+  }
   const nilesScoped = input.sourceLabel === "Niles mainstem reach";
+  if (nilesScoped) {
+    return {
+      headline: fishabilityHeadline(
+        input.flowBand,
+        input.flowSignal,
+        input.gaugeFreshness,
+      ),
+      detail: `${flowBandMeaning(input.flowBand)} ${
+        trendMeaning(input.flowSignal, input.flowBand, input.gaugeFreshness)
+      } This read applies only to the Niles mainstem reach.`,
+      tip: `${
+        bigManisteeFishabilityTip(
+          input.flowBand,
+          input.flowSignal,
+          input.gaugeFreshness,
+        ).replaceAll("Upper river", "Niles reach")
+      } Verify every other section directly.`,
+    };
+  }
   const scopeDetail = nilesScoped
     ? " This flow shape applies to the Niles mainstem reach only; verify the harbor, lower Michigan river, individual tailwaters, and Indiana water directly."
     : "";
@@ -182,6 +252,94 @@ function fishabilityCopy(input: {
       ? `${baseTip} Apply this recommendation at Niles; recheck water shape and safe access before carrying it to another St. Joseph section.`
       : baseTip,
   };
+}
+
+function bigManisteeFishabilityBandPoint(band: FlowBand): string {
+  return ({
+    very_low: "Unusually low flow concentrates useful depth into fewer places.",
+    low: "Low flow reduces depth and cover across the Upper river.",
+    normal_fishable:
+      "The flow band supports readable lanes, seams, and holding water.",
+    ideal:
+      "The flow band offers the broadest mix of depth and presentation control.",
+    high_fishable:
+      "Higher flow pushes useful presentation water toward softer edges.",
+    very_high:
+      "Very high flow compresses controllable water into protected edges.",
+    blown_out:
+      "Excessive flow overwhelms normal lanes and presentation control.",
+  } as Record<FlowBand, string>)[band];
+}
+
+function bigManisteeFishabilityTrendPoint(
+  signal: RawFlowTrendSignal,
+  _band: FlowBand,
+  freshness: GaugeFreshness,
+): string {
+  if (freshness === "stale") {
+    return "The Upper river may have changed since the last Wellston reading.";
+  }
+  return ({
+    stable: "Steady flow should keep presentation lanes consistent.",
+    falling: "Falling flow should sharpen established seams.",
+    rising: "A modest rise is shifting lanes toward softer edges.",
+    meaningful_rise:
+      "A clear rise is moving controllable water toward current breaks.",
+    sharp_rise: "A fast rise is replacing settled lanes with heavier current.",
+    unknown: "Recent Wellston history cannot establish the flow direction.",
+  } as Record<RawFlowTrendSignal, string>)[signal];
+}
+
+function bigManisteeFishabilityHeadline(
+  band: FlowBand,
+  trend: RawFlowTrendSignal,
+  freshness: GaugeFreshness,
+): string {
+  if (freshness === "stale") {
+    return "The aging Wellston reading limits Upper-river Fishability confidence.";
+  }
+  if (trend === "unknown") {
+    return "Upper-river flow is workable, but its direction is unknown.";
+  }
+  if (band === "blown_out") {
+    return "The Upper river is blown out for a dependable presentation plan.";
+  }
+  if (trend === "sharp_rise") {
+    return "A fast Upper-river rise is shifting usable water toward protected edges.";
+  }
+  return ({
+    very_low: "Very low Upper-river flow leaves limited depth and cover.",
+    low: "Low Upper-river flow remains workable with less depth and cover.",
+    normal_fishable: "Upper-river flow is in a comfortable presentation range.",
+    ideal: "Upper-river flow is in its best presentation range.",
+    high_fishable: "High Upper-river flow remains fishable in slower water.",
+    very_high:
+      "Very high Upper-river flow leaves little controllable presentation water.",
+    blown_out: "The Upper river is blown out.",
+  } as Record<FlowBand, string>)[band];
+}
+
+function bigManisteeFishabilityTip(
+  band: FlowBand,
+  trend: RawFlowTrendSignal,
+  freshness: GaugeFreshness,
+): string {
+  if (freshness === "stale" || trend === "unknown") {
+    return "Verify the Upper river directly before choosing presentation water.";
+  }
+  if (band === "blown_out") {
+    return "Choose another day and verify current conditions through authoritative local sources.";
+  }
+  if (band === "very_high" || trend === "sharp_rise") {
+    return "Favor protected margins and short controlled presentations. Choose another day if control is not dependable.";
+  }
+  if (band === "very_low" || band === "low") {
+    return "Use the deepest connected water and keep disturbance low.";
+  }
+  if (band === "high_fishable") {
+    return "Prioritize inside seams, protected edges, and current breaks.";
+  }
+  return "Cover readable seams and holding water with a controlled presentation.";
 }
 
 function pereMarquetteFishabilityCopy(input: {
@@ -507,15 +665,61 @@ function unavailableResult(
   input: FishabilityScoreInput,
   reason: "gauge" | "band",
 ): FishabilityScoreResult {
+  if (input.copyStrategy === "muskegon_croton_tailwater") {
+    return {
+      score: null,
+      label: "Unavailable",
+      headline: reason === "band"
+        ? "A Fishability band is not available for the Croton area."
+        : "A current Croton Fishability reading is unavailable.",
+      detail: reason === "band"
+        ? "Without a local Fishability band, flow cannot be translated into Croton-area presentation conditions."
+        : "Without current Croton flow and direction, presentation conditions near the dam cannot be determined.",
+      tip:
+        "Do not extend an old or missing Croton read through the Muskegon River. Verify current conditions directly.",
+      reasonCodes: reason === "band"
+        ? [
+          gaugeReasonCode(input.gaugeFreshness),
+          "baseline_missing",
+          ...(input.flowReasonCodes ?? []),
+        ]
+        : [gaugeReasonCode(input.gaugeFreshness)],
+      rulesVersion: input.rules.version,
+      copyVersion: RIVER_RUN_COPY_VERSION,
+    };
+  }
+  if (input.copyStrategy === "big_manistee_tailwater") {
+    return {
+      score: null,
+      label: "Unavailable",
+      headline: reason === "band"
+        ? "A Fishability band is not available for the Upper river."
+        : "A current Wellston Fishability reading is unavailable.",
+      detail: reason === "band"
+        ? "Without a local Fishability band, flow cannot be translated into Upper-river presentation conditions."
+        : "Without current Wellston flow and direction, Upper-river presentation conditions cannot be determined.",
+      tip:
+        "Do not extend an old or missing Wellston read through the Big Manistee. Verify current conditions directly.",
+      reasonCodes: reason === "band"
+        ? [
+          gaugeReasonCode(input.gaugeFreshness),
+          "baseline_missing",
+          ...(input.flowReasonCodes ?? []),
+        ]
+        : [gaugeReasonCode(input.gaugeFreshness)],
+      rulesVersion: input.rules.version,
+      copyVersion: RIVER_RUN_COPY_VERSION,
+    };
+  }
   if (input.copyStrategy === "pere_marquette") {
     return {
       score: null,
       label: "Unavailable",
       headline: reason === "band"
-        ? "Scottville does not have an accepted Fishability band for this read."
+        ? "A Fishability band is not available at Scottville."
         : "A current Scottville reading is unavailable.",
       detail: reason === "band"
-        ? "Without accepted local bands, Scottville flow cannot be translated into Lower river presentation conditions."
+        ? "Without a local Fishability band, Scottville flow cannot be translated into Lower river presentation conditions."
         : "Without current Scottville flow and direction, Lower river presentation conditions cannot be determined.",
       tip:
         "Do not extend an old or missing Scottville read across the PM. Use current authoritative local information.",

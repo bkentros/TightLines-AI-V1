@@ -24,6 +24,7 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
           "nextConditionRefreshAt": "2026-08-01T05:00:00.000Z",
           "runStage": {
             "stage": "post_run",
+            "copyStrategy": "st_joseph_corridor",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -45,16 +46,16 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
               "startToPeakDays": 51,
               "peakToEndDays": 37
             },
-            "label": "Offseason",
-            "headline": "Steelhead are outside their fall-entry season.",
-            "whereToStart": "No active fall-entry starting reach; use a dedicated winter Steelhead read when available rather than extending this fall model.",
-            "detail": "This fall model is inactive. It should not be used to infer winter or spring steelhead behavior. Five passage facilities allow distribution from the lower river through South Bend and Mishawaka, but Twin Branch is the hard upstream limit and Niles measurements are reach-specific.",
-            "tip": "Use an active winter Steelhead read when available. Do not extend this fall-entry calendar into a winter or spring recommendation.",
+            "label": "Fall entry complete",
+            "headline": "St. Joseph Steelhead fall entry is complete.",
+            "whereToStart": "There is no active St. Joseph starting section in this fall-entry model.",
+            "detail": "Steelhead may remain in the river. This fall-entry model no longer estimates current presence or activity.",
+            "tip": "Check back around September 10 when fall-entry monitoring resumes.",
             "reasonCodes": [
               "stage_post_run",
               "stage_offseason"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Not monitoring yet",
@@ -79,7 +80,7 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
             "reasonCodes": [
               "conditions_monitoring_inactive"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -92,22 +93,22 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
           },
           "push": {
             "score": null,
-            "label": "Offseason",
-            "headline": "Push is not active outside the river migration season.",
-            "detail": "Rain, river level, and water temperature can still change, but they do not provide a useful fresh-arrival signal for this species right now.",
-            "tip": "Do not use Push to plan for this species outside its migration season. Follow an active species instead, or return when early monitoring begins.",
+            "label": "Fall entry complete",
+            "headline": "St. Joseph Steelhead fall-entry Push is complete.",
+            "detail": "Current water may affect Steelhead still in the river. This fall model no longer scores fresh-entry support.",
+            "tip": "Do not use a completed fall Push to infer current presence. Check back in early September.",
             "reasonCodes": [
-              "push_tracking_offseason"
+              "push_tracking_complete"
             ],
             "rulesVersion": "st-joseph-niles-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 93,
             "label": "Excellent",
             "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river. This flow shape applies to the Niles mainstem reach only; verify the harbor, lower Michigan river, individual tailwaters, and Indiana water directly.",
-            "tip": "Begin on the primary travel lane feeding deep holding water. Work each hole from its head through the inside seam and tail, then keep moving until fish establish a pattern. Apply this recommendation at Niles; recheck water shape and safe access before carrying it to another St. Joseph section.",
+            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. This read applies only to the Niles mainstem reach.",
+            "tip": "Cover readable seams and holding water with a controlled presentation. Verify every other section directly.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band"
@@ -118,11 +119,12 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": null,
           "fishInRiver": {
-            "score": 0,
+            "score": null,
+            "scoreIsApproximate": false,
             "stage": "post_run",
             "maximum": 100,
             "riverCeiling": 90,
@@ -130,15 +132,15 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
             "curveFraction": 0,
             "curveDirection": "outside",
             "winterHoldingContext": false,
-            "label": "Offseason",
-            "headline": "Steelhead are outside their river migration season.",
-            "detail": "A dependable seasonal presence of Steelhead is not expected in the river right now.",
-            "tip": "Do not build a river trip around this species right now. Target a species with an active seasonal window and return as the next migration approaches.",
+            "label": "Fall entry complete",
+            "headline": "St. Joseph Steelhead fall entry is complete.",
+            "detail": "Steelhead may remain in the river. This fall-entry model no longer estimates their current seasonal presence.",
+            "tip": "Check back in early September when St. Joseph fall movement tracking resumes.",
             "reasonCodes": [
               "stage_post_run",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -364,13 +366,7 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
               "data_quality_fresh"
             ]
           },
-          "interpretationNote": {
-            "headline": "The river should fish well, but seasonal fish presence is still low.",
-            "detail": "Good flow makes presentations easier, but it does not put fish in the river. Begin in the deepest established holding water and skip broad searches through fast travel lanes as seasonal presence thins.",
-            "reasonCodes": [
-              "good_fishability_low_presence"
-            ]
-          },
+          "interpretationNote": null,
           "secondaryNote": "Based on the USGS gauge at Niles. It describes the Niles reach; the harbor, lower river, individual dam tailwaters, South Bend, Mishawaka, and Twin Branch may look different.",
           "safety": {
             "regulationReminder": "Select Michigan or Indiana for the correct jurisdiction. Always verify current official regulations, public access, posted closures, and dam safety boundaries.",
@@ -397,6 +393,7 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
           "nextConditionRefreshAt": "2026-08-21T05:00:00.000Z",
           "runStage": {
             "stage": "pre_run",
+            "copyStrategy": "st_joseph_corridor",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -419,14 +416,14 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
               "peakToEndDays": 37
             },
             "label": "Before migration",
-            "headline": "The modeled St. Joseph fall-entry build has not started, although summer-run Skamania are a separate possibility.",
-            "whereToStart": "Lake Michigan off St. Joseph, the harbor, and the river mouth for new-entry context; do not infer an inland fall build yet.",
-            "detail": "This fall read separates summer-run Steelhead already in the St. Joseph system from the later winter-run component that normally begins building in fall.",
-            "tip": "Keep new-entry effort around Lake Michigan, the St. Joseph harbor, and the mouth. Use direct local evidence—not this inactive fall calendar—if targeting Skamania already inland.",
+            "headline": "Dependable St. Joseph Steelhead fall entry has not started.",
+            "whereToStart": "Stay with Lake Michigan, the St. Joseph harbor, and the river mouth for new fall-entry context.",
+            "detail": "The fall-entry window has not opened yet. Summer-run Skamania may already be inland, but they are separate from this fall-entry estimate.",
+            "tip": "Keep new fall-entry effort near the harbor and mouth. Use direct local information if targeting Skamania already inland.",
             "reasonCodes": [
               "stage_pre_run"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Not monitoring yet",
@@ -451,7 +448,7 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
             "reasonCodes": [
               "conditions_monitoring_inactive"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -472,14 +469,14 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
               "push_tracking_not_started"
             ],
             "rulesVersion": "st-joseph-niles-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 93,
             "label": "Excellent",
             "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river. This flow shape applies to the Niles mainstem reach only; verify the harbor, lower Michigan river, individual tailwaters, and Indiana water directly.",
-            "tip": "Begin on the primary travel lane feeding deep holding water. Work each hole from its head through the inside seam and tail, then keep moving until fish establish a pattern. Apply this recommendation at Niles; recheck water shape and safe access before carrying it to another St. Joseph section.",
+            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. This read applies only to the Niles mainstem reach.",
+            "tip": "Cover readable seams and holding water with a controlled presentation. Verify every other section directly.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band"
@@ -490,11 +487,13 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": null,
           "fishInRiver": {
             "score": 0,
+            "displayScore": 0,
+            "scoreIsApproximate": false,
             "stage": "pre_run",
             "maximum": 100,
             "riverCeiling": 90,
@@ -503,14 +502,14 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
             "curveDirection": "outside",
             "winterHoldingContext": false,
             "label": "Not expected yet",
-            "headline": "Steelhead are not expected in meaningful numbers yet.",
-            "detail": "Most Steelhead are not expected to have entered the river in dependable numbers. Any fish already present would be early exceptions. This seasonal presence applies to the accessible St. Joseph corridor as a whole; it does not claim equal fish numbers at the harbor, Niles, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Treat this as no dependable in-river opportunity yet. Keep expectations at zero, and do not interpret an isolated early fish as evidence of dependable river presence. Use Migration Stage to choose the specific St. Joseph section, then verify that water directly.",
+            "headline": "Dependable Steelhead presence is not expected in the St. Joseph yet.",
+            "detail": "The seasonal estimate remains at zero. Any river fish would be an early exception.",
+            "tip": "Use Migration Stage for harbor and river-entry context.",
             "reasonCodes": [
               "stage_pre_run",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -769,6 +768,7 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
           "nextConditionRefreshAt": "2026-09-11T05:00:00.000Z",
           "runStage": {
             "stage": "pre_run",
+            "copyStrategy": "st_joseph_corridor",
             "stagingContext": true,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -791,15 +791,15 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
               "peakToEndDays": 37
             },
             "label": "Before migration",
-            "headline": "Summer-run Skamania can already be present, while the later winter-run Steelhead build is still ahead.",
-            "whereToStart": "The St. Joseph harbor and river mouth, plus one deliberate lower-Michigan travel-water check; Skamania may already be inland, but that is separate from the winter-run build.",
-            "detail": "This fall read separates summer-run Steelhead already in the St. Joseph system from the later winter-run component that normally begins building in fall.",
-            "tip": "Separate summer-run Skamania from the later winter-run build. Check direct local reports before going inland, and do not use one Skamania as proof of a new fall wave.",
+            "headline": "Early fall Steelhead may begin entering the St. Joseph River.",
+            "whereToStart": "Start at the St. Joseph harbor and river mouth. Add the Lower river (St. Joseph harbor–Berrien Springs) only for an early fall-entry check.",
+            "detail": "A new fall entrant is possible, while summer-run Skamania may already be inland. Neither establishes a broad fall-entry build.",
+            "tip": "Keep the fall-entry check brief. Do not treat one Steelhead or an existing Skamania as proof of a new fall wave.",
             "reasonCodes": [
               "stage_pre_run",
               "stage_pre_run_staging"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Evaluating",
@@ -824,7 +824,7 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
             "reasonCodes": [
               "conditions_checkpoint_evaluating"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -845,14 +845,14 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
               "push_tracking_not_started"
             ],
             "rulesVersion": "st-joseph-niles-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 93,
             "label": "Excellent",
             "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river. This flow shape applies to the Niles mainstem reach only; verify the harbor, lower Michigan river, individual tailwaters, and Indiana water directly.",
-            "tip": "Begin on the primary travel lane feeding deep holding water. Work each hole from its head through the inside seam and tail, then keep moving until fish establish a pattern. Apply this recommendation at Niles; recheck water shape and safe access before carrying it to another St. Joseph section.",
+            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. This read applies only to the Niles mainstem reach.",
+            "tip": "Cover readable seams and holding water with a controlled presentation. Verify every other section directly.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band"
@@ -863,15 +863,15 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 65,
             "maximum": 100,
             "label": "Active",
-            "headline": "Today’s Steelhead activity outlook is active.",
-            "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. Dependable river presence has not begun. The score applies only to a sparse early Steelhead that may already have entered. Measured river conditions describe the St. Joseph mainstem at Niles. Water temperature, clarity, hydraulic shape, access, and fishing conditions can differ in the harbor and lower Michigan river, at individual dam tailwaters, and through South Bend, Mishawaka, and the Twin Branch reach. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
-            "tip": "Start with 5–9 AM. If conditions change, favor the window that best combines workable light with measured water temperature. Apply this response window at Niles; verify temperature, clarity, flow shape, and legal access again before carrying it to another St. Joseph section.",
+            "headline": "Today’s Niles responsiveness is active, but dependable Steelhead presence has not begun.",
+            "detail": "Conditions support a meaningful Steelhead response. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. This applies only to an early Steelhead already near Niles.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify other sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -923,10 +923,13 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 0,
+            "displayScore": 0,
+            "scoreIsApproximate": false,
             "stage": "pre_run",
             "maximum": 100,
             "riverCeiling": 90,
@@ -935,14 +938,14 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
             "curveDirection": "outside",
             "winterHoldingContext": false,
             "label": "Not expected yet",
-            "headline": "Steelhead are not expected in meaningful numbers yet.",
-            "detail": "Most Steelhead are not expected to have entered the river in dependable numbers. Any fish already present would be early exceptions. This seasonal presence applies to the accessible St. Joseph corridor as a whole; it does not claim equal fish numbers at the harbor, Niles, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Treat this as no dependable in-river opportunity yet. Keep expectations at zero, and do not interpret an isolated early fish as evidence of dependable river presence. Use Migration Stage to choose the specific St. Joseph section, then verify that water directly.",
+            "headline": "Dependable Steelhead presence is not expected in the St. Joseph yet.",
+            "detail": "The seasonal estimate remains at zero. Any river fish would be an early exception.",
+            "tip": "Use Migration Stage for harbor and river-entry context.",
             "reasonCodes": [
               "stage_pre_run",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -1201,6 +1204,7 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
           "nextConditionRefreshAt": "2026-09-26T05:00:00.000Z",
           "runStage": {
             "stage": "beginning",
+            "copyStrategy": "st_joseph_corridor",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -1223,14 +1227,14 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
               "peakToEndDays": 37
             },
             "label": "Beginning",
-            "headline": "The first Steelhead are beginning to enter the river.",
-            "whereToStart": "Lower Michigan travel and holding water toward Berrien Springs, while recognizing that summer-run Skamania may already be distributed farther upstream through open passage.",
-            "detail": "Fresh fish may be present, but numbers are still scattered and can arrive in uneven waves before the broader fall fishery develops. Five passage facilities allow distribution from the lower river through South Bend and Mishawaka, but Twin Branch is the hard upstream limit and Niles measurements are reach-specific.",
-            "tip": "Cover lower-Michigan travel lanes and their first deep resting water before moving toward Niles. Treat inland Skamania separately from evidence of a new winter-run wave.",
+            "headline": "The first fall Steelhead are entering the St. Joseph River.",
+            "whereToStart": "Start in the Lower river (St. Joseph harbor–Berrien Springs). Add the Middle river (Berrien Springs–Niles) after direct fish activity supports the move.",
+            "detail": "New fall entrants remain scattered while summer-run Skamania may already be farther inland.",
+            "tip": "Cover travel water and the first substantial holding areas before moving upstream.",
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -1276,7 +1280,7 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -1290,9 +1294,9 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
           "push": {
             "score": 18,
             "label": "Weak",
-            "headline": "Today's water shows little support for a fresh wave of fish.",
-            "detail": "The river is holding steady with no meaningful rise yet. Water temperature remains too warm to support a strong Push and is relatively steady. Recent weather estimates indicate very little rain around the river. This Push describes fresh-movement support at Niles only; it does not prove a new wave at the harbor, Berrien Springs, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Do not build the day around new arrivals while the river remains warm. Start in established holding water at first or last light and leave lower travel lanes secondary. Use the Niles signal to choose between Niles-area holding water and a lower-Michigan travel-water check; verify Indiana movement directly.",
+            "headline": "Niles water shows little support for fresh movement.",
+            "detail": "Niles flow is steady without a meaningful rise. Water temperature remains too warm to support a strong Push and is relatively steady. Recent watershed weather shows little rain.",
+            "tip": "Keep Migration Stage’s section primary. Do not shift sections from this Niles read.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
@@ -1312,14 +1316,14 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 93,
             "label": "Excellent",
             "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river. This flow shape applies to the Niles mainstem reach only; verify the harbor, lower Michigan river, individual tailwaters, and Indiana water directly.",
-            "tip": "Begin on the primary travel lane feeding deep holding water. Work each hole from its head through the inside seam and tail, then keep moving until fish establish a pattern. Apply this recommendation at Niles; recheck water shape and safe access before carrying it to another St. Joseph section.",
+            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. This read applies only to the Niles mainstem reach.",
+            "tip": "Cover readable seams and holding water with a controlled presentation. Verify every other section directly.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band"
@@ -1330,15 +1334,15 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 65,
             "maximum": 100,
             "label": "Active",
-            "headline": "Today’s Steelhead activity outlook is active.",
-            "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. Early fall Steelhead are entering with energy reserves intact. This score describes feeding or aggressive responsiveness for fish already in the river, not fresh movement. Measured river conditions describe the St. Joseph mainstem at Niles. Water temperature, clarity, hydraulic shape, access, and fishing conditions can differ in the harbor and lower Michigan river, at individual dam tailwaters, and through South Bend, Mishawaka, and the Twin Branch reach. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
-            "tip": "Start with 5–9 AM. If conditions change, favor the window that best combines workable light with measured water temperature. Apply this response window at Niles; verify temperature, clarity, flow shape, and legal access again before carrying it to another St. Joseph section.",
+            "headline": "Today’s Niles Steelhead responsiveness is active.",
+            "detail": "Conditions support a meaningful Steelhead response. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Flow and temperature represent only the Niles mainstem reach.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify other sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -1390,10 +1394,13 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 7,
+            "displayScore": 5,
+            "scoreIsApproximate": true,
             "stage": "beginning",
             "maximum": 100,
             "riverCeiling": 90,
@@ -1402,14 +1409,14 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
             "curveDirection": "rising",
             "winterHoldingContext": false,
             "label": "Low presence",
-            "headline": "A small number of Steelhead may be in the river, and seasonal presence is still building.",
-            "detail": "This part of the season usually brings low presence, with more fish expected to enter and spread through the river. This is a seasonal estimate, not a live fish count. This seasonal presence applies to the accessible St. Joseph corridor as a whole; it does not claim equal fish numbers at the harbor, Niles, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Treat this as an early, low-odds river opportunity. Expect scattered results, and use direct fish activity before committing the full day. Use Migration Stage to choose the specific St. Joseph section, then verify that water directly.",
+            "headline": "Seasonal Steelhead presence is low and building.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the St. Joseph Steelhead ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -1669,6 +1676,7 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
           "nextConditionRefreshAt": "2026-10-06T05:00:00.000Z",
           "runStage": {
             "stage": "beginning",
+            "copyStrategy": "st_joseph_corridor",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -1691,14 +1699,14 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
               "peakToEndDays": 37
             },
             "label": "Beginning",
-            "headline": "The first Steelhead are beginning to enter the river.",
-            "whereToStart": "Lower Michigan travel and holding water toward Berrien Springs, while recognizing that summer-run Skamania may already be distributed farther upstream through open passage.",
-            "detail": "Fresh fish may be present, but numbers are still scattered and can arrive in uneven waves before the broader fall fishery develops. Five passage facilities allow distribution from the lower river through South Bend and Mishawaka, but Twin Branch is the hard upstream limit and Niles measurements are reach-specific.",
-            "tip": "Cover lower-Michigan travel lanes and their first deep resting water before moving toward Niles. Treat inland Skamania separately from evidence of a new winter-run wave.",
+            "headline": "The first fall Steelhead are entering the St. Joseph River.",
+            "whereToStart": "Start in the Lower river (St. Joseph harbor–Berrien Springs). Add the Middle river (Berrien Springs–Niles) after direct fish activity supports the move.",
+            "detail": "New fall entrants remain scattered while summer-run Skamania may already be farther inland.",
+            "tip": "Cover travel water and the first substantial holding areas before moving upstream.",
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -1744,7 +1752,7 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -1758,9 +1766,9 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
           "push": {
             "score": 18,
             "label": "Weak",
-            "headline": "Today's water shows little support for a fresh wave of fish.",
-            "detail": "The river is holding steady with no meaningful rise yet. Water temperature remains too warm to support a strong Push and is relatively steady. Recent weather estimates indicate very little rain around the river. This Push describes fresh-movement support at Niles only; it does not prove a new wave at the harbor, Berrien Springs, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Do not build the day around new arrivals while the river remains warm. Start in established holding water at first or last light and leave lower travel lanes secondary. Use the Niles signal to choose between Niles-area holding water and a lower-Michigan travel-water check; verify Indiana movement directly.",
+            "headline": "Niles water shows little support for fresh movement.",
+            "detail": "Niles flow is steady without a meaningful rise. Water temperature remains too warm to support a strong Push and is relatively steady. Recent watershed weather shows little rain.",
+            "tip": "Keep Migration Stage’s section primary. Do not shift sections from this Niles read.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
@@ -1780,14 +1788,14 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 93,
             "label": "Excellent",
             "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river. This flow shape applies to the Niles mainstem reach only; verify the harbor, lower Michigan river, individual tailwaters, and Indiana water directly.",
-            "tip": "Begin on the primary travel lane feeding deep holding water. Work each hole from its head through the inside seam and tail, then keep moving until fish establish a pattern. Apply this recommendation at Niles; recheck water shape and safe access before carrying it to another St. Joseph section.",
+            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. This read applies only to the Niles mainstem reach.",
+            "tip": "Cover readable seams and holding water with a controlled presentation. Verify every other section directly.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band"
@@ -1798,15 +1806,15 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 65,
             "maximum": 100,
             "label": "Active",
-            "headline": "Today’s Steelhead activity outlook is active.",
-            "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. Early fall Steelhead are entering with energy reserves intact. This score describes feeding or aggressive responsiveness for fish already in the river, not fresh movement. Measured river conditions describe the St. Joseph mainstem at Niles. Water temperature, clarity, hydraulic shape, access, and fishing conditions can differ in the harbor and lower Michigan river, at individual dam tailwaters, and through South Bend, Mishawaka, and the Twin Branch reach. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
-            "tip": "Start with 5–9 AM. If conditions change, favor the window that best combines workable light with measured water temperature. Apply this response window at Niles; verify temperature, clarity, flow shape, and legal access again before carrying it to another St. Joseph section.",
+            "headline": "Today’s Niles Steelhead responsiveness is active.",
+            "detail": "Conditions support a meaningful Steelhead response. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Flow and temperature represent only the Niles mainstem reach.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify other sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -1858,10 +1866,13 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 16,
+            "displayScore": 15,
+            "scoreIsApproximate": true,
             "stage": "beginning",
             "maximum": 100,
             "riverCeiling": 90,
@@ -1870,14 +1881,14 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
             "curveDirection": "rising",
             "winterHoldingContext": false,
             "label": "Low presence",
-            "headline": "A small number of Steelhead may be in the river, and seasonal presence is still building.",
-            "detail": "This part of the season usually brings low presence, with more fish expected to enter and spread through the river. This is a seasonal estimate, not a live fish count. This seasonal presence applies to the accessible St. Joseph corridor as a whole; it does not claim equal fish numbers at the harbor, Niles, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Treat this as an early, low-odds river opportunity. Expect scattered results, and use direct fish activity before committing the full day. Use Migration Stage to choose the specific St. Joseph section, then verify that water directly.",
+            "headline": "Seasonal Steelhead presence is low and building.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the St. Joseph Steelhead ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -2137,6 +2148,7 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
           "nextConditionRefreshAt": "2026-10-16T05:00:00.000Z",
           "runStage": {
             "stage": "building",
+            "copyStrategy": "st_joseph_corridor",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -2159,14 +2171,14 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
               "peakToEndDays": 37
             },
             "label": "Building",
-            "headline": "Steelhead are becoming established across much more of the river.",
-            "whereToStart": "Begin with the Niles reach and substantial lower-Michigan holding water, then compare legal Indiana reaches for accumulated fish.",
-            "detail": "By this stage, earlier arrivals have had time to reach lower, middle, and upper sections while newer fish continue entering. Fish may be distributed broadly, but the most dependable concentrations are often still in lower- and middle-river holding water. Five passage facilities allow distribution from the lower river through South Bend and Mishawaka, but Twin Branch is the hard upstream limit and Niles measurements are reach-specific.",
-            "tip": "Begin in substantial lower-Michigan or Niles holding water, then compare legal Indiana water only after a clean search; use Push to decide whether lower travel lanes deserve extra time.",
+            "headline": "Steelhead are becoming established through more of the St. Joseph.",
+            "whereToStart": "Start in the Middle river (Berrien Springs–Niles). Compare the Lower river (St. Joseph harbor–Berrien Springs) for fresher fish.",
+            "detail": "Earlier arrivals may be farther upstream while newer fish continue entering below.",
+            "tip": "Keep one Lower-river fresh-entry comparison and verify every section directly.",
             "reasonCodes": [
               "stage_building"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -2232,7 +2244,7 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
               "conditions_insufficient",
               "conditions_checkpoint_building_established"
             ],
-            "copyVersion": "river-run-copy-v27",
+            "copyVersion": "river-run-copy-v34",
             "previousCheckpointId": "building_start",
             "previousCheckpointDate": "2026-10-11",
             "previousTimingLabel": "Insufficient evidence"
@@ -2249,9 +2261,9 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
           "push": {
             "score": 18,
             "label": "Weak",
-            "headline": "Today's water shows little support for a fresh wave of fish.",
-            "detail": "The river is holding steady with no meaningful rise yet. Water temperature remains too warm to support a strong Push and is relatively steady. Recent weather estimates indicate very little rain around the river. This Push describes fresh-movement support at Niles only; it does not prove a new wave at the harbor, Berrien Springs, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Do not build the day around new arrivals while the river remains warm. Start in established holding water at first or last light and leave lower travel lanes secondary. Use the Niles signal to choose between Niles-area holding water and a lower-Michigan travel-water check; verify Indiana movement directly.",
+            "headline": "Niles water shows little support for fresh movement.",
+            "detail": "Niles flow is steady without a meaningful rise. Water temperature remains too warm to support a strong Push and is relatively steady. Recent watershed weather shows little rain.",
+            "tip": "Keep Migration Stage’s section primary. Do not shift sections from this Niles read.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
@@ -2271,14 +2283,14 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 93,
             "label": "Excellent",
             "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river. This flow shape applies to the Niles mainstem reach only; verify the harbor, lower Michigan river, individual tailwaters, and Indiana water directly.",
-            "tip": "Begin on the primary travel lane feeding deep holding water. Work each hole from its head through the inside seam and tail, then keep moving until fish establish a pattern. Apply this recommendation at Niles; recheck water shape and safe access before carrying it to another St. Joseph section.",
+            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. This read applies only to the Niles mainstem reach.",
+            "tip": "Cover readable seams and holding water with a controlled presentation. Verify every other section directly.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band"
@@ -2289,15 +2301,15 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 65,
             "maximum": 100,
             "label": "Active",
-            "headline": "Today’s Steelhead activity outlook is active.",
-            "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. Steelhead are becoming more established through the river. The score describes feeding or aggressive responsiveness, while movement and abundance remain separate reads. Measured river conditions describe the St. Joseph mainstem at Niles. Water temperature, clarity, hydraulic shape, access, and fishing conditions can differ in the harbor and lower Michigan river, at individual dam tailwaters, and through South Bend, Mishawaka, and the Twin Branch reach. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
-            "tip": "Start with 5–9 AM. If conditions change, favor the window that best combines workable light with measured water temperature. Apply this response window at Niles; verify temperature, clarity, flow shape, and legal access again before carrying it to another St. Joseph section.",
+            "headline": "Today’s Niles Steelhead responsiveness is active.",
+            "detail": "Conditions support a meaningful Steelhead response. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Flow and temperature represent only the Niles mainstem reach.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify other sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -2349,10 +2361,13 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 34,
+            "displayScore": 35,
+            "scoreIsApproximate": true,
             "stage": "building",
             "maximum": 100,
             "riverCeiling": 90,
@@ -2361,14 +2376,14 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
             "curveDirection": "rising",
             "winterHoldingContext": false,
             "label": "Limited presence",
-            "headline": "Some Steelhead are likely in the river, but seasonal presence is still developing.",
-            "detail": "This part of the season usually brings limited presence, with more fish expected to enter and spread through the river. This is a seasonal estimate, not a live fish count. This seasonal presence applies to the accessible St. Joseph corridor as a whole; it does not claim equal fish numbers at the harbor, Niles, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Plan for an emerging but uneven river opportunity. Cover water efficiently, and do not assume every promising stop holds fish. Use Migration Stage to choose the specific St. Joseph section, then verify that water directly.",
+            "headline": "Seasonal Steelhead presence is limited and building.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the St. Joseph Steelhead ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_building",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -2622,6 +2637,7 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
           "nextConditionRefreshAt": "2026-11-02T05:00:00.000Z",
           "runStage": {
             "stage": "building",
+            "copyStrategy": "st_joseph_corridor",
             "stagingContext": false,
             "broadBuildingContext": true,
             "winterHoldingContext": false,
@@ -2644,14 +2660,14 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
               "peakToEndDays": 37
             },
             "label": "Building",
-            "headline": "Steelhead are now broadly established through the accessible river.",
-            "whereToStart": "Compare legal holding water in the lower Michigan corridor, the Niles reach, and South Bend-Mishawaka below Twin Branch; stay outside every posted ladder and dam boundary.",
-            "detail": "By November, multiple entry periods have given steelhead time to spread through lower, middle, and upper sections wherever passage is open. The upper river is now a primary option, even though dependable concentrations can remain in lower and middle holding water. Five passage facilities allow distribution from the lower river through South Bend and Mishawaka, but Twin Branch is the hard upstream limit and Niles measurements are reach-specific.",
-            "tip": "Compare one legal Michigan holding section with South Bend or Mishawaka, then let direct fish activity decide where to stay; remain outside every posted ladder and dam boundary.",
+            "headline": "Steelhead are broadly established through the St. Joseph corridor.",
+            "whereToStart": "Start in the Middle river (Berrien Springs–Niles). Compare the Upper river (Niles–Twin Branch Dam) for established fish.",
+            "detail": "Repeated entry periods support broad corridor presence, not equal numbers in every section.",
+            "tip": "Compare two sections, then stay where direct fish activity is strongest.",
             "reasonCodes": [
               "stage_building"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -2717,7 +2733,7 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
               "conditions_insufficient",
               "conditions_checkpoint_building_established"
             ],
-            "copyVersion": "river-run-copy-v27",
+            "copyVersion": "river-run-copy-v34",
             "previousCheckpointId": "building_start",
             "previousCheckpointDate": "2026-10-11",
             "previousTimingLabel": "Insufficient evidence"
@@ -2734,9 +2750,9 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
           "push": {
             "score": 18,
             "label": "Weak",
-            "headline": "Today's water shows little support for a fresh wave of fish.",
-            "detail": "The river is holding steady with no meaningful rise yet. Water temperature remains too warm to support a strong Push and is relatively steady. Recent weather estimates indicate very little rain around the river. This Push describes fresh-movement support at Niles only; it does not prove a new wave at the harbor, Berrien Springs, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Do not build the day around new arrivals while the river remains warm. Start in established holding water at first or last light and leave lower travel lanes secondary. Use the Niles signal to choose between Niles-area holding water and a lower-Michigan travel-water check; verify Indiana movement directly.",
+            "headline": "Niles water shows little support for fresh movement.",
+            "detail": "Niles flow is steady without a meaningful rise. Water temperature remains too warm to support a strong Push and is relatively steady. Recent watershed weather shows little rain.",
+            "tip": "Keep Migration Stage’s section primary. Do not shift sections from this Niles read.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
@@ -2756,14 +2772,14 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 93,
             "label": "Excellent",
             "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river. This flow shape applies to the Niles mainstem reach only; verify the harbor, lower Michigan river, individual tailwaters, and Indiana water directly.",
-            "tip": "Begin on the primary travel lane feeding deep holding water. Work each hole from its head through the inside seam and tail, then keep moving until fish establish a pattern. Apply this recommendation at Niles; recheck water shape and safe access before carrying it to another St. Joseph section.",
+            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. This read applies only to the Niles mainstem reach.",
+            "tip": "Cover readable seams and holding water with a controlled presentation. Verify every other section directly.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band"
@@ -2774,15 +2790,15 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 65,
             "maximum": 100,
             "label": "Active",
-            "headline": "Today’s Steelhead activity outlook is active.",
-            "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. Steelhead are becoming more established through the river. The score describes feeding or aggressive responsiveness, while movement and abundance remain separate reads. Measured river conditions describe the St. Joseph mainstem at Niles. Water temperature, clarity, hydraulic shape, access, and fishing conditions can differ in the harbor and lower Michigan river, at individual dam tailwaters, and through South Bend, Mishawaka, and the Twin Branch reach. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
-            "tip": "Start with 5–9 AM. If conditions change, favor the window that best combines workable light with measured water temperature. Apply this response window at Niles; verify temperature, clarity, flow shape, and legal access again before carrying it to another St. Joseph section.",
+            "headline": "Today’s Niles Steelhead responsiveness is active.",
+            "detail": "Conditions support a meaningful Steelhead response. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Flow and temperature represent only the Niles mainstem reach.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify other sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -2834,10 +2850,13 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 61,
+            "displayScore": 60,
+            "scoreIsApproximate": true,
             "stage": "building",
             "maximum": 100,
             "riverCeiling": 90,
@@ -2846,14 +2865,14 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
             "curveDirection": "rising",
             "winterHoldingContext": false,
             "label": "High presence",
-            "headline": "Steelhead are likely spread through more of the river as seasonal presence builds toward its strongest point.",
-            "detail": "Seasonal presence is usually elevated relative to the rest of the season, with more fish expected to enter and spread through the river. This is a seasonal estimate, not a live fish count. This seasonal presence applies to the accessible St. Joseph corridor as a whole; it does not claim equal fish numbers at the harbor, Niles, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Treat this as one of the stronger parts of a strong river season. Give each stop a complete pass, but do not mistake this seasonal estimate for a live fish count. Use Migration Stage to choose the specific St. Joseph section, then verify that water directly.",
+            "headline": "Seasonal Steelhead presence is high and building.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the St. Joseph Steelhead ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_building",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -3107,6 +3126,7 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
           "nextConditionRefreshAt": "2026-11-16T05:00:00.000Z",
           "runStage": {
             "stage": "peak",
+            "copyStrategy": "st_joseph_corridor",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -3129,14 +3149,14 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
               "peakToEndDays": 37
             },
             "label": "Peak",
-            "headline": "This is typically the strongest and most dependable fall Steelhead opportunity.",
-            "whereToStart": "Compare substantial legal holding water below Berrien Springs, through Buchanan and Niles, and in South Bend-Mishawaka below Twin Branch; use the Niles gauge only for the Niles reach.",
-            "detail": "Multiple waves have had time to spread from lower travel lanes into established middle- and upper-river holding water. Fish can be broadly distributed wherever passage is open. Five passage facilities allow distribution from the lower river through South Bend and Mishawaka, but Twin Branch is the hard upstream limit and Niles measurements are reach-specific.",
-            "tip": "Choose a substantial legal holding section below Berrien Springs, near Buchanan or Niles, or in South Bend-Mishawaka and cover it completely before changing reaches.",
+            "headline": "This is typically the strongest St. Joseph fall Steelhead opportunity.",
+            "whereToStart": "Start in the Middle river (Berrien Springs–Niles). Compare the Upper river (Niles–Twin Branch Dam) for established fish.",
+            "detail": "This is typically the strongest fall-entry period, but concentrations still vary by section.",
+            "tip": "Choose one substantial holding section and cover it completely before changing reaches.",
             "reasonCodes": [
               "stage_peak"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -3228,7 +3248,7 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
               "conditions_insufficient",
               "conditions_checkpoint_peak_start"
             ],
-            "copyVersion": "river-run-copy-v27",
+            "copyVersion": "river-run-copy-v34",
             "previousCheckpointId": "building_established",
             "previousCheckpointDate": "2026-10-15",
             "previousTimingLabel": "Insufficient evidence"
@@ -3245,9 +3265,9 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
           "push": {
             "score": 18,
             "label": "Weak",
-            "headline": "Today's water shows little support for a fresh wave of fish.",
-            "detail": "The river is holding steady with no meaningful rise yet. Water temperature remains too warm to support a strong Push and is relatively steady. Recent weather estimates indicate very little rain around the river. This Push describes fresh-movement support at Niles only; it does not prove a new wave at the harbor, Berrien Springs, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Do not build the day around new arrivals while the river remains warm. Start in established holding water at first or last light and leave lower travel lanes secondary. Use the Niles signal to choose between Niles-area holding water and a lower-Michigan travel-water check; verify Indiana movement directly.",
+            "headline": "Niles water shows little support for fresh movement.",
+            "detail": "Niles flow is steady without a meaningful rise. Water temperature remains too warm to support a strong Push and is relatively steady. Recent watershed weather shows little rain.",
+            "tip": "Keep Migration Stage’s section primary. Do not shift sections from this Niles read.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
@@ -3267,14 +3287,14 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 93,
             "label": "Excellent",
             "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river. This flow shape applies to the Niles mainstem reach only; verify the harbor, lower Michigan river, individual tailwaters, and Indiana water directly.",
-            "tip": "Begin on the primary travel lane feeding deep holding water. Work each hole from its head through the inside seam and tail, then keep moving until fish establish a pattern. Apply this recommendation at Niles; recheck water shape and safe access before carrying it to another St. Joseph section.",
+            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. This read applies only to the Niles mainstem reach.",
+            "tip": "Cover readable seams and holding water with a controlled presentation. Verify every other section directly.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band"
@@ -3285,15 +3305,15 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 65,
             "maximum": 100,
             "label": "Active",
-            "headline": "Today’s Steelhead activity outlook is active.",
-            "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. Broad fall presence can make Steelhead easier to locate, but this score measures feeding or aggressive responsiveness rather than how many fish are present. Measured river conditions describe the St. Joseph mainstem at Niles. Water temperature, clarity, hydraulic shape, access, and fishing conditions can differ in the harbor and lower Michigan river, at individual dam tailwaters, and through South Bend, Mishawaka, and the Twin Branch reach. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
-            "tip": "Start with 5–9 AM. If conditions change, favor the window that best combines workable light with measured water temperature. Apply this response window at Niles; verify temperature, clarity, flow shape, and legal access again before carrying it to another St. Joseph section.",
+            "headline": "Today’s Niles Steelhead responsiveness is active.",
+            "detail": "Conditions support a meaningful Steelhead response. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Flow and temperature represent only the Niles mainstem reach.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify other sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -3345,10 +3365,13 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 90,
+            "displayScore": 90,
+            "scoreIsApproximate": false,
             "stage": "peak",
             "maximum": 100,
             "riverCeiling": 90,
@@ -3357,14 +3380,14 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
             "curveDirection": "near_peak",
             "winterHoldingContext": false,
             "label": "Peak presence",
-            "headline": "Steelhead are likely near their highest seasonal presence in the river.",
-            "detail": "This is the part of the season when in-river presence is usually strongest. The read describes the river as a whole; it does not place fish in a specific pool or confirm a live count. This seasonal presence applies to the accessible St. Joseph corridor as a whole; it does not claim equal fish numbers at the harbor, Niles, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Plan for the strongest seasonal presence this river usually offers, while remembering that this estimate cannot confirm fish at a specific spot or describe today's river conditions. Use Migration Stage to choose the specific St. Joseph section, then verify that water directly.",
+            "headline": "Seasonal Steelhead presence is near its expected St. Joseph peak.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the St. Joseph Steelhead ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_peak",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -3624,6 +3647,7 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
           "nextConditionRefreshAt": "2026-12-02T05:00:00.000Z",
           "runStage": {
             "stage": "peak",
+            "copyStrategy": "st_joseph_corridor",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -3646,14 +3670,14 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
               "peakToEndDays": 37
             },
             "label": "Peak",
-            "headline": "This is typically the strongest and most dependable fall Steelhead opportunity.",
-            "whereToStart": "Compare substantial legal holding water below Berrien Springs, through Buchanan and Niles, and in South Bend-Mishawaka below Twin Branch; use the Niles gauge only for the Niles reach.",
-            "detail": "Multiple waves have had time to spread from lower travel lanes into established middle- and upper-river holding water. Fish can be broadly distributed wherever passage is open. Five passage facilities allow distribution from the lower river through South Bend and Mishawaka, but Twin Branch is the hard upstream limit and Niles measurements are reach-specific.",
-            "tip": "Choose a substantial legal holding section below Berrien Springs, near Buchanan or Niles, or in South Bend-Mishawaka and cover it completely before changing reaches.",
+            "headline": "This is typically the strongest St. Joseph fall Steelhead opportunity.",
+            "whereToStart": "Start in the Middle river (Berrien Springs–Niles). Compare the Upper river (Niles–Twin Branch Dam) for established fish.",
+            "detail": "This is typically the strongest fall-entry period, but concentrations still vary by section.",
+            "tip": "Choose one substantial holding section and cover it completely before changing reaches.",
             "reasonCodes": [
               "stage_peak"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Timing complete",
@@ -3756,7 +3780,7 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
               "conditions_checkpoint_peak_complete",
               "conditions_timing_complete"
             ],
-            "copyVersion": "river-run-copy-v27",
+            "copyVersion": "river-run-copy-v34",
             "previousCheckpointId": "peak_start",
             "previousCheckpointDate": "2026-11-10",
             "previousTimingLabel": "Insufficient evidence"
@@ -3773,9 +3797,9 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
           "push": {
             "score": 18,
             "label": "Weak",
-            "headline": "Today's water shows little support for a fresh wave of fish.",
-            "detail": "The river is holding steady with no meaningful rise yet. Water temperature remains too warm to support a strong Push and is relatively steady. Recent weather estimates indicate very little rain around the river. This Push describes fresh-movement support at Niles only; it does not prove a new wave at the harbor, Berrien Springs, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Do not build the day around new arrivals while the river remains warm. Start in established holding water at first or last light and leave lower travel lanes secondary. Use the Niles signal to choose between Niles-area holding water and a lower-Michigan travel-water check; verify Indiana movement directly.",
+            "headline": "Niles water shows little support for fresh movement.",
+            "detail": "Niles flow is steady without a meaningful rise. Water temperature remains too warm to support a strong Push and is relatively steady. Recent watershed weather shows little rain.",
+            "tip": "Keep Migration Stage’s section primary. Do not shift sections from this Niles read.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
@@ -3795,14 +3819,14 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 93,
             "label": "Excellent",
             "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river. This flow shape applies to the Niles mainstem reach only; verify the harbor, lower Michigan river, individual tailwaters, and Indiana water directly.",
-            "tip": "Begin on the primary travel lane feeding deep holding water. Work each hole from its head through the inside seam and tail, then keep moving until fish establish a pattern. Apply this recommendation at Niles; recheck water shape and safe access before carrying it to another St. Joseph section.",
+            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. This read applies only to the Niles mainstem reach.",
+            "tip": "Cover readable seams and holding water with a controlled presentation. Verify every other section directly.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band"
@@ -3813,15 +3837,15 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 65,
             "maximum": 100,
             "label": "Active",
-            "headline": "Today’s Steelhead activity outlook is active.",
-            "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. Broad fall presence can make Steelhead easier to locate, but this score measures feeding or aggressive responsiveness rather than how many fish are present. Measured river conditions describe the St. Joseph mainstem at Niles. Water temperature, clarity, hydraulic shape, access, and fishing conditions can differ in the harbor and lower Michigan river, at individual dam tailwaters, and through South Bend, Mishawaka, and the Twin Branch reach. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
-            "tip": "Start with 5–9 AM. If conditions change, favor the window that best combines workable light with measured water temperature. Apply this response window at Niles; verify temperature, clarity, flow shape, and legal access again before carrying it to another St. Joseph section.",
+            "headline": "Today’s Niles Steelhead responsiveness is active.",
+            "detail": "Conditions support a meaningful Steelhead response. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Flow and temperature represent only the Niles mainstem reach.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify other sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -3873,10 +3897,13 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 90,
+            "displayScore": 90,
+            "scoreIsApproximate": false,
             "stage": "peak",
             "maximum": 100,
             "riverCeiling": 90,
@@ -3885,14 +3912,14 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
             "curveDirection": "near_peak",
             "winterHoldingContext": false,
             "label": "Peak presence",
-            "headline": "Steelhead are likely near their highest seasonal presence in the river.",
-            "detail": "This is the part of the season when in-river presence is usually strongest. The read describes the river as a whole; it does not place fish in a specific pool or confirm a live count. This seasonal presence applies to the accessible St. Joseph corridor as a whole; it does not claim equal fish numbers at the harbor, Niles, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Plan for the strongest seasonal presence this river usually offers, while remembering that this estimate cannot confirm fish at a specific spot or describe today's river conditions. Use Migration Stage to choose the specific St. Joseph section, then verify that water directly.",
+            "headline": "Seasonal Steelhead presence is near its expected St. Joseph peak.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the St. Joseph Steelhead ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_peak",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -4152,6 +4179,7 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
           "nextConditionRefreshAt": "2026-12-13T05:00:00.000Z",
           "runStage": {
             "stage": "tapering",
+            "copyStrategy": "st_joseph_corridor",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -4174,14 +4202,14 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
               "peakToEndDays": 37
             },
             "label": "Late fall",
-            "headline": "Steelhead presence remains high as the fall fishery begins shifting toward winter holding.",
-            "whereToStart": "Established deep holding water from the Michigan corridor through legal Indiana water below Twin Branch; add lower travel lanes only when Niles Push supports fresh movement.",
-            "detail": "Fish remain broadly available, but colder water gradually shifts the balance from active upstream movement toward established holding. Fresh arrivals can still occur without defining the whole fishery. Five passage facilities allow distribution from the lower river through South Bend and Mishawaka, but Twin Branch is the hard upstream limit and Niles measurements are reach-specific.",
-            "tip": "Start in deep established holding water and slow the presentation as temperature falls. Add lower travel lanes only when Niles Push supports fresh movement.",
+            "headline": "Steelhead remain strongly present as fresh fall entry slows.",
+            "whereToStart": "Start in established Middle river (Berrien Springs–Niles) or Upper river (Niles–Twin Branch Dam) holding water.",
+            "detail": "Fresh fall entry is slowing while established Steelhead may remain throughout the corridor.",
+            "tip": "Start in established holding water. Add Lower-river travel lanes only when Niles Push supports fresh movement.",
             "reasonCodes": [
               "stage_tapering"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Timing complete",
@@ -4284,7 +4312,7 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
               "conditions_checkpoint_peak_complete",
               "conditions_timing_complete"
             ],
-            "copyVersion": "river-run-copy-v27",
+            "copyVersion": "river-run-copy-v34",
             "previousCheckpointId": "peak_start",
             "previousCheckpointDate": "2026-11-10",
             "previousTimingLabel": "Insufficient evidence"
@@ -4301,9 +4329,9 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
           "push": {
             "score": 18,
             "label": "Weak",
-            "headline": "Today's water shows little support for a fresh wave of fish.",
-            "detail": "The river is holding steady with no meaningful rise yet. Water temperature remains too warm to support a strong Push and is relatively steady. Recent weather estimates indicate very little rain around the river. This Push describes fresh-movement support at Niles only; it does not prove a new wave at the harbor, Berrien Springs, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Do not build the day around new arrivals while the river remains warm. Start in established holding water at first or last light and leave lower travel lanes secondary. Use the Niles signal to choose between Niles-area holding water and a lower-Michigan travel-water check; verify Indiana movement directly.",
+            "headline": "Niles water shows little support for fresh movement.",
+            "detail": "Niles flow is steady without a meaningful rise. Water temperature remains too warm to support a strong Push and is relatively steady. Recent watershed weather shows little rain.",
+            "tip": "Keep Migration Stage’s section primary. Do not shift sections from this Niles read.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
@@ -4323,14 +4351,14 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 93,
             "label": "Excellent",
             "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river. This flow shape applies to the Niles mainstem reach only; verify the harbor, lower Michigan river, individual tailwaters, and Indiana water directly.",
-            "tip": "Begin on the primary travel lane feeding deep holding water. Work each hole from its head through the inside seam and tail, then keep moving until fish establish a pattern. Apply this recommendation at Niles; recheck water shape and safe access before carrying it to another St. Joseph section.",
+            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. This read applies only to the Niles mainstem reach.",
+            "tip": "Cover readable seams and holding water with a controlled presentation. Verify every other section directly.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band"
@@ -4341,15 +4369,15 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 65,
             "maximum": 100,
             "label": "Active",
-            "headline": "Today’s Steelhead activity outlook is active.",
-            "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. As late fall progresses, Steelhead often become more selective and less willing to move far for a presentation. The fish remain alive and are transitioning toward winter holding; actual responsiveness still depends strongly on water temperature and river conditions. Measured river conditions describe the St. Joseph mainstem at Niles. Water temperature, clarity, hydraulic shape, access, and fishing conditions can differ in the harbor and lower Michigan river, at individual dam tailwaters, and through South Bend, Mishawaka, and the Twin Branch reach. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
-            "tip": "Compare the four time windows, but expect a shorter response in cold water and keep the result separate from the winter holding outlook. Apply this response window at Niles; verify temperature, clarity, flow shape, and legal access again before carrying it to another St. Joseph section.",
+            "headline": "Today’s Niles Steelhead responsiveness is active.",
+            "detail": "Conditions support a meaningful Steelhead response. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Cold late-fall water can shorten response windows without meaning Steelhead have left the river.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify other sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -4401,10 +4429,13 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 87,
+            "displayScore": 85,
+            "scoreIsApproximate": true,
             "stage": "tapering",
             "maximum": 100,
             "riverCeiling": 90,
@@ -4413,14 +4444,14 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
             "curveDirection": "falling",
             "winterHoldingContext": false,
             "label": "Peak presence",
-            "headline": "Steelhead remain near their strongest fall presence as winter holding approaches.",
-            "detail": "The slight decline reflects fewer fresh arrivals—not fish simply leaving the river. This is a seasonal opportunity estimate, not a live fish count. This seasonal presence applies to the accessible St. Joseph corridor as a whole; it does not claim equal fish numbers at the harbor, Niles, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Treat the retained presence as strong, but expect the fishery to be shifting away from fresh fall entry. Verify current river conditions before choosing a presentation. Use Migration Stage to choose the specific St. Joseph section, then verify that water directly.",
+            "headline": "Seasonal Steelhead presence is near its expected St. Joseph peak.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the St. Joseph Steelhead ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_tapering",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -4674,6 +4705,7 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
           "nextConditionRefreshAt": "2026-12-21T05:00:00.000Z",
           "runStage": {
             "stage": "ending",
+            "copyStrategy": "st_joseph_corridor",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -4696,14 +4728,14 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
               "peakToEndDays": 37
             },
             "label": "Holding transition",
-            "headline": "Steelhead remain strongly present while fall entry transitions toward winter holding.",
-            "whereToStart": "Deep, speed-controlled holding water with adjacent feeding current below Twin Branch, outside the 100-foot Indiana ladder restrictions and all posted dam boundaries.",
-            "detail": "The fish have not simply left the river. Colder water reduces the importance of fresh upstream movement and increases the importance of where steelhead can hold efficiently through winter. Five passage facilities allow distribution from the lower river through South Bend and Mishawaka, but Twin Branch is the hard upstream limit and Niles measurements are reach-specific.",
-            "tip": "Prioritize deep, speed-controlled holding water below Twin Branch and use Activity for responsiveness. Do not interpret a muted Push as fish leaving the river.",
+            "headline": "St. Joseph Steelhead fall entry is nearing its endpoint.",
+            "whereToStart": "Start in one proven Middle river (Berrien Springs–Niles) or Upper river (Niles–Twin Branch Dam) holding section.",
+            "detail": "This fall-entry phase is ending. Steelhead may remain after the model stops.",
+            "tip": "Prioritize controlled presentations. Do not interpret a weak Push as fish leaving the river.",
             "reasonCodes": [
               "stage_ending"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Timing complete",
@@ -4806,7 +4838,7 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
               "conditions_checkpoint_peak_complete",
               "conditions_timing_complete"
             ],
-            "copyVersion": "river-run-copy-v27",
+            "copyVersion": "river-run-copy-v34",
             "previousCheckpointId": "peak_start",
             "previousCheckpointDate": "2026-11-10",
             "previousTimingLabel": "Insufficient evidence"
@@ -4823,9 +4855,9 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
           "push": {
             "score": 18,
             "label": "Weak",
-            "headline": "Today's water shows little support for a fresh wave of fish.",
-            "detail": "The river is holding steady with no meaningful rise yet. Water temperature remains too warm to support a strong Push and is relatively steady. Recent weather estimates indicate very little rain around the river. This Push describes fresh-movement support at Niles only; it does not prove a new wave at the harbor, Berrien Springs, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Do not build the day around new arrivals while the river remains warm. Start in established holding water at first or last light and leave lower travel lanes secondary. Use the Niles signal to choose between Niles-area holding water and a lower-Michigan travel-water check; verify Indiana movement directly.",
+            "headline": "Niles water shows little support for fresh movement.",
+            "detail": "Niles flow is steady without a meaningful rise. Water temperature remains too warm to support a strong Push and is relatively steady. Recent watershed weather shows little rain.",
+            "tip": "Keep Migration Stage’s section primary. Do not shift sections from this Niles read.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
@@ -4845,14 +4877,14 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 93,
             "label": "Excellent",
             "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river. This flow shape applies to the Niles mainstem reach only; verify the harbor, lower Michigan river, individual tailwaters, and Indiana water directly.",
-            "tip": "Begin on the primary travel lane feeding deep holding water. Work each hole from its head through the inside seam and tail, then keep moving until fish establish a pattern. Apply this recommendation at Niles; recheck water shape and safe access before carrying it to another St. Joseph section.",
+            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. This read applies only to the Niles mainstem reach.",
+            "tip": "Cover readable seams and holding water with a controlled presentation. Verify every other section directly.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band"
@@ -4863,15 +4895,15 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 65,
             "maximum": 100,
             "label": "Active",
-            "headline": "Today’s Steelhead activity outlook is active.",
-            "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. These Steelhead remain alive in the river as they transition into winter holding. Their responsiveness follows measured water temperature and current conditions rather than a terminal biological decline. Measured river conditions describe the St. Joseph mainstem at Niles. Water temperature, clarity, hydraulic shape, access, and fishing conditions can differ in the harbor and lower Michigan river, at individual dam tailwaters, and through South Bend, Mishawaka, and the Twin Branch reach. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
-            "tip": "Compare the four time windows, but expect a shorter response in cold water and keep the result separate from the winter holding outlook. Apply this response window at Niles; verify temperature, clarity, flow shape, and legal access again before carrying it to another St. Joseph section.",
+            "headline": "Today’s Niles Steelhead responsiveness is active.",
+            "detail": "Conditions support a meaningful Steelhead response. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Cold late-fall water can shorten response windows without meaning Steelhead have left the river.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify other sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -4923,10 +4955,13 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 83,
+            "displayScore": 85,
+            "scoreIsApproximate": true,
             "stage": "ending",
             "maximum": 100,
             "riverCeiling": 90,
@@ -4935,14 +4970,14 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
             "curveDirection": "falling",
             "winterHoldingContext": false,
             "label": "Peak presence",
-            "headline": "Steelhead remain near their strongest fall presence as winter holding approaches.",
-            "detail": "The slight decline reflects fewer fresh arrivals—not fish simply leaving the river. This is a seasonal opportunity estimate, not a live fish count. This seasonal presence applies to the accessible St. Joseph corridor as a whole; it does not claim equal fish numbers at the harbor, Niles, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Treat the retained presence as strong, but expect the fishery to be shifting away from fresh fall entry. Verify current river conditions before choosing a presentation. Use Migration Stage to choose the specific St. Joseph section, then verify that water directly.",
+            "headline": "Seasonal Steelhead presence is near its expected St. Joseph peak.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the St. Joseph Steelhead ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_ending",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -5196,9 +5231,10 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
           "nextConditionRefreshAt": "2026-12-24T05:00:00.000Z",
           "runStage": {
             "stage": "post_run",
+            "copyStrategy": "st_joseph_corridor",
             "stagingContext": false,
             "broadBuildingContext": false,
-            "winterHoldingContext": true,
+            "winterHoldingContext": false,
             "window": {
               "snapshotDate": "2026-12-23",
               "preRunStartDate": "2026-08-01",
@@ -5217,16 +5253,16 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
               "startToPeakDays": 51,
               "peakToEndDays": 37
             },
-            "label": "Winter holding",
-            "headline": "Steelhead remain broadly present as St. Joseph fall entry hands off to winter holding.",
-            "whereToStart": "Deep, speed-controlled legal holding water from the lower Michigan corridor through Niles and into Indiana below Twin Branch, always outside posted dam and fish-ladder restrictions.",
-            "detail": "The fish have not left the 63-mile accessible corridor. Colder water changes the useful question from new entry to holding position; Activity describes likely responsiveness at Niles, not river-wide movement.",
-            "tip": "Choose one deep, speed-controlled Michigan or Indiana holding reach, verify its water directly, and treat Activity as a Niles response read—not proof that Steelhead are feeding everywhere.",
+            "label": "Fall entry complete",
+            "headline": "St. Joseph Steelhead fall entry is complete.",
+            "whereToStart": "There is no active St. Joseph starting section in this fall-entry model.",
+            "detail": "Steelhead may remain in the river. This fall-entry model no longer estimates current presence or activity.",
+            "tip": "Check back around September 10 when fall-entry monitoring resumes.",
             "reasonCodes": [
               "stage_post_run",
-              "stage_winter_holding"
+              "stage_offseason"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Timing complete",
@@ -5320,16 +5356,16 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
               "2026-11-20"
             ],
             "sourceRefreshSlots": {},
-            "headline": "This season's Migration Timing read is complete.",
-            "tip": "Stop planning around whether fall entry was early or late. Use the winter fishery read to judge current activity and presentation.",
-            "detail": "There was not enough reliable season-long river and temperature information to make an early, normal, or late call. Steelhead presence has now shifted into winter holding, where current activity matters more than fall timing.",
+            "headline": "St. Joseph fall-entry Migration Timing is complete.",
+            "tip": "Do not use completed fall timing to infer current presence or activity. St. Joseph fall-entry monitoring resumes around September 10.",
+            "detail": "The St. Joseph fall-entry timing window closed without enough reliable evidence for an early, typical, or delayed call.",
             "reasonCodes": [
               "conditions_baseline_missing",
               "conditions_insufficient",
               "conditions_checkpoint_peak_complete",
               "conditions_timing_complete"
             ],
-            "copyVersion": "river-run-copy-v27",
+            "copyVersion": "river-run-copy-v34",
             "previousCheckpointId": "peak_start",
             "previousCheckpointDate": "2026-11-10",
             "previousTimingLabel": "Insufficient evidence"
@@ -5345,22 +5381,22 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
           },
           "push": {
             "score": null,
-            "label": "Winter holding",
-            "headline": "The season's fresh-movement read is complete.",
-            "detail": "Steelhead may remain in the river, but the fall-entry signal has handed off to winter holding. Winter activity requires a different water-temperature and feeding read.",
-            "tip": "Use the winter fishery read for activity and presentation decisions. Do not treat a muted Push as evidence that steelhead left the river.",
+            "label": "Fall entry complete",
+            "headline": "St. Joseph Steelhead fall-entry Push is complete.",
+            "detail": "Current water may affect Steelhead still in the river. This fall model no longer scores fresh-entry support.",
+            "tip": "Do not use a completed fall Push to infer current presence. Check back in early September.",
             "reasonCodes": [
               "push_tracking_complete"
             ],
             "rulesVersion": "st-joseph-niles-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 93,
             "label": "Excellent",
             "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river. This flow shape applies to the Niles mainstem reach only; verify the harbor, lower Michigan river, individual tailwaters, and Indiana water directly.",
-            "tip": "Begin on the primary travel lane feeding deep holding water. Work each hole from its head through the inside seam and tail, then keep moving until fish establish a pattern. Apply this recommendation at Niles; recheck water shape and safe access before carrying it to another St. Joseph section.",
+            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. This read applies only to the Niles mainstem reach.",
+            "tip": "Cover readable seams and holding water with a controlled presentation. Verify every other section directly.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band"
@@ -5371,88 +5407,45 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
-            "score": 65,
+            "score": null,
             "maximum": 100,
-            "label": "Active",
-            "headline": "Today’s Steelhead activity outlook is active.",
-            "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. Steelhead remain alive in winter holding after the fall-entry period. Use the dedicated winter read when available; this score only describes current responsiveness. Measured river conditions describe the St. Joseph mainstem at Niles. Water temperature, clarity, hydraulic shape, access, and fishing conditions can differ in the harbor and lower Michigan river, at individual dam tailwaters, and through South Bend, Mishawaka, and the Twin Branch reach. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
-            "tip": "Compare the four time windows, but expect a shorter response in cold water and keep the result separate from the winter holding outlook. Apply this response window at Niles; verify temperature, clarity, flow shape, and legal access again before carrying it to another St. Joseph section.",
+            "label": "Fall entry complete",
+            "headline": "St. Joseph Steelhead fall-entry Activity is complete.",
+            "detail": "Steelhead may remain in the river. This fall-entry model no longer scores their current responsiveness.",
+            "tip": "Do not use this completed fall outlook to infer current activity. Check back in early September.",
             "reasonCodes": [
-              "activity_confidence_full",
-              "activity_today",
-              "activity_run_present"
+              "activity_fall_entry_complete"
             ],
             "rulesVersion": "st-joseph-fall-steelhead-activity-v1",
             "targetDate": "2026-12-23",
             "targetDayLabel": "Today",
-            "confidence": "Full",
+            "confidence": "Limited",
             "conditionalPresence": false,
-            "blocks": [
-              {
-                "id": "05-09",
-                "label": "5–9 AM",
-                "score": 67,
-                "activityLabel": "Active",
-                "positiveDriver": "Clouds or lower light make this window more favorable.",
-                "limitingFactor": "Rain adds little extra cover.",
-                "cloudCoverPct": 60,
-                "precipitationIn": 0
-              },
-              {
-                "id": "09-13",
-                "label": "9 AM–1 PM",
-                "score": 62,
-                "activityLabel": "Active",
-                "positiveDriver": "The river level and its recent change are favorable.",
-                "limitingFactor": "Rain adds little extra cover.",
-                "cloudCoverPct": 60,
-                "precipitationIn": 0
-              },
-              {
-                "id": "13-17",
-                "label": "1–5 PM",
-                "score": 62,
-                "activityLabel": "Active",
-                "positiveDriver": "The river level and its recent change are favorable.",
-                "limitingFactor": "Rain adds little extra cover.",
-                "cloudCoverPct": 60,
-                "precipitationIn": 0
-              },
-              {
-                "id": "17-21",
-                "label": "5–9 PM",
-                "score": 66,
-                "activityLabel": "Active",
-                "positiveDriver": "Clouds or lower light make this window more favorable.",
-                "limitingFactor": "Rain adds little extra cover.",
-                "cloudCoverPct": 60,
-                "precipitationIn": 0
-              }
-            ]
+            "blocks": [],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
-            "score": 81,
+            "score": null,
+            "scoreIsApproximate": false,
             "stage": "post_run",
             "maximum": 100,
             "riverCeiling": 90,
             "historicalRunStrength": "strong",
-            "curveFraction": 0.9,
+            "curveFraction": 0,
             "curveDirection": "outside",
-            "winterHoldingContext": true,
-            "handoffScore": 81,
-            "label": "Winter holding",
-            "headline": "Steelhead remain strongly present through the St. Joseph corridor as fall entry shifts into winter holding.",
-            "detail": "Fall entry finished at 81/100. That retained-presence reference applies across the accessible season, not equally to every reach; current Niles Activity is a response read for Niles only.",
-            "tip": "Treat 81/100 as retained seasonal presence—not proof of activity in every section. Start in deep, speed-controlled legal holding water near Niles, South Bend, or Mishawaka and verify that reach directly.",
+            "winterHoldingContext": false,
+            "label": "Fall entry complete",
+            "headline": "St. Joseph Steelhead fall entry is complete.",
+            "detail": "Steelhead may remain in the river. This fall-entry model no longer estimates their current seasonal presence.",
+            "tip": "Check back in early September when St. Joseph fall movement tracking resumes.",
             "reasonCodes": [
               "stage_post_run",
-              "historical_presence_curve",
-              "fish_presence_winter_handoff"
+              "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -5679,13 +5672,7 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
               "data_quality_limited"
             ]
           },
-          "interpretationNote": {
-            "headline": "Steelhead are still in the river, but winter conditions now control the day.",
-            "detail": "The fall-entry period ended with strong retained presence. Use the winter fishery read to judge activity and presentation; Push and Migration Timing are intentionally complete because they answer the wrong question now.",
-            "reasonCodes": [
-              "winter_holding_read_required"
-            ]
-          },
+          "interpretationNote": null,
           "secondaryNote": "Based on the USGS gauge at Niles. It describes the Niles reach; the harbor, lower river, individual dam tailwaters, South Bend, Mishawaka, and Twin Branch may look different.",
           "safety": {
             "regulationReminder": "Select Michigan or Indiana for the correct jurisdiction. Always verify current official regulations, public access, posted closures, and dam safety boundaries.",
@@ -5718,6 +5705,7 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
           "nextConditionRefreshAt": "2026-07-25T05:00:00.000Z",
           "runStage": {
             "stage": "post_run",
+            "copyStrategy": "st_joseph_corridor",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -5739,16 +5727,16 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
               "startToPeakDays": 51,
               "peakToEndDays": 37
             },
-            "label": "Offseason",
-            "headline": "Steelhead are outside their fall-entry season.",
-            "whereToStart": "No active fall-entry starting reach; use a dedicated winter Steelhead read when available rather than extending this fall model.",
-            "detail": "This fall model is inactive. It should not be used to infer winter or spring steelhead behavior. Five passage facilities allow distribution from the lower river through South Bend and Mishawaka, but Twin Branch is the hard upstream limit and Niles measurements are reach-specific.",
-            "tip": "Use an active winter Steelhead read when available. Do not extend this fall-entry calendar into a winter or spring recommendation.",
+            "label": "Fall entry complete",
+            "headline": "St. Joseph Steelhead fall entry is complete.",
+            "whereToStart": "There is no active St. Joseph starting section in this fall-entry model.",
+            "detail": "Steelhead may remain in the river. This fall-entry model no longer estimates current presence or activity.",
+            "tip": "Check back around September 10 when fall-entry monitoring resumes.",
             "reasonCodes": [
               "stage_post_run",
               "stage_offseason"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Not monitoring yet",
@@ -5773,7 +5761,7 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
             "reasonCodes": [
               "conditions_monitoring_inactive"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -5786,22 +5774,22 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
           },
           "push": {
             "score": null,
-            "label": "Offseason",
-            "headline": "Push is not active outside the river migration season.",
-            "detail": "Rain, river level, and water temperature can still change, but they do not provide a useful fresh-arrival signal for this species right now.",
-            "tip": "Do not use Push to plan for this species outside its migration season. Follow an active species instead, or return when early monitoring begins.",
+            "label": "Fall entry complete",
+            "headline": "St. Joseph Steelhead fall-entry Push is complete.",
+            "detail": "Current water may affect Steelhead still in the river. This fall model no longer scores fresh-entry support.",
+            "tip": "Do not use a completed fall Push to infer current presence. Check back in early September.",
             "reasonCodes": [
-              "push_tracking_offseason"
+              "push_tracking_complete"
             ],
             "rulesVersion": "st-joseph-niles-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 93,
             "label": "Excellent",
             "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river. This flow shape applies to the Niles mainstem reach only; verify the harbor, lower Michigan river, individual tailwaters, and Indiana water directly.",
-            "tip": "Begin on the primary travel lane feeding deep holding water. Work each hole from its head through the inside seam and tail, then keep moving until fish establish a pattern. Apply this recommendation at Niles; recheck water shape and safe access before carrying it to another St. Joseph section.",
+            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. This read applies only to the Niles mainstem reach.",
+            "tip": "Cover readable seams and holding water with a controlled presentation. Verify every other section directly.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band"
@@ -5812,11 +5800,12 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": null,
           "fishInRiver": {
-            "score": 0,
+            "score": null,
+            "scoreIsApproximate": false,
             "stage": "post_run",
             "maximum": 100,
             "riverCeiling": 90,
@@ -5824,15 +5813,15 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
             "curveFraction": 0,
             "curveDirection": "outside",
             "winterHoldingContext": false,
-            "label": "Offseason",
-            "headline": "Steelhead are outside their river migration season.",
-            "detail": "A dependable seasonal presence of Steelhead is not expected in the river right now.",
-            "tip": "Do not build a river trip around this species right now. Target a species with an active seasonal window and return as the next migration approaches.",
+            "label": "Fall entry complete",
+            "headline": "St. Joseph Steelhead fall entry is complete.",
+            "detail": "Steelhead may remain in the river. This fall-entry model no longer estimates their current seasonal presence.",
+            "tip": "Check back in early September when St. Joseph fall movement tracking resumes.",
             "reasonCodes": [
               "stage_post_run",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -6058,13 +6047,7 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
               "data_quality_fresh"
             ]
           },
-          "interpretationNote": {
-            "headline": "The river should fish well, but seasonal fish presence is still low.",
-            "detail": "Good flow makes presentations easier, but it does not put fish in the river. Begin in the deepest established holding water and skip broad searches through fast travel lanes as seasonal presence thins.",
-            "reasonCodes": [
-              "good_fishability_low_presence"
-            ]
-          },
+          "interpretationNote": null,
           "secondaryNote": "Based on the USGS gauge at Niles. It describes the Niles reach; the harbor, lower river, individual dam tailwaters, South Bend, Mishawaka, and Twin Branch may look different.",
           "safety": {
             "regulationReminder": "Select Michigan or Indiana for the correct jurisdiction. Always verify current official regulations, public access, posted closures, and dam safety boundaries.",
@@ -6091,6 +6074,7 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
           "nextConditionRefreshAt": "2026-08-06T05:00:00.000Z",
           "runStage": {
             "stage": "pre_run",
+            "copyStrategy": "st_joseph_corridor",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -6113,14 +6097,14 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
               "peakToEndDays": 37
             },
             "label": "Before migration",
-            "headline": "The modeled St. Joseph fall-entry build has not started, although summer-run Skamania are a separate possibility.",
-            "whereToStart": "Lake Michigan off St. Joseph, the harbor, and the river mouth for new-entry context; do not infer an inland fall build yet.",
-            "detail": "This fall read separates summer-run Steelhead already in the St. Joseph system from the later winter-run component that normally begins building in fall.",
-            "tip": "Keep new-entry effort around Lake Michigan, the St. Joseph harbor, and the mouth. Use direct local evidence—not this inactive fall calendar—if targeting Skamania already inland.",
+            "headline": "Dependable St. Joseph Steelhead fall entry has not started.",
+            "whereToStart": "Stay with Lake Michigan, the St. Joseph harbor, and the river mouth for new fall-entry context.",
+            "detail": "The fall-entry window has not opened yet. Summer-run Skamania may already be inland, but they are separate from this fall-entry estimate.",
+            "tip": "Keep new fall-entry effort near the harbor and mouth. Use direct local information if targeting Skamania already inland.",
             "reasonCodes": [
               "stage_pre_run"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Not monitoring yet",
@@ -6145,7 +6129,7 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
             "reasonCodes": [
               "conditions_monitoring_inactive"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -6166,14 +6150,14 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
               "push_tracking_not_started"
             ],
             "rulesVersion": "st-joseph-niles-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 93,
             "label": "Excellent",
             "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river. This flow shape applies to the Niles mainstem reach only; verify the harbor, lower Michigan river, individual tailwaters, and Indiana water directly.",
-            "tip": "Begin on the primary travel lane feeding deep holding water. Work each hole from its head through the inside seam and tail, then keep moving until fish establish a pattern. Apply this recommendation at Niles; recheck water shape and safe access before carrying it to another St. Joseph section.",
+            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. This read applies only to the Niles mainstem reach.",
+            "tip": "Cover readable seams and holding water with a controlled presentation. Verify every other section directly.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band"
@@ -6184,11 +6168,13 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": null,
           "fishInRiver": {
             "score": 0,
+            "displayScore": 0,
+            "scoreIsApproximate": false,
             "stage": "pre_run",
             "maximum": 100,
             "riverCeiling": 90,
@@ -6197,14 +6183,14 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
             "curveDirection": "outside",
             "winterHoldingContext": false,
             "label": "Not expected yet",
-            "headline": "Steelhead are not expected in meaningful numbers yet.",
-            "detail": "Most Steelhead are not expected to have entered the river in dependable numbers. Any fish already present would be early exceptions. This seasonal presence applies to the accessible St. Joseph corridor as a whole; it does not claim equal fish numbers at the harbor, Niles, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Treat this as no dependable in-river opportunity yet. Keep expectations at zero, and do not interpret an isolated early fish as evidence of dependable river presence. Use Migration Stage to choose the specific St. Joseph section, then verify that water directly.",
+            "headline": "Dependable Steelhead presence is not expected in the St. Joseph yet.",
+            "detail": "The seasonal estimate remains at zero. Any river fish would be an early exception.",
+            "tip": "Use Migration Stage for harbor and river-entry context.",
             "reasonCodes": [
               "stage_pre_run",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -6463,6 +6449,7 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
           "nextConditionRefreshAt": "2026-08-16T05:00:00.000Z",
           "runStage": {
             "stage": "pre_run",
+            "copyStrategy": "st_joseph_corridor",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -6485,14 +6472,14 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
               "peakToEndDays": 37
             },
             "label": "Before migration",
-            "headline": "The modeled St. Joseph fall-entry build has not started, although summer-run Skamania are a separate possibility.",
-            "whereToStart": "Lake Michigan off St. Joseph, the harbor, and the river mouth for new-entry context; do not infer an inland fall build yet.",
-            "detail": "This fall read separates summer-run Steelhead already in the St. Joseph system from the later winter-run component that normally begins building in fall.",
-            "tip": "Keep new-entry effort around Lake Michigan, the St. Joseph harbor, and the mouth. Use direct local evidence—not this inactive fall calendar—if targeting Skamania already inland.",
+            "headline": "Dependable St. Joseph Steelhead fall entry has not started.",
+            "whereToStart": "Stay with Lake Michigan, the St. Joseph harbor, and the river mouth for new fall-entry context.",
+            "detail": "The fall-entry window has not opened yet. Summer-run Skamania may already be inland, but they are separate from this fall-entry estimate.",
+            "tip": "Keep new fall-entry effort near the harbor and mouth. Use direct local information if targeting Skamania already inland.",
             "reasonCodes": [
               "stage_pre_run"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Not monitoring yet",
@@ -6517,7 +6504,7 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
             "reasonCodes": [
               "conditions_monitoring_inactive"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -6538,14 +6525,14 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
               "push_tracking_not_started"
             ],
             "rulesVersion": "st-joseph-niles-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 93,
             "label": "Excellent",
             "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river. This flow shape applies to the Niles mainstem reach only; verify the harbor, lower Michigan river, individual tailwaters, and Indiana water directly.",
-            "tip": "Begin on the primary travel lane feeding deep holding water. Work each hole from its head through the inside seam and tail, then keep moving until fish establish a pattern. Apply this recommendation at Niles; recheck water shape and safe access before carrying it to another St. Joseph section.",
+            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. This read applies only to the Niles mainstem reach.",
+            "tip": "Cover readable seams and holding water with a controlled presentation. Verify every other section directly.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band"
@@ -6556,11 +6543,13 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": null,
           "fishInRiver": {
             "score": 0,
+            "displayScore": 0,
+            "scoreIsApproximate": false,
             "stage": "pre_run",
             "maximum": 100,
             "riverCeiling": 90,
@@ -6569,14 +6558,14 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
             "curveDirection": "outside",
             "winterHoldingContext": false,
             "label": "Not expected yet",
-            "headline": "Steelhead are not expected in meaningful numbers yet.",
-            "detail": "Most Steelhead are not expected to have entered the river in dependable numbers. Any fish already present would be early exceptions. This seasonal presence applies to the accessible St. Joseph corridor as a whole; it does not claim equal fish numbers at the harbor, Niles, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Treat this as no dependable in-river opportunity yet. Keep expectations at zero, and do not interpret an isolated early fish as evidence of dependable river presence. Use Migration Stage to choose the specific St. Joseph section, then verify that water directly.",
+            "headline": "Dependable Steelhead presence is not expected in the St. Joseph yet.",
+            "detail": "The seasonal estimate remains at zero. Any river fish would be an early exception.",
+            "tip": "Use Migration Stage for harbor and river-entry context.",
             "reasonCodes": [
               "stage_pre_run",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -6835,6 +6824,7 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
           "nextConditionRefreshAt": "2026-08-16T05:00:00.000Z",
           "runStage": {
             "stage": "pre_run",
+            "copyStrategy": "st_joseph_corridor",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -6857,14 +6847,14 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
               "peakToEndDays": 37
             },
             "label": "Before migration",
-            "headline": "The modeled St. Joseph fall-entry build has not started, although summer-run Skamania are a separate possibility.",
-            "whereToStart": "Lake Michigan off St. Joseph, the harbor, and the river mouth for new-entry context; do not infer an inland fall build yet.",
-            "detail": "This fall read separates summer-run Steelhead already in the St. Joseph system from the later winter-run component that normally begins building in fall.",
-            "tip": "Keep new-entry effort around Lake Michigan, the St. Joseph harbor, and the mouth. Use direct local evidence—not this inactive fall calendar—if targeting Skamania already inland.",
+            "headline": "Dependable St. Joseph Steelhead fall entry has not started.",
+            "whereToStart": "Stay with Lake Michigan, the St. Joseph harbor, and the river mouth for new fall-entry context.",
+            "detail": "The fall-entry window has not opened yet. Summer-run Skamania may already be inland, but they are separate from this fall-entry estimate.",
+            "tip": "Keep new fall-entry effort near the harbor and mouth. Use direct local information if targeting Skamania already inland.",
             "reasonCodes": [
               "stage_pre_run"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Not monitoring yet",
@@ -6889,7 +6879,7 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
             "reasonCodes": [
               "conditions_monitoring_inactive"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -6910,14 +6900,14 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
               "push_tracking_not_started"
             ],
             "rulesVersion": "st-joseph-niles-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 93,
             "label": "Excellent",
             "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river. This flow shape applies to the Niles mainstem reach only; verify the harbor, lower Michigan river, individual tailwaters, and Indiana water directly.",
-            "tip": "Begin on the primary travel lane feeding deep holding water. Work each hole from its head through the inside seam and tail, then keep moving until fish establish a pattern. Apply this recommendation at Niles; recheck water shape and safe access before carrying it to another St. Joseph section.",
+            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. This read applies only to the Niles mainstem reach.",
+            "tip": "Cover readable seams and holding water with a controlled presentation. Verify every other section directly.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band"
@@ -6928,11 +6918,13 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": null,
           "fishInRiver": {
             "score": 0,
+            "displayScore": 0,
+            "scoreIsApproximate": false,
             "stage": "pre_run",
             "maximum": 100,
             "riverCeiling": 90,
@@ -6941,14 +6933,14 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
             "curveDirection": "outside",
             "winterHoldingContext": false,
             "label": "Not expected yet",
-            "headline": "Steelhead are not expected in meaningful numbers yet.",
-            "detail": "Most Steelhead are not expected to have entered the river in dependable numbers. Any fish already present would be early exceptions. This seasonal presence applies to the accessible St. Joseph corridor as a whole; it does not claim equal fish numbers at the harbor, Niles, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Treat this as no dependable in-river opportunity yet. Keep expectations at zero, and do not interpret an isolated early fish as evidence of dependable river presence. Use Migration Stage to choose the specific St. Joseph section, then verify that water directly.",
+            "headline": "Dependable Steelhead presence is not expected in the St. Joseph yet.",
+            "detail": "The seasonal estimate remains at zero. Any river fish would be an early exception.",
+            "tip": "Use Migration Stage for harbor and river-entry context.",
             "reasonCodes": [
               "stage_pre_run",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -7207,6 +7199,7 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
           "nextConditionRefreshAt": "2026-08-16T05:00:00.000Z",
           "runStage": {
             "stage": "pre_run",
+            "copyStrategy": "st_joseph_corridor",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -7229,14 +7222,14 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
               "peakToEndDays": 37
             },
             "label": "Before migration",
-            "headline": "The modeled St. Joseph fall-entry build has not started, although summer-run Skamania are a separate possibility.",
-            "whereToStart": "Lake Michigan off St. Joseph, the harbor, and the river mouth for new-entry context; do not infer an inland fall build yet.",
-            "detail": "This fall read separates summer-run Steelhead already in the St. Joseph system from the later winter-run component that normally begins building in fall.",
-            "tip": "Keep new-entry effort around Lake Michigan, the St. Joseph harbor, and the mouth. Use direct local evidence—not this inactive fall calendar—if targeting Skamania already inland.",
+            "headline": "Dependable St. Joseph Steelhead fall entry has not started.",
+            "whereToStart": "Stay with Lake Michigan, the St. Joseph harbor, and the river mouth for new fall-entry context.",
+            "detail": "The fall-entry window has not opened yet. Summer-run Skamania may already be inland, but they are separate from this fall-entry estimate.",
+            "tip": "Keep new fall-entry effort near the harbor and mouth. Use direct local information if targeting Skamania already inland.",
             "reasonCodes": [
               "stage_pre_run"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Not monitoring yet",
@@ -7261,7 +7254,7 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
             "reasonCodes": [
               "conditions_monitoring_inactive"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -7282,14 +7275,14 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
               "push_tracking_not_started"
             ],
             "rulesVersion": "st-joseph-niles-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 93,
             "label": "Excellent",
             "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river. This flow shape applies to the Niles mainstem reach only; verify the harbor, lower Michigan river, individual tailwaters, and Indiana water directly.",
-            "tip": "Begin on the primary travel lane feeding deep holding water. Work each hole from its head through the inside seam and tail, then keep moving until fish establish a pattern. Apply this recommendation at Niles; recheck water shape and safe access before carrying it to another St. Joseph section.",
+            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. This read applies only to the Niles mainstem reach.",
+            "tip": "Cover readable seams and holding water with a controlled presentation. Verify every other section directly.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band"
@@ -7300,11 +7293,13 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": null,
           "fishInRiver": {
             "score": 0,
+            "displayScore": 0,
+            "scoreIsApproximate": false,
             "stage": "pre_run",
             "maximum": 100,
             "riverCeiling": 90,
@@ -7313,14 +7308,14 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
             "curveDirection": "outside",
             "winterHoldingContext": false,
             "label": "Not expected yet",
-            "headline": "Steelhead are not expected in meaningful numbers yet.",
-            "detail": "Most Steelhead are not expected to have entered the river in dependable numbers. Any fish already present would be early exceptions. This seasonal presence applies to the accessible St. Joseph corridor as a whole; it does not claim equal fish numbers at the harbor, Niles, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Treat this as no dependable in-river opportunity yet. Keep expectations at zero, and do not interpret an isolated early fish as evidence of dependable river presence. Use Migration Stage to choose the specific St. Joseph section, then verify that water directly.",
+            "headline": "Dependable Steelhead presence is not expected in the St. Joseph yet.",
+            "detail": "The seasonal estimate remains at zero. Any river fish would be an early exception.",
+            "tip": "Use Migration Stage for harbor and river-entry context.",
             "reasonCodes": [
               "stage_pre_run",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -7579,6 +7574,7 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
           "nextConditionRefreshAt": "2026-08-16T05:00:00.000Z",
           "runStage": {
             "stage": "pre_run",
+            "copyStrategy": "st_joseph_corridor",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -7601,14 +7597,14 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
               "peakToEndDays": 37
             },
             "label": "Before migration",
-            "headline": "The modeled St. Joseph fall-entry build has not started, although summer-run Skamania are a separate possibility.",
-            "whereToStart": "Lake Michigan off St. Joseph, the harbor, and the river mouth for new-entry context; do not infer an inland fall build yet.",
-            "detail": "This fall read separates summer-run Steelhead already in the St. Joseph system from the later winter-run component that normally begins building in fall.",
-            "tip": "Keep new-entry effort around Lake Michigan, the St. Joseph harbor, and the mouth. Use direct local evidence—not this inactive fall calendar—if targeting Skamania already inland.",
+            "headline": "Dependable St. Joseph Steelhead fall entry has not started.",
+            "whereToStart": "Stay with Lake Michigan, the St. Joseph harbor, and the river mouth for new fall-entry context.",
+            "detail": "The fall-entry window has not opened yet. Summer-run Skamania may already be inland, but they are separate from this fall-entry estimate.",
+            "tip": "Keep new fall-entry effort near the harbor and mouth. Use direct local information if targeting Skamania already inland.",
             "reasonCodes": [
               "stage_pre_run"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Not monitoring yet",
@@ -7633,7 +7629,7 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
             "reasonCodes": [
               "conditions_monitoring_inactive"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -7654,14 +7650,14 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
               "push_tracking_not_started"
             ],
             "rulesVersion": "st-joseph-niles-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 93,
             "label": "Excellent",
             "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river. This flow shape applies to the Niles mainstem reach only; verify the harbor, lower Michigan river, individual tailwaters, and Indiana water directly.",
-            "tip": "Begin on the primary travel lane feeding deep holding water. Work each hole from its head through the inside seam and tail, then keep moving until fish establish a pattern. Apply this recommendation at Niles; recheck water shape and safe access before carrying it to another St. Joseph section.",
+            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. This read applies only to the Niles mainstem reach.",
+            "tip": "Cover readable seams and holding water with a controlled presentation. Verify every other section directly.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band"
@@ -7672,11 +7668,13 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": null,
           "fishInRiver": {
             "score": 0,
+            "displayScore": 0,
+            "scoreIsApproximate": false,
             "stage": "pre_run",
             "maximum": 100,
             "riverCeiling": 90,
@@ -7685,14 +7683,14 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
             "curveDirection": "outside",
             "winterHoldingContext": false,
             "label": "Not expected yet",
-            "headline": "Steelhead are not expected in meaningful numbers yet.",
-            "detail": "Most Steelhead are not expected to have entered the river in dependable numbers. Any fish already present would be early exceptions. This seasonal presence applies to the accessible St. Joseph corridor as a whole; it does not claim equal fish numbers at the harbor, Niles, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Treat this as no dependable in-river opportunity yet. Keep expectations at zero, and do not interpret an isolated early fish as evidence of dependable river presence. Use Migration Stage to choose the specific St. Joseph section, then verify that water directly.",
+            "headline": "Dependable Steelhead presence is not expected in the St. Joseph yet.",
+            "detail": "The seasonal estimate remains at zero. Any river fish would be an early exception.",
+            "tip": "Use Migration Stage for harbor and river-entry context.",
             "reasonCodes": [
               "stage_pre_run",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -7951,6 +7949,7 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
           "nextConditionRefreshAt": "2026-10-07T05:00:00.000Z",
           "runStage": {
             "stage": "beginning",
+            "copyStrategy": "st_joseph_corridor",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -7973,14 +7972,14 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
               "peakToEndDays": 37
             },
             "label": "Beginning",
-            "headline": "The first Steelhead are beginning to enter the river.",
-            "whereToStart": "Lower Michigan travel and holding water toward Berrien Springs, while recognizing that summer-run Skamania may already be distributed farther upstream through open passage.",
-            "detail": "Fresh fish may be present, but numbers are still scattered and can arrive in uneven waves before the broader fall fishery develops. Five passage facilities allow distribution from the lower river through South Bend and Mishawaka, but Twin Branch is the hard upstream limit and Niles measurements are reach-specific.",
-            "tip": "Cover lower-Michigan travel lanes and their first deep resting water before moving toward Niles. Treat inland Skamania separately from evidence of a new winter-run wave.",
+            "headline": "The first fall Steelhead are entering the St. Joseph River.",
+            "whereToStart": "Start in the Lower river (St. Joseph harbor–Berrien Springs). Add the Middle river (Berrien Springs–Niles) after direct fish activity supports the move.",
+            "detail": "New fall entrants remain scattered while summer-run Skamania may already be farther inland.",
+            "tip": "Cover travel water and the first substantial holding areas before moving upstream.",
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Typical",
@@ -8039,14 +8038,14 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
             },
             "headline": "The migration appears to be progressing at a normal seasonal pace.",
             "detail": "River rises and cooling are close to what is usually seen by this point in the season.",
-            "tip": "Use the section named by Migration Stage. Compare established Niles-area holding water with lower travel lanes only when Push supports it; verify Indiana sections independently.",
+            "tip": "Use the section named by Migration Stage. Add a Lower-river fresh-entry check only when Push supports it.",
             "reasonCodes": [
               "gauge_fresh",
               "temperature_measured",
               "conditions_checkpoint_river_start",
               "conditions_typical"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -8060,9 +8059,9 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
           "push": {
             "score": 18,
             "label": "Weak",
-            "headline": "Today's water shows little support for a fresh wave of fish.",
-            "detail": "The river is holding steady with no meaningful rise yet. Water temperature remains too warm to support a strong Push and is relatively steady. Recent weather estimates indicate very little rain around the river. This Push describes fresh-movement support at Niles only; it does not prove a new wave at the harbor, Berrien Springs, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Do not build the day around new arrivals while the river remains warm. Start in established holding water at first or last light and leave lower travel lanes secondary. Use the Niles signal to choose between Niles-area holding water and a lower-Michigan travel-water check; verify Indiana movement directly.",
+            "headline": "Niles water shows little support for fresh movement.",
+            "detail": "Niles flow is steady without a meaningful rise. Water temperature remains too warm to support a strong Push and is relatively steady. Recent watershed weather shows little rain.",
+            "tip": "Keep Migration Stage’s section primary. Do not shift sections from this Niles read.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
@@ -8082,14 +8081,14 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 93,
             "label": "Excellent",
             "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river. This flow shape applies to the Niles mainstem reach only; verify the harbor, lower Michigan river, individual tailwaters, and Indiana water directly.",
-            "tip": "Begin on the primary travel lane feeding deep holding water. Work each hole from its head through the inside seam and tail, then keep moving until fish establish a pattern. Apply this recommendation at Niles; recheck water shape and safe access before carrying it to another St. Joseph section.",
+            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. This read applies only to the Niles mainstem reach.",
+            "tip": "Cover readable seams and holding water with a controlled presentation. Verify every other section directly.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band"
@@ -8100,15 +8099,15 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 65,
             "maximum": 100,
             "label": "Active",
-            "headline": "Today’s Steelhead activity outlook is active.",
-            "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. Early fall Steelhead are entering with energy reserves intact. This score describes feeding or aggressive responsiveness for fish already in the river, not fresh movement. Measured river conditions describe the St. Joseph mainstem at Niles. Water temperature, clarity, hydraulic shape, access, and fishing conditions can differ in the harbor and lower Michigan river, at individual dam tailwaters, and through South Bend, Mishawaka, and the Twin Branch reach. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
-            "tip": "Start with 5–9 AM. If conditions change, favor the window that best combines workable light with measured water temperature. Apply this response window at Niles; verify temperature, clarity, flow shape, and legal access again before carrying it to another St. Joseph section.",
+            "headline": "Today’s Niles Steelhead responsiveness is active.",
+            "detail": "Conditions support a meaningful Steelhead response. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Flow and temperature represent only the Niles mainstem reach.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify other sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -8160,10 +8159,13 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 18,
+            "displayScore": 15,
+            "scoreIsApproximate": true,
             "stage": "beginning",
             "maximum": 100,
             "riverCeiling": 90,
@@ -8172,14 +8174,14 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
             "curveDirection": "rising",
             "winterHoldingContext": false,
             "label": "Low presence",
-            "headline": "A small number of Steelhead may be in the river, and seasonal presence is still building.",
-            "detail": "This part of the season usually brings low presence, with more fish expected to enter and spread through the river. This is a seasonal estimate, not a live fish count. This seasonal presence applies to the accessible St. Joseph corridor as a whole; it does not claim equal fish numbers at the harbor, Niles, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Treat this as an early, low-odds river opportunity. Expect scattered results, and use direct fish activity before committing the full day. Use Migration Stage to choose the specific St. Joseph section, then verify that water directly.",
+            "headline": "Seasonal Steelhead presence is low and building.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the St. Joseph Steelhead ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -8445,6 +8447,7 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
           "nextConditionRefreshAt": "2026-10-01T05:00:00.000Z",
           "runStage": {
             "stage": "beginning",
+            "copyStrategy": "st_joseph_corridor",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -8467,14 +8470,14 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
               "peakToEndDays": 37
             },
             "label": "Beginning",
-            "headline": "The first Steelhead are beginning to enter the river.",
-            "whereToStart": "Lower Michigan travel and holding water toward Berrien Springs, while recognizing that summer-run Skamania may already be distributed farther upstream through open passage.",
-            "detail": "Fresh fish may be present, but numbers are still scattered and can arrive in uneven waves before the broader fall fishery develops. Five passage facilities allow distribution from the lower river through South Bend and Mishawaka, but Twin Branch is the hard upstream limit and Niles measurements are reach-specific.",
-            "tip": "Cover lower-Michigan travel lanes and their first deep resting water before moving toward Niles. Treat inland Skamania separately from evidence of a new winter-run wave.",
+            "headline": "The first fall Steelhead are entering the St. Joseph River.",
+            "whereToStart": "Start in the Lower river (St. Joseph harbor–Berrien Springs). Add the Middle river (Berrien Springs–Niles) after direct fish activity supports the move.",
+            "detail": "New fall entrants remain scattered while summer-run Skamania may already be farther inland.",
+            "tip": "Cover travel water and the first substantial holding areas before moving upstream.",
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -8520,7 +8523,7 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -8534,9 +8537,9 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
           "push": {
             "score": 18,
             "label": "Weak",
-            "headline": "Today's water shows little support for a fresh wave of fish.",
-            "detail": "The river is holding steady with no meaningful rise yet. Water temperature remains too warm to support a strong Push and is relatively steady. Recent weather estimates indicate very little rain around the river. This Push describes fresh-movement support at Niles only; it does not prove a new wave at the harbor, Berrien Springs, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Do not build the day around new arrivals while the river remains warm. Start in established holding water at first or last light and leave lower travel lanes secondary. Use the Niles signal to choose between Niles-area holding water and a lower-Michigan travel-water check; verify Indiana movement directly.",
+            "headline": "Niles water shows little support for fresh movement.",
+            "detail": "Niles flow is steady without a meaningful rise. Water temperature remains too warm to support a strong Push and is relatively steady. Recent watershed weather shows little rain.",
+            "tip": "Keep Migration Stage’s section primary. Do not shift sections from this Niles read.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
@@ -8556,14 +8559,14 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 93,
             "label": "Excellent",
             "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river. This flow shape applies to the Niles mainstem reach only; verify the harbor, lower Michigan river, individual tailwaters, and Indiana water directly.",
-            "tip": "Begin on the primary travel lane feeding deep holding water. Work each hole from its head through the inside seam and tail, then keep moving until fish establish a pattern. Apply this recommendation at Niles; recheck water shape and safe access before carrying it to another St. Joseph section.",
+            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. This read applies only to the Niles mainstem reach.",
+            "tip": "Cover readable seams and holding water with a controlled presentation. Verify every other section directly.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band"
@@ -8574,15 +8577,15 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 65,
             "maximum": 100,
             "label": "Active",
-            "headline": "Today’s Steelhead activity outlook is active.",
-            "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. Early fall Steelhead are entering with energy reserves intact. This score describes feeding or aggressive responsiveness for fish already in the river, not fresh movement. Measured river conditions describe the St. Joseph mainstem at Niles. Water temperature, clarity, hydraulic shape, access, and fishing conditions can differ in the harbor and lower Michigan river, at individual dam tailwaters, and through South Bend, Mishawaka, and the Twin Branch reach. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
-            "tip": "Start with 5–9 AM. If conditions change, favor the window that best combines workable light with measured water temperature. Apply this response window at Niles; verify temperature, clarity, flow shape, and legal access again before carrying it to another St. Joseph section.",
+            "headline": "Today’s Niles Steelhead responsiveness is active.",
+            "detail": "Conditions support a meaningful Steelhead response. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Flow and temperature represent only the Niles mainstem reach.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify other sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -8634,10 +8637,13 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 12,
+            "displayScore": 10,
+            "scoreIsApproximate": true,
             "stage": "beginning",
             "maximum": 100,
             "riverCeiling": 90,
@@ -8646,14 +8652,14 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
             "curveDirection": "rising",
             "winterHoldingContext": false,
             "label": "Low presence",
-            "headline": "A small number of Steelhead may be in the river, and seasonal presence is still building.",
-            "detail": "This part of the season usually brings low presence, with more fish expected to enter and spread through the river. This is a seasonal estimate, not a live fish count. This seasonal presence applies to the accessible St. Joseph corridor as a whole; it does not claim equal fish numbers at the harbor, Niles, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Treat this as an early, low-odds river opportunity. Expect scattered results, and use direct fish activity before committing the full day. Use Migration Stage to choose the specific St. Joseph section, then verify that water directly.",
+            "headline": "Seasonal Steelhead presence is low and building.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the St. Joseph Steelhead ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -8913,6 +8919,7 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
           "nextConditionRefreshAt": "2026-10-01T05:00:00.000Z",
           "runStage": {
             "stage": "beginning",
+            "copyStrategy": "st_joseph_corridor",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -8935,14 +8942,14 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
               "peakToEndDays": 37
             },
             "label": "Beginning",
-            "headline": "The first Steelhead are beginning to enter the river.",
-            "whereToStart": "Lower Michigan travel and holding water toward Berrien Springs, while recognizing that summer-run Skamania may already be distributed farther upstream through open passage.",
-            "detail": "Fresh fish may be present, but numbers are still scattered and can arrive in uneven waves before the broader fall fishery develops. Five passage facilities allow distribution from the lower river through South Bend and Mishawaka, but Twin Branch is the hard upstream limit and Niles measurements are reach-specific.",
-            "tip": "Cover lower-Michigan travel lanes and their first deep resting water before moving toward Niles. Treat inland Skamania separately from evidence of a new winter-run wave.",
+            "headline": "The first fall Steelhead are entering the St. Joseph River.",
+            "whereToStart": "Start in the Lower river (St. Joseph harbor–Berrien Springs). Add the Middle river (Berrien Springs–Niles) after direct fish activity supports the move.",
+            "detail": "New fall entrants remain scattered while summer-run Skamania may already be farther inland.",
+            "tip": "Cover travel water and the first substantial holding areas before moving upstream.",
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -8988,7 +8995,7 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -9002,9 +9009,9 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
           "push": {
             "score": 0,
             "label": "Weak",
-            "headline": "Today's water shows little support for a fresh wave of fish.",
-            "detail": "The river is falling instead of showing a fresh rise. Water temperature remains too warm to support a strong Push but is warming sharply. Recent weather estimates indicate very little rain around the river. This Push describes fresh-movement support at Niles only; it does not prove a new wave at the harbor, Berrien Springs, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Do not build the day around new arrivals while the river remains warm. Start in established holding water at first or last light and leave lower travel lanes secondary. Use the Niles signal to choose between Niles-area holding water and a lower-Michigan travel-water check; verify Indiana movement directly.",
+            "headline": "Niles water shows little support for fresh movement.",
+            "detail": "Niles flow is falling. Water temperature remains too warm to support a strong Push but is warming sharply. Recent watershed weather shows little rain.",
+            "tip": "Keep Migration Stage’s section primary. Do not shift sections from this Niles read.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
@@ -9024,14 +9031,14 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 57,
             "label": "Fishable",
             "headline": "The river is fishable, but lower water leaves less cover and less room for error.",
-            "detail": "Water is lower than ideal but still workable, with less depth and cover across the river. The river is still falling, so shallow lanes may lose depth while the deepest connected water becomes more important. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river. This flow shape applies to the Niles mainstem reach only; verify the harbor, lower Michigan river, individual tailwaters, and Indiana water directly.",
-            "tip": "Begin in the deepest connected holding water and fish its shaded edge first. Skip shallow travel lanes that are draining as the river falls. Apply this recommendation at Niles; recheck water shape and safe access before carrying it to another St. Joseph section.",
+            "detail": "Water is lower than ideal but still workable, with less depth and cover across the river. The river is still falling, so shallow lanes may lose depth while the deepest connected water becomes more important. This read applies only to the Niles mainstem reach.",
+            "tip": "Use the deepest connected water and keep disturbance low. Verify every other section directly.",
             "reasonCodes": [
               "gauge_fresh",
               "low_flow_band"
@@ -9042,15 +9049,15 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 6,
             "maximum": 100,
             "label": "Inactive",
-            "headline": "Today’s Steelhead activity outlook is inactive.",
-            "detail": "Conditions provide little environmental support for an aggressive response. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Water temperature limits responsiveness. Early fall Steelhead are entering with energy reserves intact. This score describes feeding or aggressive responsiveness for fish already in the river, not fresh movement. Measured river conditions describe the St. Joseph mainstem at Niles. Water temperature, clarity, hydraulic shape, access, and fishing conditions can differ in the harbor and lower Michigan river, at individual dam tailwaters, and through South Bend, Mishawaka, and the Twin Branch reach. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
-            "tip": "Start with 5–9 AM. If conditions change, favor the window that best combines workable light with measured water temperature. Apply this response window at Niles; verify temperature, clarity, flow shape, and legal access again before carrying it to another St. Joseph section.",
+            "headline": "Today’s Niles Steelhead responsiveness is inactive.",
+            "detail": "Conditions offer little support for an aggressive Steelhead response. 5–9 AM and 9 AM–1 PM are the leading windows, but neither has a clear advantage. Flow and temperature represent only the Niles mainstem reach.",
+            "tip": "Choose between 5–9 AM and 9 AM–1 PM using actual light. Verify other sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -9103,10 +9110,13 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 12,
+            "displayScore": 10,
+            "scoreIsApproximate": true,
             "stage": "beginning",
             "maximum": 100,
             "riverCeiling": 90,
@@ -9115,14 +9125,14 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
             "curveDirection": "rising",
             "winterHoldingContext": false,
             "label": "Low presence",
-            "headline": "A small number of Steelhead may be in the river, and seasonal presence is still building.",
-            "detail": "This part of the season usually brings low presence, with more fish expected to enter and spread through the river. This is a seasonal estimate, not a live fish count. This seasonal presence applies to the accessible St. Joseph corridor as a whole; it does not claim equal fish numbers at the harbor, Niles, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Treat this as an early, low-odds river opportunity. Expect scattered results, and use direct fish activity before committing the full day. Use Migration Stage to choose the specific St. Joseph section, then verify that water directly.",
+            "headline": "Seasonal Steelhead presence is low and building.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the St. Joseph Steelhead ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -9376,6 +9386,7 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
           "nextConditionRefreshAt": "2026-10-01T05:00:00.000Z",
           "runStage": {
             "stage": "beginning",
+            "copyStrategy": "st_joseph_corridor",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -9398,14 +9409,14 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
               "peakToEndDays": 37
             },
             "label": "Beginning",
-            "headline": "The first Steelhead are beginning to enter the river.",
-            "whereToStart": "Lower Michigan travel and holding water toward Berrien Springs, while recognizing that summer-run Skamania may already be distributed farther upstream through open passage.",
-            "detail": "Fresh fish may be present, but numbers are still scattered and can arrive in uneven waves before the broader fall fishery develops. Five passage facilities allow distribution from the lower river through South Bend and Mishawaka, but Twin Branch is the hard upstream limit and Niles measurements are reach-specific.",
-            "tip": "Cover lower-Michigan travel lanes and their first deep resting water before moving toward Niles. Treat inland Skamania separately from evidence of a new winter-run wave.",
+            "headline": "The first fall Steelhead are entering the St. Joseph River.",
+            "whereToStart": "Start in the Lower river (St. Joseph harbor–Berrien Springs). Add the Middle river (Berrien Springs–Niles) after direct fish activity supports the move.",
+            "detail": "New fall entrants remain scattered while summer-run Skamania may already be farther inland.",
+            "tip": "Cover travel water and the first substantial holding areas before moving upstream.",
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -9451,7 +9462,7 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -9465,9 +9476,9 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
           "push": {
             "score": 47,
             "label": "No clear push",
-            "headline": "Today's water does not show a clear signal for a fresh wave of fish.",
-            "detail": "The river has started to rise since yesterday. Water temperature remains too warm to support a strong Push and is cooling. Recent rain around the river adds some support while the river begins to rise. This Push describes fresh-movement support at Niles only; it does not prove a new wave at the harbor, Berrien Springs, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Do not build the day around new arrivals while the river remains warm. Start in established holding water at first or last light and leave lower travel lanes secondary. Use the Niles signal to choose between Niles-area holding water and a lower-Michigan travel-water check; verify Indiana movement directly.",
+            "headline": "Niles water does not show a clear fresh-movement signal.",
+            "detail": "Niles flow has started to rise. Water temperature remains too warm to support a strong Push and is cooling. Rain adds limited support while Niles begins to rise.",
+            "tip": "Keep Migration Stage’s section primary. Do not shift sections from this Niles read.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
@@ -9486,14 +9497,14 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 55,
             "label": "Fishable",
             "headline": "The river is fishable, but lower water leaves less cover and less room for error.",
-            "detail": "Water is lower than ideal but still workable, with less depth and cover across the river. The early rise is adding depth and cover, but the best travel lanes are beginning to shift. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river. This flow shape applies to the Niles mainstem reach only; verify the harbor, lower Michigan river, individual tailwaters, and Indiana water directly.",
-            "tip": "Begin on newly covered inside seams that connect directly to deep holding water. Keep the presentation on the soft edge and avoid wading through the new lane. Apply this recommendation at Niles; recheck water shape and safe access before carrying it to another St. Joseph section.",
+            "detail": "Water is lower than ideal but still workable, with less depth and cover across the river. The early rise is adding depth and cover, but the best travel lanes are beginning to shift. This read applies only to the Niles mainstem reach.",
+            "tip": "Use the deepest connected water and keep disturbance low. Verify every other section directly.",
             "reasonCodes": [
               "gauge_fresh",
               "low_flow_band"
@@ -9504,15 +9515,15 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 60,
             "maximum": 100,
             "label": "Active",
-            "headline": "Today’s Steelhead activity outlook is active.",
-            "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. Early fall Steelhead are entering with energy reserves intact. This score describes feeding or aggressive responsiveness for fish already in the river, not fresh movement. Measured river conditions describe the St. Joseph mainstem at Niles. Water temperature, clarity, hydraulic shape, access, and fishing conditions can differ in the harbor and lower Michigan river, at individual dam tailwaters, and through South Bend, Mishawaka, and the Twin Branch reach. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
-            "tip": "Start with 5–9 AM. If conditions change, favor the window that best combines workable light with measured water temperature. Apply this response window at Niles; verify temperature, clarity, flow shape, and legal access again before carrying it to another St. Joseph section.",
+            "headline": "Today’s Niles Steelhead responsiveness is active.",
+            "detail": "Conditions support a meaningful Steelhead response. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Flow and temperature represent only the Niles mainstem reach.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify other sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -9564,10 +9575,13 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 12,
+            "displayScore": 10,
+            "scoreIsApproximate": true,
             "stage": "beginning",
             "maximum": 100,
             "riverCeiling": 90,
@@ -9576,14 +9590,14 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
             "curveDirection": "rising",
             "winterHoldingContext": false,
             "label": "Low presence",
-            "headline": "A small number of Steelhead may be in the river, and seasonal presence is still building.",
-            "detail": "This part of the season usually brings low presence, with more fish expected to enter and spread through the river. This is a seasonal estimate, not a live fish count. This seasonal presence applies to the accessible St. Joseph corridor as a whole; it does not claim equal fish numbers at the harbor, Niles, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Treat this as an early, low-odds river opportunity. Expect scattered results, and use direct fish activity before committing the full day. Use Migration Stage to choose the specific St. Joseph section, then verify that water directly.",
+            "headline": "Seasonal Steelhead presence is low and building.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the St. Joseph Steelhead ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -9837,6 +9851,7 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
           "nextConditionRefreshAt": "2026-10-01T05:00:00.000Z",
           "runStage": {
             "stage": "beginning",
+            "copyStrategy": "st_joseph_corridor",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -9859,14 +9874,14 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
               "peakToEndDays": 37
             },
             "label": "Beginning",
-            "headline": "The first Steelhead are beginning to enter the river.",
-            "whereToStart": "Lower Michigan travel and holding water toward Berrien Springs, while recognizing that summer-run Skamania may already be distributed farther upstream through open passage.",
-            "detail": "Fresh fish may be present, but numbers are still scattered and can arrive in uneven waves before the broader fall fishery develops. Five passage facilities allow distribution from the lower river through South Bend and Mishawaka, but Twin Branch is the hard upstream limit and Niles measurements are reach-specific.",
-            "tip": "Cover lower-Michigan travel lanes and their first deep resting water before moving toward Niles. Treat inland Skamania separately from evidence of a new winter-run wave.",
+            "headline": "The first fall Steelhead are entering the St. Joseph River.",
+            "whereToStart": "Start in the Lower river (St. Joseph harbor–Berrien Springs). Add the Middle river (Berrien Springs–Niles) after direct fish activity supports the move.",
+            "detail": "New fall entrants remain scattered while summer-run Skamania may already be farther inland.",
+            "tip": "Cover travel water and the first substantial holding areas before moving upstream.",
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -9912,7 +9927,7 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -9926,9 +9941,9 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
           "push": {
             "score": 62,
             "label": "Possible",
-            "headline": "Today's water offers some support for fresh fish moving into or through the river.",
-            "detail": "The river has made a clear rise since yesterday. Water temperature remains too warm to support a strong Push and is cooling. The river has already made a meaningful rise, so that measured response carries the useful movement signal and rainfall adds no separate weight. This Push describes fresh-movement support at Niles only; it does not prove a new wave at the harbor, Berrien Springs, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Do not build the day around new arrivals while the river remains warm. Start in established holding water at first or last light and leave lower travel lanes secondary. Use the Niles signal to choose between Niles-area holding water and a lower-Michigan travel-water check; verify Indiana movement directly.",
+            "headline": "Niles water offers some support for fresh movement.",
+            "detail": "Niles flow has made a clear rise. Water temperature remains too warm to support a strong Push and is cooling. Niles already reflects the rain response, so rain adds no extra credit.",
+            "tip": "Keep Migration Stage’s section primary and add one Niles-area movement check.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
@@ -9947,14 +9962,14 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 80,
             "label": "Good",
             "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. Depth and current are changing enough to move the most controllable presentations toward inside seams and current breaks. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river. This flow shape applies to the Niles mainstem reach only; verify the harbor, lower Michigan river, individual tailwaters, and Indiana water directly.",
-            "tip": "Move off the center lane. Work inside seams, the downstream side of current breaks, and the first deep resting pocket with short controlled presentations. Apply this recommendation at Niles; recheck water shape and safe access before carrying it to another St. Joseph section.",
+            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. Depth and current are changing enough to move the most controllable presentations toward inside seams and current breaks. This read applies only to the Niles mainstem reach.",
+            "tip": "Cover readable seams and holding water with a controlled presentation. Verify every other section directly.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band"
@@ -9965,15 +9980,15 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 67,
             "maximum": 100,
             "label": "Active",
-            "headline": "Today’s Steelhead activity outlook is active.",
-            "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. Early fall Steelhead are entering with energy reserves intact. This score describes feeding or aggressive responsiveness for fish already in the river, not fresh movement. Measured river conditions describe the St. Joseph mainstem at Niles. Water temperature, clarity, hydraulic shape, access, and fishing conditions can differ in the harbor and lower Michigan river, at individual dam tailwaters, and through South Bend, Mishawaka, and the Twin Branch reach. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
-            "tip": "Start with 5–9 AM. If conditions change, favor the window that best combines workable light with measured water temperature. Apply this response window at Niles; verify temperature, clarity, flow shape, and legal access again before carrying it to another St. Joseph section.",
+            "headline": "Today’s Niles Steelhead responsiveness is active.",
+            "detail": "Conditions support a meaningful Steelhead response. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Flow and temperature represent only the Niles mainstem reach.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify other sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -10025,10 +10040,13 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 12,
+            "displayScore": 10,
+            "scoreIsApproximate": true,
             "stage": "beginning",
             "maximum": 100,
             "riverCeiling": 90,
@@ -10037,14 +10055,14 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
             "curveDirection": "rising",
             "winterHoldingContext": false,
             "label": "Low presence",
-            "headline": "A small number of Steelhead may be in the river, and seasonal presence is still building.",
-            "detail": "This part of the season usually brings low presence, with more fish expected to enter and spread through the river. This is a seasonal estimate, not a live fish count. This seasonal presence applies to the accessible St. Joseph corridor as a whole; it does not claim equal fish numbers at the harbor, Niles, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Treat this as an early, low-odds river opportunity. Expect scattered results, and use direct fish activity before committing the full day. Use Migration Stage to choose the specific St. Joseph section, then verify that water directly.",
+            "headline": "Seasonal Steelhead presence is low and building.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the St. Joseph Steelhead ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -10304,6 +10322,7 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
           "nextConditionRefreshAt": "2026-10-01T05:00:00.000Z",
           "runStage": {
             "stage": "beginning",
+            "copyStrategy": "st_joseph_corridor",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -10326,14 +10345,14 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
               "peakToEndDays": 37
             },
             "label": "Beginning",
-            "headline": "The first Steelhead are beginning to enter the river.",
-            "whereToStart": "Lower Michigan travel and holding water toward Berrien Springs, while recognizing that summer-run Skamania may already be distributed farther upstream through open passage.",
-            "detail": "Fresh fish may be present, but numbers are still scattered and can arrive in uneven waves before the broader fall fishery develops. Five passage facilities allow distribution from the lower river through South Bend and Mishawaka, but Twin Branch is the hard upstream limit and Niles measurements are reach-specific.",
-            "tip": "Cover lower-Michigan travel lanes and their first deep resting water before moving toward Niles. Treat inland Skamania separately from evidence of a new winter-run wave.",
+            "headline": "The first fall Steelhead are entering the St. Joseph River.",
+            "whereToStart": "Start in the Lower river (St. Joseph harbor–Berrien Springs). Add the Middle river (Berrien Springs–Niles) after direct fish activity supports the move.",
+            "detail": "New fall entrants remain scattered while summer-run Skamania may already be farther inland.",
+            "tip": "Cover travel water and the first substantial holding areas before moving upstream.",
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -10379,7 +10398,7 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -10393,9 +10412,9 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
           "push": {
             "score": 88,
             "label": "Very strong",
-            "headline": "Today's water shows the strongest support for a fresh wave moving into the river.",
-            "detail": "The river is rising quickly, creating conditions fish often use to move. Water is on the warm side for fall migration and is cooling sharply. The river has already made a meaningful rise, so that measured response carries the useful movement signal and rainfall adds no separate weight. This Push describes fresh-movement support at Niles only; it does not prove a new wave at the harbor, Berrien Springs, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Start low and fish softer travel lanes, newly formed inside seams, and the first resting water above them. Skip any lane Fishability says is too fast or difficult to control. Use the Niles signal to choose between Niles-area holding water and a lower-Michigan travel-water check; verify Indiana movement directly.",
+            "headline": "Niles water offers its strongest support for fresh movement.",
+            "detail": "Niles flow is rising quickly. Water is on the warm side for fall migration and is cooling sharply. Niles already reflects the rain response, so rain adds no extra credit.",
+            "tip": "Use Niles as the movement check, then verify the Lower and Upper river directly.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
@@ -10413,14 +10432,14 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 68,
             "label": "Fishable",
             "headline": "The river is rising fast, and usable fishing water is shifting toward slower margins and current breaks.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The fast rise is quickly replacing settled lanes with heavier current and newly formed soft edges. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river. This flow shape applies to the Niles mainstem reach only; verify the harbor, lower Michigan river, individual tailwaters, and Indiana water directly.",
-            "tip": "Leave the main channel alone. Fish newly formed soft margins, inside bends, and the downstream side of current breaks with short controlled presentations. Apply this recommendation at Niles; recheck water shape and safe access before carrying it to another St. Joseph section.",
+            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The fast rise is quickly replacing settled lanes with heavier current and newly formed soft edges. This read applies only to the Niles mainstem reach.",
+            "tip": "Favor protected margins and short controlled presentations. Choose another day if control is not dependable. Verify every other section directly.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band"
@@ -10431,15 +10450,15 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 73,
             "maximum": 100,
             "label": "Active",
-            "headline": "Today’s Steelhead activity outlook is active.",
-            "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 AM: The measured water temperature is favorable for Steelhead. The main limitation: Rain adds little extra cover. Early fall Steelhead are entering with energy reserves intact. This score describes feeding or aggressive responsiveness for fish already in the river, not fresh movement. Measured river conditions describe the St. Joseph mainstem at Niles. Water temperature, clarity, hydraulic shape, access, and fishing conditions can differ in the harbor and lower Michigan river, at individual dam tailwaters, and through South Bend, Mishawaka, and the Twin Branch reach. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
-            "tip": "Start with 5–9 AM. If conditions change, favor the window that best combines workable light with measured water temperature. Apply this response window at Niles; verify temperature, clarity, flow shape, and legal access again before carrying it to another St. Joseph section.",
+            "headline": "Today’s Niles Steelhead responsiveness is active.",
+            "detail": "Conditions support a meaningful Steelhead response. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Flow and temperature represent only the Niles mainstem reach.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify other sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -10491,10 +10510,13 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 12,
+            "displayScore": 10,
+            "scoreIsApproximate": true,
             "stage": "beginning",
             "maximum": 100,
             "riverCeiling": 90,
@@ -10503,14 +10525,14 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
             "curveDirection": "rising",
             "winterHoldingContext": false,
             "label": "Low presence",
-            "headline": "A small number of Steelhead may be in the river, and seasonal presence is still building.",
-            "detail": "This part of the season usually brings low presence, with more fish expected to enter and spread through the river. This is a seasonal estimate, not a live fish count. This seasonal presence applies to the accessible St. Joseph corridor as a whole; it does not claim equal fish numbers at the harbor, Niles, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Treat this as an early, low-odds river opportunity. Expect scattered results, and use direct fish activity before committing the full day. Use Migration Stage to choose the specific St. Joseph section, then verify that water directly.",
+            "headline": "Seasonal Steelhead presence is low and building.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the St. Joseph Steelhead ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -10764,6 +10786,7 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
           "nextConditionRefreshAt": "2026-10-01T05:00:00.000Z",
           "runStage": {
             "stage": "beginning",
+            "copyStrategy": "st_joseph_corridor",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -10786,14 +10809,14 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
               "peakToEndDays": 37
             },
             "label": "Beginning",
-            "headline": "The first Steelhead are beginning to enter the river.",
-            "whereToStart": "Lower Michigan travel and holding water toward Berrien Springs, while recognizing that summer-run Skamania may already be distributed farther upstream through open passage.",
-            "detail": "Fresh fish may be present, but numbers are still scattered and can arrive in uneven waves before the broader fall fishery develops. Five passage facilities allow distribution from the lower river through South Bend and Mishawaka, but Twin Branch is the hard upstream limit and Niles measurements are reach-specific.",
-            "tip": "Cover lower-Michigan travel lanes and their first deep resting water before moving toward Niles. Treat inland Skamania separately from evidence of a new winter-run wave.",
+            "headline": "The first fall Steelhead are entering the St. Joseph River.",
+            "whereToStart": "Start in the Lower river (St. Joseph harbor–Berrien Springs). Add the Middle river (Berrien Springs–Niles) after direct fish activity supports the move.",
+            "detail": "New fall entrants remain scattered while summer-run Skamania may already be farther inland.",
+            "tip": "Cover travel water and the first substantial holding areas before moving upstream.",
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -10839,7 +10862,7 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -10853,9 +10876,9 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
           "push": {
             "score": 37,
             "label": "No clear push",
-            "headline": "Today's water does not show a clear signal for a fresh wave of fish.",
-            "detail": "The river is holding steady with no meaningful rise yet. Water temperature remains too warm to support a strong Push and is cooling. Recent rain around the river may help, but the river has not responded enough for rain alone to create a strong Push. This Push describes fresh-movement support at Niles only; it does not prove a new wave at the harbor, Berrien Springs, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Do not build the day around new arrivals while the river remains warm. Start in established holding water at first or last light and leave lower travel lanes secondary. Use the Niles signal to choose between Niles-area holding water and a lower-Michigan travel-water check; verify Indiana movement directly.",
+            "headline": "Niles water does not show a clear fresh-movement signal.",
+            "detail": "Niles flow is steady without a meaningful rise. Water temperature remains too warm to support a strong Push and is cooling. Rain is only a precursor because Niles has not responded.",
+            "tip": "Keep Migration Stage’s section primary. Do not shift sections from this Niles read.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
@@ -10875,14 +10898,14 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 93,
             "label": "Excellent",
             "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river. This flow shape applies to the Niles mainstem reach only; verify the harbor, lower Michigan river, individual tailwaters, and Indiana water directly.",
-            "tip": "Begin on the primary travel lane feeding deep holding water. Work each hole from its head through the inside seam and tail, then keep moving until fish establish a pattern. Apply this recommendation at Niles; recheck water shape and safe access before carrying it to another St. Joseph section.",
+            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. This read applies only to the Niles mainstem reach.",
+            "tip": "Cover readable seams and holding water with a controlled presentation. Verify every other section directly.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band"
@@ -10893,15 +10916,15 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 67,
             "maximum": 100,
             "label": "Active",
-            "headline": "Today’s Steelhead activity outlook is active.",
-            "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. Early fall Steelhead are entering with energy reserves intact. This score describes feeding or aggressive responsiveness for fish already in the river, not fresh movement. Measured river conditions describe the St. Joseph mainstem at Niles. Water temperature, clarity, hydraulic shape, access, and fishing conditions can differ in the harbor and lower Michigan river, at individual dam tailwaters, and through South Bend, Mishawaka, and the Twin Branch reach. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
-            "tip": "Start with 5–9 AM. If conditions change, favor the window that best combines workable light with measured water temperature. Apply this response window at Niles; verify temperature, clarity, flow shape, and legal access again before carrying it to another St. Joseph section.",
+            "headline": "Today’s Niles Steelhead responsiveness is active.",
+            "detail": "Conditions support a meaningful Steelhead response. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Flow and temperature represent only the Niles mainstem reach.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify other sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -10953,10 +10976,13 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 12,
+            "displayScore": 10,
+            "scoreIsApproximate": true,
             "stage": "beginning",
             "maximum": 100,
             "riverCeiling": 90,
@@ -10965,14 +10991,14 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
             "curveDirection": "rising",
             "winterHoldingContext": false,
             "label": "Low presence",
-            "headline": "A small number of Steelhead may be in the river, and seasonal presence is still building.",
-            "detail": "This part of the season usually brings low presence, with more fish expected to enter and spread through the river. This is a seasonal estimate, not a live fish count. This seasonal presence applies to the accessible St. Joseph corridor as a whole; it does not claim equal fish numbers at the harbor, Niles, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Treat this as an early, low-odds river opportunity. Expect scattered results, and use direct fish activity before committing the full day. Use Migration Stage to choose the specific St. Joseph section, then verify that water directly.",
+            "headline": "Seasonal Steelhead presence is low and building.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the St. Joseph Steelhead ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -11232,6 +11258,7 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
           "nextConditionRefreshAt": "2026-10-01T05:00:00.000Z",
           "runStage": {
             "stage": "beginning",
+            "copyStrategy": "st_joseph_corridor",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -11254,14 +11281,14 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
               "peakToEndDays": 37
             },
             "label": "Beginning",
-            "headline": "The first Steelhead are beginning to enter the river.",
-            "whereToStart": "Lower Michigan travel and holding water toward Berrien Springs, while recognizing that summer-run Skamania may already be distributed farther upstream through open passage.",
-            "detail": "Fresh fish may be present, but numbers are still scattered and can arrive in uneven waves before the broader fall fishery develops. Five passage facilities allow distribution from the lower river through South Bend and Mishawaka, but Twin Branch is the hard upstream limit and Niles measurements are reach-specific.",
-            "tip": "Cover lower-Michigan travel lanes and their first deep resting water before moving toward Niles. Treat inland Skamania separately from evidence of a new winter-run wave.",
+            "headline": "The first fall Steelhead are entering the St. Joseph River.",
+            "whereToStart": "Start in the Lower river (St. Joseph harbor–Berrien Springs). Add the Middle river (Berrien Springs–Niles) after direct fish activity supports the move.",
+            "detail": "New fall entrants remain scattered while summer-run Skamania may already be farther inland.",
+            "tip": "Cover travel water and the first substantial holding areas before moving upstream.",
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -11307,7 +11334,7 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -11321,9 +11348,9 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
           "push": {
             "score": 32,
             "label": "No clear push",
-            "headline": "Today's water does not show a clear signal for a fresh wave of fish.",
-            "detail": "There is not enough recent river-level history to tell whether the river is rising or falling. Water temperature remains too warm to support a strong Push and is cooling. Recent rain around the river may help, but the river has not responded enough for rain alone to create a strong Push. Without a dependable river trend, there is no clear Push. This Push describes fresh-movement support at Niles only; it does not prove a new wave at the harbor, Berrien Springs, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Do not build the day around new arrivals while the river remains warm. Start in established holding water at first or last light and leave lower travel lanes secondary. Use the Niles signal to choose between Niles-area holding water and a lower-Michigan travel-water check; verify Indiana movement directly.",
+            "headline": "Niles water does not show a clear fresh-movement signal.",
+            "detail": "Niles flow does not have a dependable recent trend. Water temperature remains too warm to support a strong Push and is cooling. Without a dependable Niles trend, the read cannot show a clear Push.",
+            "tip": "Keep Migration Stage’s section primary. Do not shift sections from this Niles read.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
@@ -11344,14 +11371,14 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 69,
             "label": "Fishable",
             "headline": "The river appears fishable, but its direction is unclear, so confidence is limited.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. There is not enough recent information to tell whether the river is rising or falling, which lowers confidence in the read. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river. This flow shape applies to the Niles mainstem reach only; verify the harbor, lower Michigan river, individual tailwaters, and Indiana water directly.",
-            "tip": "Start at a bank-side inside bend or soft seam where the full presentation stays under control. Skip faster water until the river's direction is verified. Apply this recommendation at Niles; recheck water shape and safe access before carrying it to another St. Joseph section.",
+            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. There is not enough recent information to tell whether the river is rising or falling, which lowers confidence in the read. This read applies only to the Niles mainstem reach.",
+            "tip": "Verify the Niles reach directly before choosing presentation water. Verify every other section directly.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band",
@@ -11365,15 +11392,15 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
               ]
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 67,
             "maximum": 100,
             "label": "Active",
-            "headline": "Today’s Steelhead activity outlook is active.",
-            "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. Early fall Steelhead are entering with energy reserves intact. This score describes feeding or aggressive responsiveness for fish already in the river, not fresh movement. Measured river conditions describe the St. Joseph mainstem at Niles. Water temperature, clarity, hydraulic shape, access, and fishing conditions can differ in the harbor and lower Michigan river, at individual dam tailwaters, and through South Bend, Mishawaka, and the Twin Branch reach. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
-            "tip": "Start with 5–9 AM. If conditions change, favor the window that best combines workable light with measured water temperature. Apply this response window at Niles; verify temperature, clarity, flow shape, and legal access again before carrying it to another St. Joseph section.",
+            "headline": "Today’s Niles Steelhead responsiveness is active.",
+            "detail": "Conditions support a meaningful Steelhead response. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Flow and temperature represent only the Niles mainstem reach.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify other sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -11425,10 +11452,13 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 12,
+            "displayScore": 10,
+            "scoreIsApproximate": true,
             "stage": "beginning",
             "maximum": 100,
             "riverCeiling": 90,
@@ -11437,14 +11467,14 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
             "curveDirection": "rising",
             "winterHoldingContext": false,
             "label": "Low presence",
-            "headline": "A small number of Steelhead may be in the river, and seasonal presence is still building.",
-            "detail": "This part of the season usually brings low presence, with more fish expected to enter and spread through the river. This is a seasonal estimate, not a live fish count. This seasonal presence applies to the accessible St. Joseph corridor as a whole; it does not claim equal fish numbers at the harbor, Niles, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Treat this as an early, low-odds river opportunity. Expect scattered results, and use direct fish activity before committing the full day. Use Migration Stage to choose the specific St. Joseph section, then verify that water directly.",
+            "headline": "Seasonal Steelhead presence is low and building.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the St. Joseph Steelhead ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -11698,6 +11728,7 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
           "nextConditionRefreshAt": "2026-10-01T05:00:00.000Z",
           "runStage": {
             "stage": "beginning",
+            "copyStrategy": "st_joseph_corridor",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -11720,14 +11751,14 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
               "peakToEndDays": 37
             },
             "label": "Beginning",
-            "headline": "The first Steelhead are beginning to enter the river.",
-            "whereToStart": "Lower Michigan travel and holding water toward Berrien Springs, while recognizing that summer-run Skamania may already be distributed farther upstream through open passage.",
-            "detail": "Fresh fish may be present, but numbers are still scattered and can arrive in uneven waves before the broader fall fishery develops. Five passage facilities allow distribution from the lower river through South Bend and Mishawaka, but Twin Branch is the hard upstream limit and Niles measurements are reach-specific.",
-            "tip": "Cover lower-Michigan travel lanes and their first deep resting water before moving toward Niles. Treat inland Skamania separately from evidence of a new winter-run wave.",
+            "headline": "The first fall Steelhead are entering the St. Joseph River.",
+            "whereToStart": "Start in the Lower river (St. Joseph harbor–Berrien Springs). Add the Middle river (Berrien Springs–Niles) after direct fish activity supports the move.",
+            "detail": "New fall entrants remain scattered while summer-run Skamania may already be farther inland.",
+            "tip": "Cover travel water and the first substantial holding areas before moving upstream.",
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -11773,7 +11804,7 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -11787,9 +11818,9 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
           "push": {
             "score": 55,
             "label": "Possible",
-            "headline": "The water may support fresh movement, but an aging river reading limits confidence.",
-            "detail": "The river is rising quickly, creating conditions fish often use to move. Water is on the warm side for fall migration and is cooling sharply. The river has already made a meaningful rise, so that measured response carries the useful movement signal and rainfall adds no separate weight. The latest river-level reading is aging, so confidence is reduced. This Push describes fresh-movement support at Niles only; it does not prove a new wave at the harbor, Berrien Springs, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Do not relocate the trip around this Push read. Begin in established holding water, verify the river at the first access, and add travel lanes only after confirming workable conditions. Use the Niles signal to choose between Niles-area holding water and a lower-Michigan travel-water check; verify Indiana movement directly.",
+            "headline": "Niles water offers some support for fresh movement.",
+            "detail": "Niles flow is rising quickly. Water is on the warm side for fall migration and is cooling sharply. The Niles reading is aging, so confidence is reduced.",
+            "tip": "Keep Migration Stage’s section primary and add one Niles-area movement check.",
             "reasonCodes": [
               "gauge_stale",
               "push_normal_flow_context",
@@ -11810,14 +11841,14 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
               ]
             },
             "rulesVersion": "st-joseph-niles-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 55,
             "label": "Fishable",
             "headline": "The last river reading was fishable, but it is aging and may no longer describe the water accurately.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. Because the latest reading is aging, the river may have changed since it was reported. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river. This flow shape applies to the Niles mainstem reach only; verify the harbor, lower Michigan river, individual tailwaters, and Indiana water directly.",
-            "tip": "Do not choose a reach from this reading alone. Check the water at the first access, and begin only in bank-side water where you can control the entire presentation. Apply this recommendation at Niles; recheck water shape and safe access before carrying it to another St. Joseph section.",
+            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. Because the latest reading is aging, the river may have changed since it was reported. This read applies only to the Niles mainstem reach.",
+            "tip": "Verify the Niles reach directly before choosing presentation water. Verify every other section directly.",
             "reasonCodes": [
               "gauge_stale",
               "ideal_flow_band",
@@ -11831,15 +11862,15 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
               ]
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 50,
             "maximum": 100,
             "label": "Moderate",
-            "headline": "Today’s Steelhead activity outlook is moderate.",
-            "detail": "Some useful factors are present, but the response window is mixed. The strongest window is 5–9 AM: The measured water temperature is favorable for Steelhead. The main limitation: Current river behavior is unavailable. Early fall Steelhead are entering with energy reserves intact. This score describes feeding or aggressive responsiveness for fish already in the river, not fresh movement. Measured river conditions describe the St. Joseph mainstem at Niles. Water temperature, clarity, hydraulic shape, access, and fishing conditions can differ in the harbor and lower Michigan river, at individual dam tailwaters, and through South Bend, Mishawaka, and the Twin Branch reach. One important reading is unavailable or comes from tomorrow’s forecast, so the outlook is kept conservative.",
-            "tip": "Start with 5–9 AM. If conditions change, favor the window that best combines workable light with measured water temperature. Apply this response window at Niles; verify temperature, clarity, flow shape, and legal access again before carrying it to another St. Joseph section.",
+            "headline": "Today’s Niles Steelhead responsiveness is moderate.",
+            "detail": "Conditions offer mixed support for Steelhead responsiveness. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Moderate confidence reflects missing or forecast inputs; river measurements still represent only Niles.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify other sections directly.",
             "reasonCodes": [
               "activity_confidence_moderate",
               "activity_today",
@@ -11891,10 +11922,13 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 12,
+            "displayScore": 10,
+            "scoreIsApproximate": true,
             "stage": "beginning",
             "maximum": 100,
             "riverCeiling": 90,
@@ -11903,14 +11937,14 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
             "curveDirection": "rising",
             "winterHoldingContext": false,
             "label": "Low presence",
-            "headline": "A small number of Steelhead may be in the river, and seasonal presence is still building.",
-            "detail": "This part of the season usually brings low presence, with more fish expected to enter and spread through the river. This is a seasonal estimate, not a live fish count. This seasonal presence applies to the accessible St. Joseph corridor as a whole; it does not claim equal fish numbers at the harbor, Niles, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Treat this as an early, low-odds river opportunity. Expect scattered results, and use direct fish activity before committing the full day. Use Migration Stage to choose the specific St. Joseph section, then verify that water directly.",
+            "headline": "Seasonal Steelhead presence is low and building.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the St. Joseph Steelhead ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -12164,6 +12198,7 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
           "nextConditionRefreshAt": "2026-10-01T05:00:00.000Z",
           "runStage": {
             "stage": "beginning",
+            "copyStrategy": "st_joseph_corridor",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -12186,14 +12221,14 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
               "peakToEndDays": 37
             },
             "label": "Beginning",
-            "headline": "The first Steelhead are beginning to enter the river.",
-            "whereToStart": "Lower Michigan travel and holding water toward Berrien Springs, while recognizing that summer-run Skamania may already be distributed farther upstream through open passage.",
-            "detail": "Fresh fish may be present, but numbers are still scattered and can arrive in uneven waves before the broader fall fishery develops. Five passage facilities allow distribution from the lower river through South Bend and Mishawaka, but Twin Branch is the hard upstream limit and Niles measurements are reach-specific.",
-            "tip": "Cover lower-Michigan travel lanes and their first deep resting water before moving toward Niles. Treat inland Skamania separately from evidence of a new winter-run wave.",
+            "headline": "The first fall Steelhead are entering the St. Joseph River.",
+            "whereToStart": "Start in the Lower river (St. Joseph harbor–Berrien Springs). Add the Middle river (Berrien Springs–Niles) after direct fish activity supports the move.",
+            "detail": "New fall entrants remain scattered while summer-run Skamania may already be farther inland.",
+            "tip": "Cover travel water and the first substantial holding areas before moving upstream.",
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -12239,7 +12274,7 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -12253,9 +12288,9 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
           "push": {
             "score": 49,
             "label": "No clear push",
-            "headline": "The river is rising hard, but extreme flow makes this an unreliable fresh-movement read.",
-            "detail": "The river is rising quickly, creating conditions fish often use to move. Overall flow is extremely high. Water is on the warm side for fall migration and is cooling sharply. Additional rain does not improve the read while the river is already high. This Push describes fresh-movement support at Niles only; it does not prove a new wave at the harbor, Berrien Springs, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Do not chase movement in the main channel. If Fishability remains usable, fish only protected margins, inside turns, and soft current with short controlled presentations. Use the Niles signal to choose between Niles-area holding water and a lower-Michigan travel-water check; verify Indiana movement directly.",
+            "headline": "Extreme Niles flow prevents a dependable fresh-movement signal.",
+            "detail": "Niles flow is rising quickly, while overall flow is extreme. Water is on the warm side for fall migration and is cooling sharply. Rain adds no support while Niles flow is already high.",
+            "tip": "Keep Migration Stage’s section primary. Do not shift sections from this Niles read.",
             "reasonCodes": [
               "gauge_fresh",
               "push_severe_high_flow_context",
@@ -12276,14 +12311,14 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
               ]
             },
             "rulesVersion": "st-joseph-niles-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 0,
             "label": "Poor",
             "headline": "The river is blown out and still rising fast, so normal fishing water is not dependable.",
-            "detail": "Excessive flow is overwhelming normal holding water and making access and presentation unreliable. The fast rise is forcing usable fishing water out of the main flow and into the slowest protected margins. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river. This flow shape applies to the Niles mainstem reach only; verify the harbor, lower Michigan river, individual tailwaters, and Indiana water directly.",
-            "tip": "Choose a lower-water day for the better fishing opportunity. If you fish now, stay tight to protected banks, slow inside turns, and the downstream side of major current breaks; keep presentations short and leave the main flow alone. Apply this recommendation at Niles; recheck water shape and safe access before carrying it to another St. Joseph section.",
+            "detail": "Excessive flow is overwhelming normal holding water and making access and presentation unreliable. The fast rise is forcing usable fishing water out of the main flow and into the slowest protected margins. This read applies only to the Niles mainstem reach.",
+            "tip": "Choose another day and verify current conditions through authoritative local sources. Verify every other section directly.",
             "reasonCodes": [
               "gauge_fresh",
               "blown_out_flow_band",
@@ -12296,15 +12331,15 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 12,
             "maximum": 100,
             "label": "Inactive",
-            "headline": "Today’s Steelhead activity outlook is inactive.",
-            "detail": "Conditions provide little environmental support for an aggressive response. The strongest window is 5–9 AM: The measured water temperature is favorable for Steelhead. The main limitation: The river level or its recent change is less favorable. Early fall Steelhead are entering with energy reserves intact. This score describes feeding or aggressive responsiveness for fish already in the river, not fresh movement. Measured river conditions describe the St. Joseph mainstem at Niles. Water temperature, clarity, hydraulic shape, access, and fishing conditions can differ in the harbor and lower Michigan river, at individual dam tailwaters, and through South Bend, Mishawaka, and the Twin Branch reach. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
-            "tip": "Start with 5–9 AM. If conditions change, favor the window that best combines workable light with measured water temperature. Apply this response window at Niles; verify temperature, clarity, flow shape, and legal access again before carrying it to another St. Joseph section.",
+            "headline": "Today’s Niles Steelhead responsiveness is inactive.",
+            "detail": "Conditions offer little support for an aggressive Steelhead response. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Flow and temperature represent only the Niles mainstem reach.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify other sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -12357,10 +12392,13 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 12,
+            "displayScore": 10,
+            "scoreIsApproximate": true,
             "stage": "beginning",
             "maximum": 100,
             "riverCeiling": 90,
@@ -12369,14 +12407,14 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
             "curveDirection": "rising",
             "winterHoldingContext": false,
             "label": "Low presence",
-            "headline": "A small number of Steelhead may be in the river, and seasonal presence is still building.",
-            "detail": "This part of the season usually brings low presence, with more fish expected to enter and spread through the river. This is a seasonal estimate, not a live fish count. This seasonal presence applies to the accessible St. Joseph corridor as a whole; it does not claim equal fish numbers at the harbor, Niles, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Treat this as an early, low-odds river opportunity. Expect scattered results, and use direct fish activity before committing the full day. Use Migration Stage to choose the specific St. Joseph section, then verify that water directly.",
+            "headline": "Seasonal Steelhead presence is low and building.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the St. Joseph Steelhead ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -12630,6 +12668,7 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
           "nextConditionRefreshAt": "2026-10-01T05:00:00.000Z",
           "runStage": {
             "stage": "beginning",
+            "copyStrategy": "st_joseph_corridor",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -12652,14 +12691,14 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
               "peakToEndDays": 37
             },
             "label": "Beginning",
-            "headline": "The first Steelhead are beginning to enter the river.",
-            "whereToStart": "Lower Michigan travel and holding water toward Berrien Springs, while recognizing that summer-run Skamania may already be distributed farther upstream through open passage.",
-            "detail": "Fresh fish may be present, but numbers are still scattered and can arrive in uneven waves before the broader fall fishery develops. Five passage facilities allow distribution from the lower river through South Bend and Mishawaka, but Twin Branch is the hard upstream limit and Niles measurements are reach-specific.",
-            "tip": "Cover lower-Michigan travel lanes and their first deep resting water before moving toward Niles. Treat inland Skamania separately from evidence of a new winter-run wave.",
+            "headline": "The first fall Steelhead are entering the St. Joseph River.",
+            "whereToStart": "Start in the Lower river (St. Joseph harbor–Berrien Springs). Add the Middle river (Berrien Springs–Niles) after direct fish activity supports the move.",
+            "detail": "New fall entrants remain scattered while summer-run Skamania may already be farther inland.",
+            "tip": "Cover travel water and the first substantial holding areas before moving upstream.",
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -12705,7 +12744,7 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -12726,7 +12765,7 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
               "gauge_missing"
             ],
             "rulesVersion": "st-joseph-niles-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": null,
@@ -12738,15 +12777,15 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
               "gauge_missing"
             ],
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 42,
             "maximum": 100,
             "label": "Moderate",
-            "headline": "Today’s Steelhead activity outlook is moderate.",
-            "detail": "Some useful factors are present, but the response window is mixed. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Current river behavior is unavailable. Early fall Steelhead are entering with energy reserves intact. This score describes feeding or aggressive responsiveness for fish already in the river, not fresh movement. Measured river conditions describe the St. Joseph mainstem at Niles. Water temperature, clarity, hydraulic shape, access, and fishing conditions can differ in the harbor and lower Michigan river, at individual dam tailwaters, and through South Bend, Mishawaka, and the Twin Branch reach. One important reading is unavailable or comes from tomorrow’s forecast, so the outlook is kept conservative.",
-            "tip": "Start with 5–9 AM. If conditions change, favor the window that best combines workable light with measured water temperature. Apply this response window at Niles; verify temperature, clarity, flow shape, and legal access again before carrying it to another St. Joseph section.",
+            "headline": "Today’s Niles Steelhead responsiveness is moderate.",
+            "detail": "Conditions offer mixed support for Steelhead responsiveness. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Moderate confidence reflects missing or forecast inputs; river measurements still represent only Niles.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify other sections directly.",
             "reasonCodes": [
               "activity_confidence_moderate",
               "activity_today",
@@ -12798,10 +12837,13 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 12,
+            "displayScore": 10,
+            "scoreIsApproximate": true,
             "stage": "beginning",
             "maximum": 100,
             "riverCeiling": 90,
@@ -12810,14 +12852,14 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
             "curveDirection": "rising",
             "winterHoldingContext": false,
             "label": "Low presence",
-            "headline": "A small number of Steelhead may be in the river, and seasonal presence is still building.",
-            "detail": "This part of the season usually brings low presence, with more fish expected to enter and spread through the river. This is a seasonal estimate, not a live fish count. This seasonal presence applies to the accessible St. Joseph corridor as a whole; it does not claim equal fish numbers at the harbor, Niles, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Treat this as an early, low-odds river opportunity. Expect scattered results, and use direct fish activity before committing the full day. Use Migration Stage to choose the specific St. Joseph section, then verify that water directly.",
+            "headline": "Seasonal Steelhead presence is low and building.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the St. Joseph Steelhead ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": null,
           "weather": {
@@ -13061,6 +13103,7 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
           "nextConditionRefreshAt": "2026-10-01T05:00:00.000Z",
           "runStage": {
             "stage": "beginning",
+            "copyStrategy": "st_joseph_corridor",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -13083,14 +13126,14 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
               "peakToEndDays": 37
             },
             "label": "Beginning",
-            "headline": "The first Steelhead are beginning to enter the river.",
-            "whereToStart": "Lower Michigan travel and holding water toward Berrien Springs, while recognizing that summer-run Skamania may already be distributed farther upstream through open passage.",
-            "detail": "Fresh fish may be present, but numbers are still scattered and can arrive in uneven waves before the broader fall fishery develops. Five passage facilities allow distribution from the lower river through South Bend and Mishawaka, but Twin Branch is the hard upstream limit and Niles measurements are reach-specific.",
-            "tip": "Cover lower-Michigan travel lanes and their first deep resting water before moving toward Niles. Treat inland Skamania separately from evidence of a new winter-run wave.",
+            "headline": "The first fall Steelhead are entering the St. Joseph River.",
+            "whereToStart": "Start in the Lower river (St. Joseph harbor–Berrien Springs). Add the Middle river (Berrien Springs–Niles) after direct fish activity supports the move.",
+            "detail": "New fall entrants remain scattered while summer-run Skamania may already be farther inland.",
+            "tip": "Cover travel water and the first substantial holding areas before moving upstream.",
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -13136,7 +13179,7 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -13158,14 +13201,14 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
               "temperature_unavailable"
             ],
             "rulesVersion": "st-joseph-niles-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 93,
             "label": "Excellent",
             "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river. This flow shape applies to the Niles mainstem reach only; verify the harbor, lower Michigan river, individual tailwaters, and Indiana water directly.",
-            "tip": "Begin on the primary travel lane feeding deep holding water. Work each hole from its head through the inside seam and tail, then keep moving until fish establish a pattern. Apply this recommendation at Niles; recheck water shape and safe access before carrying it to another St. Joseph section.",
+            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. This read applies only to the Niles mainstem reach.",
+            "tip": "Cover readable seams and holding water with a controlled presentation. Verify every other section directly.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band"
@@ -13176,15 +13219,15 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 53,
             "maximum": 100,
             "label": "Moderate",
-            "headline": "Today’s Steelhead activity outlook is moderate.",
-            "detail": "Some useful factors are present, but the response window is mixed. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Measured water temperature is unavailable. Early fall Steelhead are entering with energy reserves intact. This score describes feeding or aggressive responsiveness for fish already in the river, not fresh movement. Measured river conditions describe the St. Joseph mainstem at Niles. Water temperature, clarity, hydraulic shape, access, and fishing conditions can differ in the harbor and lower Michigan river, at individual dam tailwaters, and through South Bend, Mishawaka, and the Twin Branch reach. One important reading is unavailable or comes from tomorrow’s forecast, so the outlook is kept conservative.",
-            "tip": "Start with 5–9 AM. If conditions change, favor the window that best combines workable light with measured water temperature. Apply this response window at Niles; verify temperature, clarity, flow shape, and legal access again before carrying it to another St. Joseph section.",
+            "headline": "Today’s Niles Steelhead responsiveness is moderate.",
+            "detail": "Conditions offer mixed support for Steelhead responsiveness. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Moderate confidence reflects missing or forecast inputs; river measurements still represent only Niles.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify other sections directly.",
             "reasonCodes": [
               "activity_confidence_moderate",
               "activity_today",
@@ -13236,10 +13279,13 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 12,
+            "displayScore": 10,
+            "scoreIsApproximate": true,
             "stage": "beginning",
             "maximum": 100,
             "riverCeiling": 90,
@@ -13248,14 +13294,14 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
             "curveDirection": "rising",
             "winterHoldingContext": false,
             "label": "Low presence",
-            "headline": "A small number of Steelhead may be in the river, and seasonal presence is still building.",
-            "detail": "This part of the season usually brings low presence, with more fish expected to enter and spread through the river. This is a seasonal estimate, not a live fish count. This seasonal presence applies to the accessible St. Joseph corridor as a whole; it does not claim equal fish numbers at the harbor, Niles, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Treat this as an early, low-odds river opportunity. Expect scattered results, and use direct fish activity before committing the full day. Use Migration Stage to choose the specific St. Joseph section, then verify that water directly.",
+            "headline": "Seasonal Steelhead presence is low and building.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the St. Joseph Steelhead ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -13498,6 +13544,7 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
           "nextConditionRefreshAt": "2026-08-16T05:00:00.000Z",
           "runStage": {
             "stage": "pre_run",
+            "copyStrategy": "st_joseph_corridor",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -13520,14 +13567,14 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
               "peakToEndDays": 37
             },
             "label": "Before migration",
-            "headline": "The modeled St. Joseph fall-entry build has not started, although summer-run Skamania are a separate possibility.",
-            "whereToStart": "Lake Michigan off St. Joseph, the harbor, and the river mouth for new-entry context; do not infer an inland fall build yet.",
-            "detail": "This fall read separates summer-run Steelhead already in the St. Joseph system from the later winter-run component that normally begins building in fall.",
-            "tip": "Keep new-entry effort around Lake Michigan, the St. Joseph harbor, and the mouth. Use direct local evidence—not this inactive fall calendar—if targeting Skamania already inland.",
+            "headline": "Dependable St. Joseph Steelhead fall entry has not started.",
+            "whereToStart": "Stay with Lake Michigan, the St. Joseph harbor, and the river mouth for new fall-entry context.",
+            "detail": "The fall-entry window has not opened yet. Summer-run Skamania may already be inland, but they are separate from this fall-entry estimate.",
+            "tip": "Keep new fall-entry effort near the harbor and mouth. Use direct local information if targeting Skamania already inland.",
             "reasonCodes": [
               "stage_pre_run"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Not monitoring yet",
@@ -13552,7 +13599,7 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
             "reasonCodes": [
               "conditions_monitoring_inactive"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -13573,14 +13620,14 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
               "push_tracking_not_started"
             ],
             "rulesVersion": "st-joseph-niles-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 60,
             "label": "Fishable",
             "headline": "The river is fishable, but lower water leaves less cover and less room for error.",
-            "detail": "Water is lower than ideal but still workable, with less depth and cover across the river. The lower flow is holding steady, so its limited depth and cover should remain consistent. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river. This flow shape applies to the Niles mainstem reach only; verify the harbor, lower Michigan river, individual tailwaters, and Indiana water directly.",
-            "tip": "Start with the deepest connected holding water, then fish shaded outside bends and cover. Approach quietly and make the first pass count. Apply this recommendation at Niles; recheck water shape and safe access before carrying it to another St. Joseph section.",
+            "detail": "Water is lower than ideal but still workable, with less depth and cover across the river. The lower flow is holding steady, so its limited depth and cover should remain consistent. This read applies only to the Niles mainstem reach.",
+            "tip": "Use the deepest connected water and keep disturbance low. Verify every other section directly.",
             "reasonCodes": [
               "gauge_fresh",
               "low_flow_band"
@@ -13591,11 +13638,13 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": null,
           "fishInRiver": {
             "score": 0,
+            "displayScore": 0,
+            "scoreIsApproximate": false,
             "stage": "pre_run",
             "maximum": 100,
             "riverCeiling": 90,
@@ -13604,14 +13653,14 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
             "curveDirection": "outside",
             "winterHoldingContext": false,
             "label": "Not expected yet",
-            "headline": "Steelhead are not expected in meaningful numbers yet.",
-            "detail": "Most Steelhead are not expected to have entered the river in dependable numbers. Any fish already present would be early exceptions. This seasonal presence applies to the accessible St. Joseph corridor as a whole; it does not claim equal fish numbers at the harbor, Niles, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Treat this as no dependable in-river opportunity yet. Keep expectations at zero, and do not interpret an isolated early fish as evidence of dependable river presence. Use Migration Stage to choose the specific St. Joseph section, then verify that water directly.",
+            "headline": "Dependable Steelhead presence is not expected in the St. Joseph yet.",
+            "detail": "The seasonal estimate remains at zero. Any river fish would be an early exception.",
+            "tip": "Use Migration Stage for harbor and river-entry context.",
             "reasonCodes": [
               "stage_pre_run",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -13864,6 +13913,7 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
           "nextConditionRefreshAt": "2026-08-16T05:00:00.000Z",
           "runStage": {
             "stage": "pre_run",
+            "copyStrategy": "st_joseph_corridor",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -13886,14 +13936,14 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
               "peakToEndDays": 37
             },
             "label": "Before migration",
-            "headline": "The modeled St. Joseph fall-entry build has not started, although summer-run Skamania are a separate possibility.",
-            "whereToStart": "Lake Michigan off St. Joseph, the harbor, and the river mouth for new-entry context; do not infer an inland fall build yet.",
-            "detail": "This fall read separates summer-run Steelhead already in the St. Joseph system from the later winter-run component that normally begins building in fall.",
-            "tip": "Keep new-entry effort around Lake Michigan, the St. Joseph harbor, and the mouth. Use direct local evidence—not this inactive fall calendar—if targeting Skamania already inland.",
+            "headline": "Dependable St. Joseph Steelhead fall entry has not started.",
+            "whereToStart": "Stay with Lake Michigan, the St. Joseph harbor, and the river mouth for new fall-entry context.",
+            "detail": "The fall-entry window has not opened yet. Summer-run Skamania may already be inland, but they are separate from this fall-entry estimate.",
+            "tip": "Keep new fall-entry effort near the harbor and mouth. Use direct local information if targeting Skamania already inland.",
             "reasonCodes": [
               "stage_pre_run"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Not monitoring yet",
@@ -13918,7 +13968,7 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
             "reasonCodes": [
               "conditions_monitoring_inactive"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -13939,14 +13989,14 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
               "push_tracking_not_started"
             ],
             "rulesVersion": "st-joseph-niles-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 80,
             "label": "Good",
             "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. Depth and current are changing enough to move the most controllable presentations toward inside seams and current breaks. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river. This flow shape applies to the Niles mainstem reach only; verify the harbor, lower Michigan river, individual tailwaters, and Indiana water directly.",
-            "tip": "Move off the center lane. Work inside seams, the downstream side of current breaks, and the first deep resting pocket with short controlled presentations. Apply this recommendation at Niles; recheck water shape and safe access before carrying it to another St. Joseph section.",
+            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. Depth and current are changing enough to move the most controllable presentations toward inside seams and current breaks. This read applies only to the Niles mainstem reach.",
+            "tip": "Cover readable seams and holding water with a controlled presentation. Verify every other section directly.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band"
@@ -13957,11 +14007,13 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": null,
           "fishInRiver": {
             "score": 0,
+            "displayScore": 0,
+            "scoreIsApproximate": false,
             "stage": "pre_run",
             "maximum": 100,
             "riverCeiling": 90,
@@ -13970,14 +14022,14 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
             "curveDirection": "outside",
             "winterHoldingContext": false,
             "label": "Not expected yet",
-            "headline": "Steelhead are not expected in meaningful numbers yet.",
-            "detail": "Most Steelhead are not expected to have entered the river in dependable numbers. Any fish already present would be early exceptions. This seasonal presence applies to the accessible St. Joseph corridor as a whole; it does not claim equal fish numbers at the harbor, Niles, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Treat this as no dependable in-river opportunity yet. Keep expectations at zero, and do not interpret an isolated early fish as evidence of dependable river presence. Use Migration Stage to choose the specific St. Joseph section, then verify that water directly.",
+            "headline": "Dependable Steelhead presence is not expected in the St. Joseph yet.",
+            "detail": "The seasonal estimate remains at zero. Any river fish would be an early exception.",
+            "tip": "Use Migration Stage for harbor and river-entry context.",
             "reasonCodes": [
               "stage_pre_run",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -14236,6 +14288,7 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
           "nextConditionRefreshAt": "2026-08-16T05:00:00.000Z",
           "runStage": {
             "stage": "pre_run",
+            "copyStrategy": "st_joseph_corridor",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -14258,14 +14311,14 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
               "peakToEndDays": 37
             },
             "label": "Before migration",
-            "headline": "The modeled St. Joseph fall-entry build has not started, although summer-run Skamania are a separate possibility.",
-            "whereToStart": "Lake Michigan off St. Joseph, the harbor, and the river mouth for new-entry context; do not infer an inland fall build yet.",
-            "detail": "This fall read separates summer-run Steelhead already in the St. Joseph system from the later winter-run component that normally begins building in fall.",
-            "tip": "Keep new-entry effort around Lake Michigan, the St. Joseph harbor, and the mouth. Use direct local evidence—not this inactive fall calendar—if targeting Skamania already inland.",
+            "headline": "Dependable St. Joseph Steelhead fall entry has not started.",
+            "whereToStart": "Stay with Lake Michigan, the St. Joseph harbor, and the river mouth for new fall-entry context.",
+            "detail": "The fall-entry window has not opened yet. Summer-run Skamania may already be inland, but they are separate from this fall-entry estimate.",
+            "tip": "Keep new fall-entry effort near the harbor and mouth. Use direct local information if targeting Skamania already inland.",
             "reasonCodes": [
               "stage_pre_run"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Not monitoring yet",
@@ -14290,7 +14343,7 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
             "reasonCodes": [
               "conditions_monitoring_inactive"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -14311,14 +14364,14 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
               "push_tracking_not_started"
             ],
             "rulesVersion": "st-joseph-niles-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 80,
             "label": "Good",
             "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. Depth and current are changing enough to move the most controllable presentations toward inside seams and current breaks. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river. This flow shape applies to the Niles mainstem reach only; verify the harbor, lower Michigan river, individual tailwaters, and Indiana water directly.",
-            "tip": "Move off the center lane. Work inside seams, the downstream side of current breaks, and the first deep resting pocket with short controlled presentations. Apply this recommendation at Niles; recheck water shape and safe access before carrying it to another St. Joseph section.",
+            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. Depth and current are changing enough to move the most controllable presentations toward inside seams and current breaks. This read applies only to the Niles mainstem reach.",
+            "tip": "Cover readable seams and holding water with a controlled presentation. Verify every other section directly.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band"
@@ -14329,11 +14382,13 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": null,
           "fishInRiver": {
             "score": 0,
+            "displayScore": 0,
+            "scoreIsApproximate": false,
             "stage": "pre_run",
             "maximum": 100,
             "riverCeiling": 90,
@@ -14342,14 +14397,14 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
             "curveDirection": "outside",
             "winterHoldingContext": false,
             "label": "Not expected yet",
-            "headline": "Steelhead are not expected in meaningful numbers yet.",
-            "detail": "Most Steelhead are not expected to have entered the river in dependable numbers. Any fish already present would be early exceptions. This seasonal presence applies to the accessible St. Joseph corridor as a whole; it does not claim equal fish numbers at the harbor, Niles, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Treat this as no dependable in-river opportunity yet. Keep expectations at zero, and do not interpret an isolated early fish as evidence of dependable river presence. Use Migration Stage to choose the specific St. Joseph section, then verify that water directly.",
+            "headline": "Dependable Steelhead presence is not expected in the St. Joseph yet.",
+            "detail": "The seasonal estimate remains at zero. Any river fish would be an early exception.",
+            "tip": "Use Migration Stage for harbor and river-entry context.",
             "reasonCodes": [
               "stage_pre_run",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -14608,6 +14663,7 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
           "nextConditionRefreshAt": "2026-10-01T05:00:00.000Z",
           "runStage": {
             "stage": "beginning",
+            "copyStrategy": "st_joseph_corridor",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -14630,14 +14686,14 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
               "peakToEndDays": 37
             },
             "label": "Beginning",
-            "headline": "The first Steelhead are beginning to enter the river.",
-            "whereToStart": "Lower Michigan travel and holding water toward Berrien Springs, while recognizing that summer-run Skamania may already be distributed farther upstream through open passage.",
-            "detail": "Fresh fish may be present, but numbers are still scattered and can arrive in uneven waves before the broader fall fishery develops. Five passage facilities allow distribution from the lower river through South Bend and Mishawaka, but Twin Branch is the hard upstream limit and Niles measurements are reach-specific.",
-            "tip": "Cover lower-Michigan travel lanes and their first deep resting water before moving toward Niles. Treat inland Skamania separately from evidence of a new winter-run wave.",
+            "headline": "The first fall Steelhead are entering the St. Joseph River.",
+            "whereToStart": "Start in the Lower river (St. Joseph harbor–Berrien Springs). Add the Middle river (Berrien Springs–Niles) after direct fish activity supports the move.",
+            "detail": "New fall entrants remain scattered while summer-run Skamania may already be farther inland.",
+            "tip": "Cover travel water and the first substantial holding areas before moving upstream.",
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -14683,7 +14739,7 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -14697,9 +14753,9 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
           "push": {
             "score": 13,
             "label": "Weak",
-            "headline": "Today's water shows little support for a fresh wave of fish.",
-            "detail": "The river is holding steady with no meaningful rise yet. Overall flow remains low. Water temperature remains too warm to support a strong Push and is relatively steady. Recent weather estimates indicate very little rain around the river. This Push describes fresh-movement support at Niles only; it does not prove a new wave at the harbor, Berrien Springs, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Do not build the day around new arrivals while the river remains warm. Start in established holding water at first or last light and leave lower travel lanes secondary. Use the Niles signal to choose between Niles-area holding water and a lower-Michigan travel-water check; verify Indiana movement directly.",
+            "headline": "Niles water shows little support for fresh movement.",
+            "detail": "Niles flow is steady without a meaningful rise, while overall flow remains low. Water temperature remains too warm to support a strong Push and is relatively steady. Recent watershed weather shows little rain.",
+            "tip": "Keep Migration Stage’s section primary. Do not shift sections from this Niles read.",
             "reasonCodes": [
               "gauge_fresh",
               "push_low_flow_context",
@@ -14719,14 +14775,14 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 40,
             "label": "Tough",
             "headline": "The river is fishable, but very low water will make fish easier to disturb and productive water harder to find.",
-            "detail": "Water is unusually low, reducing cover and concentrating the best depth into fewer places. The low water is holding rather than refilling, so the few deeper slots should remain easy to identify. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river. This flow shape applies to the Niles mainstem reach only; verify the harbor, lower Michigan river, individual tailwaters, and Indiana water directly.",
-            "tip": "Fish first or last light. Begin at the deepest shaded holes and slots, approach quietly, and keep foot traffic out of shallow travel lanes. Apply this recommendation at Niles; recheck water shape and safe access before carrying it to another St. Joseph section.",
+            "detail": "Water is unusually low, reducing cover and concentrating the best depth into fewer places. The low water is holding rather than refilling, so the few deeper slots should remain easy to identify. This read applies only to the Niles mainstem reach.",
+            "tip": "Use the deepest connected water and keep disturbance low. Verify every other section directly.",
             "reasonCodes": [
               "gauge_fresh",
               "very_low_flow_band",
@@ -14738,15 +14794,15 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 57,
             "maximum": 100,
             "label": "Moderate",
-            "headline": "Today’s Steelhead activity outlook is moderate.",
-            "detail": "Some useful factors are present, but the response window is mixed. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: The river level or its recent change is less favorable. Early fall Steelhead are entering with energy reserves intact. This score describes feeding or aggressive responsiveness for fish already in the river, not fresh movement. Measured river conditions describe the St. Joseph mainstem at Niles. Water temperature, clarity, hydraulic shape, access, and fishing conditions can differ in the harbor and lower Michigan river, at individual dam tailwaters, and through South Bend, Mishawaka, and the Twin Branch reach. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
-            "tip": "Start with 5–9 AM. If conditions change, favor the window that best combines workable light with measured water temperature. Apply this response window at Niles; verify temperature, clarity, flow shape, and legal access again before carrying it to another St. Joseph section.",
+            "headline": "Today’s Niles Steelhead responsiveness is moderate.",
+            "detail": "Conditions offer mixed support for Steelhead responsiveness. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Flow and temperature represent only the Niles mainstem reach.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify other sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -14798,10 +14854,13 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 12,
+            "displayScore": 10,
+            "scoreIsApproximate": true,
             "stage": "beginning",
             "maximum": 100,
             "riverCeiling": 90,
@@ -14810,14 +14869,14 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
             "curveDirection": "rising",
             "winterHoldingContext": false,
             "label": "Low presence",
-            "headline": "A small number of Steelhead may be in the river, and seasonal presence is still building.",
-            "detail": "This part of the season usually brings low presence, with more fish expected to enter and spread through the river. This is a seasonal estimate, not a live fish count. This seasonal presence applies to the accessible St. Joseph corridor as a whole; it does not claim equal fish numbers at the harbor, Niles, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Treat this as an early, low-odds river opportunity. Expect scattered results, and use direct fish activity before committing the full day. Use Migration Stage to choose the specific St. Joseph section, then verify that water directly.",
+            "headline": "Seasonal Steelhead presence is low and building.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the St. Joseph Steelhead ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -15077,6 +15136,7 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
           "nextConditionRefreshAt": "2026-10-01T05:00:00.000Z",
           "runStage": {
             "stage": "beginning",
+            "copyStrategy": "st_joseph_corridor",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -15099,14 +15159,14 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
               "peakToEndDays": 37
             },
             "label": "Beginning",
-            "headline": "The first Steelhead are beginning to enter the river.",
-            "whereToStart": "Lower Michigan travel and holding water toward Berrien Springs, while recognizing that summer-run Skamania may already be distributed farther upstream through open passage.",
-            "detail": "Fresh fish may be present, but numbers are still scattered and can arrive in uneven waves before the broader fall fishery develops. Five passage facilities allow distribution from the lower river through South Bend and Mishawaka, but Twin Branch is the hard upstream limit and Niles measurements are reach-specific.",
-            "tip": "Cover lower-Michigan travel lanes and their first deep resting water before moving toward Niles. Treat inland Skamania separately from evidence of a new winter-run wave.",
+            "headline": "The first fall Steelhead are entering the St. Joseph River.",
+            "whereToStart": "Start in the Lower river (St. Joseph harbor–Berrien Springs). Add the Middle river (Berrien Springs–Niles) after direct fish activity supports the move.",
+            "detail": "New fall entrants remain scattered while summer-run Skamania may already be farther inland.",
+            "tip": "Cover travel water and the first substantial holding areas before moving upstream.",
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -15152,7 +15212,7 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -15166,9 +15226,9 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
           "push": {
             "score": 18,
             "label": "Weak",
-            "headline": "Today's water shows little support for a fresh wave of fish.",
-            "detail": "The river is holding steady with no meaningful rise yet. Water temperature remains too warm to support a strong Push and is relatively steady. Recent weather estimates indicate very little rain around the river. This Push describes fresh-movement support at Niles only; it does not prove a new wave at the harbor, Berrien Springs, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Do not build the day around new arrivals while the river remains warm. Start in established holding water at first or last light and leave lower travel lanes secondary. Use the Niles signal to choose between Niles-area holding water and a lower-Michigan travel-water check; verify Indiana movement directly.",
+            "headline": "Niles water shows little support for fresh movement.",
+            "detail": "Niles flow is steady without a meaningful rise. Water temperature remains too warm to support a strong Push and is relatively steady. Recent watershed weather shows little rain.",
+            "tip": "Keep Migration Stage’s section primary. Do not shift sections from this Niles read.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
@@ -15188,14 +15248,14 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 60,
             "label": "Fishable",
             "headline": "The river is fishable, but lower water leaves less cover and less room for error.",
-            "detail": "Water is lower than ideal but still workable, with less depth and cover across the river. The lower flow is holding steady, so its limited depth and cover should remain consistent. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river. This flow shape applies to the Niles mainstem reach only; verify the harbor, lower Michigan river, individual tailwaters, and Indiana water directly.",
-            "tip": "Start with the deepest connected holding water, then fish shaded outside bends and cover. Approach quietly and make the first pass count. Apply this recommendation at Niles; recheck water shape and safe access before carrying it to another St. Joseph section.",
+            "detail": "Water is lower than ideal but still workable, with less depth and cover across the river. The lower flow is holding steady, so its limited depth and cover should remain consistent. This read applies only to the Niles mainstem reach.",
+            "tip": "Use the deepest connected water and keep disturbance low. Verify every other section directly.",
             "reasonCodes": [
               "gauge_fresh",
               "low_flow_band"
@@ -15206,15 +15266,15 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 61,
             "maximum": 100,
             "label": "Active",
-            "headline": "Today’s Steelhead activity outlook is active.",
-            "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. Early fall Steelhead are entering with energy reserves intact. This score describes feeding or aggressive responsiveness for fish already in the river, not fresh movement. Measured river conditions describe the St. Joseph mainstem at Niles. Water temperature, clarity, hydraulic shape, access, and fishing conditions can differ in the harbor and lower Michigan river, at individual dam tailwaters, and through South Bend, Mishawaka, and the Twin Branch reach. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
-            "tip": "Start with 5–9 AM. If conditions change, favor the window that best combines workable light with measured water temperature. Apply this response window at Niles; verify temperature, clarity, flow shape, and legal access again before carrying it to another St. Joseph section.",
+            "headline": "Today’s Niles Steelhead responsiveness is active.",
+            "detail": "Conditions support a meaningful Steelhead response. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Flow and temperature represent only the Niles mainstem reach.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify other sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -15266,10 +15326,13 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 12,
+            "displayScore": 10,
+            "scoreIsApproximate": true,
             "stage": "beginning",
             "maximum": 100,
             "riverCeiling": 90,
@@ -15278,14 +15341,14 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
             "curveDirection": "rising",
             "winterHoldingContext": false,
             "label": "Low presence",
-            "headline": "A small number of Steelhead may be in the river, and seasonal presence is still building.",
-            "detail": "This part of the season usually brings low presence, with more fish expected to enter and spread through the river. This is a seasonal estimate, not a live fish count. This seasonal presence applies to the accessible St. Joseph corridor as a whole; it does not claim equal fish numbers at the harbor, Niles, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Treat this as an early, low-odds river opportunity. Expect scattered results, and use direct fish activity before committing the full day. Use Migration Stage to choose the specific St. Joseph section, then verify that water directly.",
+            "headline": "Seasonal Steelhead presence is low and building.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the St. Joseph Steelhead ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -15539,6 +15602,7 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
           "nextConditionRefreshAt": "2026-10-01T05:00:00.000Z",
           "runStage": {
             "stage": "beginning",
+            "copyStrategy": "st_joseph_corridor",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -15561,14 +15625,14 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
               "peakToEndDays": 37
             },
             "label": "Beginning",
-            "headline": "The first Steelhead are beginning to enter the river.",
-            "whereToStart": "Lower Michigan travel and holding water toward Berrien Springs, while recognizing that summer-run Skamania may already be distributed farther upstream through open passage.",
-            "detail": "Fresh fish may be present, but numbers are still scattered and can arrive in uneven waves before the broader fall fishery develops. Five passage facilities allow distribution from the lower river through South Bend and Mishawaka, but Twin Branch is the hard upstream limit and Niles measurements are reach-specific.",
-            "tip": "Cover lower-Michigan travel lanes and their first deep resting water before moving toward Niles. Treat inland Skamania separately from evidence of a new winter-run wave.",
+            "headline": "The first fall Steelhead are entering the St. Joseph River.",
+            "whereToStart": "Start in the Lower river (St. Joseph harbor–Berrien Springs). Add the Middle river (Berrien Springs–Niles) after direct fish activity supports the move.",
+            "detail": "New fall entrants remain scattered while summer-run Skamania may already be farther inland.",
+            "tip": "Cover travel water and the first substantial holding areas before moving upstream.",
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -15614,7 +15678,7 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -15628,9 +15692,9 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
           "push": {
             "score": 13,
             "label": "Weak",
-            "headline": "The river is rising hard, but extreme flow makes this an unreliable fresh-movement read.",
-            "detail": "The river is holding steady with no meaningful rise yet. Overall flow is extremely high. Water temperature remains too warm to support a strong Push and is relatively steady. Recent weather estimates indicate very little rain around the river. This Push describes fresh-movement support at Niles only; it does not prove a new wave at the harbor, Berrien Springs, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Do not chase movement in the main channel. If Fishability remains usable, fish only protected margins, inside turns, and soft current with short controlled presentations. Use the Niles signal to choose between Niles-area holding water and a lower-Michigan travel-water check; verify Indiana movement directly.",
+            "headline": "Extreme Niles flow prevents a dependable fresh-movement signal.",
+            "detail": "Niles flow is steady without a meaningful rise, while overall flow is extreme. Water temperature remains too warm to support a strong Push and is relatively steady. Recent watershed weather shows little rain.",
+            "tip": "Keep Migration Stage’s section primary. Do not shift sections from this Niles read.",
             "reasonCodes": [
               "gauge_fresh",
               "push_severe_high_flow_context",
@@ -15651,14 +15715,14 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 20,
             "label": "Poor",
             "headline": "The river is too high and unsettled for a dependable fishing recommendation.",
-            "detail": "Excessive flow is overwhelming normal holding water and making access and presentation unreliable. The river is not climbing quickly, but it must fall substantially before normal holding lanes and presentation control return. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river. This flow shape applies to the Niles mainstem reach only; verify the harbor, lower Michigan river, individual tailwaters, and Indiana water directly.",
-            "tip": "Choose a lower-water day for the better fishing opportunity. If you fish now, stay tight to protected banks, slow inside turns, and the downstream side of major current breaks; keep presentations short and leave the main flow alone. Apply this recommendation at Niles; recheck water shape and safe access before carrying it to another St. Joseph section.",
+            "detail": "Excessive flow is overwhelming normal holding water and making access and presentation unreliable. The river is not climbing quickly, but it must fall substantially before normal holding lanes and presentation control return. This read applies only to the Niles mainstem reach.",
+            "tip": "Choose another day and verify current conditions through authoritative local sources. Verify every other section directly.",
             "reasonCodes": [
               "gauge_fresh",
               "blown_out_flow_band",
@@ -15670,15 +15734,15 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 10,
             "maximum": 100,
             "label": "Inactive",
-            "headline": "Today’s Steelhead activity outlook is inactive.",
-            "detail": "Conditions provide little environmental support for an aggressive response. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: The river level or its recent change is less favorable. Early fall Steelhead are entering with energy reserves intact. This score describes feeding or aggressive responsiveness for fish already in the river, not fresh movement. Measured river conditions describe the St. Joseph mainstem at Niles. Water temperature, clarity, hydraulic shape, access, and fishing conditions can differ in the harbor and lower Michigan river, at individual dam tailwaters, and through South Bend, Mishawaka, and the Twin Branch reach. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
-            "tip": "Start with 5–9 AM. If conditions change, favor the window that best combines workable light with measured water temperature. Apply this response window at Niles; verify temperature, clarity, flow shape, and legal access again before carrying it to another St. Joseph section.",
+            "headline": "Today’s Niles Steelhead responsiveness is inactive.",
+            "detail": "Conditions offer little support for an aggressive Steelhead response. 5–9 AM and 9 AM–1 PM are the leading windows, but neither has a clear advantage. Flow and temperature represent only the Niles mainstem reach.",
+            "tip": "Choose between 5–9 AM and 9 AM–1 PM using actual light. Verify other sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -15731,10 +15795,13 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 12,
+            "displayScore": 10,
+            "scoreIsApproximate": true,
             "stage": "beginning",
             "maximum": 100,
             "riverCeiling": 90,
@@ -15743,14 +15810,14 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
             "curveDirection": "rising",
             "winterHoldingContext": false,
             "label": "Low presence",
-            "headline": "A small number of Steelhead may be in the river, and seasonal presence is still building.",
-            "detail": "This part of the season usually brings low presence, with more fish expected to enter and spread through the river. This is a seasonal estimate, not a live fish count. This seasonal presence applies to the accessible St. Joseph corridor as a whole; it does not claim equal fish numbers at the harbor, Niles, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Treat this as an early, low-odds river opportunity. Expect scattered results, and use direct fish activity before committing the full day. Use Migration Stage to choose the specific St. Joseph section, then verify that water directly.",
+            "headline": "Seasonal Steelhead presence is low and building.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the St. Joseph Steelhead ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -16004,6 +16071,7 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
           "nextConditionRefreshAt": "2026-10-01T05:00:00.000Z",
           "runStage": {
             "stage": "beginning",
+            "copyStrategy": "st_joseph_corridor",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -16026,14 +16094,14 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
               "peakToEndDays": 37
             },
             "label": "Beginning",
-            "headline": "The first Steelhead are beginning to enter the river.",
-            "whereToStart": "Lower Michigan travel and holding water toward Berrien Springs, while recognizing that summer-run Skamania may already be distributed farther upstream through open passage.",
-            "detail": "Fresh fish may be present, but numbers are still scattered and can arrive in uneven waves before the broader fall fishery develops. Five passage facilities allow distribution from the lower river through South Bend and Mishawaka, but Twin Branch is the hard upstream limit and Niles measurements are reach-specific.",
-            "tip": "Cover lower-Michigan travel lanes and their first deep resting water before moving toward Niles. Treat inland Skamania separately from evidence of a new winter-run wave.",
+            "headline": "The first fall Steelhead are entering the St. Joseph River.",
+            "whereToStart": "Start in the Lower river (St. Joseph harbor–Berrien Springs). Add the Middle river (Berrien Springs–Niles) after direct fish activity supports the move.",
+            "detail": "New fall entrants remain scattered while summer-run Skamania may already be farther inland.",
+            "tip": "Cover travel water and the first substantial holding areas before moving upstream.",
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -16079,7 +16147,7 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -16093,9 +16161,9 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
           "push": {
             "score": 35,
             "label": "No clear push",
-            "headline": "Today's water does not show a clear signal for a fresh wave of fish.",
-            "detail": "The river has started to rise since yesterday. Water temperature remains too warm to support a strong Push and is relatively steady. Recent weather estimates indicate very little rain around the river. This Push describes fresh-movement support at Niles only; it does not prove a new wave at the harbor, Berrien Springs, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Do not build the day around new arrivals while the river remains warm. Start in established holding water at first or last light and leave lower travel lanes secondary. Use the Niles signal to choose between Niles-area holding water and a lower-Michigan travel-water check; verify Indiana movement directly.",
+            "headline": "Niles water does not show a clear fresh-movement signal.",
+            "detail": "Niles flow has started to rise. Water temperature remains too warm to support a strong Push and is relatively steady. Recent watershed weather shows little rain.",
+            "tip": "Keep Migration Stage’s section primary. Do not shift sections from this Niles read.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
@@ -16114,14 +16182,14 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 88,
             "label": "Excellent",
             "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The early rise is adding pace and depth, with inside seams and the upstream edges of holes changing first. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river. This flow shape applies to the Niles mainstem reach only; verify the harbor, lower Michigan river, individual tailwaters, and Indiana water directly.",
-            "tip": "Begin on the soft inside edge of the primary travel lane, then fish the first deep resting hole above it. Recheck that edge as added depth changes the lane. Apply this recommendation at Niles; recheck water shape and safe access before carrying it to another St. Joseph section.",
+            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The early rise is adding pace and depth, with inside seams and the upstream edges of holes changing first. This read applies only to the Niles mainstem reach.",
+            "tip": "Cover readable seams and holding water with a controlled presentation. Verify every other section directly.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band"
@@ -16132,15 +16200,15 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 62,
             "maximum": 100,
             "label": "Active",
-            "headline": "Today’s Steelhead activity outlook is active.",
-            "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. Early fall Steelhead are entering with energy reserves intact. This score describes feeding or aggressive responsiveness for fish already in the river, not fresh movement. Measured river conditions describe the St. Joseph mainstem at Niles. Water temperature, clarity, hydraulic shape, access, and fishing conditions can differ in the harbor and lower Michigan river, at individual dam tailwaters, and through South Bend, Mishawaka, and the Twin Branch reach. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
-            "tip": "Start with 5–9 AM. If conditions change, favor the window that best combines workable light with measured water temperature. Apply this response window at Niles; verify temperature, clarity, flow shape, and legal access again before carrying it to another St. Joseph section.",
+            "headline": "Today’s Niles Steelhead responsiveness is active.",
+            "detail": "Conditions support a meaningful Steelhead response. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Flow and temperature represent only the Niles mainstem reach.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify other sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -16192,10 +16260,13 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 12,
+            "displayScore": 10,
+            "scoreIsApproximate": true,
             "stage": "beginning",
             "maximum": 100,
             "riverCeiling": 90,
@@ -16204,14 +16275,14 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
             "curveDirection": "rising",
             "winterHoldingContext": false,
             "label": "Low presence",
-            "headline": "A small number of Steelhead may be in the river, and seasonal presence is still building.",
-            "detail": "This part of the season usually brings low presence, with more fish expected to enter and spread through the river. This is a seasonal estimate, not a live fish count. This seasonal presence applies to the accessible St. Joseph corridor as a whole; it does not claim equal fish numbers at the harbor, Niles, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Treat this as an early, low-odds river opportunity. Expect scattered results, and use direct fish activity before committing the full day. Use Migration Stage to choose the specific St. Joseph section, then verify that water directly.",
+            "headline": "Seasonal Steelhead presence is low and building.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the St. Joseph Steelhead ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -16471,6 +16542,7 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
           "nextConditionRefreshAt": "2026-10-01T05:00:00.000Z",
           "runStage": {
             "stage": "beginning",
+            "copyStrategy": "st_joseph_corridor",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -16493,14 +16565,14 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
               "peakToEndDays": 37
             },
             "label": "Beginning",
-            "headline": "The first Steelhead are beginning to enter the river.",
-            "whereToStart": "Lower Michigan travel and holding water toward Berrien Springs, while recognizing that summer-run Skamania may already be distributed farther upstream through open passage.",
-            "detail": "Fresh fish may be present, but numbers are still scattered and can arrive in uneven waves before the broader fall fishery develops. Five passage facilities allow distribution from the lower river through South Bend and Mishawaka, but Twin Branch is the hard upstream limit and Niles measurements are reach-specific.",
-            "tip": "Cover lower-Michigan travel lanes and their first deep resting water before moving toward Niles. Treat inland Skamania separately from evidence of a new winter-run wave.",
+            "headline": "The first fall Steelhead are entering the St. Joseph River.",
+            "whereToStart": "Start in the Lower river (St. Joseph harbor–Berrien Springs). Add the Middle river (Berrien Springs–Niles) after direct fish activity supports the move.",
+            "detail": "New fall entrants remain scattered while summer-run Skamania may already be farther inland.",
+            "tip": "Cover travel water and the first substantial holding areas before moving upstream.",
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -16546,7 +16618,7 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -16560,9 +16632,9 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
           "push": {
             "score": 68,
             "label": "Possible",
-            "headline": "Today's water offers some support for fresh fish moving into or through the river.",
-            "detail": "The river is rising quickly, creating conditions fish often use to move. Water temperature remains too warm to support a strong Push and is relatively steady. The river has already made a meaningful rise, so that measured response carries the useful movement signal and rainfall adds no separate weight. This Push describes fresh-movement support at Niles only; it does not prove a new wave at the harbor, Berrien Springs, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Do not build the day around new arrivals while the river remains warm. Start in established holding water at first or last light and leave lower travel lanes secondary. Use the Niles signal to choose between Niles-area holding water and a lower-Michigan travel-water check; verify Indiana movement directly.",
+            "headline": "Niles water offers some support for fresh movement.",
+            "detail": "Niles flow is rising quickly. Water temperature remains too warm to support a strong Push and is relatively steady. Niles already reflects the rain response, so rain adds no extra credit.",
+            "tip": "Keep Migration Stage’s section primary and add one Niles-area movement check.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
@@ -16581,14 +16653,14 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 40,
             "label": "Tough",
             "headline": "The river is rising fast, and usable fishing water is shifting toward slower margins and current breaks.",
-            "detail": "Higher flow is pushing more current through the main channel, but softer edges and protected lanes remain workable. The fast rise is forcing usable fishing water out of the main flow and into the slowest protected margins. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river. This flow shape applies to the Niles mainstem reach only; verify the harbor, lower Michigan river, individual tailwaters, and Indiana water directly.",
-            "tip": "Leave the main channel alone. Fish newly formed soft margins, inside bends, and the downstream side of current breaks with short controlled presentations. Apply this recommendation at Niles; recheck water shape and safe access before carrying it to another St. Joseph section.",
+            "detail": "Higher flow is pushing more current through the main channel, but softer edges and protected lanes remain workable. The fast rise is forcing usable fishing water out of the main flow and into the slowest protected margins. This read applies only to the Niles mainstem reach.",
+            "tip": "Favor protected margins and short controlled presentations. Choose another day if control is not dependable. Verify every other section directly.",
             "reasonCodes": [
               "gauge_fresh",
               "high_fishable_flow_band",
@@ -16602,15 +16674,15 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
               ]
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 61,
             "maximum": 100,
             "label": "Active",
-            "headline": "Today’s Steelhead activity outlook is active.",
-            "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. Early fall Steelhead are entering with energy reserves intact. This score describes feeding or aggressive responsiveness for fish already in the river, not fresh movement. Measured river conditions describe the St. Joseph mainstem at Niles. Water temperature, clarity, hydraulic shape, access, and fishing conditions can differ in the harbor and lower Michigan river, at individual dam tailwaters, and through South Bend, Mishawaka, and the Twin Branch reach. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
-            "tip": "Start with 5–9 AM. If conditions change, favor the window that best combines workable light with measured water temperature. Apply this response window at Niles; verify temperature, clarity, flow shape, and legal access again before carrying it to another St. Joseph section.",
+            "headline": "Today’s Niles Steelhead responsiveness is active.",
+            "detail": "Conditions support a meaningful Steelhead response. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Flow and temperature represent only the Niles mainstem reach.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify other sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -16662,10 +16734,13 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 12,
+            "displayScore": 10,
+            "scoreIsApproximate": true,
             "stage": "beginning",
             "maximum": 100,
             "riverCeiling": 90,
@@ -16674,14 +16749,14 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
             "curveDirection": "rising",
             "winterHoldingContext": false,
             "label": "Low presence",
-            "headline": "A small number of Steelhead may be in the river, and seasonal presence is still building.",
-            "detail": "This part of the season usually brings low presence, with more fish expected to enter and spread through the river. This is a seasonal estimate, not a live fish count. This seasonal presence applies to the accessible St. Joseph corridor as a whole; it does not claim equal fish numbers at the harbor, Niles, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Treat this as an early, low-odds river opportunity. Expect scattered results, and use direct fish activity before committing the full day. Use Migration Stage to choose the specific St. Joseph section, then verify that water directly.",
+            "headline": "Seasonal Steelhead presence is low and building.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the St. Joseph Steelhead ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -16935,6 +17010,7 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
           "nextConditionRefreshAt": "2026-10-01T05:00:00.000Z",
           "runStage": {
             "stage": "beginning",
+            "copyStrategy": "st_joseph_corridor",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -16957,14 +17033,14 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
               "peakToEndDays": 37
             },
             "label": "Beginning",
-            "headline": "The first Steelhead are beginning to enter the river.",
-            "whereToStart": "Lower Michigan travel and holding water toward Berrien Springs, while recognizing that summer-run Skamania may already be distributed farther upstream through open passage.",
-            "detail": "Fresh fish may be present, but numbers are still scattered and can arrive in uneven waves before the broader fall fishery develops. Five passage facilities allow distribution from the lower river through South Bend and Mishawaka, but Twin Branch is the hard upstream limit and Niles measurements are reach-specific.",
-            "tip": "Cover lower-Michigan travel lanes and their first deep resting water before moving toward Niles. Treat inland Skamania separately from evidence of a new winter-run wave.",
+            "headline": "The first fall Steelhead are entering the St. Joseph River.",
+            "whereToStart": "Start in the Lower river (St. Joseph harbor–Berrien Springs). Add the Middle river (Berrien Springs–Niles) after direct fish activity supports the move.",
+            "detail": "New fall entrants remain scattered while summer-run Skamania may already be farther inland.",
+            "tip": "Cover travel water and the first substantial holding areas before moving upstream.",
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -17010,7 +17086,7 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -17024,9 +17100,9 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
           "push": {
             "score": 13,
             "label": "Weak",
-            "headline": "Today's water shows little support for a fresh wave of fish.",
-            "detail": "There is not enough recent river-level history to tell whether the river is rising or falling. Water temperature remains too warm to support a strong Push and is relatively steady. Recent weather estimates indicate very little rain around the river. Without a dependable river trend, there is no clear Push. This Push describes fresh-movement support at Niles only; it does not prove a new wave at the harbor, Berrien Springs, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Do not build the day around new arrivals while the river remains warm. Start in established holding water at first or last light and leave lower travel lanes secondary. Use the Niles signal to choose between Niles-area holding water and a lower-Michigan travel-water check; verify Indiana movement directly.",
+            "headline": "Niles water shows little support for fresh movement.",
+            "detail": "Niles flow does not have a dependable recent trend. Water temperature remains too warm to support a strong Push and is relatively steady. Without a dependable Niles trend, the read cannot show a clear Push.",
+            "tip": "Keep Migration Stage’s section primary. Do not shift sections from this Niles read.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
@@ -17047,14 +17123,14 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 69,
             "label": "Fishable",
             "headline": "The river appears fishable, but its direction is unclear, so confidence is limited.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. There is not enough recent information to tell whether the river is rising or falling, which lowers confidence in the read. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river. This flow shape applies to the Niles mainstem reach only; verify the harbor, lower Michigan river, individual tailwaters, and Indiana water directly.",
-            "tip": "Start at a bank-side inside bend or soft seam where the full presentation stays under control. Skip faster water until the river's direction is verified. Apply this recommendation at Niles; recheck water shape and safe access before carrying it to another St. Joseph section.",
+            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. There is not enough recent information to tell whether the river is rising or falling, which lowers confidence in the read. This read applies only to the Niles mainstem reach.",
+            "tip": "Verify the Niles reach directly before choosing presentation water. Verify every other section directly.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band",
@@ -17068,15 +17144,15 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
               ]
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 65,
             "maximum": 100,
             "label": "Active",
-            "headline": "Today’s Steelhead activity outlook is active.",
-            "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. Early fall Steelhead are entering with energy reserves intact. This score describes feeding or aggressive responsiveness for fish already in the river, not fresh movement. Measured river conditions describe the St. Joseph mainstem at Niles. Water temperature, clarity, hydraulic shape, access, and fishing conditions can differ in the harbor and lower Michigan river, at individual dam tailwaters, and through South Bend, Mishawaka, and the Twin Branch reach. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
-            "tip": "Start with 5–9 AM. If conditions change, favor the window that best combines workable light with measured water temperature. Apply this response window at Niles; verify temperature, clarity, flow shape, and legal access again before carrying it to another St. Joseph section.",
+            "headline": "Today’s Niles Steelhead responsiveness is active.",
+            "detail": "Conditions support a meaningful Steelhead response. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Flow and temperature represent only the Niles mainstem reach.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify other sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -17128,10 +17204,13 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 12,
+            "displayScore": 10,
+            "scoreIsApproximate": true,
             "stage": "beginning",
             "maximum": 100,
             "riverCeiling": 90,
@@ -17140,14 +17219,14 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
             "curveDirection": "rising",
             "winterHoldingContext": false,
             "label": "Low presence",
-            "headline": "A small number of Steelhead may be in the river, and seasonal presence is still building.",
-            "detail": "This part of the season usually brings low presence, with more fish expected to enter and spread through the river. This is a seasonal estimate, not a live fish count. This seasonal presence applies to the accessible St. Joseph corridor as a whole; it does not claim equal fish numbers at the harbor, Niles, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Treat this as an early, low-odds river opportunity. Expect scattered results, and use direct fish activity before committing the full day. Use Migration Stage to choose the specific St. Joseph section, then verify that water directly.",
+            "headline": "Seasonal Steelhead presence is low and building.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the St. Joseph Steelhead ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -17401,6 +17480,7 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
           "nextConditionRefreshAt": "2026-10-01T05:00:00.000Z",
           "runStage": {
             "stage": "beginning",
+            "copyStrategy": "st_joseph_corridor",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -17423,14 +17503,14 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
               "peakToEndDays": 37
             },
             "label": "Beginning",
-            "headline": "The first Steelhead are beginning to enter the river.",
-            "whereToStart": "Lower Michigan travel and holding water toward Berrien Springs, while recognizing that summer-run Skamania may already be distributed farther upstream through open passage.",
-            "detail": "Fresh fish may be present, but numbers are still scattered and can arrive in uneven waves before the broader fall fishery develops. Five passage facilities allow distribution from the lower river through South Bend and Mishawaka, but Twin Branch is the hard upstream limit and Niles measurements are reach-specific.",
-            "tip": "Cover lower-Michigan travel lanes and their first deep resting water before moving toward Niles. Treat inland Skamania separately from evidence of a new winter-run wave.",
+            "headline": "The first fall Steelhead are entering the St. Joseph River.",
+            "whereToStart": "Start in the Lower river (St. Joseph harbor–Berrien Springs). Add the Middle river (Berrien Springs–Niles) after direct fish activity supports the move.",
+            "detail": "New fall entrants remain scattered while summer-run Skamania may already be farther inland.",
+            "tip": "Cover travel water and the first substantial holding areas before moving upstream.",
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -17476,7 +17556,7 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -17490,9 +17570,9 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
           "push": {
             "score": 8,
             "label": "Weak",
-            "headline": "The water may support fresh movement, but an aging river reading limits confidence.",
-            "detail": "The river is holding steady with no meaningful rise yet. Water temperature remains too warm to support a strong Push and is relatively steady. Recent weather estimates indicate very little rain around the river. The latest river-level reading is aging, so confidence is reduced. This Push describes fresh-movement support at Niles only; it does not prove a new wave at the harbor, Berrien Springs, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Do not build the day around new arrivals while the river remains warm. Start in established holding water at first or last light and leave lower travel lanes secondary. Use the Niles signal to choose between Niles-area holding water and a lower-Michigan travel-water check; verify Indiana movement directly.",
+            "headline": "Niles water shows little support for fresh movement.",
+            "detail": "Niles flow is steady without a meaningful rise. Water temperature remains too warm to support a strong Push and is relatively steady. The Niles reading is aging, so confidence is reduced.",
+            "tip": "Keep Migration Stage’s section primary. Do not shift sections from this Niles read.",
             "reasonCodes": [
               "gauge_stale",
               "push_normal_flow_context",
@@ -17513,14 +17593,14 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 55,
             "label": "Fishable",
             "headline": "The last river reading was fishable, but it is aging and may no longer describe the water accurately.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. Because the latest reading is aging, the river may have changed since it was reported. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river. This flow shape applies to the Niles mainstem reach only; verify the harbor, lower Michigan river, individual tailwaters, and Indiana water directly.",
-            "tip": "Do not choose a reach from this reading alone. Check the water at the first access, and begin only in bank-side water where you can control the entire presentation. Apply this recommendation at Niles; recheck water shape and safe access before carrying it to another St. Joseph section.",
+            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. Because the latest reading is aging, the river may have changed since it was reported. This read applies only to the Niles mainstem reach.",
+            "tip": "Verify the Niles reach directly before choosing presentation water. Verify every other section directly.",
             "reasonCodes": [
               "gauge_stale",
               "ideal_flow_band",
@@ -17534,15 +17614,15 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
               ]
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 42,
             "maximum": 100,
             "label": "Moderate",
-            "headline": "Today’s Steelhead activity outlook is moderate.",
-            "detail": "Some useful factors are present, but the response window is mixed. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Current river behavior is unavailable. Early fall Steelhead are entering with energy reserves intact. This score describes feeding or aggressive responsiveness for fish already in the river, not fresh movement. Measured river conditions describe the St. Joseph mainstem at Niles. Water temperature, clarity, hydraulic shape, access, and fishing conditions can differ in the harbor and lower Michigan river, at individual dam tailwaters, and through South Bend, Mishawaka, and the Twin Branch reach. One important reading is unavailable or comes from tomorrow’s forecast, so the outlook is kept conservative.",
-            "tip": "Start with 5–9 AM. If conditions change, favor the window that best combines workable light with measured water temperature. Apply this response window at Niles; verify temperature, clarity, flow shape, and legal access again before carrying it to another St. Joseph section.",
+            "headline": "Today’s Niles Steelhead responsiveness is moderate.",
+            "detail": "Conditions offer mixed support for Steelhead responsiveness. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Moderate confidence reflects missing or forecast inputs; river measurements still represent only Niles.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify other sections directly.",
             "reasonCodes": [
               "activity_confidence_moderate",
               "activity_today",
@@ -17594,10 +17674,13 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 12,
+            "displayScore": 10,
+            "scoreIsApproximate": true,
             "stage": "beginning",
             "maximum": 100,
             "riverCeiling": 90,
@@ -17606,14 +17689,14 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
             "curveDirection": "rising",
             "winterHoldingContext": false,
             "label": "Low presence",
-            "headline": "A small number of Steelhead may be in the river, and seasonal presence is still building.",
-            "detail": "This part of the season usually brings low presence, with more fish expected to enter and spread through the river. This is a seasonal estimate, not a live fish count. This seasonal presence applies to the accessible St. Joseph corridor as a whole; it does not claim equal fish numbers at the harbor, Niles, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Treat this as an early, low-odds river opportunity. Expect scattered results, and use direct fish activity before committing the full day. Use Migration Stage to choose the specific St. Joseph section, then verify that water directly.",
+            "headline": "Seasonal Steelhead presence is low and building.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the St. Joseph Steelhead ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -17867,6 +17950,7 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
           "nextConditionRefreshAt": "2026-10-01T05:00:00.000Z",
           "runStage": {
             "stage": "beginning",
+            "copyStrategy": "st_joseph_corridor",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -17889,14 +17973,14 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
               "peakToEndDays": 37
             },
             "label": "Beginning",
-            "headline": "The first Steelhead are beginning to enter the river.",
-            "whereToStart": "Lower Michigan travel and holding water toward Berrien Springs, while recognizing that summer-run Skamania may already be distributed farther upstream through open passage.",
-            "detail": "Fresh fish may be present, but numbers are still scattered and can arrive in uneven waves before the broader fall fishery develops. Five passage facilities allow distribution from the lower river through South Bend and Mishawaka, but Twin Branch is the hard upstream limit and Niles measurements are reach-specific.",
-            "tip": "Cover lower-Michigan travel lanes and their first deep resting water before moving toward Niles. Treat inland Skamania separately from evidence of a new winter-run wave.",
+            "headline": "The first fall Steelhead are entering the St. Joseph River.",
+            "whereToStart": "Start in the Lower river (St. Joseph harbor–Berrien Springs). Add the Middle river (Berrien Springs–Niles) after direct fish activity supports the move.",
+            "detail": "New fall entrants remain scattered while summer-run Skamania may already be farther inland.",
+            "tip": "Cover travel water and the first substantial holding areas before moving upstream.",
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -17942,7 +18026,7 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -17963,7 +18047,7 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
               "gauge_missing"
             ],
             "rulesVersion": "st-joseph-niles-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": null,
@@ -17975,15 +18059,15 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
               "gauge_missing"
             ],
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 42,
             "maximum": 100,
             "label": "Moderate",
-            "headline": "Today’s Steelhead activity outlook is moderate.",
-            "detail": "Some useful factors are present, but the response window is mixed. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Current river behavior is unavailable. Early fall Steelhead are entering with energy reserves intact. This score describes feeding or aggressive responsiveness for fish already in the river, not fresh movement. Measured river conditions describe the St. Joseph mainstem at Niles. Water temperature, clarity, hydraulic shape, access, and fishing conditions can differ in the harbor and lower Michigan river, at individual dam tailwaters, and through South Bend, Mishawaka, and the Twin Branch reach. One important reading is unavailable or comes from tomorrow’s forecast, so the outlook is kept conservative.",
-            "tip": "Start with 5–9 AM. If conditions change, favor the window that best combines workable light with measured water temperature. Apply this response window at Niles; verify temperature, clarity, flow shape, and legal access again before carrying it to another St. Joseph section.",
+            "headline": "Today’s Niles Steelhead responsiveness is moderate.",
+            "detail": "Conditions offer mixed support for Steelhead responsiveness. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Moderate confidence reflects missing or forecast inputs; river measurements still represent only Niles.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify other sections directly.",
             "reasonCodes": [
               "activity_confidence_moderate",
               "activity_today",
@@ -18035,10 +18119,13 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 12,
+            "displayScore": 10,
+            "scoreIsApproximate": true,
             "stage": "beginning",
             "maximum": 100,
             "riverCeiling": 90,
@@ -18047,14 +18134,14 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
             "curveDirection": "rising",
             "winterHoldingContext": false,
             "label": "Low presence",
-            "headline": "A small number of Steelhead may be in the river, and seasonal presence is still building.",
-            "detail": "This part of the season usually brings low presence, with more fish expected to enter and spread through the river. This is a seasonal estimate, not a live fish count. This seasonal presence applies to the accessible St. Joseph corridor as a whole; it does not claim equal fish numbers at the harbor, Niles, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Treat this as an early, low-odds river opportunity. Expect scattered results, and use direct fish activity before committing the full day. Use Migration Stage to choose the specific St. Joseph section, then verify that water directly.",
+            "headline": "Seasonal Steelhead presence is low and building.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the St. Joseph Steelhead ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": null,
           "weather": {
@@ -18298,6 +18385,7 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
           "nextConditionRefreshAt": "2026-10-01T05:00:00.000Z",
           "runStage": {
             "stage": "beginning",
+            "copyStrategy": "st_joseph_corridor",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -18320,14 +18408,14 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
               "peakToEndDays": 37
             },
             "label": "Beginning",
-            "headline": "The first Steelhead are beginning to enter the river.",
-            "whereToStart": "Lower Michigan travel and holding water toward Berrien Springs, while recognizing that summer-run Skamania may already be distributed farther upstream through open passage.",
-            "detail": "Fresh fish may be present, but numbers are still scattered and can arrive in uneven waves before the broader fall fishery develops. Five passage facilities allow distribution from the lower river through South Bend and Mishawaka, but Twin Branch is the hard upstream limit and Niles measurements are reach-specific.",
-            "tip": "Cover lower-Michigan travel lanes and their first deep resting water before moving toward Niles. Treat inland Skamania separately from evidence of a new winter-run wave.",
+            "headline": "The first fall Steelhead are entering the St. Joseph River.",
+            "whereToStart": "Start in the Lower river (St. Joseph harbor–Berrien Springs). Add the Middle river (Berrien Springs–Niles) after direct fish activity supports the move.",
+            "detail": "New fall entrants remain scattered while summer-run Skamania may already be farther inland.",
+            "tip": "Cover travel water and the first substantial holding areas before moving upstream.",
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -18373,7 +18461,7 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -18387,9 +18475,9 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
           "push": {
             "score": 18,
             "label": "Weak",
-            "headline": "Today's water shows little support for a fresh wave of fish.",
-            "detail": "The river is holding steady with no meaningful rise yet. Water temperature remains too warm to support a strong Push and is relatively steady. Recent weather estimates indicate very little rain around the river. This Push describes fresh-movement support at Niles only; it does not prove a new wave at the harbor, Berrien Springs, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Do not build the day around new arrivals while the river remains warm. Start in established holding water at first or last light and leave lower travel lanes secondary. Use the Niles signal to choose between Niles-area holding water and a lower-Michigan travel-water check; verify Indiana movement directly.",
+            "headline": "Niles water shows little support for fresh movement.",
+            "detail": "Niles flow is steady without a meaningful rise. Water temperature remains too warm to support a strong Push and is relatively steady. Recent watershed weather shows little rain.",
+            "tip": "Keep Migration Stage’s section primary. Do not shift sections from this Niles read.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
@@ -18409,14 +18497,14 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 93,
             "label": "Excellent",
             "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river. This flow shape applies to the Niles mainstem reach only; verify the harbor, lower Michigan river, individual tailwaters, and Indiana water directly.",
-            "tip": "Begin on the primary travel lane feeding deep holding water. Work each hole from its head through the inside seam and tail, then keep moving until fish establish a pattern. Apply this recommendation at Niles; recheck water shape and safe access before carrying it to another St. Joseph section.",
+            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. This read applies only to the Niles mainstem reach.",
+            "tip": "Cover readable seams and holding water with a controlled presentation. Verify every other section directly.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band"
@@ -18427,15 +18515,15 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 65,
             "maximum": 100,
             "label": "Active",
-            "headline": "Today’s Steelhead activity outlook is active.",
-            "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. Early fall Steelhead are entering with energy reserves intact. This score describes feeding or aggressive responsiveness for fish already in the river, not fresh movement. Measured river conditions describe the St. Joseph mainstem at Niles. Water temperature, clarity, hydraulic shape, access, and fishing conditions can differ in the harbor and lower Michigan river, at individual dam tailwaters, and through South Bend, Mishawaka, and the Twin Branch reach. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
-            "tip": "Start with 5–9 AM. If conditions change, favor the window that best combines workable light with measured water temperature. Apply this response window at Niles; verify temperature, clarity, flow shape, and legal access again before carrying it to another St. Joseph section.",
+            "headline": "Today’s Niles Steelhead responsiveness is active.",
+            "detail": "Conditions support a meaningful Steelhead response. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Flow and temperature represent only the Niles mainstem reach.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify other sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -18487,10 +18575,13 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 12,
+            "displayScore": 10,
+            "scoreIsApproximate": true,
             "stage": "beginning",
             "maximum": 100,
             "riverCeiling": 90,
@@ -18499,14 +18590,14 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
             "curveDirection": "rising",
             "winterHoldingContext": false,
             "label": "Low presence",
-            "headline": "A small number of Steelhead may be in the river, and seasonal presence is still building.",
-            "detail": "This part of the season usually brings low presence, with more fish expected to enter and spread through the river. This is a seasonal estimate, not a live fish count. This seasonal presence applies to the accessible St. Joseph corridor as a whole; it does not claim equal fish numbers at the harbor, Niles, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Treat this as an early, low-odds river opportunity. Expect scattered results, and use direct fish activity before committing the full day. Use Migration Stage to choose the specific St. Joseph section, then verify that water directly.",
+            "headline": "Seasonal Steelhead presence is low and building.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the St. Joseph Steelhead ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -18766,6 +18857,7 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
           "nextConditionRefreshAt": "2026-10-01T05:00:00.000Z",
           "runStage": {
             "stage": "beginning",
+            "copyStrategy": "st_joseph_corridor",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -18788,14 +18880,14 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
               "peakToEndDays": 37
             },
             "label": "Beginning",
-            "headline": "The first Steelhead are beginning to enter the river.",
-            "whereToStart": "Lower Michigan travel and holding water toward Berrien Springs, while recognizing that summer-run Skamania may already be distributed farther upstream through open passage.",
-            "detail": "Fresh fish may be present, but numbers are still scattered and can arrive in uneven waves before the broader fall fishery develops. Five passage facilities allow distribution from the lower river through South Bend and Mishawaka, but Twin Branch is the hard upstream limit and Niles measurements are reach-specific.",
-            "tip": "Cover lower-Michigan travel lanes and their first deep resting water before moving toward Niles. Treat inland Skamania separately from evidence of a new winter-run wave.",
+            "headline": "The first fall Steelhead are entering the St. Joseph River.",
+            "whereToStart": "Start in the Lower river (St. Joseph harbor–Berrien Springs). Add the Middle river (Berrien Springs–Niles) after direct fish activity supports the move.",
+            "detail": "New fall entrants remain scattered while summer-run Skamania may already be farther inland.",
+            "tip": "Cover travel water and the first substantial holding areas before moving upstream.",
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -18841,7 +18933,7 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -18855,9 +18947,9 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
           "push": {
             "score": 18,
             "label": "Weak",
-            "headline": "Today's water shows little support for a fresh wave of fish.",
-            "detail": "The river is holding steady with no meaningful rise yet. Water temperature remains too warm to support a strong Push and is relatively steady. Recent weather estimates indicate very little rain around the river. This Push describes fresh-movement support at Niles only; it does not prove a new wave at the harbor, Berrien Springs, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Do not build the day around new arrivals while the river remains warm. Start in established holding water at first or last light and leave lower travel lanes secondary. Use the Niles signal to choose between Niles-area holding water and a lower-Michigan travel-water check; verify Indiana movement directly.",
+            "headline": "Niles water shows little support for fresh movement.",
+            "detail": "Niles flow is steady without a meaningful rise. Water temperature remains too warm to support a strong Push and is relatively steady. Recent watershed weather shows little rain.",
+            "tip": "Keep Migration Stage’s section primary. Do not shift sections from this Niles read.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
@@ -18877,14 +18969,14 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 73,
             "label": "Good",
             "headline": "The river is fishable, but higher flow is moving at a faster pace and narrowing the easiest water.",
-            "detail": "Higher flow is pushing more current through the main channel, but softer edges and protected lanes remain workable. The higher flow is not climbing, so softer edges beside the main current should remain well defined. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river. This flow shape applies to the Niles mainstem reach only; verify the harbor, lower Michigan river, individual tailwaters, and Indiana water directly.",
-            "tip": "Start tight to the bank on inside bends and below current-breaking cover. Shorten the presentation and keep it in the slower edge instead of forcing the main flow. Apply this recommendation at Niles; recheck water shape and safe access before carrying it to another St. Joseph section.",
+            "detail": "Higher flow is pushing more current through the main channel, but softer edges and protected lanes remain workable. The higher flow is not climbing, so softer edges beside the main current should remain well defined. This read applies only to the Niles mainstem reach.",
+            "tip": "Prioritize inside seams, protected edges, and current breaks. Verify every other section directly.",
             "reasonCodes": [
               "gauge_fresh",
               "high_fishable_flow_band"
@@ -18895,15 +18987,15 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 62,
             "maximum": 100,
             "label": "Active",
-            "headline": "Today’s Steelhead activity outlook is active.",
-            "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. Early fall Steelhead are entering with energy reserves intact. This score describes feeding or aggressive responsiveness for fish already in the river, not fresh movement. Measured river conditions describe the St. Joseph mainstem at Niles. Water temperature, clarity, hydraulic shape, access, and fishing conditions can differ in the harbor and lower Michigan river, at individual dam tailwaters, and through South Bend, Mishawaka, and the Twin Branch reach. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
-            "tip": "Start with 5–9 AM. If conditions change, favor the window that best combines workable light with measured water temperature. Apply this response window at Niles; verify temperature, clarity, flow shape, and legal access again before carrying it to another St. Joseph section.",
+            "headline": "Today’s Niles Steelhead responsiveness is active.",
+            "detail": "Conditions support a meaningful Steelhead response. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Flow and temperature represent only the Niles mainstem reach.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify other sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -18955,10 +19047,13 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 12,
+            "displayScore": 10,
+            "scoreIsApproximate": true,
             "stage": "beginning",
             "maximum": 100,
             "riverCeiling": 90,
@@ -18967,14 +19062,14 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
             "curveDirection": "rising",
             "winterHoldingContext": false,
             "label": "Low presence",
-            "headline": "A small number of Steelhead may be in the river, and seasonal presence is still building.",
-            "detail": "This part of the season usually brings low presence, with more fish expected to enter and spread through the river. This is a seasonal estimate, not a live fish count. This seasonal presence applies to the accessible St. Joseph corridor as a whole; it does not claim equal fish numbers at the harbor, Niles, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Treat this as an early, low-odds river opportunity. Expect scattered results, and use direct fish activity before committing the full day. Use Migration Stage to choose the specific St. Joseph section, then verify that water directly.",
+            "headline": "Seasonal Steelhead presence is low and building.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the St. Joseph Steelhead ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -19234,6 +19329,7 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
           "nextConditionRefreshAt": "2026-10-01T05:00:00.000Z",
           "runStage": {
             "stage": "beginning",
+            "copyStrategy": "st_joseph_corridor",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -19256,14 +19352,14 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
               "peakToEndDays": 37
             },
             "label": "Beginning",
-            "headline": "The first Steelhead are beginning to enter the river.",
-            "whereToStart": "Lower Michigan travel and holding water toward Berrien Springs, while recognizing that summer-run Skamania may already be distributed farther upstream through open passage.",
-            "detail": "Fresh fish may be present, but numbers are still scattered and can arrive in uneven waves before the broader fall fishery develops. Five passage facilities allow distribution from the lower river through South Bend and Mishawaka, but Twin Branch is the hard upstream limit and Niles measurements are reach-specific.",
-            "tip": "Cover lower-Michigan travel lanes and their first deep resting water before moving toward Niles. Treat inland Skamania separately from evidence of a new winter-run wave.",
+            "headline": "The first fall Steelhead are entering the St. Joseph River.",
+            "whereToStart": "Start in the Lower river (St. Joseph harbor–Berrien Springs). Add the Middle river (Berrien Springs–Niles) after direct fish activity supports the move.",
+            "detail": "New fall entrants remain scattered while summer-run Skamania may already be farther inland.",
+            "tip": "Cover travel water and the first substantial holding areas before moving upstream.",
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -19309,7 +19405,7 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -19323,9 +19419,9 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
           "push": {
             "score": 13,
             "label": "Weak",
-            "headline": "Today's water shows little support for a fresh wave of fish.",
-            "detail": "The river is holding steady with no meaningful rise yet. Overall flow is already high. Water temperature remains too warm to support a strong Push and is relatively steady. Recent weather estimates indicate very little rain around the river. This Push describes fresh-movement support at Niles only; it does not prove a new wave at the harbor, Berrien Springs, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Do not build the day around new arrivals while the river remains warm. Start in established holding water at first or last light and leave lower travel lanes secondary. Use the Niles signal to choose between Niles-area holding water and a lower-Michigan travel-water check; verify Indiana movement directly.",
+            "headline": "Niles water shows little support for fresh movement.",
+            "detail": "Niles flow is steady without a meaningful rise, while overall flow is high. Water temperature remains too warm to support a strong Push and is relatively steady. Recent watershed weather shows little rain.",
+            "tip": "Keep Migration Stage’s section primary. Do not shift sections from this Niles read.",
             "reasonCodes": [
               "gauge_fresh",
               "push_high_flow_context",
@@ -19345,14 +19441,14 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 45,
             "label": "Tough",
             "headline": "The river is running very high, leaving fewer practical places to fish effectively.",
-            "detail": "Very high flow is reducing access and the amount of water where a presentation can be controlled. The river is not climbing quickly, but practical fishing water remains compressed into the slowest edges. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river. This flow shape applies to the Niles mainstem reach only; verify the harbor, lower Michigan river, individual tailwaters, and Indiana water directly.",
-            "tip": "Fish only bank-side soft pockets, protected inside turns, and current breaks. Make short controlled presentations and skip every main-channel lane. Apply this recommendation at Niles; recheck water shape and safe access before carrying it to another St. Joseph section.",
+            "detail": "Very high flow is reducing access and the amount of water where a presentation can be controlled. The river is not climbing quickly, but practical fishing water remains compressed into the slowest edges. This read applies only to the Niles mainstem reach.",
+            "tip": "Favor protected margins and short controlled presentations. Choose another day if control is not dependable. Verify every other section directly.",
             "reasonCodes": [
               "gauge_fresh",
               "very_high_flow_band"
@@ -19363,15 +19459,15 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 58,
             "maximum": 100,
             "label": "Moderate",
-            "headline": "Today’s Steelhead activity outlook is moderate.",
-            "detail": "Some useful factors are present, but the response window is mixed. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: The river level or its recent change is less favorable. Early fall Steelhead are entering with energy reserves intact. This score describes feeding or aggressive responsiveness for fish already in the river, not fresh movement. Measured river conditions describe the St. Joseph mainstem at Niles. Water temperature, clarity, hydraulic shape, access, and fishing conditions can differ in the harbor and lower Michigan river, at individual dam tailwaters, and through South Bend, Mishawaka, and the Twin Branch reach. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
-            "tip": "Start with 5–9 AM. If conditions change, favor the window that best combines workable light with measured water temperature. Apply this response window at Niles; verify temperature, clarity, flow shape, and legal access again before carrying it to another St. Joseph section.",
+            "headline": "Today’s Niles Steelhead responsiveness is moderate.",
+            "detail": "Conditions offer mixed support for Steelhead responsiveness. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Flow and temperature represent only the Niles mainstem reach.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify other sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -19423,10 +19519,13 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 12,
+            "displayScore": 10,
+            "scoreIsApproximate": true,
             "stage": "beginning",
             "maximum": 100,
             "riverCeiling": 90,
@@ -19435,14 +19534,14 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
             "curveDirection": "rising",
             "winterHoldingContext": false,
             "label": "Low presence",
-            "headline": "A small number of Steelhead may be in the river, and seasonal presence is still building.",
-            "detail": "This part of the season usually brings low presence, with more fish expected to enter and spread through the river. This is a seasonal estimate, not a live fish count. This seasonal presence applies to the accessible St. Joseph corridor as a whole; it does not claim equal fish numbers at the harbor, Niles, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Treat this as an early, low-odds river opportunity. Expect scattered results, and use direct fish activity before committing the full day. Use Migration Stage to choose the specific St. Joseph section, then verify that water directly.",
+            "headline": "Seasonal Steelhead presence is low and building.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the St. Joseph Steelhead ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -19702,6 +19801,7 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
           "nextConditionRefreshAt": "2026-09-11T05:00:00.000Z",
           "runStage": {
             "stage": "pre_run",
+            "copyStrategy": "st_joseph_corridor",
             "stagingContext": true,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -19724,15 +19824,15 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
               "peakToEndDays": 37
             },
             "label": "Before migration",
-            "headline": "Summer-run Skamania can already be present, while the later winter-run Steelhead build is still ahead.",
-            "whereToStart": "The St. Joseph harbor and river mouth, plus one deliberate lower-Michigan travel-water check; Skamania may already be inland, but that is separate from the winter-run build.",
-            "detail": "This fall read separates summer-run Steelhead already in the St. Joseph system from the later winter-run component that normally begins building in fall.",
-            "tip": "Separate summer-run Skamania from the later winter-run build. Check direct local reports before going inland, and do not use one Skamania as proof of a new fall wave.",
+            "headline": "Early fall Steelhead may begin entering the St. Joseph River.",
+            "whereToStart": "Start at the St. Joseph harbor and river mouth. Add the Lower river (St. Joseph harbor–Berrien Springs) only for an early fall-entry check.",
+            "detail": "A new fall entrant is possible, while summer-run Skamania may already be inland. Neither establishes a broad fall-entry build.",
+            "tip": "Keep the fall-entry check brief. Do not treat one Steelhead or an existing Skamania as proof of a new fall wave.",
             "reasonCodes": [
               "stage_pre_run",
               "stage_pre_run_staging"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Evaluating",
@@ -19757,7 +19857,7 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
             "reasonCodes": [
               "conditions_checkpoint_evaluating"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -19778,14 +19878,14 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
               "push_tracking_not_started"
             ],
             "rulesVersion": "st-joseph-niles-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 93,
             "label": "Excellent",
             "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river. This flow shape applies to the Niles mainstem reach only; verify the harbor, lower Michigan river, individual tailwaters, and Indiana water directly.",
-            "tip": "Begin on the primary travel lane feeding deep holding water. Work each hole from its head through the inside seam and tail, then keep moving until fish establish a pattern. Apply this recommendation at Niles; recheck water shape and safe access before carrying it to another St. Joseph section.",
+            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. This read applies only to the Niles mainstem reach.",
+            "tip": "Cover readable seams and holding water with a controlled presentation. Verify every other section directly.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band"
@@ -19796,15 +19896,15 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 8,
             "maximum": 100,
             "label": "Inactive",
-            "headline": "Today’s Steelhead activity outlook is inactive.",
-            "detail": "Conditions provide little environmental support for an aggressive response. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Water temperature limits responsiveness. Dependable river presence has not begun. The score applies only to a sparse early Steelhead that may already have entered. Measured river conditions describe the St. Joseph mainstem at Niles. Water temperature, clarity, hydraulic shape, access, and fishing conditions can differ in the harbor and lower Michigan river, at individual dam tailwaters, and through South Bend, Mishawaka, and the Twin Branch reach. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
-            "tip": "Start with 5–9 AM. If conditions change, favor the window that best combines workable light with measured water temperature. Apply this response window at Niles; verify temperature, clarity, flow shape, and legal access again before carrying it to another St. Joseph section.",
+            "headline": "Today’s Niles responsiveness is inactive, but dependable Steelhead presence has not begun.",
+            "detail": "Conditions offer little support for an aggressive Steelhead response. 5–9 AM and 9 AM–1 PM are the leading windows, but neither has a clear advantage. This applies only to an early Steelhead already near Niles.",
+            "tip": "Choose between 5–9 AM and 9 AM–1 PM using actual light. Verify other sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -19857,10 +19957,13 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
                 "cloudCoverPct": 85,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 0,
+            "displayScore": 0,
+            "scoreIsApproximate": false,
             "stage": "pre_run",
             "maximum": 100,
             "riverCeiling": 90,
@@ -19869,14 +19972,14 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
             "curveDirection": "outside",
             "winterHoldingContext": false,
             "label": "Not expected yet",
-            "headline": "Steelhead are not expected in meaningful numbers yet.",
-            "detail": "Most Steelhead are not expected to have entered the river in dependable numbers. Any fish already present would be early exceptions. This seasonal presence applies to the accessible St. Joseph corridor as a whole; it does not claim equal fish numbers at the harbor, Niles, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Treat this as no dependable in-river opportunity yet. Keep expectations at zero, and do not interpret an isolated early fish as evidence of dependable river presence. Use Migration Stage to choose the specific St. Joseph section, then verify that water directly.",
+            "headline": "Dependable Steelhead presence is not expected in the St. Joseph yet.",
+            "detail": "The seasonal estimate remains at zero. Any river fish would be an early exception.",
+            "tip": "Use Migration Stage for harbor and river-entry context.",
             "reasonCodes": [
               "stage_pre_run",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -20135,6 +20238,7 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
           "nextConditionRefreshAt": "2026-10-06T05:00:00.000Z",
           "runStage": {
             "stage": "beginning",
+            "copyStrategy": "st_joseph_corridor",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -20157,14 +20261,14 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
               "peakToEndDays": 37
             },
             "label": "Beginning",
-            "headline": "The first Steelhead are beginning to enter the river.",
-            "whereToStart": "Lower Michigan travel and holding water toward Berrien Springs, while recognizing that summer-run Skamania may already be distributed farther upstream through open passage.",
-            "detail": "Fresh fish may be present, but numbers are still scattered and can arrive in uneven waves before the broader fall fishery develops. Five passage facilities allow distribution from the lower river through South Bend and Mishawaka, but Twin Branch is the hard upstream limit and Niles measurements are reach-specific.",
-            "tip": "Cover lower-Michigan travel lanes and their first deep resting water before moving toward Niles. Treat inland Skamania separately from evidence of a new winter-run wave.",
+            "headline": "The first fall Steelhead are entering the St. Joseph River.",
+            "whereToStart": "Start in the Lower river (St. Joseph harbor–Berrien Springs). Add the Middle river (Berrien Springs–Niles) after direct fish activity supports the move.",
+            "detail": "New fall entrants remain scattered while summer-run Skamania may already be farther inland.",
+            "tip": "Cover travel water and the first substantial holding areas before moving upstream.",
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -20210,7 +20314,7 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -20224,9 +20328,9 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
           "push": {
             "score": 27,
             "label": "No clear push",
-            "headline": "Today's water does not show a clear signal for a fresh wave of fish.",
-            "detail": "The river is holding steady with no meaningful rise yet. Water is on the warm side for fall migration and is relatively steady. Recent weather estimates indicate very little rain around the river. This Push describes fresh-movement support at Niles only; it does not prove a new wave at the harbor, Berrien Springs, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Fish established holding water from the head through the inside seam and tail. Do not spend the day racing between lower travel lanes for a wave the water does not support. Use the Niles signal to choose between Niles-area holding water and a lower-Michigan travel-water check; verify Indiana movement directly.",
+            "headline": "Niles water does not show a clear fresh-movement signal.",
+            "detail": "Niles flow is steady without a meaningful rise. Water is on the warm side for fall migration and is relatively steady. Recent watershed weather shows little rain.",
+            "tip": "Keep Migration Stage’s section primary. Do not shift sections from this Niles read.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
@@ -20245,14 +20349,14 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 93,
             "label": "Excellent",
             "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river. This flow shape applies to the Niles mainstem reach only; verify the harbor, lower Michigan river, individual tailwaters, and Indiana water directly.",
-            "tip": "Begin on the primary travel lane feeding deep holding water. Work each hole from its head through the inside seam and tail, then keep moving until fish establish a pattern. Apply this recommendation at Niles; recheck water shape and safe access before carrying it to another St. Joseph section.",
+            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. This read applies only to the Niles mainstem reach.",
+            "tip": "Cover readable seams and holding water with a controlled presentation. Verify every other section directly.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band"
@@ -20263,15 +20367,15 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 80,
             "maximum": 100,
             "label": "Highly active",
-            "headline": "Today’s Steelhead activity outlook is highly active.",
-            "detail": "Conditions strongly favor a response from Steelhead that are present and capable of reacting. The strongest window is 5–9 AM: The measured water temperature is favorable for Steelhead. The main limitation: Rain adds little extra cover. Early fall Steelhead are entering with energy reserves intact. This score describes feeding or aggressive responsiveness for fish already in the river, not fresh movement. Measured river conditions describe the St. Joseph mainstem at Niles. Water temperature, clarity, hydraulic shape, access, and fishing conditions can differ in the harbor and lower Michigan river, at individual dam tailwaters, and through South Bend, Mishawaka, and the Twin Branch reach. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
-            "tip": "Start with 5–9 AM. If conditions change, favor the window that best combines workable light with measured water temperature. Apply this response window at Niles; verify temperature, clarity, flow shape, and legal access again before carrying it to another St. Joseph section.",
+            "headline": "Today’s Niles Steelhead responsiveness is highly active.",
+            "detail": "Conditions strongly support Steelhead responsiveness. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Flow and temperature represent only the Niles mainstem reach.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify other sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -20323,10 +20427,13 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
                 "cloudCoverPct": 100,
                 "precipitationIn": 0.08
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 16,
+            "displayScore": 15,
+            "scoreIsApproximate": true,
             "stage": "beginning",
             "maximum": 100,
             "riverCeiling": 90,
@@ -20335,14 +20442,14 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
             "curveDirection": "rising",
             "winterHoldingContext": false,
             "label": "Low presence",
-            "headline": "A small number of Steelhead may be in the river, and seasonal presence is still building.",
-            "detail": "This part of the season usually brings low presence, with more fish expected to enter and spread through the river. This is a seasonal estimate, not a live fish count. This seasonal presence applies to the accessible St. Joseph corridor as a whole; it does not claim equal fish numbers at the harbor, Niles, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Treat this as an early, low-odds river opportunity. Expect scattered results, and use direct fish activity before committing the full day. Use Migration Stage to choose the specific St. Joseph section, then verify that water directly.",
+            "headline": "Seasonal Steelhead presence is low and building.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the St. Joseph Steelhead ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -20602,6 +20709,7 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
           "nextConditionRefreshAt": "2026-11-02T05:00:00.000Z",
           "runStage": {
             "stage": "building",
+            "copyStrategy": "st_joseph_corridor",
             "stagingContext": false,
             "broadBuildingContext": true,
             "winterHoldingContext": false,
@@ -20624,14 +20732,14 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
               "peakToEndDays": 37
             },
             "label": "Building",
-            "headline": "Steelhead are now broadly established through the accessible river.",
-            "whereToStart": "Compare legal holding water in the lower Michigan corridor, the Niles reach, and South Bend-Mishawaka below Twin Branch; stay outside every posted ladder and dam boundary.",
-            "detail": "By November, multiple entry periods have given steelhead time to spread through lower, middle, and upper sections wherever passage is open. The upper river is now a primary option, even though dependable concentrations can remain in lower and middle holding water. Five passage facilities allow distribution from the lower river through South Bend and Mishawaka, but Twin Branch is the hard upstream limit and Niles measurements are reach-specific.",
-            "tip": "Compare one legal Michigan holding section with South Bend or Mishawaka, then let direct fish activity decide where to stay; remain outside every posted ladder and dam boundary.",
+            "headline": "Steelhead are broadly established through the St. Joseph corridor.",
+            "whereToStart": "Start in the Middle river (Berrien Springs–Niles). Compare the Upper river (Niles–Twin Branch Dam) for established fish.",
+            "detail": "Repeated entry periods support broad corridor presence, not equal numbers in every section.",
+            "tip": "Compare two sections, then stay where direct fish activity is strongest.",
             "reasonCodes": [
               "stage_building"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -20697,7 +20805,7 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
               "conditions_insufficient",
               "conditions_checkpoint_building_established"
             ],
-            "copyVersion": "river-run-copy-v27",
+            "copyVersion": "river-run-copy-v34",
             "previousCheckpointId": "building_start",
             "previousCheckpointDate": "2026-10-11",
             "previousTimingLabel": "Insufficient evidence"
@@ -20714,9 +20822,9 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
           "push": {
             "score": 30,
             "label": "No clear push",
-            "headline": "Today's water does not show a clear signal for a fresh wave of fish.",
-            "detail": "The river is holding steady with no meaningful rise yet. Water temperature is favorable for fall migration and is relatively steady. Recent weather estimates indicate very little rain around the river. This Push describes fresh-movement support at Niles only; it does not prove a new wave at the harbor, Berrien Springs, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Fish established holding water from the head through the inside seam and tail. Do not spend the day racing between lower travel lanes for a wave the water does not support. Use the Niles signal to choose between Niles-area holding water and a lower-Michigan travel-water check; verify Indiana movement directly.",
+            "headline": "Niles water does not show a clear fresh-movement signal.",
+            "detail": "Niles flow is steady without a meaningful rise. Water temperature is favorable for fall migration and is relatively steady. Recent watershed weather shows little rain.",
+            "tip": "Keep Migration Stage’s section primary. Do not shift sections from this Niles read.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
@@ -20735,14 +20843,14 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 93,
             "label": "Excellent",
             "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river. This flow shape applies to the Niles mainstem reach only; verify the harbor, lower Michigan river, individual tailwaters, and Indiana water directly.",
-            "tip": "Begin on the primary travel lane feeding deep holding water. Work each hole from its head through the inside seam and tail, then keep moving until fish establish a pattern. Apply this recommendation at Niles; recheck water shape and safe access before carrying it to another St. Joseph section.",
+            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. This read applies only to the Niles mainstem reach.",
+            "tip": "Cover readable seams and holding water with a controlled presentation. Verify every other section directly.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band"
@@ -20753,15 +20861,15 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 90,
             "maximum": 100,
             "label": "Highly active",
-            "headline": "Today’s Steelhead activity outlook is highly active.",
-            "detail": "Conditions strongly favor a response from Steelhead that are present and capable of reacting. The strongest window is 9 AM–1 PM: The measured water temperature is favorable for Steelhead. The main limitation: Rain adds little extra cover. Steelhead are becoming more established through the river. The score describes feeding or aggressive responsiveness, while movement and abundance remain separate reads. Measured river conditions describe the St. Joseph mainstem at Niles. Water temperature, clarity, hydraulic shape, access, and fishing conditions can differ in the harbor and lower Michigan river, at individual dam tailwaters, and through South Bend, Mishawaka, and the Twin Branch reach. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
-            "tip": "Start with 9 AM–1 PM. If conditions change, favor the window that best combines workable light with measured water temperature. Apply this response window at Niles; verify temperature, clarity, flow shape, and legal access again before carrying it to another St. Joseph section.",
+            "headline": "Today’s Niles Steelhead responsiveness is highly active.",
+            "detail": "Conditions strongly support Steelhead responsiveness. 9 AM–1 PM and 1–5 PM are the leading windows, but neither has a clear advantage. Flow and temperature represent only the Niles mainstem reach.",
+            "tip": "Choose between 9 AM–1 PM and 1–5 PM using actual light. Verify other sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -20813,10 +20921,13 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
                 "cloudCoverPct": 100,
                 "precipitationIn": 0.08
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 61,
+            "displayScore": 60,
+            "scoreIsApproximate": true,
             "stage": "building",
             "maximum": 100,
             "riverCeiling": 90,
@@ -20825,14 +20936,14 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
             "curveDirection": "rising",
             "winterHoldingContext": false,
             "label": "High presence",
-            "headline": "Steelhead are likely spread through more of the river as seasonal presence builds toward its strongest point.",
-            "detail": "Seasonal presence is usually elevated relative to the rest of the season, with more fish expected to enter and spread through the river. This is a seasonal estimate, not a live fish count. This seasonal presence applies to the accessible St. Joseph corridor as a whole; it does not claim equal fish numbers at the harbor, Niles, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Treat this as one of the stronger parts of a strong river season. Give each stop a complete pass, but do not mistake this seasonal estimate for a live fish count. Use Migration Stage to choose the specific St. Joseph section, then verify that water directly.",
+            "headline": "Seasonal Steelhead presence is high and building.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the St. Joseph Steelhead ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_building",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -21086,6 +21197,7 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
           "nextConditionRefreshAt": "2026-11-16T05:00:00.000Z",
           "runStage": {
             "stage": "peak",
+            "copyStrategy": "st_joseph_corridor",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -21108,14 +21220,14 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
               "peakToEndDays": 37
             },
             "label": "Peak",
-            "headline": "This is typically the strongest and most dependable fall Steelhead opportunity.",
-            "whereToStart": "Compare substantial legal holding water below Berrien Springs, through Buchanan and Niles, and in South Bend-Mishawaka below Twin Branch; use the Niles gauge only for the Niles reach.",
-            "detail": "Multiple waves have had time to spread from lower travel lanes into established middle- and upper-river holding water. Fish can be broadly distributed wherever passage is open. Five passage facilities allow distribution from the lower river through South Bend and Mishawaka, but Twin Branch is the hard upstream limit and Niles measurements are reach-specific.",
-            "tip": "Choose a substantial legal holding section below Berrien Springs, near Buchanan or Niles, or in South Bend-Mishawaka and cover it completely before changing reaches.",
+            "headline": "This is typically the strongest St. Joseph fall Steelhead opportunity.",
+            "whereToStart": "Start in the Middle river (Berrien Springs–Niles). Compare the Upper river (Niles–Twin Branch Dam) for established fish.",
+            "detail": "This is typically the strongest fall-entry period, but concentrations still vary by section.",
+            "tip": "Choose one substantial holding section and cover it completely before changing reaches.",
             "reasonCodes": [
               "stage_peak"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -21207,7 +21319,7 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
               "conditions_insufficient",
               "conditions_checkpoint_peak_start"
             ],
-            "copyVersion": "river-run-copy-v27",
+            "copyVersion": "river-run-copy-v34",
             "previousCheckpointId": "building_established",
             "previousCheckpointDate": "2026-10-15",
             "previousTimingLabel": "Insufficient evidence"
@@ -21224,9 +21336,9 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
           "push": {
             "score": 27,
             "label": "No clear push",
-            "headline": "Today's water does not show a clear signal for a fresh wave of fish.",
-            "detail": "The river is holding steady with no meaningful rise yet. Water is on the warm side for fall migration and is relatively steady. Recent weather estimates indicate very little rain around the river. This Push describes fresh-movement support at Niles only; it does not prove a new wave at the harbor, Berrien Springs, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Fish established holding water from the head through the inside seam and tail. Do not spend the day racing between lower travel lanes for a wave the water does not support. Use the Niles signal to choose between Niles-area holding water and a lower-Michigan travel-water check; verify Indiana movement directly.",
+            "headline": "Niles water does not show a clear fresh-movement signal.",
+            "detail": "Niles flow is steady without a meaningful rise. Water is on the warm side for fall migration and is relatively steady. Recent watershed weather shows little rain.",
+            "tip": "Keep Migration Stage’s section primary. Do not shift sections from this Niles read.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
@@ -21245,14 +21357,14 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 93,
             "label": "Excellent",
             "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river. This flow shape applies to the Niles mainstem reach only; verify the harbor, lower Michigan river, individual tailwaters, and Indiana water directly.",
-            "tip": "Begin on the primary travel lane feeding deep holding water. Work each hole from its head through the inside seam and tail, then keep moving until fish establish a pattern. Apply this recommendation at Niles; recheck water shape and safe access before carrying it to another St. Joseph section.",
+            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. This read applies only to the Niles mainstem reach.",
+            "tip": "Cover readable seams and holding water with a controlled presentation. Verify every other section directly.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band"
@@ -21263,15 +21375,15 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 74,
             "maximum": 100,
             "label": "Active",
-            "headline": "Today’s Steelhead activity outlook is active.",
-            "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 AM: The measured water temperature is favorable for Steelhead. The main limitation: Rain adds little extra cover. Broad fall presence can make Steelhead easier to locate, but this score measures feeding or aggressive responsiveness rather than how many fish are present. Measured river conditions describe the St. Joseph mainstem at Niles. Water temperature, clarity, hydraulic shape, access, and fishing conditions can differ in the harbor and lower Michigan river, at individual dam tailwaters, and through South Bend, Mishawaka, and the Twin Branch reach. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
-            "tip": "Start with 5–9 AM. If conditions change, favor the window that best combines workable light with measured water temperature. Apply this response window at Niles; verify temperature, clarity, flow shape, and legal access again before carrying it to another St. Joseph section.",
+            "headline": "Today’s Niles Steelhead responsiveness is active.",
+            "detail": "Conditions support a meaningful Steelhead response. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Flow and temperature represent only the Niles mainstem reach.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify other sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -21323,10 +21435,13 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
                 "cloudCoverPct": 65,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 90,
+            "displayScore": 90,
+            "scoreIsApproximate": false,
             "stage": "peak",
             "maximum": 100,
             "riverCeiling": 90,
@@ -21335,14 +21450,14 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
             "curveDirection": "near_peak",
             "winterHoldingContext": false,
             "label": "Peak presence",
-            "headline": "Steelhead are likely near their highest seasonal presence in the river.",
-            "detail": "This is the part of the season when in-river presence is usually strongest. The read describes the river as a whole; it does not place fish in a specific pool or confirm a live count. This seasonal presence applies to the accessible St. Joseph corridor as a whole; it does not claim equal fish numbers at the harbor, Niles, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Plan for the strongest seasonal presence this river usually offers, while remembering that this estimate cannot confirm fish at a specific spot or describe today's river conditions. Use Migration Stage to choose the specific St. Joseph section, then verify that water directly.",
+            "headline": "Seasonal Steelhead presence is near its expected St. Joseph peak.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the St. Joseph Steelhead ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_peak",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -21602,6 +21717,7 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
           "nextConditionRefreshAt": "2026-11-02T05:00:00.000Z",
           "runStage": {
             "stage": "building",
+            "copyStrategy": "st_joseph_corridor",
             "stagingContext": false,
             "broadBuildingContext": true,
             "winterHoldingContext": false,
@@ -21624,14 +21740,14 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
               "peakToEndDays": 37
             },
             "label": "Building",
-            "headline": "Steelhead are now broadly established through the accessible river.",
-            "whereToStart": "Compare legal holding water in the lower Michigan corridor, the Niles reach, and South Bend-Mishawaka below Twin Branch; stay outside every posted ladder and dam boundary.",
-            "detail": "By November, multiple entry periods have given steelhead time to spread through lower, middle, and upper sections wherever passage is open. The upper river is now a primary option, even though dependable concentrations can remain in lower and middle holding water. Five passage facilities allow distribution from the lower river through South Bend and Mishawaka, but Twin Branch is the hard upstream limit and Niles measurements are reach-specific.",
-            "tip": "Compare one legal Michigan holding section with South Bend or Mishawaka, then let direct fish activity decide where to stay; remain outside every posted ladder and dam boundary.",
+            "headline": "Steelhead are broadly established through the St. Joseph corridor.",
+            "whereToStart": "Start in the Middle river (Berrien Springs–Niles). Compare the Upper river (Niles–Twin Branch Dam) for established fish.",
+            "detail": "Repeated entry periods support broad corridor presence, not equal numbers in every section.",
+            "tip": "Compare two sections, then stay where direct fish activity is strongest.",
             "reasonCodes": [
               "stage_building"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -21697,7 +21813,7 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
               "conditions_insufficient",
               "conditions_checkpoint_building_established"
             ],
-            "copyVersion": "river-run-copy-v27",
+            "copyVersion": "river-run-copy-v34",
             "previousCheckpointId": "building_start",
             "previousCheckpointDate": "2026-10-11",
             "previousTimingLabel": "Insufficient evidence"
@@ -21714,9 +21830,9 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
           "push": {
             "score": 25,
             "label": "No clear push",
-            "headline": "Today's water does not show a clear signal for a fresh wave of fish.",
-            "detail": "The river is holding steady with no meaningful rise yet. Overall flow is already high. Water is cold enough for steelhead movement, but additional cooling increasingly favors slower holding behavior. Recent weather estimates indicate very little rain around the river. This Push describes fresh-movement support at Niles only; it does not prove a new wave at the harbor, Berrien Springs, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Fish established holding water from the head through the inside seam and tail. Do not spend the day racing between lower travel lanes for a wave the water does not support. Use the Niles signal to choose between Niles-area holding water and a lower-Michigan travel-water check; verify Indiana movement directly.",
+            "headline": "Niles water does not show a clear fresh-movement signal.",
+            "detail": "Niles flow is steady without a meaningful rise, while overall flow is high. Water is cold enough for steelhead movement, but additional cooling increasingly favors slower holding behavior. Recent watershed weather shows little rain.",
+            "tip": "Keep Migration Stage’s section primary. Do not shift sections from this Niles read.",
             "reasonCodes": [
               "gauge_fresh",
               "push_high_flow_context",
@@ -21735,14 +21851,14 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 45,
             "label": "Tough",
             "headline": "The river is running very high, leaving fewer practical places to fish effectively.",
-            "detail": "Very high flow is reducing access and the amount of water where a presentation can be controlled. The river is not climbing quickly, but practical fishing water remains compressed into the slowest edges. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river. This flow shape applies to the Niles mainstem reach only; verify the harbor, lower Michigan river, individual tailwaters, and Indiana water directly.",
-            "tip": "Fish only bank-side soft pockets, protected inside turns, and current breaks. Make short controlled presentations and skip every main-channel lane. Apply this recommendation at Niles; recheck water shape and safe access before carrying it to another St. Joseph section.",
+            "detail": "Very high flow is reducing access and the amount of water where a presentation can be controlled. The river is not climbing quickly, but practical fishing water remains compressed into the slowest edges. This read applies only to the Niles mainstem reach.",
+            "tip": "Favor protected margins and short controlled presentations. Choose another day if control is not dependable. Verify every other section directly.",
             "reasonCodes": [
               "gauge_fresh",
               "very_high_flow_band"
@@ -21753,15 +21869,15 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 60,
             "maximum": 100,
             "label": "Active",
-            "headline": "Today’s Steelhead activity outlook is active.",
-            "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 AM: The measured water temperature remains usable. The main limitation: The river level or its recent change is less favorable. Steelhead are becoming more established through the river. The score describes feeding or aggressive responsiveness, while movement and abundance remain separate reads. Measured river conditions describe the St. Joseph mainstem at Niles. Water temperature, clarity, hydraulic shape, access, and fishing conditions can differ in the harbor and lower Michigan river, at individual dam tailwaters, and through South Bend, Mishawaka, and the Twin Branch reach. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
-            "tip": "Start with 5–9 AM. If conditions change, favor the window that best combines workable light with measured water temperature. Apply this response window at Niles; verify temperature, clarity, flow shape, and legal access again before carrying it to another St. Joseph section.",
+            "headline": "Today’s Niles Steelhead responsiveness is active.",
+            "detail": "Conditions support a meaningful Steelhead response. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Flow and temperature represent only the Niles mainstem reach.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify other sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -21813,10 +21929,13 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
                 "cloudCoverPct": 0,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 61,
+            "displayScore": 60,
+            "scoreIsApproximate": true,
             "stage": "building",
             "maximum": 100,
             "riverCeiling": 90,
@@ -21825,14 +21944,14 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
             "curveDirection": "rising",
             "winterHoldingContext": false,
             "label": "High presence",
-            "headline": "Steelhead are likely spread through more of the river as seasonal presence builds toward its strongest point.",
-            "detail": "Seasonal presence is usually elevated relative to the rest of the season, with more fish expected to enter and spread through the river. This is a seasonal estimate, not a live fish count. This seasonal presence applies to the accessible St. Joseph corridor as a whole; it does not claim equal fish numbers at the harbor, Niles, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Treat this as one of the stronger parts of a strong river season. Give each stop a complete pass, but do not mistake this seasonal estimate for a live fish count. Use Migration Stage to choose the specific St. Joseph section, then verify that water directly.",
+            "headline": "Seasonal Steelhead presence is high and building.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the St. Joseph Steelhead ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_building",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -22086,6 +22205,7 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
           "nextConditionRefreshAt": "2026-10-06T05:00:00.000Z",
           "runStage": {
             "stage": "beginning",
+            "copyStrategy": "st_joseph_corridor",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -22108,14 +22228,14 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
               "peakToEndDays": 37
             },
             "label": "Beginning",
-            "headline": "The first Steelhead are beginning to enter the river.",
-            "whereToStart": "Lower Michigan travel and holding water toward Berrien Springs, while recognizing that summer-run Skamania may already be distributed farther upstream through open passage.",
-            "detail": "Fresh fish may be present, but numbers are still scattered and can arrive in uneven waves before the broader fall fishery develops. Five passage facilities allow distribution from the lower river through South Bend and Mishawaka, but Twin Branch is the hard upstream limit and Niles measurements are reach-specific.",
-            "tip": "Cover lower-Michigan travel lanes and their first deep resting water before moving toward Niles. Treat inland Skamania separately from evidence of a new winter-run wave.",
+            "headline": "The first fall Steelhead are entering the St. Joseph River.",
+            "whereToStart": "Start in the Lower river (St. Joseph harbor–Berrien Springs). Add the Middle river (Berrien Springs–Niles) after direct fish activity supports the move.",
+            "detail": "New fall entrants remain scattered while summer-run Skamania may already be farther inland.",
+            "tip": "Cover travel water and the first substantial holding areas before moving upstream.",
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -22161,7 +22281,7 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -22175,9 +22295,9 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
           "push": {
             "score": 18,
             "label": "Weak",
-            "headline": "Today's water shows little support for a fresh wave of fish.",
-            "detail": "The river is holding steady with no meaningful rise yet. Water temperature remains too warm to support a strong Push and is relatively steady. Recent weather estimates indicate very little rain around the river. This Push describes fresh-movement support at Niles only; it does not prove a new wave at the harbor, Berrien Springs, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Do not build the day around new arrivals while the river remains warm. Start in established holding water at first or last light and leave lower travel lanes secondary. Use the Niles signal to choose between Niles-area holding water and a lower-Michigan travel-water check; verify Indiana movement directly.",
+            "headline": "Niles water shows little support for fresh movement.",
+            "detail": "Niles flow is steady without a meaningful rise. Water temperature remains too warm to support a strong Push and is relatively steady. Recent watershed weather shows little rain.",
+            "tip": "Keep Migration Stage’s section primary. Do not shift sections from this Niles read.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
@@ -22197,14 +22317,14 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 93,
             "label": "Excellent",
             "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river. This flow shape applies to the Niles mainstem reach only; verify the harbor, lower Michigan river, individual tailwaters, and Indiana water directly.",
-            "tip": "Begin on the primary travel lane feeding deep holding water. Work each hole from its head through the inside seam and tail, then keep moving until fish establish a pattern. Apply this recommendation at Niles; recheck water shape and safe access before carrying it to another St. Joseph section.",
+            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. This read applies only to the Niles mainstem reach.",
+            "tip": "Cover readable seams and holding water with a controlled presentation. Verify every other section directly.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band"
@@ -22215,15 +22335,15 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 23,
             "maximum": 100,
             "label": "Reserved",
-            "headline": "Today’s Steelhead activity outlook is reserved.",
-            "detail": "Fish may respond selectively, with important environmental limitations. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Water temperature limits responsiveness. Early fall Steelhead are entering with energy reserves intact. This score describes feeding or aggressive responsiveness for fish already in the river, not fresh movement. Measured river conditions describe the St. Joseph mainstem at Niles. Water temperature, clarity, hydraulic shape, access, and fishing conditions can differ in the harbor and lower Michigan river, at individual dam tailwaters, and through South Bend, Mishawaka, and the Twin Branch reach. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
-            "tip": "Start with 5–9 AM. If conditions change, favor the window that best combines workable light with measured water temperature. Apply this response window at Niles; verify temperature, clarity, flow shape, and legal access again before carrying it to another St. Joseph section.",
+            "headline": "Today’s Niles Steelhead responsiveness is reserved.",
+            "detail": "Steelhead may respond selectively under current limitations. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Flow and temperature represent only the Niles mainstem reach.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify other sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -22276,10 +22396,13 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
                 "cloudCoverPct": 100,
                 "precipitationIn": 0.08
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 16,
+            "displayScore": 15,
+            "scoreIsApproximate": true,
             "stage": "beginning",
             "maximum": 100,
             "riverCeiling": 90,
@@ -22288,14 +22411,14 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
             "curveDirection": "rising",
             "winterHoldingContext": false,
             "label": "Low presence",
-            "headline": "A small number of Steelhead may be in the river, and seasonal presence is still building.",
-            "detail": "This part of the season usually brings low presence, with more fish expected to enter and spread through the river. This is a seasonal estimate, not a live fish count. This seasonal presence applies to the accessible St. Joseph corridor as a whole; it does not claim equal fish numbers at the harbor, Niles, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Treat this as an early, low-odds river opportunity. Expect scattered results, and use direct fish activity before committing the full day. Use Migration Stage to choose the specific St. Joseph section, then verify that water directly.",
+            "headline": "Seasonal Steelhead presence is low and building.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the St. Joseph Steelhead ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -22555,6 +22678,7 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
           "nextConditionRefreshAt": "2026-10-06T05:00:00.000Z",
           "runStage": {
             "stage": "beginning",
+            "copyStrategy": "st_joseph_corridor",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -22577,14 +22701,14 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
               "peakToEndDays": 37
             },
             "label": "Beginning",
-            "headline": "The first Steelhead are beginning to enter the river.",
-            "whereToStart": "Lower Michigan travel and holding water toward Berrien Springs, while recognizing that summer-run Skamania may already be distributed farther upstream through open passage.",
-            "detail": "Fresh fish may be present, but numbers are still scattered and can arrive in uneven waves before the broader fall fishery develops. Five passage facilities allow distribution from the lower river through South Bend and Mishawaka, but Twin Branch is the hard upstream limit and Niles measurements are reach-specific.",
-            "tip": "Cover lower-Michigan travel lanes and their first deep resting water before moving toward Niles. Treat inland Skamania separately from evidence of a new winter-run wave.",
+            "headline": "The first fall Steelhead are entering the St. Joseph River.",
+            "whereToStart": "Start in the Lower river (St. Joseph harbor–Berrien Springs). Add the Middle river (Berrien Springs–Niles) after direct fish activity supports the move.",
+            "detail": "New fall entrants remain scattered while summer-run Skamania may already be farther inland.",
+            "tip": "Cover travel water and the first substantial holding areas before moving upstream.",
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -22630,7 +22754,7 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -22644,9 +22768,9 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
           "push": {
             "score": 18,
             "label": "Weak",
-            "headline": "Today's water shows little support for a fresh wave of fish.",
-            "detail": "The river is holding steady with no meaningful rise yet. Water temperature remains too warm to support a strong Push and is relatively steady. Recent weather estimates indicate very little rain around the river. This Push describes fresh-movement support at Niles only; it does not prove a new wave at the harbor, Berrien Springs, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Do not build the day around new arrivals while the river remains warm. Start in established holding water at first or last light and leave lower travel lanes secondary. Use the Niles signal to choose between Niles-area holding water and a lower-Michigan travel-water check; verify Indiana movement directly.",
+            "headline": "Niles water shows little support for fresh movement.",
+            "detail": "Niles flow is steady without a meaningful rise. Water temperature remains too warm to support a strong Push and is relatively steady. Recent watershed weather shows little rain.",
+            "tip": "Keep Migration Stage’s section primary. Do not shift sections from this Niles read.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
@@ -22666,14 +22790,14 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 93,
             "label": "Excellent",
             "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river. This flow shape applies to the Niles mainstem reach only; verify the harbor, lower Michigan river, individual tailwaters, and Indiana water directly.",
-            "tip": "Begin on the primary travel lane feeding deep holding water. Work each hole from its head through the inside seam and tail, then keep moving until fish establish a pattern. Apply this recommendation at Niles; recheck water shape and safe access before carrying it to another St. Joseph section.",
+            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. This read applies only to the Niles mainstem reach.",
+            "tip": "Cover readable seams and holding water with a controlled presentation. Verify every other section directly.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band"
@@ -22684,15 +22808,15 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 9,
             "maximum": 100,
             "label": "Inactive",
-            "headline": "Today’s Steelhead activity outlook is inactive.",
-            "detail": "Conditions provide little environmental support for an aggressive response. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Water temperature limits responsiveness. Early fall Steelhead are entering with energy reserves intact. This score describes feeding or aggressive responsiveness for fish already in the river, not fresh movement. Measured river conditions describe the St. Joseph mainstem at Niles. Water temperature, clarity, hydraulic shape, access, and fishing conditions can differ in the harbor and lower Michigan river, at individual dam tailwaters, and through South Bend, Mishawaka, and the Twin Branch reach. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
-            "tip": "Start with 5–9 AM. If conditions change, favor the window that best combines workable light with measured water temperature. Apply this response window at Niles; verify temperature, clarity, flow shape, and legal access again before carrying it to another St. Joseph section.",
+            "headline": "Today’s Niles Steelhead responsiveness is inactive.",
+            "detail": "Conditions offer little support for an aggressive Steelhead response. 5–9 AM and 9 AM–1 PM are the leading windows, but neither has a clear advantage. Flow and temperature represent only the Niles mainstem reach.",
+            "tip": "Choose between 5–9 AM and 9 AM–1 PM using actual light. Verify other sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -22745,10 +22869,13 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
                 "cloudCoverPct": 100,
                 "precipitationIn": 0.08
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 16,
+            "displayScore": 15,
+            "scoreIsApproximate": true,
             "stage": "beginning",
             "maximum": 100,
             "riverCeiling": 90,
@@ -22757,14 +22884,14 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
             "curveDirection": "rising",
             "winterHoldingContext": false,
             "label": "Low presence",
-            "headline": "A small number of Steelhead may be in the river, and seasonal presence is still building.",
-            "detail": "This part of the season usually brings low presence, with more fish expected to enter and spread through the river. This is a seasonal estimate, not a live fish count. This seasonal presence applies to the accessible St. Joseph corridor as a whole; it does not claim equal fish numbers at the harbor, Niles, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Treat this as an early, low-odds river opportunity. Expect scattered results, and use direct fish activity before committing the full day. Use Migration Stage to choose the specific St. Joseph section, then verify that water directly.",
+            "headline": "Seasonal Steelhead presence is low and building.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the St. Joseph Steelhead ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -23024,6 +23151,7 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
           "nextConditionRefreshAt": "2026-11-16T05:00:00.000Z",
           "runStage": {
             "stage": "peak",
+            "copyStrategy": "st_joseph_corridor",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -23046,14 +23174,14 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
               "peakToEndDays": 37
             },
             "label": "Peak",
-            "headline": "This is typically the strongest and most dependable fall Steelhead opportunity.",
-            "whereToStart": "Compare substantial legal holding water below Berrien Springs, through Buchanan and Niles, and in South Bend-Mishawaka below Twin Branch; use the Niles gauge only for the Niles reach.",
-            "detail": "Multiple waves have had time to spread from lower travel lanes into established middle- and upper-river holding water. Fish can be broadly distributed wherever passage is open. Five passage facilities allow distribution from the lower river through South Bend and Mishawaka, but Twin Branch is the hard upstream limit and Niles measurements are reach-specific.",
-            "tip": "Choose a substantial legal holding section below Berrien Springs, near Buchanan or Niles, or in South Bend-Mishawaka and cover it completely before changing reaches.",
+            "headline": "This is typically the strongest St. Joseph fall Steelhead opportunity.",
+            "whereToStart": "Start in the Middle river (Berrien Springs–Niles). Compare the Upper river (Niles–Twin Branch Dam) for established fish.",
+            "detail": "This is typically the strongest fall-entry period, but concentrations still vary by section.",
+            "tip": "Choose one substantial holding section and cover it completely before changing reaches.",
             "reasonCodes": [
               "stage_peak"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -23145,7 +23273,7 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
               "conditions_insufficient",
               "conditions_checkpoint_peak_start"
             ],
-            "copyVersion": "river-run-copy-v27",
+            "copyVersion": "river-run-copy-v34",
             "previousCheckpointId": "building_established",
             "previousCheckpointDate": "2026-10-15",
             "previousTimingLabel": "Insufficient evidence"
@@ -23162,9 +23290,9 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
           "push": {
             "score": 13,
             "label": "Weak",
-            "headline": "The river is rising hard, but extreme flow makes this an unreliable fresh-movement read.",
-            "detail": "The river is holding steady with no meaningful rise yet. Overall flow is extremely high. Water temperature remains too warm to support a strong Push and is relatively steady. Recent weather estimates indicate very little rain around the river. This Push describes fresh-movement support at Niles only; it does not prove a new wave at the harbor, Berrien Springs, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Do not chase movement in the main channel. If Fishability remains usable, fish only protected margins, inside turns, and soft current with short controlled presentations. Use the Niles signal to choose between Niles-area holding water and a lower-Michigan travel-water check; verify Indiana movement directly.",
+            "headline": "Extreme Niles flow prevents a dependable fresh-movement signal.",
+            "detail": "Niles flow is steady without a meaningful rise, while overall flow is extreme. Water temperature remains too warm to support a strong Push and is relatively steady. Recent watershed weather shows little rain.",
+            "tip": "Keep Migration Stage’s section primary. Do not shift sections from this Niles read.",
             "reasonCodes": [
               "gauge_fresh",
               "push_severe_high_flow_context",
@@ -23185,14 +23313,14 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 20,
             "label": "Poor",
             "headline": "The river is too high and unsettled for a dependable fishing recommendation.",
-            "detail": "Excessive flow is overwhelming normal holding water and making access and presentation unreliable. The river is not climbing quickly, but it must fall substantially before normal holding lanes and presentation control return. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river. This flow shape applies to the Niles mainstem reach only; verify the harbor, lower Michigan river, individual tailwaters, and Indiana water directly.",
-            "tip": "Choose a lower-water day for the better fishing opportunity. If you fish now, stay tight to protected banks, slow inside turns, and the downstream side of major current breaks; keep presentations short and leave the main flow alone. Apply this recommendation at Niles; recheck water shape and safe access before carrying it to another St. Joseph section.",
+            "detail": "Excessive flow is overwhelming normal holding water and making access and presentation unreliable. The river is not climbing quickly, but it must fall substantially before normal holding lanes and presentation control return. This read applies only to the Niles mainstem reach.",
+            "tip": "Choose another day and verify current conditions through authoritative local sources. Verify every other section directly.",
             "reasonCodes": [
               "gauge_fresh",
               "blown_out_flow_band",
@@ -23204,15 +23332,15 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 11,
             "maximum": 100,
             "label": "Inactive",
-            "headline": "Today’s Steelhead activity outlook is inactive.",
-            "detail": "Conditions provide little environmental support for an aggressive response. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: The river level or its recent change is less favorable. Broad fall presence can make Steelhead easier to locate, but this score measures feeding or aggressive responsiveness rather than how many fish are present. Measured river conditions describe the St. Joseph mainstem at Niles. Water temperature, clarity, hydraulic shape, access, and fishing conditions can differ in the harbor and lower Michigan river, at individual dam tailwaters, and through South Bend, Mishawaka, and the Twin Branch reach. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
-            "tip": "Start with 5–9 AM. If conditions change, favor the window that best combines workable light with measured water temperature. Apply this response window at Niles; verify temperature, clarity, flow shape, and legal access again before carrying it to another St. Joseph section.",
+            "headline": "Today’s Niles Steelhead responsiveness is inactive.",
+            "detail": "Conditions offer little support for an aggressive Steelhead response. 5–9 AM and 9 AM–1 PM are the leading windows, but neither has a clear advantage. Flow and temperature represent only the Niles mainstem reach.",
+            "tip": "Choose between 5–9 AM and 9 AM–1 PM using actual light. Verify other sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -23265,10 +23393,13 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
                 "cloudCoverPct": 100,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 90,
+            "displayScore": 90,
+            "scoreIsApproximate": false,
             "stage": "peak",
             "maximum": 100,
             "riverCeiling": 90,
@@ -23277,14 +23408,14 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
             "curveDirection": "near_peak",
             "winterHoldingContext": false,
             "label": "Peak presence",
-            "headline": "Steelhead are likely near their highest seasonal presence in the river.",
-            "detail": "This is the part of the season when in-river presence is usually strongest. The read describes the river as a whole; it does not place fish in a specific pool or confirm a live count. This seasonal presence applies to the accessible St. Joseph corridor as a whole; it does not claim equal fish numbers at the harbor, Niles, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Plan for the strongest seasonal presence this river usually offers, while remembering that this estimate cannot confirm fish at a specific spot or describe today's river conditions. Use Migration Stage to choose the specific St. Joseph section, then verify that water directly.",
+            "headline": "Seasonal Steelhead presence is near its expected St. Joseph peak.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the St. Joseph Steelhead ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_peak",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -23544,6 +23675,7 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
           "nextConditionRefreshAt": "2026-12-13T05:00:00.000Z",
           "runStage": {
             "stage": "tapering",
+            "copyStrategy": "st_joseph_corridor",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -23566,14 +23698,14 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
               "peakToEndDays": 37
             },
             "label": "Late fall",
-            "headline": "Steelhead presence remains high as the fall fishery begins shifting toward winter holding.",
-            "whereToStart": "Established deep holding water from the Michigan corridor through legal Indiana water below Twin Branch; add lower travel lanes only when Niles Push supports fresh movement.",
-            "detail": "Fish remain broadly available, but colder water gradually shifts the balance from active upstream movement toward established holding. Fresh arrivals can still occur without defining the whole fishery. Five passage facilities allow distribution from the lower river through South Bend and Mishawaka, but Twin Branch is the hard upstream limit and Niles measurements are reach-specific.",
-            "tip": "Start in deep established holding water and slow the presentation as temperature falls. Add lower travel lanes only when Niles Push supports fresh movement.",
+            "headline": "Steelhead remain strongly present as fresh fall entry slows.",
+            "whereToStart": "Start in established Middle river (Berrien Springs–Niles) or Upper river (Niles–Twin Branch Dam) holding water.",
+            "detail": "Fresh fall entry is slowing while established Steelhead may remain throughout the corridor.",
+            "tip": "Start in established holding water. Add Lower-river travel lanes only when Niles Push supports fresh movement.",
             "reasonCodes": [
               "stage_tapering"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Timing complete",
@@ -23676,7 +23808,7 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
               "conditions_checkpoint_peak_complete",
               "conditions_timing_complete"
             ],
-            "copyVersion": "river-run-copy-v27",
+            "copyVersion": "river-run-copy-v34",
             "previousCheckpointId": "peak_start",
             "previousCheckpointDate": "2026-11-10",
             "previousTimingLabel": "Insufficient evidence"
@@ -23693,9 +23825,9 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
           "push": {
             "score": 30,
             "label": "No clear push",
-            "headline": "Today's water does not show a clear signal for a fresh wave of fish.",
-            "detail": "The river is holding steady with no meaningful rise yet. Water temperature is favorable for fall migration and is relatively steady. Recent weather estimates indicate very little rain around the river. This Push describes fresh-movement support at Niles only; it does not prove a new wave at the harbor, Berrien Springs, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Fish established holding water from the head through the inside seam and tail. Do not spend the day racing between lower travel lanes for a wave the water does not support. Use the Niles signal to choose between Niles-area holding water and a lower-Michigan travel-water check; verify Indiana movement directly.",
+            "headline": "Niles water does not show a clear fresh-movement signal.",
+            "detail": "Niles flow is steady without a meaningful rise. Water temperature is favorable for fall migration and is relatively steady. Recent watershed weather shows little rain.",
+            "tip": "Keep Migration Stage’s section primary. Do not shift sections from this Niles read.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
@@ -23714,14 +23846,14 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 93,
             "label": "Excellent",
             "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river. This flow shape applies to the Niles mainstem reach only; verify the harbor, lower Michigan river, individual tailwaters, and Indiana water directly.",
-            "tip": "Begin on the primary travel lane feeding deep holding water. Work each hole from its head through the inside seam and tail, then keep moving until fish establish a pattern. Apply this recommendation at Niles; recheck water shape and safe access before carrying it to another St. Joseph section.",
+            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. This read applies only to the Niles mainstem reach.",
+            "tip": "Cover readable seams and holding water with a controlled presentation. Verify every other section directly.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band"
@@ -23732,15 +23864,15 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 92,
             "maximum": 100,
             "label": "Highly active",
-            "headline": "Today’s Steelhead activity outlook is highly active.",
-            "detail": "Conditions strongly favor a response from Steelhead that are present and capable of reacting. The strongest window is 5–9 AM: The measured water temperature is favorable for Steelhead. The main limitation: Rain adds little extra cover. As late fall progresses, Steelhead often become more selective and less willing to move far for a presentation. The fish remain alive and are transitioning toward winter holding; actual responsiveness still depends strongly on water temperature and river conditions. Measured river conditions describe the St. Joseph mainstem at Niles. Water temperature, clarity, hydraulic shape, access, and fishing conditions can differ in the harbor and lower Michigan river, at individual dam tailwaters, and through South Bend, Mishawaka, and the Twin Branch reach. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
-            "tip": "Compare the four time windows, but expect a shorter response in cold water and keep the result separate from the winter holding outlook. Apply this response window at Niles; verify temperature, clarity, flow shape, and legal access again before carrying it to another St. Joseph section.",
+            "headline": "Today’s Niles Steelhead responsiveness is highly active.",
+            "detail": "Conditions strongly support Steelhead responsiveness. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Cold late-fall water can shorten response windows without meaning Steelhead have left the river.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify other sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -23792,10 +23924,13 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
                 "cloudCoverPct": 100,
                 "precipitationIn": 0.08
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 87,
+            "displayScore": 85,
+            "scoreIsApproximate": true,
             "stage": "tapering",
             "maximum": 100,
             "riverCeiling": 90,
@@ -23804,14 +23939,14 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
             "curveDirection": "falling",
             "winterHoldingContext": false,
             "label": "Peak presence",
-            "headline": "Steelhead remain near their strongest fall presence as winter holding approaches.",
-            "detail": "The slight decline reflects fewer fresh arrivals—not fish simply leaving the river. This is a seasonal opportunity estimate, not a live fish count. This seasonal presence applies to the accessible St. Joseph corridor as a whole; it does not claim equal fish numbers at the harbor, Niles, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Treat the retained presence as strong, but expect the fishery to be shifting away from fresh fall entry. Verify current river conditions before choosing a presentation. Use Migration Stage to choose the specific St. Joseph section, then verify that water directly.",
+            "headline": "Seasonal Steelhead presence is near its expected St. Joseph peak.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the St. Joseph Steelhead ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_tapering",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -24065,6 +24200,7 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
           "nextConditionRefreshAt": "2026-12-21T05:00:00.000Z",
           "runStage": {
             "stage": "ending",
+            "copyStrategy": "st_joseph_corridor",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -24087,14 +24223,14 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
               "peakToEndDays": 37
             },
             "label": "Holding transition",
-            "headline": "Steelhead remain strongly present while fall entry transitions toward winter holding.",
-            "whereToStart": "Deep, speed-controlled holding water with adjacent feeding current below Twin Branch, outside the 100-foot Indiana ladder restrictions and all posted dam boundaries.",
-            "detail": "The fish have not simply left the river. Colder water reduces the importance of fresh upstream movement and increases the importance of where steelhead can hold efficiently through winter. Five passage facilities allow distribution from the lower river through South Bend and Mishawaka, but Twin Branch is the hard upstream limit and Niles measurements are reach-specific.",
-            "tip": "Prioritize deep, speed-controlled holding water below Twin Branch and use Activity for responsiveness. Do not interpret a muted Push as fish leaving the river.",
+            "headline": "St. Joseph Steelhead fall entry is nearing its endpoint.",
+            "whereToStart": "Start in one proven Middle river (Berrien Springs–Niles) or Upper river (Niles–Twin Branch Dam) holding section.",
+            "detail": "This fall-entry phase is ending. Steelhead may remain after the model stops.",
+            "tip": "Prioritize controlled presentations. Do not interpret a weak Push as fish leaving the river.",
             "reasonCodes": [
               "stage_ending"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Timing complete",
@@ -24197,7 +24333,7 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
               "conditions_checkpoint_peak_complete",
               "conditions_timing_complete"
             ],
-            "copyVersion": "river-run-copy-v27",
+            "copyVersion": "river-run-copy-v34",
             "previousCheckpointId": "peak_start",
             "previousCheckpointDate": "2026-11-10",
             "previousTimingLabel": "Insufficient evidence"
@@ -24214,9 +24350,9 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
           "push": {
             "score": 30,
             "label": "No clear push",
-            "headline": "Today's water does not show a clear signal for a fresh wave of fish.",
-            "detail": "The river is holding steady with no meaningful rise yet. Water temperature is favorable for fall migration and is relatively steady. Recent weather estimates indicate very little rain around the river. This Push describes fresh-movement support at Niles only; it does not prove a new wave at the harbor, Berrien Springs, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Fish established holding water from the head through the inside seam and tail. Do not spend the day racing between lower travel lanes for a wave the water does not support. Use the Niles signal to choose between Niles-area holding water and a lower-Michigan travel-water check; verify Indiana movement directly.",
+            "headline": "Niles water does not show a clear fresh-movement signal.",
+            "detail": "Niles flow is steady without a meaningful rise. Water temperature is favorable for fall migration and is relatively steady. Recent watershed weather shows little rain.",
+            "tip": "Keep Migration Stage’s section primary. Do not shift sections from this Niles read.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
@@ -24235,14 +24371,14 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 93,
             "label": "Excellent",
             "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river. This flow shape applies to the Niles mainstem reach only; verify the harbor, lower Michigan river, individual tailwaters, and Indiana water directly.",
-            "tip": "Begin on the primary travel lane feeding deep holding water. Work each hole from its head through the inside seam and tail, then keep moving until fish establish a pattern. Apply this recommendation at Niles; recheck water shape and safe access before carrying it to another St. Joseph section.",
+            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. This read applies only to the Niles mainstem reach.",
+            "tip": "Cover readable seams and holding water with a controlled presentation. Verify every other section directly.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band"
@@ -24253,15 +24389,15 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 92,
             "maximum": 100,
             "label": "Highly active",
-            "headline": "Today’s Steelhead activity outlook is highly active.",
-            "detail": "Conditions strongly favor a response from Steelhead that are present and capable of reacting. The strongest window is 5–9 AM: The measured water temperature is favorable for Steelhead. The main limitation: Rain adds little extra cover. These Steelhead remain alive in the river as they transition into winter holding. Their responsiveness follows measured water temperature and current conditions rather than a terminal biological decline. Measured river conditions describe the St. Joseph mainstem at Niles. Water temperature, clarity, hydraulic shape, access, and fishing conditions can differ in the harbor and lower Michigan river, at individual dam tailwaters, and through South Bend, Mishawaka, and the Twin Branch reach. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
-            "tip": "Compare the four time windows, but expect a shorter response in cold water and keep the result separate from the winter holding outlook. Apply this response window at Niles; verify temperature, clarity, flow shape, and legal access again before carrying it to another St. Joseph section.",
+            "headline": "Today’s Niles Steelhead responsiveness is highly active.",
+            "detail": "Conditions strongly support Steelhead responsiveness. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Cold late-fall water can shorten response windows without meaning Steelhead have left the river.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify other sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -24313,10 +24449,13 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
                 "cloudCoverPct": 100,
                 "precipitationIn": 0.08
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 83,
+            "displayScore": 85,
+            "scoreIsApproximate": true,
             "stage": "ending",
             "maximum": 100,
             "riverCeiling": 90,
@@ -24325,14 +24464,14 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
             "curveDirection": "falling",
             "winterHoldingContext": false,
             "label": "Peak presence",
-            "headline": "Steelhead remain near their strongest fall presence as winter holding approaches.",
-            "detail": "The slight decline reflects fewer fresh arrivals—not fish simply leaving the river. This is a seasonal opportunity estimate, not a live fish count. This seasonal presence applies to the accessible St. Joseph corridor as a whole; it does not claim equal fish numbers at the harbor, Niles, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Treat the retained presence as strong, but expect the fishery to be shifting away from fresh fall entry. Verify current river conditions before choosing a presentation. Use Migration Stage to choose the specific St. Joseph section, then verify that water directly.",
+            "headline": "Seasonal Steelhead presence is near its expected St. Joseph peak.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the St. Joseph Steelhead ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_ending",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -24586,9 +24725,10 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
           "nextConditionRefreshAt": "2026-12-24T05:00:00.000Z",
           "runStage": {
             "stage": "post_run",
+            "copyStrategy": "st_joseph_corridor",
             "stagingContext": false,
             "broadBuildingContext": false,
-            "winterHoldingContext": true,
+            "winterHoldingContext": false,
             "window": {
               "snapshotDate": "2026-12-23",
               "preRunStartDate": "2026-08-01",
@@ -24607,16 +24747,16 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
               "startToPeakDays": 51,
               "peakToEndDays": 37
             },
-            "label": "Winter holding",
-            "headline": "Steelhead remain broadly present as St. Joseph fall entry hands off to winter holding.",
-            "whereToStart": "Deep, speed-controlled legal holding water from the lower Michigan corridor through Niles and into Indiana below Twin Branch, always outside posted dam and fish-ladder restrictions.",
-            "detail": "The fish have not left the 63-mile accessible corridor. Colder water changes the useful question from new entry to holding position; Activity describes likely responsiveness at Niles, not river-wide movement.",
-            "tip": "Choose one deep, speed-controlled Michigan or Indiana holding reach, verify its water directly, and treat Activity as a Niles response read—not proof that Steelhead are feeding everywhere.",
+            "label": "Fall entry complete",
+            "headline": "St. Joseph Steelhead fall entry is complete.",
+            "whereToStart": "There is no active St. Joseph starting section in this fall-entry model.",
+            "detail": "Steelhead may remain in the river. This fall-entry model no longer estimates current presence or activity.",
+            "tip": "Check back around September 10 when fall-entry monitoring resumes.",
             "reasonCodes": [
               "stage_post_run",
-              "stage_winter_holding"
+              "stage_offseason"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Timing complete",
@@ -24710,16 +24850,16 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
               "2026-11-20"
             ],
             "sourceRefreshSlots": {},
-            "headline": "This season's Migration Timing read is complete.",
-            "tip": "Stop planning around whether fall entry was early or late. Use the winter fishery read to judge current activity and presentation.",
-            "detail": "There was not enough reliable season-long river and temperature information to make an early, normal, or late call. Steelhead presence has now shifted into winter holding, where current activity matters more than fall timing.",
+            "headline": "St. Joseph fall-entry Migration Timing is complete.",
+            "tip": "Do not use completed fall timing to infer current presence or activity. St. Joseph fall-entry monitoring resumes around September 10.",
+            "detail": "The St. Joseph fall-entry timing window closed without enough reliable evidence for an early, typical, or delayed call.",
             "reasonCodes": [
               "conditions_baseline_missing",
               "conditions_insufficient",
               "conditions_checkpoint_peak_complete",
               "conditions_timing_complete"
             ],
-            "copyVersion": "river-run-copy-v27",
+            "copyVersion": "river-run-copy-v34",
             "previousCheckpointId": "peak_start",
             "previousCheckpointDate": "2026-11-10",
             "previousTimingLabel": "Insufficient evidence"
@@ -24735,22 +24875,22 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
           },
           "push": {
             "score": null,
-            "label": "Winter holding",
-            "headline": "The season's fresh-movement read is complete.",
-            "detail": "Steelhead may remain in the river, but the fall-entry signal has handed off to winter holding. Winter activity requires a different water-temperature and feeding read.",
-            "tip": "Use the winter fishery read for activity and presentation decisions. Do not treat a muted Push as evidence that steelhead left the river.",
+            "label": "Fall entry complete",
+            "headline": "St. Joseph Steelhead fall-entry Push is complete.",
+            "detail": "Current water may affect Steelhead still in the river. This fall model no longer scores fresh-entry support.",
+            "tip": "Do not use a completed fall Push to infer current presence. Check back in early September.",
             "reasonCodes": [
               "push_tracking_complete"
             ],
             "rulesVersion": "st-joseph-niles-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 93,
             "label": "Excellent",
             "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river. This flow shape applies to the Niles mainstem reach only; verify the harbor, lower Michigan river, individual tailwaters, and Indiana water directly.",
-            "tip": "Begin on the primary travel lane feeding deep holding water. Work each hole from its head through the inside seam and tail, then keep moving until fish establish a pattern. Apply this recommendation at Niles; recheck water shape and safe access before carrying it to another St. Joseph section.",
+            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. This read applies only to the Niles mainstem reach.",
+            "tip": "Cover readable seams and holding water with a controlled presentation. Verify every other section directly.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band"
@@ -24761,88 +24901,45 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
-            "score": 92,
+            "score": null,
             "maximum": 100,
-            "label": "Highly active",
-            "headline": "Today’s Steelhead activity outlook is highly active.",
-            "detail": "Conditions strongly favor a response from Steelhead that are present and capable of reacting. The strongest window is 5–9 AM: The measured water temperature is favorable for Steelhead. The main limitation: Rain adds little extra cover. Steelhead remain alive in winter holding after the fall-entry period. Use the dedicated winter read when available; this score only describes current responsiveness. Measured river conditions describe the St. Joseph mainstem at Niles. Water temperature, clarity, hydraulic shape, access, and fishing conditions can differ in the harbor and lower Michigan river, at individual dam tailwaters, and through South Bend, Mishawaka, and the Twin Branch reach. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
-            "tip": "Compare the four time windows, but expect a shorter response in cold water and keep the result separate from the winter holding outlook. Apply this response window at Niles; verify temperature, clarity, flow shape, and legal access again before carrying it to another St. Joseph section.",
+            "label": "Fall entry complete",
+            "headline": "St. Joseph Steelhead fall-entry Activity is complete.",
+            "detail": "Steelhead may remain in the river. This fall-entry model no longer scores their current responsiveness.",
+            "tip": "Do not use this completed fall outlook to infer current activity. Check back in early September.",
             "reasonCodes": [
-              "activity_confidence_full",
-              "activity_today",
-              "activity_run_present"
+              "activity_fall_entry_complete"
             ],
             "rulesVersion": "st-joseph-fall-steelhead-activity-v1",
             "targetDate": "2026-12-23",
             "targetDayLabel": "Today",
-            "confidence": "Full",
+            "confidence": "Limited",
             "conditionalPresence": false,
-            "blocks": [
-              {
-                "id": "05-09",
-                "label": "5–9 AM",
-                "score": 92,
-                "activityLabel": "Highly active",
-                "positiveDriver": "The measured water temperature is favorable for Steelhead.",
-                "limitingFactor": "Rain adds little extra cover.",
-                "cloudCoverPct": 100,
-                "precipitationIn": 0.08
-              },
-              {
-                "id": "09-13",
-                "label": "9 AM–1 PM",
-                "score": 90,
-                "activityLabel": "Highly active",
-                "positiveDriver": "The measured water temperature is favorable for Steelhead.",
-                "limitingFactor": "Rain adds little extra cover.",
-                "cloudCoverPct": 100,
-                "precipitationIn": 0.08
-              },
-              {
-                "id": "13-17",
-                "label": "1–5 PM",
-                "score": 90,
-                "activityLabel": "Highly active",
-                "positiveDriver": "The measured water temperature is favorable for Steelhead.",
-                "limitingFactor": "Rain adds little extra cover.",
-                "cloudCoverPct": 100,
-                "precipitationIn": 0.08
-              },
-              {
-                "id": "17-21",
-                "label": "5–9 PM",
-                "score": 92,
-                "activityLabel": "Highly active",
-                "positiveDriver": "The measured water temperature is favorable for Steelhead.",
-                "limitingFactor": "Rain adds little extra cover.",
-                "cloudCoverPct": 100,
-                "precipitationIn": 0.08
-              }
-            ]
+            "blocks": [],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
-            "score": 81,
+            "score": null,
+            "scoreIsApproximate": false,
             "stage": "post_run",
             "maximum": 100,
             "riverCeiling": 90,
             "historicalRunStrength": "strong",
-            "curveFraction": 0.9,
+            "curveFraction": 0,
             "curveDirection": "outside",
-            "winterHoldingContext": true,
-            "handoffScore": 81,
-            "label": "Winter holding",
-            "headline": "Steelhead remain strongly present through the St. Joseph corridor as fall entry shifts into winter holding.",
-            "detail": "Fall entry finished at 81/100. That retained-presence reference applies across the accessible season, not equally to every reach; current Niles Activity is a response read for Niles only.",
-            "tip": "Treat 81/100 as retained seasonal presence—not proof of activity in every section. Start in deep, speed-controlled legal holding water near Niles, South Bend, or Mishawaka and verify that reach directly.",
+            "winterHoldingContext": false,
+            "label": "Fall entry complete",
+            "headline": "St. Joseph Steelhead fall entry is complete.",
+            "detail": "Steelhead may remain in the river. This fall-entry model no longer estimates their current seasonal presence.",
+            "tip": "Check back in early September when St. Joseph fall movement tracking resumes.",
             "reasonCodes": [
               "stage_post_run",
-              "historical_presence_curve",
-              "fish_presence_winter_handoff"
+              "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -25069,13 +25166,7 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
               "data_quality_limited"
             ]
           },
-          "interpretationNote": {
-            "headline": "Steelhead are still in the river, but winter conditions now control the day.",
-            "detail": "The fall-entry period ended with strong retained presence. Use the winter fishery read to judge activity and presentation; Push and Migration Timing are intentionally complete because they answer the wrong question now.",
-            "reasonCodes": [
-              "winter_holding_read_required"
-            ]
-          },
+          "interpretationNote": null,
           "secondaryNote": "Based on the USGS gauge at Niles. It describes the Niles reach; the harbor, lower river, individual dam tailwaters, South Bend, Mishawaka, and Twin Branch may look different.",
           "safety": {
             "regulationReminder": "Select Michigan or Indiana for the correct jurisdiction. Always verify current official regulations, public access, posted closures, and dam safety boundaries.",
@@ -25102,6 +25193,7 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
           "nextConditionRefreshAt": "2026-11-16T05:00:00.000Z",
           "runStage": {
             "stage": "peak",
+            "copyStrategy": "st_joseph_corridor",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -25124,14 +25216,14 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
               "peakToEndDays": 37
             },
             "label": "Peak",
-            "headline": "This is typically the strongest and most dependable fall Steelhead opportunity.",
-            "whereToStart": "Compare substantial legal holding water below Berrien Springs, through Buchanan and Niles, and in South Bend-Mishawaka below Twin Branch; use the Niles gauge only for the Niles reach.",
-            "detail": "Multiple waves have had time to spread from lower travel lanes into established middle- and upper-river holding water. Fish can be broadly distributed wherever passage is open. Five passage facilities allow distribution from the lower river through South Bend and Mishawaka, but Twin Branch is the hard upstream limit and Niles measurements are reach-specific.",
-            "tip": "Choose a substantial legal holding section below Berrien Springs, near Buchanan or Niles, or in South Bend-Mishawaka and cover it completely before changing reaches.",
+            "headline": "This is typically the strongest St. Joseph fall Steelhead opportunity.",
+            "whereToStart": "Start in the Middle river (Berrien Springs–Niles). Compare the Upper river (Niles–Twin Branch Dam) for established fish.",
+            "detail": "This is typically the strongest fall-entry period, but concentrations still vary by section.",
+            "tip": "Choose one substantial holding section and cover it completely before changing reaches.",
             "reasonCodes": [
               "stage_peak"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -25223,7 +25315,7 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
               "conditions_insufficient",
               "conditions_checkpoint_peak_start"
             ],
-            "copyVersion": "river-run-copy-v27",
+            "copyVersion": "river-run-copy-v34",
             "previousCheckpointId": "building_established",
             "previousCheckpointDate": "2026-10-15",
             "previousTimingLabel": "Insufficient evidence"
@@ -25248,14 +25340,14 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
               "temperature_unavailable"
             ],
             "rulesVersion": "st-joseph-niles-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 93,
             "label": "Excellent",
             "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river. This flow shape applies to the Niles mainstem reach only; verify the harbor, lower Michigan river, individual tailwaters, and Indiana water directly.",
-            "tip": "Begin on the primary travel lane feeding deep holding water. Work each hole from its head through the inside seam and tail, then keep moving until fish establish a pattern. Apply this recommendation at Niles; recheck water shape and safe access before carrying it to another St. Joseph section.",
+            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. This read applies only to the Niles mainstem reach.",
+            "tip": "Cover readable seams and holding water with a controlled presentation. Verify every other section directly.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band"
@@ -25266,15 +25358,15 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 54,
             "maximum": 100,
             "label": "Moderate",
-            "headline": "Today’s Steelhead activity outlook is moderate.",
-            "detail": "Some useful factors are present, but the response window is mixed. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Measured water temperature is unavailable. Broad fall presence can make Steelhead easier to locate, but this score measures feeding or aggressive responsiveness rather than how many fish are present. Measured river conditions describe the St. Joseph mainstem at Niles. Water temperature, clarity, hydraulic shape, access, and fishing conditions can differ in the harbor and lower Michigan river, at individual dam tailwaters, and through South Bend, Mishawaka, and the Twin Branch reach. One important reading is unavailable or comes from tomorrow’s forecast, so the outlook is kept conservative.",
-            "tip": "Start with 5–9 AM. If conditions change, favor the window that best combines workable light with measured water temperature. Apply this response window at Niles; verify temperature, clarity, flow shape, and legal access again before carrying it to another St. Joseph section.",
+            "headline": "Today’s Niles Steelhead responsiveness is moderate.",
+            "detail": "Conditions offer mixed support for Steelhead responsiveness. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Moderate confidence reflects missing or forecast inputs; river measurements still represent only Niles.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify other sections directly.",
             "reasonCodes": [
               "activity_confidence_moderate",
               "activity_today",
@@ -25326,10 +25418,13 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
                 "cloudCoverPct": 75,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 90,
+            "displayScore": 90,
+            "scoreIsApproximate": false,
             "stage": "peak",
             "maximum": 100,
             "riverCeiling": 90,
@@ -25338,14 +25433,14 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
             "curveDirection": "near_peak",
             "winterHoldingContext": false,
             "label": "Peak presence",
-            "headline": "Steelhead are likely near their highest seasonal presence in the river.",
-            "detail": "This is the part of the season when in-river presence is usually strongest. The read describes the river as a whole; it does not place fish in a specific pool or confirm a live count. This seasonal presence applies to the accessible St. Joseph corridor as a whole; it does not claim equal fish numbers at the harbor, Niles, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Plan for the strongest seasonal presence this river usually offers, while remembering that this estimate cannot confirm fish at a specific spot or describe today's river conditions. Use Migration Stage to choose the specific St. Joseph section, then verify that water directly.",
+            "headline": "Seasonal Steelhead presence is near its expected St. Joseph peak.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the St. Joseph Steelhead ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_peak",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -25582,6 +25677,7 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
           "nextConditionRefreshAt": "2026-11-16T05:00:00.000Z",
           "runStage": {
             "stage": "peak",
+            "copyStrategy": "st_joseph_corridor",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -25604,14 +25700,14 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
               "peakToEndDays": 37
             },
             "label": "Peak",
-            "headline": "This is typically the strongest and most dependable fall Steelhead opportunity.",
-            "whereToStart": "Compare substantial legal holding water below Berrien Springs, through Buchanan and Niles, and in South Bend-Mishawaka below Twin Branch; use the Niles gauge only for the Niles reach.",
-            "detail": "Multiple waves have had time to spread from lower travel lanes into established middle- and upper-river holding water. Fish can be broadly distributed wherever passage is open. Five passage facilities allow distribution from the lower river through South Bend and Mishawaka, but Twin Branch is the hard upstream limit and Niles measurements are reach-specific.",
-            "tip": "Choose a substantial legal holding section below Berrien Springs, near Buchanan or Niles, or in South Bend-Mishawaka and cover it completely before changing reaches.",
+            "headline": "This is typically the strongest St. Joseph fall Steelhead opportunity.",
+            "whereToStart": "Start in the Middle river (Berrien Springs–Niles). Compare the Upper river (Niles–Twin Branch Dam) for established fish.",
+            "detail": "This is typically the strongest fall-entry period, but concentrations still vary by section.",
+            "tip": "Choose one substantial holding section and cover it completely before changing reaches.",
             "reasonCodes": [
               "stage_peak"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -25703,7 +25799,7 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
               "conditions_insufficient",
               "conditions_checkpoint_peak_start"
             ],
-            "copyVersion": "river-run-copy-v27",
+            "copyVersion": "river-run-copy-v34",
             "previousCheckpointId": "building_established",
             "previousCheckpointDate": "2026-10-15",
             "previousTimingLabel": "Insufficient evidence"
@@ -25727,7 +25823,7 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
               "gauge_missing"
             ],
             "rulesVersion": "st-joseph-niles-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": null,
@@ -25739,15 +25835,15 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
               "gauge_missing"
             ],
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 43,
             "maximum": 100,
             "label": "Moderate",
-            "headline": "Today’s Steelhead activity outlook is moderate.",
-            "detail": "Some useful factors are present, but the response window is mixed. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Current river behavior is unavailable. Broad fall presence can make Steelhead easier to locate, but this score measures feeding or aggressive responsiveness rather than how many fish are present. Measured river conditions describe the St. Joseph mainstem at Niles. Water temperature, clarity, hydraulic shape, access, and fishing conditions can differ in the harbor and lower Michigan river, at individual dam tailwaters, and through South Bend, Mishawaka, and the Twin Branch reach. One important reading is unavailable or comes from tomorrow’s forecast, so the outlook is kept conservative.",
-            "tip": "Start with 5–9 AM. If conditions change, favor the window that best combines workable light with measured water temperature. Apply this response window at Niles; verify temperature, clarity, flow shape, and legal access again before carrying it to another St. Joseph section.",
+            "headline": "Today’s Niles Steelhead responsiveness is moderate.",
+            "detail": "Conditions offer mixed support for Steelhead responsiveness. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Moderate confidence reflects missing or forecast inputs; river measurements still represent only Niles.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify other sections directly.",
             "reasonCodes": [
               "activity_confidence_moderate",
               "activity_today",
@@ -25799,10 +25895,13 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
                 "cloudCoverPct": 75,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 90,
+            "displayScore": 90,
+            "scoreIsApproximate": false,
             "stage": "peak",
             "maximum": 100,
             "riverCeiling": 90,
@@ -25811,14 +25910,14 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
             "curveDirection": "near_peak",
             "winterHoldingContext": false,
             "label": "Peak presence",
-            "headline": "Steelhead are likely near their highest seasonal presence in the river.",
-            "detail": "This is the part of the season when in-river presence is usually strongest. The read describes the river as a whole; it does not place fish in a specific pool or confirm a live count. This seasonal presence applies to the accessible St. Joseph corridor as a whole; it does not claim equal fish numbers at the harbor, Niles, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Plan for the strongest seasonal presence this river usually offers, while remembering that this estimate cannot confirm fish at a specific spot or describe today's river conditions. Use Migration Stage to choose the specific St. Joseph section, then verify that water directly.",
+            "headline": "Seasonal Steelhead presence is near its expected St. Joseph peak.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the St. Joseph Steelhead ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_peak",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": null,
           "weather": {
@@ -26068,6 +26167,7 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
           "nextConditionRefreshAt": "2026-08-15T05:00:00.000Z",
           "runStage": {
             "stage": "pre_run",
+            "copyStrategy": "st_joseph_corridor",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -26090,14 +26190,14 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
               "peakToEndDays": 37
             },
             "label": "Before migration",
-            "headline": "The modeled St. Joseph fall-entry build has not started, although summer-run Skamania are a separate possibility.",
-            "whereToStart": "Lake Michigan off St. Joseph, the harbor, and the river mouth for new-entry context; do not infer an inland fall build yet.",
-            "detail": "This fall read separates summer-run Steelhead already in the St. Joseph system from the later winter-run component that normally begins building in fall.",
-            "tip": "Keep new-entry effort around Lake Michigan, the St. Joseph harbor, and the mouth. Use direct local evidence—not this inactive fall calendar—if targeting Skamania already inland.",
+            "headline": "Dependable St. Joseph Steelhead fall entry has not started.",
+            "whereToStart": "Stay with Lake Michigan, the St. Joseph harbor, and the river mouth for new fall-entry context.",
+            "detail": "The fall-entry window has not opened yet. Summer-run Skamania may already be inland, but they are separate from this fall-entry estimate.",
+            "tip": "Keep new fall-entry effort near the harbor and mouth. Use direct local information if targeting Skamania already inland.",
             "reasonCodes": [
               "stage_pre_run"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Not monitoring yet",
@@ -26122,7 +26222,7 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
             "reasonCodes": [
               "conditions_monitoring_inactive"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -26143,14 +26243,14 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
               "push_tracking_not_started"
             ],
             "rulesVersion": "st-joseph-niles-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 93,
             "label": "Excellent",
             "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river. This flow shape applies to the Niles mainstem reach only; verify the harbor, lower Michigan river, individual tailwaters, and Indiana water directly.",
-            "tip": "Begin on the primary travel lane feeding deep holding water. Work each hole from its head through the inside seam and tail, then keep moving until fish establish a pattern. Apply this recommendation at Niles; recheck water shape and safe access before carrying it to another St. Joseph section.",
+            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. This read applies only to the Niles mainstem reach.",
+            "tip": "Cover readable seams and holding water with a controlled presentation. Verify every other section directly.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band"
@@ -26161,11 +26261,13 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": null,
           "fishInRiver": {
             "score": 0,
+            "displayScore": 0,
+            "scoreIsApproximate": false,
             "stage": "pre_run",
             "maximum": 100,
             "riverCeiling": 90,
@@ -26174,14 +26276,14 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
             "curveDirection": "outside",
             "winterHoldingContext": false,
             "label": "Not expected yet",
-            "headline": "Steelhead are not expected in meaningful numbers yet.",
-            "detail": "Most Steelhead are not expected to have entered the river in dependable numbers. Any fish already present would be early exceptions. This seasonal presence applies to the accessible St. Joseph corridor as a whole; it does not claim equal fish numbers at the harbor, Niles, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Treat this as no dependable in-river opportunity yet. Keep expectations at zero, and do not interpret an isolated early fish as evidence of dependable river presence. Use Migration Stage to choose the specific St. Joseph section, then verify that water directly.",
+            "headline": "Dependable Steelhead presence is not expected in the St. Joseph yet.",
+            "detail": "The seasonal estimate remains at zero. Any river fish would be an early exception.",
+            "tip": "Use Migration Stage for harbor and river-entry context.",
             "reasonCodes": [
               "stage_pre_run",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -26440,6 +26542,7 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
           "nextConditionRefreshAt": "2026-09-26T05:00:00.000Z",
           "runStage": {
             "stage": "beginning",
+            "copyStrategy": "st_joseph_corridor",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -26462,14 +26565,14 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
               "peakToEndDays": 37
             },
             "label": "Beginning",
-            "headline": "The first Steelhead are beginning to enter the river.",
-            "whereToStart": "Lower Michigan travel and holding water toward Berrien Springs, while recognizing that summer-run Skamania may already be distributed farther upstream through open passage.",
-            "detail": "Fresh fish may be present, but numbers are still scattered and can arrive in uneven waves before the broader fall fishery develops. Five passage facilities allow distribution from the lower river through South Bend and Mishawaka, but Twin Branch is the hard upstream limit and Niles measurements are reach-specific.",
-            "tip": "Cover lower-Michigan travel lanes and their first deep resting water before moving toward Niles. Treat inland Skamania separately from evidence of a new winter-run wave.",
+            "headline": "The first fall Steelhead are entering the St. Joseph River.",
+            "whereToStart": "Start in the Lower river (St. Joseph harbor–Berrien Springs). Add the Middle river (Berrien Springs–Niles) after direct fish activity supports the move.",
+            "detail": "New fall entrants remain scattered while summer-run Skamania may already be farther inland.",
+            "tip": "Cover travel water and the first substantial holding areas before moving upstream.",
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -26515,7 +26618,7 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -26529,9 +26632,9 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
           "push": {
             "score": 18,
             "label": "Weak",
-            "headline": "Today's water shows little support for a fresh wave of fish.",
-            "detail": "The river is holding steady with no meaningful rise yet. Water temperature remains too warm to support a strong Push and is relatively steady. Recent weather estimates indicate very little rain around the river. This Push describes fresh-movement support at Niles only; it does not prove a new wave at the harbor, Berrien Springs, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Do not build the day around new arrivals while the river remains warm. Start in established holding water at first or last light and leave lower travel lanes secondary. Use the Niles signal to choose between Niles-area holding water and a lower-Michigan travel-water check; verify Indiana movement directly.",
+            "headline": "Niles water shows little support for fresh movement.",
+            "detail": "Niles flow is steady without a meaningful rise. Water temperature remains too warm to support a strong Push and is relatively steady. Recent watershed weather shows little rain.",
+            "tip": "Keep Migration Stage’s section primary. Do not shift sections from this Niles read.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
@@ -26551,14 +26654,14 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 93,
             "label": "Excellent",
             "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river. This flow shape applies to the Niles mainstem reach only; verify the harbor, lower Michigan river, individual tailwaters, and Indiana water directly.",
-            "tip": "Begin on the primary travel lane feeding deep holding water. Work each hole from its head through the inside seam and tail, then keep moving until fish establish a pattern. Apply this recommendation at Niles; recheck water shape and safe access before carrying it to another St. Joseph section.",
+            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. This read applies only to the Niles mainstem reach.",
+            "tip": "Cover readable seams and holding water with a controlled presentation. Verify every other section directly.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band"
@@ -26569,15 +26672,15 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 65,
             "maximum": 100,
             "label": "Active",
-            "headline": "Today’s Steelhead activity outlook is active.",
-            "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. Early fall Steelhead are entering with energy reserves intact. This score describes feeding or aggressive responsiveness for fish already in the river, not fresh movement. Measured river conditions describe the St. Joseph mainstem at Niles. Water temperature, clarity, hydraulic shape, access, and fishing conditions can differ in the harbor and lower Michigan river, at individual dam tailwaters, and through South Bend, Mishawaka, and the Twin Branch reach. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
-            "tip": "Start with 5–9 AM. If conditions change, favor the window that best combines workable light with measured water temperature. Apply this response window at Niles; verify temperature, clarity, flow shape, and legal access again before carrying it to another St. Joseph section.",
+            "headline": "Today’s Niles Steelhead responsiveness is active.",
+            "detail": "Conditions support a meaningful Steelhead response. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Flow and temperature represent only the Niles mainstem reach.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify other sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -26629,10 +26732,13 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 7,
+            "displayScore": 5,
+            "scoreIsApproximate": true,
             "stage": "beginning",
             "maximum": 100,
             "riverCeiling": 90,
@@ -26641,14 +26747,14 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
             "curveDirection": "rising",
             "winterHoldingContext": false,
             "label": "Low presence",
-            "headline": "A small number of Steelhead may be in the river, and seasonal presence is still building.",
-            "detail": "This part of the season usually brings low presence, with more fish expected to enter and spread through the river. This is a seasonal estimate, not a live fish count. This seasonal presence applies to the accessible St. Joseph corridor as a whole; it does not claim equal fish numbers at the harbor, Niles, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Treat this as an early, low-odds river opportunity. Expect scattered results, and use direct fish activity before committing the full day. Use Migration Stage to choose the specific St. Joseph section, then verify that water directly.",
+            "headline": "Seasonal Steelhead presence is low and building.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the St. Joseph Steelhead ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -26908,6 +27014,7 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
           "nextConditionRefreshAt": "2026-10-08T05:00:00.000Z",
           "runStage": {
             "stage": "beginning",
+            "copyStrategy": "st_joseph_corridor",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -26930,14 +27037,14 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
               "peakToEndDays": 37
             },
             "label": "Beginning",
-            "headline": "The first Steelhead are beginning to enter the river.",
-            "whereToStart": "Lower Michigan travel and holding water toward Berrien Springs, while recognizing that summer-run Skamania may already be distributed farther upstream through open passage.",
-            "detail": "Fresh fish may be present, but numbers are still scattered and can arrive in uneven waves before the broader fall fishery develops. Five passage facilities allow distribution from the lower river through South Bend and Mishawaka, but Twin Branch is the hard upstream limit and Niles measurements are reach-specific.",
-            "tip": "Cover lower-Michigan travel lanes and their first deep resting water before moving toward Niles. Treat inland Skamania separately from evidence of a new winter-run wave.",
+            "headline": "The first fall Steelhead are entering the St. Joseph River.",
+            "whereToStart": "Start in the Lower river (St. Joseph harbor–Berrien Springs). Add the Middle river (Berrien Springs–Niles) after direct fish activity supports the move.",
+            "detail": "New fall entrants remain scattered while summer-run Skamania may already be farther inland.",
+            "tip": "Cover travel water and the first substantial holding areas before moving upstream.",
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -26983,7 +27090,7 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -26997,9 +27104,9 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
           "push": {
             "score": 18,
             "label": "Weak",
-            "headline": "Today's water shows little support for a fresh wave of fish.",
-            "detail": "The river is holding steady with no meaningful rise yet. Water temperature remains too warm to support a strong Push and is relatively steady. Recent weather estimates indicate very little rain around the river. This Push describes fresh-movement support at Niles only; it does not prove a new wave at the harbor, Berrien Springs, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Do not build the day around new arrivals while the river remains warm. Start in established holding water at first or last light and leave lower travel lanes secondary. Use the Niles signal to choose between Niles-area holding water and a lower-Michigan travel-water check; verify Indiana movement directly.",
+            "headline": "Niles water shows little support for fresh movement.",
+            "detail": "Niles flow is steady without a meaningful rise. Water temperature remains too warm to support a strong Push and is relatively steady. Recent watershed weather shows little rain.",
+            "tip": "Keep Migration Stage’s section primary. Do not shift sections from this Niles read.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
@@ -27019,14 +27126,14 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 93,
             "label": "Excellent",
             "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river. This flow shape applies to the Niles mainstem reach only; verify the harbor, lower Michigan river, individual tailwaters, and Indiana water directly.",
-            "tip": "Begin on the primary travel lane feeding deep holding water. Work each hole from its head through the inside seam and tail, then keep moving until fish establish a pattern. Apply this recommendation at Niles; recheck water shape and safe access before carrying it to another St. Joseph section.",
+            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. This read applies only to the Niles mainstem reach.",
+            "tip": "Cover readable seams and holding water with a controlled presentation. Verify every other section directly.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band"
@@ -27037,15 +27144,15 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 65,
             "maximum": 100,
             "label": "Active",
-            "headline": "Today’s Steelhead activity outlook is active.",
-            "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. Early fall Steelhead are entering with energy reserves intact. This score describes feeding or aggressive responsiveness for fish already in the river, not fresh movement. Measured river conditions describe the St. Joseph mainstem at Niles. Water temperature, clarity, hydraulic shape, access, and fishing conditions can differ in the harbor and lower Michigan river, at individual dam tailwaters, and through South Bend, Mishawaka, and the Twin Branch reach. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
-            "tip": "Start with 5–9 AM. If conditions change, favor the window that best combines workable light with measured water temperature. Apply this response window at Niles; verify temperature, clarity, flow shape, and legal access again before carrying it to another St. Joseph section.",
+            "headline": "Today’s Niles Steelhead responsiveness is active.",
+            "detail": "Conditions support a meaningful Steelhead response. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Flow and temperature represent only the Niles mainstem reach.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify other sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -27097,10 +27204,13 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 20,
+            "displayScore": 20,
+            "scoreIsApproximate": true,
             "stage": "beginning",
             "maximum": 100,
             "riverCeiling": 90,
@@ -27109,14 +27219,14 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
             "curveDirection": "rising",
             "winterHoldingContext": false,
             "label": "Limited presence",
-            "headline": "Some Steelhead are likely in the river, but seasonal presence is still developing.",
-            "detail": "This part of the season usually brings limited presence, with more fish expected to enter and spread through the river. This is a seasonal estimate, not a live fish count. This seasonal presence applies to the accessible St. Joseph corridor as a whole; it does not claim equal fish numbers at the harbor, Niles, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Plan for an emerging but uneven river opportunity. Cover water efficiently, and do not assume every promising stop holds fish. Use Migration Stage to choose the specific St. Joseph section, then verify that water directly.",
+            "headline": "Seasonal Steelhead presence is limited and building.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the St. Joseph Steelhead ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -27376,6 +27486,7 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
           "nextConditionRefreshAt": "2026-10-18T05:00:00.000Z",
           "runStage": {
             "stage": "building",
+            "copyStrategy": "st_joseph_corridor",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -27398,14 +27509,14 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
               "peakToEndDays": 37
             },
             "label": "Building",
-            "headline": "Steelhead are becoming established across much more of the river.",
-            "whereToStart": "Begin with the Niles reach and substantial lower-Michigan holding water, then compare legal Indiana reaches for accumulated fish.",
-            "detail": "By this stage, earlier arrivals have had time to reach lower, middle, and upper sections while newer fish continue entering. Fish may be distributed broadly, but the most dependable concentrations are often still in lower- and middle-river holding water. Five passage facilities allow distribution from the lower river through South Bend and Mishawaka, but Twin Branch is the hard upstream limit and Niles measurements are reach-specific.",
-            "tip": "Begin in substantial lower-Michigan or Niles holding water, then compare legal Indiana water only after a clean search; use Push to decide whether lower travel lanes deserve extra time.",
+            "headline": "Steelhead are becoming established through more of the St. Joseph.",
+            "whereToStart": "Start in the Middle river (Berrien Springs–Niles). Compare the Lower river (St. Joseph harbor–Berrien Springs) for fresher fish.",
+            "detail": "Earlier arrivals may be farther upstream while newer fish continue entering below.",
+            "tip": "Keep one Lower-river fresh-entry comparison and verify every section directly.",
             "reasonCodes": [
               "stage_building"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -27471,7 +27582,7 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
               "conditions_insufficient",
               "conditions_checkpoint_building_established"
             ],
-            "copyVersion": "river-run-copy-v27",
+            "copyVersion": "river-run-copy-v34",
             "previousCheckpointId": "building_start",
             "previousCheckpointDate": "2026-10-11",
             "previousTimingLabel": "Insufficient evidence"
@@ -27488,9 +27599,9 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
           "push": {
             "score": 18,
             "label": "Weak",
-            "headline": "Today's water shows little support for a fresh wave of fish.",
-            "detail": "The river is holding steady with no meaningful rise yet. Water temperature remains too warm to support a strong Push and is relatively steady. Recent weather estimates indicate very little rain around the river. This Push describes fresh-movement support at Niles only; it does not prove a new wave at the harbor, Berrien Springs, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Do not build the day around new arrivals while the river remains warm. Start in established holding water at first or last light and leave lower travel lanes secondary. Use the Niles signal to choose between Niles-area holding water and a lower-Michigan travel-water check; verify Indiana movement directly.",
+            "headline": "Niles water shows little support for fresh movement.",
+            "detail": "Niles flow is steady without a meaningful rise. Water temperature remains too warm to support a strong Push and is relatively steady. Recent watershed weather shows little rain.",
+            "tip": "Keep Migration Stage’s section primary. Do not shift sections from this Niles read.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
@@ -27510,14 +27621,14 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 93,
             "label": "Excellent",
             "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river. This flow shape applies to the Niles mainstem reach only; verify the harbor, lower Michigan river, individual tailwaters, and Indiana water directly.",
-            "tip": "Begin on the primary travel lane feeding deep holding water. Work each hole from its head through the inside seam and tail, then keep moving until fish establish a pattern. Apply this recommendation at Niles; recheck water shape and safe access before carrying it to another St. Joseph section.",
+            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. This read applies only to the Niles mainstem reach.",
+            "tip": "Cover readable seams and holding water with a controlled presentation. Verify every other section directly.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band"
@@ -27528,15 +27639,15 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 65,
             "maximum": 100,
             "label": "Active",
-            "headline": "Today’s Steelhead activity outlook is active.",
-            "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. Steelhead are becoming more established through the river. The score describes feeding or aggressive responsiveness, while movement and abundance remain separate reads. Measured river conditions describe the St. Joseph mainstem at Niles. Water temperature, clarity, hydraulic shape, access, and fishing conditions can differ in the harbor and lower Michigan river, at individual dam tailwaters, and through South Bend, Mishawaka, and the Twin Branch reach. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
-            "tip": "Start with 5–9 AM. If conditions change, favor the window that best combines workable light with measured water temperature. Apply this response window at Niles; verify temperature, clarity, flow shape, and legal access again before carrying it to another St. Joseph section.",
+            "headline": "Today’s Niles Steelhead responsiveness is active.",
+            "detail": "Conditions support a meaningful Steelhead response. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Flow and temperature represent only the Niles mainstem reach.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify other sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -27588,10 +27699,13 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 37,
+            "displayScore": 40,
+            "scoreIsApproximate": true,
             "stage": "building",
             "maximum": 100,
             "riverCeiling": 90,
@@ -27600,14 +27714,14 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
             "curveDirection": "rising",
             "winterHoldingContext": false,
             "label": "Moderate presence",
-            "headline": "A meaningful number of Steelhead are likely in the river, with seasonal presence still building.",
-            "detail": "This part of the season usually brings moderate presence, with more fish expected to enter and spread through the river. This is a seasonal estimate, not a live fish count. This seasonal presence applies to the accessible St. Joseph corridor as a whole; it does not claim equal fish numbers at the harbor, Niles, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Plan for a credible river opportunity that is still improving. Stay mobile until direct fish activity gives you a reason to slow down. Use Migration Stage to choose the specific St. Joseph section, then verify that water directly.",
+            "headline": "Seasonal Steelhead presence is moderate and building.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the St. Joseph Steelhead ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_building",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -27861,6 +27975,7 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
           "nextConditionRefreshAt": "2026-10-29T05:00:00.000Z",
           "runStage": {
             "stage": "building",
+            "copyStrategy": "st_joseph_corridor",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -27883,14 +27998,14 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
               "peakToEndDays": 37
             },
             "label": "Building",
-            "headline": "Steelhead are becoming established across much more of the river.",
-            "whereToStart": "Begin with the Niles reach and substantial lower-Michigan holding water, then compare legal Indiana reaches for accumulated fish.",
-            "detail": "By this stage, earlier arrivals have had time to reach lower, middle, and upper sections while newer fish continue entering. Fish may be distributed broadly, but the most dependable concentrations are often still in lower- and middle-river holding water. Five passage facilities allow distribution from the lower river through South Bend and Mishawaka, but Twin Branch is the hard upstream limit and Niles measurements are reach-specific.",
-            "tip": "Begin in substantial lower-Michigan or Niles holding water, then compare legal Indiana water only after a clean search; use Push to decide whether lower travel lanes deserve extra time.",
+            "headline": "Steelhead are becoming established through more of the St. Joseph.",
+            "whereToStart": "Start in the Middle river (Berrien Springs–Niles). Compare the Lower river (St. Joseph harbor–Berrien Springs) for fresher fish.",
+            "detail": "Earlier arrivals may be farther upstream while newer fish continue entering below.",
+            "tip": "Keep one Lower-river fresh-entry comparison and verify every section directly.",
             "reasonCodes": [
               "stage_building"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -27956,7 +28071,7 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
               "conditions_insufficient",
               "conditions_checkpoint_building_established"
             ],
-            "copyVersion": "river-run-copy-v27",
+            "copyVersion": "river-run-copy-v34",
             "previousCheckpointId": "building_start",
             "previousCheckpointDate": "2026-10-11",
             "previousTimingLabel": "Insufficient evidence"
@@ -27973,9 +28088,9 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
           "push": {
             "score": 18,
             "label": "Weak",
-            "headline": "Today's water shows little support for a fresh wave of fish.",
-            "detail": "The river is holding steady with no meaningful rise yet. Water temperature remains too warm to support a strong Push and is relatively steady. Recent weather estimates indicate very little rain around the river. This Push describes fresh-movement support at Niles only; it does not prove a new wave at the harbor, Berrien Springs, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Do not build the day around new arrivals while the river remains warm. Start in established holding water at first or last light and leave lower travel lanes secondary. Use the Niles signal to choose between Niles-area holding water and a lower-Michigan travel-water check; verify Indiana movement directly.",
+            "headline": "Niles water shows little support for fresh movement.",
+            "detail": "Niles flow is steady without a meaningful rise. Water temperature remains too warm to support a strong Push and is relatively steady. Recent watershed weather shows little rain.",
+            "tip": "Keep Migration Stage’s section primary. Do not shift sections from this Niles read.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
@@ -27995,14 +28110,14 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 93,
             "label": "Excellent",
             "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river. This flow shape applies to the Niles mainstem reach only; verify the harbor, lower Michigan river, individual tailwaters, and Indiana water directly.",
-            "tip": "Begin on the primary travel lane feeding deep holding water. Work each hole from its head through the inside seam and tail, then keep moving until fish establish a pattern. Apply this recommendation at Niles; recheck water shape and safe access before carrying it to another St. Joseph section.",
+            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. This read applies only to the Niles mainstem reach.",
+            "tip": "Cover readable seams and holding water with a controlled presentation. Verify every other section directly.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band"
@@ -28013,15 +28128,15 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 65,
             "maximum": 100,
             "label": "Active",
-            "headline": "Today’s Steelhead activity outlook is active.",
-            "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. Steelhead are becoming more established through the river. The score describes feeding or aggressive responsiveness, while movement and abundance remain separate reads. Measured river conditions describe the St. Joseph mainstem at Niles. Water temperature, clarity, hydraulic shape, access, and fishing conditions can differ in the harbor and lower Michigan river, at individual dam tailwaters, and through South Bend, Mishawaka, and the Twin Branch reach. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
-            "tip": "Start with 5–9 AM. If conditions change, favor the window that best combines workable light with measured water temperature. Apply this response window at Niles; verify temperature, clarity, flow shape, and legal access again before carrying it to another St. Joseph section.",
+            "headline": "Today’s Niles Steelhead responsiveness is active.",
+            "detail": "Conditions support a meaningful Steelhead response. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Flow and temperature represent only the Niles mainstem reach.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify other sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -28073,10 +28188,13 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 55,
+            "displayScore": 55,
+            "scoreIsApproximate": true,
             "stage": "building",
             "maximum": 100,
             "riverCeiling": 90,
@@ -28085,14 +28203,14 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
             "curveDirection": "rising",
             "winterHoldingContext": false,
             "label": "High presence",
-            "headline": "Steelhead are likely spread through more of the river as seasonal presence builds toward its strongest point.",
-            "detail": "Seasonal presence is usually elevated relative to the rest of the season, with more fish expected to enter and spread through the river. This is a seasonal estimate, not a live fish count. This seasonal presence applies to the accessible St. Joseph corridor as a whole; it does not claim equal fish numbers at the harbor, Niles, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Treat this as one of the stronger parts of a strong river season. Give each stop a complete pass, but do not mistake this seasonal estimate for a live fish count. Use Migration Stage to choose the specific St. Joseph section, then verify that water directly.",
+            "headline": "Seasonal Steelhead presence is high and building.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the St. Joseph Steelhead ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_building",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -28346,6 +28464,7 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
           "nextConditionRefreshAt": "2026-11-08T05:00:00.000Z",
           "runStage": {
             "stage": "building",
+            "copyStrategy": "st_joseph_corridor",
             "stagingContext": false,
             "broadBuildingContext": true,
             "winterHoldingContext": false,
@@ -28368,14 +28487,14 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
               "peakToEndDays": 37
             },
             "label": "Building",
-            "headline": "Steelhead are now broadly established through the accessible river.",
-            "whereToStart": "Compare legal holding water in the lower Michigan corridor, the Niles reach, and South Bend-Mishawaka below Twin Branch; stay outside every posted ladder and dam boundary.",
-            "detail": "By November, multiple entry periods have given steelhead time to spread through lower, middle, and upper sections wherever passage is open. The upper river is now a primary option, even though dependable concentrations can remain in lower and middle holding water. Five passage facilities allow distribution from the lower river through South Bend and Mishawaka, but Twin Branch is the hard upstream limit and Niles measurements are reach-specific.",
-            "tip": "Compare one legal Michigan holding section with South Bend or Mishawaka, then let direct fish activity decide where to stay; remain outside every posted ladder and dam boundary.",
+            "headline": "Steelhead are broadly established through the St. Joseph corridor.",
+            "whereToStart": "Start in the Middle river (Berrien Springs–Niles). Compare the Upper river (Niles–Twin Branch Dam) for established fish.",
+            "detail": "Repeated entry periods support broad corridor presence, not equal numbers in every section.",
+            "tip": "Compare two sections, then stay where direct fish activity is strongest.",
             "reasonCodes": [
               "stage_building"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -28441,7 +28560,7 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
               "conditions_insufficient",
               "conditions_checkpoint_building_established"
             ],
-            "copyVersion": "river-run-copy-v27",
+            "copyVersion": "river-run-copy-v34",
             "previousCheckpointId": "building_start",
             "previousCheckpointDate": "2026-10-11",
             "previousTimingLabel": "Insufficient evidence"
@@ -28458,9 +28577,9 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
           "push": {
             "score": 18,
             "label": "Weak",
-            "headline": "Today's water shows little support for a fresh wave of fish.",
-            "detail": "The river is holding steady with no meaningful rise yet. Water temperature remains too warm to support a strong Push and is relatively steady. Recent weather estimates indicate very little rain around the river. This Push describes fresh-movement support at Niles only; it does not prove a new wave at the harbor, Berrien Springs, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Do not build the day around new arrivals while the river remains warm. Start in established holding water at first or last light and leave lower travel lanes secondary. Use the Niles signal to choose between Niles-area holding water and a lower-Michigan travel-water check; verify Indiana movement directly.",
+            "headline": "Niles water shows little support for fresh movement.",
+            "detail": "Niles flow is steady without a meaningful rise. Water temperature remains too warm to support a strong Push and is relatively steady. Recent watershed weather shows little rain.",
+            "tip": "Keep Migration Stage’s section primary. Do not shift sections from this Niles read.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
@@ -28480,14 +28599,14 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 93,
             "label": "Excellent",
             "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river. This flow shape applies to the Niles mainstem reach only; verify the harbor, lower Michigan river, individual tailwaters, and Indiana water directly.",
-            "tip": "Begin on the primary travel lane feeding deep holding water. Work each hole from its head through the inside seam and tail, then keep moving until fish establish a pattern. Apply this recommendation at Niles; recheck water shape and safe access before carrying it to another St. Joseph section.",
+            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. This read applies only to the Niles mainstem reach.",
+            "tip": "Cover readable seams and holding water with a controlled presentation. Verify every other section directly.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band"
@@ -28498,15 +28617,15 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 65,
             "maximum": 100,
             "label": "Active",
-            "headline": "Today’s Steelhead activity outlook is active.",
-            "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. Steelhead are becoming more established through the river. The score describes feeding or aggressive responsiveness, while movement and abundance remain separate reads. Measured river conditions describe the St. Joseph mainstem at Niles. Water temperature, clarity, hydraulic shape, access, and fishing conditions can differ in the harbor and lower Michigan river, at individual dam tailwaters, and through South Bend, Mishawaka, and the Twin Branch reach. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
-            "tip": "Start with 5–9 AM. If conditions change, favor the window that best combines workable light with measured water temperature. Apply this response window at Niles; verify temperature, clarity, flow shape, and legal access again before carrying it to another St. Joseph section.",
+            "headline": "Today’s Niles Steelhead responsiveness is active.",
+            "detail": "Conditions support a meaningful Steelhead response. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Flow and temperature represent only the Niles mainstem reach.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify other sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -28558,10 +28677,13 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 72,
+            "displayScore": 70,
+            "scoreIsApproximate": true,
             "stage": "building",
             "maximum": 100,
             "riverCeiling": 90,
@@ -28570,14 +28692,14 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
             "curveDirection": "rising",
             "winterHoldingContext": false,
             "label": "High presence",
-            "headline": "Steelhead are likely spread through more of the river as seasonal presence builds toward its strongest point.",
-            "detail": "The migration is approaching its strongest seasonal point, and fish are likely distributed through more of the river. This is a seasonal estimate, not a live fish count. This seasonal presence applies to the accessible St. Joseph corridor as a whole; it does not claim equal fish numbers at the harbor, Niles, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Treat this as one of the stronger parts of a strong river season. Give each stop a complete pass, but do not mistake this seasonal estimate for a live fish count. Use Migration Stage to choose the specific St. Joseph section, then verify that water directly.",
+            "headline": "Seasonal Steelhead presence is high and building.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the St. Joseph Steelhead ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_building",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -28831,6 +28953,7 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
           "nextConditionRefreshAt": "2026-11-13T05:00:00.000Z",
           "runStage": {
             "stage": "building",
+            "copyStrategy": "st_joseph_corridor",
             "stagingContext": false,
             "broadBuildingContext": true,
             "winterHoldingContext": false,
@@ -28853,14 +28976,14 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
               "peakToEndDays": 37
             },
             "label": "Building",
-            "headline": "Steelhead are now broadly established through the accessible river.",
-            "whereToStart": "Compare legal holding water in the lower Michigan corridor, the Niles reach, and South Bend-Mishawaka below Twin Branch; stay outside every posted ladder and dam boundary.",
-            "detail": "By November, multiple entry periods have given steelhead time to spread through lower, middle, and upper sections wherever passage is open. The upper river is now a primary option, even though dependable concentrations can remain in lower and middle holding water. Five passage facilities allow distribution from the lower river through South Bend and Mishawaka, but Twin Branch is the hard upstream limit and Niles measurements are reach-specific.",
-            "tip": "Compare one legal Michigan holding section with South Bend or Mishawaka, then let direct fish activity decide where to stay; remain outside every posted ladder and dam boundary.",
+            "headline": "Steelhead are broadly established through the St. Joseph corridor.",
+            "whereToStart": "Start in the Middle river (Berrien Springs–Niles). Compare the Upper river (Niles–Twin Branch Dam) for established fish.",
+            "detail": "Repeated entry periods support broad corridor presence, not equal numbers in every section.",
+            "tip": "Compare two sections, then stay where direct fish activity is strongest.",
             "reasonCodes": [
               "stage_building"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -28952,7 +29075,7 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
               "conditions_insufficient",
               "conditions_checkpoint_peak_start"
             ],
-            "copyVersion": "river-run-copy-v27",
+            "copyVersion": "river-run-copy-v34",
             "previousCheckpointId": "building_established",
             "previousCheckpointDate": "2026-10-15",
             "previousTimingLabel": "Insufficient evidence"
@@ -28969,9 +29092,9 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
           "push": {
             "score": 18,
             "label": "Weak",
-            "headline": "Today's water shows little support for a fresh wave of fish.",
-            "detail": "The river is holding steady with no meaningful rise yet. Water temperature remains too warm to support a strong Push and is relatively steady. Recent weather estimates indicate very little rain around the river. This Push describes fresh-movement support at Niles only; it does not prove a new wave at the harbor, Berrien Springs, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Do not build the day around new arrivals while the river remains warm. Start in established holding water at first or last light and leave lower travel lanes secondary. Use the Niles signal to choose between Niles-area holding water and a lower-Michigan travel-water check; verify Indiana movement directly.",
+            "headline": "Niles water shows little support for fresh movement.",
+            "detail": "Niles flow is steady without a meaningful rise. Water temperature remains too warm to support a strong Push and is relatively steady. Recent watershed weather shows little rain.",
+            "tip": "Keep Migration Stage’s section primary. Do not shift sections from this Niles read.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
@@ -28991,14 +29114,14 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 93,
             "label": "Excellent",
             "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river. This flow shape applies to the Niles mainstem reach only; verify the harbor, lower Michigan river, individual tailwaters, and Indiana water directly.",
-            "tip": "Begin on the primary travel lane feeding deep holding water. Work each hole from its head through the inside seam and tail, then keep moving until fish establish a pattern. Apply this recommendation at Niles; recheck water shape and safe access before carrying it to another St. Joseph section.",
+            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. This read applies only to the Niles mainstem reach.",
+            "tip": "Cover readable seams and holding water with a controlled presentation. Verify every other section directly.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band"
@@ -29009,15 +29132,15 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 65,
             "maximum": 100,
             "label": "Active",
-            "headline": "Today’s Steelhead activity outlook is active.",
-            "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. Steelhead are becoming more established through the river. The score describes feeding or aggressive responsiveness, while movement and abundance remain separate reads. Measured river conditions describe the St. Joseph mainstem at Niles. Water temperature, clarity, hydraulic shape, access, and fishing conditions can differ in the harbor and lower Michigan river, at individual dam tailwaters, and through South Bend, Mishawaka, and the Twin Branch reach. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
-            "tip": "Start with 5–9 AM. If conditions change, favor the window that best combines workable light with measured water temperature. Apply this response window at Niles; verify temperature, clarity, flow shape, and legal access again before carrying it to another St. Joseph section.",
+            "headline": "Today’s Niles Steelhead responsiveness is active.",
+            "detail": "Conditions support a meaningful Steelhead response. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Flow and temperature represent only the Niles mainstem reach.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify other sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -29069,10 +29192,13 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 82,
+            "displayScore": 85,
+            "scoreIsApproximate": true,
             "stage": "building",
             "maximum": 100,
             "riverCeiling": 90,
@@ -29081,14 +29207,14 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
             "curveDirection": "rising",
             "winterHoldingContext": false,
             "label": "Peak presence",
-            "headline": "Steelhead are likely spread through more of the river as seasonal presence builds toward its strongest point.",
-            "detail": "The migration is approaching its strongest seasonal point, and fish are likely distributed through more of the river. This is a seasonal estimate, not a live fish count. This seasonal presence applies to the accessible St. Joseph corridor as a whole; it does not claim equal fish numbers at the harbor, Niles, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Treat this as one of the stronger parts of a strong river season. Give each stop a complete pass, but do not mistake this seasonal estimate for a live fish count. Use Migration Stage to choose the specific St. Joseph section, then verify that water directly.",
+            "headline": "Seasonal Steelhead presence is near its expected St. Joseph peak.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the St. Joseph Steelhead ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_building",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -29342,6 +29468,7 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
           "nextConditionRefreshAt": "2026-11-16T05:00:00.000Z",
           "runStage": {
             "stage": "peak",
+            "copyStrategy": "st_joseph_corridor",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -29364,14 +29491,14 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
               "peakToEndDays": 37
             },
             "label": "Peak",
-            "headline": "This is typically the strongest and most dependable fall Steelhead opportunity.",
-            "whereToStart": "Compare substantial legal holding water below Berrien Springs, through Buchanan and Niles, and in South Bend-Mishawaka below Twin Branch; use the Niles gauge only for the Niles reach.",
-            "detail": "Multiple waves have had time to spread from lower travel lanes into established middle- and upper-river holding water. Fish can be broadly distributed wherever passage is open. Five passage facilities allow distribution from the lower river through South Bend and Mishawaka, but Twin Branch is the hard upstream limit and Niles measurements are reach-specific.",
-            "tip": "Choose a substantial legal holding section below Berrien Springs, near Buchanan or Niles, or in South Bend-Mishawaka and cover it completely before changing reaches.",
+            "headline": "This is typically the strongest St. Joseph fall Steelhead opportunity.",
+            "whereToStart": "Start in the Middle river (Berrien Springs–Niles). Compare the Upper river (Niles–Twin Branch Dam) for established fish.",
+            "detail": "This is typically the strongest fall-entry period, but concentrations still vary by section.",
+            "tip": "Choose one substantial holding section and cover it completely before changing reaches.",
             "reasonCodes": [
               "stage_peak"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -29463,7 +29590,7 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
               "conditions_insufficient",
               "conditions_checkpoint_peak_start"
             ],
-            "copyVersion": "river-run-copy-v27",
+            "copyVersion": "river-run-copy-v34",
             "previousCheckpointId": "building_established",
             "previousCheckpointDate": "2026-10-15",
             "previousTimingLabel": "Insufficient evidence"
@@ -29480,9 +29607,9 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
           "push": {
             "score": 18,
             "label": "Weak",
-            "headline": "Today's water shows little support for a fresh wave of fish.",
-            "detail": "The river is holding steady with no meaningful rise yet. Water temperature remains too warm to support a strong Push and is relatively steady. Recent weather estimates indicate very little rain around the river. This Push describes fresh-movement support at Niles only; it does not prove a new wave at the harbor, Berrien Springs, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Do not build the day around new arrivals while the river remains warm. Start in established holding water at first or last light and leave lower travel lanes secondary. Use the Niles signal to choose between Niles-area holding water and a lower-Michigan travel-water check; verify Indiana movement directly.",
+            "headline": "Niles water shows little support for fresh movement.",
+            "detail": "Niles flow is steady without a meaningful rise. Water temperature remains too warm to support a strong Push and is relatively steady. Recent watershed weather shows little rain.",
+            "tip": "Keep Migration Stage’s section primary. Do not shift sections from this Niles read.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
@@ -29502,14 +29629,14 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 93,
             "label": "Excellent",
             "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river. This flow shape applies to the Niles mainstem reach only; verify the harbor, lower Michigan river, individual tailwaters, and Indiana water directly.",
-            "tip": "Begin on the primary travel lane feeding deep holding water. Work each hole from its head through the inside seam and tail, then keep moving until fish establish a pattern. Apply this recommendation at Niles; recheck water shape and safe access before carrying it to another St. Joseph section.",
+            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. This read applies only to the Niles mainstem reach.",
+            "tip": "Cover readable seams and holding water with a controlled presentation. Verify every other section directly.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band"
@@ -29520,15 +29647,15 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 65,
             "maximum": 100,
             "label": "Active",
-            "headline": "Today’s Steelhead activity outlook is active.",
-            "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. Broad fall presence can make Steelhead easier to locate, but this score measures feeding or aggressive responsiveness rather than how many fish are present. Measured river conditions describe the St. Joseph mainstem at Niles. Water temperature, clarity, hydraulic shape, access, and fishing conditions can differ in the harbor and lower Michigan river, at individual dam tailwaters, and through South Bend, Mishawaka, and the Twin Branch reach. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
-            "tip": "Start with 5–9 AM. If conditions change, favor the window that best combines workable light with measured water temperature. Apply this response window at Niles; verify temperature, clarity, flow shape, and legal access again before carrying it to another St. Joseph section.",
+            "headline": "Today’s Niles Steelhead responsiveness is active.",
+            "detail": "Conditions support a meaningful Steelhead response. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Flow and temperature represent only the Niles mainstem reach.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify other sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -29580,10 +29707,13 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 90,
+            "displayScore": 90,
+            "scoreIsApproximate": false,
             "stage": "peak",
             "maximum": 100,
             "riverCeiling": 90,
@@ -29592,14 +29722,14 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
             "curveDirection": "near_peak",
             "winterHoldingContext": false,
             "label": "Peak presence",
-            "headline": "Steelhead are likely near their highest seasonal presence in the river.",
-            "detail": "This is the part of the season when in-river presence is usually strongest. The read describes the river as a whole; it does not place fish in a specific pool or confirm a live count. This seasonal presence applies to the accessible St. Joseph corridor as a whole; it does not claim equal fish numbers at the harbor, Niles, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Plan for the strongest seasonal presence this river usually offers, while remembering that this estimate cannot confirm fish at a specific spot or describe today's river conditions. Use Migration Stage to choose the specific St. Joseph section, then verify that water directly.",
+            "headline": "Seasonal Steelhead presence is near its expected St. Joseph peak.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the St. Joseph Steelhead ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_peak",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -29859,6 +29989,7 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
           "nextConditionRefreshAt": "2026-12-07T05:00:00.000Z",
           "runStage": {
             "stage": "tapering",
+            "copyStrategy": "st_joseph_corridor",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -29881,14 +30012,14 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
               "peakToEndDays": 37
             },
             "label": "Late fall",
-            "headline": "Steelhead presence remains high as the fall fishery begins shifting toward winter holding.",
-            "whereToStart": "Established deep holding water from the Michigan corridor through legal Indiana water below Twin Branch; add lower travel lanes only when Niles Push supports fresh movement.",
-            "detail": "Fish remain broadly available, but colder water gradually shifts the balance from active upstream movement toward established holding. Fresh arrivals can still occur without defining the whole fishery. Five passage facilities allow distribution from the lower river through South Bend and Mishawaka, but Twin Branch is the hard upstream limit and Niles measurements are reach-specific.",
-            "tip": "Start in deep established holding water and slow the presentation as temperature falls. Add lower travel lanes only when Niles Push supports fresh movement.",
+            "headline": "Steelhead remain strongly present as fresh fall entry slows.",
+            "whereToStart": "Start in established Middle river (Berrien Springs–Niles) or Upper river (Niles–Twin Branch Dam) holding water.",
+            "detail": "Fresh fall entry is slowing while established Steelhead may remain throughout the corridor.",
+            "tip": "Start in established holding water. Add Lower-river travel lanes only when Niles Push supports fresh movement.",
             "reasonCodes": [
               "stage_tapering"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Timing complete",
@@ -29991,7 +30122,7 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
               "conditions_checkpoint_peak_complete",
               "conditions_timing_complete"
             ],
-            "copyVersion": "river-run-copy-v27",
+            "copyVersion": "river-run-copy-v34",
             "previousCheckpointId": "peak_start",
             "previousCheckpointDate": "2026-11-10",
             "previousTimingLabel": "Insufficient evidence"
@@ -30008,9 +30139,9 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
           "push": {
             "score": 18,
             "label": "Weak",
-            "headline": "Today's water shows little support for a fresh wave of fish.",
-            "detail": "The river is holding steady with no meaningful rise yet. Water temperature remains too warm to support a strong Push and is relatively steady. Recent weather estimates indicate very little rain around the river. This Push describes fresh-movement support at Niles only; it does not prove a new wave at the harbor, Berrien Springs, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Do not build the day around new arrivals while the river remains warm. Start in established holding water at first or last light and leave lower travel lanes secondary. Use the Niles signal to choose between Niles-area holding water and a lower-Michigan travel-water check; verify Indiana movement directly.",
+            "headline": "Niles water shows little support for fresh movement.",
+            "detail": "Niles flow is steady without a meaningful rise. Water temperature remains too warm to support a strong Push and is relatively steady. Recent watershed weather shows little rain.",
+            "tip": "Keep Migration Stage’s section primary. Do not shift sections from this Niles read.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
@@ -30030,14 +30161,14 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 93,
             "label": "Excellent",
             "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river. This flow shape applies to the Niles mainstem reach only; verify the harbor, lower Michigan river, individual tailwaters, and Indiana water directly.",
-            "tip": "Begin on the primary travel lane feeding deep holding water. Work each hole from its head through the inside seam and tail, then keep moving until fish establish a pattern. Apply this recommendation at Niles; recheck water shape and safe access before carrying it to another St. Joseph section.",
+            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. This read applies only to the Niles mainstem reach.",
+            "tip": "Cover readable seams and holding water with a controlled presentation. Verify every other section directly.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band"
@@ -30048,15 +30179,15 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 65,
             "maximum": 100,
             "label": "Active",
-            "headline": "Today’s Steelhead activity outlook is active.",
-            "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. As late fall progresses, Steelhead often become more selective and less willing to move far for a presentation. The fish remain alive and are transitioning toward winter holding; actual responsiveness still depends strongly on water temperature and river conditions. Measured river conditions describe the St. Joseph mainstem at Niles. Water temperature, clarity, hydraulic shape, access, and fishing conditions can differ in the harbor and lower Michigan river, at individual dam tailwaters, and through South Bend, Mishawaka, and the Twin Branch reach. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
-            "tip": "Compare the four time windows, but expect a shorter response in cold water and keep the result separate from the winter holding outlook. Apply this response window at Niles; verify temperature, clarity, flow shape, and legal access again before carrying it to another St. Joseph section.",
+            "headline": "Today’s Niles Steelhead responsiveness is active.",
+            "detail": "Conditions support a meaningful Steelhead response. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Cold late-fall water can shorten response windows without meaning Steelhead have left the river.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify other sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -30108,10 +30239,13 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 90,
+            "displayScore": 90,
+            "scoreIsApproximate": false,
             "stage": "tapering",
             "maximum": 100,
             "riverCeiling": 90,
@@ -30120,14 +30254,14 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
             "curveDirection": "falling",
             "winterHoldingContext": false,
             "label": "Peak presence",
-            "headline": "Steelhead remain near their strongest fall presence as winter holding approaches.",
-            "detail": "The slight decline reflects fewer fresh arrivals—not fish simply leaving the river. This is a seasonal opportunity estimate, not a live fish count. This seasonal presence applies to the accessible St. Joseph corridor as a whole; it does not claim equal fish numbers at the harbor, Niles, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Treat the retained presence as strong, but expect the fishery to be shifting away from fresh fall entry. Verify current river conditions before choosing a presentation. Use Migration Stage to choose the specific St. Joseph section, then verify that water directly.",
+            "headline": "Seasonal Steelhead presence is near its expected St. Joseph peak.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the St. Joseph Steelhead ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_tapering",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -30366,8 +30500,8 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
         }
       },
       {
-        "id": "presence_winter_holding_outside",
-        "label": "81 / 100 · Winter holding · outside",
+        "id": "presence_fall_entry_complete_outside",
+        "label": "null / 100 · Fall entry complete · outside",
         "note": "Canonical St. Joseph River Fall Steelhead production copy · owner audit",
         "snapshot": {
           "riverId": "st_joseph",
@@ -30381,9 +30515,10 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
           "nextConditionRefreshAt": "2026-12-24T05:00:00.000Z",
           "runStage": {
             "stage": "post_run",
+            "copyStrategy": "st_joseph_corridor",
             "stagingContext": false,
             "broadBuildingContext": false,
-            "winterHoldingContext": true,
+            "winterHoldingContext": false,
             "window": {
               "snapshotDate": "2026-12-23",
               "preRunStartDate": "2026-08-01",
@@ -30402,16 +30537,16 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
               "startToPeakDays": 51,
               "peakToEndDays": 37
             },
-            "label": "Winter holding",
-            "headline": "Steelhead remain broadly present as St. Joseph fall entry hands off to winter holding.",
-            "whereToStart": "Deep, speed-controlled legal holding water from the lower Michigan corridor through Niles and into Indiana below Twin Branch, always outside posted dam and fish-ladder restrictions.",
-            "detail": "The fish have not left the 63-mile accessible corridor. Colder water changes the useful question from new entry to holding position; Activity describes likely responsiveness at Niles, not river-wide movement.",
-            "tip": "Choose one deep, speed-controlled Michigan or Indiana holding reach, verify its water directly, and treat Activity as a Niles response read—not proof that Steelhead are feeding everywhere.",
+            "label": "Fall entry complete",
+            "headline": "St. Joseph Steelhead fall entry is complete.",
+            "whereToStart": "There is no active St. Joseph starting section in this fall-entry model.",
+            "detail": "Steelhead may remain in the river. This fall-entry model no longer estimates current presence or activity.",
+            "tip": "Check back around September 10 when fall-entry monitoring resumes.",
             "reasonCodes": [
               "stage_post_run",
-              "stage_winter_holding"
+              "stage_offseason"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Timing complete",
@@ -30505,16 +30640,16 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
               "2026-11-20"
             ],
             "sourceRefreshSlots": {},
-            "headline": "This season's Migration Timing read is complete.",
-            "tip": "Stop planning around whether fall entry was early or late. Use the winter fishery read to judge current activity and presentation.",
-            "detail": "There was not enough reliable season-long river and temperature information to make an early, normal, or late call. Steelhead presence has now shifted into winter holding, where current activity matters more than fall timing.",
+            "headline": "St. Joseph fall-entry Migration Timing is complete.",
+            "tip": "Do not use completed fall timing to infer current presence or activity. St. Joseph fall-entry monitoring resumes around September 10.",
+            "detail": "The St. Joseph fall-entry timing window closed without enough reliable evidence for an early, typical, or delayed call.",
             "reasonCodes": [
               "conditions_baseline_missing",
               "conditions_insufficient",
               "conditions_checkpoint_peak_complete",
               "conditions_timing_complete"
             ],
-            "copyVersion": "river-run-copy-v27",
+            "copyVersion": "river-run-copy-v34",
             "previousCheckpointId": "peak_start",
             "previousCheckpointDate": "2026-11-10",
             "previousTimingLabel": "Insufficient evidence"
@@ -30530,22 +30665,22 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
           },
           "push": {
             "score": null,
-            "label": "Winter holding",
-            "headline": "The season's fresh-movement read is complete.",
-            "detail": "Steelhead may remain in the river, but the fall-entry signal has handed off to winter holding. Winter activity requires a different water-temperature and feeding read.",
-            "tip": "Use the winter fishery read for activity and presentation decisions. Do not treat a muted Push as evidence that steelhead left the river.",
+            "label": "Fall entry complete",
+            "headline": "St. Joseph Steelhead fall-entry Push is complete.",
+            "detail": "Current water may affect Steelhead still in the river. This fall model no longer scores fresh-entry support.",
+            "tip": "Do not use a completed fall Push to infer current presence. Check back in early September.",
             "reasonCodes": [
               "push_tracking_complete"
             ],
             "rulesVersion": "st-joseph-niles-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 93,
             "label": "Excellent",
             "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river. This flow shape applies to the Niles mainstem reach only; verify the harbor, lower Michigan river, individual tailwaters, and Indiana water directly.",
-            "tip": "Begin on the primary travel lane feeding deep holding water. Work each hole from its head through the inside seam and tail, then keep moving until fish establish a pattern. Apply this recommendation at Niles; recheck water shape and safe access before carrying it to another St. Joseph section.",
+            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. This read applies only to the Niles mainstem reach.",
+            "tip": "Cover readable seams and holding water with a controlled presentation. Verify every other section directly.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band"
@@ -30556,88 +30691,45 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
-            "score": 65,
+            "score": null,
             "maximum": 100,
-            "label": "Active",
-            "headline": "Today’s Steelhead activity outlook is active.",
-            "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. Steelhead remain alive in winter holding after the fall-entry period. Use the dedicated winter read when available; this score only describes current responsiveness. Measured river conditions describe the St. Joseph mainstem at Niles. Water temperature, clarity, hydraulic shape, access, and fishing conditions can differ in the harbor and lower Michigan river, at individual dam tailwaters, and through South Bend, Mishawaka, and the Twin Branch reach. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
-            "tip": "Compare the four time windows, but expect a shorter response in cold water and keep the result separate from the winter holding outlook. Apply this response window at Niles; verify temperature, clarity, flow shape, and legal access again before carrying it to another St. Joseph section.",
+            "label": "Fall entry complete",
+            "headline": "St. Joseph Steelhead fall-entry Activity is complete.",
+            "detail": "Steelhead may remain in the river. This fall-entry model no longer scores their current responsiveness.",
+            "tip": "Do not use this completed fall outlook to infer current activity. Check back in early September.",
             "reasonCodes": [
-              "activity_confidence_full",
-              "activity_today",
-              "activity_run_present"
+              "activity_fall_entry_complete"
             ],
             "rulesVersion": "st-joseph-fall-steelhead-activity-v1",
             "targetDate": "2026-12-23",
             "targetDayLabel": "Today",
-            "confidence": "Full",
+            "confidence": "Limited",
             "conditionalPresence": false,
-            "blocks": [
-              {
-                "id": "05-09",
-                "label": "5–9 AM",
-                "score": 67,
-                "activityLabel": "Active",
-                "positiveDriver": "Clouds or lower light make this window more favorable.",
-                "limitingFactor": "Rain adds little extra cover.",
-                "cloudCoverPct": 60,
-                "precipitationIn": 0
-              },
-              {
-                "id": "09-13",
-                "label": "9 AM–1 PM",
-                "score": 62,
-                "activityLabel": "Active",
-                "positiveDriver": "The river level and its recent change are favorable.",
-                "limitingFactor": "Rain adds little extra cover.",
-                "cloudCoverPct": 60,
-                "precipitationIn": 0
-              },
-              {
-                "id": "13-17",
-                "label": "1–5 PM",
-                "score": 62,
-                "activityLabel": "Active",
-                "positiveDriver": "The river level and its recent change are favorable.",
-                "limitingFactor": "Rain adds little extra cover.",
-                "cloudCoverPct": 60,
-                "precipitationIn": 0
-              },
-              {
-                "id": "17-21",
-                "label": "5–9 PM",
-                "score": 66,
-                "activityLabel": "Active",
-                "positiveDriver": "Clouds or lower light make this window more favorable.",
-                "limitingFactor": "Rain adds little extra cover.",
-                "cloudCoverPct": 60,
-                "precipitationIn": 0
-              }
-            ]
+            "blocks": [],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
-            "score": 81,
+            "score": null,
+            "scoreIsApproximate": false,
             "stage": "post_run",
             "maximum": 100,
             "riverCeiling": 90,
             "historicalRunStrength": "strong",
-            "curveFraction": 0.9,
+            "curveFraction": 0,
             "curveDirection": "outside",
-            "winterHoldingContext": true,
-            "handoffScore": 81,
-            "label": "Winter holding",
-            "headline": "Steelhead remain strongly present through the St. Joseph corridor as fall entry shifts into winter holding.",
-            "detail": "Fall entry finished at 81/100. That retained-presence reference applies across the accessible season, not equally to every reach; current Niles Activity is a response read for Niles only.",
-            "tip": "Treat 81/100 as retained seasonal presence—not proof of activity in every section. Start in deep, speed-controlled legal holding water near Niles, South Bend, or Mishawaka and verify that reach directly.",
+            "winterHoldingContext": false,
+            "label": "Fall entry complete",
+            "headline": "St. Joseph Steelhead fall entry is complete.",
+            "detail": "Steelhead may remain in the river. This fall-entry model no longer estimates their current seasonal presence.",
+            "tip": "Check back in early September when St. Joseph fall movement tracking resumes.",
             "reasonCodes": [
               "stage_post_run",
-              "historical_presence_curve",
-              "fish_presence_winter_handoff"
+              "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -30864,13 +30956,7 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
               "data_quality_limited"
             ]
           },
-          "interpretationNote": {
-            "headline": "Steelhead are still in the river, but winter conditions now control the day.",
-            "detail": "The fall-entry period ended with strong retained presence. Use the winter fishery read to judge activity and presentation; Push and Migration Timing are intentionally complete because they answer the wrong question now.",
-            "reasonCodes": [
-              "winter_holding_read_required"
-            ]
-          },
+          "interpretationNote": null,
           "secondaryNote": "Based on the USGS gauge at Niles. It describes the Niles reach; the harbor, lower river, individual dam tailwaters, South Bend, Mishawaka, and Twin Branch may look different.",
           "safety": {
             "regulationReminder": "Select Michigan or Indiana for the correct jurisdiction. Always verify current official regulations, public access, posted closures, and dam safety boundaries.",
@@ -30903,6 +30989,7 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
           "nextConditionRefreshAt": "2026-10-01T05:00:00.000Z",
           "runStage": {
             "stage": "beginning",
+            "copyStrategy": "st_joseph_corridor",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -30925,14 +31012,14 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
               "peakToEndDays": 37
             },
             "label": "Beginning",
-            "headline": "The first Steelhead are beginning to enter the river.",
-            "whereToStart": "Lower Michigan travel and holding water toward Berrien Springs, while recognizing that summer-run Skamania may already be distributed farther upstream through open passage.",
-            "detail": "Fresh fish may be present, but numbers are still scattered and can arrive in uneven waves before the broader fall fishery develops. Five passage facilities allow distribution from the lower river through South Bend and Mishawaka, but Twin Branch is the hard upstream limit and Niles measurements are reach-specific.",
-            "tip": "Cover lower-Michigan travel lanes and their first deep resting water before moving toward Niles. Treat inland Skamania separately from evidence of a new winter-run wave.",
+            "headline": "The first fall Steelhead are entering the St. Joseph River.",
+            "whereToStart": "Start in the Lower river (St. Joseph harbor–Berrien Springs). Add the Middle river (Berrien Springs–Niles) after direct fish activity supports the move.",
+            "detail": "New fall entrants remain scattered while summer-run Skamania may already be farther inland.",
+            "tip": "Cover travel water and the first substantial holding areas before moving upstream.",
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -30978,7 +31065,7 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -30992,9 +31079,9 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
           "push": {
             "score": 70,
             "label": "Strong",
-            "headline": "Today's river rise and water temperature strongly support the possibility of a fresh wave moving into the river.",
-            "detail": "The river has made a clear rise since yesterday. Overall flow is already high. Water is on the warm side for fall migration and is cooling. Additional rain does not improve the read while the river is already high. This Push describes fresh-movement support at Niles only; it does not prove a new wave at the harbor, Berrien Springs, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Begin on lower-river travel lanes and inside seams, then work the first resting holes along that route. Keep moving until fish establish a pattern; the signal still does not prove a wave entered. Use the Niles signal to choose between Niles-area holding water and a lower-Michigan travel-water check; verify Indiana movement directly.",
+            "headline": "Niles water strongly supports possible fresh movement.",
+            "detail": "Niles flow has made a clear rise, while overall flow is high. Water is on the warm side for fall migration and is cooling. Rain adds no support while Niles flow is already high.",
+            "tip": "Use Niles as the movement check, then verify the Lower and Upper river directly.",
             "reasonCodes": [
               "gauge_fresh",
               "push_high_flow_context",
@@ -31012,14 +31099,14 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 32,
             "label": "Tough",
             "headline": "The river is running very high, leaving fewer practical places to fish effectively.",
-            "detail": "Very high flow is reducing access and the amount of water where a presentation can be controlled. The rising water is pushing hard through the main channel and compressing practical fishing water along protected edges. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river. This flow shape applies to the Niles mainstem reach only; verify the harbor, lower Michigan river, individual tailwaters, and Indiana water directly.",
-            "tip": "Fish only protected margins, inside bends, and the downstream side of major current breaks. Leave the main-channel current alone while the rise continues. Apply this recommendation at Niles; recheck water shape and safe access before carrying it to another St. Joseph section.",
+            "detail": "Very high flow is reducing access and the amount of water where a presentation can be controlled. The rising water is pushing hard through the main channel and compressing practical fishing water along protected edges. This read applies only to the Niles mainstem reach.",
+            "tip": "Favor protected margins and short controlled presentations. Choose another day if control is not dependable. Verify every other section directly.",
             "reasonCodes": [
               "gauge_fresh",
               "very_high_flow_band"
@@ -31030,15 +31117,15 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 65,
             "maximum": 100,
             "label": "Active",
-            "headline": "Today’s Steelhead activity outlook is active.",
-            "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 AM: The measured water temperature remains usable. The main limitation: The river level or its recent change is less favorable. Early fall Steelhead are entering with energy reserves intact. This score describes feeding or aggressive responsiveness for fish already in the river, not fresh movement. Measured river conditions describe the St. Joseph mainstem at Niles. Water temperature, clarity, hydraulic shape, access, and fishing conditions can differ in the harbor and lower Michigan river, at individual dam tailwaters, and through South Bend, Mishawaka, and the Twin Branch reach. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
-            "tip": "Start with 5–9 AM. If conditions change, favor the window that best combines workable light with measured water temperature. Apply this response window at Niles; verify temperature, clarity, flow shape, and legal access again before carrying it to another St. Joseph section.",
+            "headline": "Today’s Niles Steelhead responsiveness is active.",
+            "detail": "Conditions support a meaningful Steelhead response. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Flow and temperature represent only the Niles mainstem reach.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify other sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -31090,10 +31177,13 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 12,
+            "displayScore": 10,
+            "scoreIsApproximate": true,
             "stage": "beginning",
             "maximum": 100,
             "riverCeiling": 90,
@@ -31102,14 +31192,14 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
             "curveDirection": "rising",
             "winterHoldingContext": false,
             "label": "Low presence",
-            "headline": "A small number of Steelhead may be in the river, and seasonal presence is still building.",
-            "detail": "This part of the season usually brings low presence, with more fish expected to enter and spread through the river. This is a seasonal estimate, not a live fish count. This seasonal presence applies to the accessible St. Joseph corridor as a whole; it does not claim equal fish numbers at the harbor, Niles, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Treat this as an early, low-odds river opportunity. Expect scattered results, and use direct fish activity before committing the full day. Use Migration Stage to choose the specific St. Joseph section, then verify that water directly.",
+            "headline": "Seasonal Steelhead presence is low and building.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the St. Joseph Steelhead ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -31369,6 +31459,7 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
           "nextConditionRefreshAt": "2026-10-01T05:00:00.000Z",
           "runStage": {
             "stage": "beginning",
+            "copyStrategy": "st_joseph_corridor",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -31391,14 +31482,14 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
               "peakToEndDays": 37
             },
             "label": "Beginning",
-            "headline": "The first Steelhead are beginning to enter the river.",
-            "whereToStart": "Lower Michigan travel and holding water toward Berrien Springs, while recognizing that summer-run Skamania may already be distributed farther upstream through open passage.",
-            "detail": "Fresh fish may be present, but numbers are still scattered and can arrive in uneven waves before the broader fall fishery develops. Five passage facilities allow distribution from the lower river through South Bend and Mishawaka, but Twin Branch is the hard upstream limit and Niles measurements are reach-specific.",
-            "tip": "Cover lower-Michigan travel lanes and their first deep resting water before moving toward Niles. Treat inland Skamania separately from evidence of a new winter-run wave.",
+            "headline": "The first fall Steelhead are entering the St. Joseph River.",
+            "whereToStart": "Start in the Lower river (St. Joseph harbor–Berrien Springs). Add the Middle river (Berrien Springs–Niles) after direct fish activity supports the move.",
+            "detail": "New fall entrants remain scattered while summer-run Skamania may already be farther inland.",
+            "tip": "Cover travel water and the first substantial holding areas before moving upstream.",
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -31444,7 +31535,7 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -31458,9 +31549,9 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
           "push": {
             "score": 0,
             "label": "Weak",
-            "headline": "Today's water shows little support for a fresh wave of fish.",
-            "detail": "The river is falling instead of showing a fresh rise. Water temperature remains too warm to support a strong Push but is warming sharply. Recent weather estimates indicate very little rain around the river. This Push describes fresh-movement support at Niles only; it does not prove a new wave at the harbor, Berrien Springs, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Do not build the day around new arrivals while the river remains warm. Start in established holding water at first or last light and leave lower travel lanes secondary. Use the Niles signal to choose between Niles-area holding water and a lower-Michigan travel-water check; verify Indiana movement directly.",
+            "headline": "Niles water shows little support for fresh movement.",
+            "detail": "Niles flow is falling. Water temperature remains too warm to support a strong Push but is warming sharply. Recent watershed weather shows little rain.",
+            "tip": "Keep Migration Stage’s section primary. Do not shift sections from this Niles read.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
@@ -31480,14 +31571,14 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 57,
             "label": "Fishable",
             "headline": "The river is fishable, but lower water leaves less cover and less room for error.",
-            "detail": "Water is lower than ideal but still workable, with less depth and cover across the river. The river is still falling, so shallow lanes may lose depth while the deepest connected water becomes more important. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river. This flow shape applies to the Niles mainstem reach only; verify the harbor, lower Michigan river, individual tailwaters, and Indiana water directly.",
-            "tip": "Begin in the deepest connected holding water and fish its shaded edge first. Skip shallow travel lanes that are draining as the river falls. Apply this recommendation at Niles; recheck water shape and safe access before carrying it to another St. Joseph section.",
+            "detail": "Water is lower than ideal but still workable, with less depth and cover across the river. The river is still falling, so shallow lanes may lose depth while the deepest connected water becomes more important. This read applies only to the Niles mainstem reach.",
+            "tip": "Use the deepest connected water and keep disturbance low. Verify every other section directly.",
             "reasonCodes": [
               "gauge_fresh",
               "low_flow_band"
@@ -31498,15 +31589,15 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 6,
             "maximum": 100,
             "label": "Inactive",
-            "headline": "Today’s Steelhead activity outlook is inactive.",
-            "detail": "Conditions provide little environmental support for an aggressive response. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Water temperature limits responsiveness. Early fall Steelhead are entering with energy reserves intact. This score describes feeding or aggressive responsiveness for fish already in the river, not fresh movement. Measured river conditions describe the St. Joseph mainstem at Niles. Water temperature, clarity, hydraulic shape, access, and fishing conditions can differ in the harbor and lower Michigan river, at individual dam tailwaters, and through South Bend, Mishawaka, and the Twin Branch reach. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
-            "tip": "Start with 5–9 AM. If conditions change, favor the window that best combines workable light with measured water temperature. Apply this response window at Niles; verify temperature, clarity, flow shape, and legal access again before carrying it to another St. Joseph section.",
+            "headline": "Today’s Niles Steelhead responsiveness is inactive.",
+            "detail": "Conditions offer little support for an aggressive Steelhead response. 5–9 AM and 9 AM–1 PM are the leading windows, but neither has a clear advantage. Flow and temperature represent only the Niles mainstem reach.",
+            "tip": "Choose between 5–9 AM and 9 AM–1 PM using actual light. Verify other sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -31559,10 +31650,13 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 12,
+            "displayScore": 10,
+            "scoreIsApproximate": true,
             "stage": "beginning",
             "maximum": 100,
             "riverCeiling": 90,
@@ -31571,14 +31665,14 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
             "curveDirection": "rising",
             "winterHoldingContext": false,
             "label": "Low presence",
-            "headline": "A small number of Steelhead may be in the river, and seasonal presence is still building.",
-            "detail": "This part of the season usually brings low presence, with more fish expected to enter and spread through the river. This is a seasonal estimate, not a live fish count. This seasonal presence applies to the accessible St. Joseph corridor as a whole; it does not claim equal fish numbers at the harbor, Niles, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Treat this as an early, low-odds river opportunity. Expect scattered results, and use direct fish activity before committing the full day. Use Migration Stage to choose the specific St. Joseph section, then verify that water directly.",
+            "headline": "Seasonal Steelhead presence is low and building.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the St. Joseph Steelhead ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -31832,6 +31926,7 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
           "nextConditionRefreshAt": "2026-09-21T05:00:00.000Z",
           "runStage": {
             "stage": "pre_run",
+            "copyStrategy": "st_joseph_corridor",
             "stagingContext": true,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -31854,15 +31949,15 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
               "peakToEndDays": 37
             },
             "label": "Before migration",
-            "headline": "Summer-run Skamania can already be present, while the later winter-run Steelhead build is still ahead.",
-            "whereToStart": "The St. Joseph harbor and river mouth, plus one deliberate lower-Michigan travel-water check; Skamania may already be inland, but that is separate from the winter-run build.",
-            "detail": "This fall read separates summer-run Steelhead already in the St. Joseph system from the later winter-run component that normally begins building in fall.",
-            "tip": "Separate summer-run Skamania from the later winter-run build. Check direct local reports before going inland, and do not use one Skamania as proof of a new fall wave.",
+            "headline": "Early fall Steelhead may begin entering the St. Joseph River.",
+            "whereToStart": "Start at the St. Joseph harbor and river mouth. Add the Lower river (St. Joseph harbor–Berrien Springs) only for an early fall-entry check.",
+            "detail": "A new fall entrant is possible, while summer-run Skamania may already be inland. Neither establishes a broad fall-entry build.",
+            "tip": "Keep the fall-entry check brief. Do not treat one Steelhead or an existing Skamania as proof of a new fall wave.",
             "reasonCodes": [
               "stage_pre_run",
               "stage_pre_run_staging"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Evaluating",
@@ -31887,7 +31982,7 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
             "reasonCodes": [
               "conditions_checkpoint_evaluating"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -31908,14 +32003,14 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
               "push_tracking_not_started"
             ],
             "rulesVersion": "st-joseph-niles-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 93,
             "label": "Excellent",
             "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river. This flow shape applies to the Niles mainstem reach only; verify the harbor, lower Michigan river, individual tailwaters, and Indiana water directly.",
-            "tip": "Begin on the primary travel lane feeding deep holding water. Work each hole from its head through the inside seam and tail, then keep moving until fish establish a pattern. Apply this recommendation at Niles; recheck water shape and safe access before carrying it to another St. Joseph section.",
+            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. This read applies only to the Niles mainstem reach.",
+            "tip": "Cover readable seams and holding water with a controlled presentation. Verify every other section directly.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band"
@@ -31926,15 +32021,15 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 53,
             "maximum": 100,
             "label": "Moderate",
-            "headline": "Today’s Steelhead activity outlook is moderate.",
-            "detail": "Some useful factors are present, but the response window is mixed. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Measured water temperature is unavailable. Dependable river presence has not begun. The score applies only to a sparse early Steelhead that may already have entered. Measured river conditions describe the St. Joseph mainstem at Niles. Water temperature, clarity, hydraulic shape, access, and fishing conditions can differ in the harbor and lower Michigan river, at individual dam tailwaters, and through South Bend, Mishawaka, and the Twin Branch reach. One important reading is unavailable or comes from tomorrow’s forecast, so the outlook is kept conservative.",
-            "tip": "Start with 5–9 AM. If conditions change, favor the window that best combines workable light with measured water temperature. Apply this response window at Niles; verify temperature, clarity, flow shape, and legal access again before carrying it to another St. Joseph section.",
+            "headline": "Today’s Niles responsiveness is moderate, but dependable Steelhead presence has not begun.",
+            "detail": "Conditions offer mixed support for Steelhead responsiveness. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. This applies only to an early Steelhead already near Niles.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify other sections directly.",
             "reasonCodes": [
               "activity_confidence_moderate",
               "activity_today",
@@ -31986,10 +32081,13 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 0,
+            "displayScore": 0,
+            "scoreIsApproximate": false,
             "stage": "pre_run",
             "maximum": 100,
             "riverCeiling": 90,
@@ -31998,14 +32096,14 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
             "curveDirection": "outside",
             "winterHoldingContext": false,
             "label": "Not expected yet",
-            "headline": "Steelhead are not expected in meaningful numbers yet.",
-            "detail": "Most Steelhead are not expected to have entered the river in dependable numbers. Any fish already present would be early exceptions. This seasonal presence applies to the accessible St. Joseph corridor as a whole; it does not claim equal fish numbers at the harbor, Niles, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Treat this as no dependable in-river opportunity yet. Keep expectations at zero, and do not interpret an isolated early fish as evidence of dependable river presence. Use Migration Stage to choose the specific St. Joseph section, then verify that water directly.",
+            "headline": "Dependable Steelhead presence is not expected in the St. Joseph yet.",
+            "detail": "The seasonal estimate remains at zero. Any river fish would be an early exception.",
+            "tip": "Use Migration Stage for harbor and river-entry context.",
             "reasonCodes": [
               "stage_pre_run",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -32247,6 +32345,7 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
           "nextConditionRefreshAt": "2026-08-16T05:00:00.000Z",
           "runStage": {
             "stage": "pre_run",
+            "copyStrategy": "st_joseph_corridor",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -32269,14 +32368,14 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
               "peakToEndDays": 37
             },
             "label": "Before migration",
-            "headline": "The modeled St. Joseph fall-entry build has not started, although summer-run Skamania are a separate possibility.",
-            "whereToStart": "Lake Michigan off St. Joseph, the harbor, and the river mouth for new-entry context; do not infer an inland fall build yet.",
-            "detail": "This fall read separates summer-run Steelhead already in the St. Joseph system from the later winter-run component that normally begins building in fall.",
-            "tip": "Keep new-entry effort around Lake Michigan, the St. Joseph harbor, and the mouth. Use direct local evidence—not this inactive fall calendar—if targeting Skamania already inland.",
+            "headline": "Dependable St. Joseph Steelhead fall entry has not started.",
+            "whereToStart": "Stay with Lake Michigan, the St. Joseph harbor, and the river mouth for new fall-entry context.",
+            "detail": "The fall-entry window has not opened yet. Summer-run Skamania may already be inland, but they are separate from this fall-entry estimate.",
+            "tip": "Keep new fall-entry effort near the harbor and mouth. Use direct local information if targeting Skamania already inland.",
             "reasonCodes": [
               "stage_pre_run"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Not monitoring yet",
@@ -32301,7 +32400,7 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
             "reasonCodes": [
               "conditions_monitoring_inactive"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -32322,14 +32421,14 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
               "push_tracking_not_started"
             ],
             "rulesVersion": "st-joseph-niles-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 93,
             "label": "Excellent",
             "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river. This flow shape applies to the Niles mainstem reach only; verify the harbor, lower Michigan river, individual tailwaters, and Indiana water directly.",
-            "tip": "Begin on the primary travel lane feeding deep holding water. Work each hole from its head through the inside seam and tail, then keep moving until fish establish a pattern. Apply this recommendation at Niles; recheck water shape and safe access before carrying it to another St. Joseph section.",
+            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. This read applies only to the Niles mainstem reach.",
+            "tip": "Cover readable seams and holding water with a controlled presentation. Verify every other section directly.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band"
@@ -32340,11 +32439,13 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": null,
           "fishInRiver": {
             "score": 0,
+            "displayScore": 0,
+            "scoreIsApproximate": false,
             "stage": "pre_run",
             "maximum": 100,
             "riverCeiling": 90,
@@ -32353,14 +32454,14 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
             "curveDirection": "outside",
             "winterHoldingContext": false,
             "label": "Not expected yet",
-            "headline": "Steelhead are not expected in meaningful numbers yet.",
-            "detail": "Most Steelhead are not expected to have entered the river in dependable numbers. Any fish already present would be early exceptions. This seasonal presence applies to the accessible St. Joseph corridor as a whole; it does not claim equal fish numbers at the harbor, Niles, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Treat this as no dependable in-river opportunity yet. Keep expectations at zero, and do not interpret an isolated early fish as evidence of dependable river presence. Use Migration Stage to choose the specific St. Joseph section, then verify that water directly.",
+            "headline": "Dependable Steelhead presence is not expected in the St. Joseph yet.",
+            "detail": "The seasonal estimate remains at zero. Any river fish would be an early exception.",
+            "tip": "Use Migration Stage for harbor and river-entry context.",
             "reasonCodes": [
               "stage_pre_run",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -32625,6 +32726,7 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
           "nextConditionRefreshAt": "2026-10-01T05:00:00.000Z",
           "runStage": {
             "stage": "beginning",
+            "copyStrategy": "st_joseph_corridor",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -32647,14 +32749,14 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
               "peakToEndDays": 37
             },
             "label": "Beginning",
-            "headline": "The first Steelhead are beginning to enter the river.",
-            "whereToStart": "Lower Michigan travel and holding water toward Berrien Springs, while recognizing that summer-run Skamania may already be distributed farther upstream through open passage.",
-            "detail": "Fresh fish may be present, but numbers are still scattered and can arrive in uneven waves before the broader fall fishery develops. Five passage facilities allow distribution from the lower river through South Bend and Mishawaka, but Twin Branch is the hard upstream limit and Niles measurements are reach-specific.",
-            "tip": "Cover lower-Michigan travel lanes and their first deep resting water before moving toward Niles. Treat inland Skamania separately from evidence of a new winter-run wave.",
+            "headline": "The first fall Steelhead are entering the St. Joseph River.",
+            "whereToStart": "Start in the Lower river (St. Joseph harbor–Berrien Springs). Add the Middle river (Berrien Springs–Niles) after direct fish activity supports the move.",
+            "detail": "New fall entrants remain scattered while summer-run Skamania may already be farther inland.",
+            "tip": "Cover travel water and the first substantial holding areas before moving upstream.",
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -32700,7 +32802,7 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -32714,9 +32816,9 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
           "push": {
             "score": 18,
             "label": "Weak",
-            "headline": "Today's water shows little support for a fresh wave of fish.",
-            "detail": "The river is holding steady with no meaningful rise yet. Water temperature remains too warm to support a strong Push and is relatively steady. Recent weather estimates indicate very little rain around the river. This Push describes fresh-movement support at Niles only; it does not prove a new wave at the harbor, Berrien Springs, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Do not build the day around new arrivals while the river remains warm. Start in established holding water at first or last light and leave lower travel lanes secondary. Use the Niles signal to choose between Niles-area holding water and a lower-Michigan travel-water check; verify Indiana movement directly.",
+            "headline": "Niles water shows little support for fresh movement.",
+            "detail": "Niles flow is steady without a meaningful rise. Water temperature remains too warm to support a strong Push and is relatively steady. Recent watershed weather shows little rain.",
+            "tip": "Keep Migration Stage’s section primary. Do not shift sections from this Niles read.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
@@ -32736,14 +32838,14 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 93,
             "label": "Excellent",
             "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river. This flow shape applies to the Niles mainstem reach only; verify the harbor, lower Michigan river, individual tailwaters, and Indiana water directly.",
-            "tip": "Begin on the primary travel lane feeding deep holding water. Work each hole from its head through the inside seam and tail, then keep moving until fish establish a pattern. Apply this recommendation at Niles; recheck water shape and safe access before carrying it to another St. Joseph section.",
+            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. This read applies only to the Niles mainstem reach.",
+            "tip": "Cover readable seams and holding water with a controlled presentation. Verify every other section directly.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band"
@@ -32754,15 +32856,15 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 65,
             "maximum": 100,
             "label": "Active",
-            "headline": "Today’s Steelhead activity outlook is active.",
-            "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. Early fall Steelhead are entering with energy reserves intact. This score describes feeding or aggressive responsiveness for fish already in the river, not fresh movement. Measured river conditions describe the St. Joseph mainstem at Niles. Water temperature, clarity, hydraulic shape, access, and fishing conditions can differ in the harbor and lower Michigan river, at individual dam tailwaters, and through South Bend, Mishawaka, and the Twin Branch reach. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
-            "tip": "Start with 5–9 AM. If conditions change, favor the window that best combines workable light with measured water temperature. Apply this response window at Niles; verify temperature, clarity, flow shape, and legal access again before carrying it to another St. Joseph section.",
+            "headline": "Today’s Niles Steelhead responsiveness is active.",
+            "detail": "Conditions support a meaningful Steelhead response. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Flow and temperature represent only the Niles mainstem reach.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify other sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -32814,10 +32916,13 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 12,
+            "displayScore": 10,
+            "scoreIsApproximate": true,
             "stage": "beginning",
             "maximum": 100,
             "riverCeiling": 90,
@@ -32826,14 +32931,14 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
             "curveDirection": "rising",
             "winterHoldingContext": false,
             "label": "Low presence",
-            "headline": "A small number of Steelhead may be in the river, and seasonal presence is still building.",
-            "detail": "This part of the season usually brings low presence, with more fish expected to enter and spread through the river. This is a seasonal estimate, not a live fish count. This seasonal presence applies to the accessible St. Joseph corridor as a whole; it does not claim equal fish numbers at the harbor, Niles, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Treat this as an early, low-odds river opportunity. Expect scattered results, and use direct fish activity before committing the full day. Use Migration Stage to choose the specific St. Joseph section, then verify that water directly.",
+            "headline": "Seasonal Steelhead presence is low and building.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the St. Joseph Steelhead ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -33093,6 +33198,7 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
           "nextConditionRefreshAt": "2026-10-01T05:00:00.000Z",
           "runStage": {
             "stage": "beginning",
+            "copyStrategy": "st_joseph_corridor",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -33115,14 +33221,14 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
               "peakToEndDays": 37
             },
             "label": "Beginning",
-            "headline": "The first Steelhead are beginning to enter the river.",
-            "whereToStart": "Lower Michigan travel and holding water toward Berrien Springs, while recognizing that summer-run Skamania may already be distributed farther upstream through open passage.",
-            "detail": "Fresh fish may be present, but numbers are still scattered and can arrive in uneven waves before the broader fall fishery develops. Five passage facilities allow distribution from the lower river through South Bend and Mishawaka, but Twin Branch is the hard upstream limit and Niles measurements are reach-specific.",
-            "tip": "Cover lower-Michigan travel lanes and their first deep resting water before moving toward Niles. Treat inland Skamania separately from evidence of a new winter-run wave.",
+            "headline": "The first fall Steelhead are entering the St. Joseph River.",
+            "whereToStart": "Start in the Lower river (St. Joseph harbor–Berrien Springs). Add the Middle river (Berrien Springs–Niles) after direct fish activity supports the move.",
+            "detail": "New fall entrants remain scattered while summer-run Skamania may already be farther inland.",
+            "tip": "Cover travel water and the first substantial holding areas before moving upstream.",
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -33168,7 +33274,7 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -33182,9 +33288,9 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
           "push": {
             "score": 8,
             "label": "Weak",
-            "headline": "The water may support fresh movement, but an aging river reading limits confidence.",
-            "detail": "The river is holding steady with no meaningful rise yet. Water temperature remains too warm to support a strong Push and is relatively steady. Recent weather estimates indicate very little rain around the river. The latest river-level reading is aging, so confidence is reduced. This Push describes fresh-movement support at Niles only; it does not prove a new wave at the harbor, Berrien Springs, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Do not build the day around new arrivals while the river remains warm. Start in established holding water at first or last light and leave lower travel lanes secondary. Use the Niles signal to choose between Niles-area holding water and a lower-Michigan travel-water check; verify Indiana movement directly.",
+            "headline": "Niles water shows little support for fresh movement.",
+            "detail": "Niles flow is steady without a meaningful rise. Water temperature remains too warm to support a strong Push and is relatively steady. The Niles reading is aging, so confidence is reduced.",
+            "tip": "Keep Migration Stage’s section primary. Do not shift sections from this Niles read.",
             "reasonCodes": [
               "gauge_stale",
               "push_normal_flow_context",
@@ -33205,14 +33311,14 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 55,
             "label": "Fishable",
             "headline": "The last river reading was fishable, but it is aging and may no longer describe the water accurately.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. Because the latest reading is aging, the river may have changed since it was reported. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river. This flow shape applies to the Niles mainstem reach only; verify the harbor, lower Michigan river, individual tailwaters, and Indiana water directly.",
-            "tip": "Do not choose a reach from this reading alone. Check the water at the first access, and begin only in bank-side water where you can control the entire presentation. Apply this recommendation at Niles; recheck water shape and safe access before carrying it to another St. Joseph section.",
+            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. Because the latest reading is aging, the river may have changed since it was reported. This read applies only to the Niles mainstem reach.",
+            "tip": "Verify the Niles reach directly before choosing presentation water. Verify every other section directly.",
             "reasonCodes": [
               "gauge_stale",
               "ideal_flow_band",
@@ -33226,15 +33332,15 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
               ]
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 42,
             "maximum": 100,
             "label": "Moderate",
-            "headline": "Today’s Steelhead activity outlook is moderate.",
-            "detail": "Some useful factors are present, but the response window is mixed. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Current river behavior is unavailable. Early fall Steelhead are entering with energy reserves intact. This score describes feeding or aggressive responsiveness for fish already in the river, not fresh movement. Measured river conditions describe the St. Joseph mainstem at Niles. Water temperature, clarity, hydraulic shape, access, and fishing conditions can differ in the harbor and lower Michigan river, at individual dam tailwaters, and through South Bend, Mishawaka, and the Twin Branch reach. One important reading is unavailable or comes from tomorrow’s forecast, so the outlook is kept conservative.",
-            "tip": "Start with 5–9 AM. If conditions change, favor the window that best combines workable light with measured water temperature. Apply this response window at Niles; verify temperature, clarity, flow shape, and legal access again before carrying it to another St. Joseph section.",
+            "headline": "Today’s Niles Steelhead responsiveness is moderate.",
+            "detail": "Conditions offer mixed support for Steelhead responsiveness. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Moderate confidence reflects missing or forecast inputs; river measurements still represent only Niles.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify other sections directly.",
             "reasonCodes": [
               "activity_confidence_moderate",
               "activity_today",
@@ -33286,10 +33392,13 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 12,
+            "displayScore": 10,
+            "scoreIsApproximate": true,
             "stage": "beginning",
             "maximum": 100,
             "riverCeiling": 90,
@@ -33298,14 +33407,14 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
             "curveDirection": "rising",
             "winterHoldingContext": false,
             "label": "Low presence",
-            "headline": "A small number of Steelhead may be in the river, and seasonal presence is still building.",
-            "detail": "This part of the season usually brings low presence, with more fish expected to enter and spread through the river. This is a seasonal estimate, not a live fish count. This seasonal presence applies to the accessible St. Joseph corridor as a whole; it does not claim equal fish numbers at the harbor, Niles, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Treat this as an early, low-odds river opportunity. Expect scattered results, and use direct fish activity before committing the full day. Use Migration Stage to choose the specific St. Joseph section, then verify that water directly.",
+            "headline": "Seasonal Steelhead presence is low and building.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the St. Joseph Steelhead ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -33559,6 +33668,7 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
           "nextConditionRefreshAt": "2026-10-01T05:00:00.000Z",
           "runStage": {
             "stage": "beginning",
+            "copyStrategy": "st_joseph_corridor",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -33581,14 +33691,14 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
               "peakToEndDays": 37
             },
             "label": "Beginning",
-            "headline": "The first Steelhead are beginning to enter the river.",
-            "whereToStart": "Lower Michigan travel and holding water toward Berrien Springs, while recognizing that summer-run Skamania may already be distributed farther upstream through open passage.",
-            "detail": "Fresh fish may be present, but numbers are still scattered and can arrive in uneven waves before the broader fall fishery develops. Five passage facilities allow distribution from the lower river through South Bend and Mishawaka, but Twin Branch is the hard upstream limit and Niles measurements are reach-specific.",
-            "tip": "Cover lower-Michigan travel lanes and their first deep resting water before moving toward Niles. Treat inland Skamania separately from evidence of a new winter-run wave.",
+            "headline": "The first fall Steelhead are entering the St. Joseph River.",
+            "whereToStart": "Start in the Lower river (St. Joseph harbor–Berrien Springs). Add the Middle river (Berrien Springs–Niles) after direct fish activity supports the move.",
+            "detail": "New fall entrants remain scattered while summer-run Skamania may already be farther inland.",
+            "tip": "Cover travel water and the first substantial holding areas before moving upstream.",
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -33634,7 +33744,7 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -33655,7 +33765,7 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
               "gauge_missing"
             ],
             "rulesVersion": "st-joseph-niles-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": null,
@@ -33667,15 +33777,15 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
               "gauge_missing"
             ],
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 42,
             "maximum": 100,
             "label": "Moderate",
-            "headline": "Today’s Steelhead activity outlook is moderate.",
-            "detail": "Some useful factors are present, but the response window is mixed. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Current river behavior is unavailable. Early fall Steelhead are entering with energy reserves intact. This score describes feeding or aggressive responsiveness for fish already in the river, not fresh movement. Measured river conditions describe the St. Joseph mainstem at Niles. Water temperature, clarity, hydraulic shape, access, and fishing conditions can differ in the harbor and lower Michigan river, at individual dam tailwaters, and through South Bend, Mishawaka, and the Twin Branch reach. One important reading is unavailable or comes from tomorrow’s forecast, so the outlook is kept conservative.",
-            "tip": "Start with 5–9 AM. If conditions change, favor the window that best combines workable light with measured water temperature. Apply this response window at Niles; verify temperature, clarity, flow shape, and legal access again before carrying it to another St. Joseph section.",
+            "headline": "Today’s Niles Steelhead responsiveness is moderate.",
+            "detail": "Conditions offer mixed support for Steelhead responsiveness. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Moderate confidence reflects missing or forecast inputs; river measurements still represent only Niles.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify other sections directly.",
             "reasonCodes": [
               "activity_confidence_moderate",
               "activity_today",
@@ -33727,10 +33837,13 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 12,
+            "displayScore": 10,
+            "scoreIsApproximate": true,
             "stage": "beginning",
             "maximum": 100,
             "riverCeiling": 90,
@@ -33739,14 +33852,14 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
             "curveDirection": "rising",
             "winterHoldingContext": false,
             "label": "Low presence",
-            "headline": "A small number of Steelhead may be in the river, and seasonal presence is still building.",
-            "detail": "This part of the season usually brings low presence, with more fish expected to enter and spread through the river. This is a seasonal estimate, not a live fish count. This seasonal presence applies to the accessible St. Joseph corridor as a whole; it does not claim equal fish numbers at the harbor, Niles, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Treat this as an early, low-odds river opportunity. Expect scattered results, and use direct fish activity before committing the full day. Use Migration Stage to choose the specific St. Joseph section, then verify that water directly.",
+            "headline": "Seasonal Steelhead presence is low and building.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the St. Joseph Steelhead ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": null,
           "weather": {
@@ -33990,6 +34103,7 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
           "nextConditionRefreshAt": "2026-10-01T05:00:00.000Z",
           "runStage": {
             "stage": "beginning",
+            "copyStrategy": "st_joseph_corridor",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -34012,14 +34126,14 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
               "peakToEndDays": 37
             },
             "label": "Beginning",
-            "headline": "The first Steelhead are beginning to enter the river.",
-            "whereToStart": "Lower Michigan travel and holding water toward Berrien Springs, while recognizing that summer-run Skamania may already be distributed farther upstream through open passage.",
-            "detail": "Fresh fish may be present, but numbers are still scattered and can arrive in uneven waves before the broader fall fishery develops. Five passage facilities allow distribution from the lower river through South Bend and Mishawaka, but Twin Branch is the hard upstream limit and Niles measurements are reach-specific.",
-            "tip": "Cover lower-Michigan travel lanes and their first deep resting water before moving toward Niles. Treat inland Skamania separately from evidence of a new winter-run wave.",
+            "headline": "The first fall Steelhead are entering the St. Joseph River.",
+            "whereToStart": "Start in the Lower river (St. Joseph harbor–Berrien Springs). Add the Middle river (Berrien Springs–Niles) after direct fish activity supports the move.",
+            "detail": "New fall entrants remain scattered while summer-run Skamania may already be farther inland.",
+            "tip": "Cover travel water and the first substantial holding areas before moving upstream.",
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -34065,7 +34179,7 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -34087,14 +34201,14 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
               "temperature_unavailable"
             ],
             "rulesVersion": "st-joseph-niles-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 93,
             "label": "Excellent",
             "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river. This flow shape applies to the Niles mainstem reach only; verify the harbor, lower Michigan river, individual tailwaters, and Indiana water directly.",
-            "tip": "Begin on the primary travel lane feeding deep holding water. Work each hole from its head through the inside seam and tail, then keep moving until fish establish a pattern. Apply this recommendation at Niles; recheck water shape and safe access before carrying it to another St. Joseph section.",
+            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. This read applies only to the Niles mainstem reach.",
+            "tip": "Cover readable seams and holding water with a controlled presentation. Verify every other section directly.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band"
@@ -34105,15 +34219,15 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 53,
             "maximum": 100,
             "label": "Moderate",
-            "headline": "Today’s Steelhead activity outlook is moderate.",
-            "detail": "Some useful factors are present, but the response window is mixed. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Measured water temperature is unavailable. Early fall Steelhead are entering with energy reserves intact. This score describes feeding or aggressive responsiveness for fish already in the river, not fresh movement. Measured river conditions describe the St. Joseph mainstem at Niles. Water temperature, clarity, hydraulic shape, access, and fishing conditions can differ in the harbor and lower Michigan river, at individual dam tailwaters, and through South Bend, Mishawaka, and the Twin Branch reach. One important reading is unavailable or comes from tomorrow’s forecast, so the outlook is kept conservative.",
-            "tip": "Start with 5–9 AM. If conditions change, favor the window that best combines workable light with measured water temperature. Apply this response window at Niles; verify temperature, clarity, flow shape, and legal access again before carrying it to another St. Joseph section.",
+            "headline": "Today’s Niles Steelhead responsiveness is moderate.",
+            "detail": "Conditions offer mixed support for Steelhead responsiveness. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Moderate confidence reflects missing or forecast inputs; river measurements still represent only Niles.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify other sections directly.",
             "reasonCodes": [
               "activity_confidence_moderate",
               "activity_today",
@@ -34165,10 +34279,13 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 12,
+            "displayScore": 10,
+            "scoreIsApproximate": true,
             "stage": "beginning",
             "maximum": 100,
             "riverCeiling": 90,
@@ -34177,14 +34294,14 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
             "curveDirection": "rising",
             "winterHoldingContext": false,
             "label": "Low presence",
-            "headline": "A small number of Steelhead may be in the river, and seasonal presence is still building.",
-            "detail": "This part of the season usually brings low presence, with more fish expected to enter and spread through the river. This is a seasonal estimate, not a live fish count. This seasonal presence applies to the accessible St. Joseph corridor as a whole; it does not claim equal fish numbers at the harbor, Niles, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Treat this as an early, low-odds river opportunity. Expect scattered results, and use direct fish activity before committing the full day. Use Migration Stage to choose the specific St. Joseph section, then verify that water directly.",
+            "headline": "Seasonal Steelhead presence is low and building.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the St. Joseph Steelhead ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",

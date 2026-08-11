@@ -50,15 +50,15 @@ Deno.test("St. Joseph Coho uses a broad 7/10 September-November curve", () => {
   assertEquals(run.runWindow.peak, "10-10");
 });
 
-Deno.test("St. Joseph Coho stage copy follows the five-ladder corridor safely", () => {
+Deno.test("St. Joseph Coho stage copy follows the three-section corridor safely", () => {
   const beginning = resolveRunStage(run, "2026-09-05");
   assertMatch(beginning.whereToStart ?? "", /Berrien Springs/i);
   assertMatch(beginning.whereToStart ?? "", /Niles/i);
 
   const broad = resolveRunStage(run, "2026-10-02");
   assertEquals(broad.stage, "building");
-  assertMatch(broad.whereToStart ?? "", /South Bend/i);
-  assertMatch(broad.whereToStart ?? "", /Mishawaka/i);
+  assertMatch(broad.whereToStart ?? "", /Middle river/i);
+  assertMatch(broad.whereToStart ?? "", /Upper river/i);
   assertMatch(broad.whereToStart ?? "", /Twin Branch/i);
 
   for (

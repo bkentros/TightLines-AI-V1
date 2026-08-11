@@ -24,6 +24,7 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "nextConditionRefreshAt": "2026-08-01T05:00:00.000Z",
           "runStage": {
             "stage": "post_run",
+            "copyStrategy": "st_joseph_corridor",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -45,16 +46,16 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "startToPeakDays": 24,
               "peakToEndDays": 37
             },
-            "label": "Offseason",
-            "headline": "Chinook salmon are outside their St. Joseph River migration season.",
-            "detail": "This fall migration read is inactive and should not be used to recommend a harbor, Michigan, Niles, or Indiana starting reach.",
-            "tip": "Choose a species with an active St. Joseph seasonal window and return to this read when early monitoring begins.",
-            "whereToStart": "Shift to an in-season species and do not plan a St. Joseph Chinook salmon migration trip from this inactive calendar.",
+            "label": "Fall run complete",
+            "headline": "The St. Joseph Chinook salmon fall run is complete.",
+            "detail": "This seasonal run estimate is inactive until staging begins again.",
+            "tip": "Return when St. Joseph fall-run staging begins.",
+            "whereToStart": "There is no active St. Joseph starting section for this fall run.",
             "reasonCodes": [
               "stage_post_run",
               "stage_offseason"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Not monitoring yet",
@@ -79,7 +80,7 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "conditions_monitoring_inactive"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -100,14 +101,14 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "push_tracking_offseason"
             ],
             "rulesVersion": "st-joseph-fall-chinook-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 93,
             "label": "Excellent",
             "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river. This flow shape applies to the Niles mainstem reach only; verify the harbor, lower Michigan river, individual tailwaters, and Indiana water directly.",
-            "tip": "Begin on the primary travel lane feeding deep holding water. Work each hole from its head through the inside seam and tail, then keep moving until fish establish a pattern. Apply this recommendation at Niles; recheck water shape and safe access before carrying it to another St. Joseph section.",
+            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. This read applies only to the Niles mainstem reach.",
+            "tip": "Cover readable seams and holding water with a controlled presentation. Verify every other section directly.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band"
@@ -118,11 +119,12 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": null,
           "fishInRiver": {
-            "score": 0,
+            "score": null,
+            "scoreIsApproximate": false,
             "stage": "post_run",
             "maximum": 100,
             "riverCeiling": 30,
@@ -130,15 +132,15 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "curveFraction": 0,
             "curveDirection": "outside",
             "winterHoldingContext": false,
-            "label": "Offseason",
-            "headline": "Chinook salmon are outside their river migration season.",
-            "detail": "A dependable seasonal presence of Chinook salmon is not expected in the river right now.",
-            "tip": "Do not build a river trip around this species right now. Target a species with an active seasonal window and return as the next migration approaches.",
+            "label": "Fall run complete",
+            "headline": "The St. Joseph Chinook salmon fall run is complete.",
+            "detail": "Chinook salmon staging typically begins in mid August. This seasonal estimate is inactive until then.",
+            "tip": "Check back in mid August when St. Joseph fall-run tracking resumes.",
             "reasonCodes": [
               "stage_post_run",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -364,13 +366,7 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "data_quality_fresh"
             ]
           },
-          "interpretationNote": {
-            "headline": "The river should fish well, but seasonal fish presence is still low.",
-            "detail": "Good flow makes presentations easier, but it does not put fish in the river. Begin in the deepest established holding water and skip broad searches through fast travel lanes as seasonal presence thins.",
-            "reasonCodes": [
-              "good_fishability_low_presence"
-            ]
-          },
+          "interpretationNote": null,
           "secondaryNote": "Based on the USGS gauge at Niles. It describes the Niles reach; the harbor, lower river, individual dam tailwaters, South Bend, Mishawaka, and Twin Branch may look different.",
           "safety": {
             "regulationReminder": "Select Michigan or Indiana for the correct jurisdiction. Always verify current official regulations, public access, posted closures, and dam safety boundaries.",
@@ -397,6 +393,7 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "nextConditionRefreshAt": "2026-08-11T05:00:00.000Z",
           "runStage": {
             "stage": "pre_run",
+            "copyStrategy": "st_joseph_corridor",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -419,14 +416,14 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "peakToEndDays": 37
             },
             "label": "Before migration",
-            "headline": "Chinook salmon have not begun their dependable St. Joseph River migration.",
-            "detail": "The seasonal calendar still points to Lake Michigan, the harbor, and the river mouth—not an established inland opportunity.",
-            "tip": "Keep the trip lakeward and return when staging monitoring begins. Do not let rain or one isolated river fish turn into a corridor-wide claim.",
-            "whereToStart": "Keep the search in Lake Michigan, the harbor, and river-mouth water until river staging begins.",
+            "headline": "Chinook salmon have not started their main St. Joseph River run.",
+            "detail": "The river-entry window has not opened yet. An isolated river fish would be an early exception.",
+            "tip": "Keep the trip lakeward and return when staging monitoring begins.",
+            "whereToStart": "Stay with Lake Michigan, the St. Joseph harbor, and the river mouth.",
             "reasonCodes": [
               "stage_pre_run"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Not monitoring yet",
@@ -451,7 +448,7 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "conditions_monitoring_inactive"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -472,14 +469,14 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "push_tracking_not_started"
             ],
             "rulesVersion": "st-joseph-fall-chinook-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 93,
             "label": "Excellent",
             "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river. This flow shape applies to the Niles mainstem reach only; verify the harbor, lower Michigan river, individual tailwaters, and Indiana water directly.",
-            "tip": "Begin on the primary travel lane feeding deep holding water. Work each hole from its head through the inside seam and tail, then keep moving until fish establish a pattern. Apply this recommendation at Niles; recheck water shape and safe access before carrying it to another St. Joseph section.",
+            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. This read applies only to the Niles mainstem reach.",
+            "tip": "Cover readable seams and holding water with a controlled presentation. Verify every other section directly.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band"
@@ -490,11 +487,13 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": null,
           "fishInRiver": {
             "score": 0,
+            "displayScore": 0,
+            "scoreIsApproximate": false,
             "stage": "pre_run",
             "maximum": 100,
             "riverCeiling": 30,
@@ -503,14 +502,14 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "curveDirection": "outside",
             "winterHoldingContext": false,
             "label": "Not expected yet",
-            "headline": "Even a limited dependable presence of Chinook salmon is not expected in the river yet.",
-            "detail": "Most Chinook salmon are not expected to have entered the river in dependable numbers. Any fish already present would be early exceptions. This seasonal presence applies to the accessible St. Joseph corridor as a whole; it does not claim equal fish numbers at the harbor, Niles, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Treat this as no dependable in-river opportunity yet. Keep expectations at zero, and do not interpret an isolated early fish as evidence of dependable river presence. Use Migration Stage to choose the specific St. Joseph section, then verify that water directly.",
+            "headline": "Dependable Chinook salmon presence is not expected in the St. Joseph yet.",
+            "detail": "The seasonal estimate remains at zero. Any river fish would be an early exception.",
+            "tip": "Use Migration Stage for harbor and river-entry context.",
             "reasonCodes": [
               "stage_pre_run",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -769,6 +768,7 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "nextConditionRefreshAt": "2026-08-16T05:00:00.000Z",
           "runStage": {
             "stage": "pre_run",
+            "copyStrategy": "st_joseph_corridor",
             "stagingContext": true,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -791,15 +791,15 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "peakToEndDays": 37
             },
             "label": "Before migration",
-            "headline": "Chinook salmon may be staging around the St. Joseph harbor and mouth, but dependable inland passage has not begun.",
-            "detail": "A few early Chinook salmon can enter lower Michigan water, but this smaller run should not be projected through Niles, South Bend, or Mishawaka from one fish near the mouth.",
-            "tip": "Fish the harbor-to-river transition and one deep lower-river travel lane. Skip an inland corridor run until Migration Stage and Fish In River show dependable entry.",
-            "whereToStart": "Start with the St. Joseph harbor, river mouth, and deep lower Michigan travel water; do not assume fish have passed Niles or reached South Bend.",
+            "headline": "Chinook salmon may be staging near the St. Joseph River entrance.",
+            "detail": "Staging does not confirm dependable river entry. This remains a limited, sectional Chinook salmon run.",
+            "tip": "Keep the inland check brief. Do not move upriver from calendar timing alone.",
+            "whereToStart": "Start at the St. Joseph harbor and river mouth. Add the Lower river (St. Joseph harbor–Berrien Springs) only for an early-fish check.",
             "reasonCodes": [
               "stage_pre_run",
               "stage_pre_run_staging"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Evaluating",
@@ -824,7 +824,7 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "conditions_checkpoint_evaluating"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -845,14 +845,14 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "push_tracking_not_started"
             ],
             "rulesVersion": "st-joseph-fall-chinook-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 93,
             "label": "Excellent",
             "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river. This flow shape applies to the Niles mainstem reach only; verify the harbor, lower Michigan river, individual tailwaters, and Indiana water directly.",
-            "tip": "Begin on the primary travel lane feeding deep holding water. Work each hole from its head through the inside seam and tail, then keep moving until fish establish a pattern. Apply this recommendation at Niles; recheck water shape and safe access before carrying it to another St. Joseph section.",
+            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. This read applies only to the Niles mainstem reach.",
+            "tip": "Cover readable seams and holding water with a controlled presentation. Verify every other section directly.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band"
@@ -863,15 +863,15 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 79,
             "maximum": 100,
             "label": "Active",
-            "headline": "Today’s Chinook activity outlook is active.",
-            "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. Dependable river presence has not begun. The score applies only to a sparse early Chinook that may already have entered. Measured river conditions describe the St. Joseph mainstem at Niles. Water temperature, clarity, hydraulic shape, and presentation conditions can differ in the harbor and lower Michigan river, at individual ladder tailwaters, and through South Bend, Mishawaka, and the Twin Branch reach. This smaller Chinook return is often sectional; a favorable Niles response window does not prove equal fish presence through the five-ladder corridor. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
-            "tip": "Start with 5–9 AM. If the sky changes from the forecast, favor the darkest practical window. Apply this response window at Niles; verify temperature, clarity, flow shape, and legal access again before carrying it to another St. Joseph section.",
+            "headline": "Today’s Niles responsiveness is active, but dependable Chinook presence has not begun.",
+            "detail": "Conditions support a meaningful Chinook response. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. This applies only to an early Chinook already near Niles.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify other sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -923,10 +923,13 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 0,
+            "displayScore": 0,
+            "scoreIsApproximate": false,
             "stage": "pre_run",
             "maximum": 100,
             "riverCeiling": 30,
@@ -935,14 +938,14 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "curveDirection": "outside",
             "winterHoldingContext": false,
             "label": "Not expected yet",
-            "headline": "Even a limited dependable presence of Chinook salmon is not expected in the river yet.",
-            "detail": "Most Chinook salmon are not expected to have entered the river in dependable numbers. Any fish already present would be early exceptions. This seasonal presence applies to the accessible St. Joseph corridor as a whole; it does not claim equal fish numbers at the harbor, Niles, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Treat this as no dependable in-river opportunity yet. Keep expectations at zero, and do not interpret an isolated early fish as evidence of dependable river presence. Use Migration Stage to choose the specific St. Joseph section, then verify that water directly.",
+            "headline": "Dependable Chinook salmon presence is not expected in the St. Joseph yet.",
+            "detail": "The seasonal estimate remains at zero. Any river fish would be an early exception.",
+            "tip": "Use Migration Stage for harbor and river-entry context.",
             "reasonCodes": [
               "stage_pre_run",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -1201,6 +1204,7 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "nextConditionRefreshAt": "2026-09-02T05:00:00.000Z",
           "runStage": {
             "stage": "beginning",
+            "copyStrategy": "st_joseph_corridor",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -1223,14 +1227,14 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "peakToEndDays": 37
             },
             "label": "Beginning",
-            "headline": "The first Chinook salmon are entering the St. Joseph, but the opportunity remains small and sectional.",
-            "detail": "Lower Michigan travel and holding water is the most defensible first look. Passage through the five ladders can occur, but Niles or Indiana fish should be treated as selective opportunities—not broad distribution.",
-            "tip": "Cover a lower-Michigan travel-and-holding sequence first. Move upriver only after direct fish activity, local observations, or established passage supports the change.",
-            "whereToStart": "Start in deep lower-Michigan travel and holding water below Berrien Springs; make Niles a selective second check and do not chase this smaller Chinook return across the full corridor.",
+            "headline": "The first Chinook salmon are entering the St. Joseph, but the run remains limited.",
+            "detail": "Early Chinook remain scattered and concentrated in select water.",
+            "tip": "Cover travel water and the first substantial holding areas before moving upstream.",
+            "whereToStart": "Start in the Lower river (St. Joseph harbor–Berrien Springs). Add the Middle river (Berrien Springs–Niles) only after direct fish activity supports the move.",
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -1278,7 +1282,7 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -1292,9 +1296,9 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "push": {
             "score": 30,
             "label": "No clear push",
-            "headline": "Today's water does not show a clear signal for a fresh wave of fish.",
-            "detail": "The river is holding steady with no meaningful rise yet. Water temperature is favorable for fall migration and is relatively steady. Recent weather estimates indicate very little rain around the river. This Push describes fresh-movement support at Niles only; it does not prove a new wave at the harbor, Berrien Springs, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Fish established holding water from the head through the inside seam and tail. Do not spend the day racing between lower travel lanes for a wave the water does not support. Use the Niles signal to choose between Niles-area holding water and a lower-Michigan travel-water check; verify Indiana movement directly.",
+            "headline": "Niles water does not show a clear fresh-movement signal.",
+            "detail": "Niles flow is steady without a meaningful rise. Water temperature is favorable for fall migration and is relatively steady. Recent watershed weather shows little rain.",
+            "tip": "Keep Migration Stage’s section primary. Do not shift sections from this Niles read.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
@@ -1313,14 +1317,14 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-fall-chinook-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 93,
             "label": "Excellent",
             "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river. This flow shape applies to the Niles mainstem reach only; verify the harbor, lower Michigan river, individual tailwaters, and Indiana water directly.",
-            "tip": "Begin on the primary travel lane feeding deep holding water. Work each hole from its head through the inside seam and tail, then keep moving until fish establish a pattern. Apply this recommendation at Niles; recheck water shape and safe access before carrying it to another St. Joseph section.",
+            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. This read applies only to the Niles mainstem reach.",
+            "tip": "Cover readable seams and holding water with a controlled presentation. Verify every other section directly.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band"
@@ -1331,15 +1335,15 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 79,
             "maximum": 100,
             "label": "Active",
-            "headline": "Today’s Chinook activity outlook is active.",
-            "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. Early lake-fresh Chinook can remain reactive in tolerable water, so warmth is penalized without automatically erasing response potential. Measured river conditions describe the St. Joseph mainstem at Niles. Water temperature, clarity, hydraulic shape, and presentation conditions can differ in the harbor and lower Michigan river, at individual ladder tailwaters, and through South Bend, Mishawaka, and the Twin Branch reach. This smaller Chinook return is often sectional; a favorable Niles response window does not prove equal fish presence through the five-ladder corridor. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
-            "tip": "Start with 5–9 AM. If the sky changes from the forecast, favor the darkest practical window. Apply this response window at Niles; verify temperature, clarity, flow shape, and legal access again before carrying it to another St. Joseph section.",
+            "headline": "Today’s Niles Chinook responsiveness is active.",
+            "detail": "Conditions support a meaningful Chinook response. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Flow and temperature represent only the Niles mainstem reach.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify other sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -1391,10 +1395,13 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 3,
+            "displayScore": 5,
+            "scoreIsApproximate": true,
             "stage": "beginning",
             "maximum": 100,
             "riverCeiling": 30,
@@ -1403,14 +1410,14 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "curveDirection": "rising",
             "winterHoldingContext": false,
             "label": "Low presence",
-            "headline": "A few Chinook salmon may be in the river, and this limited seasonal presence is still building.",
-            "detail": "This part of the season usually brings low presence, with a smaller number of fish expected to enter and occupy its most dependable water. This is a seasonal estimate, not a live fish count. This seasonal presence applies to the accessible St. Joseph corridor as a whole; it does not claim equal fish numbers at the harbor, Niles, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Treat this as an early, low-odds river opportunity. Expect scattered results, and use direct fish activity before committing the full day. Use Migration Stage to choose the specific St. Joseph section, then verify that water directly.",
+            "headline": "Seasonal Chinook salmon presence is low and building.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the St. Joseph Chinook salmon ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -1670,6 +1677,7 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "nextConditionRefreshAt": "2026-09-16T05:00:00.000Z",
           "runStage": {
             "stage": "building",
+            "copyStrategy": "st_joseph_corridor",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -1692,14 +1700,14 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "peakToEndDays": 37
             },
             "label": "Building",
-            "headline": "Chinook salmon are established in select St. Joseph sections, but this remains a limited run.",
-            "detail": "Earlier fish can be holding from lower Michigan through Niles, with some passage into South Bend and Mishawaka. Empty water between fish remains normal for this smaller Chinook return.",
-            "tip": "Pick one proven Michigan or Niles holding section and fish it thoroughly before making one legal Indiana check. Do not run every ladder looking for scattered Chinook.",
-            "whereToStart": "Work proven Berrien Springs-to-Niles holding water first, then make one legal South Bend passage check rather than assuming broad corridor occupation.",
+            "headline": "Chinook salmon are established in select St. Joseph sections.",
+            "detail": "This smaller Chinook run remains selective, with empty water between fish.",
+            "tip": "Fish one proven section thoroughly before making a selective second check.",
+            "whereToStart": "Start in the Middle river (Berrien Springs–Niles). Compare the Lower river (St. Joseph harbor–Berrien Springs) for newer fish.",
             "reasonCodes": [
               "stage_building"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -1761,7 +1769,7 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "conditions_insufficient",
               "conditions_checkpoint_building_established"
             ],
-            "copyVersion": "river-run-copy-v27",
+            "copyVersion": "river-run-copy-v34",
             "previousCheckpointId": "building_start",
             "previousCheckpointDate": "2026-09-11",
             "previousTimingLabel": "Insufficient evidence"
@@ -1778,9 +1786,9 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "push": {
             "score": 30,
             "label": "No clear push",
-            "headline": "Today's water does not show a clear signal for a fresh wave of fish.",
-            "detail": "The river is holding steady with no meaningful rise yet. Water temperature is favorable for fall migration and is relatively steady. Recent weather estimates indicate very little rain around the river. This Push describes fresh-movement support at Niles only; it does not prove a new wave at the harbor, Berrien Springs, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Fish established holding water from the head through the inside seam and tail. Do not spend the day racing between lower travel lanes for a wave the water does not support. Use the Niles signal to choose between Niles-area holding water and a lower-Michigan travel-water check; verify Indiana movement directly.",
+            "headline": "Niles water does not show a clear fresh-movement signal.",
+            "detail": "Niles flow is steady without a meaningful rise. Water temperature is favorable for fall migration and is relatively steady. Recent watershed weather shows little rain.",
+            "tip": "Keep Migration Stage’s section primary. Do not shift sections from this Niles read.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
@@ -1799,14 +1807,14 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-fall-chinook-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 93,
             "label": "Excellent",
             "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river. This flow shape applies to the Niles mainstem reach only; verify the harbor, lower Michigan river, individual tailwaters, and Indiana water directly.",
-            "tip": "Begin on the primary travel lane feeding deep holding water. Work each hole from its head through the inside seam and tail, then keep moving until fish establish a pattern. Apply this recommendation at Niles; recheck water shape and safe access before carrying it to another St. Joseph section.",
+            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. This read applies only to the Niles mainstem reach.",
+            "tip": "Cover readable seams and holding water with a controlled presentation. Verify every other section directly.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band"
@@ -1817,15 +1825,15 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 79,
             "maximum": 100,
             "label": "Active",
-            "headline": "Today’s Chinook activity outlook is active.",
-            "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. More Chinook are moving and settling into the river; the score describes reaction conditions for fish already present. Measured river conditions describe the St. Joseph mainstem at Niles. Water temperature, clarity, hydraulic shape, and presentation conditions can differ in the harbor and lower Michigan river, at individual ladder tailwaters, and through South Bend, Mishawaka, and the Twin Branch reach. This smaller Chinook return is often sectional; a favorable Niles response window does not prove equal fish presence through the five-ladder corridor. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
-            "tip": "Start with 5–9 AM. If the sky changes from the forecast, favor the darkest practical window. Apply this response window at Niles; verify temperature, clarity, flow shape, and legal access again before carrying it to another St. Joseph section.",
+            "headline": "Today’s Niles Chinook responsiveness is active.",
+            "detail": "Conditions support a meaningful Chinook response. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Flow and temperature represent only the Niles mainstem reach.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify other sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -1877,10 +1885,13 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 17,
+            "displayScore": 15,
+            "scoreIsApproximate": true,
             "stage": "building",
             "maximum": 100,
             "riverCeiling": 30,
@@ -1889,14 +1900,14 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "curveDirection": "rising",
             "winterHoldingContext": false,
             "label": "Moderate presence",
-            "headline": "A smaller number of Chinook salmon are likely in the river, with this limited seasonal presence still building toward its high point.",
-            "detail": "This part of the season usually brings moderate presence, with a smaller number of fish expected to enter and occupy its most dependable water. This is a seasonal estimate, not a live fish count. This seasonal presence applies to the accessible St. Joseph corridor as a whole; it does not claim equal fish numbers at the harbor, Niles, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Plan for an improving but still limited river opportunity. Stay mobile, and require direct fish activity before slowing down. Use Migration Stage to choose the specific St. Joseph section, then verify that water directly.",
+            "headline": "Seasonal Chinook salmon presence is moderate and building.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the St. Joseph Chinook salmon ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_building",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -2150,6 +2161,7 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "nextConditionRefreshAt": "2026-09-26T05:00:00.000Z",
           "runStage": {
             "stage": "peak",
+            "copyStrategy": "st_joseph_corridor",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -2172,14 +2184,14 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "peakToEndDays": 37
             },
             "label": "Peak",
-            "headline": "This is the best St. Joseph Chinook salmon window, but it remains a selective 3-of-10 opportunity.",
-            "detail": "The calendar supports the best chance of finding Chinook in proven lower-Michigan, Niles, or selective Indiana holding water. It does not imply strong or uniform occupation of the full corridor.",
-            "tip": "Choose a proven section and cover deep holding water from head to tail. Change sections only after a clean search, and leave shallow spawning fish undisturbed.",
-            "whereToStart": "Start with proven lower-Michigan and Niles holding water, then make one selective South Bend or Mishawaka check below Twin Branch; this smaller Chinook run is not a reason to cover all 63 miles.",
+            "headline": "This is the best St. Joseph Chinook salmon window, but opportunity remains selective.",
+            "detail": "This is a limited 3-of-10 run, not a claim of strong or uniform presence.",
+            "tip": "Choose one section and cover it completely before changing reaches. Leave shallow spawning fish undisturbed.",
+            "whereToStart": "Start in the Middle river (Berrien Springs–Niles). Treat the Upper river (Niles–Twin Branch Dam) as a selective second check.",
             "reasonCodes": [
               "stage_peak"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -2248,7 +2260,7 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "conditions_insufficient",
               "conditions_checkpoint_peak_start"
             ],
-            "copyVersion": "river-run-copy-v27",
+            "copyVersion": "river-run-copy-v34",
             "previousCheckpointId": "building_established",
             "previousCheckpointDate": "2026-09-15",
             "previousTimingLabel": "Insufficient evidence"
@@ -2265,9 +2277,9 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "push": {
             "score": 30,
             "label": "No clear push",
-            "headline": "Today's water does not show a clear signal for a fresh wave of fish.",
-            "detail": "The river is holding steady with no meaningful rise yet. Water temperature is favorable for fall migration and is relatively steady. Recent weather estimates indicate very little rain around the river. This Push describes fresh-movement support at Niles only; it does not prove a new wave at the harbor, Berrien Springs, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Fish established holding water from the head through the inside seam and tail. Do not spend the day racing between lower travel lanes for a wave the water does not support. Use the Niles signal to choose between Niles-area holding water and a lower-Michigan travel-water check; verify Indiana movement directly.",
+            "headline": "Niles water does not show a clear fresh-movement signal.",
+            "detail": "Niles flow is steady without a meaningful rise. Water temperature is favorable for fall migration and is relatively steady. Recent watershed weather shows little rain.",
+            "tip": "Keep Migration Stage’s section primary. Do not shift sections from this Niles read.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
@@ -2286,14 +2298,14 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-fall-chinook-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 93,
             "label": "Excellent",
             "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river. This flow shape applies to the Niles mainstem reach only; verify the harbor, lower Michigan river, individual tailwaters, and Indiana water directly.",
-            "tip": "Begin on the primary travel lane feeding deep holding water. Work each hole from its head through the inside seam and tail, then keep moving until fish establish a pattern. Apply this recommendation at Niles; recheck water shape and safe access before carrying it to another St. Joseph section.",
+            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. This read applies only to the Niles mainstem reach.",
+            "tip": "Cover readable seams and holding water with a controlled presentation. Verify every other section directly.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band"
@@ -2304,15 +2316,15 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 79,
             "maximum": 100,
             "label": "Active",
-            "headline": "Today’s Chinook activity outlook is active.",
-            "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. Broad seasonal presence improves the chance of locating fish, but this score measures responsiveness rather than abundance. Measured river conditions describe the St. Joseph mainstem at Niles. Water temperature, clarity, hydraulic shape, and presentation conditions can differ in the harbor and lower Michigan river, at individual ladder tailwaters, and through South Bend, Mishawaka, and the Twin Branch reach. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
-            "tip": "Start with 5–9 AM. If the sky changes from the forecast, favor the darkest practical window. Apply this response window at Niles; verify temperature, clarity, flow shape, and legal access again before carrying it to another St. Joseph section.",
+            "headline": "Today’s Niles Chinook responsiveness is active.",
+            "detail": "Conditions support a meaningful Chinook response. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Flow and temperature represent only the Niles mainstem reach.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify other sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -2364,10 +2376,13 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 30,
+            "displayScore": 30,
+            "scoreIsApproximate": false,
             "stage": "peak",
             "maximum": 100,
             "riverCeiling": 30,
@@ -2376,14 +2391,14 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "curveDirection": "near_peak",
             "winterHoldingContext": false,
             "label": "Peak presence",
-            "headline": "Chinook salmon are likely near their highest seasonal presence in the river, although the overall opportunity remains limited.",
-            "detail": "This is the part of the season when in-river presence is usually strongest. Even at that high point, the overall seasonal opportunity remains limited. The read does not place fish in a specific pool or confirm a live count. This seasonal presence applies to the accessible St. Joseph corridor as a whole; it does not claim equal fish numbers at the harbor, Niles, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Treat this as the best part of this river's limited seasonal opportunity, not a high-abundance fishery. Require direct fish activity before committing more time. Use Migration Stage to choose the specific St. Joseph section, then verify that water directly.",
+            "headline": "Seasonal Chinook salmon presence is near its expected St. Joseph peak.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the St. Joseph Chinook salmon ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_peak",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -2643,6 +2658,7 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "nextConditionRefreshAt": "2026-10-06T05:00:00.000Z",
           "runStage": {
             "stage": "peak",
+            "copyStrategy": "st_joseph_corridor",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -2665,14 +2681,14 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "peakToEndDays": 37
             },
             "label": "Peak",
-            "headline": "This is the best St. Joseph Chinook salmon window, but it remains a selective 3-of-10 opportunity.",
-            "detail": "The calendar supports the best chance of finding Chinook in proven lower-Michigan, Niles, or selective Indiana holding water. It does not imply strong or uniform occupation of the full corridor.",
-            "tip": "Choose a proven section and cover deep holding water from head to tail. Change sections only after a clean search, and leave shallow spawning fish undisturbed.",
-            "whereToStart": "Start with proven lower-Michigan and Niles holding water, then make one selective South Bend or Mishawaka check below Twin Branch; this smaller Chinook run is not a reason to cover all 63 miles.",
+            "headline": "This is the best St. Joseph Chinook salmon window, but opportunity remains selective.",
+            "detail": "This is a limited 3-of-10 run, not a claim of strong or uniform presence.",
+            "tip": "Choose one section and cover it completely before changing reaches. Leave shallow spawning fish undisturbed.",
+            "whereToStart": "Start in the Middle river (Berrien Springs–Niles). Treat the Upper river (Niles–Twin Branch Dam) as a selective second check.",
             "reasonCodes": [
               "stage_peak"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Timing complete",
@@ -2750,7 +2766,7 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "conditions_checkpoint_peak_complete",
               "conditions_timing_complete"
             ],
-            "copyVersion": "river-run-copy-v27",
+            "copyVersion": "river-run-copy-v34",
             "previousCheckpointId": "peak_start",
             "previousCheckpointDate": "2026-09-22",
             "previousTimingLabel": "Insufficient evidence"
@@ -2767,9 +2783,9 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "push": {
             "score": 30,
             "label": "No clear push",
-            "headline": "Today's water does not show a clear signal for a fresh wave of fish.",
-            "detail": "The river is holding steady with no meaningful rise yet. Water temperature is favorable for fall migration and is relatively steady. Recent weather estimates indicate very little rain around the river. This Push describes fresh-movement support at Niles only; it does not prove a new wave at the harbor, Berrien Springs, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Fish established holding water from the head through the inside seam and tail. Do not spend the day racing between lower travel lanes for a wave the water does not support. Use the Niles signal to choose between Niles-area holding water and a lower-Michigan travel-water check; verify Indiana movement directly.",
+            "headline": "Niles water does not show a clear fresh-movement signal.",
+            "detail": "Niles flow is steady without a meaningful rise. Water temperature is favorable for fall migration and is relatively steady. Recent watershed weather shows little rain.",
+            "tip": "Keep Migration Stage’s section primary. Do not shift sections from this Niles read.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
@@ -2788,14 +2804,14 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-fall-chinook-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 93,
             "label": "Excellent",
             "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river. This flow shape applies to the Niles mainstem reach only; verify the harbor, lower Michigan river, individual tailwaters, and Indiana water directly.",
-            "tip": "Begin on the primary travel lane feeding deep holding water. Work each hole from its head through the inside seam and tail, then keep moving until fish establish a pattern. Apply this recommendation at Niles; recheck water shape and safe access before carrying it to another St. Joseph section.",
+            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. This read applies only to the Niles mainstem reach.",
+            "tip": "Cover readable seams and holding water with a controlled presentation. Verify every other section directly.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band"
@@ -2806,15 +2822,15 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 79,
             "maximum": 100,
             "label": "Active",
-            "headline": "Today’s Chinook activity outlook is active.",
-            "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. Broad seasonal presence improves the chance of locating fish, but this score measures responsiveness rather than abundance. Measured river conditions describe the St. Joseph mainstem at Niles. Water temperature, clarity, hydraulic shape, and presentation conditions can differ in the harbor and lower Michigan river, at individual ladder tailwaters, and through South Bend, Mishawaka, and the Twin Branch reach. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
-            "tip": "Start with 5–9 AM. If the sky changes from the forecast, favor the darkest practical window. Apply this response window at Niles; verify temperature, clarity, flow shape, and legal access again before carrying it to another St. Joseph section.",
+            "headline": "Today’s Niles Chinook responsiveness is active.",
+            "detail": "Conditions support a meaningful Chinook response. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Flow and temperature represent only the Niles mainstem reach.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify other sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -2866,10 +2882,13 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 27,
+            "displayScore": 30,
+            "scoreIsApproximate": true,
             "stage": "peak",
             "maximum": 100,
             "riverCeiling": 30,
@@ -2878,14 +2897,14 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "curveDirection": "falling",
             "winterHoldingContext": false,
             "label": "Peak presence",
-            "headline": "Seasonal timing still supports Chinook salmon being near their strongest in-river presence, even if the migration may be just beyond its usual peak.",
-            "detail": "This point in the season may sit just beyond the usual peak while the limited seasonal opportunity remains near its high point. This is a seasonal estimate, not a live fish count. This seasonal presence applies to the accessible St. Joseph corridor as a whole; it does not claim equal fish numbers at the harbor, Niles, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Treat this as near the high point of a limited seasonal opportunity. Focus on the most dependable water, and require direct fish activity before committing more time. Use Migration Stage to choose the specific St. Joseph section, then verify that water directly.",
+            "headline": "Seasonal Chinook salmon presence is near its expected St. Joseph peak.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the St. Joseph Chinook salmon ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_peak",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -3145,6 +3164,7 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "nextConditionRefreshAt": "2026-10-16T05:00:00.000Z",
           "runStage": {
             "stage": "tapering",
+            "copyStrategy": "st_joseph_corridor",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -3168,13 +3188,13 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             },
             "label": "Tapering",
             "headline": "This can still offer a limited Chinook salmon opportunity, even as fresh arrivals typically become less consistent.",
-            "detail": "Fresh passage is becoming less dependable, so established Niles, South Bend, and Mishawaka holding or spawning water matters more than racing the lower river for a new wave.",
-            "tip": "Start in proven deep holding water, check lower travel lanes only when Push supports new movement, and leave fish on shallow gravel alone.",
-            "whereToStart": "Prioritize established holding and spawning water near Niles, South Bend, and Mishawaka while checking the lower river only for a late fresh wave.",
+            "detail": "Fresh entry is slowing, so established holding water matters more than Lower-river travel lanes.",
+            "tip": "Start in proven holding water. Check the Lower river only when Push supports fresh movement.",
+            "whereToStart": "Start in established Middle river (Berrien Springs–Niles) or Upper river (Niles–Twin Branch Dam) holding water.",
             "reasonCodes": [
               "stage_tapering"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Timing complete",
@@ -3252,7 +3272,7 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "conditions_checkpoint_peak_complete",
               "conditions_timing_complete"
             ],
-            "copyVersion": "river-run-copy-v27",
+            "copyVersion": "river-run-copy-v34",
             "previousCheckpointId": "peak_start",
             "previousCheckpointDate": "2026-09-22",
             "previousTimingLabel": "Insufficient evidence"
@@ -3269,9 +3289,9 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "push": {
             "score": 30,
             "label": "No clear push",
-            "headline": "Today's water does not show a clear signal for a fresh wave of fish.",
-            "detail": "The river is holding steady with no meaningful rise yet. Water temperature is favorable for fall migration and is relatively steady. Recent weather estimates indicate very little rain around the river. This Push describes fresh-movement support at Niles only; it does not prove a new wave at the harbor, Berrien Springs, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Fish established holding water from the head through the inside seam and tail. Do not spend the day racing between lower travel lanes for a wave the water does not support. Use the Niles signal to choose between Niles-area holding water and a lower-Michigan travel-water check; verify Indiana movement directly.",
+            "headline": "Niles water does not show a clear fresh-movement signal.",
+            "detail": "Niles flow is steady without a meaningful rise. Water temperature is favorable for fall migration and is relatively steady. Recent watershed weather shows little rain.",
+            "tip": "Keep Migration Stage’s section primary. Do not shift sections from this Niles read.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
@@ -3290,14 +3310,14 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-fall-chinook-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 93,
             "label": "Excellent",
             "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river. This flow shape applies to the Niles mainstem reach only; verify the harbor, lower Michigan river, individual tailwaters, and Indiana water directly.",
-            "tip": "Begin on the primary travel lane feeding deep holding water. Work each hole from its head through the inside seam and tail, then keep moving until fish establish a pattern. Apply this recommendation at Niles; recheck water shape and safe access before carrying it to another St. Joseph section.",
+            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. This read applies only to the Niles mainstem reach.",
+            "tip": "Cover readable seams and holding water with a controlled presentation. Verify every other section directly.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band"
@@ -3308,15 +3328,15 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 69,
             "maximum": 100,
             "label": "Active",
-            "headline": "Today’s Chinook activity outlook is active.",
-            "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. This score represents a Chinook of unknown condition at this point in the season. A newly arrived or fresher fish may be more active than this score, while a spawning or deteriorating fish may be less responsive. Measured river conditions describe the St. Joseph mainstem at Niles. Water temperature, clarity, hydraulic shape, and presentation conditions can differ in the harbor and lower Michigan river, at individual ladder tailwaters, and through South Bend, Mishawaka, and the Twin Branch reach. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
-            "tip": "Compare the four time windows, but treat every difference as conditional on finding a living Chinook still capable of responding. Apply this response window at Niles; verify temperature, clarity, flow shape, and legal access again before carrying it to another St. Joseph section.",
+            "headline": "Today’s Niles Chinook responsiveness is active.",
+            "detail": "Conditions support a meaningful Chinook response. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Late-run Chinook condition varies widely, so individual fish may respond above or below this outlook.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify other sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -3369,10 +3389,13 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 20,
+            "displayScore": 20,
+            "scoreIsApproximate": true,
             "stage": "tapering",
             "maximum": 100,
             "riverCeiling": 30,
@@ -3381,14 +3404,14 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "curveDirection": "falling",
             "winterHoldingContext": false,
             "label": "High presence",
-            "headline": "Seasonal timing still supports a smaller number of Chinook salmon in the river's dependable holding water, although fresh arrivals may be less consistent than near peak.",
-            "detail": "Seasonal presence is usually elevated relative to the rest of the season. The overall seasonal opportunity remains limited, while fresh arrivals often become less consistent later in the season. This is a seasonal estimate, not a live fish count. This seasonal presence applies to the accessible St. Joseph corridor as a whole; it does not claim equal fish numbers at the harbor, Niles, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Treat this as near the high point of a limited seasonal opportunity. Focus on the most dependable water, and require direct fish activity before committing more time. Use Migration Stage to choose the specific St. Joseph section, then verify that water directly.",
+            "headline": "Seasonal Chinook salmon presence is high and declining.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the St. Joseph Chinook salmon ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_tapering",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -3642,6 +3665,7 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "nextConditionRefreshAt": "2026-10-28T05:00:00.000Z",
           "runStage": {
             "stage": "ending",
+            "copyStrategy": "st_joseph_corridor",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -3665,13 +3689,13 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             },
             "label": "Ending",
             "headline": "A limited late-season Chinook salmon opportunity may remain in dependable river sections.",
-            "detail": "Most remaining fish have been in the system for some time. A fresh fish is possible, but the guide-level plan is a short, selective holding-water search—not a corridor-wide run.",
-            "tip": "Fish one or two proven deep holding areas, avoid shallow spawning fish, and stop searching if direct signs are absent.",
-            "whereToStart": "Focus on proven deep holding water near Niles, South Bend, or Mishawaka; treat fresh lower-river entry as secondary and leave shallow spawning fish alone.",
+            "detail": "Most remaining fish have been in the river for some time. A fresh fish is possible but not dependable.",
+            "tip": "Fish one proven holding section, avoid shallow spawning fish, and stop searching if direct signs are absent.",
+            "whereToStart": "Start in one proven Middle river (Berrien Springs–Niles) or Upper river (Niles–Twin Branch Dam) holding section.",
             "reasonCodes": [
               "stage_ending"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Timing complete",
@@ -3749,7 +3773,7 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "conditions_checkpoint_peak_complete",
               "conditions_timing_complete"
             ],
-            "copyVersion": "river-run-copy-v27",
+            "copyVersion": "river-run-copy-v34",
             "previousCheckpointId": "peak_start",
             "previousCheckpointDate": "2026-09-22",
             "previousTimingLabel": "Insufficient evidence"
@@ -3766,9 +3790,9 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "push": {
             "score": 30,
             "label": "No clear push",
-            "headline": "Today's water does not show a clear signal for a fresh wave of fish.",
-            "detail": "The river is holding steady with no meaningful rise yet. Water temperature is favorable for fall migration and is relatively steady. Recent weather estimates indicate very little rain around the river. This Push describes fresh-movement support at Niles only; it does not prove a new wave at the harbor, Berrien Springs, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Fish established holding water from the head through the inside seam and tail. Do not spend the day racing between lower travel lanes for a wave the water does not support. Use the Niles signal to choose between Niles-area holding water and a lower-Michigan travel-water check; verify Indiana movement directly.",
+            "headline": "Niles water does not show a clear fresh-movement signal.",
+            "detail": "Niles flow is steady without a meaningful rise. Water temperature is favorable for fall migration and is relatively steady. Recent watershed weather shows little rain.",
+            "tip": "Keep Migration Stage’s section primary. Do not shift sections from this Niles read.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
@@ -3787,14 +3811,14 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-fall-chinook-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 93,
             "label": "Excellent",
             "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river. This flow shape applies to the Niles mainstem reach only; verify the harbor, lower Michigan river, individual tailwaters, and Indiana water directly.",
-            "tip": "Begin on the primary travel lane feeding deep holding water. Work each hole from its head through the inside seam and tail, then keep moving until fish establish a pattern. Apply this recommendation at Niles; recheck water shape and safe access before carrying it to another St. Joseph section.",
+            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. This read applies only to the Niles mainstem reach.",
+            "tip": "Cover readable seams and holding water with a controlled presentation. Verify every other section directly.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band"
@@ -3805,15 +3829,15 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 49,
             "maximum": 100,
             "label": "Moderate",
-            "headline": "Today’s Chinook activity outlook is moderate.",
-            "detail": "Some useful factors are present, but the response window is mixed. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. This score represents a remaining Chinook of unknown condition late in the season. A newly arrived or fresher fish may be more active than this score, while a spent or dying fish may respond less or not at all. Measured river conditions describe the St. Joseph mainstem at Niles. Water temperature, clarity, hydraulic shape, and presentation conditions can differ in the harbor and lower Michigan river, at individual ladder tailwaters, and through South Bend, Mishawaka, and the Twin Branch reach. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
-            "tip": "No late-season window should be treated as broadly favorable; use the block scores only for a living Chinook that is still capable of reacting. Apply this response window at Niles; verify temperature, clarity, flow shape, and legal access again before carrying it to another St. Joseph section.",
+            "headline": "Today’s Niles Chinook responsiveness is moderate.",
+            "detail": "Conditions offer mixed support for Chinook responsiveness. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Late-run Chinook condition varies widely, so individual fish may respond above or below this outlook.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify other sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -3866,10 +3890,13 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 10,
+            "displayScore": 10,
+            "scoreIsApproximate": true,
             "stage": "ending",
             "maximum": 100,
             "riverCeiling": 30,
@@ -3878,14 +3905,14 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "curveDirection": "falling",
             "winterHoldingContext": false,
             "label": "Limited presence",
-            "headline": "Seasonal timing still supports a few Chinook salmon in the river's most dependable holding water, but this limited opportunity is thinning.",
-            "detail": "This part of the season usually supports limited presence concentrated in the river's most dependable holes and slower holding water. This is a seasonal estimate, not a live fish count. This seasonal presence applies to the accessible St. Joseph corridor as a whole; it does not claim equal fish numbers at the harbor, Niles, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Treat this as a lower-odds late-season opportunity. Keep the trip flexible, and require direct fish activity before committing more time. Use Migration Stage to choose the specific St. Joseph section, then verify that water directly.",
+            "headline": "Seasonal Chinook salmon presence is limited and declining.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the St. Joseph Chinook salmon ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_ending",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -4139,6 +4166,7 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "nextConditionRefreshAt": "2026-11-06T05:00:00.000Z",
           "runStage": {
             "stage": "post_run",
+            "copyStrategy": "st_joseph_corridor",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -4162,13 +4190,13 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             },
             "label": "After migration",
             "headline": "The main Chinook salmon migration is over.",
-            "detail": "A few late fish may remain below Twin Branch, but the main migration no longer supports a dependable St. Joseph trip.",
-            "tip": "Make only a selective established-water check, or shift to an active species. Do not chase isolated holdovers from ladder to ladder.",
-            "whereToStart": "Make only a selective check of established late holding water below Twin Branch; the main migration window has ended.",
+            "detail": "A few late fish may remain, but the main migration no longer supports a dependable trip.",
+            "tip": "Make one selective established-water check or shift to an active species.",
+            "whereToStart": "Make only a selective check in established Middle river (Berrien Springs–Niles) or Upper river (Niles–Twin Branch Dam) holding water.",
             "reasonCodes": [
               "stage_post_run"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Timing complete",
@@ -4246,7 +4274,7 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "conditions_checkpoint_peak_complete",
               "conditions_timing_complete"
             ],
-            "copyVersion": "river-run-copy-v27",
+            "copyVersion": "river-run-copy-v34",
             "previousCheckpointId": "peak_start",
             "previousCheckpointDate": "2026-09-22",
             "previousTimingLabel": "Insufficient evidence"
@@ -4270,14 +4298,14 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "push_tracking_complete"
             ],
             "rulesVersion": "st-joseph-fall-chinook-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 93,
             "label": "Excellent",
             "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river. This flow shape applies to the Niles mainstem reach only; verify the harbor, lower Michigan river, individual tailwaters, and Indiana water directly.",
-            "tip": "Begin on the primary travel lane feeding deep holding water. Work each hole from its head through the inside seam and tail, then keep moving until fish establish a pattern. Apply this recommendation at Niles; recheck water shape and safe access before carrying it to another St. Joseph section.",
+            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. This read applies only to the Niles mainstem reach.",
+            "tip": "Cover readable seams and holding water with a controlled presentation. Verify every other section directly.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band"
@@ -4288,15 +4316,15 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 39,
             "maximum": 100,
             "label": "Reserved",
-            "headline": "Today’s Chinook activity outlook is reserved.",
-            "detail": "Fish may respond selectively, with important environmental limitations. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. This score represents a remaining Chinook of unknown condition late in the season. A newly arrived or fresher fish may be more active than this score, while a spent or dying fish may respond less or not at all. Measured river conditions describe the St. Joseph mainstem at Niles. Water temperature, clarity, hydraulic shape, and presentation conditions can differ in the harbor and lower Michigan river, at individual ladder tailwaters, and through South Bend, Mishawaka, and the Twin Branch reach. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
-            "tip": "No late-season window should be treated as broadly favorable; use the block scores only for a living Chinook that is still capable of reacting. Apply this response window at Niles; verify temperature, clarity, flow shape, and legal access again before carrying it to another St. Joseph section.",
+            "headline": "Today’s Niles Chinook responsiveness is reserved.",
+            "detail": "Chinook may respond selectively under current limitations. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Late-run Chinook condition varies widely, so individual fish may respond above or below this outlook.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify other sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -4349,10 +4377,13 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 3,
+            "displayScore": 5,
+            "scoreIsApproximate": true,
             "stage": "post_run",
             "maximum": 100,
             "riverCeiling": 30,
@@ -4361,14 +4392,14 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "curveDirection": "falling",
             "winterHoldingContext": false,
             "label": "Low presence",
-            "headline": "A few Chinook salmon may still be in the river, with this limited seasonal presence increasingly scattered.",
-            "detail": "This part of the season usually supports low presence within this river's limited seasonal opportunity, while fresh arrivals often become less consistent later in the season. This is a seasonal estimate, not a live fish count. This seasonal presence applies to the accessible St. Joseph corridor as a whole; it does not claim equal fish numbers at the harbor, Niles, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Treat any remaining fish as a bonus rather than a dependable trip plan. Keep expectations narrow and be ready to shift to another seasonal species. Use Migration Stage to choose the specific St. Joseph section, then verify that water directly.",
+            "headline": "Seasonal Chinook salmon presence is low and declining.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the St. Joseph Chinook salmon ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_post_run",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -4629,6 +4660,7 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "nextConditionRefreshAt": "2026-11-10T05:00:00.000Z",
           "runStage": {
             "stage": "post_run",
+            "copyStrategy": "st_joseph_corridor",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -4652,13 +4684,13 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             },
             "label": "After migration",
             "headline": "The main Chinook salmon migration is over.",
-            "detail": "A few late fish may remain below Twin Branch, but the main migration no longer supports a dependable St. Joseph trip.",
-            "tip": "Make only a selective established-water check, or shift to an active species. Do not chase isolated holdovers from ladder to ladder.",
-            "whereToStart": "Make only a selective check of established late holding water below Twin Branch; the main migration window has ended.",
+            "detail": "A few late fish may remain, but the main migration no longer supports a dependable trip.",
+            "tip": "Make one selective established-water check or shift to an active species.",
+            "whereToStart": "Make only a selective check in established Middle river (Berrien Springs–Niles) or Upper river (Niles–Twin Branch Dam) holding water.",
             "reasonCodes": [
               "stage_post_run"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Timing complete",
@@ -4736,7 +4768,7 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "conditions_checkpoint_peak_complete",
               "conditions_timing_complete"
             ],
-            "copyVersion": "river-run-copy-v27",
+            "copyVersion": "river-run-copy-v34",
             "previousCheckpointId": "peak_start",
             "previousCheckpointDate": "2026-09-22",
             "previousTimingLabel": "Insufficient evidence"
@@ -4760,14 +4792,14 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "push_tracking_complete"
             ],
             "rulesVersion": "st-joseph-fall-chinook-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 93,
             "label": "Excellent",
             "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river. This flow shape applies to the Niles mainstem reach only; verify the harbor, lower Michigan river, individual tailwaters, and Indiana water directly.",
-            "tip": "Begin on the primary travel lane feeding deep holding water. Work each hole from its head through the inside seam and tail, then keep moving until fish establish a pattern. Apply this recommendation at Niles; recheck water shape and safe access before carrying it to another St. Joseph section.",
+            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. This read applies only to the Niles mainstem reach.",
+            "tip": "Cover readable seams and holding water with a controlled presentation. Verify every other section directly.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band"
@@ -4778,11 +4810,13 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": null,
           "fishInRiver": {
             "score": 0,
+            "displayScore": 0,
+            "scoreIsApproximate": false,
             "stage": "post_run",
             "maximum": 100,
             "riverCeiling": 30,
@@ -4791,14 +4825,14 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "curveDirection": "outside",
             "winterHoldingContext": false,
             "label": "Migration complete",
-            "headline": "The season no longer supports a dependable in-river migration.",
-            "detail": "A few Chinook salmon may remain, but their presence is likely isolated rather than part of even a limited dependable opportunity. This seasonal presence applies to the accessible St. Joseph corridor as a whole; it does not claim equal fish numbers at the harbor, Niles, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Do not build a trip around scattered late fish. Shift to another seasonal species, and leave any actively spawning fish undisturbed. Use Migration Stage to choose the specific St. Joseph section, then verify that water directly.",
+            "headline": "The St. Joseph Chinook salmon migration no longer has dependable seasonal presence.",
+            "detail": "The seasonal estimate has reached zero. Isolated late fish are not a dependable migration opportunity.",
+            "tip": "Do not build a three-section search around isolated late fish.",
             "reasonCodes": [
               "stage_post_run",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -5064,6 +5098,7 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "nextConditionRefreshAt": "2026-07-25T05:00:00.000Z",
           "runStage": {
             "stage": "post_run",
+            "copyStrategy": "st_joseph_corridor",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -5085,16 +5120,16 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "startToPeakDays": 24,
               "peakToEndDays": 37
             },
-            "label": "Offseason",
-            "headline": "Chinook salmon are outside their St. Joseph River migration season.",
-            "detail": "This fall migration read is inactive and should not be used to recommend a harbor, Michigan, Niles, or Indiana starting reach.",
-            "tip": "Choose a species with an active St. Joseph seasonal window and return to this read when early monitoring begins.",
-            "whereToStart": "Shift to an in-season species and do not plan a St. Joseph Chinook salmon migration trip from this inactive calendar.",
+            "label": "Fall run complete",
+            "headline": "The St. Joseph Chinook salmon fall run is complete.",
+            "detail": "This seasonal run estimate is inactive until staging begins again.",
+            "tip": "Return when St. Joseph fall-run staging begins.",
+            "whereToStart": "There is no active St. Joseph starting section for this fall run.",
             "reasonCodes": [
               "stage_post_run",
               "stage_offseason"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Not monitoring yet",
@@ -5119,7 +5154,7 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "conditions_monitoring_inactive"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -5140,14 +5175,14 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "push_tracking_offseason"
             ],
             "rulesVersion": "st-joseph-fall-chinook-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 93,
             "label": "Excellent",
             "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river. This flow shape applies to the Niles mainstem reach only; verify the harbor, lower Michigan river, individual tailwaters, and Indiana water directly.",
-            "tip": "Begin on the primary travel lane feeding deep holding water. Work each hole from its head through the inside seam and tail, then keep moving until fish establish a pattern. Apply this recommendation at Niles; recheck water shape and safe access before carrying it to another St. Joseph section.",
+            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. This read applies only to the Niles mainstem reach.",
+            "tip": "Cover readable seams and holding water with a controlled presentation. Verify every other section directly.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band"
@@ -5158,11 +5193,12 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": null,
           "fishInRiver": {
-            "score": 0,
+            "score": null,
+            "scoreIsApproximate": false,
             "stage": "post_run",
             "maximum": 100,
             "riverCeiling": 30,
@@ -5170,15 +5206,15 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "curveFraction": 0,
             "curveDirection": "outside",
             "winterHoldingContext": false,
-            "label": "Offseason",
-            "headline": "Chinook salmon are outside their river migration season.",
-            "detail": "A dependable seasonal presence of Chinook salmon is not expected in the river right now.",
-            "tip": "Do not build a river trip around this species right now. Target a species with an active seasonal window and return as the next migration approaches.",
+            "label": "Fall run complete",
+            "headline": "The St. Joseph Chinook salmon fall run is complete.",
+            "detail": "Chinook salmon staging typically begins in mid August. This seasonal estimate is inactive until then.",
+            "tip": "Check back in mid August when St. Joseph fall-run tracking resumes.",
             "reasonCodes": [
               "stage_post_run",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -5404,13 +5440,7 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "data_quality_fresh"
             ]
           },
-          "interpretationNote": {
-            "headline": "The river should fish well, but seasonal fish presence is still low.",
-            "detail": "Good flow makes presentations easier, but it does not put fish in the river. Begin in the deepest established holding water and skip broad searches through fast travel lanes as seasonal presence thins.",
-            "reasonCodes": [
-              "good_fishability_low_presence"
-            ]
-          },
+          "interpretationNote": null,
           "secondaryNote": "Based on the USGS gauge at Niles. It describes the Niles reach; the harbor, lower river, individual dam tailwaters, South Bend, Mishawaka, and Twin Branch may look different.",
           "safety": {
             "regulationReminder": "Select Michigan or Indiana for the correct jurisdiction. Always verify current official regulations, public access, posted closures, and dam safety boundaries.",
@@ -5437,6 +5467,7 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "nextConditionRefreshAt": "2026-08-06T05:00:00.000Z",
           "runStage": {
             "stage": "pre_run",
+            "copyStrategy": "st_joseph_corridor",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -5459,14 +5490,14 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "peakToEndDays": 37
             },
             "label": "Before migration",
-            "headline": "Chinook salmon have not begun their dependable St. Joseph River migration.",
-            "detail": "The seasonal calendar still points to Lake Michigan, the harbor, and the river mouth—not an established inland opportunity.",
-            "tip": "Keep the trip lakeward and return when staging monitoring begins. Do not let rain or one isolated river fish turn into a corridor-wide claim.",
-            "whereToStart": "Keep the search in Lake Michigan, the harbor, and river-mouth water until river staging begins.",
+            "headline": "Chinook salmon have not started their main St. Joseph River run.",
+            "detail": "The river-entry window has not opened yet. An isolated river fish would be an early exception.",
+            "tip": "Keep the trip lakeward and return when staging monitoring begins.",
+            "whereToStart": "Stay with Lake Michigan, the St. Joseph harbor, and the river mouth.",
             "reasonCodes": [
               "stage_pre_run"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Not monitoring yet",
@@ -5491,7 +5522,7 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "conditions_monitoring_inactive"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -5512,14 +5543,14 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "push_tracking_not_started"
             ],
             "rulesVersion": "st-joseph-fall-chinook-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 93,
             "label": "Excellent",
             "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river. This flow shape applies to the Niles mainstem reach only; verify the harbor, lower Michigan river, individual tailwaters, and Indiana water directly.",
-            "tip": "Begin on the primary travel lane feeding deep holding water. Work each hole from its head through the inside seam and tail, then keep moving until fish establish a pattern. Apply this recommendation at Niles; recheck water shape and safe access before carrying it to another St. Joseph section.",
+            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. This read applies only to the Niles mainstem reach.",
+            "tip": "Cover readable seams and holding water with a controlled presentation. Verify every other section directly.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band"
@@ -5530,11 +5561,13 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": null,
           "fishInRiver": {
             "score": 0,
+            "displayScore": 0,
+            "scoreIsApproximate": false,
             "stage": "pre_run",
             "maximum": 100,
             "riverCeiling": 30,
@@ -5543,14 +5576,14 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "curveDirection": "outside",
             "winterHoldingContext": false,
             "label": "Not expected yet",
-            "headline": "Even a limited dependable presence of Chinook salmon is not expected in the river yet.",
-            "detail": "Most Chinook salmon are not expected to have entered the river in dependable numbers. Any fish already present would be early exceptions. This seasonal presence applies to the accessible St. Joseph corridor as a whole; it does not claim equal fish numbers at the harbor, Niles, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Treat this as no dependable in-river opportunity yet. Keep expectations at zero, and do not interpret an isolated early fish as evidence of dependable river presence. Use Migration Stage to choose the specific St. Joseph section, then verify that water directly.",
+            "headline": "Dependable Chinook salmon presence is not expected in the St. Joseph yet.",
+            "detail": "The seasonal estimate remains at zero. Any river fish would be an early exception.",
+            "tip": "Use Migration Stage for harbor and river-entry context.",
             "reasonCodes": [
               "stage_pre_run",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -5809,6 +5842,7 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "nextConditionRefreshAt": "2026-08-16T05:00:00.000Z",
           "runStage": {
             "stage": "pre_run",
+            "copyStrategy": "st_joseph_corridor",
             "stagingContext": true,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -5831,15 +5865,15 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "peakToEndDays": 37
             },
             "label": "Before migration",
-            "headline": "Chinook salmon may be staging around the St. Joseph harbor and mouth, but dependable inland passage has not begun.",
-            "detail": "A few early Chinook salmon can enter lower Michigan water, but this smaller run should not be projected through Niles, South Bend, or Mishawaka from one fish near the mouth.",
-            "tip": "Fish the harbor-to-river transition and one deep lower-river travel lane. Skip an inland corridor run until Migration Stage and Fish In River show dependable entry.",
-            "whereToStart": "Start with the St. Joseph harbor, river mouth, and deep lower Michigan travel water; do not assume fish have passed Niles or reached South Bend.",
+            "headline": "Chinook salmon may be staging near the St. Joseph River entrance.",
+            "detail": "Staging does not confirm dependable river entry. This remains a limited, sectional Chinook salmon run.",
+            "tip": "Keep the inland check brief. Do not move upriver from calendar timing alone.",
+            "whereToStart": "Start at the St. Joseph harbor and river mouth. Add the Lower river (St. Joseph harbor–Berrien Springs) only for an early-fish check.",
             "reasonCodes": [
               "stage_pre_run",
               "stage_pre_run_staging"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Evaluating",
@@ -5864,7 +5898,7 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "conditions_checkpoint_evaluating"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -5885,14 +5919,14 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "push_tracking_not_started"
             ],
             "rulesVersion": "st-joseph-fall-chinook-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 93,
             "label": "Excellent",
             "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river. This flow shape applies to the Niles mainstem reach only; verify the harbor, lower Michigan river, individual tailwaters, and Indiana water directly.",
-            "tip": "Begin on the primary travel lane feeding deep holding water. Work each hole from its head through the inside seam and tail, then keep moving until fish establish a pattern. Apply this recommendation at Niles; recheck water shape and safe access before carrying it to another St. Joseph section.",
+            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. This read applies only to the Niles mainstem reach.",
+            "tip": "Cover readable seams and holding water with a controlled presentation. Verify every other section directly.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band"
@@ -5903,15 +5937,15 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 79,
             "maximum": 100,
             "label": "Active",
-            "headline": "Today’s Chinook activity outlook is active.",
-            "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. Dependable river presence has not begun. The score applies only to a sparse early Chinook that may already have entered. Measured river conditions describe the St. Joseph mainstem at Niles. Water temperature, clarity, hydraulic shape, and presentation conditions can differ in the harbor and lower Michigan river, at individual ladder tailwaters, and through South Bend, Mishawaka, and the Twin Branch reach. This smaller Chinook return is often sectional; a favorable Niles response window does not prove equal fish presence through the five-ladder corridor. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
-            "tip": "Start with 5–9 AM. If the sky changes from the forecast, favor the darkest practical window. Apply this response window at Niles; verify temperature, clarity, flow shape, and legal access again before carrying it to another St. Joseph section.",
+            "headline": "Today’s Niles responsiveness is active, but dependable Chinook presence has not begun.",
+            "detail": "Conditions support a meaningful Chinook response. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. This applies only to an early Chinook already near Niles.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify other sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -5963,10 +5997,13 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 0,
+            "displayScore": 0,
+            "scoreIsApproximate": false,
             "stage": "pre_run",
             "maximum": 100,
             "riverCeiling": 30,
@@ -5975,14 +6012,14 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "curveDirection": "outside",
             "winterHoldingContext": false,
             "label": "Not expected yet",
-            "headline": "Even a limited dependable presence of Chinook salmon is not expected in the river yet.",
-            "detail": "Most Chinook salmon are not expected to have entered the river in dependable numbers. Any fish already present would be early exceptions. This seasonal presence applies to the accessible St. Joseph corridor as a whole; it does not claim equal fish numbers at the harbor, Niles, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Treat this as no dependable in-river opportunity yet. Keep expectations at zero, and do not interpret an isolated early fish as evidence of dependable river presence. Use Migration Stage to choose the specific St. Joseph section, then verify that water directly.",
+            "headline": "Dependable Chinook salmon presence is not expected in the St. Joseph yet.",
+            "detail": "The seasonal estimate remains at zero. Any river fish would be an early exception.",
+            "tip": "Use Migration Stage for harbor and river-entry context.",
             "reasonCodes": [
               "stage_pre_run",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -6241,6 +6278,7 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "nextConditionRefreshAt": "2026-08-16T05:00:00.000Z",
           "runStage": {
             "stage": "pre_run",
+            "copyStrategy": "st_joseph_corridor",
             "stagingContext": true,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -6263,15 +6301,15 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "peakToEndDays": 37
             },
             "label": "Before migration",
-            "headline": "Chinook salmon may be staging around the St. Joseph harbor and mouth, but dependable inland passage has not begun.",
-            "detail": "A few early Chinook salmon can enter lower Michigan water, but this smaller run should not be projected through Niles, South Bend, or Mishawaka from one fish near the mouth.",
-            "tip": "Fish the harbor-to-river transition and one deep lower-river travel lane. Skip an inland corridor run until Migration Stage and Fish In River show dependable entry.",
-            "whereToStart": "Start with the St. Joseph harbor, river mouth, and deep lower Michigan travel water; do not assume fish have passed Niles or reached South Bend.",
+            "headline": "Chinook salmon may be staging near the St. Joseph River entrance.",
+            "detail": "Staging does not confirm dependable river entry. This remains a limited, sectional Chinook salmon run.",
+            "tip": "Keep the inland check brief. Do not move upriver from calendar timing alone.",
+            "whereToStart": "Start at the St. Joseph harbor and river mouth. Add the Lower river (St. Joseph harbor–Berrien Springs) only for an early-fish check.",
             "reasonCodes": [
               "stage_pre_run",
               "stage_pre_run_staging"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Evaluating",
@@ -6296,7 +6334,7 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "conditions_checkpoint_evaluating"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -6317,14 +6355,14 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "push_tracking_not_started"
             ],
             "rulesVersion": "st-joseph-fall-chinook-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 93,
             "label": "Excellent",
             "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river. This flow shape applies to the Niles mainstem reach only; verify the harbor, lower Michigan river, individual tailwaters, and Indiana water directly.",
-            "tip": "Begin on the primary travel lane feeding deep holding water. Work each hole from its head through the inside seam and tail, then keep moving until fish establish a pattern. Apply this recommendation at Niles; recheck water shape and safe access before carrying it to another St. Joseph section.",
+            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. This read applies only to the Niles mainstem reach.",
+            "tip": "Cover readable seams and holding water with a controlled presentation. Verify every other section directly.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band"
@@ -6335,15 +6373,15 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 79,
             "maximum": 100,
             "label": "Active",
-            "headline": "Today’s Chinook activity outlook is active.",
-            "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. Dependable river presence has not begun. The score applies only to a sparse early Chinook that may already have entered. Measured river conditions describe the St. Joseph mainstem at Niles. Water temperature, clarity, hydraulic shape, and presentation conditions can differ in the harbor and lower Michigan river, at individual ladder tailwaters, and through South Bend, Mishawaka, and the Twin Branch reach. This smaller Chinook return is often sectional; a favorable Niles response window does not prove equal fish presence through the five-ladder corridor. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
-            "tip": "Start with 5–9 AM. If the sky changes from the forecast, favor the darkest practical window. Apply this response window at Niles; verify temperature, clarity, flow shape, and legal access again before carrying it to another St. Joseph section.",
+            "headline": "Today’s Niles responsiveness is active, but dependable Chinook presence has not begun.",
+            "detail": "Conditions support a meaningful Chinook response. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. This applies only to an early Chinook already near Niles.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify other sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -6395,10 +6433,13 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 0,
+            "displayScore": 0,
+            "scoreIsApproximate": false,
             "stage": "pre_run",
             "maximum": 100,
             "riverCeiling": 30,
@@ -6407,14 +6448,14 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "curveDirection": "outside",
             "winterHoldingContext": false,
             "label": "Not expected yet",
-            "headline": "Even a limited dependable presence of Chinook salmon is not expected in the river yet.",
-            "detail": "Most Chinook salmon are not expected to have entered the river in dependable numbers. Any fish already present would be early exceptions. This seasonal presence applies to the accessible St. Joseph corridor as a whole; it does not claim equal fish numbers at the harbor, Niles, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Treat this as no dependable in-river opportunity yet. Keep expectations at zero, and do not interpret an isolated early fish as evidence of dependable river presence. Use Migration Stage to choose the specific St. Joseph section, then verify that water directly.",
+            "headline": "Dependable Chinook salmon presence is not expected in the St. Joseph yet.",
+            "detail": "The seasonal estimate remains at zero. Any river fish would be an early exception.",
+            "tip": "Use Migration Stage for harbor and river-entry context.",
             "reasonCodes": [
               "stage_pre_run",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -6673,6 +6714,7 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "nextConditionRefreshAt": "2026-08-16T05:00:00.000Z",
           "runStage": {
             "stage": "pre_run",
+            "copyStrategy": "st_joseph_corridor",
             "stagingContext": true,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -6695,15 +6737,15 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "peakToEndDays": 37
             },
             "label": "Before migration",
-            "headline": "Chinook salmon may be staging around the St. Joseph harbor and mouth, but dependable inland passage has not begun.",
-            "detail": "A few early Chinook salmon can enter lower Michigan water, but this smaller run should not be projected through Niles, South Bend, or Mishawaka from one fish near the mouth.",
-            "tip": "Fish the harbor-to-river transition and one deep lower-river travel lane. Skip an inland corridor run until Migration Stage and Fish In River show dependable entry.",
-            "whereToStart": "Start with the St. Joseph harbor, river mouth, and deep lower Michigan travel water; do not assume fish have passed Niles or reached South Bend.",
+            "headline": "Chinook salmon may be staging near the St. Joseph River entrance.",
+            "detail": "Staging does not confirm dependable river entry. This remains a limited, sectional Chinook salmon run.",
+            "tip": "Keep the inland check brief. Do not move upriver from calendar timing alone.",
+            "whereToStart": "Start at the St. Joseph harbor and river mouth. Add the Lower river (St. Joseph harbor–Berrien Springs) only for an early-fish check.",
             "reasonCodes": [
               "stage_pre_run",
               "stage_pre_run_staging"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Evaluating",
@@ -6728,7 +6770,7 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "conditions_checkpoint_evaluating"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -6749,14 +6791,14 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "push_tracking_not_started"
             ],
             "rulesVersion": "st-joseph-fall-chinook-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 93,
             "label": "Excellent",
             "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river. This flow shape applies to the Niles mainstem reach only; verify the harbor, lower Michigan river, individual tailwaters, and Indiana water directly.",
-            "tip": "Begin on the primary travel lane feeding deep holding water. Work each hole from its head through the inside seam and tail, then keep moving until fish establish a pattern. Apply this recommendation at Niles; recheck water shape and safe access before carrying it to another St. Joseph section.",
+            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. This read applies only to the Niles mainstem reach.",
+            "tip": "Cover readable seams and holding water with a controlled presentation. Verify every other section directly.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band"
@@ -6767,15 +6809,15 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 79,
             "maximum": 100,
             "label": "Active",
-            "headline": "Today’s Chinook activity outlook is active.",
-            "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. Dependable river presence has not begun. The score applies only to a sparse early Chinook that may already have entered. Measured river conditions describe the St. Joseph mainstem at Niles. Water temperature, clarity, hydraulic shape, and presentation conditions can differ in the harbor and lower Michigan river, at individual ladder tailwaters, and through South Bend, Mishawaka, and the Twin Branch reach. This smaller Chinook return is often sectional; a favorable Niles response window does not prove equal fish presence through the five-ladder corridor. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
-            "tip": "Start with 5–9 AM. If the sky changes from the forecast, favor the darkest practical window. Apply this response window at Niles; verify temperature, clarity, flow shape, and legal access again before carrying it to another St. Joseph section.",
+            "headline": "Today’s Niles responsiveness is active, but dependable Chinook presence has not begun.",
+            "detail": "Conditions support a meaningful Chinook response. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. This applies only to an early Chinook already near Niles.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify other sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -6827,10 +6869,13 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 0,
+            "displayScore": 0,
+            "scoreIsApproximate": false,
             "stage": "pre_run",
             "maximum": 100,
             "riverCeiling": 30,
@@ -6839,14 +6884,14 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "curveDirection": "outside",
             "winterHoldingContext": false,
             "label": "Not expected yet",
-            "headline": "Even a limited dependable presence of Chinook salmon is not expected in the river yet.",
-            "detail": "Most Chinook salmon are not expected to have entered the river in dependable numbers. Any fish already present would be early exceptions. This seasonal presence applies to the accessible St. Joseph corridor as a whole; it does not claim equal fish numbers at the harbor, Niles, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Treat this as no dependable in-river opportunity yet. Keep expectations at zero, and do not interpret an isolated early fish as evidence of dependable river presence. Use Migration Stage to choose the specific St. Joseph section, then verify that water directly.",
+            "headline": "Dependable Chinook salmon presence is not expected in the St. Joseph yet.",
+            "detail": "The seasonal estimate remains at zero. Any river fish would be an early exception.",
+            "tip": "Use Migration Stage for harbor and river-entry context.",
             "reasonCodes": [
               "stage_pre_run",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -7105,6 +7150,7 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "nextConditionRefreshAt": "2026-08-16T05:00:00.000Z",
           "runStage": {
             "stage": "pre_run",
+            "copyStrategy": "st_joseph_corridor",
             "stagingContext": true,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -7127,15 +7173,15 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "peakToEndDays": 37
             },
             "label": "Before migration",
-            "headline": "Chinook salmon may be staging around the St. Joseph harbor and mouth, but dependable inland passage has not begun.",
-            "detail": "A few early Chinook salmon can enter lower Michigan water, but this smaller run should not be projected through Niles, South Bend, or Mishawaka from one fish near the mouth.",
-            "tip": "Fish the harbor-to-river transition and one deep lower-river travel lane. Skip an inland corridor run until Migration Stage and Fish In River show dependable entry.",
-            "whereToStart": "Start with the St. Joseph harbor, river mouth, and deep lower Michigan travel water; do not assume fish have passed Niles or reached South Bend.",
+            "headline": "Chinook salmon may be staging near the St. Joseph River entrance.",
+            "detail": "Staging does not confirm dependable river entry. This remains a limited, sectional Chinook salmon run.",
+            "tip": "Keep the inland check brief. Do not move upriver from calendar timing alone.",
+            "whereToStart": "Start at the St. Joseph harbor and river mouth. Add the Lower river (St. Joseph harbor–Berrien Springs) only for an early-fish check.",
             "reasonCodes": [
               "stage_pre_run",
               "stage_pre_run_staging"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Evaluating",
@@ -7160,7 +7206,7 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "conditions_checkpoint_evaluating"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -7181,14 +7227,14 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "push_tracking_not_started"
             ],
             "rulesVersion": "st-joseph-fall-chinook-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 93,
             "label": "Excellent",
             "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river. This flow shape applies to the Niles mainstem reach only; verify the harbor, lower Michigan river, individual tailwaters, and Indiana water directly.",
-            "tip": "Begin on the primary travel lane feeding deep holding water. Work each hole from its head through the inside seam and tail, then keep moving until fish establish a pattern. Apply this recommendation at Niles; recheck water shape and safe access before carrying it to another St. Joseph section.",
+            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. This read applies only to the Niles mainstem reach.",
+            "tip": "Cover readable seams and holding water with a controlled presentation. Verify every other section directly.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band"
@@ -7199,15 +7245,15 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 79,
             "maximum": 100,
             "label": "Active",
-            "headline": "Today’s Chinook activity outlook is active.",
-            "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. Dependable river presence has not begun. The score applies only to a sparse early Chinook that may already have entered. Measured river conditions describe the St. Joseph mainstem at Niles. Water temperature, clarity, hydraulic shape, and presentation conditions can differ in the harbor and lower Michigan river, at individual ladder tailwaters, and through South Bend, Mishawaka, and the Twin Branch reach. This smaller Chinook return is often sectional; a favorable Niles response window does not prove equal fish presence through the five-ladder corridor. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
-            "tip": "Start with 5–9 AM. If the sky changes from the forecast, favor the darkest practical window. Apply this response window at Niles; verify temperature, clarity, flow shape, and legal access again before carrying it to another St. Joseph section.",
+            "headline": "Today’s Niles responsiveness is active, but dependable Chinook presence has not begun.",
+            "detail": "Conditions support a meaningful Chinook response. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. This applies only to an early Chinook already near Niles.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify other sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -7259,10 +7305,13 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 0,
+            "displayScore": 0,
+            "scoreIsApproximate": false,
             "stage": "pre_run",
             "maximum": 100,
             "riverCeiling": 30,
@@ -7271,14 +7320,14 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "curveDirection": "outside",
             "winterHoldingContext": false,
             "label": "Not expected yet",
-            "headline": "Even a limited dependable presence of Chinook salmon is not expected in the river yet.",
-            "detail": "Most Chinook salmon are not expected to have entered the river in dependable numbers. Any fish already present would be early exceptions. This seasonal presence applies to the accessible St. Joseph corridor as a whole; it does not claim equal fish numbers at the harbor, Niles, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Treat this as no dependable in-river opportunity yet. Keep expectations at zero, and do not interpret an isolated early fish as evidence of dependable river presence. Use Migration Stage to choose the specific St. Joseph section, then verify that water directly.",
+            "headline": "Dependable Chinook salmon presence is not expected in the St. Joseph yet.",
+            "detail": "The seasonal estimate remains at zero. Any river fish would be an early exception.",
+            "tip": "Use Migration Stage for harbor and river-entry context.",
             "reasonCodes": [
               "stage_pre_run",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -7537,6 +7586,7 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "nextConditionRefreshAt": "2026-10-07T05:00:00.000Z",
           "runStage": {
             "stage": "tapering",
+            "copyStrategy": "st_joseph_corridor",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -7560,13 +7610,13 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             },
             "label": "Tapering",
             "headline": "This can still offer a limited Chinook salmon opportunity, even as fresh arrivals typically become less consistent.",
-            "detail": "Fresh passage is becoming less dependable, so established Niles, South Bend, and Mishawaka holding or spawning water matters more than racing the lower river for a new wave.",
-            "tip": "Start in proven deep holding water, check lower travel lanes only when Push supports new movement, and leave fish on shallow gravel alone.",
-            "whereToStart": "Prioritize established holding and spawning water near Niles, South Bend, and Mishawaka while checking the lower river only for a late fresh wave.",
+            "detail": "Fresh entry is slowing, so established holding water matters more than Lower-river travel lanes.",
+            "tip": "Start in proven holding water. Check the Lower river only when Push supports fresh movement.",
+            "whereToStart": "Start in established Middle river (Berrien Springs–Niles) or Upper river (Niles–Twin Branch Dam) holding water.",
             "reasonCodes": [
               "stage_tapering"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Timing complete",
@@ -7696,7 +7746,7 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "conditions_typical",
               "conditions_timing_complete"
             ],
-            "copyVersion": "river-run-copy-v27",
+            "copyVersion": "river-run-copy-v34",
             "previousCheckpointId": "peak_start",
             "previousCheckpointDate": "2026-09-22",
             "previousTimingLabel": "Typical"
@@ -7713,9 +7763,9 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "push": {
             "score": 30,
             "label": "No clear push",
-            "headline": "Today's water does not show a clear signal for a fresh wave of fish.",
-            "detail": "The river is holding steady with no meaningful rise yet. Water temperature is favorable for fall migration and is relatively steady. Recent weather estimates indicate very little rain around the river. This Push describes fresh-movement support at Niles only; it does not prove a new wave at the harbor, Berrien Springs, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Fish established holding water from the head through the inside seam and tail. Do not spend the day racing between lower travel lanes for a wave the water does not support. Use the Niles signal to choose between Niles-area holding water and a lower-Michigan travel-water check; verify Indiana movement directly.",
+            "headline": "Niles water does not show a clear fresh-movement signal.",
+            "detail": "Niles flow is steady without a meaningful rise. Water temperature is favorable for fall migration and is relatively steady. Recent watershed weather shows little rain.",
+            "tip": "Keep Migration Stage’s section primary. Do not shift sections from this Niles read.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
@@ -7734,14 +7784,14 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-fall-chinook-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 93,
             "label": "Excellent",
             "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river. This flow shape applies to the Niles mainstem reach only; verify the harbor, lower Michigan river, individual tailwaters, and Indiana water directly.",
-            "tip": "Begin on the primary travel lane feeding deep holding water. Work each hole from its head through the inside seam and tail, then keep moving until fish establish a pattern. Apply this recommendation at Niles; recheck water shape and safe access before carrying it to another St. Joseph section.",
+            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. This read applies only to the Niles mainstem reach.",
+            "tip": "Cover readable seams and holding water with a controlled presentation. Verify every other section directly.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band"
@@ -7752,15 +7802,15 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 78,
             "maximum": 100,
             "label": "Active",
-            "headline": "Today’s Chinook activity outlook is active.",
-            "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. This score represents a Chinook of unknown condition at this point in the season. A newly arrived or fresher fish may be more active than this score, while a spawning or deteriorating fish may be less responsive. Measured river conditions describe the St. Joseph mainstem at Niles. Water temperature, clarity, hydraulic shape, and presentation conditions can differ in the harbor and lower Michigan river, at individual ladder tailwaters, and through South Bend, Mishawaka, and the Twin Branch reach. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
-            "tip": "Compare the four time windows, but treat every difference as conditional on finding a living Chinook still capable of responding. Apply this response window at Niles; verify temperature, clarity, flow shape, and legal access again before carrying it to another St. Joseph section.",
+            "headline": "Today’s Niles Chinook responsiveness is active.",
+            "detail": "Conditions support a meaningful Chinook response. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Late-run Chinook condition varies widely, so individual fish may respond above or below this outlook.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify other sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -7813,10 +7863,13 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 26,
+            "displayScore": 25,
+            "scoreIsApproximate": true,
             "stage": "tapering",
             "maximum": 100,
             "riverCeiling": 30,
@@ -7825,14 +7878,14 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "curveDirection": "falling",
             "winterHoldingContext": false,
             "label": "High presence",
-            "headline": "Seasonal timing still supports this limited Chinook salmon presence holding near its seasonal high point in dependable water, even as the usual peak window may be easing.",
-            "detail": "Seasonal presence remains elevated relative to the rest of the season. The overall seasonal opportunity remains limited, but fresh arrivals may be less consistent than around the usual peak. This is a seasonal estimate, not a live fish count. This seasonal presence applies to the accessible St. Joseph corridor as a whole; it does not claim equal fish numbers at the harbor, Niles, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Treat this as near the high point of a limited seasonal opportunity. Focus on the most dependable water, and require direct fish activity before committing more time. Use Migration Stage to choose the specific St. Joseph section, then verify that water directly.",
+            "headline": "Seasonal Chinook salmon presence is high and declining.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the St. Joseph Chinook salmon ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_tapering",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -8092,6 +8145,7 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "nextConditionRefreshAt": "2026-10-01T05:00:00.000Z",
           "runStage": {
             "stage": "peak",
+            "copyStrategy": "st_joseph_corridor",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -8114,14 +8168,14 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "peakToEndDays": 37
             },
             "label": "Peak",
-            "headline": "This is the best St. Joseph Chinook salmon window, but it remains a selective 3-of-10 opportunity.",
-            "detail": "The calendar supports the best chance of finding Chinook in proven lower-Michigan, Niles, or selective Indiana holding water. It does not imply strong or uniform occupation of the full corridor.",
-            "tip": "Choose a proven section and cover deep holding water from head to tail. Change sections only after a clean search, and leave shallow spawning fish undisturbed.",
-            "whereToStart": "Start with proven lower-Michigan and Niles holding water, then make one selective South Bend or Mishawaka check below Twin Branch; this smaller Chinook run is not a reason to cover all 63 miles.",
+            "headline": "This is the best St. Joseph Chinook salmon window, but opportunity remains selective.",
+            "detail": "This is a limited 3-of-10 run, not a claim of strong or uniform presence.",
+            "tip": "Choose one section and cover it completely before changing reaches. Leave shallow spawning fish undisturbed.",
+            "whereToStart": "Start in the Middle river (Berrien Springs–Niles). Treat the Upper river (Niles–Twin Branch Dam) as a selective second check.",
             "reasonCodes": [
               "stage_peak"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -8190,7 +8244,7 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "conditions_insufficient",
               "conditions_checkpoint_peak_start"
             ],
-            "copyVersion": "river-run-copy-v27",
+            "copyVersion": "river-run-copy-v34",
             "previousCheckpointId": "building_established",
             "previousCheckpointDate": "2026-09-15",
             "previousTimingLabel": "Insufficient evidence"
@@ -8207,9 +8261,9 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "push": {
             "score": 30,
             "label": "No clear push",
-            "headline": "Today's water does not show a clear signal for a fresh wave of fish.",
-            "detail": "The river is holding steady with no meaningful rise yet. Water temperature is favorable for fall migration and is relatively steady. Recent weather estimates indicate very little rain around the river. This Push describes fresh-movement support at Niles only; it does not prove a new wave at the harbor, Berrien Springs, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Fish established holding water from the head through the inside seam and tail. Do not spend the day racing between lower travel lanes for a wave the water does not support. Use the Niles signal to choose between Niles-area holding water and a lower-Michigan travel-water check; verify Indiana movement directly.",
+            "headline": "Niles water does not show a clear fresh-movement signal.",
+            "detail": "Niles flow is steady without a meaningful rise. Water temperature is favorable for fall migration and is relatively steady. Recent watershed weather shows little rain.",
+            "tip": "Keep Migration Stage’s section primary. Do not shift sections from this Niles read.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
@@ -8228,14 +8282,14 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-fall-chinook-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 93,
             "label": "Excellent",
             "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river. This flow shape applies to the Niles mainstem reach only; verify the harbor, lower Michigan river, individual tailwaters, and Indiana water directly.",
-            "tip": "Begin on the primary travel lane feeding deep holding water. Work each hole from its head through the inside seam and tail, then keep moving until fish establish a pattern. Apply this recommendation at Niles; recheck water shape and safe access before carrying it to another St. Joseph section.",
+            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. This read applies only to the Niles mainstem reach.",
+            "tip": "Cover readable seams and holding water with a controlled presentation. Verify every other section directly.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band"
@@ -8246,15 +8300,15 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 79,
             "maximum": 100,
             "label": "Active",
-            "headline": "Today’s Chinook activity outlook is active.",
-            "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. Broad seasonal presence improves the chance of locating fish, but this score measures responsiveness rather than abundance. Measured river conditions describe the St. Joseph mainstem at Niles. Water temperature, clarity, hydraulic shape, and presentation conditions can differ in the harbor and lower Michigan river, at individual ladder tailwaters, and through South Bend, Mishawaka, and the Twin Branch reach. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
-            "tip": "Start with 5–9 AM. If the sky changes from the forecast, favor the darkest practical window. Apply this response window at Niles; verify temperature, clarity, flow shape, and legal access again before carrying it to another St. Joseph section.",
+            "headline": "Today’s Niles Chinook responsiveness is active.",
+            "detail": "Conditions support a meaningful Chinook response. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Flow and temperature represent only the Niles mainstem reach.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify other sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -8306,10 +8360,13 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 29,
+            "displayScore": 30,
+            "scoreIsApproximate": true,
             "stage": "peak",
             "maximum": 100,
             "riverCeiling": 30,
@@ -8318,14 +8375,14 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "curveDirection": "falling",
             "winterHoldingContext": false,
             "label": "Peak presence",
-            "headline": "Seasonal timing still supports Chinook salmon being near their strongest in-river presence, even if the migration may be just beyond its usual peak.",
-            "detail": "This point in the season may sit just beyond the usual peak while the limited seasonal opportunity remains near its high point. This is a seasonal estimate, not a live fish count. This seasonal presence applies to the accessible St. Joseph corridor as a whole; it does not claim equal fish numbers at the harbor, Niles, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Treat this as near the high point of a limited seasonal opportunity. Focus on the most dependable water, and require direct fish activity before committing more time. Use Migration Stage to choose the specific St. Joseph section, then verify that water directly.",
+            "headline": "Seasonal Chinook salmon presence is near its expected St. Joseph peak.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the St. Joseph Chinook salmon ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_peak",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -8585,6 +8642,7 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "nextConditionRefreshAt": "2026-10-01T05:00:00.000Z",
           "runStage": {
             "stage": "peak",
+            "copyStrategy": "st_joseph_corridor",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -8607,14 +8665,14 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "peakToEndDays": 37
             },
             "label": "Peak",
-            "headline": "This is the best St. Joseph Chinook salmon window, but it remains a selective 3-of-10 opportunity.",
-            "detail": "The calendar supports the best chance of finding Chinook in proven lower-Michigan, Niles, or selective Indiana holding water. It does not imply strong or uniform occupation of the full corridor.",
-            "tip": "Choose a proven section and cover deep holding water from head to tail. Change sections only after a clean search, and leave shallow spawning fish undisturbed.",
-            "whereToStart": "Start with proven lower-Michigan and Niles holding water, then make one selective South Bend or Mishawaka check below Twin Branch; this smaller Chinook run is not a reason to cover all 63 miles.",
+            "headline": "This is the best St. Joseph Chinook salmon window, but opportunity remains selective.",
+            "detail": "This is a limited 3-of-10 run, not a claim of strong or uniform presence.",
+            "tip": "Choose one section and cover it completely before changing reaches. Leave shallow spawning fish undisturbed.",
+            "whereToStart": "Start in the Middle river (Berrien Springs–Niles). Treat the Upper river (Niles–Twin Branch Dam) as a selective second check.",
             "reasonCodes": [
               "stage_peak"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -8683,7 +8741,7 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "conditions_insufficient",
               "conditions_checkpoint_peak_start"
             ],
-            "copyVersion": "river-run-copy-v27",
+            "copyVersion": "river-run-copy-v34",
             "previousCheckpointId": "building_established",
             "previousCheckpointDate": "2026-09-15",
             "previousTimingLabel": "Insufficient evidence"
@@ -8700,9 +8758,9 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "push": {
             "score": 0,
             "label": "Weak",
-            "headline": "Today's water shows little support for a fresh wave of fish.",
-            "detail": "The river is falling instead of showing a fresh rise. Water temperature remains too warm to support a strong Push but is warming sharply. Recent weather estimates indicate very little rain around the river. This Push describes fresh-movement support at Niles only; it does not prove a new wave at the harbor, Berrien Springs, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Do not build the day around new arrivals while the river remains warm. Start in established holding water at first or last light and leave lower travel lanes secondary. Use the Niles signal to choose between Niles-area holding water and a lower-Michigan travel-water check; verify Indiana movement directly.",
+            "headline": "Niles water shows little support for fresh movement.",
+            "detail": "Niles flow is falling. Water temperature remains too warm to support a strong Push but is warming sharply. Recent watershed weather shows little rain.",
+            "tip": "Keep Migration Stage’s section primary. Do not shift sections from this Niles read.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
@@ -8722,14 +8780,14 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-fall-chinook-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 57,
             "label": "Fishable",
             "headline": "The river is fishable, but lower water leaves less cover and less room for error.",
-            "detail": "Water is lower than ideal but still workable, with less depth and cover across the river. The river is still falling, so shallow lanes may lose depth while the deepest connected water becomes more important. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river. This flow shape applies to the Niles mainstem reach only; verify the harbor, lower Michigan river, individual tailwaters, and Indiana water directly.",
-            "tip": "Begin in the deepest connected holding water and fish its shaded edge first. Skip shallow travel lanes that are draining as the river falls. Apply this recommendation at Niles; recheck water shape and safe access before carrying it to another St. Joseph section.",
+            "detail": "Water is lower than ideal but still workable, with less depth and cover across the river. The river is still falling, so shallow lanes may lose depth while the deepest connected water becomes more important. This read applies only to the Niles mainstem reach.",
+            "tip": "Use the deepest connected water and keep disturbance low. Verify every other section directly.",
             "reasonCodes": [
               "gauge_fresh",
               "low_flow_band"
@@ -8740,15 +8798,15 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 66,
             "maximum": 100,
             "label": "Active",
-            "headline": "Today’s Chinook activity outlook is active.",
-            "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: The river level or its recent change is less favorable. Broad seasonal presence improves the chance of locating fish, but this score measures responsiveness rather than abundance. Measured river conditions describe the St. Joseph mainstem at Niles. Water temperature, clarity, hydraulic shape, and presentation conditions can differ in the harbor and lower Michigan river, at individual ladder tailwaters, and through South Bend, Mishawaka, and the Twin Branch reach. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
-            "tip": "Start with 5–9 AM. If the sky changes from the forecast, favor the darkest practical window. Apply this response window at Niles; verify temperature, clarity, flow shape, and legal access again before carrying it to another St. Joseph section.",
+            "headline": "Today’s Niles Chinook responsiveness is active.",
+            "detail": "Conditions support a meaningful Chinook response. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Flow and temperature represent only the Niles mainstem reach.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify other sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -8800,10 +8858,13 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 29,
+            "displayScore": 30,
+            "scoreIsApproximate": true,
             "stage": "peak",
             "maximum": 100,
             "riverCeiling": 30,
@@ -8812,14 +8873,14 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "curveDirection": "falling",
             "winterHoldingContext": false,
             "label": "Peak presence",
-            "headline": "Seasonal timing still supports Chinook salmon being near their strongest in-river presence, even if the migration may be just beyond its usual peak.",
-            "detail": "This point in the season may sit just beyond the usual peak while the limited seasonal opportunity remains near its high point. This is a seasonal estimate, not a live fish count. This seasonal presence applies to the accessible St. Joseph corridor as a whole; it does not claim equal fish numbers at the harbor, Niles, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Treat this as near the high point of a limited seasonal opportunity. Focus on the most dependable water, and require direct fish activity before committing more time. Use Migration Stage to choose the specific St. Joseph section, then verify that water directly.",
+            "headline": "Seasonal Chinook salmon presence is near its expected St. Joseph peak.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the St. Joseph Chinook salmon ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_peak",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -9079,6 +9140,7 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "nextConditionRefreshAt": "2026-10-01T05:00:00.000Z",
           "runStage": {
             "stage": "peak",
+            "copyStrategy": "st_joseph_corridor",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -9101,14 +9163,14 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "peakToEndDays": 37
             },
             "label": "Peak",
-            "headline": "This is the best St. Joseph Chinook salmon window, but it remains a selective 3-of-10 opportunity.",
-            "detail": "The calendar supports the best chance of finding Chinook in proven lower-Michigan, Niles, or selective Indiana holding water. It does not imply strong or uniform occupation of the full corridor.",
-            "tip": "Choose a proven section and cover deep holding water from head to tail. Change sections only after a clean search, and leave shallow spawning fish undisturbed.",
-            "whereToStart": "Start with proven lower-Michigan and Niles holding water, then make one selective South Bend or Mishawaka check below Twin Branch; this smaller Chinook run is not a reason to cover all 63 miles.",
+            "headline": "This is the best St. Joseph Chinook salmon window, but opportunity remains selective.",
+            "detail": "This is a limited 3-of-10 run, not a claim of strong or uniform presence.",
+            "tip": "Choose one section and cover it completely before changing reaches. Leave shallow spawning fish undisturbed.",
+            "whereToStart": "Start in the Middle river (Berrien Springs–Niles). Treat the Upper river (Niles–Twin Branch Dam) as a selective second check.",
             "reasonCodes": [
               "stage_peak"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -9177,7 +9239,7 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "conditions_insufficient",
               "conditions_checkpoint_peak_start"
             ],
-            "copyVersion": "river-run-copy-v27",
+            "copyVersion": "river-run-copy-v34",
             "previousCheckpointId": "building_established",
             "previousCheckpointDate": "2026-09-15",
             "previousTimingLabel": "Insufficient evidence"
@@ -9194,9 +9256,9 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "push": {
             "score": 61,
             "label": "Possible",
-            "headline": "Today's water offers some support for fresh fish moving into or through the river.",
-            "detail": "The river has started to rise since yesterday. Water temperature is favorable for fall migration and is cooling. Recent rain around the river adds some support while the river begins to rise. This Push describes fresh-movement support at Niles only; it does not prove a new wave at the harbor, Berrien Springs, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Start in lower-river travel lanes, then fish the first deep resting water immediately upstream. Move to established holding water if those entry routes stay quiet. Use the Niles signal to choose between Niles-area holding water and a lower-Michigan travel-water check; verify Indiana movement directly.",
+            "headline": "Niles water offers some support for fresh movement.",
+            "detail": "Niles flow has started to rise. Water temperature is favorable for fall migration and is cooling. Rain adds limited support while Niles begins to rise.",
+            "tip": "Keep Migration Stage’s section primary and add one Niles-area movement check.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
@@ -9214,14 +9276,14 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-fall-chinook-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 55,
             "label": "Fishable",
             "headline": "The river is fishable, but lower water leaves less cover and less room for error.",
-            "detail": "Water is lower than ideal but still workable, with less depth and cover across the river. The early rise is adding depth and cover, but the best travel lanes are beginning to shift. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river. This flow shape applies to the Niles mainstem reach only; verify the harbor, lower Michigan river, individual tailwaters, and Indiana water directly.",
-            "tip": "Begin on newly covered inside seams that connect directly to deep holding water. Keep the presentation on the soft edge and avoid wading through the new lane. Apply this recommendation at Niles; recheck water shape and safe access before carrying it to another St. Joseph section.",
+            "detail": "Water is lower than ideal but still workable, with less depth and cover across the river. The early rise is adding depth and cover, but the best travel lanes are beginning to shift. This read applies only to the Niles mainstem reach.",
+            "tip": "Use the deepest connected water and keep disturbance low. Verify every other section directly.",
             "reasonCodes": [
               "gauge_fresh",
               "low_flow_band"
@@ -9232,15 +9294,15 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 76,
             "maximum": 100,
             "label": "Active",
-            "headline": "Today’s Chinook activity outlook is active.",
-            "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. Broad seasonal presence improves the chance of locating fish, but this score measures responsiveness rather than abundance. Measured river conditions describe the St. Joseph mainstem at Niles. Water temperature, clarity, hydraulic shape, and presentation conditions can differ in the harbor and lower Michigan river, at individual ladder tailwaters, and through South Bend, Mishawaka, and the Twin Branch reach. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
-            "tip": "Start with 5–9 AM. If the sky changes from the forecast, favor the darkest practical window. Apply this response window at Niles; verify temperature, clarity, flow shape, and legal access again before carrying it to another St. Joseph section.",
+            "headline": "Today’s Niles Chinook responsiveness is active.",
+            "detail": "Conditions support a meaningful Chinook response. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Flow and temperature represent only the Niles mainstem reach.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify other sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -9292,10 +9354,13 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 29,
+            "displayScore": 30,
+            "scoreIsApproximate": true,
             "stage": "peak",
             "maximum": 100,
             "riverCeiling": 30,
@@ -9304,14 +9369,14 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "curveDirection": "falling",
             "winterHoldingContext": false,
             "label": "Peak presence",
-            "headline": "Seasonal timing still supports Chinook salmon being near their strongest in-river presence, even if the migration may be just beyond its usual peak.",
-            "detail": "This point in the season may sit just beyond the usual peak while the limited seasonal opportunity remains near its high point. This is a seasonal estimate, not a live fish count. This seasonal presence applies to the accessible St. Joseph corridor as a whole; it does not claim equal fish numbers at the harbor, Niles, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Treat this as near the high point of a limited seasonal opportunity. Focus on the most dependable water, and require direct fish activity before committing more time. Use Migration Stage to choose the specific St. Joseph section, then verify that water directly.",
+            "headline": "Seasonal Chinook salmon presence is near its expected St. Joseph peak.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the St. Joseph Chinook salmon ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_peak",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -9565,6 +9630,7 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "nextConditionRefreshAt": "2026-10-01T05:00:00.000Z",
           "runStage": {
             "stage": "peak",
+            "copyStrategy": "st_joseph_corridor",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -9587,14 +9653,14 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "peakToEndDays": 37
             },
             "label": "Peak",
-            "headline": "This is the best St. Joseph Chinook salmon window, but it remains a selective 3-of-10 opportunity.",
-            "detail": "The calendar supports the best chance of finding Chinook in proven lower-Michigan, Niles, or selective Indiana holding water. It does not imply strong or uniform occupation of the full corridor.",
-            "tip": "Choose a proven section and cover deep holding water from head to tail. Change sections only after a clean search, and leave shallow spawning fish undisturbed.",
-            "whereToStart": "Start with proven lower-Michigan and Niles holding water, then make one selective South Bend or Mishawaka check below Twin Branch; this smaller Chinook run is not a reason to cover all 63 miles.",
+            "headline": "This is the best St. Joseph Chinook salmon window, but opportunity remains selective.",
+            "detail": "This is a limited 3-of-10 run, not a claim of strong or uniform presence.",
+            "tip": "Choose one section and cover it completely before changing reaches. Leave shallow spawning fish undisturbed.",
+            "whereToStart": "Start in the Middle river (Berrien Springs–Niles). Treat the Upper river (Niles–Twin Branch Dam) as a selective second check.",
             "reasonCodes": [
               "stage_peak"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -9663,7 +9729,7 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "conditions_insufficient",
               "conditions_checkpoint_peak_start"
             ],
-            "copyVersion": "river-run-copy-v27",
+            "copyVersion": "river-run-copy-v34",
             "previousCheckpointId": "building_established",
             "previousCheckpointDate": "2026-09-15",
             "previousTimingLabel": "Insufficient evidence"
@@ -9680,9 +9746,9 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "push": {
             "score": 76,
             "label": "Strong",
-            "headline": "Today's river rise and water temperature strongly support the possibility of a fresh wave moving into the river.",
-            "detail": "The river has made a clear rise since yesterday. Water temperature is favorable for fall migration and is cooling. The river has already made a meaningful rise, so that measured response carries the useful movement signal and rainfall adds no separate weight. This Push describes fresh-movement support at Niles only; it does not prove a new wave at the harbor, Berrien Springs, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Begin on lower-river travel lanes and inside seams, then work the first resting holes along that route. Keep moving until fish establish a pattern; the signal still does not prove a wave entered. Use the Niles signal to choose between Niles-area holding water and a lower-Michigan travel-water check; verify Indiana movement directly.",
+            "headline": "Niles water strongly supports possible fresh movement.",
+            "detail": "Niles flow has made a clear rise. Water temperature is favorable for fall migration and is cooling. Niles already reflects the rain response, so rain adds no extra credit.",
+            "tip": "Use Niles as the movement check, then verify the Lower and Upper river directly.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
@@ -9700,14 +9766,14 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-fall-chinook-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 80,
             "label": "Good",
             "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. Depth and current are changing enough to move the most controllable presentations toward inside seams and current breaks. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river. This flow shape applies to the Niles mainstem reach only; verify the harbor, lower Michigan river, individual tailwaters, and Indiana water directly.",
-            "tip": "Move off the center lane. Work inside seams, the downstream side of current breaks, and the first deep resting pocket with short controlled presentations. Apply this recommendation at Niles; recheck water shape and safe access before carrying it to another St. Joseph section.",
+            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. Depth and current are changing enough to move the most controllable presentations toward inside seams and current breaks. This read applies only to the Niles mainstem reach.",
+            "tip": "Cover readable seams and holding water with a controlled presentation. Verify every other section directly.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band"
@@ -9718,15 +9784,15 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 80,
             "maximum": 100,
             "label": "Highly active",
-            "headline": "Today’s Chinook activity outlook is highly active.",
-            "detail": "Conditions strongly favor a response from Chinook that are present and capable of reacting. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. Broad seasonal presence improves the chance of locating fish, but this score measures responsiveness rather than abundance. Measured river conditions describe the St. Joseph mainstem at Niles. Water temperature, clarity, hydraulic shape, and presentation conditions can differ in the harbor and lower Michigan river, at individual ladder tailwaters, and through South Bend, Mishawaka, and the Twin Branch reach. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
-            "tip": "Start with 5–9 AM. If the sky changes from the forecast, favor the darkest practical window. Apply this response window at Niles; verify temperature, clarity, flow shape, and legal access again before carrying it to another St. Joseph section.",
+            "headline": "Today’s Niles Chinook responsiveness is highly active.",
+            "detail": "Conditions strongly support Chinook responsiveness. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Flow and temperature represent only the Niles mainstem reach.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify other sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -9778,10 +9844,13 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 29,
+            "displayScore": 30,
+            "scoreIsApproximate": true,
             "stage": "peak",
             "maximum": 100,
             "riverCeiling": 30,
@@ -9790,14 +9859,14 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "curveDirection": "falling",
             "winterHoldingContext": false,
             "label": "Peak presence",
-            "headline": "Seasonal timing still supports Chinook salmon being near their strongest in-river presence, even if the migration may be just beyond its usual peak.",
-            "detail": "This point in the season may sit just beyond the usual peak while the limited seasonal opportunity remains near its high point. This is a seasonal estimate, not a live fish count. This seasonal presence applies to the accessible St. Joseph corridor as a whole; it does not claim equal fish numbers at the harbor, Niles, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Treat this as near the high point of a limited seasonal opportunity. Focus on the most dependable water, and require direct fish activity before committing more time. Use Migration Stage to choose the specific St. Joseph section, then verify that water directly.",
+            "headline": "Seasonal Chinook salmon presence is near its expected St. Joseph peak.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the St. Joseph Chinook salmon ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_peak",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -10051,6 +10120,7 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "nextConditionRefreshAt": "2026-10-01T05:00:00.000Z",
           "runStage": {
             "stage": "peak",
+            "copyStrategy": "st_joseph_corridor",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -10073,14 +10143,14 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "peakToEndDays": 37
             },
             "label": "Peak",
-            "headline": "This is the best St. Joseph Chinook salmon window, but it remains a selective 3-of-10 opportunity.",
-            "detail": "The calendar supports the best chance of finding Chinook in proven lower-Michigan, Niles, or selective Indiana holding water. It does not imply strong or uniform occupation of the full corridor.",
-            "tip": "Choose a proven section and cover deep holding water from head to tail. Change sections only after a clean search, and leave shallow spawning fish undisturbed.",
-            "whereToStart": "Start with proven lower-Michigan and Niles holding water, then make one selective South Bend or Mishawaka check below Twin Branch; this smaller Chinook run is not a reason to cover all 63 miles.",
+            "headline": "This is the best St. Joseph Chinook salmon window, but opportunity remains selective.",
+            "detail": "This is a limited 3-of-10 run, not a claim of strong or uniform presence.",
+            "tip": "Choose one section and cover it completely before changing reaches. Leave shallow spawning fish undisturbed.",
+            "whereToStart": "Start in the Middle river (Berrien Springs–Niles). Treat the Upper river (Niles–Twin Branch Dam) as a selective second check.",
             "reasonCodes": [
               "stage_peak"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -10149,7 +10219,7 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "conditions_insufficient",
               "conditions_checkpoint_peak_start"
             ],
-            "copyVersion": "river-run-copy-v27",
+            "copyVersion": "river-run-copy-v34",
             "previousCheckpointId": "building_established",
             "previousCheckpointDate": "2026-09-15",
             "previousTimingLabel": "Insufficient evidence"
@@ -10166,9 +10236,9 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "push": {
             "score": 90,
             "label": "Very strong",
-            "headline": "Today's water shows the strongest support for a fresh wave moving into the river.",
-            "detail": "The river is rising quickly, creating conditions fish often use to move. Water temperature is favorable for fall migration and is cooling sharply. The river has already made a meaningful rise, so that measured response carries the useful movement signal and rainfall adds no separate weight. This Push describes fresh-movement support at Niles only; it does not prove a new wave at the harbor, Berrien Springs, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Start low and fish softer travel lanes, newly formed inside seams, and the first resting water above them. Skip any lane Fishability says is too fast or difficult to control. Use the Niles signal to choose between Niles-area holding water and a lower-Michigan travel-water check; verify Indiana movement directly.",
+            "headline": "Niles water offers its strongest support for fresh movement.",
+            "detail": "Niles flow is rising quickly. Water temperature is favorable for fall migration and is cooling sharply. Niles already reflects the rain response, so rain adds no extra credit.",
+            "tip": "Use Niles as the movement check, then verify the Lower and Upper river directly.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
@@ -10186,14 +10256,14 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-fall-chinook-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 68,
             "label": "Fishable",
             "headline": "The river is rising fast, and usable fishing water is shifting toward slower margins and current breaks.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The fast rise is quickly replacing settled lanes with heavier current and newly formed soft edges. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river. This flow shape applies to the Niles mainstem reach only; verify the harbor, lower Michigan river, individual tailwaters, and Indiana water directly.",
-            "tip": "Leave the main channel alone. Fish newly formed soft margins, inside bends, and the downstream side of current breaks with short controlled presentations. Apply this recommendation at Niles; recheck water shape and safe access before carrying it to another St. Joseph section.",
+            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The fast rise is quickly replacing settled lanes with heavier current and newly formed soft edges. This read applies only to the Niles mainstem reach.",
+            "tip": "Favor protected margins and short controlled presentations. Choose another day if control is not dependable. Verify every other section directly.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band"
@@ -10204,15 +10274,15 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 78,
             "maximum": 100,
             "label": "Active",
-            "headline": "Today’s Chinook activity outlook is active.",
-            "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. Broad seasonal presence improves the chance of locating fish, but this score measures responsiveness rather than abundance. Measured river conditions describe the St. Joseph mainstem at Niles. Water temperature, clarity, hydraulic shape, and presentation conditions can differ in the harbor and lower Michigan river, at individual ladder tailwaters, and through South Bend, Mishawaka, and the Twin Branch reach. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
-            "tip": "Start with 5–9 AM. If the sky changes from the forecast, favor the darkest practical window. Apply this response window at Niles; verify temperature, clarity, flow shape, and legal access again before carrying it to another St. Joseph section.",
+            "headline": "Today’s Niles Chinook responsiveness is active.",
+            "detail": "Conditions support a meaningful Chinook response. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Flow and temperature represent only the Niles mainstem reach.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify other sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -10264,10 +10334,13 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 29,
+            "displayScore": 30,
+            "scoreIsApproximate": true,
             "stage": "peak",
             "maximum": 100,
             "riverCeiling": 30,
@@ -10276,14 +10349,14 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "curveDirection": "falling",
             "winterHoldingContext": false,
             "label": "Peak presence",
-            "headline": "Seasonal timing still supports Chinook salmon being near their strongest in-river presence, even if the migration may be just beyond its usual peak.",
-            "detail": "This point in the season may sit just beyond the usual peak while the limited seasonal opportunity remains near its high point. This is a seasonal estimate, not a live fish count. This seasonal presence applies to the accessible St. Joseph corridor as a whole; it does not claim equal fish numbers at the harbor, Niles, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Treat this as near the high point of a limited seasonal opportunity. Focus on the most dependable water, and require direct fish activity before committing more time. Use Migration Stage to choose the specific St. Joseph section, then verify that water directly.",
+            "headline": "Seasonal Chinook salmon presence is near its expected St. Joseph peak.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the St. Joseph Chinook salmon ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_peak",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -10537,6 +10610,7 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "nextConditionRefreshAt": "2026-10-01T05:00:00.000Z",
           "runStage": {
             "stage": "peak",
+            "copyStrategy": "st_joseph_corridor",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -10559,14 +10633,14 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "peakToEndDays": 37
             },
             "label": "Peak",
-            "headline": "This is the best St. Joseph Chinook salmon window, but it remains a selective 3-of-10 opportunity.",
-            "detail": "The calendar supports the best chance of finding Chinook in proven lower-Michigan, Niles, or selective Indiana holding water. It does not imply strong or uniform occupation of the full corridor.",
-            "tip": "Choose a proven section and cover deep holding water from head to tail. Change sections only after a clean search, and leave shallow spawning fish undisturbed.",
-            "whereToStart": "Start with proven lower-Michigan and Niles holding water, then make one selective South Bend or Mishawaka check below Twin Branch; this smaller Chinook run is not a reason to cover all 63 miles.",
+            "headline": "This is the best St. Joseph Chinook salmon window, but opportunity remains selective.",
+            "detail": "This is a limited 3-of-10 run, not a claim of strong or uniform presence.",
+            "tip": "Choose one section and cover it completely before changing reaches. Leave shallow spawning fish undisturbed.",
+            "whereToStart": "Start in the Middle river (Berrien Springs–Niles). Treat the Upper river (Niles–Twin Branch Dam) as a selective second check.",
             "reasonCodes": [
               "stage_peak"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -10635,7 +10709,7 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "conditions_insufficient",
               "conditions_checkpoint_peak_start"
             ],
-            "copyVersion": "river-run-copy-v27",
+            "copyVersion": "river-run-copy-v34",
             "previousCheckpointId": "building_established",
             "previousCheckpointDate": "2026-09-15",
             "previousTimingLabel": "Insufficient evidence"
@@ -10652,9 +10726,9 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "push": {
             "score": 51,
             "label": "Possible",
-            "headline": "Today's water offers some support for fresh fish moving into or through the river.",
-            "detail": "The river is holding steady with no meaningful rise yet. Water temperature is favorable for fall migration and is cooling. Recent rain around the river may help, but the river has not responded enough for rain alone to create a strong Push. This Push describes fresh-movement support at Niles only; it does not prove a new wave at the harbor, Berrien Springs, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Start in lower-river travel lanes, then fish the first deep resting water immediately upstream. Move to established holding water if those entry routes stay quiet. Use the Niles signal to choose between Niles-area holding water and a lower-Michigan travel-water check; verify Indiana movement directly.",
+            "headline": "Niles water offers some support for fresh movement.",
+            "detail": "Niles flow is steady without a meaningful rise. Water temperature is favorable for fall migration and is cooling. Rain is only a precursor because Niles has not responded.",
+            "tip": "Keep Migration Stage’s section primary and add one Niles-area movement check.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
@@ -10673,14 +10747,14 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-fall-chinook-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 93,
             "label": "Excellent",
             "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river. This flow shape applies to the Niles mainstem reach only; verify the harbor, lower Michigan river, individual tailwaters, and Indiana water directly.",
-            "tip": "Begin on the primary travel lane feeding deep holding water. Work each hole from its head through the inside seam and tail, then keep moving until fish establish a pattern. Apply this recommendation at Niles; recheck water shape and safe access before carrying it to another St. Joseph section.",
+            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. This read applies only to the Niles mainstem reach.",
+            "tip": "Cover readable seams and holding water with a controlled presentation. Verify every other section directly.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band"
@@ -10691,15 +10765,15 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 79,
             "maximum": 100,
             "label": "Active",
-            "headline": "Today’s Chinook activity outlook is active.",
-            "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. Broad seasonal presence improves the chance of locating fish, but this score measures responsiveness rather than abundance. Measured river conditions describe the St. Joseph mainstem at Niles. Water temperature, clarity, hydraulic shape, and presentation conditions can differ in the harbor and lower Michigan river, at individual ladder tailwaters, and through South Bend, Mishawaka, and the Twin Branch reach. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
-            "tip": "Start with 5–9 AM. If the sky changes from the forecast, favor the darkest practical window. Apply this response window at Niles; verify temperature, clarity, flow shape, and legal access again before carrying it to another St. Joseph section.",
+            "headline": "Today’s Niles Chinook responsiveness is active.",
+            "detail": "Conditions support a meaningful Chinook response. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Flow and temperature represent only the Niles mainstem reach.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify other sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -10751,10 +10825,13 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 29,
+            "displayScore": 30,
+            "scoreIsApproximate": true,
             "stage": "peak",
             "maximum": 100,
             "riverCeiling": 30,
@@ -10763,14 +10840,14 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "curveDirection": "falling",
             "winterHoldingContext": false,
             "label": "Peak presence",
-            "headline": "Seasonal timing still supports Chinook salmon being near their strongest in-river presence, even if the migration may be just beyond its usual peak.",
-            "detail": "This point in the season may sit just beyond the usual peak while the limited seasonal opportunity remains near its high point. This is a seasonal estimate, not a live fish count. This seasonal presence applies to the accessible St. Joseph corridor as a whole; it does not claim equal fish numbers at the harbor, Niles, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Treat this as near the high point of a limited seasonal opportunity. Focus on the most dependable water, and require direct fish activity before committing more time. Use Migration Stage to choose the specific St. Joseph section, then verify that water directly.",
+            "headline": "Seasonal Chinook salmon presence is near its expected St. Joseph peak.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the St. Joseph Chinook salmon ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_peak",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -11024,6 +11101,7 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "nextConditionRefreshAt": "2026-10-01T05:00:00.000Z",
           "runStage": {
             "stage": "peak",
+            "copyStrategy": "st_joseph_corridor",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -11046,14 +11124,14 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "peakToEndDays": 37
             },
             "label": "Peak",
-            "headline": "This is the best St. Joseph Chinook salmon window, but it remains a selective 3-of-10 opportunity.",
-            "detail": "The calendar supports the best chance of finding Chinook in proven lower-Michigan, Niles, or selective Indiana holding water. It does not imply strong or uniform occupation of the full corridor.",
-            "tip": "Choose a proven section and cover deep holding water from head to tail. Change sections only after a clean search, and leave shallow spawning fish undisturbed.",
-            "whereToStart": "Start with proven lower-Michigan and Niles holding water, then make one selective South Bend or Mishawaka check below Twin Branch; this smaller Chinook run is not a reason to cover all 63 miles.",
+            "headline": "This is the best St. Joseph Chinook salmon window, but opportunity remains selective.",
+            "detail": "This is a limited 3-of-10 run, not a claim of strong or uniform presence.",
+            "tip": "Choose one section and cover it completely before changing reaches. Leave shallow spawning fish undisturbed.",
+            "whereToStart": "Start in the Middle river (Berrien Springs–Niles). Treat the Upper river (Niles–Twin Branch Dam) as a selective second check.",
             "reasonCodes": [
               "stage_peak"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -11122,7 +11200,7 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "conditions_insufficient",
               "conditions_checkpoint_peak_start"
             ],
-            "copyVersion": "river-run-copy-v27",
+            "copyVersion": "river-run-copy-v34",
             "previousCheckpointId": "building_established",
             "previousCheckpointDate": "2026-09-15",
             "previousTimingLabel": "Insufficient evidence"
@@ -11139,9 +11217,9 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "push": {
             "score": 46,
             "label": "No clear push",
-            "headline": "Today's water does not show a clear signal for a fresh wave of fish.",
-            "detail": "There is not enough recent river-level history to tell whether the river is rising or falling. Water temperature is favorable for fall migration and is cooling. Recent rain around the river may help, but the river has not responded enough for rain alone to create a strong Push. Without a dependable river trend, there is no clear Push. This Push describes fresh-movement support at Niles only; it does not prove a new wave at the harbor, Berrien Springs, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Do not relocate the trip around this Push read. Begin in established holding water, verify the river at the first access, and add travel lanes only after confirming workable conditions. Use the Niles signal to choose between Niles-area holding water and a lower-Michigan travel-water check; verify Indiana movement directly.",
+            "headline": "Niles water does not show a clear fresh-movement signal.",
+            "detail": "Niles flow does not have a dependable recent trend. Water temperature is favorable for fall migration and is cooling. Without a dependable Niles trend, the read cannot show a clear Push.",
+            "tip": "Keep Migration Stage’s section primary. Do not shift sections from this Niles read.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
@@ -11161,14 +11239,14 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-fall-chinook-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 69,
             "label": "Fishable",
             "headline": "The river appears fishable, but its direction is unclear, so confidence is limited.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. There is not enough recent information to tell whether the river is rising or falling, which lowers confidence in the read. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river. This flow shape applies to the Niles mainstem reach only; verify the harbor, lower Michigan river, individual tailwaters, and Indiana water directly.",
-            "tip": "Start at a bank-side inside bend or soft seam where the full presentation stays under control. Skip faster water until the river's direction is verified. Apply this recommendation at Niles; recheck water shape and safe access before carrying it to another St. Joseph section.",
+            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. There is not enough recent information to tell whether the river is rising or falling, which lowers confidence in the read. This read applies only to the Niles mainstem reach.",
+            "tip": "Verify the Niles reach directly before choosing presentation water. Verify every other section directly.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band",
@@ -11182,15 +11260,15 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               ]
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 79,
             "maximum": 100,
             "label": "Active",
-            "headline": "Today’s Chinook activity outlook is active.",
-            "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. Broad seasonal presence improves the chance of locating fish, but this score measures responsiveness rather than abundance. Measured river conditions describe the St. Joseph mainstem at Niles. Water temperature, clarity, hydraulic shape, and presentation conditions can differ in the harbor and lower Michigan river, at individual ladder tailwaters, and through South Bend, Mishawaka, and the Twin Branch reach. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
-            "tip": "Start with 5–9 AM. If the sky changes from the forecast, favor the darkest practical window. Apply this response window at Niles; verify temperature, clarity, flow shape, and legal access again before carrying it to another St. Joseph section.",
+            "headline": "Today’s Niles Chinook responsiveness is active.",
+            "detail": "Conditions support a meaningful Chinook response. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Flow and temperature represent only the Niles mainstem reach.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify other sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -11242,10 +11320,13 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 29,
+            "displayScore": 30,
+            "scoreIsApproximate": true,
             "stage": "peak",
             "maximum": 100,
             "riverCeiling": 30,
@@ -11254,14 +11335,14 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "curveDirection": "falling",
             "winterHoldingContext": false,
             "label": "Peak presence",
-            "headline": "Seasonal timing still supports Chinook salmon being near their strongest in-river presence, even if the migration may be just beyond its usual peak.",
-            "detail": "This point in the season may sit just beyond the usual peak while the limited seasonal opportunity remains near its high point. This is a seasonal estimate, not a live fish count. This seasonal presence applies to the accessible St. Joseph corridor as a whole; it does not claim equal fish numbers at the harbor, Niles, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Treat this as near the high point of a limited seasonal opportunity. Focus on the most dependable water, and require direct fish activity before committing more time. Use Migration Stage to choose the specific St. Joseph section, then verify that water directly.",
+            "headline": "Seasonal Chinook salmon presence is near its expected St. Joseph peak.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the St. Joseph Chinook salmon ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_peak",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -11521,6 +11602,7 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "nextConditionRefreshAt": "2026-10-01T05:00:00.000Z",
           "runStage": {
             "stage": "peak",
+            "copyStrategy": "st_joseph_corridor",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -11543,14 +11625,14 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "peakToEndDays": 37
             },
             "label": "Peak",
-            "headline": "This is the best St. Joseph Chinook salmon window, but it remains a selective 3-of-10 opportunity.",
-            "detail": "The calendar supports the best chance of finding Chinook in proven lower-Michigan, Niles, or selective Indiana holding water. It does not imply strong or uniform occupation of the full corridor.",
-            "tip": "Choose a proven section and cover deep holding water from head to tail. Change sections only after a clean search, and leave shallow spawning fish undisturbed.",
-            "whereToStart": "Start with proven lower-Michigan and Niles holding water, then make one selective South Bend or Mishawaka check below Twin Branch; this smaller Chinook run is not a reason to cover all 63 miles.",
+            "headline": "This is the best St. Joseph Chinook salmon window, but opportunity remains selective.",
+            "detail": "This is a limited 3-of-10 run, not a claim of strong or uniform presence.",
+            "tip": "Choose one section and cover it completely before changing reaches. Leave shallow spawning fish undisturbed.",
+            "whereToStart": "Start in the Middle river (Berrien Springs–Niles). Treat the Upper river (Niles–Twin Branch Dam) as a selective second check.",
             "reasonCodes": [
               "stage_peak"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -11619,7 +11701,7 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "conditions_insufficient",
               "conditions_checkpoint_peak_start"
             ],
-            "copyVersion": "river-run-copy-v27",
+            "copyVersion": "river-run-copy-v34",
             "previousCheckpointId": "building_established",
             "previousCheckpointDate": "2026-09-15",
             "previousTimingLabel": "Insufficient evidence"
@@ -11636,9 +11718,9 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "push": {
             "score": 55,
             "label": "Possible",
-            "headline": "The water may support fresh movement, but an aging river reading limits confidence.",
-            "detail": "The river is rising quickly, creating conditions fish often use to move. Water temperature is favorable for fall migration and is cooling sharply. The river has already made a meaningful rise, so that measured response carries the useful movement signal and rainfall adds no separate weight. The latest river-level reading is aging, so confidence is reduced. This Push describes fresh-movement support at Niles only; it does not prove a new wave at the harbor, Berrien Springs, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Do not relocate the trip around this Push read. Begin in established holding water, verify the river at the first access, and add travel lanes only after confirming workable conditions. Use the Niles signal to choose between Niles-area holding water and a lower-Michigan travel-water check; verify Indiana movement directly.",
+            "headline": "Niles water offers some support for fresh movement.",
+            "detail": "Niles flow is rising quickly. Water temperature is favorable for fall migration and is cooling sharply. The Niles reading is aging, so confidence is reduced.",
+            "tip": "Keep Migration Stage’s section primary and add one Niles-area movement check.",
             "reasonCodes": [
               "gauge_stale",
               "push_normal_flow_context",
@@ -11659,14 +11741,14 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               ]
             },
             "rulesVersion": "st-joseph-fall-chinook-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 55,
             "label": "Fishable",
             "headline": "The last river reading was fishable, but it is aging and may no longer describe the water accurately.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. Because the latest reading is aging, the river may have changed since it was reported. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river. This flow shape applies to the Niles mainstem reach only; verify the harbor, lower Michigan river, individual tailwaters, and Indiana water directly.",
-            "tip": "Do not choose a reach from this reading alone. Check the water at the first access, and begin only in bank-side water where you can control the entire presentation. Apply this recommendation at Niles; recheck water shape and safe access before carrying it to another St. Joseph section.",
+            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. Because the latest reading is aging, the river may have changed since it was reported. This read applies only to the Niles mainstem reach.",
+            "tip": "Verify the Niles reach directly before choosing presentation water. Verify every other section directly.",
             "reasonCodes": [
               "gauge_stale",
               "ideal_flow_band",
@@ -11680,15 +11762,15 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               ]
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 53,
             "maximum": 100,
             "label": "Moderate",
-            "headline": "Today’s Chinook activity outlook is moderate.",
-            "detail": "Some useful factors are present, but the response window is mixed. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Current river behavior is unavailable. Broad seasonal presence improves the chance of locating fish, but this score measures responsiveness rather than abundance. Measured river conditions describe the St. Joseph mainstem at Niles. Water temperature, clarity, hydraulic shape, and presentation conditions can differ in the harbor and lower Michigan river, at individual ladder tailwaters, and through South Bend, Mishawaka, and the Twin Branch reach. One important reading is unavailable or comes from tomorrow’s forecast, so the outlook is kept conservative.",
-            "tip": "Start with 5–9 AM. If the sky changes from the forecast, favor the darkest practical window. Apply this response window at Niles; verify temperature, clarity, flow shape, and legal access again before carrying it to another St. Joseph section.",
+            "headline": "Today’s Niles Chinook responsiveness is moderate.",
+            "detail": "Conditions offer mixed support for Chinook responsiveness. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Moderate confidence reflects missing or forecast inputs; river measurements still represent only Niles.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify other sections directly.",
             "reasonCodes": [
               "activity_confidence_moderate",
               "activity_today",
@@ -11740,10 +11822,13 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 29,
+            "displayScore": 30,
+            "scoreIsApproximate": true,
             "stage": "peak",
             "maximum": 100,
             "riverCeiling": 30,
@@ -11752,14 +11837,14 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "curveDirection": "falling",
             "winterHoldingContext": false,
             "label": "Peak presence",
-            "headline": "Seasonal timing still supports Chinook salmon being near their strongest in-river presence, even if the migration may be just beyond its usual peak.",
-            "detail": "This point in the season may sit just beyond the usual peak while the limited seasonal opportunity remains near its high point. This is a seasonal estimate, not a live fish count. This seasonal presence applies to the accessible St. Joseph corridor as a whole; it does not claim equal fish numbers at the harbor, Niles, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Treat this as near the high point of a limited seasonal opportunity. Focus on the most dependable water, and require direct fish activity before committing more time. Use Migration Stage to choose the specific St. Joseph section, then verify that water directly.",
+            "headline": "Seasonal Chinook salmon presence is near its expected St. Joseph peak.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the St. Joseph Chinook salmon ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_peak",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -12013,6 +12098,7 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "nextConditionRefreshAt": "2026-10-01T05:00:00.000Z",
           "runStage": {
             "stage": "peak",
+            "copyStrategy": "st_joseph_corridor",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -12035,14 +12121,14 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "peakToEndDays": 37
             },
             "label": "Peak",
-            "headline": "This is the best St. Joseph Chinook salmon window, but it remains a selective 3-of-10 opportunity.",
-            "detail": "The calendar supports the best chance of finding Chinook in proven lower-Michigan, Niles, or selective Indiana holding water. It does not imply strong or uniform occupation of the full corridor.",
-            "tip": "Choose a proven section and cover deep holding water from head to tail. Change sections only after a clean search, and leave shallow spawning fish undisturbed.",
-            "whereToStart": "Start with proven lower-Michigan and Niles holding water, then make one selective South Bend or Mishawaka check below Twin Branch; this smaller Chinook run is not a reason to cover all 63 miles.",
+            "headline": "This is the best St. Joseph Chinook salmon window, but opportunity remains selective.",
+            "detail": "This is a limited 3-of-10 run, not a claim of strong or uniform presence.",
+            "tip": "Choose one section and cover it completely before changing reaches. Leave shallow spawning fish undisturbed.",
+            "whereToStart": "Start in the Middle river (Berrien Springs–Niles). Treat the Upper river (Niles–Twin Branch Dam) as a selective second check.",
             "reasonCodes": [
               "stage_peak"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -12111,7 +12197,7 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "conditions_insufficient",
               "conditions_checkpoint_peak_start"
             ],
-            "copyVersion": "river-run-copy-v27",
+            "copyVersion": "river-run-copy-v34",
             "previousCheckpointId": "building_established",
             "previousCheckpointDate": "2026-09-15",
             "previousTimingLabel": "Insufficient evidence"
@@ -12128,9 +12214,9 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "push": {
             "score": 49,
             "label": "No clear push",
-            "headline": "The river is rising hard, but extreme flow makes this an unreliable fresh-movement read.",
-            "detail": "The river is rising quickly, creating conditions fish often use to move. Overall flow is extremely high. Water temperature is favorable for fall migration and is cooling sharply. Additional rain does not improve the read while the river is already high. This Push describes fresh-movement support at Niles only; it does not prove a new wave at the harbor, Berrien Springs, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Do not chase movement in the main channel. If Fishability remains usable, fish only protected margins, inside turns, and soft current with short controlled presentations. Use the Niles signal to choose between Niles-area holding water and a lower-Michigan travel-water check; verify Indiana movement directly.",
+            "headline": "Extreme Niles flow prevents a dependable fresh-movement signal.",
+            "detail": "Niles flow is rising quickly, while overall flow is extreme. Water temperature is favorable for fall migration and is cooling sharply. Rain adds no support while Niles flow is already high.",
+            "tip": "Keep Migration Stage’s section primary. Do not shift sections from this Niles read.",
             "reasonCodes": [
               "gauge_fresh",
               "push_severe_high_flow_context",
@@ -12151,14 +12237,14 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               ]
             },
             "rulesVersion": "st-joseph-fall-chinook-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 0,
             "label": "Poor",
             "headline": "The river is blown out and still rising fast, so normal fishing water is not dependable.",
-            "detail": "Excessive flow is overwhelming normal holding water and making access and presentation unreliable. The fast rise is forcing usable fishing water out of the main flow and into the slowest protected margins. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river. This flow shape applies to the Niles mainstem reach only; verify the harbor, lower Michigan river, individual tailwaters, and Indiana water directly.",
-            "tip": "Choose a lower-water day for the better fishing opportunity. If you fish now, stay tight to protected banks, slow inside turns, and the downstream side of major current breaks; keep presentations short and leave the main flow alone. Apply this recommendation at Niles; recheck water shape and safe access before carrying it to another St. Joseph section.",
+            "detail": "Excessive flow is overwhelming normal holding water and making access and presentation unreliable. The fast rise is forcing usable fishing water out of the main flow and into the slowest protected margins. This read applies only to the Niles mainstem reach.",
+            "tip": "Choose another day and verify current conditions through authoritative local sources. Verify every other section directly.",
             "reasonCodes": [
               "gauge_fresh",
               "blown_out_flow_band",
@@ -12171,15 +12257,15 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 24,
             "maximum": 100,
             "label": "Reserved",
-            "headline": "Today’s Chinook activity outlook is reserved.",
-            "detail": "Fish may respond selectively, with important environmental limitations. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: The river level or its recent change is less favorable. Broad seasonal presence improves the chance of locating fish, but this score measures responsiveness rather than abundance. Measured river conditions describe the St. Joseph mainstem at Niles. Water temperature, clarity, hydraulic shape, and presentation conditions can differ in the harbor and lower Michigan river, at individual ladder tailwaters, and through South Bend, Mishawaka, and the Twin Branch reach. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
-            "tip": "Start with 5–9 AM. If the sky changes from the forecast, favor the darkest practical window. Apply this response window at Niles; verify temperature, clarity, flow shape, and legal access again before carrying it to another St. Joseph section.",
+            "headline": "Today’s Niles Chinook responsiveness is reserved.",
+            "detail": "Chinook may respond selectively under current limitations. 5–9 AM and 9 AM–1 PM are the leading windows, but neither has a clear advantage. Flow and temperature represent only the Niles mainstem reach.",
+            "tip": "Choose between 5–9 AM and 9 AM–1 PM using actual light. Verify other sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -12232,10 +12318,13 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 29,
+            "displayScore": 30,
+            "scoreIsApproximate": true,
             "stage": "peak",
             "maximum": 100,
             "riverCeiling": 30,
@@ -12244,14 +12333,14 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "curveDirection": "falling",
             "winterHoldingContext": false,
             "label": "Peak presence",
-            "headline": "Seasonal timing still supports Chinook salmon being near their strongest in-river presence, even if the migration may be just beyond its usual peak.",
-            "detail": "This point in the season may sit just beyond the usual peak while the limited seasonal opportunity remains near its high point. This is a seasonal estimate, not a live fish count. This seasonal presence applies to the accessible St. Joseph corridor as a whole; it does not claim equal fish numbers at the harbor, Niles, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Treat this as near the high point of a limited seasonal opportunity. Focus on the most dependable water, and require direct fish activity before committing more time. Use Migration Stage to choose the specific St. Joseph section, then verify that water directly.",
+            "headline": "Seasonal Chinook salmon presence is near its expected St. Joseph peak.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the St. Joseph Chinook salmon ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_peak",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -12511,6 +12600,7 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "nextConditionRefreshAt": "2026-10-01T05:00:00.000Z",
           "runStage": {
             "stage": "peak",
+            "copyStrategy": "st_joseph_corridor",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -12533,14 +12623,14 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "peakToEndDays": 37
             },
             "label": "Peak",
-            "headline": "This is the best St. Joseph Chinook salmon window, but it remains a selective 3-of-10 opportunity.",
-            "detail": "The calendar supports the best chance of finding Chinook in proven lower-Michigan, Niles, or selective Indiana holding water. It does not imply strong or uniform occupation of the full corridor.",
-            "tip": "Choose a proven section and cover deep holding water from head to tail. Change sections only after a clean search, and leave shallow spawning fish undisturbed.",
-            "whereToStart": "Start with proven lower-Michigan and Niles holding water, then make one selective South Bend or Mishawaka check below Twin Branch; this smaller Chinook run is not a reason to cover all 63 miles.",
+            "headline": "This is the best St. Joseph Chinook salmon window, but opportunity remains selective.",
+            "detail": "This is a limited 3-of-10 run, not a claim of strong or uniform presence.",
+            "tip": "Choose one section and cover it completely before changing reaches. Leave shallow spawning fish undisturbed.",
+            "whereToStart": "Start in the Middle river (Berrien Springs–Niles). Treat the Upper river (Niles–Twin Branch Dam) as a selective second check.",
             "reasonCodes": [
               "stage_peak"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -12609,7 +12699,7 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "conditions_insufficient",
               "conditions_checkpoint_peak_start"
             ],
-            "copyVersion": "river-run-copy-v27",
+            "copyVersion": "river-run-copy-v34",
             "previousCheckpointId": "building_established",
             "previousCheckpointDate": "2026-09-15",
             "previousTimingLabel": "Insufficient evidence"
@@ -12633,7 +12723,7 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "gauge_missing"
             ],
             "rulesVersion": "st-joseph-fall-chinook-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": null,
@@ -12645,15 +12735,15 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "gauge_missing"
             ],
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 53,
             "maximum": 100,
             "label": "Moderate",
-            "headline": "Today’s Chinook activity outlook is moderate.",
-            "detail": "Some useful factors are present, but the response window is mixed. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Current river behavior is unavailable. Broad seasonal presence improves the chance of locating fish, but this score measures responsiveness rather than abundance. Measured river conditions describe the St. Joseph mainstem at Niles. Water temperature, clarity, hydraulic shape, and presentation conditions can differ in the harbor and lower Michigan river, at individual ladder tailwaters, and through South Bend, Mishawaka, and the Twin Branch reach. One important reading is unavailable or comes from tomorrow’s forecast, so the outlook is kept conservative.",
-            "tip": "Start with 5–9 AM. If the sky changes from the forecast, favor the darkest practical window. Apply this response window at Niles; verify temperature, clarity, flow shape, and legal access again before carrying it to another St. Joseph section.",
+            "headline": "Today’s Niles Chinook responsiveness is moderate.",
+            "detail": "Conditions offer mixed support for Chinook responsiveness. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Moderate confidence reflects missing or forecast inputs; river measurements still represent only Niles.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify other sections directly.",
             "reasonCodes": [
               "activity_confidence_moderate",
               "activity_today",
@@ -12705,10 +12795,13 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 29,
+            "displayScore": 30,
+            "scoreIsApproximate": true,
             "stage": "peak",
             "maximum": 100,
             "riverCeiling": 30,
@@ -12717,14 +12810,14 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "curveDirection": "falling",
             "winterHoldingContext": false,
             "label": "Peak presence",
-            "headline": "Seasonal timing still supports Chinook salmon being near their strongest in-river presence, even if the migration may be just beyond its usual peak.",
-            "detail": "This point in the season may sit just beyond the usual peak while the limited seasonal opportunity remains near its high point. This is a seasonal estimate, not a live fish count. This seasonal presence applies to the accessible St. Joseph corridor as a whole; it does not claim equal fish numbers at the harbor, Niles, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Treat this as near the high point of a limited seasonal opportunity. Focus on the most dependable water, and require direct fish activity before committing more time. Use Migration Stage to choose the specific St. Joseph section, then verify that water directly.",
+            "headline": "Seasonal Chinook salmon presence is near its expected St. Joseph peak.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the St. Joseph Chinook salmon ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_peak",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": null,
           "weather": {
@@ -12968,6 +13061,7 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "nextConditionRefreshAt": "2026-10-01T05:00:00.000Z",
           "runStage": {
             "stage": "peak",
+            "copyStrategy": "st_joseph_corridor",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -12990,14 +13084,14 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "peakToEndDays": 37
             },
             "label": "Peak",
-            "headline": "This is the best St. Joseph Chinook salmon window, but it remains a selective 3-of-10 opportunity.",
-            "detail": "The calendar supports the best chance of finding Chinook in proven lower-Michigan, Niles, or selective Indiana holding water. It does not imply strong or uniform occupation of the full corridor.",
-            "tip": "Choose a proven section and cover deep holding water from head to tail. Change sections only after a clean search, and leave shallow spawning fish undisturbed.",
-            "whereToStart": "Start with proven lower-Michigan and Niles holding water, then make one selective South Bend or Mishawaka check below Twin Branch; this smaller Chinook run is not a reason to cover all 63 miles.",
+            "headline": "This is the best St. Joseph Chinook salmon window, but opportunity remains selective.",
+            "detail": "This is a limited 3-of-10 run, not a claim of strong or uniform presence.",
+            "tip": "Choose one section and cover it completely before changing reaches. Leave shallow spawning fish undisturbed.",
+            "whereToStart": "Start in the Middle river (Berrien Springs–Niles). Treat the Upper river (Niles–Twin Branch Dam) as a selective second check.",
             "reasonCodes": [
               "stage_peak"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -13066,7 +13160,7 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "conditions_insufficient",
               "conditions_checkpoint_peak_start"
             ],
-            "copyVersion": "river-run-copy-v27",
+            "copyVersion": "river-run-copy-v34",
             "previousCheckpointId": "building_established",
             "previousCheckpointDate": "2026-09-15",
             "previousTimingLabel": "Insufficient evidence"
@@ -13091,14 +13185,14 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "temperature_unavailable"
             ],
             "rulesVersion": "st-joseph-fall-chinook-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 93,
             "label": "Excellent",
             "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river. This flow shape applies to the Niles mainstem reach only; verify the harbor, lower Michigan river, individual tailwaters, and Indiana water directly.",
-            "tip": "Begin on the primary travel lane feeding deep holding water. Work each hole from its head through the inside seam and tail, then keep moving until fish establish a pattern. Apply this recommendation at Niles; recheck water shape and safe access before carrying it to another St. Joseph section.",
+            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. This read applies only to the Niles mainstem reach.",
+            "tip": "Cover readable seams and holding water with a controlled presentation. Verify every other section directly.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band"
@@ -13109,15 +13203,15 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 53,
             "maximum": 100,
             "label": "Moderate",
-            "headline": "Today’s Chinook activity outlook is moderate.",
-            "detail": "Some useful factors are present, but the response window is mixed. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Measured water temperature is unavailable. Broad seasonal presence improves the chance of locating fish, but this score measures responsiveness rather than abundance. Measured river conditions describe the St. Joseph mainstem at Niles. Water temperature, clarity, hydraulic shape, and presentation conditions can differ in the harbor and lower Michigan river, at individual ladder tailwaters, and through South Bend, Mishawaka, and the Twin Branch reach. One important reading is unavailable or comes from tomorrow’s forecast, so the outlook is kept conservative.",
-            "tip": "Start with 5–9 AM. If the sky changes from the forecast, favor the darkest practical window. Apply this response window at Niles; verify temperature, clarity, flow shape, and legal access again before carrying it to another St. Joseph section.",
+            "headline": "Today’s Niles Chinook responsiveness is moderate.",
+            "detail": "Conditions offer mixed support for Chinook responsiveness. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Moderate confidence reflects missing or forecast inputs; river measurements still represent only Niles.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify other sections directly.",
             "reasonCodes": [
               "activity_confidence_moderate",
               "activity_today",
@@ -13169,10 +13263,13 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 29,
+            "displayScore": 30,
+            "scoreIsApproximate": true,
             "stage": "peak",
             "maximum": 100,
             "riverCeiling": 30,
@@ -13181,14 +13278,14 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "curveDirection": "falling",
             "winterHoldingContext": false,
             "label": "Peak presence",
-            "headline": "Seasonal timing still supports Chinook salmon being near their strongest in-river presence, even if the migration may be just beyond its usual peak.",
-            "detail": "This point in the season may sit just beyond the usual peak while the limited seasonal opportunity remains near its high point. This is a seasonal estimate, not a live fish count. This seasonal presence applies to the accessible St. Joseph corridor as a whole; it does not claim equal fish numbers at the harbor, Niles, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Treat this as near the high point of a limited seasonal opportunity. Focus on the most dependable water, and require direct fish activity before committing more time. Use Migration Stage to choose the specific St. Joseph section, then verify that water directly.",
+            "headline": "Seasonal Chinook salmon presence is near its expected St. Joseph peak.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the St. Joseph Chinook salmon ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_peak",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -13425,6 +13522,7 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "nextConditionRefreshAt": "2026-08-16T05:00:00.000Z",
           "runStage": {
             "stage": "pre_run",
+            "copyStrategy": "st_joseph_corridor",
             "stagingContext": true,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -13447,15 +13545,15 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "peakToEndDays": 37
             },
             "label": "Before migration",
-            "headline": "Chinook salmon may be staging around the St. Joseph harbor and mouth, but dependable inland passage has not begun.",
-            "detail": "A few early Chinook salmon can enter lower Michigan water, but this smaller run should not be projected through Niles, South Bend, or Mishawaka from one fish near the mouth.",
-            "tip": "Fish the harbor-to-river transition and one deep lower-river travel lane. Skip an inland corridor run until Migration Stage and Fish In River show dependable entry.",
-            "whereToStart": "Start with the St. Joseph harbor, river mouth, and deep lower Michigan travel water; do not assume fish have passed Niles or reached South Bend.",
+            "headline": "Chinook salmon may be staging near the St. Joseph River entrance.",
+            "detail": "Staging does not confirm dependable river entry. This remains a limited, sectional Chinook salmon run.",
+            "tip": "Keep the inland check brief. Do not move upriver from calendar timing alone.",
+            "whereToStart": "Start at the St. Joseph harbor and river mouth. Add the Lower river (St. Joseph harbor–Berrien Springs) only for an early-fish check.",
             "reasonCodes": [
               "stage_pre_run",
               "stage_pre_run_staging"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Evaluating",
@@ -13480,7 +13578,7 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "conditions_checkpoint_evaluating"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -13501,14 +13599,14 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "push_tracking_not_started"
             ],
             "rulesVersion": "st-joseph-fall-chinook-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 60,
             "label": "Fishable",
             "headline": "The river is fishable, but lower water leaves less cover and less room for error.",
-            "detail": "Water is lower than ideal but still workable, with less depth and cover across the river. The lower flow is holding steady, so its limited depth and cover should remain consistent. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river. This flow shape applies to the Niles mainstem reach only; verify the harbor, lower Michigan river, individual tailwaters, and Indiana water directly.",
-            "tip": "Start with the deepest connected holding water, then fish shaded outside bends and cover. Approach quietly and make the first pass count. Apply this recommendation at Niles; recheck water shape and safe access before carrying it to another St. Joseph section.",
+            "detail": "Water is lower than ideal but still workable, with less depth and cover across the river. The lower flow is holding steady, so its limited depth and cover should remain consistent. This read applies only to the Niles mainstem reach.",
+            "tip": "Use the deepest connected water and keep disturbance low. Verify every other section directly.",
             "reasonCodes": [
               "gauge_fresh",
               "low_flow_band"
@@ -13519,15 +13617,15 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 70,
             "maximum": 100,
             "label": "Active",
-            "headline": "Today’s Chinook activity outlook is active.",
-            "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. Dependable river presence has not begun. The score applies only to a sparse early Chinook that may already have entered. Measured river conditions describe the St. Joseph mainstem at Niles. Water temperature, clarity, hydraulic shape, and presentation conditions can differ in the harbor and lower Michigan river, at individual ladder tailwaters, and through South Bend, Mishawaka, and the Twin Branch reach. This smaller Chinook return is often sectional; a favorable Niles response window does not prove equal fish presence through the five-ladder corridor. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
-            "tip": "Start with 5–9 AM. If the sky changes from the forecast, favor the darkest practical window. Apply this response window at Niles; verify temperature, clarity, flow shape, and legal access again before carrying it to another St. Joseph section.",
+            "headline": "Today’s Niles responsiveness is active, but dependable Chinook presence has not begun.",
+            "detail": "Conditions support a meaningful Chinook response. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. This applies only to an early Chinook already near Niles.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify other sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -13579,10 +13677,13 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 0,
+            "displayScore": 0,
+            "scoreIsApproximate": false,
             "stage": "pre_run",
             "maximum": 100,
             "riverCeiling": 30,
@@ -13591,14 +13692,14 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "curveDirection": "outside",
             "winterHoldingContext": false,
             "label": "Not expected yet",
-            "headline": "Even a limited dependable presence of Chinook salmon is not expected in the river yet.",
-            "detail": "Most Chinook salmon are not expected to have entered the river in dependable numbers. Any fish already present would be early exceptions. This seasonal presence applies to the accessible St. Joseph corridor as a whole; it does not claim equal fish numbers at the harbor, Niles, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Treat this as no dependable in-river opportunity yet. Keep expectations at zero, and do not interpret an isolated early fish as evidence of dependable river presence. Use Migration Stage to choose the specific St. Joseph section, then verify that water directly.",
+            "headline": "Dependable Chinook salmon presence is not expected in the St. Joseph yet.",
+            "detail": "The seasonal estimate remains at zero. Any river fish would be an early exception.",
+            "tip": "Use Migration Stage for harbor and river-entry context.",
             "reasonCodes": [
               "stage_pre_run",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -13851,6 +13952,7 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "nextConditionRefreshAt": "2026-08-16T05:00:00.000Z",
           "runStage": {
             "stage": "pre_run",
+            "copyStrategy": "st_joseph_corridor",
             "stagingContext": true,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -13873,15 +13975,15 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "peakToEndDays": 37
             },
             "label": "Before migration",
-            "headline": "Chinook salmon may be staging around the St. Joseph harbor and mouth, but dependable inland passage has not begun.",
-            "detail": "A few early Chinook salmon can enter lower Michigan water, but this smaller run should not be projected through Niles, South Bend, or Mishawaka from one fish near the mouth.",
-            "tip": "Fish the harbor-to-river transition and one deep lower-river travel lane. Skip an inland corridor run until Migration Stage and Fish In River show dependable entry.",
-            "whereToStart": "Start with the St. Joseph harbor, river mouth, and deep lower Michigan travel water; do not assume fish have passed Niles or reached South Bend.",
+            "headline": "Chinook salmon may be staging near the St. Joseph River entrance.",
+            "detail": "Staging does not confirm dependable river entry. This remains a limited, sectional Chinook salmon run.",
+            "tip": "Keep the inland check brief. Do not move upriver from calendar timing alone.",
+            "whereToStart": "Start at the St. Joseph harbor and river mouth. Add the Lower river (St. Joseph harbor–Berrien Springs) only for an early-fish check.",
             "reasonCodes": [
               "stage_pre_run",
               "stage_pre_run_staging"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Evaluating",
@@ -13906,7 +14008,7 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "conditions_checkpoint_evaluating"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -13927,14 +14029,14 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "push_tracking_not_started"
             ],
             "rulesVersion": "st-joseph-fall-chinook-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 80,
             "label": "Good",
             "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. Depth and current are changing enough to move the most controllable presentations toward inside seams and current breaks. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river. This flow shape applies to the Niles mainstem reach only; verify the harbor, lower Michigan river, individual tailwaters, and Indiana water directly.",
-            "tip": "Move off the center lane. Work inside seams, the downstream side of current breaks, and the first deep resting pocket with short controlled presentations. Apply this recommendation at Niles; recheck water shape and safe access before carrying it to another St. Joseph section.",
+            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. Depth and current are changing enough to move the most controllable presentations toward inside seams and current breaks. This read applies only to the Niles mainstem reach.",
+            "tip": "Cover readable seams and holding water with a controlled presentation. Verify every other section directly.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band"
@@ -13945,15 +14047,15 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 73,
             "maximum": 100,
             "label": "Active",
-            "headline": "Today’s Chinook activity outlook is active.",
-            "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Water temperature limits responsiveness. Dependable river presence has not begun. The score applies only to a sparse early Chinook that may already have entered. Measured river conditions describe the St. Joseph mainstem at Niles. Water temperature, clarity, hydraulic shape, and presentation conditions can differ in the harbor and lower Michigan river, at individual ladder tailwaters, and through South Bend, Mishawaka, and the Twin Branch reach. This smaller Chinook return is often sectional; a favorable Niles response window does not prove equal fish presence through the five-ladder corridor. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
-            "tip": "Start with 5–9 AM. If the sky changes from the forecast, favor the darkest practical window. Apply this response window at Niles; verify temperature, clarity, flow shape, and legal access again before carrying it to another St. Joseph section.",
+            "headline": "Today’s Niles responsiveness is active, but dependable Chinook presence has not begun.",
+            "detail": "Conditions support a meaningful Chinook response. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. This applies only to an early Chinook already near Niles.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify other sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -14005,10 +14107,13 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 0,
+            "displayScore": 0,
+            "scoreIsApproximate": false,
             "stage": "pre_run",
             "maximum": 100,
             "riverCeiling": 30,
@@ -14017,14 +14122,14 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "curveDirection": "outside",
             "winterHoldingContext": false,
             "label": "Not expected yet",
-            "headline": "Even a limited dependable presence of Chinook salmon is not expected in the river yet.",
-            "detail": "Most Chinook salmon are not expected to have entered the river in dependable numbers. Any fish already present would be early exceptions. This seasonal presence applies to the accessible St. Joseph corridor as a whole; it does not claim equal fish numbers at the harbor, Niles, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Treat this as no dependable in-river opportunity yet. Keep expectations at zero, and do not interpret an isolated early fish as evidence of dependable river presence. Use Migration Stage to choose the specific St. Joseph section, then verify that water directly.",
+            "headline": "Dependable Chinook salmon presence is not expected in the St. Joseph yet.",
+            "detail": "The seasonal estimate remains at zero. Any river fish would be an early exception.",
+            "tip": "Use Migration Stage for harbor and river-entry context.",
             "reasonCodes": [
               "stage_pre_run",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -14283,6 +14388,7 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "nextConditionRefreshAt": "2026-08-16T05:00:00.000Z",
           "runStage": {
             "stage": "pre_run",
+            "copyStrategy": "st_joseph_corridor",
             "stagingContext": true,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -14305,15 +14411,15 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "peakToEndDays": 37
             },
             "label": "Before migration",
-            "headline": "Chinook salmon may be staging around the St. Joseph harbor and mouth, but dependable inland passage has not begun.",
-            "detail": "A few early Chinook salmon can enter lower Michigan water, but this smaller run should not be projected through Niles, South Bend, or Mishawaka from one fish near the mouth.",
-            "tip": "Fish the harbor-to-river transition and one deep lower-river travel lane. Skip an inland corridor run until Migration Stage and Fish In River show dependable entry.",
-            "whereToStart": "Start with the St. Joseph harbor, river mouth, and deep lower Michigan travel water; do not assume fish have passed Niles or reached South Bend.",
+            "headline": "Chinook salmon may be staging near the St. Joseph River entrance.",
+            "detail": "Staging does not confirm dependable river entry. This remains a limited, sectional Chinook salmon run.",
+            "tip": "Keep the inland check brief. Do not move upriver from calendar timing alone.",
+            "whereToStart": "Start at the St. Joseph harbor and river mouth. Add the Lower river (St. Joseph harbor–Berrien Springs) only for an early-fish check.",
             "reasonCodes": [
               "stage_pre_run",
               "stage_pre_run_staging"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Evaluating",
@@ -14338,7 +14444,7 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "conditions_checkpoint_evaluating"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -14359,14 +14465,14 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "push_tracking_not_started"
             ],
             "rulesVersion": "st-joseph-fall-chinook-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 80,
             "label": "Good",
             "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. Depth and current are changing enough to move the most controllable presentations toward inside seams and current breaks. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river. This flow shape applies to the Niles mainstem reach only; verify the harbor, lower Michigan river, individual tailwaters, and Indiana water directly.",
-            "tip": "Move off the center lane. Work inside seams, the downstream side of current breaks, and the first deep resting pocket with short controlled presentations. Apply this recommendation at Niles; recheck water shape and safe access before carrying it to another St. Joseph section.",
+            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. Depth and current are changing enough to move the most controllable presentations toward inside seams and current breaks. This read applies only to the Niles mainstem reach.",
+            "tip": "Cover readable seams and holding water with a controlled presentation. Verify every other section directly.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band"
@@ -14377,15 +14483,15 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 29,
             "maximum": 100,
             "label": "Reserved",
-            "headline": "Today’s Chinook activity outlook is reserved.",
-            "detail": "Fish may respond selectively, with important environmental limitations. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Water temperature limits responsiveness. Dependable river presence has not begun. The score applies only to a sparse early Chinook that may already have entered. Measured river conditions describe the St. Joseph mainstem at Niles. Water temperature, clarity, hydraulic shape, and presentation conditions can differ in the harbor and lower Michigan river, at individual ladder tailwaters, and through South Bend, Mishawaka, and the Twin Branch reach. This smaller Chinook return is often sectional; a favorable Niles response window does not prove equal fish presence through the five-ladder corridor. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
-            "tip": "Start with 5–9 AM. If the sky changes from the forecast, favor the darkest practical window. Apply this response window at Niles; verify temperature, clarity, flow shape, and legal access again before carrying it to another St. Joseph section.",
+            "headline": "Today’s Niles responsiveness is reserved, but dependable Chinook presence has not begun.",
+            "detail": "Chinook may respond selectively under current limitations. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. This applies only to an early Chinook already near Niles.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify other sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -14438,10 +14544,13 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 0,
+            "displayScore": 0,
+            "scoreIsApproximate": false,
             "stage": "pre_run",
             "maximum": 100,
             "riverCeiling": 30,
@@ -14450,14 +14559,14 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "curveDirection": "outside",
             "winterHoldingContext": false,
             "label": "Not expected yet",
-            "headline": "Even a limited dependable presence of Chinook salmon is not expected in the river yet.",
-            "detail": "Most Chinook salmon are not expected to have entered the river in dependable numbers. Any fish already present would be early exceptions. This seasonal presence applies to the accessible St. Joseph corridor as a whole; it does not claim equal fish numbers at the harbor, Niles, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Treat this as no dependable in-river opportunity yet. Keep expectations at zero, and do not interpret an isolated early fish as evidence of dependable river presence. Use Migration Stage to choose the specific St. Joseph section, then verify that water directly.",
+            "headline": "Dependable Chinook salmon presence is not expected in the St. Joseph yet.",
+            "detail": "The seasonal estimate remains at zero. Any river fish would be an early exception.",
+            "tip": "Use Migration Stage for harbor and river-entry context.",
             "reasonCodes": [
               "stage_pre_run",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -14716,6 +14825,7 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "nextConditionRefreshAt": "2026-10-01T05:00:00.000Z",
           "runStage": {
             "stage": "peak",
+            "copyStrategy": "st_joseph_corridor",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -14738,14 +14848,14 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "peakToEndDays": 37
             },
             "label": "Peak",
-            "headline": "This is the best St. Joseph Chinook salmon window, but it remains a selective 3-of-10 opportunity.",
-            "detail": "The calendar supports the best chance of finding Chinook in proven lower-Michigan, Niles, or selective Indiana holding water. It does not imply strong or uniform occupation of the full corridor.",
-            "tip": "Choose a proven section and cover deep holding water from head to tail. Change sections only after a clean search, and leave shallow spawning fish undisturbed.",
-            "whereToStart": "Start with proven lower-Michigan and Niles holding water, then make one selective South Bend or Mishawaka check below Twin Branch; this smaller Chinook run is not a reason to cover all 63 miles.",
+            "headline": "This is the best St. Joseph Chinook salmon window, but opportunity remains selective.",
+            "detail": "This is a limited 3-of-10 run, not a claim of strong or uniform presence.",
+            "tip": "Choose one section and cover it completely before changing reaches. Leave shallow spawning fish undisturbed.",
+            "whereToStart": "Start in the Middle river (Berrien Springs–Niles). Treat the Upper river (Niles–Twin Branch Dam) as a selective second check.",
             "reasonCodes": [
               "stage_peak"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -14814,7 +14924,7 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "conditions_insufficient",
               "conditions_checkpoint_peak_start"
             ],
-            "copyVersion": "river-run-copy-v27",
+            "copyVersion": "river-run-copy-v34",
             "previousCheckpointId": "building_established",
             "previousCheckpointDate": "2026-09-15",
             "previousTimingLabel": "Insufficient evidence"
@@ -14831,9 +14941,9 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "push": {
             "score": 25,
             "label": "No clear push",
-            "headline": "Today's water does not show a clear signal for a fresh wave of fish.",
-            "detail": "The river is holding steady with no meaningful rise yet. Overall flow remains low. Water temperature is favorable for fall migration and is relatively steady. Recent weather estimates indicate very little rain around the river. This Push describes fresh-movement support at Niles only; it does not prove a new wave at the harbor, Berrien Springs, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Fish established holding water from the head through the inside seam and tail. Do not spend the day racing between lower travel lanes for a wave the water does not support. Use the Niles signal to choose between Niles-area holding water and a lower-Michigan travel-water check; verify Indiana movement directly.",
+            "headline": "Niles water does not show a clear fresh-movement signal.",
+            "detail": "Niles flow is steady without a meaningful rise, while overall flow remains low. Water temperature is favorable for fall migration and is relatively steady. Recent watershed weather shows little rain.",
+            "tip": "Keep Migration Stage’s section primary. Do not shift sections from this Niles read.",
             "reasonCodes": [
               "gauge_fresh",
               "push_low_flow_context",
@@ -14852,14 +14962,14 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-fall-chinook-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 40,
             "label": "Tough",
             "headline": "The river is fishable, but very low water will make fish easier to disturb and productive water harder to find.",
-            "detail": "Water is unusually low, reducing cover and concentrating the best depth into fewer places. The low water is holding rather than refilling, so the few deeper slots should remain easy to identify. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river. This flow shape applies to the Niles mainstem reach only; verify the harbor, lower Michigan river, individual tailwaters, and Indiana water directly.",
-            "tip": "Fish first or last light. Begin at the deepest shaded holes and slots, approach quietly, and keep foot traffic out of shallow travel lanes. Apply this recommendation at Niles; recheck water shape and safe access before carrying it to another St. Joseph section.",
+            "detail": "Water is unusually low, reducing cover and concentrating the best depth into fewer places. The low water is holding rather than refilling, so the few deeper slots should remain easy to identify. This read applies only to the Niles mainstem reach.",
+            "tip": "Use the deepest connected water and keep disturbance low. Verify every other section directly.",
             "reasonCodes": [
               "gauge_fresh",
               "very_low_flow_band",
@@ -14871,15 +14981,15 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 70,
             "maximum": 100,
             "label": "Active",
-            "headline": "Today’s Chinook activity outlook is active.",
-            "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: The river level or its recent change is less favorable. Broad seasonal presence improves the chance of locating fish, but this score measures responsiveness rather than abundance. Measured river conditions describe the St. Joseph mainstem at Niles. Water temperature, clarity, hydraulic shape, and presentation conditions can differ in the harbor and lower Michigan river, at individual ladder tailwaters, and through South Bend, Mishawaka, and the Twin Branch reach. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
-            "tip": "Start with 5–9 AM. If the sky changes from the forecast, favor the darkest practical window. Apply this response window at Niles; verify temperature, clarity, flow shape, and legal access again before carrying it to another St. Joseph section.",
+            "headline": "Today’s Niles Chinook responsiveness is active.",
+            "detail": "Conditions support a meaningful Chinook response. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Flow and temperature represent only the Niles mainstem reach.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify other sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -14931,10 +15041,13 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 29,
+            "displayScore": 30,
+            "scoreIsApproximate": true,
             "stage": "peak",
             "maximum": 100,
             "riverCeiling": 30,
@@ -14943,14 +15056,14 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "curveDirection": "falling",
             "winterHoldingContext": false,
             "label": "Peak presence",
-            "headline": "Seasonal timing still supports Chinook salmon being near their strongest in-river presence, even if the migration may be just beyond its usual peak.",
-            "detail": "This point in the season may sit just beyond the usual peak while the limited seasonal opportunity remains near its high point. This is a seasonal estimate, not a live fish count. This seasonal presence applies to the accessible St. Joseph corridor as a whole; it does not claim equal fish numbers at the harbor, Niles, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Treat this as near the high point of a limited seasonal opportunity. Focus on the most dependable water, and require direct fish activity before committing more time. Use Migration Stage to choose the specific St. Joseph section, then verify that water directly.",
+            "headline": "Seasonal Chinook salmon presence is near its expected St. Joseph peak.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the St. Joseph Chinook salmon ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_peak",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -15216,6 +15329,7 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "nextConditionRefreshAt": "2026-10-01T05:00:00.000Z",
           "runStage": {
             "stage": "peak",
+            "copyStrategy": "st_joseph_corridor",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -15238,14 +15352,14 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "peakToEndDays": 37
             },
             "label": "Peak",
-            "headline": "This is the best St. Joseph Chinook salmon window, but it remains a selective 3-of-10 opportunity.",
-            "detail": "The calendar supports the best chance of finding Chinook in proven lower-Michigan, Niles, or selective Indiana holding water. It does not imply strong or uniform occupation of the full corridor.",
-            "tip": "Choose a proven section and cover deep holding water from head to tail. Change sections only after a clean search, and leave shallow spawning fish undisturbed.",
-            "whereToStart": "Start with proven lower-Michigan and Niles holding water, then make one selective South Bend or Mishawaka check below Twin Branch; this smaller Chinook run is not a reason to cover all 63 miles.",
+            "headline": "This is the best St. Joseph Chinook salmon window, but opportunity remains selective.",
+            "detail": "This is a limited 3-of-10 run, not a claim of strong or uniform presence.",
+            "tip": "Choose one section and cover it completely before changing reaches. Leave shallow spawning fish undisturbed.",
+            "whereToStart": "Start in the Middle river (Berrien Springs–Niles). Treat the Upper river (Niles–Twin Branch Dam) as a selective second check.",
             "reasonCodes": [
               "stage_peak"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -15314,7 +15428,7 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "conditions_insufficient",
               "conditions_checkpoint_peak_start"
             ],
-            "copyVersion": "river-run-copy-v27",
+            "copyVersion": "river-run-copy-v34",
             "previousCheckpointId": "building_established",
             "previousCheckpointDate": "2026-09-15",
             "previousTimingLabel": "Insufficient evidence"
@@ -15331,9 +15445,9 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "push": {
             "score": 30,
             "label": "No clear push",
-            "headline": "Today's water does not show a clear signal for a fresh wave of fish.",
-            "detail": "The river is holding steady with no meaningful rise yet. Water temperature is favorable for fall migration and is relatively steady. Recent weather estimates indicate very little rain around the river. This Push describes fresh-movement support at Niles only; it does not prove a new wave at the harbor, Berrien Springs, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Fish established holding water from the head through the inside seam and tail. Do not spend the day racing between lower travel lanes for a wave the water does not support. Use the Niles signal to choose between Niles-area holding water and a lower-Michigan travel-water check; verify Indiana movement directly.",
+            "headline": "Niles water does not show a clear fresh-movement signal.",
+            "detail": "Niles flow is steady without a meaningful rise. Water temperature is favorable for fall migration and is relatively steady. Recent watershed weather shows little rain.",
+            "tip": "Keep Migration Stage’s section primary. Do not shift sections from this Niles read.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
@@ -15352,14 +15466,14 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-fall-chinook-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 60,
             "label": "Fishable",
             "headline": "The river is fishable, but lower water leaves less cover and less room for error.",
-            "detail": "Water is lower than ideal but still workable, with less depth and cover across the river. The lower flow is holding steady, so its limited depth and cover should remain consistent. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river. This flow shape applies to the Niles mainstem reach only; verify the harbor, lower Michigan river, individual tailwaters, and Indiana water directly.",
-            "tip": "Start with the deepest connected holding water, then fish shaded outside bends and cover. Approach quietly and make the first pass count. Apply this recommendation at Niles; recheck water shape and safe access before carrying it to another St. Joseph section.",
+            "detail": "Water is lower than ideal but still workable, with less depth and cover across the river. The lower flow is holding steady, so its limited depth and cover should remain consistent. This read applies only to the Niles mainstem reach.",
+            "tip": "Use the deepest connected water and keep disturbance low. Verify every other section directly.",
             "reasonCodes": [
               "gauge_fresh",
               "low_flow_band"
@@ -15370,15 +15484,15 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 74,
             "maximum": 100,
             "label": "Active",
-            "headline": "Today’s Chinook activity outlook is active.",
-            "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. Broad seasonal presence improves the chance of locating fish, but this score measures responsiveness rather than abundance. Measured river conditions describe the St. Joseph mainstem at Niles. Water temperature, clarity, hydraulic shape, and presentation conditions can differ in the harbor and lower Michigan river, at individual ladder tailwaters, and through South Bend, Mishawaka, and the Twin Branch reach. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
-            "tip": "Start with 5–9 AM. If the sky changes from the forecast, favor the darkest practical window. Apply this response window at Niles; verify temperature, clarity, flow shape, and legal access again before carrying it to another St. Joseph section.",
+            "headline": "Today’s Niles Chinook responsiveness is active.",
+            "detail": "Conditions support a meaningful Chinook response. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Flow and temperature represent only the Niles mainstem reach.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify other sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -15430,10 +15544,13 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 29,
+            "displayScore": 30,
+            "scoreIsApproximate": true,
             "stage": "peak",
             "maximum": 100,
             "riverCeiling": 30,
@@ -15442,14 +15559,14 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "curveDirection": "falling",
             "winterHoldingContext": false,
             "label": "Peak presence",
-            "headline": "Seasonal timing still supports Chinook salmon being near their strongest in-river presence, even if the migration may be just beyond its usual peak.",
-            "detail": "This point in the season may sit just beyond the usual peak while the limited seasonal opportunity remains near its high point. This is a seasonal estimate, not a live fish count. This seasonal presence applies to the accessible St. Joseph corridor as a whole; it does not claim equal fish numbers at the harbor, Niles, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Treat this as near the high point of a limited seasonal opportunity. Focus on the most dependable water, and require direct fish activity before committing more time. Use Migration Stage to choose the specific St. Joseph section, then verify that water directly.",
+            "headline": "Seasonal Chinook salmon presence is near its expected St. Joseph peak.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the St. Joseph Chinook salmon ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_peak",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -15709,6 +15826,7 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "nextConditionRefreshAt": "2026-10-01T05:00:00.000Z",
           "runStage": {
             "stage": "peak",
+            "copyStrategy": "st_joseph_corridor",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -15731,14 +15849,14 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "peakToEndDays": 37
             },
             "label": "Peak",
-            "headline": "This is the best St. Joseph Chinook salmon window, but it remains a selective 3-of-10 opportunity.",
-            "detail": "The calendar supports the best chance of finding Chinook in proven lower-Michigan, Niles, or selective Indiana holding water. It does not imply strong or uniform occupation of the full corridor.",
-            "tip": "Choose a proven section and cover deep holding water from head to tail. Change sections only after a clean search, and leave shallow spawning fish undisturbed.",
-            "whereToStart": "Start with proven lower-Michigan and Niles holding water, then make one selective South Bend or Mishawaka check below Twin Branch; this smaller Chinook run is not a reason to cover all 63 miles.",
+            "headline": "This is the best St. Joseph Chinook salmon window, but opportunity remains selective.",
+            "detail": "This is a limited 3-of-10 run, not a claim of strong or uniform presence.",
+            "tip": "Choose one section and cover it completely before changing reaches. Leave shallow spawning fish undisturbed.",
+            "whereToStart": "Start in the Middle river (Berrien Springs–Niles). Treat the Upper river (Niles–Twin Branch Dam) as a selective second check.",
             "reasonCodes": [
               "stage_peak"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -15807,7 +15925,7 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "conditions_insufficient",
               "conditions_checkpoint_peak_start"
             ],
-            "copyVersion": "river-run-copy-v27",
+            "copyVersion": "river-run-copy-v34",
             "previousCheckpointId": "building_established",
             "previousCheckpointDate": "2026-09-15",
             "previousTimingLabel": "Insufficient evidence"
@@ -15824,9 +15942,9 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "push": {
             "score": 25,
             "label": "No clear push",
-            "headline": "The river is rising hard, but extreme flow makes this an unreliable fresh-movement read.",
-            "detail": "The river is holding steady with no meaningful rise yet. Overall flow is extremely high. Water temperature is favorable for fall migration and is relatively steady. Recent weather estimates indicate very little rain around the river. This Push describes fresh-movement support at Niles only; it does not prove a new wave at the harbor, Berrien Springs, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Do not chase movement in the main channel. If Fishability remains usable, fish only protected margins, inside turns, and soft current with short controlled presentations. Use the Niles signal to choose between Niles-area holding water and a lower-Michigan travel-water check; verify Indiana movement directly.",
+            "headline": "Extreme Niles flow prevents a dependable fresh-movement signal.",
+            "detail": "Niles flow is steady without a meaningful rise, while overall flow is extreme. Water temperature is favorable for fall migration and is relatively steady. Recent watershed weather shows little rain.",
+            "tip": "Keep Migration Stage’s section primary. Do not shift sections from this Niles read.",
             "reasonCodes": [
               "gauge_fresh",
               "push_severe_high_flow_context",
@@ -15846,14 +15964,14 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-fall-chinook-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 20,
             "label": "Poor",
             "headline": "The river is too high and unsettled for a dependable fishing recommendation.",
-            "detail": "Excessive flow is overwhelming normal holding water and making access and presentation unreliable. The river is not climbing quickly, but it must fall substantially before normal holding lanes and presentation control return. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river. This flow shape applies to the Niles mainstem reach only; verify the harbor, lower Michigan river, individual tailwaters, and Indiana water directly.",
-            "tip": "Choose a lower-water day for the better fishing opportunity. If you fish now, stay tight to protected banks, slow inside turns, and the downstream side of major current breaks; keep presentations short and leave the main flow alone. Apply this recommendation at Niles; recheck water shape and safe access before carrying it to another St. Joseph section.",
+            "detail": "Excessive flow is overwhelming normal holding water and making access and presentation unreliable. The river is not climbing quickly, but it must fall substantially before normal holding lanes and presentation control return. This read applies only to the Niles mainstem reach.",
+            "tip": "Choose another day and verify current conditions through authoritative local sources. Verify every other section directly.",
             "reasonCodes": [
               "gauge_fresh",
               "blown_out_flow_band",
@@ -15865,15 +15983,15 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 24,
             "maximum": 100,
             "label": "Reserved",
-            "headline": "Today’s Chinook activity outlook is reserved.",
-            "detail": "Fish may respond selectively, with important environmental limitations. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: The river level or its recent change is less favorable. Broad seasonal presence improves the chance of locating fish, but this score measures responsiveness rather than abundance. Measured river conditions describe the St. Joseph mainstem at Niles. Water temperature, clarity, hydraulic shape, and presentation conditions can differ in the harbor and lower Michigan river, at individual ladder tailwaters, and through South Bend, Mishawaka, and the Twin Branch reach. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
-            "tip": "Start with 5–9 AM. If the sky changes from the forecast, favor the darkest practical window. Apply this response window at Niles; verify temperature, clarity, flow shape, and legal access again before carrying it to another St. Joseph section.",
+            "headline": "Today’s Niles Chinook responsiveness is reserved.",
+            "detail": "Chinook may respond selectively under current limitations. 5–9 AM and 9 AM–1 PM are the leading windows, but neither has a clear advantage. Flow and temperature represent only the Niles mainstem reach.",
+            "tip": "Choose between 5–9 AM and 9 AM–1 PM using actual light. Verify other sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -15926,10 +16044,13 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 29,
+            "displayScore": 30,
+            "scoreIsApproximate": true,
             "stage": "peak",
             "maximum": 100,
             "riverCeiling": 30,
@@ -15938,14 +16059,14 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "curveDirection": "falling",
             "winterHoldingContext": false,
             "label": "Peak presence",
-            "headline": "Seasonal timing still supports Chinook salmon being near their strongest in-river presence, even if the migration may be just beyond its usual peak.",
-            "detail": "This point in the season may sit just beyond the usual peak while the limited seasonal opportunity remains near its high point. This is a seasonal estimate, not a live fish count. This seasonal presence applies to the accessible St. Joseph corridor as a whole; it does not claim equal fish numbers at the harbor, Niles, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Treat this as near the high point of a limited seasonal opportunity. Focus on the most dependable water, and require direct fish activity before committing more time. Use Migration Stage to choose the specific St. Joseph section, then verify that water directly.",
+            "headline": "Seasonal Chinook salmon presence is near its expected St. Joseph peak.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the St. Joseph Chinook salmon ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_peak",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -16205,6 +16326,7 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "nextConditionRefreshAt": "2026-10-01T05:00:00.000Z",
           "runStage": {
             "stage": "peak",
+            "copyStrategy": "st_joseph_corridor",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -16227,14 +16349,14 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "peakToEndDays": 37
             },
             "label": "Peak",
-            "headline": "This is the best St. Joseph Chinook salmon window, but it remains a selective 3-of-10 opportunity.",
-            "detail": "The calendar supports the best chance of finding Chinook in proven lower-Michigan, Niles, or selective Indiana holding water. It does not imply strong or uniform occupation of the full corridor.",
-            "tip": "Choose a proven section and cover deep holding water from head to tail. Change sections only after a clean search, and leave shallow spawning fish undisturbed.",
-            "whereToStart": "Start with proven lower-Michigan and Niles holding water, then make one selective South Bend or Mishawaka check below Twin Branch; this smaller Chinook run is not a reason to cover all 63 miles.",
+            "headline": "This is the best St. Joseph Chinook salmon window, but opportunity remains selective.",
+            "detail": "This is a limited 3-of-10 run, not a claim of strong or uniform presence.",
+            "tip": "Choose one section and cover it completely before changing reaches. Leave shallow spawning fish undisturbed.",
+            "whereToStart": "Start in the Middle river (Berrien Springs–Niles). Treat the Upper river (Niles–Twin Branch Dam) as a selective second check.",
             "reasonCodes": [
               "stage_peak"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -16303,7 +16425,7 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "conditions_insufficient",
               "conditions_checkpoint_peak_start"
             ],
-            "copyVersion": "river-run-copy-v27",
+            "copyVersion": "river-run-copy-v34",
             "previousCheckpointId": "building_established",
             "previousCheckpointDate": "2026-09-15",
             "previousTimingLabel": "Insufficient evidence"
@@ -16320,9 +16442,9 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "push": {
             "score": 47,
             "label": "No clear push",
-            "headline": "Today's water does not show a clear signal for a fresh wave of fish.",
-            "detail": "The river has started to rise since yesterday. Water temperature is favorable for fall migration and is relatively steady. Recent weather estimates indicate very little rain around the river. This Push describes fresh-movement support at Niles only; it does not prove a new wave at the harbor, Berrien Springs, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Fish established holding water from the head through the inside seam and tail. Do not spend the day racing between lower travel lanes for a wave the water does not support. Use the Niles signal to choose between Niles-area holding water and a lower-Michigan travel-water check; verify Indiana movement directly.",
+            "headline": "Niles water does not show a clear fresh-movement signal.",
+            "detail": "Niles flow has started to rise. Water temperature is favorable for fall migration and is relatively steady. Recent watershed weather shows little rain.",
+            "tip": "Keep Migration Stage’s section primary. Do not shift sections from this Niles read.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
@@ -16340,14 +16462,14 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-fall-chinook-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 88,
             "label": "Excellent",
             "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The early rise is adding pace and depth, with inside seams and the upstream edges of holes changing first. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river. This flow shape applies to the Niles mainstem reach only; verify the harbor, lower Michigan river, individual tailwaters, and Indiana water directly.",
-            "tip": "Begin on the soft inside edge of the primary travel lane, then fish the first deep resting hole above it. Recheck that edge as added depth changes the lane. Apply this recommendation at Niles; recheck water shape and safe access before carrying it to another St. Joseph section.",
+            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The early rise is adding pace and depth, with inside seams and the upstream edges of holes changing first. This read applies only to the Niles mainstem reach.",
+            "tip": "Cover readable seams and holding water with a controlled presentation. Verify every other section directly.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band"
@@ -16358,15 +16480,15 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 76,
             "maximum": 100,
             "label": "Active",
-            "headline": "Today’s Chinook activity outlook is active.",
-            "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. Broad seasonal presence improves the chance of locating fish, but this score measures responsiveness rather than abundance. Measured river conditions describe the St. Joseph mainstem at Niles. Water temperature, clarity, hydraulic shape, and presentation conditions can differ in the harbor and lower Michigan river, at individual ladder tailwaters, and through South Bend, Mishawaka, and the Twin Branch reach. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
-            "tip": "Start with 5–9 AM. If the sky changes from the forecast, favor the darkest practical window. Apply this response window at Niles; verify temperature, clarity, flow shape, and legal access again before carrying it to another St. Joseph section.",
+            "headline": "Today’s Niles Chinook responsiveness is active.",
+            "detail": "Conditions support a meaningful Chinook response. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Flow and temperature represent only the Niles mainstem reach.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify other sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -16418,10 +16540,13 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 29,
+            "displayScore": 30,
+            "scoreIsApproximate": true,
             "stage": "peak",
             "maximum": 100,
             "riverCeiling": 30,
@@ -16430,14 +16555,14 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "curveDirection": "falling",
             "winterHoldingContext": false,
             "label": "Peak presence",
-            "headline": "Seasonal timing still supports Chinook salmon being near their strongest in-river presence, even if the migration may be just beyond its usual peak.",
-            "detail": "This point in the season may sit just beyond the usual peak while the limited seasonal opportunity remains near its high point. This is a seasonal estimate, not a live fish count. This seasonal presence applies to the accessible St. Joseph corridor as a whole; it does not claim equal fish numbers at the harbor, Niles, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Treat this as near the high point of a limited seasonal opportunity. Focus on the most dependable water, and require direct fish activity before committing more time. Use Migration Stage to choose the specific St. Joseph section, then verify that water directly.",
+            "headline": "Seasonal Chinook salmon presence is near its expected St. Joseph peak.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the St. Joseph Chinook salmon ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_peak",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -16697,6 +16822,7 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "nextConditionRefreshAt": "2026-10-01T05:00:00.000Z",
           "runStage": {
             "stage": "peak",
+            "copyStrategy": "st_joseph_corridor",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -16719,14 +16845,14 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "peakToEndDays": 37
             },
             "label": "Peak",
-            "headline": "This is the best St. Joseph Chinook salmon window, but it remains a selective 3-of-10 opportunity.",
-            "detail": "The calendar supports the best chance of finding Chinook in proven lower-Michigan, Niles, or selective Indiana holding water. It does not imply strong or uniform occupation of the full corridor.",
-            "tip": "Choose a proven section and cover deep holding water from head to tail. Change sections only after a clean search, and leave shallow spawning fish undisturbed.",
-            "whereToStart": "Start with proven lower-Michigan and Niles holding water, then make one selective South Bend or Mishawaka check below Twin Branch; this smaller Chinook run is not a reason to cover all 63 miles.",
+            "headline": "This is the best St. Joseph Chinook salmon window, but opportunity remains selective.",
+            "detail": "This is a limited 3-of-10 run, not a claim of strong or uniform presence.",
+            "tip": "Choose one section and cover it completely before changing reaches. Leave shallow spawning fish undisturbed.",
+            "whereToStart": "Start in the Middle river (Berrien Springs–Niles). Treat the Upper river (Niles–Twin Branch Dam) as a selective second check.",
             "reasonCodes": [
               "stage_peak"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -16795,7 +16921,7 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "conditions_insufficient",
               "conditions_checkpoint_peak_start"
             ],
-            "copyVersion": "river-run-copy-v27",
+            "copyVersion": "river-run-copy-v34",
             "previousCheckpointId": "building_established",
             "previousCheckpointDate": "2026-09-15",
             "previousTimingLabel": "Insufficient evidence"
@@ -16812,9 +16938,9 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "push": {
             "score": 80,
             "label": "Strong",
-            "headline": "Today's river rise and water temperature strongly support the possibility of a fresh wave moving into the river.",
-            "detail": "The river is rising quickly, creating conditions fish often use to move. Water temperature is favorable for fall migration and is relatively steady. The river has already made a meaningful rise, so that measured response carries the useful movement signal and rainfall adds no separate weight. This Push describes fresh-movement support at Niles only; it does not prove a new wave at the harbor, Berrien Springs, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Begin on lower-river travel lanes and inside seams, then work the first resting holes along that route. Keep moving until fish establish a pattern; the signal still does not prove a wave entered. Use the Niles signal to choose between Niles-area holding water and a lower-Michigan travel-water check; verify Indiana movement directly.",
+            "headline": "Niles water strongly supports possible fresh movement.",
+            "detail": "Niles flow is rising quickly. Water temperature is favorable for fall migration and is relatively steady. Niles already reflects the rain response, so rain adds no extra credit.",
+            "tip": "Use Niles as the movement check, then verify the Lower and Upper river directly.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
@@ -16832,14 +16958,14 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-fall-chinook-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 40,
             "label": "Tough",
             "headline": "The river is rising fast, and usable fishing water is shifting toward slower margins and current breaks.",
-            "detail": "Higher flow is pushing more current through the main channel, but softer edges and protected lanes remain workable. The fast rise is forcing usable fishing water out of the main flow and into the slowest protected margins. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river. This flow shape applies to the Niles mainstem reach only; verify the harbor, lower Michigan river, individual tailwaters, and Indiana water directly.",
-            "tip": "Leave the main channel alone. Fish newly formed soft margins, inside bends, and the downstream side of current breaks with short controlled presentations. Apply this recommendation at Niles; recheck water shape and safe access before carrying it to another St. Joseph section.",
+            "detail": "Higher flow is pushing more current through the main channel, but softer edges and protected lanes remain workable. The fast rise is forcing usable fishing water out of the main flow and into the slowest protected margins. This read applies only to the Niles mainstem reach.",
+            "tip": "Favor protected margins and short controlled presentations. Choose another day if control is not dependable. Verify every other section directly.",
             "reasonCodes": [
               "gauge_fresh",
               "high_fishable_flow_band",
@@ -16853,15 +16979,15 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               ]
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 74,
             "maximum": 100,
             "label": "Active",
-            "headline": "Today’s Chinook activity outlook is active.",
-            "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. Broad seasonal presence improves the chance of locating fish, but this score measures responsiveness rather than abundance. Measured river conditions describe the St. Joseph mainstem at Niles. Water temperature, clarity, hydraulic shape, and presentation conditions can differ in the harbor and lower Michigan river, at individual ladder tailwaters, and through South Bend, Mishawaka, and the Twin Branch reach. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
-            "tip": "Start with 5–9 AM. If the sky changes from the forecast, favor the darkest practical window. Apply this response window at Niles; verify temperature, clarity, flow shape, and legal access again before carrying it to another St. Joseph section.",
+            "headline": "Today’s Niles Chinook responsiveness is active.",
+            "detail": "Conditions support a meaningful Chinook response. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Flow and temperature represent only the Niles mainstem reach.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify other sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -16913,10 +17039,13 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 29,
+            "displayScore": 30,
+            "scoreIsApproximate": true,
             "stage": "peak",
             "maximum": 100,
             "riverCeiling": 30,
@@ -16925,14 +17054,14 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "curveDirection": "falling",
             "winterHoldingContext": false,
             "label": "Peak presence",
-            "headline": "Seasonal timing still supports Chinook salmon being near their strongest in-river presence, even if the migration may be just beyond its usual peak.",
-            "detail": "This point in the season may sit just beyond the usual peak while the limited seasonal opportunity remains near its high point. This is a seasonal estimate, not a live fish count. This seasonal presence applies to the accessible St. Joseph corridor as a whole; it does not claim equal fish numbers at the harbor, Niles, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Treat this as near the high point of a limited seasonal opportunity. Focus on the most dependable water, and require direct fish activity before committing more time. Use Migration Stage to choose the specific St. Joseph section, then verify that water directly.",
+            "headline": "Seasonal Chinook salmon presence is near its expected St. Joseph peak.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the St. Joseph Chinook salmon ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_peak",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -17192,6 +17321,7 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "nextConditionRefreshAt": "2026-10-01T05:00:00.000Z",
           "runStage": {
             "stage": "peak",
+            "copyStrategy": "st_joseph_corridor",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -17214,14 +17344,14 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "peakToEndDays": 37
             },
             "label": "Peak",
-            "headline": "This is the best St. Joseph Chinook salmon window, but it remains a selective 3-of-10 opportunity.",
-            "detail": "The calendar supports the best chance of finding Chinook in proven lower-Michigan, Niles, or selective Indiana holding water. It does not imply strong or uniform occupation of the full corridor.",
-            "tip": "Choose a proven section and cover deep holding water from head to tail. Change sections only after a clean search, and leave shallow spawning fish undisturbed.",
-            "whereToStart": "Start with proven lower-Michigan and Niles holding water, then make one selective South Bend or Mishawaka check below Twin Branch; this smaller Chinook run is not a reason to cover all 63 miles.",
+            "headline": "This is the best St. Joseph Chinook salmon window, but opportunity remains selective.",
+            "detail": "This is a limited 3-of-10 run, not a claim of strong or uniform presence.",
+            "tip": "Choose one section and cover it completely before changing reaches. Leave shallow spawning fish undisturbed.",
+            "whereToStart": "Start in the Middle river (Berrien Springs–Niles). Treat the Upper river (Niles–Twin Branch Dam) as a selective second check.",
             "reasonCodes": [
               "stage_peak"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -17290,7 +17420,7 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "conditions_insufficient",
               "conditions_checkpoint_peak_start"
             ],
-            "copyVersion": "river-run-copy-v27",
+            "copyVersion": "river-run-copy-v34",
             "previousCheckpointId": "building_established",
             "previousCheckpointDate": "2026-09-15",
             "previousTimingLabel": "Insufficient evidence"
@@ -17307,9 +17437,9 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "push": {
             "score": 25,
             "label": "No clear push",
-            "headline": "Today's water does not show a clear signal for a fresh wave of fish.",
-            "detail": "There is not enough recent river-level history to tell whether the river is rising or falling. Water temperature is favorable for fall migration and is relatively steady. Recent weather estimates indicate very little rain around the river. Without a dependable river trend, there is no clear Push. This Push describes fresh-movement support at Niles only; it does not prove a new wave at the harbor, Berrien Springs, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Do not relocate the trip around this Push read. Begin in established holding water, verify the river at the first access, and add travel lanes only after confirming workable conditions. Use the Niles signal to choose between Niles-area holding water and a lower-Michigan travel-water check; verify Indiana movement directly.",
+            "headline": "Niles water does not show a clear fresh-movement signal.",
+            "detail": "Niles flow does not have a dependable recent trend. Water temperature is favorable for fall migration and is relatively steady. Without a dependable Niles trend, the read cannot show a clear Push.",
+            "tip": "Keep Migration Stage’s section primary. Do not shift sections from this Niles read.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
@@ -17329,14 +17459,14 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-fall-chinook-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 69,
             "label": "Fishable",
             "headline": "The river appears fishable, but its direction is unclear, so confidence is limited.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. There is not enough recent information to tell whether the river is rising or falling, which lowers confidence in the read. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river. This flow shape applies to the Niles mainstem reach only; verify the harbor, lower Michigan river, individual tailwaters, and Indiana water directly.",
-            "tip": "Start at a bank-side inside bend or soft seam where the full presentation stays under control. Skip faster water until the river's direction is verified. Apply this recommendation at Niles; recheck water shape and safe access before carrying it to another St. Joseph section.",
+            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. There is not enough recent information to tell whether the river is rising or falling, which lowers confidence in the read. This read applies only to the Niles mainstem reach.",
+            "tip": "Verify the Niles reach directly before choosing presentation water. Verify every other section directly.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band",
@@ -17350,15 +17480,15 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               ]
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 79,
             "maximum": 100,
             "label": "Active",
-            "headline": "Today’s Chinook activity outlook is active.",
-            "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. Broad seasonal presence improves the chance of locating fish, but this score measures responsiveness rather than abundance. Measured river conditions describe the St. Joseph mainstem at Niles. Water temperature, clarity, hydraulic shape, and presentation conditions can differ in the harbor and lower Michigan river, at individual ladder tailwaters, and through South Bend, Mishawaka, and the Twin Branch reach. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
-            "tip": "Start with 5–9 AM. If the sky changes from the forecast, favor the darkest practical window. Apply this response window at Niles; verify temperature, clarity, flow shape, and legal access again before carrying it to another St. Joseph section.",
+            "headline": "Today’s Niles Chinook responsiveness is active.",
+            "detail": "Conditions support a meaningful Chinook response. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Flow and temperature represent only the Niles mainstem reach.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify other sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -17410,10 +17540,13 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 29,
+            "displayScore": 30,
+            "scoreIsApproximate": true,
             "stage": "peak",
             "maximum": 100,
             "riverCeiling": 30,
@@ -17422,14 +17555,14 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "curveDirection": "falling",
             "winterHoldingContext": false,
             "label": "Peak presence",
-            "headline": "Seasonal timing still supports Chinook salmon being near their strongest in-river presence, even if the migration may be just beyond its usual peak.",
-            "detail": "This point in the season may sit just beyond the usual peak while the limited seasonal opportunity remains near its high point. This is a seasonal estimate, not a live fish count. This seasonal presence applies to the accessible St. Joseph corridor as a whole; it does not claim equal fish numbers at the harbor, Niles, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Treat this as near the high point of a limited seasonal opportunity. Focus on the most dependable water, and require direct fish activity before committing more time. Use Migration Stage to choose the specific St. Joseph section, then verify that water directly.",
+            "headline": "Seasonal Chinook salmon presence is near its expected St. Joseph peak.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the St. Joseph Chinook salmon ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_peak",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -17689,6 +17822,7 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "nextConditionRefreshAt": "2026-10-01T05:00:00.000Z",
           "runStage": {
             "stage": "peak",
+            "copyStrategy": "st_joseph_corridor",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -17711,14 +17845,14 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "peakToEndDays": 37
             },
             "label": "Peak",
-            "headline": "This is the best St. Joseph Chinook salmon window, but it remains a selective 3-of-10 opportunity.",
-            "detail": "The calendar supports the best chance of finding Chinook in proven lower-Michigan, Niles, or selective Indiana holding water. It does not imply strong or uniform occupation of the full corridor.",
-            "tip": "Choose a proven section and cover deep holding water from head to tail. Change sections only after a clean search, and leave shallow spawning fish undisturbed.",
-            "whereToStart": "Start with proven lower-Michigan and Niles holding water, then make one selective South Bend or Mishawaka check below Twin Branch; this smaller Chinook run is not a reason to cover all 63 miles.",
+            "headline": "This is the best St. Joseph Chinook salmon window, but opportunity remains selective.",
+            "detail": "This is a limited 3-of-10 run, not a claim of strong or uniform presence.",
+            "tip": "Choose one section and cover it completely before changing reaches. Leave shallow spawning fish undisturbed.",
+            "whereToStart": "Start in the Middle river (Berrien Springs–Niles). Treat the Upper river (Niles–Twin Branch Dam) as a selective second check.",
             "reasonCodes": [
               "stage_peak"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -17787,7 +17921,7 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "conditions_insufficient",
               "conditions_checkpoint_peak_start"
             ],
-            "copyVersion": "river-run-copy-v27",
+            "copyVersion": "river-run-copy-v34",
             "previousCheckpointId": "building_established",
             "previousCheckpointDate": "2026-09-15",
             "previousTimingLabel": "Insufficient evidence"
@@ -17804,9 +17938,9 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "push": {
             "score": 20,
             "label": "Weak",
-            "headline": "The water may support fresh movement, but an aging river reading limits confidence.",
-            "detail": "The river is holding steady with no meaningful rise yet. Water temperature is favorable for fall migration and is relatively steady. Recent weather estimates indicate very little rain around the river. The latest river-level reading is aging, so confidence is reduced. This Push describes fresh-movement support at Niles only; it does not prove a new wave at the harbor, Berrien Springs, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Do not relocate the trip around this Push read. Begin in established holding water, verify the river at the first access, and add travel lanes only after confirming workable conditions. Use the Niles signal to choose between Niles-area holding water and a lower-Michigan travel-water check; verify Indiana movement directly.",
+            "headline": "Niles water shows little support for fresh movement.",
+            "detail": "Niles flow is steady without a meaningful rise. Water temperature is favorable for fall migration and is relatively steady. The Niles reading is aging, so confidence is reduced.",
+            "tip": "Keep Migration Stage’s section primary. Do not shift sections from this Niles read.",
             "reasonCodes": [
               "gauge_stale",
               "push_normal_flow_context",
@@ -17826,14 +17960,14 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-fall-chinook-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 55,
             "label": "Fishable",
             "headline": "The last river reading was fishable, but it is aging and may no longer describe the water accurately.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. Because the latest reading is aging, the river may have changed since it was reported. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river. This flow shape applies to the Niles mainstem reach only; verify the harbor, lower Michigan river, individual tailwaters, and Indiana water directly.",
-            "tip": "Do not choose a reach from this reading alone. Check the water at the first access, and begin only in bank-side water where you can control the entire presentation. Apply this recommendation at Niles; recheck water shape and safe access before carrying it to another St. Joseph section.",
+            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. Because the latest reading is aging, the river may have changed since it was reported. This read applies only to the Niles mainstem reach.",
+            "tip": "Verify the Niles reach directly before choosing presentation water. Verify every other section directly.",
             "reasonCodes": [
               "gauge_stale",
               "ideal_flow_band",
@@ -17847,15 +17981,15 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               ]
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 53,
             "maximum": 100,
             "label": "Moderate",
-            "headline": "Today’s Chinook activity outlook is moderate.",
-            "detail": "Some useful factors are present, but the response window is mixed. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Current river behavior is unavailable. Broad seasonal presence improves the chance of locating fish, but this score measures responsiveness rather than abundance. Measured river conditions describe the St. Joseph mainstem at Niles. Water temperature, clarity, hydraulic shape, and presentation conditions can differ in the harbor and lower Michigan river, at individual ladder tailwaters, and through South Bend, Mishawaka, and the Twin Branch reach. One important reading is unavailable or comes from tomorrow’s forecast, so the outlook is kept conservative.",
-            "tip": "Start with 5–9 AM. If the sky changes from the forecast, favor the darkest practical window. Apply this response window at Niles; verify temperature, clarity, flow shape, and legal access again before carrying it to another St. Joseph section.",
+            "headline": "Today’s Niles Chinook responsiveness is moderate.",
+            "detail": "Conditions offer mixed support for Chinook responsiveness. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Moderate confidence reflects missing or forecast inputs; river measurements still represent only Niles.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify other sections directly.",
             "reasonCodes": [
               "activity_confidence_moderate",
               "activity_today",
@@ -17907,10 +18041,13 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 29,
+            "displayScore": 30,
+            "scoreIsApproximate": true,
             "stage": "peak",
             "maximum": 100,
             "riverCeiling": 30,
@@ -17919,14 +18056,14 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "curveDirection": "falling",
             "winterHoldingContext": false,
             "label": "Peak presence",
-            "headline": "Seasonal timing still supports Chinook salmon being near their strongest in-river presence, even if the migration may be just beyond its usual peak.",
-            "detail": "This point in the season may sit just beyond the usual peak while the limited seasonal opportunity remains near its high point. This is a seasonal estimate, not a live fish count. This seasonal presence applies to the accessible St. Joseph corridor as a whole; it does not claim equal fish numbers at the harbor, Niles, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Treat this as near the high point of a limited seasonal opportunity. Focus on the most dependable water, and require direct fish activity before committing more time. Use Migration Stage to choose the specific St. Joseph section, then verify that water directly.",
+            "headline": "Seasonal Chinook salmon presence is near its expected St. Joseph peak.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the St. Joseph Chinook salmon ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_peak",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -18186,6 +18323,7 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "nextConditionRefreshAt": "2026-10-01T05:00:00.000Z",
           "runStage": {
             "stage": "peak",
+            "copyStrategy": "st_joseph_corridor",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -18208,14 +18346,14 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "peakToEndDays": 37
             },
             "label": "Peak",
-            "headline": "This is the best St. Joseph Chinook salmon window, but it remains a selective 3-of-10 opportunity.",
-            "detail": "The calendar supports the best chance of finding Chinook in proven lower-Michigan, Niles, or selective Indiana holding water. It does not imply strong or uniform occupation of the full corridor.",
-            "tip": "Choose a proven section and cover deep holding water from head to tail. Change sections only after a clean search, and leave shallow spawning fish undisturbed.",
-            "whereToStart": "Start with proven lower-Michigan and Niles holding water, then make one selective South Bend or Mishawaka check below Twin Branch; this smaller Chinook run is not a reason to cover all 63 miles.",
+            "headline": "This is the best St. Joseph Chinook salmon window, but opportunity remains selective.",
+            "detail": "This is a limited 3-of-10 run, not a claim of strong or uniform presence.",
+            "tip": "Choose one section and cover it completely before changing reaches. Leave shallow spawning fish undisturbed.",
+            "whereToStart": "Start in the Middle river (Berrien Springs–Niles). Treat the Upper river (Niles–Twin Branch Dam) as a selective second check.",
             "reasonCodes": [
               "stage_peak"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -18284,7 +18422,7 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "conditions_insufficient",
               "conditions_checkpoint_peak_start"
             ],
-            "copyVersion": "river-run-copy-v27",
+            "copyVersion": "river-run-copy-v34",
             "previousCheckpointId": "building_established",
             "previousCheckpointDate": "2026-09-15",
             "previousTimingLabel": "Insufficient evidence"
@@ -18308,7 +18446,7 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "gauge_missing"
             ],
             "rulesVersion": "st-joseph-fall-chinook-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": null,
@@ -18320,15 +18458,15 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "gauge_missing"
             ],
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 53,
             "maximum": 100,
             "label": "Moderate",
-            "headline": "Today’s Chinook activity outlook is moderate.",
-            "detail": "Some useful factors are present, but the response window is mixed. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Current river behavior is unavailable. Broad seasonal presence improves the chance of locating fish, but this score measures responsiveness rather than abundance. Measured river conditions describe the St. Joseph mainstem at Niles. Water temperature, clarity, hydraulic shape, and presentation conditions can differ in the harbor and lower Michigan river, at individual ladder tailwaters, and through South Bend, Mishawaka, and the Twin Branch reach. One important reading is unavailable or comes from tomorrow’s forecast, so the outlook is kept conservative.",
-            "tip": "Start with 5–9 AM. If the sky changes from the forecast, favor the darkest practical window. Apply this response window at Niles; verify temperature, clarity, flow shape, and legal access again before carrying it to another St. Joseph section.",
+            "headline": "Today’s Niles Chinook responsiveness is moderate.",
+            "detail": "Conditions offer mixed support for Chinook responsiveness. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Moderate confidence reflects missing or forecast inputs; river measurements still represent only Niles.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify other sections directly.",
             "reasonCodes": [
               "activity_confidence_moderate",
               "activity_today",
@@ -18380,10 +18518,13 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 29,
+            "displayScore": 30,
+            "scoreIsApproximate": true,
             "stage": "peak",
             "maximum": 100,
             "riverCeiling": 30,
@@ -18392,14 +18533,14 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "curveDirection": "falling",
             "winterHoldingContext": false,
             "label": "Peak presence",
-            "headline": "Seasonal timing still supports Chinook salmon being near their strongest in-river presence, even if the migration may be just beyond its usual peak.",
-            "detail": "This point in the season may sit just beyond the usual peak while the limited seasonal opportunity remains near its high point. This is a seasonal estimate, not a live fish count. This seasonal presence applies to the accessible St. Joseph corridor as a whole; it does not claim equal fish numbers at the harbor, Niles, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Treat this as near the high point of a limited seasonal opportunity. Focus on the most dependable water, and require direct fish activity before committing more time. Use Migration Stage to choose the specific St. Joseph section, then verify that water directly.",
+            "headline": "Seasonal Chinook salmon presence is near its expected St. Joseph peak.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the St. Joseph Chinook salmon ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_peak",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": null,
           "weather": {
@@ -18643,6 +18784,7 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "nextConditionRefreshAt": "2026-10-01T05:00:00.000Z",
           "runStage": {
             "stage": "peak",
+            "copyStrategy": "st_joseph_corridor",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -18665,14 +18807,14 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "peakToEndDays": 37
             },
             "label": "Peak",
-            "headline": "This is the best St. Joseph Chinook salmon window, but it remains a selective 3-of-10 opportunity.",
-            "detail": "The calendar supports the best chance of finding Chinook in proven lower-Michigan, Niles, or selective Indiana holding water. It does not imply strong or uniform occupation of the full corridor.",
-            "tip": "Choose a proven section and cover deep holding water from head to tail. Change sections only after a clean search, and leave shallow spawning fish undisturbed.",
-            "whereToStart": "Start with proven lower-Michigan and Niles holding water, then make one selective South Bend or Mishawaka check below Twin Branch; this smaller Chinook run is not a reason to cover all 63 miles.",
+            "headline": "This is the best St. Joseph Chinook salmon window, but opportunity remains selective.",
+            "detail": "This is a limited 3-of-10 run, not a claim of strong or uniform presence.",
+            "tip": "Choose one section and cover it completely before changing reaches. Leave shallow spawning fish undisturbed.",
+            "whereToStart": "Start in the Middle river (Berrien Springs–Niles). Treat the Upper river (Niles–Twin Branch Dam) as a selective second check.",
             "reasonCodes": [
               "stage_peak"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -18741,7 +18883,7 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "conditions_insufficient",
               "conditions_checkpoint_peak_start"
             ],
-            "copyVersion": "river-run-copy-v27",
+            "copyVersion": "river-run-copy-v34",
             "previousCheckpointId": "building_established",
             "previousCheckpointDate": "2026-09-15",
             "previousTimingLabel": "Insufficient evidence"
@@ -18758,9 +18900,9 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "push": {
             "score": 30,
             "label": "No clear push",
-            "headline": "Today's water does not show a clear signal for a fresh wave of fish.",
-            "detail": "The river is holding steady with no meaningful rise yet. Water temperature is favorable for fall migration and is relatively steady. Recent weather estimates indicate very little rain around the river. This Push describes fresh-movement support at Niles only; it does not prove a new wave at the harbor, Berrien Springs, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Fish established holding water from the head through the inside seam and tail. Do not spend the day racing between lower travel lanes for a wave the water does not support. Use the Niles signal to choose between Niles-area holding water and a lower-Michigan travel-water check; verify Indiana movement directly.",
+            "headline": "Niles water does not show a clear fresh-movement signal.",
+            "detail": "Niles flow is steady without a meaningful rise. Water temperature is favorable for fall migration and is relatively steady. Recent watershed weather shows little rain.",
+            "tip": "Keep Migration Stage’s section primary. Do not shift sections from this Niles read.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
@@ -18779,14 +18921,14 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-fall-chinook-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 93,
             "label": "Excellent",
             "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river. This flow shape applies to the Niles mainstem reach only; verify the harbor, lower Michigan river, individual tailwaters, and Indiana water directly.",
-            "tip": "Begin on the primary travel lane feeding deep holding water. Work each hole from its head through the inside seam and tail, then keep moving until fish establish a pattern. Apply this recommendation at Niles; recheck water shape and safe access before carrying it to another St. Joseph section.",
+            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. This read applies only to the Niles mainstem reach.",
+            "tip": "Cover readable seams and holding water with a controlled presentation. Verify every other section directly.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band"
@@ -18797,15 +18939,15 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 79,
             "maximum": 100,
             "label": "Active",
-            "headline": "Today’s Chinook activity outlook is active.",
-            "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. Broad seasonal presence improves the chance of locating fish, but this score measures responsiveness rather than abundance. Measured river conditions describe the St. Joseph mainstem at Niles. Water temperature, clarity, hydraulic shape, and presentation conditions can differ in the harbor and lower Michigan river, at individual ladder tailwaters, and through South Bend, Mishawaka, and the Twin Branch reach. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
-            "tip": "Start with 5–9 AM. If the sky changes from the forecast, favor the darkest practical window. Apply this response window at Niles; verify temperature, clarity, flow shape, and legal access again before carrying it to another St. Joseph section.",
+            "headline": "Today’s Niles Chinook responsiveness is active.",
+            "detail": "Conditions support a meaningful Chinook response. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Flow and temperature represent only the Niles mainstem reach.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify other sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -18857,10 +18999,13 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 29,
+            "displayScore": 30,
+            "scoreIsApproximate": true,
             "stage": "peak",
             "maximum": 100,
             "riverCeiling": 30,
@@ -18869,14 +19014,14 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "curveDirection": "falling",
             "winterHoldingContext": false,
             "label": "Peak presence",
-            "headline": "Seasonal timing still supports Chinook salmon being near their strongest in-river presence, even if the migration may be just beyond its usual peak.",
-            "detail": "This point in the season may sit just beyond the usual peak while the limited seasonal opportunity remains near its high point. This is a seasonal estimate, not a live fish count. This seasonal presence applies to the accessible St. Joseph corridor as a whole; it does not claim equal fish numbers at the harbor, Niles, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Treat this as near the high point of a limited seasonal opportunity. Focus on the most dependable water, and require direct fish activity before committing more time. Use Migration Stage to choose the specific St. Joseph section, then verify that water directly.",
+            "headline": "Seasonal Chinook salmon presence is near its expected St. Joseph peak.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the St. Joseph Chinook salmon ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_peak",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -19136,6 +19281,7 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "nextConditionRefreshAt": "2026-10-01T05:00:00.000Z",
           "runStage": {
             "stage": "peak",
+            "copyStrategy": "st_joseph_corridor",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -19158,14 +19304,14 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "peakToEndDays": 37
             },
             "label": "Peak",
-            "headline": "This is the best St. Joseph Chinook salmon window, but it remains a selective 3-of-10 opportunity.",
-            "detail": "The calendar supports the best chance of finding Chinook in proven lower-Michigan, Niles, or selective Indiana holding water. It does not imply strong or uniform occupation of the full corridor.",
-            "tip": "Choose a proven section and cover deep holding water from head to tail. Change sections only after a clean search, and leave shallow spawning fish undisturbed.",
-            "whereToStart": "Start with proven lower-Michigan and Niles holding water, then make one selective South Bend or Mishawaka check below Twin Branch; this smaller Chinook run is not a reason to cover all 63 miles.",
+            "headline": "This is the best St. Joseph Chinook salmon window, but opportunity remains selective.",
+            "detail": "This is a limited 3-of-10 run, not a claim of strong or uniform presence.",
+            "tip": "Choose one section and cover it completely before changing reaches. Leave shallow spawning fish undisturbed.",
+            "whereToStart": "Start in the Middle river (Berrien Springs–Niles). Treat the Upper river (Niles–Twin Branch Dam) as a selective second check.",
             "reasonCodes": [
               "stage_peak"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -19234,7 +19380,7 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "conditions_insufficient",
               "conditions_checkpoint_peak_start"
             ],
-            "copyVersion": "river-run-copy-v27",
+            "copyVersion": "river-run-copy-v34",
             "previousCheckpointId": "building_established",
             "previousCheckpointDate": "2026-09-15",
             "previousTimingLabel": "Insufficient evidence"
@@ -19251,9 +19397,9 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "push": {
             "score": 30,
             "label": "No clear push",
-            "headline": "Today's water does not show a clear signal for a fresh wave of fish.",
-            "detail": "The river is holding steady with no meaningful rise yet. Water temperature is favorable for fall migration and is relatively steady. Recent weather estimates indicate very little rain around the river. This Push describes fresh-movement support at Niles only; it does not prove a new wave at the harbor, Berrien Springs, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Fish established holding water from the head through the inside seam and tail. Do not spend the day racing between lower travel lanes for a wave the water does not support. Use the Niles signal to choose between Niles-area holding water and a lower-Michigan travel-water check; verify Indiana movement directly.",
+            "headline": "Niles water does not show a clear fresh-movement signal.",
+            "detail": "Niles flow is steady without a meaningful rise. Water temperature is favorable for fall migration and is relatively steady. Recent watershed weather shows little rain.",
+            "tip": "Keep Migration Stage’s section primary. Do not shift sections from this Niles read.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
@@ -19272,14 +19418,14 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-fall-chinook-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 73,
             "label": "Good",
             "headline": "The river is fishable, but higher flow is moving at a faster pace and narrowing the easiest water.",
-            "detail": "Higher flow is pushing more current through the main channel, but softer edges and protected lanes remain workable. The higher flow is not climbing, so softer edges beside the main current should remain well defined. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river. This flow shape applies to the Niles mainstem reach only; verify the harbor, lower Michigan river, individual tailwaters, and Indiana water directly.",
-            "tip": "Start tight to the bank on inside bends and below current-breaking cover. Shorten the presentation and keep it in the slower edge instead of forcing the main flow. Apply this recommendation at Niles; recheck water shape and safe access before carrying it to another St. Joseph section.",
+            "detail": "Higher flow is pushing more current through the main channel, but softer edges and protected lanes remain workable. The higher flow is not climbing, so softer edges beside the main current should remain well defined. This read applies only to the Niles mainstem reach.",
+            "tip": "Prioritize inside seams, protected edges, and current breaks. Verify every other section directly.",
             "reasonCodes": [
               "gauge_fresh",
               "high_fishable_flow_band"
@@ -19290,15 +19436,15 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 76,
             "maximum": 100,
             "label": "Active",
-            "headline": "Today’s Chinook activity outlook is active.",
-            "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. Broad seasonal presence improves the chance of locating fish, but this score measures responsiveness rather than abundance. Measured river conditions describe the St. Joseph mainstem at Niles. Water temperature, clarity, hydraulic shape, and presentation conditions can differ in the harbor and lower Michigan river, at individual ladder tailwaters, and through South Bend, Mishawaka, and the Twin Branch reach. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
-            "tip": "Start with 5–9 AM. If the sky changes from the forecast, favor the darkest practical window. Apply this response window at Niles; verify temperature, clarity, flow shape, and legal access again before carrying it to another St. Joseph section.",
+            "headline": "Today’s Niles Chinook responsiveness is active.",
+            "detail": "Conditions support a meaningful Chinook response. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Flow and temperature represent only the Niles mainstem reach.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify other sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -19350,10 +19496,13 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 29,
+            "displayScore": 30,
+            "scoreIsApproximate": true,
             "stage": "peak",
             "maximum": 100,
             "riverCeiling": 30,
@@ -19362,14 +19511,14 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "curveDirection": "falling",
             "winterHoldingContext": false,
             "label": "Peak presence",
-            "headline": "Seasonal timing still supports Chinook salmon being near their strongest in-river presence, even if the migration may be just beyond its usual peak.",
-            "detail": "This point in the season may sit just beyond the usual peak while the limited seasonal opportunity remains near its high point. This is a seasonal estimate, not a live fish count. This seasonal presence applies to the accessible St. Joseph corridor as a whole; it does not claim equal fish numbers at the harbor, Niles, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Treat this as near the high point of a limited seasonal opportunity. Focus on the most dependable water, and require direct fish activity before committing more time. Use Migration Stage to choose the specific St. Joseph section, then verify that water directly.",
+            "headline": "Seasonal Chinook salmon presence is near its expected St. Joseph peak.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the St. Joseph Chinook salmon ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_peak",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -19629,6 +19778,7 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "nextConditionRefreshAt": "2026-10-01T05:00:00.000Z",
           "runStage": {
             "stage": "peak",
+            "copyStrategy": "st_joseph_corridor",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -19651,14 +19801,14 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "peakToEndDays": 37
             },
             "label": "Peak",
-            "headline": "This is the best St. Joseph Chinook salmon window, but it remains a selective 3-of-10 opportunity.",
-            "detail": "The calendar supports the best chance of finding Chinook in proven lower-Michigan, Niles, or selective Indiana holding water. It does not imply strong or uniform occupation of the full corridor.",
-            "tip": "Choose a proven section and cover deep holding water from head to tail. Change sections only after a clean search, and leave shallow spawning fish undisturbed.",
-            "whereToStart": "Start with proven lower-Michigan and Niles holding water, then make one selective South Bend or Mishawaka check below Twin Branch; this smaller Chinook run is not a reason to cover all 63 miles.",
+            "headline": "This is the best St. Joseph Chinook salmon window, but opportunity remains selective.",
+            "detail": "This is a limited 3-of-10 run, not a claim of strong or uniform presence.",
+            "tip": "Choose one section and cover it completely before changing reaches. Leave shallow spawning fish undisturbed.",
+            "whereToStart": "Start in the Middle river (Berrien Springs–Niles). Treat the Upper river (Niles–Twin Branch Dam) as a selective second check.",
             "reasonCodes": [
               "stage_peak"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -19727,7 +19877,7 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "conditions_insufficient",
               "conditions_checkpoint_peak_start"
             ],
-            "copyVersion": "river-run-copy-v27",
+            "copyVersion": "river-run-copy-v34",
             "previousCheckpointId": "building_established",
             "previousCheckpointDate": "2026-09-15",
             "previousTimingLabel": "Insufficient evidence"
@@ -19744,9 +19894,9 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "push": {
             "score": 25,
             "label": "No clear push",
-            "headline": "Today's water does not show a clear signal for a fresh wave of fish.",
-            "detail": "The river is holding steady with no meaningful rise yet. Overall flow is already high. Water temperature is favorable for fall migration and is relatively steady. Recent weather estimates indicate very little rain around the river. This Push describes fresh-movement support at Niles only; it does not prove a new wave at the harbor, Berrien Springs, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Fish established holding water from the head through the inside seam and tail. Do not spend the day racing between lower travel lanes for a wave the water does not support. Use the Niles signal to choose between Niles-area holding water and a lower-Michigan travel-water check; verify Indiana movement directly.",
+            "headline": "Niles water does not show a clear fresh-movement signal.",
+            "detail": "Niles flow is steady without a meaningful rise, while overall flow is high. Water temperature is favorable for fall migration and is relatively steady. Recent watershed weather shows little rain.",
+            "tip": "Keep Migration Stage’s section primary. Do not shift sections from this Niles read.",
             "reasonCodes": [
               "gauge_fresh",
               "push_high_flow_context",
@@ -19765,14 +19915,14 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-fall-chinook-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 45,
             "label": "Tough",
             "headline": "The river is running very high, leaving fewer practical places to fish effectively.",
-            "detail": "Very high flow is reducing access and the amount of water where a presentation can be controlled. The river is not climbing quickly, but practical fishing water remains compressed into the slowest edges. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river. This flow shape applies to the Niles mainstem reach only; verify the harbor, lower Michigan river, individual tailwaters, and Indiana water directly.",
-            "tip": "Fish only bank-side soft pockets, protected inside turns, and current breaks. Make short controlled presentations and skip every main-channel lane. Apply this recommendation at Niles; recheck water shape and safe access before carrying it to another St. Joseph section.",
+            "detail": "Very high flow is reducing access and the amount of water where a presentation can be controlled. The river is not climbing quickly, but practical fishing water remains compressed into the slowest edges. This read applies only to the Niles mainstem reach.",
+            "tip": "Favor protected margins and short controlled presentations. Choose another day if control is not dependable. Verify every other section directly.",
             "reasonCodes": [
               "gauge_fresh",
               "very_high_flow_band"
@@ -19783,15 +19933,15 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 71,
             "maximum": 100,
             "label": "Active",
-            "headline": "Today’s Chinook activity outlook is active.",
-            "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: The river level or its recent change is less favorable. Broad seasonal presence improves the chance of locating fish, but this score measures responsiveness rather than abundance. Measured river conditions describe the St. Joseph mainstem at Niles. Water temperature, clarity, hydraulic shape, and presentation conditions can differ in the harbor and lower Michigan river, at individual ladder tailwaters, and through South Bend, Mishawaka, and the Twin Branch reach. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
-            "tip": "Start with 5–9 AM. If the sky changes from the forecast, favor the darkest practical window. Apply this response window at Niles; verify temperature, clarity, flow shape, and legal access again before carrying it to another St. Joseph section.",
+            "headline": "Today’s Niles Chinook responsiveness is active.",
+            "detail": "Conditions support a meaningful Chinook response. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Flow and temperature represent only the Niles mainstem reach.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify other sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -19843,10 +19993,13 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 29,
+            "displayScore": 30,
+            "scoreIsApproximate": true,
             "stage": "peak",
             "maximum": 100,
             "riverCeiling": 30,
@@ -19855,14 +20008,14 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "curveDirection": "falling",
             "winterHoldingContext": false,
             "label": "Peak presence",
-            "headline": "Seasonal timing still supports Chinook salmon being near their strongest in-river presence, even if the migration may be just beyond its usual peak.",
-            "detail": "This point in the season may sit just beyond the usual peak while the limited seasonal opportunity remains near its high point. This is a seasonal estimate, not a live fish count. This seasonal presence applies to the accessible St. Joseph corridor as a whole; it does not claim equal fish numbers at the harbor, Niles, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Treat this as near the high point of a limited seasonal opportunity. Focus on the most dependable water, and require direct fish activity before committing more time. Use Migration Stage to choose the specific St. Joseph section, then verify that water directly.",
+            "headline": "Seasonal Chinook salmon presence is near its expected St. Joseph peak.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the St. Joseph Chinook salmon ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_peak",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -20128,6 +20281,7 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "nextConditionRefreshAt": "2026-08-16T05:00:00.000Z",
           "runStage": {
             "stage": "pre_run",
+            "copyStrategy": "st_joseph_corridor",
             "stagingContext": true,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -20150,15 +20304,15 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "peakToEndDays": 37
             },
             "label": "Before migration",
-            "headline": "Chinook salmon may be staging around the St. Joseph harbor and mouth, but dependable inland passage has not begun.",
-            "detail": "A few early Chinook salmon can enter lower Michigan water, but this smaller run should not be projected through Niles, South Bend, or Mishawaka from one fish near the mouth.",
-            "tip": "Fish the harbor-to-river transition and one deep lower-river travel lane. Skip an inland corridor run until Migration Stage and Fish In River show dependable entry.",
-            "whereToStart": "Start with the St. Joseph harbor, river mouth, and deep lower Michigan travel water; do not assume fish have passed Niles or reached South Bend.",
+            "headline": "Chinook salmon may be staging near the St. Joseph River entrance.",
+            "detail": "Staging does not confirm dependable river entry. This remains a limited, sectional Chinook salmon run.",
+            "tip": "Keep the inland check brief. Do not move upriver from calendar timing alone.",
+            "whereToStart": "Start at the St. Joseph harbor and river mouth. Add the Lower river (St. Joseph harbor–Berrien Springs) only for an early-fish check.",
             "reasonCodes": [
               "stage_pre_run",
               "stage_pre_run_staging"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Evaluating",
@@ -20183,7 +20337,7 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "conditions_checkpoint_evaluating"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -20204,14 +20358,14 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "push_tracking_not_started"
             ],
             "rulesVersion": "st-joseph-fall-chinook-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 93,
             "label": "Excellent",
             "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river. This flow shape applies to the Niles mainstem reach only; verify the harbor, lower Michigan river, individual tailwaters, and Indiana water directly.",
-            "tip": "Begin on the primary travel lane feeding deep holding water. Work each hole from its head through the inside seam and tail, then keep moving until fish establish a pattern. Apply this recommendation at Niles; recheck water shape and safe access before carrying it to another St. Joseph section.",
+            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. This read applies only to the Niles mainstem reach.",
+            "tip": "Cover readable seams and holding water with a controlled presentation. Verify every other section directly.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band"
@@ -20222,15 +20376,15 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 78,
             "maximum": 100,
             "label": "Active",
-            "headline": "Today’s Chinook activity outlook is active.",
-            "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. Dependable river presence has not begun. The score applies only to a sparse early Chinook that may already have entered. Measured river conditions describe the St. Joseph mainstem at Niles. Water temperature, clarity, hydraulic shape, and presentation conditions can differ in the harbor and lower Michigan river, at individual ladder tailwaters, and through South Bend, Mishawaka, and the Twin Branch reach. This smaller Chinook return is often sectional; a favorable Niles response window does not prove equal fish presence through the five-ladder corridor. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
-            "tip": "Start with 5–9 AM. If the sky changes from the forecast, favor the darkest practical window. Apply this response window at Niles; verify temperature, clarity, flow shape, and legal access again before carrying it to another St. Joseph section.",
+            "headline": "Today’s Niles responsiveness is active, but dependable Chinook presence has not begun.",
+            "detail": "Conditions support a meaningful Chinook response. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. This applies only to an early Chinook already near Niles.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify other sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -20282,10 +20436,13 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "cloudCoverPct": 85,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 0,
+            "displayScore": 0,
+            "scoreIsApproximate": false,
             "stage": "pre_run",
             "maximum": 100,
             "riverCeiling": 30,
@@ -20294,14 +20451,14 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "curveDirection": "outside",
             "winterHoldingContext": false,
             "label": "Not expected yet",
-            "headline": "Even a limited dependable presence of Chinook salmon is not expected in the river yet.",
-            "detail": "Most Chinook salmon are not expected to have entered the river in dependable numbers. Any fish already present would be early exceptions. This seasonal presence applies to the accessible St. Joseph corridor as a whole; it does not claim equal fish numbers at the harbor, Niles, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Treat this as no dependable in-river opportunity yet. Keep expectations at zero, and do not interpret an isolated early fish as evidence of dependable river presence. Use Migration Stage to choose the specific St. Joseph section, then verify that water directly.",
+            "headline": "Dependable Chinook salmon presence is not expected in the St. Joseph yet.",
+            "detail": "The seasonal estimate remains at zero. Any river fish would be an early exception.",
+            "tip": "Use Migration Stage for harbor and river-entry context.",
             "reasonCodes": [
               "stage_pre_run",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -20560,6 +20717,7 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "nextConditionRefreshAt": "2026-09-06T05:00:00.000Z",
           "runStage": {
             "stage": "beginning",
+            "copyStrategy": "st_joseph_corridor",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -20582,14 +20740,14 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "peakToEndDays": 37
             },
             "label": "Beginning",
-            "headline": "The first Chinook salmon are entering the St. Joseph, but the opportunity remains small and sectional.",
-            "detail": "Lower Michigan travel and holding water is the most defensible first look. Passage through the five ladders can occur, but Niles or Indiana fish should be treated as selective opportunities—not broad distribution.",
-            "tip": "Cover a lower-Michigan travel-and-holding sequence first. Move upriver only after direct fish activity, local observations, or established passage supports the change.",
-            "whereToStart": "Start in deep lower-Michigan travel and holding water below Berrien Springs; make Niles a selective second check and do not chase this smaller Chinook return across the full corridor.",
+            "headline": "The first Chinook salmon are entering the St. Joseph, but the run remains limited.",
+            "detail": "Early Chinook remain scattered and concentrated in select water.",
+            "tip": "Cover travel water and the first substantial holding areas before moving upstream.",
+            "whereToStart": "Start in the Lower river (St. Joseph harbor–Berrien Springs). Add the Middle river (Berrien Springs–Niles) only after direct fish activity supports the move.",
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -20637,7 +20795,7 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -20651,9 +20809,9 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "push": {
             "score": 27,
             "label": "No clear push",
-            "headline": "Today's water does not show a clear signal for a fresh wave of fish.",
-            "detail": "The river is holding steady with no meaningful rise yet. Water is on the warm side for fall migration and is relatively steady. Recent weather estimates indicate very little rain around the river. This Push describes fresh-movement support at Niles only; it does not prove a new wave at the harbor, Berrien Springs, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Fish established holding water from the head through the inside seam and tail. Do not spend the day racing between lower travel lanes for a wave the water does not support. Use the Niles signal to choose between Niles-area holding water and a lower-Michigan travel-water check; verify Indiana movement directly.",
+            "headline": "Niles water does not show a clear fresh-movement signal.",
+            "detail": "Niles flow is steady without a meaningful rise. Water is on the warm side for fall migration and is relatively steady. Recent watershed weather shows little rain.",
+            "tip": "Keep Migration Stage’s section primary. Do not shift sections from this Niles read.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
@@ -20672,14 +20830,14 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-fall-chinook-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 93,
             "label": "Excellent",
             "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river. This flow shape applies to the Niles mainstem reach only; verify the harbor, lower Michigan river, individual tailwaters, and Indiana water directly.",
-            "tip": "Begin on the primary travel lane feeding deep holding water. Work each hole from its head through the inside seam and tail, then keep moving until fish establish a pattern. Apply this recommendation at Niles; recheck water shape and safe access before carrying it to another St. Joseph section.",
+            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. This read applies only to the Niles mainstem reach.",
+            "tip": "Cover readable seams and holding water with a controlled presentation. Verify every other section directly.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band"
@@ -20690,15 +20848,15 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 86,
             "maximum": 100,
             "label": "Highly active",
-            "headline": "Today’s Chinook activity outlook is highly active.",
-            "detail": "Conditions strongly favor a response from Chinook that are present and capable of reacting. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. Early lake-fresh Chinook can remain reactive in tolerable water, so warmth is penalized without automatically erasing response potential. Measured river conditions describe the St. Joseph mainstem at Niles. Water temperature, clarity, hydraulic shape, and presentation conditions can differ in the harbor and lower Michigan river, at individual ladder tailwaters, and through South Bend, Mishawaka, and the Twin Branch reach. This smaller Chinook return is often sectional; a favorable Niles response window does not prove equal fish presence through the five-ladder corridor. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
-            "tip": "Start with 5–9 AM. If the sky changes from the forecast, favor the darkest practical window. Apply this response window at Niles; verify temperature, clarity, flow shape, and legal access again before carrying it to another St. Joseph section.",
+            "headline": "Today’s Niles Chinook responsiveness is highly active.",
+            "detail": "Conditions strongly support Chinook responsiveness. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Flow and temperature represent only the Niles mainstem reach.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify other sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -20750,10 +20908,13 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "cloudCoverPct": 100,
                 "precipitationIn": 0.08
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 8,
+            "displayScore": 10,
+            "scoreIsApproximate": true,
             "stage": "beginning",
             "maximum": 100,
             "riverCeiling": 30,
@@ -20762,14 +20923,14 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "curveDirection": "rising",
             "winterHoldingContext": false,
             "label": "Limited presence",
-            "headline": "A small number of Chinook salmon are likely in the river, with this limited seasonal presence still developing.",
-            "detail": "This part of the season usually brings limited presence, with a smaller number of fish expected to enter and occupy its most dependable water. This is a seasonal estimate, not a live fish count. This seasonal presence applies to the accessible St. Joseph corridor as a whole; it does not claim equal fish numbers at the harbor, Niles, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Plan for an emerging but uneven river opportunity. Cover water efficiently, and do not assume every promising stop holds fish. Use Migration Stage to choose the specific St. Joseph section, then verify that water directly.",
+            "headline": "Seasonal Chinook salmon presence is limited and building.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the St. Joseph Chinook salmon ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -21029,6 +21190,7 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "nextConditionRefreshAt": "2026-09-21T05:00:00.000Z",
           "runStage": {
             "stage": "building",
+            "copyStrategy": "st_joseph_corridor",
             "stagingContext": false,
             "broadBuildingContext": true,
             "winterHoldingContext": false,
@@ -21051,14 +21213,14 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "peakToEndDays": 37
             },
             "label": "Building",
-            "headline": "Chinook salmon are established in select St. Joseph sections, but this remains a limited run.",
-            "detail": "Earlier fish can be holding from lower Michigan through Niles, with some passage into South Bend and Mishawaka. Empty water between fish remains normal for this smaller Chinook return.",
-            "tip": "Pick one proven Michigan or Niles holding section and fish it thoroughly before making one legal Indiana check. Do not run every ladder looking for scattered Chinook.",
-            "whereToStart": "Prioritize proven lower-Michigan and Niles holding water; use South Bend or Mishawaka only as selective passage checks, always away from posted ladder and dam boundaries.",
+            "headline": "Chinook salmon are established in select St. Joseph sections.",
+            "detail": "This smaller Chinook run remains selective, with empty water between fish.",
+            "tip": "Fish one proven section thoroughly before making a selective second check.",
+            "whereToStart": "Start in the Middle river (Berrien Springs–Niles). Check the Upper river (Niles–Twin Branch Dam) only as a selective comparison.",
             "reasonCodes": [
               "stage_building"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -21120,7 +21282,7 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "conditions_insufficient",
               "conditions_checkpoint_building_established"
             ],
-            "copyVersion": "river-run-copy-v27",
+            "copyVersion": "river-run-copy-v34",
             "previousCheckpointId": "building_start",
             "previousCheckpointDate": "2026-09-11",
             "previousTimingLabel": "Insufficient evidence"
@@ -21137,9 +21299,9 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "push": {
             "score": 30,
             "label": "No clear push",
-            "headline": "Today's water does not show a clear signal for a fresh wave of fish.",
-            "detail": "The river is holding steady with no meaningful rise yet. Water temperature is favorable for fall migration and is relatively steady. Recent weather estimates indicate very little rain around the river. This Push describes fresh-movement support at Niles only; it does not prove a new wave at the harbor, Berrien Springs, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Fish established holding water from the head through the inside seam and tail. Do not spend the day racing between lower travel lanes for a wave the water does not support. Use the Niles signal to choose between Niles-area holding water and a lower-Michigan travel-water check; verify Indiana movement directly.",
+            "headline": "Niles water does not show a clear fresh-movement signal.",
+            "detail": "Niles flow is steady without a meaningful rise. Water temperature is favorable for fall migration and is relatively steady. Recent watershed weather shows little rain.",
+            "tip": "Keep Migration Stage’s section primary. Do not shift sections from this Niles read.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
@@ -21158,14 +21320,14 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-fall-chinook-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 93,
             "label": "Excellent",
             "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river. This flow shape applies to the Niles mainstem reach only; verify the harbor, lower Michigan river, individual tailwaters, and Indiana water directly.",
-            "tip": "Begin on the primary travel lane feeding deep holding water. Work each hole from its head through the inside seam and tail, then keep moving until fish establish a pattern. Apply this recommendation at Niles; recheck water shape and safe access before carrying it to another St. Joseph section.",
+            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. This read applies only to the Niles mainstem reach.",
+            "tip": "Cover readable seams and holding water with a controlled presentation. Verify every other section directly.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band"
@@ -21176,15 +21338,15 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 87,
             "maximum": 100,
             "label": "Highly active",
-            "headline": "Today’s Chinook activity outlook is highly active.",
-            "detail": "Conditions strongly favor a response from Chinook that are present and capable of reacting. The strongest window is 9 AM–1 PM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. More Chinook are moving and settling into the river; the score describes reaction conditions for fish already present. Measured river conditions describe the St. Joseph mainstem at Niles. Water temperature, clarity, hydraulic shape, and presentation conditions can differ in the harbor and lower Michigan river, at individual ladder tailwaters, and through South Bend, Mishawaka, and the Twin Branch reach. This smaller Chinook return is often sectional; a favorable Niles response window does not prove equal fish presence through the five-ladder corridor. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
-            "tip": "Start with 9 AM–1 PM. If the sky changes from the forecast, favor the darkest practical window. Apply this response window at Niles; verify temperature, clarity, flow shape, and legal access again before carrying it to another St. Joseph section.",
+            "headline": "Today’s Niles Chinook responsiveness is highly active.",
+            "detail": "Conditions strongly support Chinook responsiveness. 9 AM–1 PM and 1–5 PM are the leading windows, but neither has a clear advantage. Flow and temperature represent only the Niles mainstem reach.",
+            "tip": "Choose between 9 AM–1 PM and 1–5 PM using actual light. Verify other sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -21236,10 +21398,13 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "cloudCoverPct": 100,
                 "precipitationIn": 0.08
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 23,
+            "displayScore": 25,
+            "scoreIsApproximate": true,
             "stage": "building",
             "maximum": 100,
             "riverCeiling": 30,
@@ -21248,14 +21413,14 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "curveDirection": "rising",
             "winterHoldingContext": false,
             "label": "High presence",
-            "headline": "Chinook salmon are likely filling more of the river's dependable holding water as seasonal presence builds toward its strongest point.",
-            "detail": "Seasonal presence is usually elevated relative to the rest of the season, with a smaller number of fish expected to enter and occupy its most dependable water. This is a seasonal estimate, not a live fish count. This seasonal presence applies to the accessible St. Joseph corridor as a whole; it does not claim equal fish numbers at the harbor, Niles, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Treat this as one of the better parts of the season, while remembering that this river's overall opportunity remains limited. Give each stop a complete pass, but do not mistake this seasonal estimate for a live fish count. Use Migration Stage to choose the specific St. Joseph section, then verify that water directly.",
+            "headline": "Seasonal Chinook salmon presence is high and building.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the St. Joseph Chinook salmon ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_building",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -21509,6 +21674,7 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "nextConditionRefreshAt": "2026-09-26T05:00:00.000Z",
           "runStage": {
             "stage": "peak",
+            "copyStrategy": "st_joseph_corridor",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -21531,14 +21697,14 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "peakToEndDays": 37
             },
             "label": "Peak",
-            "headline": "This is the best St. Joseph Chinook salmon window, but it remains a selective 3-of-10 opportunity.",
-            "detail": "The calendar supports the best chance of finding Chinook in proven lower-Michigan, Niles, or selective Indiana holding water. It does not imply strong or uniform occupation of the full corridor.",
-            "tip": "Choose a proven section and cover deep holding water from head to tail. Change sections only after a clean search, and leave shallow spawning fish undisturbed.",
-            "whereToStart": "Start with proven lower-Michigan and Niles holding water, then make one selective South Bend or Mishawaka check below Twin Branch; this smaller Chinook run is not a reason to cover all 63 miles.",
+            "headline": "This is the best St. Joseph Chinook salmon window, but opportunity remains selective.",
+            "detail": "This is a limited 3-of-10 run, not a claim of strong or uniform presence.",
+            "tip": "Choose one section and cover it completely before changing reaches. Leave shallow spawning fish undisturbed.",
+            "whereToStart": "Start in the Middle river (Berrien Springs–Niles). Treat the Upper river (Niles–Twin Branch Dam) as a selective second check.",
             "reasonCodes": [
               "stage_peak"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -21607,7 +21773,7 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "conditions_insufficient",
               "conditions_checkpoint_peak_start"
             ],
-            "copyVersion": "river-run-copy-v27",
+            "copyVersion": "river-run-copy-v34",
             "previousCheckpointId": "building_established",
             "previousCheckpointDate": "2026-09-15",
             "previousTimingLabel": "Insufficient evidence"
@@ -21624,9 +21790,9 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "push": {
             "score": 30,
             "label": "No clear push",
-            "headline": "Today's water does not show a clear signal for a fresh wave of fish.",
-            "detail": "The river is holding steady with no meaningful rise yet. Water temperature is favorable for fall migration and is relatively steady. Recent weather estimates indicate very little rain around the river. This Push describes fresh-movement support at Niles only; it does not prove a new wave at the harbor, Berrien Springs, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Fish established holding water from the head through the inside seam and tail. Do not spend the day racing between lower travel lanes for a wave the water does not support. Use the Niles signal to choose between Niles-area holding water and a lower-Michigan travel-water check; verify Indiana movement directly.",
+            "headline": "Niles water does not show a clear fresh-movement signal.",
+            "detail": "Niles flow is steady without a meaningful rise. Water temperature is favorable for fall migration and is relatively steady. Recent watershed weather shows little rain.",
+            "tip": "Keep Migration Stage’s section primary. Do not shift sections from this Niles read.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
@@ -21645,14 +21811,14 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-fall-chinook-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 93,
             "label": "Excellent",
             "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river. This flow shape applies to the Niles mainstem reach only; verify the harbor, lower Michigan river, individual tailwaters, and Indiana water directly.",
-            "tip": "Begin on the primary travel lane feeding deep holding water. Work each hole from its head through the inside seam and tail, then keep moving until fish establish a pattern. Apply this recommendation at Niles; recheck water shape and safe access before carrying it to another St. Joseph section.",
+            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. This read applies only to the Niles mainstem reach.",
+            "tip": "Cover readable seams and holding water with a controlled presentation. Verify every other section directly.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band"
@@ -21663,15 +21829,15 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 80,
             "maximum": 100,
             "label": "Highly active",
-            "headline": "Today’s Chinook activity outlook is highly active.",
-            "detail": "Conditions strongly favor a response from Chinook that are present and capable of reacting. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. Broad seasonal presence improves the chance of locating fish, but this score measures responsiveness rather than abundance. Measured river conditions describe the St. Joseph mainstem at Niles. Water temperature, clarity, hydraulic shape, and presentation conditions can differ in the harbor and lower Michigan river, at individual ladder tailwaters, and through South Bend, Mishawaka, and the Twin Branch reach. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
-            "tip": "Start with 5–9 AM. If the sky changes from the forecast, favor the darkest practical window. Apply this response window at Niles; verify temperature, clarity, flow shape, and legal access again before carrying it to another St. Joseph section.",
+            "headline": "Today’s Niles Chinook responsiveness is highly active.",
+            "detail": "Conditions strongly support Chinook responsiveness. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Flow and temperature represent only the Niles mainstem reach.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify other sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -21723,10 +21889,13 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "cloudCoverPct": 65,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 30,
+            "displayScore": 30,
+            "scoreIsApproximate": false,
             "stage": "peak",
             "maximum": 100,
             "riverCeiling": 30,
@@ -21735,14 +21904,14 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "curveDirection": "near_peak",
             "winterHoldingContext": false,
             "label": "Peak presence",
-            "headline": "Chinook salmon are likely near their highest seasonal presence in the river, although the overall opportunity remains limited.",
-            "detail": "This is the part of the season when in-river presence is usually strongest. Even at that high point, the overall seasonal opportunity remains limited. The read does not place fish in a specific pool or confirm a live count. This seasonal presence applies to the accessible St. Joseph corridor as a whole; it does not claim equal fish numbers at the harbor, Niles, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Treat this as the best part of this river's limited seasonal opportunity, not a high-abundance fishery. Require direct fish activity before committing more time. Use Migration Stage to choose the specific St. Joseph section, then verify that water directly.",
+            "headline": "Seasonal Chinook salmon presence is near its expected St. Joseph peak.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the St. Joseph Chinook salmon ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_peak",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -22002,6 +22171,7 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "nextConditionRefreshAt": "2026-09-21T05:00:00.000Z",
           "runStage": {
             "stage": "building",
+            "copyStrategy": "st_joseph_corridor",
             "stagingContext": false,
             "broadBuildingContext": true,
             "winterHoldingContext": false,
@@ -22024,14 +22194,14 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "peakToEndDays": 37
             },
             "label": "Building",
-            "headline": "Chinook salmon are established in select St. Joseph sections, but this remains a limited run.",
-            "detail": "Earlier fish can be holding from lower Michigan through Niles, with some passage into South Bend and Mishawaka. Empty water between fish remains normal for this smaller Chinook return.",
-            "tip": "Pick one proven Michigan or Niles holding section and fish it thoroughly before making one legal Indiana check. Do not run every ladder looking for scattered Chinook.",
-            "whereToStart": "Prioritize proven lower-Michigan and Niles holding water; use South Bend or Mishawaka only as selective passage checks, always away from posted ladder and dam boundaries.",
+            "headline": "Chinook salmon are established in select St. Joseph sections.",
+            "detail": "This smaller Chinook run remains selective, with empty water between fish.",
+            "tip": "Fish one proven section thoroughly before making a selective second check.",
+            "whereToStart": "Start in the Middle river (Berrien Springs–Niles). Check the Upper river (Niles–Twin Branch Dam) only as a selective comparison.",
             "reasonCodes": [
               "stage_building"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -22093,7 +22263,7 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "conditions_insufficient",
               "conditions_checkpoint_building_established"
             ],
-            "copyVersion": "river-run-copy-v27",
+            "copyVersion": "river-run-copy-v34",
             "previousCheckpointId": "building_start",
             "previousCheckpointDate": "2026-09-11",
             "previousTimingLabel": "Insufficient evidence"
@@ -22110,9 +22280,9 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "push": {
             "score": 13,
             "label": "Weak",
-            "headline": "Today's water shows little support for a fresh wave of fish.",
-            "detail": "The river is holding steady with no meaningful rise yet. Overall flow is already high. Water is on the warm side for fall migration but is warming sharply. Recent weather estimates indicate very little rain around the river. This Push describes fresh-movement support at Niles only; it does not prove a new wave at the harbor, Berrien Springs, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Skip the fresh-arrival hunt. Begin in established holding holes and fish each one thoroughly before moving; leave lower travel lanes as a secondary check. Use the Niles signal to choose between Niles-area holding water and a lower-Michigan travel-water check; verify Indiana movement directly.",
+            "headline": "Niles water shows little support for fresh movement.",
+            "detail": "Niles flow is steady without a meaningful rise, while overall flow is high. Water is on the warm side for fall migration but is warming sharply. Recent watershed weather shows little rain.",
+            "tip": "Keep Migration Stage’s section primary. Do not shift sections from this Niles read.",
             "reasonCodes": [
               "gauge_fresh",
               "push_high_flow_context",
@@ -22131,14 +22301,14 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-fall-chinook-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 45,
             "label": "Tough",
             "headline": "The river is running very high, leaving fewer practical places to fish effectively.",
-            "detail": "Very high flow is reducing access and the amount of water where a presentation can be controlled. The river is not climbing quickly, but practical fishing water remains compressed into the slowest edges. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river. This flow shape applies to the Niles mainstem reach only; verify the harbor, lower Michigan river, individual tailwaters, and Indiana water directly.",
-            "tip": "Fish only bank-side soft pockets, protected inside turns, and current breaks. Make short controlled presentations and skip every main-channel lane. Apply this recommendation at Niles; recheck water shape and safe access before carrying it to another St. Joseph section.",
+            "detail": "Very high flow is reducing access and the amount of water where a presentation can be controlled. The river is not climbing quickly, but practical fishing water remains compressed into the slowest edges. This read applies only to the Niles mainstem reach.",
+            "tip": "Favor protected margins and short controlled presentations. Choose another day if control is not dependable. Verify every other section directly.",
             "reasonCodes": [
               "gauge_fresh",
               "very_high_flow_band"
@@ -22149,15 +22319,15 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 59,
             "maximum": 100,
             "label": "Moderate",
-            "headline": "Today’s Chinook activity outlook is moderate.",
-            "detail": "Some useful factors are present, but the response window is mixed. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: The river level or its recent change is less favorable. More Chinook are moving and settling into the river; the score describes reaction conditions for fish already present. Measured river conditions describe the St. Joseph mainstem at Niles. Water temperature, clarity, hydraulic shape, and presentation conditions can differ in the harbor and lower Michigan river, at individual ladder tailwaters, and through South Bend, Mishawaka, and the Twin Branch reach. This smaller Chinook return is often sectional; a favorable Niles response window does not prove equal fish presence through the five-ladder corridor. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
-            "tip": "Start with 5–9 AM. If the sky changes from the forecast, favor the darkest practical window. Apply this response window at Niles; verify temperature, clarity, flow shape, and legal access again before carrying it to another St. Joseph section.",
+            "headline": "Today’s Niles Chinook responsiveness is moderate.",
+            "detail": "Conditions offer mixed support for Chinook responsiveness. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Flow and temperature represent only the Niles mainstem reach.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify other sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -22209,10 +22379,13 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "cloudCoverPct": 0,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 23,
+            "displayScore": 25,
+            "scoreIsApproximate": true,
             "stage": "building",
             "maximum": 100,
             "riverCeiling": 30,
@@ -22221,14 +22394,14 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "curveDirection": "rising",
             "winterHoldingContext": false,
             "label": "High presence",
-            "headline": "Chinook salmon are likely filling more of the river's dependable holding water as seasonal presence builds toward its strongest point.",
-            "detail": "Seasonal presence is usually elevated relative to the rest of the season, with a smaller number of fish expected to enter and occupy its most dependable water. This is a seasonal estimate, not a live fish count. This seasonal presence applies to the accessible St. Joseph corridor as a whole; it does not claim equal fish numbers at the harbor, Niles, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Treat this as one of the better parts of the season, while remembering that this river's overall opportunity remains limited. Give each stop a complete pass, but do not mistake this seasonal estimate for a live fish count. Use Migration Stage to choose the specific St. Joseph section, then verify that water directly.",
+            "headline": "Seasonal Chinook salmon presence is high and building.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the St. Joseph Chinook salmon ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_building",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -22482,6 +22655,7 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "nextConditionRefreshAt": "2026-09-06T05:00:00.000Z",
           "runStage": {
             "stage": "beginning",
+            "copyStrategy": "st_joseph_corridor",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -22504,14 +22678,14 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "peakToEndDays": 37
             },
             "label": "Beginning",
-            "headline": "The first Chinook salmon are entering the St. Joseph, but the opportunity remains small and sectional.",
-            "detail": "Lower Michigan travel and holding water is the most defensible first look. Passage through the five ladders can occur, but Niles or Indiana fish should be treated as selective opportunities—not broad distribution.",
-            "tip": "Cover a lower-Michigan travel-and-holding sequence first. Move upriver only after direct fish activity, local observations, or established passage supports the change.",
-            "whereToStart": "Start in deep lower-Michigan travel and holding water below Berrien Springs; make Niles a selective second check and do not chase this smaller Chinook return across the full corridor.",
+            "headline": "The first Chinook salmon are entering the St. Joseph, but the run remains limited.",
+            "detail": "Early Chinook remain scattered and concentrated in select water.",
+            "tip": "Cover travel water and the first substantial holding areas before moving upstream.",
+            "whereToStart": "Start in the Lower river (St. Joseph harbor–Berrien Springs). Add the Middle river (Berrien Springs–Niles) only after direct fish activity supports the move.",
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -22559,7 +22733,7 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -22573,9 +22747,9 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "push": {
             "score": 10,
             "label": "Weak",
-            "headline": "The river is rising, but warm water prevents a dependable fresh-movement read.",
-            "detail": "The river is holding steady with no meaningful rise yet. Water temperature is warm enough to seriously limit confidence in fresh movement. Recent weather estimates indicate very little rain around the river. This Push describes fresh-movement support at Niles only; it does not prove a new wave at the harbor, Berrien Springs, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Do not build the day around new arrivals while the river remains warm. Start in established holding water at first or last light and leave lower travel lanes secondary. Use the Niles signal to choose between Niles-area holding water and a lower-Michigan travel-water check; verify Indiana movement directly.",
+            "headline": "Warm Niles water prevents a dependable fresh-movement signal.",
+            "detail": "Niles flow is steady without a meaningful rise. Water temperature is warm enough to seriously limit confidence in fresh movement. Recent watershed weather shows little rain.",
+            "tip": "Keep Migration Stage’s section primary. Do not shift sections from this Niles read.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
@@ -22595,14 +22769,14 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-fall-chinook-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 93,
             "label": "Excellent",
             "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river. This flow shape applies to the Niles mainstem reach only; verify the harbor, lower Michigan river, individual tailwaters, and Indiana water directly.",
-            "tip": "Begin on the primary travel lane feeding deep holding water. Work each hole from its head through the inside seam and tail, then keep moving until fish establish a pattern. Apply this recommendation at Niles; recheck water shape and safe access before carrying it to another St. Joseph section.",
+            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. This read applies only to the Niles mainstem reach.",
+            "tip": "Cover readable seams and holding water with a controlled presentation. Verify every other section directly.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band"
@@ -22613,15 +22787,15 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 32,
             "maximum": 100,
             "label": "Reserved",
-            "headline": "Today’s Chinook activity outlook is reserved.",
-            "detail": "Fish may respond selectively, with important environmental limitations. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Water temperature limits responsiveness. Early lake-fresh Chinook can remain reactive in tolerable water, so warmth is penalized without automatically erasing response potential. Measured river conditions describe the St. Joseph mainstem at Niles. Water temperature, clarity, hydraulic shape, and presentation conditions can differ in the harbor and lower Michigan river, at individual ladder tailwaters, and through South Bend, Mishawaka, and the Twin Branch reach. This smaller Chinook return is often sectional; a favorable Niles response window does not prove equal fish presence through the five-ladder corridor. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
-            "tip": "Start with 5–9 AM. If the sky changes from the forecast, favor the darkest practical window. Apply this response window at Niles; verify temperature, clarity, flow shape, and legal access again before carrying it to another St. Joseph section.",
+            "headline": "Today’s Niles Chinook responsiveness is reserved.",
+            "detail": "Chinook may respond selectively under current limitations. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Flow and temperature represent only the Niles mainstem reach.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify other sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -22674,10 +22848,13 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "cloudCoverPct": 100,
                 "precipitationIn": 0.08
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 8,
+            "displayScore": 10,
+            "scoreIsApproximate": true,
             "stage": "beginning",
             "maximum": 100,
             "riverCeiling": 30,
@@ -22686,14 +22863,14 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "curveDirection": "rising",
             "winterHoldingContext": false,
             "label": "Limited presence",
-            "headline": "A small number of Chinook salmon are likely in the river, with this limited seasonal presence still developing.",
-            "detail": "This part of the season usually brings limited presence, with a smaller number of fish expected to enter and occupy its most dependable water. This is a seasonal estimate, not a live fish count. This seasonal presence applies to the accessible St. Joseph corridor as a whole; it does not claim equal fish numbers at the harbor, Niles, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Plan for an emerging but uneven river opportunity. Cover water efficiently, and do not assume every promising stop holds fish. Use Migration Stage to choose the specific St. Joseph section, then verify that water directly.",
+            "headline": "Seasonal Chinook salmon presence is limited and building.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the St. Joseph Chinook salmon ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -22953,6 +23130,7 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "nextConditionRefreshAt": "2026-09-06T05:00:00.000Z",
           "runStage": {
             "stage": "beginning",
+            "copyStrategy": "st_joseph_corridor",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -22975,14 +23153,14 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "peakToEndDays": 37
             },
             "label": "Beginning",
-            "headline": "The first Chinook salmon are entering the St. Joseph, but the opportunity remains small and sectional.",
-            "detail": "Lower Michigan travel and holding water is the most defensible first look. Passage through the five ladders can occur, but Niles or Indiana fish should be treated as selective opportunities—not broad distribution.",
-            "tip": "Cover a lower-Michigan travel-and-holding sequence first. Move upriver only after direct fish activity, local observations, or established passage supports the change.",
-            "whereToStart": "Start in deep lower-Michigan travel and holding water below Berrien Springs; make Niles a selective second check and do not chase this smaller Chinook return across the full corridor.",
+            "headline": "The first Chinook salmon are entering the St. Joseph, but the run remains limited.",
+            "detail": "Early Chinook remain scattered and concentrated in select water.",
+            "tip": "Cover travel water and the first substantial holding areas before moving upstream.",
+            "whereToStart": "Start in the Lower river (St. Joseph harbor–Berrien Springs). Add the Middle river (Berrien Springs–Niles) only after direct fish activity supports the move.",
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -23030,7 +23208,7 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -23044,9 +23222,9 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "push": {
             "score": 10,
             "label": "Weak",
-            "headline": "The river is rising, but warm water prevents a dependable fresh-movement read.",
-            "detail": "The river is holding steady with no meaningful rise yet. Water temperature is warm enough to seriously limit confidence in fresh movement. Recent weather estimates indicate very little rain around the river. This Push describes fresh-movement support at Niles only; it does not prove a new wave at the harbor, Berrien Springs, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Do not build the day around new arrivals while the river remains warm. Start in established holding water at first or last light and leave lower travel lanes secondary. Use the Niles signal to choose between Niles-area holding water and a lower-Michigan travel-water check; verify Indiana movement directly.",
+            "headline": "Warm Niles water prevents a dependable fresh-movement signal.",
+            "detail": "Niles flow is steady without a meaningful rise. Water temperature is warm enough to seriously limit confidence in fresh movement. Recent watershed weather shows little rain.",
+            "tip": "Keep Migration Stage’s section primary. Do not shift sections from this Niles read.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
@@ -23066,14 +23244,14 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-fall-chinook-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 93,
             "label": "Excellent",
             "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river. This flow shape applies to the Niles mainstem reach only; verify the harbor, lower Michigan river, individual tailwaters, and Indiana water directly.",
-            "tip": "Begin on the primary travel lane feeding deep holding water. Work each hole from its head through the inside seam and tail, then keep moving until fish establish a pattern. Apply this recommendation at Niles; recheck water shape and safe access before carrying it to another St. Joseph section.",
+            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. This read applies only to the Niles mainstem reach.",
+            "tip": "Cover readable seams and holding water with a controlled presentation. Verify every other section directly.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band"
@@ -23084,15 +23262,15 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 25,
             "maximum": 100,
             "label": "Reserved",
-            "headline": "Today’s Chinook activity outlook is reserved.",
-            "detail": "Fish may respond selectively, with important environmental limitations. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Water temperature limits responsiveness. Early lake-fresh Chinook can remain reactive in tolerable water, so warmth is penalized without automatically erasing response potential. Measured river conditions describe the St. Joseph mainstem at Niles. Water temperature, clarity, hydraulic shape, and presentation conditions can differ in the harbor and lower Michigan river, at individual ladder tailwaters, and through South Bend, Mishawaka, and the Twin Branch reach. This smaller Chinook return is often sectional; a favorable Niles response window does not prove equal fish presence through the five-ladder corridor. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
-            "tip": "Start with 5–9 AM. If the sky changes from the forecast, favor the darkest practical window. Apply this response window at Niles; verify temperature, clarity, flow shape, and legal access again before carrying it to another St. Joseph section.",
+            "headline": "Today’s Niles Chinook responsiveness is reserved.",
+            "detail": "Chinook may respond selectively under current limitations. 5–9 AM and 9 AM–1 PM are the leading windows, but neither has a clear advantage. Flow and temperature represent only the Niles mainstem reach.",
+            "tip": "Choose between 5–9 AM and 9 AM–1 PM using actual light. Verify other sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -23145,10 +23323,13 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "cloudCoverPct": 100,
                 "precipitationIn": 0.08
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 8,
+            "displayScore": 10,
+            "scoreIsApproximate": true,
             "stage": "beginning",
             "maximum": 100,
             "riverCeiling": 30,
@@ -23157,14 +23338,14 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "curveDirection": "rising",
             "winterHoldingContext": false,
             "label": "Limited presence",
-            "headline": "A small number of Chinook salmon are likely in the river, with this limited seasonal presence still developing.",
-            "detail": "This part of the season usually brings limited presence, with a smaller number of fish expected to enter and occupy its most dependable water. This is a seasonal estimate, not a live fish count. This seasonal presence applies to the accessible St. Joseph corridor as a whole; it does not claim equal fish numbers at the harbor, Niles, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Plan for an emerging but uneven river opportunity. Cover water efficiently, and do not assume every promising stop holds fish. Use Migration Stage to choose the specific St. Joseph section, then verify that water directly.",
+            "headline": "Seasonal Chinook salmon presence is limited and building.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the St. Joseph Chinook salmon ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -23424,6 +23605,7 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "nextConditionRefreshAt": "2026-09-26T05:00:00.000Z",
           "runStage": {
             "stage": "peak",
+            "copyStrategy": "st_joseph_corridor",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -23446,14 +23628,14 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "peakToEndDays": 37
             },
             "label": "Peak",
-            "headline": "This is the best St. Joseph Chinook salmon window, but it remains a selective 3-of-10 opportunity.",
-            "detail": "The calendar supports the best chance of finding Chinook in proven lower-Michigan, Niles, or selective Indiana holding water. It does not imply strong or uniform occupation of the full corridor.",
-            "tip": "Choose a proven section and cover deep holding water from head to tail. Change sections only after a clean search, and leave shallow spawning fish undisturbed.",
-            "whereToStart": "Start with proven lower-Michigan and Niles holding water, then make one selective South Bend or Mishawaka check below Twin Branch; this smaller Chinook run is not a reason to cover all 63 miles.",
+            "headline": "This is the best St. Joseph Chinook salmon window, but opportunity remains selective.",
+            "detail": "This is a limited 3-of-10 run, not a claim of strong or uniform presence.",
+            "tip": "Choose one section and cover it completely before changing reaches. Leave shallow spawning fish undisturbed.",
+            "whereToStart": "Start in the Middle river (Berrien Springs–Niles). Treat the Upper river (Niles–Twin Branch Dam) as a selective second check.",
             "reasonCodes": [
               "stage_peak"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -23522,7 +23704,7 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "conditions_insufficient",
               "conditions_checkpoint_peak_start"
             ],
-            "copyVersion": "river-run-copy-v27",
+            "copyVersion": "river-run-copy-v34",
             "previousCheckpointId": "building_established",
             "previousCheckpointDate": "2026-09-15",
             "previousTimingLabel": "Insufficient evidence"
@@ -23539,9 +23721,9 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "push": {
             "score": 25,
             "label": "No clear push",
-            "headline": "The river is rising hard, but extreme flow makes this an unreliable fresh-movement read.",
-            "detail": "The river is holding steady with no meaningful rise yet. Overall flow is extremely high. Water temperature is favorable for fall migration and is relatively steady. Recent weather estimates indicate very little rain around the river. This Push describes fresh-movement support at Niles only; it does not prove a new wave at the harbor, Berrien Springs, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Do not chase movement in the main channel. If Fishability remains usable, fish only protected margins, inside turns, and soft current with short controlled presentations. Use the Niles signal to choose between Niles-area holding water and a lower-Michigan travel-water check; verify Indiana movement directly.",
+            "headline": "Extreme Niles flow prevents a dependable fresh-movement signal.",
+            "detail": "Niles flow is steady without a meaningful rise, while overall flow is extreme. Water temperature is favorable for fall migration and is relatively steady. Recent watershed weather shows little rain.",
+            "tip": "Keep Migration Stage’s section primary. Do not shift sections from this Niles read.",
             "reasonCodes": [
               "gauge_fresh",
               "push_severe_high_flow_context",
@@ -23561,14 +23743,14 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-fall-chinook-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 20,
             "label": "Poor",
             "headline": "The river is too high and unsettled for a dependable fishing recommendation.",
-            "detail": "Excessive flow is overwhelming normal holding water and making access and presentation unreliable. The river is not climbing quickly, but it must fall substantially before normal holding lanes and presentation control return. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river. This flow shape applies to the Niles mainstem reach only; verify the harbor, lower Michigan river, individual tailwaters, and Indiana water directly.",
-            "tip": "Choose a lower-water day for the better fishing opportunity. If you fish now, stay tight to protected banks, slow inside turns, and the downstream side of major current breaks; keep presentations short and leave the main flow alone. Apply this recommendation at Niles; recheck water shape and safe access before carrying it to another St. Joseph section.",
+            "detail": "Excessive flow is overwhelming normal holding water and making access and presentation unreliable. The river is not climbing quickly, but it must fall substantially before normal holding lanes and presentation control return. This read applies only to the Niles mainstem reach.",
+            "tip": "Choose another day and verify current conditions through authoritative local sources. Verify every other section directly.",
             "reasonCodes": [
               "gauge_fresh",
               "blown_out_flow_band",
@@ -23580,15 +23762,15 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 25,
             "maximum": 100,
             "label": "Reserved",
-            "headline": "Today’s Chinook activity outlook is reserved.",
-            "detail": "Fish may respond selectively, with important environmental limitations. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: The river level or its recent change is less favorable. Broad seasonal presence improves the chance of locating fish, but this score measures responsiveness rather than abundance. Measured river conditions describe the St. Joseph mainstem at Niles. Water temperature, clarity, hydraulic shape, and presentation conditions can differ in the harbor and lower Michigan river, at individual ladder tailwaters, and through South Bend, Mishawaka, and the Twin Branch reach. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
-            "tip": "Start with 5–9 AM. If the sky changes from the forecast, favor the darkest practical window. Apply this response window at Niles; verify temperature, clarity, flow shape, and legal access again before carrying it to another St. Joseph section.",
+            "headline": "Today’s Niles Chinook responsiveness is reserved.",
+            "detail": "Chinook may respond selectively under current limitations. 5–9 AM and 9 AM–1 PM are the leading windows, but neither has a clear advantage. Flow and temperature represent only the Niles mainstem reach.",
+            "tip": "Choose between 5–9 AM and 9 AM–1 PM using actual light. Verify other sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -23641,10 +23823,13 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "cloudCoverPct": 100,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 30,
+            "displayScore": 30,
+            "scoreIsApproximate": false,
             "stage": "peak",
             "maximum": 100,
             "riverCeiling": 30,
@@ -23653,14 +23838,14 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "curveDirection": "near_peak",
             "winterHoldingContext": false,
             "label": "Peak presence",
-            "headline": "Chinook salmon are likely near their highest seasonal presence in the river, although the overall opportunity remains limited.",
-            "detail": "This is the part of the season when in-river presence is usually strongest. Even at that high point, the overall seasonal opportunity remains limited. The read does not place fish in a specific pool or confirm a live count. This seasonal presence applies to the accessible St. Joseph corridor as a whole; it does not claim equal fish numbers at the harbor, Niles, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Treat this as the best part of this river's limited seasonal opportunity, not a high-abundance fishery. Require direct fish activity before committing more time. Use Migration Stage to choose the specific St. Joseph section, then verify that water directly.",
+            "headline": "Seasonal Chinook salmon presence is near its expected St. Joseph peak.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the St. Joseph Chinook salmon ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_peak",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -23920,6 +24105,7 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "nextConditionRefreshAt": "2026-10-16T05:00:00.000Z",
           "runStage": {
             "stage": "tapering",
+            "copyStrategy": "st_joseph_corridor",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -23943,13 +24129,13 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             },
             "label": "Tapering",
             "headline": "This can still offer a limited Chinook salmon opportunity, even as fresh arrivals typically become less consistent.",
-            "detail": "Fresh passage is becoming less dependable, so established Niles, South Bend, and Mishawaka holding or spawning water matters more than racing the lower river for a new wave.",
-            "tip": "Start in proven deep holding water, check lower travel lanes only when Push supports new movement, and leave fish on shallow gravel alone.",
-            "whereToStart": "Prioritize established holding and spawning water near Niles, South Bend, and Mishawaka while checking the lower river only for a late fresh wave.",
+            "detail": "Fresh entry is slowing, so established holding water matters more than Lower-river travel lanes.",
+            "tip": "Start in proven holding water. Check the Lower river only when Push supports fresh movement.",
+            "whereToStart": "Start in established Middle river (Berrien Springs–Niles) or Upper river (Niles–Twin Branch Dam) holding water.",
             "reasonCodes": [
               "stage_tapering"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Timing complete",
@@ -24027,7 +24213,7 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "conditions_checkpoint_peak_complete",
               "conditions_timing_complete"
             ],
-            "copyVersion": "river-run-copy-v27",
+            "copyVersion": "river-run-copy-v34",
             "previousCheckpointId": "peak_start",
             "previousCheckpointDate": "2026-09-22",
             "previousTimingLabel": "Insufficient evidence"
@@ -24044,9 +24230,9 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "push": {
             "score": 30,
             "label": "No clear push",
-            "headline": "Today's water does not show a clear signal for a fresh wave of fish.",
-            "detail": "The river is holding steady with no meaningful rise yet. Water temperature is favorable for fall migration and is relatively steady. Recent weather estimates indicate very little rain around the river. This Push describes fresh-movement support at Niles only; it does not prove a new wave at the harbor, Berrien Springs, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Fish established holding water from the head through the inside seam and tail. Do not spend the day racing between lower travel lanes for a wave the water does not support. Use the Niles signal to choose between Niles-area holding water and a lower-Michigan travel-water check; verify Indiana movement directly.",
+            "headline": "Niles water does not show a clear fresh-movement signal.",
+            "detail": "Niles flow is steady without a meaningful rise. Water temperature is favorable for fall migration and is relatively steady. Recent watershed weather shows little rain.",
+            "tip": "Keep Migration Stage’s section primary. Do not shift sections from this Niles read.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
@@ -24065,14 +24251,14 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-fall-chinook-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 93,
             "label": "Excellent",
             "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river. This flow shape applies to the Niles mainstem reach only; verify the harbor, lower Michigan river, individual tailwaters, and Indiana water directly.",
-            "tip": "Begin on the primary travel lane feeding deep holding water. Work each hole from its head through the inside seam and tail, then keep moving until fish establish a pattern. Apply this recommendation at Niles; recheck water shape and safe access before carrying it to another St. Joseph section.",
+            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. This read applies only to the Niles mainstem reach.",
+            "tip": "Cover readable seams and holding water with a controlled presentation. Verify every other section directly.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band"
@@ -24083,15 +24269,15 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 80,
             "maximum": 100,
             "label": "Highly active",
-            "headline": "Today’s Chinook activity outlook is highly active.",
-            "detail": "Conditions strongly favor a response from Chinook that are present and capable of reacting. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. This score represents a Chinook of unknown condition at this point in the season. A newly arrived or fresher fish may be more active than this score, while a spawning or deteriorating fish may be less responsive. Measured river conditions describe the St. Joseph mainstem at Niles. Water temperature, clarity, hydraulic shape, and presentation conditions can differ in the harbor and lower Michigan river, at individual ladder tailwaters, and through South Bend, Mishawaka, and the Twin Branch reach. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
-            "tip": "Compare the four time windows, but treat every difference as conditional on finding a living Chinook still capable of responding. Apply this response window at Niles; verify temperature, clarity, flow shape, and legal access again before carrying it to another St. Joseph section.",
+            "headline": "Today’s Niles Chinook responsiveness is highly active.",
+            "detail": "Conditions strongly support Chinook responsiveness. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Late-run Chinook condition varies widely, so individual fish may respond above or below this outlook.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify other sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -24144,10 +24330,13 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "cloudCoverPct": 100,
                 "precipitationIn": 0.08
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 20,
+            "displayScore": 20,
+            "scoreIsApproximate": true,
             "stage": "tapering",
             "maximum": 100,
             "riverCeiling": 30,
@@ -24156,14 +24345,14 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "curveDirection": "falling",
             "winterHoldingContext": false,
             "label": "High presence",
-            "headline": "Seasonal timing still supports a smaller number of Chinook salmon in the river's dependable holding water, although fresh arrivals may be less consistent than near peak.",
-            "detail": "Seasonal presence is usually elevated relative to the rest of the season. The overall seasonal opportunity remains limited, while fresh arrivals often become less consistent later in the season. This is a seasonal estimate, not a live fish count. This seasonal presence applies to the accessible St. Joseph corridor as a whole; it does not claim equal fish numbers at the harbor, Niles, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Treat this as near the high point of a limited seasonal opportunity. Focus on the most dependable water, and require direct fish activity before committing more time. Use Migration Stage to choose the specific St. Joseph section, then verify that water directly.",
+            "headline": "Seasonal Chinook salmon presence is high and declining.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the St. Joseph Chinook salmon ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_tapering",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -24417,6 +24606,7 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "nextConditionRefreshAt": "2026-10-28T05:00:00.000Z",
           "runStage": {
             "stage": "ending",
+            "copyStrategy": "st_joseph_corridor",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -24440,13 +24630,13 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             },
             "label": "Ending",
             "headline": "A limited late-season Chinook salmon opportunity may remain in dependable river sections.",
-            "detail": "Most remaining fish have been in the system for some time. A fresh fish is possible, but the guide-level plan is a short, selective holding-water search—not a corridor-wide run.",
-            "tip": "Fish one or two proven deep holding areas, avoid shallow spawning fish, and stop searching if direct signs are absent.",
-            "whereToStart": "Focus on proven deep holding water near Niles, South Bend, or Mishawaka; treat fresh lower-river entry as secondary and leave shallow spawning fish alone.",
+            "detail": "Most remaining fish have been in the river for some time. A fresh fish is possible but not dependable.",
+            "tip": "Fish one proven holding section, avoid shallow spawning fish, and stop searching if direct signs are absent.",
+            "whereToStart": "Start in one proven Middle river (Berrien Springs–Niles) or Upper river (Niles–Twin Branch Dam) holding section.",
             "reasonCodes": [
               "stage_ending"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Timing complete",
@@ -24524,7 +24714,7 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "conditions_checkpoint_peak_complete",
               "conditions_timing_complete"
             ],
-            "copyVersion": "river-run-copy-v27",
+            "copyVersion": "river-run-copy-v34",
             "previousCheckpointId": "peak_start",
             "previousCheckpointDate": "2026-09-22",
             "previousTimingLabel": "Insufficient evidence"
@@ -24541,9 +24731,9 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "push": {
             "score": 30,
             "label": "No clear push",
-            "headline": "Today's water does not show a clear signal for a fresh wave of fish.",
-            "detail": "The river is holding steady with no meaningful rise yet. Water temperature is favorable for fall migration and is relatively steady. Recent weather estimates indicate very little rain around the river. This Push describes fresh-movement support at Niles only; it does not prove a new wave at the harbor, Berrien Springs, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Fish established holding water from the head through the inside seam and tail. Do not spend the day racing between lower travel lanes for a wave the water does not support. Use the Niles signal to choose between Niles-area holding water and a lower-Michigan travel-water check; verify Indiana movement directly.",
+            "headline": "Niles water does not show a clear fresh-movement signal.",
+            "detail": "Niles flow is steady without a meaningful rise. Water temperature is favorable for fall migration and is relatively steady. Recent watershed weather shows little rain.",
+            "tip": "Keep Migration Stage’s section primary. Do not shift sections from this Niles read.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
@@ -24562,14 +24752,14 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-fall-chinook-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 93,
             "label": "Excellent",
             "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river. This flow shape applies to the Niles mainstem reach only; verify the harbor, lower Michigan river, individual tailwaters, and Indiana water directly.",
-            "tip": "Begin on the primary travel lane feeding deep holding water. Work each hole from its head through the inside seam and tail, then keep moving until fish establish a pattern. Apply this recommendation at Niles; recheck water shape and safe access before carrying it to another St. Joseph section.",
+            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. This read applies only to the Niles mainstem reach.",
+            "tip": "Cover readable seams and holding water with a controlled presentation. Verify every other section directly.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band"
@@ -24580,15 +24770,15 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 57,
             "maximum": 100,
             "label": "Moderate",
-            "headline": "Today’s Chinook activity outlook is moderate.",
-            "detail": "Some useful factors are present, but the response window is mixed. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. This score represents a remaining Chinook of unknown condition late in the season. A newly arrived or fresher fish may be more active than this score, while a spent or dying fish may respond less or not at all. Measured river conditions describe the St. Joseph mainstem at Niles. Water temperature, clarity, hydraulic shape, and presentation conditions can differ in the harbor and lower Michigan river, at individual ladder tailwaters, and through South Bend, Mishawaka, and the Twin Branch reach. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
-            "tip": "No late-season window should be treated as broadly favorable; use the block scores only for a living Chinook that is still capable of reacting. Apply this response window at Niles; verify temperature, clarity, flow shape, and legal access again before carrying it to another St. Joseph section.",
+            "headline": "Today’s Niles Chinook responsiveness is moderate.",
+            "detail": "Conditions offer mixed support for Chinook responsiveness. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Late-run Chinook condition varies widely, so individual fish may respond above or below this outlook.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify other sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -24641,10 +24831,13 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "cloudCoverPct": 100,
                 "precipitationIn": 0.08
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 10,
+            "displayScore": 10,
+            "scoreIsApproximate": true,
             "stage": "ending",
             "maximum": 100,
             "riverCeiling": 30,
@@ -24653,14 +24846,14 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "curveDirection": "falling",
             "winterHoldingContext": false,
             "label": "Limited presence",
-            "headline": "Seasonal timing still supports a few Chinook salmon in the river's most dependable holding water, but this limited opportunity is thinning.",
-            "detail": "This part of the season usually supports limited presence concentrated in the river's most dependable holes and slower holding water. This is a seasonal estimate, not a live fish count. This seasonal presence applies to the accessible St. Joseph corridor as a whole; it does not claim equal fish numbers at the harbor, Niles, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Treat this as a lower-odds late-season opportunity. Keep the trip flexible, and require direct fish activity before committing more time. Use Migration Stage to choose the specific St. Joseph section, then verify that water directly.",
+            "headline": "Seasonal Chinook salmon presence is limited and declining.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the St. Joseph Chinook salmon ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_ending",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -24914,6 +25107,7 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "nextConditionRefreshAt": "2026-11-06T05:00:00.000Z",
           "runStage": {
             "stage": "post_run",
+            "copyStrategy": "st_joseph_corridor",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -24937,13 +25131,13 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             },
             "label": "After migration",
             "headline": "The main Chinook salmon migration is over.",
-            "detail": "A few late fish may remain below Twin Branch, but the main migration no longer supports a dependable St. Joseph trip.",
-            "tip": "Make only a selective established-water check, or shift to an active species. Do not chase isolated holdovers from ladder to ladder.",
-            "whereToStart": "Make only a selective check of established late holding water below Twin Branch; the main migration window has ended.",
+            "detail": "A few late fish may remain, but the main migration no longer supports a dependable trip.",
+            "tip": "Make one selective established-water check or shift to an active species.",
+            "whereToStart": "Make only a selective check in established Middle river (Berrien Springs–Niles) or Upper river (Niles–Twin Branch Dam) holding water.",
             "reasonCodes": [
               "stage_post_run"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Timing complete",
@@ -25021,7 +25215,7 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "conditions_checkpoint_peak_complete",
               "conditions_timing_complete"
             ],
-            "copyVersion": "river-run-copy-v27",
+            "copyVersion": "river-run-copy-v34",
             "previousCheckpointId": "peak_start",
             "previousCheckpointDate": "2026-09-22",
             "previousTimingLabel": "Insufficient evidence"
@@ -25045,14 +25239,14 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "push_tracking_complete"
             ],
             "rulesVersion": "st-joseph-fall-chinook-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 93,
             "label": "Excellent",
             "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river. This flow shape applies to the Niles mainstem reach only; verify the harbor, lower Michigan river, individual tailwaters, and Indiana water directly.",
-            "tip": "Begin on the primary travel lane feeding deep holding water. Work each hole from its head through the inside seam and tail, then keep moving until fish establish a pattern. Apply this recommendation at Niles; recheck water shape and safe access before carrying it to another St. Joseph section.",
+            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. This read applies only to the Niles mainstem reach.",
+            "tip": "Cover readable seams and holding water with a controlled presentation. Verify every other section directly.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band"
@@ -25063,15 +25257,15 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 44,
             "maximum": 100,
             "label": "Moderate",
-            "headline": "Today’s Chinook activity outlook is moderate.",
-            "detail": "Some useful factors are present, but the response window is mixed. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. This score represents a remaining Chinook of unknown condition late in the season. A newly arrived or fresher fish may be more active than this score, while a spent or dying fish may respond less or not at all. Measured river conditions describe the St. Joseph mainstem at Niles. Water temperature, clarity, hydraulic shape, and presentation conditions can differ in the harbor and lower Michigan river, at individual ladder tailwaters, and through South Bend, Mishawaka, and the Twin Branch reach. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
-            "tip": "No late-season window should be treated as broadly favorable; use the block scores only for a living Chinook that is still capable of reacting. Apply this response window at Niles; verify temperature, clarity, flow shape, and legal access again before carrying it to another St. Joseph section.",
+            "headline": "Today’s Niles Chinook responsiveness is moderate.",
+            "detail": "Conditions offer mixed support for Chinook responsiveness. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Late-run Chinook condition varies widely, so individual fish may respond above or below this outlook.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify other sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -25124,10 +25318,13 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "cloudCoverPct": 100,
                 "precipitationIn": 0.08
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 3,
+            "displayScore": 5,
+            "scoreIsApproximate": true,
             "stage": "post_run",
             "maximum": 100,
             "riverCeiling": 30,
@@ -25136,14 +25333,14 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "curveDirection": "falling",
             "winterHoldingContext": false,
             "label": "Low presence",
-            "headline": "A few Chinook salmon may still be in the river, with this limited seasonal presence increasingly scattered.",
-            "detail": "This part of the season usually supports low presence within this river's limited seasonal opportunity, while fresh arrivals often become less consistent later in the season. This is a seasonal estimate, not a live fish count. This seasonal presence applies to the accessible St. Joseph corridor as a whole; it does not claim equal fish numbers at the harbor, Niles, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Treat any remaining fish as a bonus rather than a dependable trip plan. Keep expectations narrow and be ready to shift to another seasonal species. Use Migration Stage to choose the specific St. Joseph section, then verify that water directly.",
+            "headline": "Seasonal Chinook salmon presence is low and declining.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the St. Joseph Chinook salmon ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_post_run",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -25404,6 +25601,7 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "nextConditionRefreshAt": "2026-09-26T05:00:00.000Z",
           "runStage": {
             "stage": "peak",
+            "copyStrategy": "st_joseph_corridor",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -25426,14 +25624,14 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "peakToEndDays": 37
             },
             "label": "Peak",
-            "headline": "This is the best St. Joseph Chinook salmon window, but it remains a selective 3-of-10 opportunity.",
-            "detail": "The calendar supports the best chance of finding Chinook in proven lower-Michigan, Niles, or selective Indiana holding water. It does not imply strong or uniform occupation of the full corridor.",
-            "tip": "Choose a proven section and cover deep holding water from head to tail. Change sections only after a clean search, and leave shallow spawning fish undisturbed.",
-            "whereToStart": "Start with proven lower-Michigan and Niles holding water, then make one selective South Bend or Mishawaka check below Twin Branch; this smaller Chinook run is not a reason to cover all 63 miles.",
+            "headline": "This is the best St. Joseph Chinook salmon window, but opportunity remains selective.",
+            "detail": "This is a limited 3-of-10 run, not a claim of strong or uniform presence.",
+            "tip": "Choose one section and cover it completely before changing reaches. Leave shallow spawning fish undisturbed.",
+            "whereToStart": "Start in the Middle river (Berrien Springs–Niles). Treat the Upper river (Niles–Twin Branch Dam) as a selective second check.",
             "reasonCodes": [
               "stage_peak"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -25502,7 +25700,7 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "conditions_insufficient",
               "conditions_checkpoint_peak_start"
             ],
-            "copyVersion": "river-run-copy-v27",
+            "copyVersion": "river-run-copy-v34",
             "previousCheckpointId": "building_established",
             "previousCheckpointDate": "2026-09-15",
             "previousTimingLabel": "Insufficient evidence"
@@ -25527,14 +25725,14 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "temperature_unavailable"
             ],
             "rulesVersion": "st-joseph-fall-chinook-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 93,
             "label": "Excellent",
             "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river. This flow shape applies to the Niles mainstem reach only; verify the harbor, lower Michigan river, individual tailwaters, and Indiana water directly.",
-            "tip": "Begin on the primary travel lane feeding deep holding water. Work each hole from its head through the inside seam and tail, then keep moving until fish establish a pattern. Apply this recommendation at Niles; recheck water shape and safe access before carrying it to another St. Joseph section.",
+            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. This read applies only to the Niles mainstem reach.",
+            "tip": "Cover readable seams and holding water with a controlled presentation. Verify every other section directly.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band"
@@ -25545,15 +25743,15 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 55,
             "maximum": 100,
             "label": "Moderate",
-            "headline": "Today’s Chinook activity outlook is moderate.",
-            "detail": "Some useful factors are present, but the response window is mixed. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Measured water temperature is unavailable. Broad seasonal presence improves the chance of locating fish, but this score measures responsiveness rather than abundance. Measured river conditions describe the St. Joseph mainstem at Niles. Water temperature, clarity, hydraulic shape, and presentation conditions can differ in the harbor and lower Michigan river, at individual ladder tailwaters, and through South Bend, Mishawaka, and the Twin Branch reach. One important reading is unavailable or comes from tomorrow’s forecast, so the outlook is kept conservative.",
-            "tip": "Start with 5–9 AM. If the sky changes from the forecast, favor the darkest practical window. Apply this response window at Niles; verify temperature, clarity, flow shape, and legal access again before carrying it to another St. Joseph section.",
+            "headline": "Today’s Niles Chinook responsiveness is moderate.",
+            "detail": "Conditions offer mixed support for Chinook responsiveness. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Moderate confidence reflects missing or forecast inputs; river measurements still represent only Niles.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify other sections directly.",
             "reasonCodes": [
               "activity_confidence_moderate",
               "activity_today",
@@ -25605,10 +25803,13 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "cloudCoverPct": 75,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 30,
+            "displayScore": 30,
+            "scoreIsApproximate": false,
             "stage": "peak",
             "maximum": 100,
             "riverCeiling": 30,
@@ -25617,14 +25818,14 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "curveDirection": "near_peak",
             "winterHoldingContext": false,
             "label": "Peak presence",
-            "headline": "Chinook salmon are likely near their highest seasonal presence in the river, although the overall opportunity remains limited.",
-            "detail": "This is the part of the season when in-river presence is usually strongest. Even at that high point, the overall seasonal opportunity remains limited. The read does not place fish in a specific pool or confirm a live count. This seasonal presence applies to the accessible St. Joseph corridor as a whole; it does not claim equal fish numbers at the harbor, Niles, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Treat this as the best part of this river's limited seasonal opportunity, not a high-abundance fishery. Require direct fish activity before committing more time. Use Migration Stage to choose the specific St. Joseph section, then verify that water directly.",
+            "headline": "Seasonal Chinook salmon presence is near its expected St. Joseph peak.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the St. Joseph Chinook salmon ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_peak",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -25861,6 +26062,7 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "nextConditionRefreshAt": "2026-09-26T05:00:00.000Z",
           "runStage": {
             "stage": "peak",
+            "copyStrategy": "st_joseph_corridor",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -25883,14 +26085,14 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "peakToEndDays": 37
             },
             "label": "Peak",
-            "headline": "This is the best St. Joseph Chinook salmon window, but it remains a selective 3-of-10 opportunity.",
-            "detail": "The calendar supports the best chance of finding Chinook in proven lower-Michigan, Niles, or selective Indiana holding water. It does not imply strong or uniform occupation of the full corridor.",
-            "tip": "Choose a proven section and cover deep holding water from head to tail. Change sections only after a clean search, and leave shallow spawning fish undisturbed.",
-            "whereToStart": "Start with proven lower-Michigan and Niles holding water, then make one selective South Bend or Mishawaka check below Twin Branch; this smaller Chinook run is not a reason to cover all 63 miles.",
+            "headline": "This is the best St. Joseph Chinook salmon window, but opportunity remains selective.",
+            "detail": "This is a limited 3-of-10 run, not a claim of strong or uniform presence.",
+            "tip": "Choose one section and cover it completely before changing reaches. Leave shallow spawning fish undisturbed.",
+            "whereToStart": "Start in the Middle river (Berrien Springs–Niles). Treat the Upper river (Niles–Twin Branch Dam) as a selective second check.",
             "reasonCodes": [
               "stage_peak"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -25959,7 +26161,7 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "conditions_insufficient",
               "conditions_checkpoint_peak_start"
             ],
-            "copyVersion": "river-run-copy-v27",
+            "copyVersion": "river-run-copy-v34",
             "previousCheckpointId": "building_established",
             "previousCheckpointDate": "2026-09-15",
             "previousTimingLabel": "Insufficient evidence"
@@ -25983,7 +26185,7 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "gauge_missing"
             ],
             "rulesVersion": "st-joseph-fall-chinook-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": null,
@@ -25995,15 +26197,15 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "gauge_missing"
             ],
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 55,
             "maximum": 100,
             "label": "Moderate",
-            "headline": "Today’s Chinook activity outlook is moderate.",
-            "detail": "Some useful factors are present, but the response window is mixed. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Current river behavior is unavailable. Broad seasonal presence improves the chance of locating fish, but this score measures responsiveness rather than abundance. Measured river conditions describe the St. Joseph mainstem at Niles. Water temperature, clarity, hydraulic shape, and presentation conditions can differ in the harbor and lower Michigan river, at individual ladder tailwaters, and through South Bend, Mishawaka, and the Twin Branch reach. One important reading is unavailable or comes from tomorrow’s forecast, so the outlook is kept conservative.",
-            "tip": "Start with 5–9 AM. If the sky changes from the forecast, favor the darkest practical window. Apply this response window at Niles; verify temperature, clarity, flow shape, and legal access again before carrying it to another St. Joseph section.",
+            "headline": "Today’s Niles Chinook responsiveness is moderate.",
+            "detail": "Conditions offer mixed support for Chinook responsiveness. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Moderate confidence reflects missing or forecast inputs; river measurements still represent only Niles.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify other sections directly.",
             "reasonCodes": [
               "activity_confidence_moderate",
               "activity_today",
@@ -26055,10 +26257,13 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "cloudCoverPct": 75,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 30,
+            "displayScore": 30,
+            "scoreIsApproximate": false,
             "stage": "peak",
             "maximum": 100,
             "riverCeiling": 30,
@@ -26067,14 +26272,14 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "curveDirection": "near_peak",
             "winterHoldingContext": false,
             "label": "Peak presence",
-            "headline": "Chinook salmon are likely near their highest seasonal presence in the river, although the overall opportunity remains limited.",
-            "detail": "This is the part of the season when in-river presence is usually strongest. Even at that high point, the overall seasonal opportunity remains limited. The read does not place fish in a specific pool or confirm a live count. This seasonal presence applies to the accessible St. Joseph corridor as a whole; it does not claim equal fish numbers at the harbor, Niles, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Treat this as the best part of this river's limited seasonal opportunity, not a high-abundance fishery. Require direct fish activity before committing more time. Use Migration Stage to choose the specific St. Joseph section, then verify that water directly.",
+            "headline": "Seasonal Chinook salmon presence is near its expected St. Joseph peak.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the St. Joseph Chinook salmon ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_peak",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": null,
           "weather": {
@@ -26309,8 +26514,8 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
     "label": "Fish In River",
     "scenarios": [
       {
-        "id": "presence_post_run_offseason",
-        "label": "0 / 100 · Offseason · outside",
+        "id": "presence_fall_run_complete_outside",
+        "label": "null / 100 · Fall run complete · outside",
         "note": "Canonical St. Joseph River Fall Chinook production copy · owner audit",
         "snapshot": {
           "riverId": "st_joseph",
@@ -26324,6 +26529,7 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "nextConditionRefreshAt": "2026-07-01T05:00:00.000Z",
           "runStage": {
             "stage": "post_run",
+            "copyStrategy": "st_joseph_corridor",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -26345,16 +26551,16 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "startToPeakDays": 24,
               "peakToEndDays": 37
             },
-            "label": "Offseason",
-            "headline": "Chinook salmon are outside their St. Joseph River migration season.",
-            "detail": "This fall migration read is inactive and should not be used to recommend a harbor, Michigan, Niles, or Indiana starting reach.",
-            "tip": "Choose a species with an active St. Joseph seasonal window and return to this read when early monitoring begins.",
-            "whereToStart": "Shift to an in-season species and do not plan a St. Joseph Chinook salmon migration trip from this inactive calendar.",
+            "label": "Fall run complete",
+            "headline": "The St. Joseph Chinook salmon fall run is complete.",
+            "detail": "This seasonal run estimate is inactive until staging begins again.",
+            "tip": "Return when St. Joseph fall-run staging begins.",
+            "whereToStart": "There is no active St. Joseph starting section for this fall run.",
             "reasonCodes": [
               "stage_post_run",
               "stage_offseason"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Not monitoring yet",
@@ -26379,7 +26585,7 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "conditions_monitoring_inactive"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -26400,14 +26606,14 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "push_tracking_offseason"
             ],
             "rulesVersion": "st-joseph-fall-chinook-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 93,
             "label": "Excellent",
             "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river. This flow shape applies to the Niles mainstem reach only; verify the harbor, lower Michigan river, individual tailwaters, and Indiana water directly.",
-            "tip": "Begin on the primary travel lane feeding deep holding water. Work each hole from its head through the inside seam and tail, then keep moving until fish establish a pattern. Apply this recommendation at Niles; recheck water shape and safe access before carrying it to another St. Joseph section.",
+            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. This read applies only to the Niles mainstem reach.",
+            "tip": "Cover readable seams and holding water with a controlled presentation. Verify every other section directly.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band"
@@ -26418,11 +26624,12 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": null,
           "fishInRiver": {
-            "score": 0,
+            "score": null,
+            "scoreIsApproximate": false,
             "stage": "post_run",
             "maximum": 100,
             "riverCeiling": 30,
@@ -26430,15 +26637,15 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "curveFraction": 0,
             "curveDirection": "outside",
             "winterHoldingContext": false,
-            "label": "Offseason",
-            "headline": "Chinook salmon are outside their river migration season.",
-            "detail": "A dependable seasonal presence of Chinook salmon is not expected in the river right now.",
-            "tip": "Do not build a river trip around this species right now. Target a species with an active seasonal window and return as the next migration approaches.",
+            "label": "Fall run complete",
+            "headline": "The St. Joseph Chinook salmon fall run is complete.",
+            "detail": "Chinook salmon staging typically begins in mid August. This seasonal estimate is inactive until then.",
+            "tip": "Check back in mid August when St. Joseph fall-run tracking resumes.",
             "reasonCodes": [
               "stage_post_run",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -26664,13 +26871,7 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "data_quality_fresh"
             ]
           },
-          "interpretationNote": {
-            "headline": "The river should fish well, but seasonal fish presence is still low.",
-            "detail": "Good flow makes presentations easier, but it does not put fish in the river. Begin in the deepest established holding water and skip broad searches through fast travel lanes as seasonal presence thins.",
-            "reasonCodes": [
-              "good_fishability_low_presence"
-            ]
-          },
+          "interpretationNote": null,
           "secondaryNote": "Based on the USGS gauge at Niles. It describes the Niles reach; the harbor, lower river, individual dam tailwaters, South Bend, Mishawaka, and Twin Branch may look different.",
           "safety": {
             "regulationReminder": "Select Michigan or Indiana for the correct jurisdiction. Always verify current official regulations, public access, posted closures, and dam safety boundaries.",
@@ -26697,6 +26898,7 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "nextConditionRefreshAt": "2026-08-02T05:00:00.000Z",
           "runStage": {
             "stage": "pre_run",
+            "copyStrategy": "st_joseph_corridor",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -26719,14 +26921,14 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "peakToEndDays": 37
             },
             "label": "Before migration",
-            "headline": "Chinook salmon have not begun their dependable St. Joseph River migration.",
-            "detail": "The seasonal calendar still points to Lake Michigan, the harbor, and the river mouth—not an established inland opportunity.",
-            "tip": "Keep the trip lakeward and return when staging monitoring begins. Do not let rain or one isolated river fish turn into a corridor-wide claim.",
-            "whereToStart": "Keep the search in Lake Michigan, the harbor, and river-mouth water until river staging begins.",
+            "headline": "Chinook salmon have not started their main St. Joseph River run.",
+            "detail": "The river-entry window has not opened yet. An isolated river fish would be an early exception.",
+            "tip": "Keep the trip lakeward and return when staging monitoring begins.",
+            "whereToStart": "Stay with Lake Michigan, the St. Joseph harbor, and the river mouth.",
             "reasonCodes": [
               "stage_pre_run"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Not monitoring yet",
@@ -26751,7 +26953,7 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "conditions_monitoring_inactive"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -26772,14 +26974,14 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "push_tracking_not_started"
             ],
             "rulesVersion": "st-joseph-fall-chinook-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 93,
             "label": "Excellent",
             "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river. This flow shape applies to the Niles mainstem reach only; verify the harbor, lower Michigan river, individual tailwaters, and Indiana water directly.",
-            "tip": "Begin on the primary travel lane feeding deep holding water. Work each hole from its head through the inside seam and tail, then keep moving until fish establish a pattern. Apply this recommendation at Niles; recheck water shape and safe access before carrying it to another St. Joseph section.",
+            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. This read applies only to the Niles mainstem reach.",
+            "tip": "Cover readable seams and holding water with a controlled presentation. Verify every other section directly.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band"
@@ -26790,11 +26992,13 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": null,
           "fishInRiver": {
             "score": 0,
+            "displayScore": 0,
+            "scoreIsApproximate": false,
             "stage": "pre_run",
             "maximum": 100,
             "riverCeiling": 30,
@@ -26803,14 +27007,14 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "curveDirection": "outside",
             "winterHoldingContext": false,
             "label": "Not expected yet",
-            "headline": "Even a limited dependable presence of Chinook salmon is not expected in the river yet.",
-            "detail": "Most Chinook salmon are not expected to have entered the river in dependable numbers. Any fish already present would be early exceptions. This seasonal presence applies to the accessible St. Joseph corridor as a whole; it does not claim equal fish numbers at the harbor, Niles, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Treat this as no dependable in-river opportunity yet. Keep expectations at zero, and do not interpret an isolated early fish as evidence of dependable river presence. Use Migration Stage to choose the specific St. Joseph section, then verify that water directly.",
+            "headline": "Dependable Chinook salmon presence is not expected in the St. Joseph yet.",
+            "detail": "The seasonal estimate remains at zero. Any river fish would be an early exception.",
+            "tip": "Use Migration Stage for harbor and river-entry context.",
             "reasonCodes": [
               "stage_pre_run",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -27069,6 +27273,7 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "nextConditionRefreshAt": "2026-09-02T05:00:00.000Z",
           "runStage": {
             "stage": "beginning",
+            "copyStrategy": "st_joseph_corridor",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -27091,14 +27296,14 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "peakToEndDays": 37
             },
             "label": "Beginning",
-            "headline": "The first Chinook salmon are entering the St. Joseph, but the opportunity remains small and sectional.",
-            "detail": "Lower Michigan travel and holding water is the most defensible first look. Passage through the five ladders can occur, but Niles or Indiana fish should be treated as selective opportunities—not broad distribution.",
-            "tip": "Cover a lower-Michigan travel-and-holding sequence first. Move upriver only after direct fish activity, local observations, or established passage supports the change.",
-            "whereToStart": "Start in deep lower-Michigan travel and holding water below Berrien Springs; make Niles a selective second check and do not chase this smaller Chinook return across the full corridor.",
+            "headline": "The first Chinook salmon are entering the St. Joseph, but the run remains limited.",
+            "detail": "Early Chinook remain scattered and concentrated in select water.",
+            "tip": "Cover travel water and the first substantial holding areas before moving upstream.",
+            "whereToStart": "Start in the Lower river (St. Joseph harbor–Berrien Springs). Add the Middle river (Berrien Springs–Niles) only after direct fish activity supports the move.",
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -27146,7 +27351,7 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -27160,9 +27365,9 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "push": {
             "score": 30,
             "label": "No clear push",
-            "headline": "Today's water does not show a clear signal for a fresh wave of fish.",
-            "detail": "The river is holding steady with no meaningful rise yet. Water temperature is favorable for fall migration and is relatively steady. Recent weather estimates indicate very little rain around the river. This Push describes fresh-movement support at Niles only; it does not prove a new wave at the harbor, Berrien Springs, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Fish established holding water from the head through the inside seam and tail. Do not spend the day racing between lower travel lanes for a wave the water does not support. Use the Niles signal to choose between Niles-area holding water and a lower-Michigan travel-water check; verify Indiana movement directly.",
+            "headline": "Niles water does not show a clear fresh-movement signal.",
+            "detail": "Niles flow is steady without a meaningful rise. Water temperature is favorable for fall migration and is relatively steady. Recent watershed weather shows little rain.",
+            "tip": "Keep Migration Stage’s section primary. Do not shift sections from this Niles read.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
@@ -27181,14 +27386,14 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-fall-chinook-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 93,
             "label": "Excellent",
             "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river. This flow shape applies to the Niles mainstem reach only; verify the harbor, lower Michigan river, individual tailwaters, and Indiana water directly.",
-            "tip": "Begin on the primary travel lane feeding deep holding water. Work each hole from its head through the inside seam and tail, then keep moving until fish establish a pattern. Apply this recommendation at Niles; recheck water shape and safe access before carrying it to another St. Joseph section.",
+            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. This read applies only to the Niles mainstem reach.",
+            "tip": "Cover readable seams and holding water with a controlled presentation. Verify every other section directly.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band"
@@ -27199,15 +27404,15 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 79,
             "maximum": 100,
             "label": "Active",
-            "headline": "Today’s Chinook activity outlook is active.",
-            "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. Early lake-fresh Chinook can remain reactive in tolerable water, so warmth is penalized without automatically erasing response potential. Measured river conditions describe the St. Joseph mainstem at Niles. Water temperature, clarity, hydraulic shape, and presentation conditions can differ in the harbor and lower Michigan river, at individual ladder tailwaters, and through South Bend, Mishawaka, and the Twin Branch reach. This smaller Chinook return is often sectional; a favorable Niles response window does not prove equal fish presence through the five-ladder corridor. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
-            "tip": "Start with 5–9 AM. If the sky changes from the forecast, favor the darkest practical window. Apply this response window at Niles; verify temperature, clarity, flow shape, and legal access again before carrying it to another St. Joseph section.",
+            "headline": "Today’s Niles Chinook responsiveness is active.",
+            "detail": "Conditions support a meaningful Chinook response. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Flow and temperature represent only the Niles mainstem reach.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify other sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -27259,10 +27464,13 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 3,
+            "displayScore": 5,
+            "scoreIsApproximate": true,
             "stage": "beginning",
             "maximum": 100,
             "riverCeiling": 30,
@@ -27271,14 +27479,14 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "curveDirection": "rising",
             "winterHoldingContext": false,
             "label": "Low presence",
-            "headline": "A few Chinook salmon may be in the river, and this limited seasonal presence is still building.",
-            "detail": "This part of the season usually brings low presence, with a smaller number of fish expected to enter and occupy its most dependable water. This is a seasonal estimate, not a live fish count. This seasonal presence applies to the accessible St. Joseph corridor as a whole; it does not claim equal fish numbers at the harbor, Niles, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Treat this as an early, low-odds river opportunity. Expect scattered results, and use direct fish activity before committing the full day. Use Migration Stage to choose the specific St. Joseph section, then verify that water directly.",
+            "headline": "Seasonal Chinook salmon presence is low and building.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the St. Joseph Chinook salmon ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -27538,6 +27746,7 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "nextConditionRefreshAt": "2026-09-05T05:00:00.000Z",
           "runStage": {
             "stage": "beginning",
+            "copyStrategy": "st_joseph_corridor",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -27560,14 +27769,14 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "peakToEndDays": 37
             },
             "label": "Beginning",
-            "headline": "The first Chinook salmon are entering the St. Joseph, but the opportunity remains small and sectional.",
-            "detail": "Lower Michigan travel and holding water is the most defensible first look. Passage through the five ladders can occur, but Niles or Indiana fish should be treated as selective opportunities—not broad distribution.",
-            "tip": "Cover a lower-Michigan travel-and-holding sequence first. Move upriver only after direct fish activity, local observations, or established passage supports the change.",
-            "whereToStart": "Start in deep lower-Michigan travel and holding water below Berrien Springs; make Niles a selective second check and do not chase this smaller Chinook return across the full corridor.",
+            "headline": "The first Chinook salmon are entering the St. Joseph, but the run remains limited.",
+            "detail": "Early Chinook remain scattered and concentrated in select water.",
+            "tip": "Cover travel water and the first substantial holding areas before moving upstream.",
+            "whereToStart": "Start in the Lower river (St. Joseph harbor–Berrien Springs). Add the Middle river (Berrien Springs–Niles) only after direct fish activity supports the move.",
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -27615,7 +27824,7 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -27629,9 +27838,9 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "push": {
             "score": 30,
             "label": "No clear push",
-            "headline": "Today's water does not show a clear signal for a fresh wave of fish.",
-            "detail": "The river is holding steady with no meaningful rise yet. Water temperature is favorable for fall migration and is relatively steady. Recent weather estimates indicate very little rain around the river. This Push describes fresh-movement support at Niles only; it does not prove a new wave at the harbor, Berrien Springs, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Fish established holding water from the head through the inside seam and tail. Do not spend the day racing between lower travel lanes for a wave the water does not support. Use the Niles signal to choose between Niles-area holding water and a lower-Michigan travel-water check; verify Indiana movement directly.",
+            "headline": "Niles water does not show a clear fresh-movement signal.",
+            "detail": "Niles flow is steady without a meaningful rise. Water temperature is favorable for fall migration and is relatively steady. Recent watershed weather shows little rain.",
+            "tip": "Keep Migration Stage’s section primary. Do not shift sections from this Niles read.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
@@ -27650,14 +27859,14 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-fall-chinook-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 93,
             "label": "Excellent",
             "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river. This flow shape applies to the Niles mainstem reach only; verify the harbor, lower Michigan river, individual tailwaters, and Indiana water directly.",
-            "tip": "Begin on the primary travel lane feeding deep holding water. Work each hole from its head through the inside seam and tail, then keep moving until fish establish a pattern. Apply this recommendation at Niles; recheck water shape and safe access before carrying it to another St. Joseph section.",
+            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. This read applies only to the Niles mainstem reach.",
+            "tip": "Cover readable seams and holding water with a controlled presentation. Verify every other section directly.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band"
@@ -27668,15 +27877,15 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 79,
             "maximum": 100,
             "label": "Active",
-            "headline": "Today’s Chinook activity outlook is active.",
-            "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. Early lake-fresh Chinook can remain reactive in tolerable water, so warmth is penalized without automatically erasing response potential. Measured river conditions describe the St. Joseph mainstem at Niles. Water temperature, clarity, hydraulic shape, and presentation conditions can differ in the harbor and lower Michigan river, at individual ladder tailwaters, and through South Bend, Mishawaka, and the Twin Branch reach. This smaller Chinook return is often sectional; a favorable Niles response window does not prove equal fish presence through the five-ladder corridor. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
-            "tip": "Start with 5–9 AM. If the sky changes from the forecast, favor the darkest practical window. Apply this response window at Niles; verify temperature, clarity, flow shape, and legal access again before carrying it to another St. Joseph section.",
+            "headline": "Today’s Niles Chinook responsiveness is active.",
+            "detail": "Conditions support a meaningful Chinook response. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Flow and temperature represent only the Niles mainstem reach.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify other sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -27728,10 +27937,13 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 6,
+            "displayScore": 10,
+            "scoreIsApproximate": true,
             "stage": "beginning",
             "maximum": 100,
             "riverCeiling": 30,
@@ -27740,14 +27952,14 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "curveDirection": "rising",
             "winterHoldingContext": false,
             "label": "Limited presence",
-            "headline": "A small number of Chinook salmon are likely in the river, with this limited seasonal presence still developing.",
-            "detail": "This part of the season usually brings limited presence, with a smaller number of fish expected to enter and occupy its most dependable water. This is a seasonal estimate, not a live fish count. This seasonal presence applies to the accessible St. Joseph corridor as a whole; it does not claim equal fish numbers at the harbor, Niles, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Plan for an emerging but uneven river opportunity. Cover water efficiently, and do not assume every promising stop holds fish. Use Migration Stage to choose the specific St. Joseph section, then verify that water directly.",
+            "headline": "Seasonal Chinook salmon presence is limited and building.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the St. Joseph Chinook salmon ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -28007,6 +28219,7 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "nextConditionRefreshAt": "2026-09-12T05:00:00.000Z",
           "runStage": {
             "stage": "building",
+            "copyStrategy": "st_joseph_corridor",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -28029,14 +28242,14 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "peakToEndDays": 37
             },
             "label": "Building",
-            "headline": "Chinook salmon are established in select St. Joseph sections, but this remains a limited run.",
-            "detail": "Earlier fish can be holding from lower Michigan through Niles, with some passage into South Bend and Mishawaka. Empty water between fish remains normal for this smaller Chinook return.",
-            "tip": "Pick one proven Michigan or Niles holding section and fish it thoroughly before making one legal Indiana check. Do not run every ladder looking for scattered Chinook.",
-            "whereToStart": "Follow lower-river travel lanes toward Berrien Springs and Buchanan, then sample Niles before considering Indiana water.",
+            "headline": "Chinook salmon are established in select St. Joseph sections.",
+            "detail": "This smaller Chinook run remains selective, with empty water between fish.",
+            "tip": "Fish one proven section thoroughly before making a selective second check.",
+            "whereToStart": "Start in the Lower river (St. Joseph harbor–Berrien Springs). Check the Middle river (Berrien Springs–Niles) for earlier arrivals.",
             "reasonCodes": [
               "stage_building"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -28094,7 +28307,7 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "conditions_insufficient",
               "conditions_checkpoint_building_start"
             ],
-            "copyVersion": "river-run-copy-v27",
+            "copyVersion": "river-run-copy-v34",
             "previousCheckpointId": "river_start",
             "previousCheckpointDate": "2026-09-01",
             "previousTimingLabel": "Insufficient evidence"
@@ -28111,9 +28324,9 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "push": {
             "score": 30,
             "label": "No clear push",
-            "headline": "Today's water does not show a clear signal for a fresh wave of fish.",
-            "detail": "The river is holding steady with no meaningful rise yet. Water temperature is favorable for fall migration and is relatively steady. Recent weather estimates indicate very little rain around the river. This Push describes fresh-movement support at Niles only; it does not prove a new wave at the harbor, Berrien Springs, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Fish established holding water from the head through the inside seam and tail. Do not spend the day racing between lower travel lanes for a wave the water does not support. Use the Niles signal to choose between Niles-area holding water and a lower-Michigan travel-water check; verify Indiana movement directly.",
+            "headline": "Niles water does not show a clear fresh-movement signal.",
+            "detail": "Niles flow is steady without a meaningful rise. Water temperature is favorable for fall migration and is relatively steady. Recent watershed weather shows little rain.",
+            "tip": "Keep Migration Stage’s section primary. Do not shift sections from this Niles read.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
@@ -28132,14 +28345,14 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-fall-chinook-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 93,
             "label": "Excellent",
             "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river. This flow shape applies to the Niles mainstem reach only; verify the harbor, lower Michigan river, individual tailwaters, and Indiana water directly.",
-            "tip": "Begin on the primary travel lane feeding deep holding water. Work each hole from its head through the inside seam and tail, then keep moving until fish establish a pattern. Apply this recommendation at Niles; recheck water shape and safe access before carrying it to another St. Joseph section.",
+            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. This read applies only to the Niles mainstem reach.",
+            "tip": "Cover readable seams and holding water with a controlled presentation. Verify every other section directly.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band"
@@ -28150,15 +28363,15 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 79,
             "maximum": 100,
             "label": "Active",
-            "headline": "Today’s Chinook activity outlook is active.",
-            "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. More Chinook are moving and settling into the river; the score describes reaction conditions for fish already present. Measured river conditions describe the St. Joseph mainstem at Niles. Water temperature, clarity, hydraulic shape, and presentation conditions can differ in the harbor and lower Michigan river, at individual ladder tailwaters, and through South Bend, Mishawaka, and the Twin Branch reach. This smaller Chinook return is often sectional; a favorable Niles response window does not prove equal fish presence through the five-ladder corridor. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
-            "tip": "Start with 5–9 AM. If the sky changes from the forecast, favor the darkest practical window. Apply this response window at Niles; verify temperature, clarity, flow shape, and legal access again before carrying it to another St. Joseph section.",
+            "headline": "Today’s Niles Chinook responsiveness is active.",
+            "detail": "Conditions support a meaningful Chinook response. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Flow and temperature represent only the Niles mainstem reach.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify other sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -28210,10 +28423,13 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 13,
+            "displayScore": 15,
+            "scoreIsApproximate": true,
             "stage": "building",
             "maximum": 100,
             "riverCeiling": 30,
@@ -28222,14 +28438,14 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "curveDirection": "rising",
             "winterHoldingContext": false,
             "label": "Moderate presence",
-            "headline": "A smaller number of Chinook salmon are likely in the river, with this limited seasonal presence still building toward its high point.",
-            "detail": "This part of the season usually brings moderate presence, with a smaller number of fish expected to enter and occupy its most dependable water. This is a seasonal estimate, not a live fish count. This seasonal presence applies to the accessible St. Joseph corridor as a whole; it does not claim equal fish numbers at the harbor, Niles, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Plan for an improving but still limited river opportunity. Stay mobile, and require direct fish activity before slowing down. Use Migration Stage to choose the specific St. Joseph section, then verify that water directly.",
+            "headline": "Seasonal Chinook salmon presence is moderate and building.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the St. Joseph Chinook salmon ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_building",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -28483,6 +28699,7 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "nextConditionRefreshAt": "2026-09-18T05:00:00.000Z",
           "runStage": {
             "stage": "building",
+            "copyStrategy": "st_joseph_corridor",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -28505,14 +28722,14 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "peakToEndDays": 37
             },
             "label": "Building",
-            "headline": "Chinook salmon are established in select St. Joseph sections, but this remains a limited run.",
-            "detail": "Earlier fish can be holding from lower Michigan through Niles, with some passage into South Bend and Mishawaka. Empty water between fish remains normal for this smaller Chinook return.",
-            "tip": "Pick one proven Michigan or Niles holding section and fish it thoroughly before making one legal Indiana check. Do not run every ladder looking for scattered Chinook.",
-            "whereToStart": "Work proven Berrien Springs-to-Niles holding water first, then make one legal South Bend passage check rather than assuming broad corridor occupation.",
+            "headline": "Chinook salmon are established in select St. Joseph sections.",
+            "detail": "This smaller Chinook run remains selective, with empty water between fish.",
+            "tip": "Fish one proven section thoroughly before making a selective second check.",
+            "whereToStart": "Start in the Middle river (Berrien Springs–Niles). Compare the Lower river (St. Joseph harbor–Berrien Springs) for newer fish.",
             "reasonCodes": [
               "stage_building"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -28574,7 +28791,7 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "conditions_insufficient",
               "conditions_checkpoint_building_established"
             ],
-            "copyVersion": "river-run-copy-v27",
+            "copyVersion": "river-run-copy-v34",
             "previousCheckpointId": "building_start",
             "previousCheckpointDate": "2026-09-11",
             "previousTimingLabel": "Insufficient evidence"
@@ -28591,9 +28808,9 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "push": {
             "score": 30,
             "label": "No clear push",
-            "headline": "Today's water does not show a clear signal for a fresh wave of fish.",
-            "detail": "The river is holding steady with no meaningful rise yet. Water temperature is favorable for fall migration and is relatively steady. Recent weather estimates indicate very little rain around the river. This Push describes fresh-movement support at Niles only; it does not prove a new wave at the harbor, Berrien Springs, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Fish established holding water from the head through the inside seam and tail. Do not spend the day racing between lower travel lanes for a wave the water does not support. Use the Niles signal to choose between Niles-area holding water and a lower-Michigan travel-water check; verify Indiana movement directly.",
+            "headline": "Niles water does not show a clear fresh-movement signal.",
+            "detail": "Niles flow is steady without a meaningful rise. Water temperature is favorable for fall migration and is relatively steady. Recent watershed weather shows little rain.",
+            "tip": "Keep Migration Stage’s section primary. Do not shift sections from this Niles read.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
@@ -28612,14 +28829,14 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-fall-chinook-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 93,
             "label": "Excellent",
             "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river. This flow shape applies to the Niles mainstem reach only; verify the harbor, lower Michigan river, individual tailwaters, and Indiana water directly.",
-            "tip": "Begin on the primary travel lane feeding deep holding water. Work each hole from its head through the inside seam and tail, then keep moving until fish establish a pattern. Apply this recommendation at Niles; recheck water shape and safe access before carrying it to another St. Joseph section.",
+            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. This read applies only to the Niles mainstem reach.",
+            "tip": "Cover readable seams and holding water with a controlled presentation. Verify every other section directly.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band"
@@ -28630,15 +28847,15 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 79,
             "maximum": 100,
             "label": "Active",
-            "headline": "Today’s Chinook activity outlook is active.",
-            "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. More Chinook are moving and settling into the river; the score describes reaction conditions for fish already present. Measured river conditions describe the St. Joseph mainstem at Niles. Water temperature, clarity, hydraulic shape, and presentation conditions can differ in the harbor and lower Michigan river, at individual ladder tailwaters, and through South Bend, Mishawaka, and the Twin Branch reach. This smaller Chinook return is often sectional; a favorable Niles response window does not prove equal fish presence through the five-ladder corridor. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
-            "tip": "Start with 5–9 AM. If the sky changes from the forecast, favor the darkest practical window. Apply this response window at Niles; verify temperature, clarity, flow shape, and legal access again before carrying it to another St. Joseph section.",
+            "headline": "Today’s Niles Chinook responsiveness is active.",
+            "detail": "Conditions support a meaningful Chinook response. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Flow and temperature represent only the Niles mainstem reach.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify other sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -28690,10 +28907,13 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 19,
+            "displayScore": 20,
+            "scoreIsApproximate": true,
             "stage": "building",
             "maximum": 100,
             "riverCeiling": 30,
@@ -28702,14 +28922,14 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "curveDirection": "rising",
             "winterHoldingContext": false,
             "label": "High presence",
-            "headline": "Chinook salmon are likely filling more of the river's dependable holding water as seasonal presence builds toward its strongest point.",
-            "detail": "Seasonal presence is usually elevated relative to the rest of the season, with a smaller number of fish expected to enter and occupy its most dependable water. This is a seasonal estimate, not a live fish count. This seasonal presence applies to the accessible St. Joseph corridor as a whole; it does not claim equal fish numbers at the harbor, Niles, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Treat this as one of the better parts of the season, while remembering that this river's overall opportunity remains limited. Give each stop a complete pass, but do not mistake this seasonal estimate for a live fish count. Use Migration Stage to choose the specific St. Joseph section, then verify that water directly.",
+            "headline": "Seasonal Chinook salmon presence is high and building.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the St. Joseph Chinook salmon ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_building",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -28963,6 +29183,7 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "nextConditionRefreshAt": "2026-09-22T05:00:00.000Z",
           "runStage": {
             "stage": "building",
+            "copyStrategy": "st_joseph_corridor",
             "stagingContext": false,
             "broadBuildingContext": true,
             "winterHoldingContext": false,
@@ -28985,14 +29206,14 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "peakToEndDays": 37
             },
             "label": "Building",
-            "headline": "Chinook salmon are established in select St. Joseph sections, but this remains a limited run.",
-            "detail": "Earlier fish can be holding from lower Michigan through Niles, with some passage into South Bend and Mishawaka. Empty water between fish remains normal for this smaller Chinook return.",
-            "tip": "Pick one proven Michigan or Niles holding section and fish it thoroughly before making one legal Indiana check. Do not run every ladder looking for scattered Chinook.",
-            "whereToStart": "Prioritize proven lower-Michigan and Niles holding water; use South Bend or Mishawaka only as selective passage checks, always away from posted ladder and dam boundaries.",
+            "headline": "Chinook salmon are established in select St. Joseph sections.",
+            "detail": "This smaller Chinook run remains selective, with empty water between fish.",
+            "tip": "Fish one proven section thoroughly before making a selective second check.",
+            "whereToStart": "Start in the Middle river (Berrien Springs–Niles). Check the Upper river (Niles–Twin Branch Dam) only as a selective comparison.",
             "reasonCodes": [
               "stage_building"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -29054,7 +29275,7 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "conditions_insufficient",
               "conditions_checkpoint_building_established"
             ],
-            "copyVersion": "river-run-copy-v27",
+            "copyVersion": "river-run-copy-v34",
             "previousCheckpointId": "building_start",
             "previousCheckpointDate": "2026-09-11",
             "previousTimingLabel": "Insufficient evidence"
@@ -29071,9 +29292,9 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "push": {
             "score": 30,
             "label": "No clear push",
-            "headline": "Today's water does not show a clear signal for a fresh wave of fish.",
-            "detail": "The river is holding steady with no meaningful rise yet. Water temperature is favorable for fall migration and is relatively steady. Recent weather estimates indicate very little rain around the river. This Push describes fresh-movement support at Niles only; it does not prove a new wave at the harbor, Berrien Springs, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Fish established holding water from the head through the inside seam and tail. Do not spend the day racing between lower travel lanes for a wave the water does not support. Use the Niles signal to choose between Niles-area holding water and a lower-Michigan travel-water check; verify Indiana movement directly.",
+            "headline": "Niles water does not show a clear fresh-movement signal.",
+            "detail": "Niles flow is steady without a meaningful rise. Water temperature is favorable for fall migration and is relatively steady. Recent watershed weather shows little rain.",
+            "tip": "Keep Migration Stage’s section primary. Do not shift sections from this Niles read.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
@@ -29092,14 +29313,14 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-fall-chinook-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 93,
             "label": "Excellent",
             "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river. This flow shape applies to the Niles mainstem reach only; verify the harbor, lower Michigan river, individual tailwaters, and Indiana water directly.",
-            "tip": "Begin on the primary travel lane feeding deep holding water. Work each hole from its head through the inside seam and tail, then keep moving until fish establish a pattern. Apply this recommendation at Niles; recheck water shape and safe access before carrying it to another St. Joseph section.",
+            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. This read applies only to the Niles mainstem reach.",
+            "tip": "Cover readable seams and holding water with a controlled presentation. Verify every other section directly.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band"
@@ -29110,15 +29331,15 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 79,
             "maximum": 100,
             "label": "Active",
-            "headline": "Today’s Chinook activity outlook is active.",
-            "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. More Chinook are moving and settling into the river; the score describes reaction conditions for fish already present. Measured river conditions describe the St. Joseph mainstem at Niles. Water temperature, clarity, hydraulic shape, and presentation conditions can differ in the harbor and lower Michigan river, at individual ladder tailwaters, and through South Bend, Mishawaka, and the Twin Branch reach. This smaller Chinook return is often sectional; a favorable Niles response window does not prove equal fish presence through the five-ladder corridor. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
-            "tip": "Start with 5–9 AM. If the sky changes from the forecast, favor the darkest practical window. Apply this response window at Niles; verify temperature, clarity, flow shape, and legal access again before carrying it to another St. Joseph section.",
+            "headline": "Today’s Niles Chinook responsiveness is active.",
+            "detail": "Conditions support a meaningful Chinook response. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Flow and temperature represent only the Niles mainstem reach.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify other sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -29170,10 +29391,13 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 25,
+            "displayScore": 25,
+            "scoreIsApproximate": true,
             "stage": "building",
             "maximum": 100,
             "riverCeiling": 30,
@@ -29182,14 +29406,14 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "curveDirection": "rising",
             "winterHoldingContext": false,
             "label": "High presence",
-            "headline": "Chinook salmon are likely filling more of the river's dependable holding water as seasonal presence builds toward its strongest point.",
-            "detail": "The migration is approaching its strongest seasonal point, but its limited opportunity is most likely through several dependable river sections. This is a seasonal estimate, not a live fish count. This seasonal presence applies to the accessible St. Joseph corridor as a whole; it does not claim equal fish numbers at the harbor, Niles, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Treat this as one of the better parts of the season, while remembering that this river's overall opportunity remains limited. Give each stop a complete pass, but do not mistake this seasonal estimate for a live fish count. Use Migration Stage to choose the specific St. Joseph section, then verify that water directly.",
+            "headline": "Seasonal Chinook salmon presence is high and building.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the St. Joseph Chinook salmon ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_building",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -29443,6 +29667,7 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "nextConditionRefreshAt": "2026-09-24T05:00:00.000Z",
           "runStage": {
             "stage": "building",
+            "copyStrategy": "st_joseph_corridor",
             "stagingContext": false,
             "broadBuildingContext": true,
             "winterHoldingContext": false,
@@ -29465,14 +29690,14 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "peakToEndDays": 37
             },
             "label": "Building",
-            "headline": "Chinook salmon are established in select St. Joseph sections, but this remains a limited run.",
-            "detail": "Earlier fish can be holding from lower Michigan through Niles, with some passage into South Bend and Mishawaka. Empty water between fish remains normal for this smaller Chinook return.",
-            "tip": "Pick one proven Michigan or Niles holding section and fish it thoroughly before making one legal Indiana check. Do not run every ladder looking for scattered Chinook.",
-            "whereToStart": "Prioritize proven lower-Michigan and Niles holding water; use South Bend or Mishawaka only as selective passage checks, always away from posted ladder and dam boundaries.",
+            "headline": "Chinook salmon are established in select St. Joseph sections.",
+            "detail": "This smaller Chinook run remains selective, with empty water between fish.",
+            "tip": "Fish one proven section thoroughly before making a selective second check.",
+            "whereToStart": "Start in the Middle river (Berrien Springs–Niles). Check the Upper river (Niles–Twin Branch Dam) only as a selective comparison.",
             "reasonCodes": [
               "stage_building"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -29541,7 +29766,7 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "conditions_insufficient",
               "conditions_checkpoint_peak_start"
             ],
-            "copyVersion": "river-run-copy-v27",
+            "copyVersion": "river-run-copy-v34",
             "previousCheckpointId": "building_established",
             "previousCheckpointDate": "2026-09-15",
             "previousTimingLabel": "Insufficient evidence"
@@ -29558,9 +29783,9 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "push": {
             "score": 30,
             "label": "No clear push",
-            "headline": "Today's water does not show a clear signal for a fresh wave of fish.",
-            "detail": "The river is holding steady with no meaningful rise yet. Water temperature is favorable for fall migration and is relatively steady. Recent weather estimates indicate very little rain around the river. This Push describes fresh-movement support at Niles only; it does not prove a new wave at the harbor, Berrien Springs, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Fish established holding water from the head through the inside seam and tail. Do not spend the day racing between lower travel lanes for a wave the water does not support. Use the Niles signal to choose between Niles-area holding water and a lower-Michigan travel-water check; verify Indiana movement directly.",
+            "headline": "Niles water does not show a clear fresh-movement signal.",
+            "detail": "Niles flow is steady without a meaningful rise. Water temperature is favorable for fall migration and is relatively steady. Recent watershed weather shows little rain.",
+            "tip": "Keep Migration Stage’s section primary. Do not shift sections from this Niles read.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
@@ -29579,14 +29804,14 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-fall-chinook-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 93,
             "label": "Excellent",
             "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river. This flow shape applies to the Niles mainstem reach only; verify the harbor, lower Michigan river, individual tailwaters, and Indiana water directly.",
-            "tip": "Begin on the primary travel lane feeding deep holding water. Work each hole from its head through the inside seam and tail, then keep moving until fish establish a pattern. Apply this recommendation at Niles; recheck water shape and safe access before carrying it to another St. Joseph section.",
+            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. This read applies only to the Niles mainstem reach.",
+            "tip": "Cover readable seams and holding water with a controlled presentation. Verify every other section directly.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band"
@@ -29597,15 +29822,15 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 79,
             "maximum": 100,
             "label": "Active",
-            "headline": "Today’s Chinook activity outlook is active.",
-            "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. More Chinook are moving and settling into the river; the score describes reaction conditions for fish already present. Measured river conditions describe the St. Joseph mainstem at Niles. Water temperature, clarity, hydraulic shape, and presentation conditions can differ in the harbor and lower Michigan river, at individual ladder tailwaters, and through South Bend, Mishawaka, and the Twin Branch reach. This smaller Chinook return is often sectional; a favorable Niles response window does not prove equal fish presence through the five-ladder corridor. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
-            "tip": "Start with 5–9 AM. If the sky changes from the forecast, favor the darkest practical window. Apply this response window at Niles; verify temperature, clarity, flow shape, and legal access again before carrying it to another St. Joseph section.",
+            "headline": "Today’s Niles Chinook responsiveness is active.",
+            "detail": "Conditions support a meaningful Chinook response. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Flow and temperature represent only the Niles mainstem reach.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify other sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -29657,10 +29882,13 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 27,
+            "displayScore": 30,
+            "scoreIsApproximate": true,
             "stage": "building",
             "maximum": 100,
             "riverCeiling": 30,
@@ -29669,14 +29897,14 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "curveDirection": "rising",
             "winterHoldingContext": false,
             "label": "Peak presence",
-            "headline": "Chinook salmon are likely filling more of the river's dependable holding water as seasonal presence builds toward its strongest point.",
-            "detail": "The migration is approaching its strongest seasonal point, but its limited opportunity is most likely through several dependable river sections. This is a seasonal estimate, not a live fish count. This seasonal presence applies to the accessible St. Joseph corridor as a whole; it does not claim equal fish numbers at the harbor, Niles, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Treat this as one of the better parts of the season, while remembering that this river's overall opportunity remains limited. Give each stop a complete pass, but do not mistake this seasonal estimate for a live fish count. Use Migration Stage to choose the specific St. Joseph section, then verify that water directly.",
+            "headline": "Seasonal Chinook salmon presence is near its expected St. Joseph peak.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the St. Joseph Chinook salmon ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_building",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -29930,6 +30158,7 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "nextConditionRefreshAt": "2026-09-26T05:00:00.000Z",
           "runStage": {
             "stage": "peak",
+            "copyStrategy": "st_joseph_corridor",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -29952,14 +30181,14 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "peakToEndDays": 37
             },
             "label": "Peak",
-            "headline": "This is the best St. Joseph Chinook salmon window, but it remains a selective 3-of-10 opportunity.",
-            "detail": "The calendar supports the best chance of finding Chinook in proven lower-Michigan, Niles, or selective Indiana holding water. It does not imply strong or uniform occupation of the full corridor.",
-            "tip": "Choose a proven section and cover deep holding water from head to tail. Change sections only after a clean search, and leave shallow spawning fish undisturbed.",
-            "whereToStart": "Start with proven lower-Michigan and Niles holding water, then make one selective South Bend or Mishawaka check below Twin Branch; this smaller Chinook run is not a reason to cover all 63 miles.",
+            "headline": "This is the best St. Joseph Chinook salmon window, but opportunity remains selective.",
+            "detail": "This is a limited 3-of-10 run, not a claim of strong or uniform presence.",
+            "tip": "Choose one section and cover it completely before changing reaches. Leave shallow spawning fish undisturbed.",
+            "whereToStart": "Start in the Middle river (Berrien Springs–Niles). Treat the Upper river (Niles–Twin Branch Dam) as a selective second check.",
             "reasonCodes": [
               "stage_peak"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -30028,7 +30257,7 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "conditions_insufficient",
               "conditions_checkpoint_peak_start"
             ],
-            "copyVersion": "river-run-copy-v27",
+            "copyVersion": "river-run-copy-v34",
             "previousCheckpointId": "building_established",
             "previousCheckpointDate": "2026-09-15",
             "previousTimingLabel": "Insufficient evidence"
@@ -30045,9 +30274,9 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "push": {
             "score": 30,
             "label": "No clear push",
-            "headline": "Today's water does not show a clear signal for a fresh wave of fish.",
-            "detail": "The river is holding steady with no meaningful rise yet. Water temperature is favorable for fall migration and is relatively steady. Recent weather estimates indicate very little rain around the river. This Push describes fresh-movement support at Niles only; it does not prove a new wave at the harbor, Berrien Springs, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Fish established holding water from the head through the inside seam and tail. Do not spend the day racing between lower travel lanes for a wave the water does not support. Use the Niles signal to choose between Niles-area holding water and a lower-Michigan travel-water check; verify Indiana movement directly.",
+            "headline": "Niles water does not show a clear fresh-movement signal.",
+            "detail": "Niles flow is steady without a meaningful rise. Water temperature is favorable for fall migration and is relatively steady. Recent watershed weather shows little rain.",
+            "tip": "Keep Migration Stage’s section primary. Do not shift sections from this Niles read.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
@@ -30066,14 +30295,14 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-fall-chinook-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 93,
             "label": "Excellent",
             "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river. This flow shape applies to the Niles mainstem reach only; verify the harbor, lower Michigan river, individual tailwaters, and Indiana water directly.",
-            "tip": "Begin on the primary travel lane feeding deep holding water. Work each hole from its head through the inside seam and tail, then keep moving until fish establish a pattern. Apply this recommendation at Niles; recheck water shape and safe access before carrying it to another St. Joseph section.",
+            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. This read applies only to the Niles mainstem reach.",
+            "tip": "Cover readable seams and holding water with a controlled presentation. Verify every other section directly.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band"
@@ -30084,15 +30313,15 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 79,
             "maximum": 100,
             "label": "Active",
-            "headline": "Today’s Chinook activity outlook is active.",
-            "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. Broad seasonal presence improves the chance of locating fish, but this score measures responsiveness rather than abundance. Measured river conditions describe the St. Joseph mainstem at Niles. Water temperature, clarity, hydraulic shape, and presentation conditions can differ in the harbor and lower Michigan river, at individual ladder tailwaters, and through South Bend, Mishawaka, and the Twin Branch reach. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
-            "tip": "Start with 5–9 AM. If the sky changes from the forecast, favor the darkest practical window. Apply this response window at Niles; verify temperature, clarity, flow shape, and legal access again before carrying it to another St. Joseph section.",
+            "headline": "Today’s Niles Chinook responsiveness is active.",
+            "detail": "Conditions support a meaningful Chinook response. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Flow and temperature represent only the Niles mainstem reach.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify other sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -30144,10 +30373,13 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 30,
+            "displayScore": 30,
+            "scoreIsApproximate": false,
             "stage": "peak",
             "maximum": 100,
             "riverCeiling": 30,
@@ -30156,14 +30388,14 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "curveDirection": "near_peak",
             "winterHoldingContext": false,
             "label": "Peak presence",
-            "headline": "Chinook salmon are likely near their highest seasonal presence in the river, although the overall opportunity remains limited.",
-            "detail": "This is the part of the season when in-river presence is usually strongest. Even at that high point, the overall seasonal opportunity remains limited. The read does not place fish in a specific pool or confirm a live count. This seasonal presence applies to the accessible St. Joseph corridor as a whole; it does not claim equal fish numbers at the harbor, Niles, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Treat this as the best part of this river's limited seasonal opportunity, not a high-abundance fishery. Require direct fish activity before committing more time. Use Migration Stage to choose the specific St. Joseph section, then verify that water directly.",
+            "headline": "Seasonal Chinook salmon presence is near its expected St. Joseph peak.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the St. Joseph Chinook salmon ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_peak",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -30423,6 +30655,7 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "nextConditionRefreshAt": "2026-09-27T05:00:00.000Z",
           "runStage": {
             "stage": "peak",
+            "copyStrategy": "st_joseph_corridor",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -30445,14 +30678,14 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "peakToEndDays": 37
             },
             "label": "Peak",
-            "headline": "This is the best St. Joseph Chinook salmon window, but it remains a selective 3-of-10 opportunity.",
-            "detail": "The calendar supports the best chance of finding Chinook in proven lower-Michigan, Niles, or selective Indiana holding water. It does not imply strong or uniform occupation of the full corridor.",
-            "tip": "Choose a proven section and cover deep holding water from head to tail. Change sections only after a clean search, and leave shallow spawning fish undisturbed.",
-            "whereToStart": "Start with proven lower-Michigan and Niles holding water, then make one selective South Bend or Mishawaka check below Twin Branch; this smaller Chinook run is not a reason to cover all 63 miles.",
+            "headline": "This is the best St. Joseph Chinook salmon window, but opportunity remains selective.",
+            "detail": "This is a limited 3-of-10 run, not a claim of strong or uniform presence.",
+            "tip": "Choose one section and cover it completely before changing reaches. Leave shallow spawning fish undisturbed.",
+            "whereToStart": "Start in the Middle river (Berrien Springs–Niles). Treat the Upper river (Niles–Twin Branch Dam) as a selective second check.",
             "reasonCodes": [
               "stage_peak"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -30521,7 +30754,7 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "conditions_insufficient",
               "conditions_checkpoint_peak_start"
             ],
-            "copyVersion": "river-run-copy-v27",
+            "copyVersion": "river-run-copy-v34",
             "previousCheckpointId": "building_established",
             "previousCheckpointDate": "2026-09-15",
             "previousTimingLabel": "Insufficient evidence"
@@ -30538,9 +30771,9 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "push": {
             "score": 30,
             "label": "No clear push",
-            "headline": "Today's water does not show a clear signal for a fresh wave of fish.",
-            "detail": "The river is holding steady with no meaningful rise yet. Water temperature is favorable for fall migration and is relatively steady. Recent weather estimates indicate very little rain around the river. This Push describes fresh-movement support at Niles only; it does not prove a new wave at the harbor, Berrien Springs, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Fish established holding water from the head through the inside seam and tail. Do not spend the day racing between lower travel lanes for a wave the water does not support. Use the Niles signal to choose between Niles-area holding water and a lower-Michigan travel-water check; verify Indiana movement directly.",
+            "headline": "Niles water does not show a clear fresh-movement signal.",
+            "detail": "Niles flow is steady without a meaningful rise. Water temperature is favorable for fall migration and is relatively steady. Recent watershed weather shows little rain.",
+            "tip": "Keep Migration Stage’s section primary. Do not shift sections from this Niles read.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
@@ -30559,14 +30792,14 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-fall-chinook-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 93,
             "label": "Excellent",
             "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river. This flow shape applies to the Niles mainstem reach only; verify the harbor, lower Michigan river, individual tailwaters, and Indiana water directly.",
-            "tip": "Begin on the primary travel lane feeding deep holding water. Work each hole from its head through the inside seam and tail, then keep moving until fish establish a pattern. Apply this recommendation at Niles; recheck water shape and safe access before carrying it to another St. Joseph section.",
+            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. This read applies only to the Niles mainstem reach.",
+            "tip": "Cover readable seams and holding water with a controlled presentation. Verify every other section directly.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band"
@@ -30577,15 +30810,15 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 79,
             "maximum": 100,
             "label": "Active",
-            "headline": "Today’s Chinook activity outlook is active.",
-            "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. Broad seasonal presence improves the chance of locating fish, but this score measures responsiveness rather than abundance. Measured river conditions describe the St. Joseph mainstem at Niles. Water temperature, clarity, hydraulic shape, and presentation conditions can differ in the harbor and lower Michigan river, at individual ladder tailwaters, and through South Bend, Mishawaka, and the Twin Branch reach. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
-            "tip": "Start with 5–9 AM. If the sky changes from the forecast, favor the darkest practical window. Apply this response window at Niles; verify temperature, clarity, flow shape, and legal access again before carrying it to another St. Joseph section.",
+            "headline": "Today’s Niles Chinook responsiveness is active.",
+            "detail": "Conditions support a meaningful Chinook response. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Flow and temperature represent only the Niles mainstem reach.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify other sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -30637,10 +30870,13 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 30,
+            "displayScore": 30,
+            "scoreIsApproximate": false,
             "stage": "peak",
             "maximum": 100,
             "riverCeiling": 30,
@@ -30649,14 +30885,14 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "curveDirection": "falling",
             "winterHoldingContext": false,
             "label": "Peak presence",
-            "headline": "Seasonal timing still supports Chinook salmon being near their strongest in-river presence, even if the migration may be just beyond its usual peak.",
-            "detail": "This point in the season may sit just beyond the usual peak while the limited seasonal opportunity remains near its high point. This is a seasonal estimate, not a live fish count. This seasonal presence applies to the accessible St. Joseph corridor as a whole; it does not claim equal fish numbers at the harbor, Niles, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Treat this as near the high point of a limited seasonal opportunity. Focus on the most dependable water, and require direct fish activity before committing more time. Use Migration Stage to choose the specific St. Joseph section, then verify that water directly.",
+            "headline": "Seasonal Chinook salmon presence is near its expected St. Joseph peak.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the St. Joseph Chinook salmon ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_peak",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -30916,6 +31152,7 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "nextConditionRefreshAt": "2026-10-07T05:00:00.000Z",
           "runStage": {
             "stage": "tapering",
+            "copyStrategy": "st_joseph_corridor",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -30939,13 +31176,13 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             },
             "label": "Tapering",
             "headline": "This can still offer a limited Chinook salmon opportunity, even as fresh arrivals typically become less consistent.",
-            "detail": "Fresh passage is becoming less dependable, so established Niles, South Bend, and Mishawaka holding or spawning water matters more than racing the lower river for a new wave.",
-            "tip": "Start in proven deep holding water, check lower travel lanes only when Push supports new movement, and leave fish on shallow gravel alone.",
-            "whereToStart": "Prioritize established holding and spawning water near Niles, South Bend, and Mishawaka while checking the lower river only for a late fresh wave.",
+            "detail": "Fresh entry is slowing, so established holding water matters more than Lower-river travel lanes.",
+            "tip": "Start in proven holding water. Check the Lower river only when Push supports fresh movement.",
+            "whereToStart": "Start in established Middle river (Berrien Springs–Niles) or Upper river (Niles–Twin Branch Dam) holding water.",
             "reasonCodes": [
               "stage_tapering"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Timing complete",
@@ -31023,7 +31260,7 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "conditions_checkpoint_peak_complete",
               "conditions_timing_complete"
             ],
-            "copyVersion": "river-run-copy-v27",
+            "copyVersion": "river-run-copy-v34",
             "previousCheckpointId": "peak_start",
             "previousCheckpointDate": "2026-09-22",
             "previousTimingLabel": "Insufficient evidence"
@@ -31040,9 +31277,9 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "push": {
             "score": 30,
             "label": "No clear push",
-            "headline": "Today's water does not show a clear signal for a fresh wave of fish.",
-            "detail": "The river is holding steady with no meaningful rise yet. Water temperature is favorable for fall migration and is relatively steady. Recent weather estimates indicate very little rain around the river. This Push describes fresh-movement support at Niles only; it does not prove a new wave at the harbor, Berrien Springs, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Fish established holding water from the head through the inside seam and tail. Do not spend the day racing between lower travel lanes for a wave the water does not support. Use the Niles signal to choose between Niles-area holding water and a lower-Michigan travel-water check; verify Indiana movement directly.",
+            "headline": "Niles water does not show a clear fresh-movement signal.",
+            "detail": "Niles flow is steady without a meaningful rise. Water temperature is favorable for fall migration and is relatively steady. Recent watershed weather shows little rain.",
+            "tip": "Keep Migration Stage’s section primary. Do not shift sections from this Niles read.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
@@ -31061,14 +31298,14 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-fall-chinook-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 93,
             "label": "Excellent",
             "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river. This flow shape applies to the Niles mainstem reach only; verify the harbor, lower Michigan river, individual tailwaters, and Indiana water directly.",
-            "tip": "Begin on the primary travel lane feeding deep holding water. Work each hole from its head through the inside seam and tail, then keep moving until fish establish a pattern. Apply this recommendation at Niles; recheck water shape and safe access before carrying it to another St. Joseph section.",
+            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. This read applies only to the Niles mainstem reach.",
+            "tip": "Cover readable seams and holding water with a controlled presentation. Verify every other section directly.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band"
@@ -31079,15 +31316,15 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 78,
             "maximum": 100,
             "label": "Active",
-            "headline": "Today’s Chinook activity outlook is active.",
-            "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. This score represents a Chinook of unknown condition at this point in the season. A newly arrived or fresher fish may be more active than this score, while a spawning or deteriorating fish may be less responsive. Measured river conditions describe the St. Joseph mainstem at Niles. Water temperature, clarity, hydraulic shape, and presentation conditions can differ in the harbor and lower Michigan river, at individual ladder tailwaters, and through South Bend, Mishawaka, and the Twin Branch reach. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
-            "tip": "Compare the four time windows, but treat every difference as conditional on finding a living Chinook still capable of responding. Apply this response window at Niles; verify temperature, clarity, flow shape, and legal access again before carrying it to another St. Joseph section.",
+            "headline": "Today’s Niles Chinook responsiveness is active.",
+            "detail": "Conditions support a meaningful Chinook response. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Late-run Chinook condition varies widely, so individual fish may respond above or below this outlook.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify other sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -31140,10 +31377,13 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 26,
+            "displayScore": 25,
+            "scoreIsApproximate": true,
             "stage": "tapering",
             "maximum": 100,
             "riverCeiling": 30,
@@ -31152,14 +31392,14 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "curveDirection": "falling",
             "winterHoldingContext": false,
             "label": "High presence",
-            "headline": "Seasonal timing still supports this limited Chinook salmon presence holding near its seasonal high point in dependable water, even as the usual peak window may be easing.",
-            "detail": "Seasonal presence remains elevated relative to the rest of the season. The overall seasonal opportunity remains limited, but fresh arrivals may be less consistent than around the usual peak. This is a seasonal estimate, not a live fish count. This seasonal presence applies to the accessible St. Joseph corridor as a whole; it does not claim equal fish numbers at the harbor, Niles, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Treat this as near the high point of a limited seasonal opportunity. Focus on the most dependable water, and require direct fish activity before committing more time. Use Migration Stage to choose the specific St. Joseph section, then verify that water directly.",
+            "headline": "Seasonal Chinook salmon presence is high and declining.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the St. Joseph Chinook salmon ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_tapering",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -31413,6 +31653,7 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "nextConditionRefreshAt": "2026-10-11T05:00:00.000Z",
           "runStage": {
             "stage": "tapering",
+            "copyStrategy": "st_joseph_corridor",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -31436,13 +31677,13 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             },
             "label": "Tapering",
             "headline": "This can still offer a limited Chinook salmon opportunity, even as fresh arrivals typically become less consistent.",
-            "detail": "Fresh passage is becoming less dependable, so established Niles, South Bend, and Mishawaka holding or spawning water matters more than racing the lower river for a new wave.",
-            "tip": "Start in proven deep holding water, check lower travel lanes only when Push supports new movement, and leave fish on shallow gravel alone.",
-            "whereToStart": "Prioritize established holding and spawning water near Niles, South Bend, and Mishawaka while checking the lower river only for a late fresh wave.",
+            "detail": "Fresh entry is slowing, so established holding water matters more than Lower-river travel lanes.",
+            "tip": "Start in proven holding water. Check the Lower river only when Push supports fresh movement.",
+            "whereToStart": "Start in established Middle river (Berrien Springs–Niles) or Upper river (Niles–Twin Branch Dam) holding water.",
             "reasonCodes": [
               "stage_tapering"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Timing complete",
@@ -31520,7 +31761,7 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "conditions_checkpoint_peak_complete",
               "conditions_timing_complete"
             ],
-            "copyVersion": "river-run-copy-v27",
+            "copyVersion": "river-run-copy-v34",
             "previousCheckpointId": "peak_start",
             "previousCheckpointDate": "2026-09-22",
             "previousTimingLabel": "Insufficient evidence"
@@ -31537,9 +31778,9 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "push": {
             "score": 30,
             "label": "No clear push",
-            "headline": "Today's water does not show a clear signal for a fresh wave of fish.",
-            "detail": "The river is holding steady with no meaningful rise yet. Water temperature is favorable for fall migration and is relatively steady. Recent weather estimates indicate very little rain around the river. This Push describes fresh-movement support at Niles only; it does not prove a new wave at the harbor, Berrien Springs, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Fish established holding water from the head through the inside seam and tail. Do not spend the day racing between lower travel lanes for a wave the water does not support. Use the Niles signal to choose between Niles-area holding water and a lower-Michigan travel-water check; verify Indiana movement directly.",
+            "headline": "Niles water does not show a clear fresh-movement signal.",
+            "detail": "Niles flow is steady without a meaningful rise. Water temperature is favorable for fall migration and is relatively steady. Recent watershed weather shows little rain.",
+            "tip": "Keep Migration Stage’s section primary. Do not shift sections from this Niles read.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
@@ -31558,14 +31799,14 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-fall-chinook-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 93,
             "label": "Excellent",
             "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river. This flow shape applies to the Niles mainstem reach only; verify the harbor, lower Michigan river, individual tailwaters, and Indiana water directly.",
-            "tip": "Begin on the primary travel lane feeding deep holding water. Work each hole from its head through the inside seam and tail, then keep moving until fish establish a pattern. Apply this recommendation at Niles; recheck water shape and safe access before carrying it to another St. Joseph section.",
+            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. This read applies only to the Niles mainstem reach.",
+            "tip": "Cover readable seams and holding water with a controlled presentation. Verify every other section directly.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band"
@@ -31576,15 +31817,15 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 74,
             "maximum": 100,
             "label": "Active",
-            "headline": "Today’s Chinook activity outlook is active.",
-            "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. This score represents a Chinook of unknown condition at this point in the season. A newly arrived or fresher fish may be more active than this score, while a spawning or deteriorating fish may be less responsive. Measured river conditions describe the St. Joseph mainstem at Niles. Water temperature, clarity, hydraulic shape, and presentation conditions can differ in the harbor and lower Michigan river, at individual ladder tailwaters, and through South Bend, Mishawaka, and the Twin Branch reach. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
-            "tip": "Compare the four time windows, but treat every difference as conditional on finding a living Chinook still capable of responding. Apply this response window at Niles; verify temperature, clarity, flow shape, and legal access again before carrying it to another St. Joseph section.",
+            "headline": "Today’s Niles Chinook responsiveness is active.",
+            "detail": "Conditions support a meaningful Chinook response. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Late-run Chinook condition varies widely, so individual fish may respond above or below this outlook.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify other sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -31637,10 +31878,13 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 24,
+            "displayScore": 25,
+            "scoreIsApproximate": true,
             "stage": "tapering",
             "maximum": 100,
             "riverCeiling": 30,
@@ -31649,14 +31893,14 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "curveDirection": "falling",
             "winterHoldingContext": false,
             "label": "High presence",
-            "headline": "Seasonal timing still supports a smaller number of Chinook salmon in the river's dependable holding water, although fresh arrivals may be less consistent than near peak.",
-            "detail": "Seasonal presence is usually elevated relative to the rest of the season. The overall seasonal opportunity remains limited, while fresh arrivals often become less consistent later in the season. This is a seasonal estimate, not a live fish count. This seasonal presence applies to the accessible St. Joseph corridor as a whole; it does not claim equal fish numbers at the harbor, Niles, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Treat this as near the high point of a limited seasonal opportunity. Focus on the most dependable water, and require direct fish activity before committing more time. Use Migration Stage to choose the specific St. Joseph section, then verify that water directly.",
+            "headline": "Seasonal Chinook salmon presence is high and declining.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the St. Joseph Chinook salmon ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_tapering",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -31910,6 +32154,7 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "nextConditionRefreshAt": "2026-10-19T05:00:00.000Z",
           "runStage": {
             "stage": "tapering",
+            "copyStrategy": "st_joseph_corridor",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -31933,13 +32178,13 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             },
             "label": "Tapering",
             "headline": "This can still offer a limited Chinook salmon opportunity, even as fresh arrivals typically become less consistent.",
-            "detail": "Fresh passage is becoming less dependable, so established Niles, South Bend, and Mishawaka holding or spawning water matters more than racing the lower river for a new wave.",
-            "tip": "Start in proven deep holding water, check lower travel lanes only when Push supports new movement, and leave fish on shallow gravel alone.",
-            "whereToStart": "Prioritize established holding and spawning water near Niles, South Bend, and Mishawaka while checking the lower river only for a late fresh wave.",
+            "detail": "Fresh entry is slowing, so established holding water matters more than Lower-river travel lanes.",
+            "tip": "Start in proven holding water. Check the Lower river only when Push supports fresh movement.",
+            "whereToStart": "Start in established Middle river (Berrien Springs–Niles) or Upper river (Niles–Twin Branch Dam) holding water.",
             "reasonCodes": [
               "stage_tapering"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Timing complete",
@@ -32017,7 +32262,7 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "conditions_checkpoint_peak_complete",
               "conditions_timing_complete"
             ],
-            "copyVersion": "river-run-copy-v27",
+            "copyVersion": "river-run-copy-v34",
             "previousCheckpointId": "peak_start",
             "previousCheckpointDate": "2026-09-22",
             "previousTimingLabel": "Insufficient evidence"
@@ -32034,9 +32279,9 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "push": {
             "score": 30,
             "label": "No clear push",
-            "headline": "Today's water does not show a clear signal for a fresh wave of fish.",
-            "detail": "The river is holding steady with no meaningful rise yet. Water temperature is favorable for fall migration and is relatively steady. Recent weather estimates indicate very little rain around the river. This Push describes fresh-movement support at Niles only; it does not prove a new wave at the harbor, Berrien Springs, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Fish established holding water from the head through the inside seam and tail. Do not spend the day racing between lower travel lanes for a wave the water does not support. Use the Niles signal to choose between Niles-area holding water and a lower-Michigan travel-water check; verify Indiana movement directly.",
+            "headline": "Niles water does not show a clear fresh-movement signal.",
+            "detail": "Niles flow is steady without a meaningful rise. Water temperature is favorable for fall migration and is relatively steady. Recent watershed weather shows little rain.",
+            "tip": "Keep Migration Stage’s section primary. Do not shift sections from this Niles read.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
@@ -32055,14 +32300,14 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-fall-chinook-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 93,
             "label": "Excellent",
             "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river. This flow shape applies to the Niles mainstem reach only; verify the harbor, lower Michigan river, individual tailwaters, and Indiana water directly.",
-            "tip": "Begin on the primary travel lane feeding deep holding water. Work each hole from its head through the inside seam and tail, then keep moving until fish establish a pattern. Apply this recommendation at Niles; recheck water shape and safe access before carrying it to another St. Joseph section.",
+            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. This read applies only to the Niles mainstem reach.",
+            "tip": "Cover readable seams and holding water with a controlled presentation. Verify every other section directly.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band"
@@ -32073,15 +32318,15 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 66,
             "maximum": 100,
             "label": "Active",
-            "headline": "Today’s Chinook activity outlook is active.",
-            "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. This score represents a Chinook of unknown condition at this point in the season. A newly arrived or fresher fish may be more active than this score, while a spawning or deteriorating fish may be less responsive. Measured river conditions describe the St. Joseph mainstem at Niles. Water temperature, clarity, hydraulic shape, and presentation conditions can differ in the harbor and lower Michigan river, at individual ladder tailwaters, and through South Bend, Mishawaka, and the Twin Branch reach. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
-            "tip": "Compare the four time windows, but treat every difference as conditional on finding a living Chinook still capable of responding. Apply this response window at Niles; verify temperature, clarity, flow shape, and legal access again before carrying it to another St. Joseph section.",
+            "headline": "Today’s Niles Chinook responsiveness is active.",
+            "detail": "Conditions support a meaningful Chinook response. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Late-run Chinook condition varies widely, so individual fish may respond above or below this outlook.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify other sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -32134,10 +32379,13 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 18,
+            "displayScore": 15,
+            "scoreIsApproximate": true,
             "stage": "tapering",
             "maximum": 100,
             "riverCeiling": 30,
@@ -32146,14 +32394,14 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "curveDirection": "falling",
             "winterHoldingContext": false,
             "label": "Moderate presence",
-            "headline": "Seasonal timing still supports a smaller number of Chinook salmon, especially in the river's most dependable holding water.",
-            "detail": "This part of the season usually supports moderate presence within this river's limited seasonal opportunity, while fresh arrivals often become less consistent later in the season. This is a seasonal estimate, not a live fish count. This seasonal presence applies to the accessible St. Joseph corridor as a whole; it does not claim equal fish numbers at the harbor, Niles, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Plan for a thinning, limited river opportunity. Expect substantial searching, and require direct fish activity before committing more time. Use Migration Stage to choose the specific St. Joseph section, then verify that water directly.",
+            "headline": "Seasonal Chinook salmon presence is moderate and declining.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the St. Joseph Chinook salmon ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_tapering",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -32407,6 +32655,7 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "nextConditionRefreshAt": "2026-10-27T05:00:00.000Z",
           "runStage": {
             "stage": "ending",
+            "copyStrategy": "st_joseph_corridor",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -32430,13 +32679,13 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             },
             "label": "Ending",
             "headline": "A limited late-season Chinook salmon opportunity may remain in dependable river sections.",
-            "detail": "Most remaining fish have been in the system for some time. A fresh fish is possible, but the guide-level plan is a short, selective holding-water search—not a corridor-wide run.",
-            "tip": "Fish one or two proven deep holding areas, avoid shallow spawning fish, and stop searching if direct signs are absent.",
-            "whereToStart": "Focus on proven deep holding water near Niles, South Bend, or Mishawaka; treat fresh lower-river entry as secondary and leave shallow spawning fish alone.",
+            "detail": "Most remaining fish have been in the river for some time. A fresh fish is possible but not dependable.",
+            "tip": "Fish one proven holding section, avoid shallow spawning fish, and stop searching if direct signs are absent.",
+            "whereToStart": "Start in one proven Middle river (Berrien Springs–Niles) or Upper river (Niles–Twin Branch Dam) holding section.",
             "reasonCodes": [
               "stage_ending"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Timing complete",
@@ -32514,7 +32763,7 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "conditions_checkpoint_peak_complete",
               "conditions_timing_complete"
             ],
-            "copyVersion": "river-run-copy-v27",
+            "copyVersion": "river-run-copy-v34",
             "previousCheckpointId": "peak_start",
             "previousCheckpointDate": "2026-09-22",
             "previousTimingLabel": "Insufficient evidence"
@@ -32531,9 +32780,9 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "push": {
             "score": 30,
             "label": "No clear push",
-            "headline": "Today's water does not show a clear signal for a fresh wave of fish.",
-            "detail": "The river is holding steady with no meaningful rise yet. Water temperature is favorable for fall migration and is relatively steady. Recent weather estimates indicate very little rain around the river. This Push describes fresh-movement support at Niles only; it does not prove a new wave at the harbor, Berrien Springs, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Fish established holding water from the head through the inside seam and tail. Do not spend the day racing between lower travel lanes for a wave the water does not support. Use the Niles signal to choose between Niles-area holding water and a lower-Michigan travel-water check; verify Indiana movement directly.",
+            "headline": "Niles water does not show a clear fresh-movement signal.",
+            "detail": "Niles flow is steady without a meaningful rise. Water temperature is favorable for fall migration and is relatively steady. Recent watershed weather shows little rain.",
+            "tip": "Keep Migration Stage’s section primary. Do not shift sections from this Niles read.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
@@ -32552,14 +32801,14 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-fall-chinook-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 93,
             "label": "Excellent",
             "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river. This flow shape applies to the Niles mainstem reach only; verify the harbor, lower Michigan river, individual tailwaters, and Indiana water directly.",
-            "tip": "Begin on the primary travel lane feeding deep holding water. Work each hole from its head through the inside seam and tail, then keep moving until fish establish a pattern. Apply this recommendation at Niles; recheck water shape and safe access before carrying it to another St. Joseph section.",
+            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. This read applies only to the Niles mainstem reach.",
+            "tip": "Cover readable seams and holding water with a controlled presentation. Verify every other section directly.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band"
@@ -32570,15 +32819,15 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 52,
             "maximum": 100,
             "label": "Moderate",
-            "headline": "Today’s Chinook activity outlook is moderate.",
-            "detail": "Some useful factors are present, but the response window is mixed. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. This score represents a remaining Chinook of unknown condition late in the season. A newly arrived or fresher fish may be more active than this score, while a spent or dying fish may respond less or not at all. Measured river conditions describe the St. Joseph mainstem at Niles. Water temperature, clarity, hydraulic shape, and presentation conditions can differ in the harbor and lower Michigan river, at individual ladder tailwaters, and through South Bend, Mishawaka, and the Twin Branch reach. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
-            "tip": "No late-season window should be treated as broadly favorable; use the block scores only for a living Chinook that is still capable of reacting. Apply this response window at Niles; verify temperature, clarity, flow shape, and legal access again before carrying it to another St. Joseph section.",
+            "headline": "Today’s Niles Chinook responsiveness is moderate.",
+            "detail": "Conditions offer mixed support for Chinook responsiveness. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Late-run Chinook condition varies widely, so individual fish may respond above or below this outlook.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify other sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -32631,10 +32880,13 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 11,
+            "displayScore": 10,
+            "scoreIsApproximate": true,
             "stage": "ending",
             "maximum": 100,
             "riverCeiling": 30,
@@ -32643,14 +32895,14 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "curveDirection": "falling",
             "winterHoldingContext": false,
             "label": "Limited presence",
-            "headline": "Seasonal timing still supports a few Chinook salmon in the river's most dependable holding water, but this limited opportunity is thinning.",
-            "detail": "This part of the season usually supports limited presence concentrated in the river's most dependable holes and slower holding water. This is a seasonal estimate, not a live fish count. This seasonal presence applies to the accessible St. Joseph corridor as a whole; it does not claim equal fish numbers at the harbor, Niles, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Treat this as a lower-odds late-season opportunity. Keep the trip flexible, and require direct fish activity before committing more time. Use Migration Stage to choose the specific St. Joseph section, then verify that water directly.",
+            "headline": "Seasonal Chinook salmon presence is limited and declining.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the St. Joseph Chinook salmon ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_ending",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -32904,6 +33156,7 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "nextConditionRefreshAt": "2026-11-02T05:00:00.000Z",
           "runStage": {
             "stage": "ending",
+            "copyStrategy": "st_joseph_corridor",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -32927,13 +33180,13 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             },
             "label": "Ending",
             "headline": "A limited late-season Chinook salmon opportunity may remain in dependable river sections.",
-            "detail": "Most remaining fish have been in the system for some time. A fresh fish is possible, but the guide-level plan is a short, selective holding-water search—not a corridor-wide run.",
-            "tip": "Fish one or two proven deep holding areas, avoid shallow spawning fish, and stop searching if direct signs are absent.",
-            "whereToStart": "Focus on proven deep holding water near Niles, South Bend, or Mishawaka; treat fresh lower-river entry as secondary and leave shallow spawning fish alone.",
+            "detail": "Most remaining fish have been in the river for some time. A fresh fish is possible but not dependable.",
+            "tip": "Fish one proven holding section, avoid shallow spawning fish, and stop searching if direct signs are absent.",
+            "whereToStart": "Start in one proven Middle river (Berrien Springs–Niles) or Upper river (Niles–Twin Branch Dam) holding section.",
             "reasonCodes": [
               "stage_ending"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Timing complete",
@@ -33011,7 +33264,7 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "conditions_checkpoint_peak_complete",
               "conditions_timing_complete"
             ],
-            "copyVersion": "river-run-copy-v27",
+            "copyVersion": "river-run-copy-v34",
             "previousCheckpointId": "peak_start",
             "previousCheckpointDate": "2026-09-22",
             "previousTimingLabel": "Insufficient evidence"
@@ -33028,9 +33281,9 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "push": {
             "score": 30,
             "label": "No clear push",
-            "headline": "Today's water does not show a clear signal for a fresh wave of fish.",
-            "detail": "The river is holding steady with no meaningful rise yet. Water temperature is favorable for fall migration and is relatively steady. Recent weather estimates indicate very little rain around the river. This Push describes fresh-movement support at Niles only; it does not prove a new wave at the harbor, Berrien Springs, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Fish established holding water from the head through the inside seam and tail. Do not spend the day racing between lower travel lanes for a wave the water does not support. Use the Niles signal to choose between Niles-area holding water and a lower-Michigan travel-water check; verify Indiana movement directly.",
+            "headline": "Niles water does not show a clear fresh-movement signal.",
+            "detail": "Niles flow is steady without a meaningful rise. Water temperature is favorable for fall migration and is relatively steady. Recent watershed weather shows little rain.",
+            "tip": "Keep Migration Stage’s section primary. Do not shift sections from this Niles read.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
@@ -33049,14 +33302,14 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-fall-chinook-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 93,
             "label": "Excellent",
             "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river. This flow shape applies to the Niles mainstem reach only; verify the harbor, lower Michigan river, individual tailwaters, and Indiana water directly.",
-            "tip": "Begin on the primary travel lane feeding deep holding water. Work each hole from its head through the inside seam and tail, then keep moving until fish establish a pattern. Apply this recommendation at Niles; recheck water shape and safe access before carrying it to another St. Joseph section.",
+            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. This read applies only to the Niles mainstem reach.",
+            "tip": "Cover readable seams and holding water with a controlled presentation. Verify every other section directly.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band"
@@ -33067,15 +33320,15 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 39,
             "maximum": 100,
             "label": "Reserved",
-            "headline": "Today’s Chinook activity outlook is reserved.",
-            "detail": "Fish may respond selectively, with important environmental limitations. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. This score represents a remaining Chinook of unknown condition late in the season. A newly arrived or fresher fish may be more active than this score, while a spent or dying fish may respond less or not at all. Measured river conditions describe the St. Joseph mainstem at Niles. Water temperature, clarity, hydraulic shape, and presentation conditions can differ in the harbor and lower Michigan river, at individual ladder tailwaters, and through South Bend, Mishawaka, and the Twin Branch reach. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
-            "tip": "No late-season window should be treated as broadly favorable; use the block scores only for a living Chinook that is still capable of reacting. Apply this response window at Niles; verify temperature, clarity, flow shape, and legal access again before carrying it to another St. Joseph section.",
+            "headline": "Today’s Niles Chinook responsiveness is reserved.",
+            "detail": "Chinook may respond selectively under current limitations. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Late-run Chinook condition varies widely, so individual fish may respond above or below this outlook.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify other sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -33128,10 +33381,13 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 6,
+            "displayScore": 5,
+            "scoreIsApproximate": true,
             "stage": "ending",
             "maximum": 100,
             "riverCeiling": 30,
@@ -33140,14 +33396,14 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "curveDirection": "falling",
             "winterHoldingContext": false,
             "label": "Low presence",
-            "headline": "A few Chinook salmon may still be in the river, with this limited seasonal presence increasingly scattered.",
-            "detail": "This part of the season usually supports low presence within this river's limited seasonal opportunity, while fresh arrivals often become less consistent later in the season. This is a seasonal estimate, not a live fish count. This seasonal presence applies to the accessible St. Joseph corridor as a whole; it does not claim equal fish numbers at the harbor, Niles, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Treat any remaining fish as a bonus rather than a dependable trip plan. Keep expectations narrow and be ready to shift to another seasonal species. Use Migration Stage to choose the specific St. Joseph section, then verify that water directly.",
+            "headline": "Seasonal Chinook salmon presence is low and declining.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the St. Joseph Chinook salmon ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_ending",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -33407,6 +33663,7 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "nextConditionRefreshAt": "2026-11-09T05:00:00.000Z",
           "runStage": {
             "stage": "post_run",
+            "copyStrategy": "st_joseph_corridor",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -33430,13 +33687,13 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             },
             "label": "After migration",
             "headline": "The main Chinook salmon migration is over.",
-            "detail": "A few late fish may remain below Twin Branch, but the main migration no longer supports a dependable St. Joseph trip.",
-            "tip": "Make only a selective established-water check, or shift to an active species. Do not chase isolated holdovers from ladder to ladder.",
-            "whereToStart": "Make only a selective check of established late holding water below Twin Branch; the main migration window has ended.",
+            "detail": "A few late fish may remain, but the main migration no longer supports a dependable trip.",
+            "tip": "Make one selective established-water check or shift to an active species.",
+            "whereToStart": "Make only a selective check in established Middle river (Berrien Springs–Niles) or Upper river (Niles–Twin Branch Dam) holding water.",
             "reasonCodes": [
               "stage_post_run"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Timing complete",
@@ -33514,7 +33771,7 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "conditions_checkpoint_peak_complete",
               "conditions_timing_complete"
             ],
-            "copyVersion": "river-run-copy-v27",
+            "copyVersion": "river-run-copy-v34",
             "previousCheckpointId": "peak_start",
             "previousCheckpointDate": "2026-09-22",
             "previousTimingLabel": "Insufficient evidence"
@@ -33538,14 +33795,14 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "push_tracking_complete"
             ],
             "rulesVersion": "st-joseph-fall-chinook-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 93,
             "label": "Excellent",
             "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river. This flow shape applies to the Niles mainstem reach only; verify the harbor, lower Michigan river, individual tailwaters, and Indiana water directly.",
-            "tip": "Begin on the primary travel lane feeding deep holding water. Work each hole from its head through the inside seam and tail, then keep moving until fish establish a pattern. Apply this recommendation at Niles; recheck water shape and safe access before carrying it to another St. Joseph section.",
+            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. This read applies only to the Niles mainstem reach.",
+            "tip": "Cover readable seams and holding water with a controlled presentation. Verify every other section directly.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band"
@@ -33556,15 +33813,15 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 39,
             "maximum": 100,
             "label": "Reserved",
-            "headline": "Today’s Chinook activity outlook is reserved.",
-            "detail": "Fish may respond selectively, with important environmental limitations. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. This score represents a remaining Chinook of unknown condition late in the season. A newly arrived or fresher fish may be more active than this score, while a spent or dying fish may respond less or not at all. Measured river conditions describe the St. Joseph mainstem at Niles. Water temperature, clarity, hydraulic shape, and presentation conditions can differ in the harbor and lower Michigan river, at individual ladder tailwaters, and through South Bend, Mishawaka, and the Twin Branch reach. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
-            "tip": "No late-season window should be treated as broadly favorable; use the block scores only for a living Chinook that is still capable of reacting. Apply this response window at Niles; verify temperature, clarity, flow shape, and legal access again before carrying it to another St. Joseph section.",
+            "headline": "Today’s Niles Chinook responsiveness is reserved.",
+            "detail": "Chinook may respond selectively under current limitations. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Late-run Chinook condition varies widely, so individual fish may respond above or below this outlook.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify other sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -33617,10 +33874,13 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 0,
+            "displayScore": 0,
+            "scoreIsApproximate": false,
             "stage": "post_run",
             "maximum": 100,
             "riverCeiling": 30,
@@ -33629,14 +33889,14 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "curveDirection": "falling",
             "winterHoldingContext": false,
             "label": "Migration complete",
-            "headline": "The season no longer supports a dependable in-river migration.",
-            "detail": "A few Chinook salmon may remain, but their presence is likely isolated rather than part of even a limited dependable opportunity. This seasonal presence applies to the accessible St. Joseph corridor as a whole; it does not claim equal fish numbers at the harbor, Niles, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Do not build a trip around scattered late fish. Shift to another seasonal species, and leave any actively spawning fish undisturbed. Use Migration Stage to choose the specific St. Joseph section, then verify that water directly.",
+            "headline": "The St. Joseph Chinook salmon migration no longer has dependable seasonal presence.",
+            "detail": "The seasonal estimate has reached zero. Isolated late fish are not a dependable migration opportunity.",
+            "tip": "Do not build a three-section search around isolated late fish.",
             "reasonCodes": [
               "stage_post_run",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -33902,6 +34162,7 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "nextConditionRefreshAt": "2026-10-01T05:00:00.000Z",
           "runStage": {
             "stage": "peak",
+            "copyStrategy": "st_joseph_corridor",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -33924,14 +34185,14 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "peakToEndDays": 37
             },
             "label": "Peak",
-            "headline": "This is the best St. Joseph Chinook salmon window, but it remains a selective 3-of-10 opportunity.",
-            "detail": "The calendar supports the best chance of finding Chinook in proven lower-Michigan, Niles, or selective Indiana holding water. It does not imply strong or uniform occupation of the full corridor.",
-            "tip": "Choose a proven section and cover deep holding water from head to tail. Change sections only after a clean search, and leave shallow spawning fish undisturbed.",
-            "whereToStart": "Start with proven lower-Michigan and Niles holding water, then make one selective South Bend or Mishawaka check below Twin Branch; this smaller Chinook run is not a reason to cover all 63 miles.",
+            "headline": "This is the best St. Joseph Chinook salmon window, but opportunity remains selective.",
+            "detail": "This is a limited 3-of-10 run, not a claim of strong or uniform presence.",
+            "tip": "Choose one section and cover it completely before changing reaches. Leave shallow spawning fish undisturbed.",
+            "whereToStart": "Start in the Middle river (Berrien Springs–Niles). Treat the Upper river (Niles–Twin Branch Dam) as a selective second check.",
             "reasonCodes": [
               "stage_peak"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -34000,7 +34261,7 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "conditions_insufficient",
               "conditions_checkpoint_peak_start"
             ],
-            "copyVersion": "river-run-copy-v27",
+            "copyVersion": "river-run-copy-v34",
             "previousCheckpointId": "building_established",
             "previousCheckpointDate": "2026-09-15",
             "previousTimingLabel": "Insufficient evidence"
@@ -34017,9 +34278,9 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "push": {
             "score": 71,
             "label": "Strong",
-            "headline": "Today's river rise and water temperature strongly support the possibility of a fresh wave moving into the river.",
-            "detail": "The river has made a clear rise since yesterday. Overall flow is already high. Water temperature is favorable for fall migration and is cooling. Additional rain does not improve the read while the river is already high. This Push describes fresh-movement support at Niles only; it does not prove a new wave at the harbor, Berrien Springs, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Begin on lower-river travel lanes and inside seams, then work the first resting holes along that route. Keep moving until fish establish a pattern; the signal still does not prove a wave entered. Use the Niles signal to choose between Niles-area holding water and a lower-Michigan travel-water check; verify Indiana movement directly.",
+            "headline": "Niles water strongly supports possible fresh movement.",
+            "detail": "Niles flow has made a clear rise, while overall flow is high. Water temperature is favorable for fall migration and is cooling. Rain adds no support while Niles flow is already high.",
+            "tip": "Use Niles as the movement check, then verify the Lower and Upper river directly.",
             "reasonCodes": [
               "gauge_fresh",
               "push_high_flow_context",
@@ -34037,14 +34298,14 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-fall-chinook-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 32,
             "label": "Tough",
             "headline": "The river is running very high, leaving fewer practical places to fish effectively.",
-            "detail": "Very high flow is reducing access and the amount of water where a presentation can be controlled. The rising water is pushing hard through the main channel and compressing practical fishing water along protected edges. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river. This flow shape applies to the Niles mainstem reach only; verify the harbor, lower Michigan river, individual tailwaters, and Indiana water directly.",
-            "tip": "Fish only protected margins, inside bends, and the downstream side of major current breaks. Leave the main-channel current alone while the rise continues. Apply this recommendation at Niles; recheck water shape and safe access before carrying it to another St. Joseph section.",
+            "detail": "Very high flow is reducing access and the amount of water where a presentation can be controlled. The rising water is pushing hard through the main channel and compressing practical fishing water along protected edges. This read applies only to the Niles mainstem reach.",
+            "tip": "Favor protected margins and short controlled presentations. Choose another day if control is not dependable. Verify every other section directly.",
             "reasonCodes": [
               "gauge_fresh",
               "very_high_flow_band"
@@ -34055,15 +34316,15 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 72,
             "maximum": 100,
             "label": "Active",
-            "headline": "Today’s Chinook activity outlook is active.",
-            "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: The river level or its recent change is less favorable. Broad seasonal presence improves the chance of locating fish, but this score measures responsiveness rather than abundance. Measured river conditions describe the St. Joseph mainstem at Niles. Water temperature, clarity, hydraulic shape, and presentation conditions can differ in the harbor and lower Michigan river, at individual ladder tailwaters, and through South Bend, Mishawaka, and the Twin Branch reach. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
-            "tip": "Start with 5–9 AM. If the sky changes from the forecast, favor the darkest practical window. Apply this response window at Niles; verify temperature, clarity, flow shape, and legal access again before carrying it to another St. Joseph section.",
+            "headline": "Today’s Niles Chinook responsiveness is active.",
+            "detail": "Conditions support a meaningful Chinook response. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Flow and temperature represent only the Niles mainstem reach.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify other sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -34115,10 +34376,13 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 29,
+            "displayScore": 30,
+            "scoreIsApproximate": true,
             "stage": "peak",
             "maximum": 100,
             "riverCeiling": 30,
@@ -34127,14 +34391,14 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "curveDirection": "falling",
             "winterHoldingContext": false,
             "label": "Peak presence",
-            "headline": "Seasonal timing still supports Chinook salmon being near their strongest in-river presence, even if the migration may be just beyond its usual peak.",
-            "detail": "This point in the season may sit just beyond the usual peak while the limited seasonal opportunity remains near its high point. This is a seasonal estimate, not a live fish count. This seasonal presence applies to the accessible St. Joseph corridor as a whole; it does not claim equal fish numbers at the harbor, Niles, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Treat this as near the high point of a limited seasonal opportunity. Focus on the most dependable water, and require direct fish activity before committing more time. Use Migration Stage to choose the specific St. Joseph section, then verify that water directly.",
+            "headline": "Seasonal Chinook salmon presence is near its expected St. Joseph peak.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the St. Joseph Chinook salmon ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_peak",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -34394,6 +34658,7 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "nextConditionRefreshAt": "2026-10-01T05:00:00.000Z",
           "runStage": {
             "stage": "peak",
+            "copyStrategy": "st_joseph_corridor",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -34416,14 +34681,14 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "peakToEndDays": 37
             },
             "label": "Peak",
-            "headline": "This is the best St. Joseph Chinook salmon window, but it remains a selective 3-of-10 opportunity.",
-            "detail": "The calendar supports the best chance of finding Chinook in proven lower-Michigan, Niles, or selective Indiana holding water. It does not imply strong or uniform occupation of the full corridor.",
-            "tip": "Choose a proven section and cover deep holding water from head to tail. Change sections only after a clean search, and leave shallow spawning fish undisturbed.",
-            "whereToStart": "Start with proven lower-Michigan and Niles holding water, then make one selective South Bend or Mishawaka check below Twin Branch; this smaller Chinook run is not a reason to cover all 63 miles.",
+            "headline": "This is the best St. Joseph Chinook salmon window, but opportunity remains selective.",
+            "detail": "This is a limited 3-of-10 run, not a claim of strong or uniform presence.",
+            "tip": "Choose one section and cover it completely before changing reaches. Leave shallow spawning fish undisturbed.",
+            "whereToStart": "Start in the Middle river (Berrien Springs–Niles). Treat the Upper river (Niles–Twin Branch Dam) as a selective second check.",
             "reasonCodes": [
               "stage_peak"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -34492,7 +34757,7 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "conditions_insufficient",
               "conditions_checkpoint_peak_start"
             ],
-            "copyVersion": "river-run-copy-v27",
+            "copyVersion": "river-run-copy-v34",
             "previousCheckpointId": "building_established",
             "previousCheckpointDate": "2026-09-15",
             "previousTimingLabel": "Insufficient evidence"
@@ -34509,9 +34774,9 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "push": {
             "score": 0,
             "label": "Weak",
-            "headline": "Today's water shows little support for a fresh wave of fish.",
-            "detail": "The river is falling instead of showing a fresh rise. Water temperature remains too warm to support a strong Push but is warming sharply. Recent weather estimates indicate very little rain around the river. This Push describes fresh-movement support at Niles only; it does not prove a new wave at the harbor, Berrien Springs, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Do not build the day around new arrivals while the river remains warm. Start in established holding water at first or last light and leave lower travel lanes secondary. Use the Niles signal to choose between Niles-area holding water and a lower-Michigan travel-water check; verify Indiana movement directly.",
+            "headline": "Niles water shows little support for fresh movement.",
+            "detail": "Niles flow is falling. Water temperature remains too warm to support a strong Push but is warming sharply. Recent watershed weather shows little rain.",
+            "tip": "Keep Migration Stage’s section primary. Do not shift sections from this Niles read.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
@@ -34531,14 +34796,14 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-fall-chinook-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 57,
             "label": "Fishable",
             "headline": "The river is fishable, but lower water leaves less cover and less room for error.",
-            "detail": "Water is lower than ideal but still workable, with less depth and cover across the river. The river is still falling, so shallow lanes may lose depth while the deepest connected water becomes more important. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river. This flow shape applies to the Niles mainstem reach only; verify the harbor, lower Michigan river, individual tailwaters, and Indiana water directly.",
-            "tip": "Begin in the deepest connected holding water and fish its shaded edge first. Skip shallow travel lanes that are draining as the river falls. Apply this recommendation at Niles; recheck water shape and safe access before carrying it to another St. Joseph section.",
+            "detail": "Water is lower than ideal but still workable, with less depth and cover across the river. The river is still falling, so shallow lanes may lose depth while the deepest connected water becomes more important. This read applies only to the Niles mainstem reach.",
+            "tip": "Use the deepest connected water and keep disturbance low. Verify every other section directly.",
             "reasonCodes": [
               "gauge_fresh",
               "low_flow_band"
@@ -34549,15 +34814,15 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 66,
             "maximum": 100,
             "label": "Active",
-            "headline": "Today’s Chinook activity outlook is active.",
-            "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: The river level or its recent change is less favorable. Broad seasonal presence improves the chance of locating fish, but this score measures responsiveness rather than abundance. Measured river conditions describe the St. Joseph mainstem at Niles. Water temperature, clarity, hydraulic shape, and presentation conditions can differ in the harbor and lower Michigan river, at individual ladder tailwaters, and through South Bend, Mishawaka, and the Twin Branch reach. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
-            "tip": "Start with 5–9 AM. If the sky changes from the forecast, favor the darkest practical window. Apply this response window at Niles; verify temperature, clarity, flow shape, and legal access again before carrying it to another St. Joseph section.",
+            "headline": "Today’s Niles Chinook responsiveness is active.",
+            "detail": "Conditions support a meaningful Chinook response. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Flow and temperature represent only the Niles mainstem reach.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify other sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -34609,10 +34874,13 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 29,
+            "displayScore": 30,
+            "scoreIsApproximate": true,
             "stage": "peak",
             "maximum": 100,
             "riverCeiling": 30,
@@ -34621,14 +34889,14 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "curveDirection": "falling",
             "winterHoldingContext": false,
             "label": "Peak presence",
-            "headline": "Seasonal timing still supports Chinook salmon being near their strongest in-river presence, even if the migration may be just beyond its usual peak.",
-            "detail": "This point in the season may sit just beyond the usual peak while the limited seasonal opportunity remains near its high point. This is a seasonal estimate, not a live fish count. This seasonal presence applies to the accessible St. Joseph corridor as a whole; it does not claim equal fish numbers at the harbor, Niles, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Treat this as near the high point of a limited seasonal opportunity. Focus on the most dependable water, and require direct fish activity before committing more time. Use Migration Stage to choose the specific St. Joseph section, then verify that water directly.",
+            "headline": "Seasonal Chinook salmon presence is near its expected St. Joseph peak.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the St. Joseph Chinook salmon ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_peak",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -34888,6 +35156,7 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "nextConditionRefreshAt": "2026-09-21T05:00:00.000Z",
           "runStage": {
             "stage": "building",
+            "copyStrategy": "st_joseph_corridor",
             "stagingContext": false,
             "broadBuildingContext": true,
             "winterHoldingContext": false,
@@ -34910,14 +35179,14 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "peakToEndDays": 37
             },
             "label": "Building",
-            "headline": "Chinook salmon are established in select St. Joseph sections, but this remains a limited run.",
-            "detail": "Earlier fish can be holding from lower Michigan through Niles, with some passage into South Bend and Mishawaka. Empty water between fish remains normal for this smaller Chinook return.",
-            "tip": "Pick one proven Michigan or Niles holding section and fish it thoroughly before making one legal Indiana check. Do not run every ladder looking for scattered Chinook.",
-            "whereToStart": "Prioritize proven lower-Michigan and Niles holding water; use South Bend or Mishawaka only as selective passage checks, always away from posted ladder and dam boundaries.",
+            "headline": "Chinook salmon are established in select St. Joseph sections.",
+            "detail": "This smaller Chinook run remains selective, with empty water between fish.",
+            "tip": "Fish one proven section thoroughly before making a selective second check.",
+            "whereToStart": "Start in the Middle river (Berrien Springs–Niles). Check the Upper river (Niles–Twin Branch Dam) only as a selective comparison.",
             "reasonCodes": [
               "stage_building"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -34979,7 +35248,7 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "conditions_insufficient",
               "conditions_checkpoint_building_established"
             ],
-            "copyVersion": "river-run-copy-v27",
+            "copyVersion": "river-run-copy-v34",
             "previousCheckpointId": "building_start",
             "previousCheckpointDate": "2026-09-11",
             "previousTimingLabel": "Insufficient evidence"
@@ -35004,14 +35273,14 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "temperature_unavailable"
             ],
             "rulesVersion": "st-joseph-fall-chinook-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 93,
             "label": "Excellent",
             "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river. This flow shape applies to the Niles mainstem reach only; verify the harbor, lower Michigan river, individual tailwaters, and Indiana water directly.",
-            "tip": "Begin on the primary travel lane feeding deep holding water. Work each hole from its head through the inside seam and tail, then keep moving until fish establish a pattern. Apply this recommendation at Niles; recheck water shape and safe access before carrying it to another St. Joseph section.",
+            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. This read applies only to the Niles mainstem reach.",
+            "tip": "Cover readable seams and holding water with a controlled presentation. Verify every other section directly.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band"
@@ -35022,15 +35291,15 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 53,
             "maximum": 100,
             "label": "Moderate",
-            "headline": "Today’s Chinook activity outlook is moderate.",
-            "detail": "Some useful factors are present, but the response window is mixed. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Measured water temperature is unavailable. More Chinook are moving and settling into the river; the score describes reaction conditions for fish already present. Measured river conditions describe the St. Joseph mainstem at Niles. Water temperature, clarity, hydraulic shape, and presentation conditions can differ in the harbor and lower Michigan river, at individual ladder tailwaters, and through South Bend, Mishawaka, and the Twin Branch reach. This smaller Chinook return is often sectional; a favorable Niles response window does not prove equal fish presence through the five-ladder corridor. One important reading is unavailable or comes from tomorrow’s forecast, so the outlook is kept conservative.",
-            "tip": "Start with 5–9 AM. If the sky changes from the forecast, favor the darkest practical window. Apply this response window at Niles; verify temperature, clarity, flow shape, and legal access again before carrying it to another St. Joseph section.",
+            "headline": "Today’s Niles Chinook responsiveness is moderate.",
+            "detail": "Conditions offer mixed support for Chinook responsiveness. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Moderate confidence reflects missing or forecast inputs; river measurements still represent only Niles.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify other sections directly.",
             "reasonCodes": [
               "activity_confidence_moderate",
               "activity_today",
@@ -35082,10 +35351,13 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 23,
+            "displayScore": 25,
+            "scoreIsApproximate": true,
             "stage": "building",
             "maximum": 100,
             "riverCeiling": 30,
@@ -35094,14 +35366,14 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "curveDirection": "rising",
             "winterHoldingContext": false,
             "label": "High presence",
-            "headline": "Chinook salmon are likely filling more of the river's dependable holding water as seasonal presence builds toward its strongest point.",
-            "detail": "Seasonal presence is usually elevated relative to the rest of the season, with a smaller number of fish expected to enter and occupy its most dependable water. This is a seasonal estimate, not a live fish count. This seasonal presence applies to the accessible St. Joseph corridor as a whole; it does not claim equal fish numbers at the harbor, Niles, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Treat this as one of the better parts of the season, while remembering that this river's overall opportunity remains limited. Give each stop a complete pass, but do not mistake this seasonal estimate for a live fish count. Use Migration Stage to choose the specific St. Joseph section, then verify that water directly.",
+            "headline": "Seasonal Chinook salmon presence is high and building.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the St. Joseph Chinook salmon ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_building",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -35338,6 +35610,7 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "nextConditionRefreshAt": "2026-08-16T05:00:00.000Z",
           "runStage": {
             "stage": "pre_run",
+            "copyStrategy": "st_joseph_corridor",
             "stagingContext": true,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -35360,15 +35633,15 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "peakToEndDays": 37
             },
             "label": "Before migration",
-            "headline": "Chinook salmon may be staging around the St. Joseph harbor and mouth, but dependable inland passage has not begun.",
-            "detail": "A few early Chinook salmon can enter lower Michigan water, but this smaller run should not be projected through Niles, South Bend, or Mishawaka from one fish near the mouth.",
-            "tip": "Fish the harbor-to-river transition and one deep lower-river travel lane. Skip an inland corridor run until Migration Stage and Fish In River show dependable entry.",
-            "whereToStart": "Start with the St. Joseph harbor, river mouth, and deep lower Michigan travel water; do not assume fish have passed Niles or reached South Bend.",
+            "headline": "Chinook salmon may be staging near the St. Joseph River entrance.",
+            "detail": "Staging does not confirm dependable river entry. This remains a limited, sectional Chinook salmon run.",
+            "tip": "Keep the inland check brief. Do not move upriver from calendar timing alone.",
+            "whereToStart": "Start at the St. Joseph harbor and river mouth. Add the Lower river (St. Joseph harbor–Berrien Springs) only for an early-fish check.",
             "reasonCodes": [
               "stage_pre_run",
               "stage_pre_run_staging"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Evaluating",
@@ -35393,7 +35666,7 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "conditions_checkpoint_evaluating"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -35414,14 +35687,14 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "push_tracking_not_started"
             ],
             "rulesVersion": "st-joseph-fall-chinook-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 93,
             "label": "Excellent",
             "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river. This flow shape applies to the Niles mainstem reach only; verify the harbor, lower Michigan river, individual tailwaters, and Indiana water directly.",
-            "tip": "Begin on the primary travel lane feeding deep holding water. Work each hole from its head through the inside seam and tail, then keep moving until fish establish a pattern. Apply this recommendation at Niles; recheck water shape and safe access before carrying it to another St. Joseph section.",
+            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. This read applies only to the Niles mainstem reach.",
+            "tip": "Cover readable seams and holding water with a controlled presentation. Verify every other section directly.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band"
@@ -35432,15 +35705,15 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 79,
             "maximum": 100,
             "label": "Active",
-            "headline": "Today’s Chinook activity outlook is active.",
-            "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. Dependable river presence has not begun. The score applies only to a sparse early Chinook that may already have entered. Measured river conditions describe the St. Joseph mainstem at Niles. Water temperature, clarity, hydraulic shape, and presentation conditions can differ in the harbor and lower Michigan river, at individual ladder tailwaters, and through South Bend, Mishawaka, and the Twin Branch reach. This smaller Chinook return is often sectional; a favorable Niles response window does not prove equal fish presence through the five-ladder corridor. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
-            "tip": "Start with 5–9 AM. If the sky changes from the forecast, favor the darkest practical window. Apply this response window at Niles; verify temperature, clarity, flow shape, and legal access again before carrying it to another St. Joseph section.",
+            "headline": "Today’s Niles responsiveness is active, but dependable Chinook presence has not begun.",
+            "detail": "Conditions support a meaningful Chinook response. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. This applies only to an early Chinook already near Niles.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify other sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -35492,10 +35765,13 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 0,
+            "displayScore": 0,
+            "scoreIsApproximate": false,
             "stage": "pre_run",
             "maximum": 100,
             "riverCeiling": 30,
@@ -35504,14 +35780,14 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "curveDirection": "outside",
             "winterHoldingContext": false,
             "label": "Not expected yet",
-            "headline": "Even a limited dependable presence of Chinook salmon is not expected in the river yet.",
-            "detail": "Most Chinook salmon are not expected to have entered the river in dependable numbers. Any fish already present would be early exceptions. This seasonal presence applies to the accessible St. Joseph corridor as a whole; it does not claim equal fish numbers at the harbor, Niles, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Treat this as no dependable in-river opportunity yet. Keep expectations at zero, and do not interpret an isolated early fish as evidence of dependable river presence. Use Migration Stage to choose the specific St. Joseph section, then verify that water directly.",
+            "headline": "Dependable Chinook salmon presence is not expected in the St. Joseph yet.",
+            "detail": "The seasonal estimate remains at zero. Any river fish would be an early exception.",
+            "tip": "Use Migration Stage for harbor and river-entry context.",
             "reasonCodes": [
               "stage_pre_run",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -35776,6 +36052,7 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "nextConditionRefreshAt": "2026-10-01T05:00:00.000Z",
           "runStage": {
             "stage": "peak",
+            "copyStrategy": "st_joseph_corridor",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -35798,14 +36075,14 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "peakToEndDays": 37
             },
             "label": "Peak",
-            "headline": "This is the best St. Joseph Chinook salmon window, but it remains a selective 3-of-10 opportunity.",
-            "detail": "The calendar supports the best chance of finding Chinook in proven lower-Michigan, Niles, or selective Indiana holding water. It does not imply strong or uniform occupation of the full corridor.",
-            "tip": "Choose a proven section and cover deep holding water from head to tail. Change sections only after a clean search, and leave shallow spawning fish undisturbed.",
-            "whereToStart": "Start with proven lower-Michigan and Niles holding water, then make one selective South Bend or Mishawaka check below Twin Branch; this smaller Chinook run is not a reason to cover all 63 miles.",
+            "headline": "This is the best St. Joseph Chinook salmon window, but opportunity remains selective.",
+            "detail": "This is a limited 3-of-10 run, not a claim of strong or uniform presence.",
+            "tip": "Choose one section and cover it completely before changing reaches. Leave shallow spawning fish undisturbed.",
+            "whereToStart": "Start in the Middle river (Berrien Springs–Niles). Treat the Upper river (Niles–Twin Branch Dam) as a selective second check.",
             "reasonCodes": [
               "stage_peak"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -35874,7 +36151,7 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "conditions_insufficient",
               "conditions_checkpoint_peak_start"
             ],
-            "copyVersion": "river-run-copy-v27",
+            "copyVersion": "river-run-copy-v34",
             "previousCheckpointId": "building_established",
             "previousCheckpointDate": "2026-09-15",
             "previousTimingLabel": "Insufficient evidence"
@@ -35891,9 +36168,9 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "push": {
             "score": 30,
             "label": "No clear push",
-            "headline": "Today's water does not show a clear signal for a fresh wave of fish.",
-            "detail": "The river is holding steady with no meaningful rise yet. Water temperature is favorable for fall migration and is relatively steady. Recent weather estimates indicate very little rain around the river. This Push describes fresh-movement support at Niles only; it does not prove a new wave at the harbor, Berrien Springs, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Fish established holding water from the head through the inside seam and tail. Do not spend the day racing between lower travel lanes for a wave the water does not support. Use the Niles signal to choose between Niles-area holding water and a lower-Michigan travel-water check; verify Indiana movement directly.",
+            "headline": "Niles water does not show a clear fresh-movement signal.",
+            "detail": "Niles flow is steady without a meaningful rise. Water temperature is favorable for fall migration and is relatively steady. Recent watershed weather shows little rain.",
+            "tip": "Keep Migration Stage’s section primary. Do not shift sections from this Niles read.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
@@ -35912,14 +36189,14 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-fall-chinook-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 93,
             "label": "Excellent",
             "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river. This flow shape applies to the Niles mainstem reach only; verify the harbor, lower Michigan river, individual tailwaters, and Indiana water directly.",
-            "tip": "Begin on the primary travel lane feeding deep holding water. Work each hole from its head through the inside seam and tail, then keep moving until fish establish a pattern. Apply this recommendation at Niles; recheck water shape and safe access before carrying it to another St. Joseph section.",
+            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. This read applies only to the Niles mainstem reach.",
+            "tip": "Cover readable seams and holding water with a controlled presentation. Verify every other section directly.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band"
@@ -35930,15 +36207,15 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 79,
             "maximum": 100,
             "label": "Active",
-            "headline": "Today’s Chinook activity outlook is active.",
-            "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. Broad seasonal presence improves the chance of locating fish, but this score measures responsiveness rather than abundance. Measured river conditions describe the St. Joseph mainstem at Niles. Water temperature, clarity, hydraulic shape, and presentation conditions can differ in the harbor and lower Michigan river, at individual ladder tailwaters, and through South Bend, Mishawaka, and the Twin Branch reach. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
-            "tip": "Start with 5–9 AM. If the sky changes from the forecast, favor the darkest practical window. Apply this response window at Niles; verify temperature, clarity, flow shape, and legal access again before carrying it to another St. Joseph section.",
+            "headline": "Today’s Niles Chinook responsiveness is active.",
+            "detail": "Conditions support a meaningful Chinook response. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Flow and temperature represent only the Niles mainstem reach.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify other sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -35990,10 +36267,13 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 29,
+            "displayScore": 30,
+            "scoreIsApproximate": true,
             "stage": "peak",
             "maximum": 100,
             "riverCeiling": 30,
@@ -36002,14 +36282,14 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "curveDirection": "falling",
             "winterHoldingContext": false,
             "label": "Peak presence",
-            "headline": "Seasonal timing still supports Chinook salmon being near their strongest in-river presence, even if the migration may be just beyond its usual peak.",
-            "detail": "This point in the season may sit just beyond the usual peak while the limited seasonal opportunity remains near its high point. This is a seasonal estimate, not a live fish count. This seasonal presence applies to the accessible St. Joseph corridor as a whole; it does not claim equal fish numbers at the harbor, Niles, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Treat this as near the high point of a limited seasonal opportunity. Focus on the most dependable water, and require direct fish activity before committing more time. Use Migration Stage to choose the specific St. Joseph section, then verify that water directly.",
+            "headline": "Seasonal Chinook salmon presence is near its expected St. Joseph peak.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the St. Joseph Chinook salmon ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_peak",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -36269,6 +36549,7 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "nextConditionRefreshAt": "2026-10-01T05:00:00.000Z",
           "runStage": {
             "stage": "peak",
+            "copyStrategy": "st_joseph_corridor",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -36291,14 +36572,14 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "peakToEndDays": 37
             },
             "label": "Peak",
-            "headline": "This is the best St. Joseph Chinook salmon window, but it remains a selective 3-of-10 opportunity.",
-            "detail": "The calendar supports the best chance of finding Chinook in proven lower-Michigan, Niles, or selective Indiana holding water. It does not imply strong or uniform occupation of the full corridor.",
-            "tip": "Choose a proven section and cover deep holding water from head to tail. Change sections only after a clean search, and leave shallow spawning fish undisturbed.",
-            "whereToStart": "Start with proven lower-Michigan and Niles holding water, then make one selective South Bend or Mishawaka check below Twin Branch; this smaller Chinook run is not a reason to cover all 63 miles.",
+            "headline": "This is the best St. Joseph Chinook salmon window, but opportunity remains selective.",
+            "detail": "This is a limited 3-of-10 run, not a claim of strong or uniform presence.",
+            "tip": "Choose one section and cover it completely before changing reaches. Leave shallow spawning fish undisturbed.",
+            "whereToStart": "Start in the Middle river (Berrien Springs–Niles). Treat the Upper river (Niles–Twin Branch Dam) as a selective second check.",
             "reasonCodes": [
               "stage_peak"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -36367,7 +36648,7 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "conditions_insufficient",
               "conditions_checkpoint_peak_start"
             ],
-            "copyVersion": "river-run-copy-v27",
+            "copyVersion": "river-run-copy-v34",
             "previousCheckpointId": "building_established",
             "previousCheckpointDate": "2026-09-15",
             "previousTimingLabel": "Insufficient evidence"
@@ -36384,9 +36665,9 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "push": {
             "score": 20,
             "label": "Weak",
-            "headline": "The water may support fresh movement, but an aging river reading limits confidence.",
-            "detail": "The river is holding steady with no meaningful rise yet. Water temperature is favorable for fall migration and is relatively steady. Recent weather estimates indicate very little rain around the river. The latest river-level reading is aging, so confidence is reduced. This Push describes fresh-movement support at Niles only; it does not prove a new wave at the harbor, Berrien Springs, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Do not relocate the trip around this Push read. Begin in established holding water, verify the river at the first access, and add travel lanes only after confirming workable conditions. Use the Niles signal to choose between Niles-area holding water and a lower-Michigan travel-water check; verify Indiana movement directly.",
+            "headline": "Niles water shows little support for fresh movement.",
+            "detail": "Niles flow is steady without a meaningful rise. Water temperature is favorable for fall migration and is relatively steady. The Niles reading is aging, so confidence is reduced.",
+            "tip": "Keep Migration Stage’s section primary. Do not shift sections from this Niles read.",
             "reasonCodes": [
               "gauge_stale",
               "push_normal_flow_context",
@@ -36406,14 +36687,14 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-fall-chinook-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 55,
             "label": "Fishable",
             "headline": "The last river reading was fishable, but it is aging and may no longer describe the water accurately.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. Because the latest reading is aging, the river may have changed since it was reported. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river. This flow shape applies to the Niles mainstem reach only; verify the harbor, lower Michigan river, individual tailwaters, and Indiana water directly.",
-            "tip": "Do not choose a reach from this reading alone. Check the water at the first access, and begin only in bank-side water where you can control the entire presentation. Apply this recommendation at Niles; recheck water shape and safe access before carrying it to another St. Joseph section.",
+            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. Because the latest reading is aging, the river may have changed since it was reported. This read applies only to the Niles mainstem reach.",
+            "tip": "Verify the Niles reach directly before choosing presentation water. Verify every other section directly.",
             "reasonCodes": [
               "gauge_stale",
               "ideal_flow_band",
@@ -36427,15 +36708,15 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               ]
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 53,
             "maximum": 100,
             "label": "Moderate",
-            "headline": "Today’s Chinook activity outlook is moderate.",
-            "detail": "Some useful factors are present, but the response window is mixed. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Current river behavior is unavailable. Broad seasonal presence improves the chance of locating fish, but this score measures responsiveness rather than abundance. Measured river conditions describe the St. Joseph mainstem at Niles. Water temperature, clarity, hydraulic shape, and presentation conditions can differ in the harbor and lower Michigan river, at individual ladder tailwaters, and through South Bend, Mishawaka, and the Twin Branch reach. One important reading is unavailable or comes from tomorrow’s forecast, so the outlook is kept conservative.",
-            "tip": "Start with 5–9 AM. If the sky changes from the forecast, favor the darkest practical window. Apply this response window at Niles; verify temperature, clarity, flow shape, and legal access again before carrying it to another St. Joseph section.",
+            "headline": "Today’s Niles Chinook responsiveness is moderate.",
+            "detail": "Conditions offer mixed support for Chinook responsiveness. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Moderate confidence reflects missing or forecast inputs; river measurements still represent only Niles.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify other sections directly.",
             "reasonCodes": [
               "activity_confidence_moderate",
               "activity_today",
@@ -36487,10 +36768,13 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 29,
+            "displayScore": 30,
+            "scoreIsApproximate": true,
             "stage": "peak",
             "maximum": 100,
             "riverCeiling": 30,
@@ -36499,14 +36783,14 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "curveDirection": "falling",
             "winterHoldingContext": false,
             "label": "Peak presence",
-            "headline": "Seasonal timing still supports Chinook salmon being near their strongest in-river presence, even if the migration may be just beyond its usual peak.",
-            "detail": "This point in the season may sit just beyond the usual peak while the limited seasonal opportunity remains near its high point. This is a seasonal estimate, not a live fish count. This seasonal presence applies to the accessible St. Joseph corridor as a whole; it does not claim equal fish numbers at the harbor, Niles, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Treat this as near the high point of a limited seasonal opportunity. Focus on the most dependable water, and require direct fish activity before committing more time. Use Migration Stage to choose the specific St. Joseph section, then verify that water directly.",
+            "headline": "Seasonal Chinook salmon presence is near its expected St. Joseph peak.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the St. Joseph Chinook salmon ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_peak",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -36766,6 +37050,7 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "nextConditionRefreshAt": "2026-10-01T05:00:00.000Z",
           "runStage": {
             "stage": "peak",
+            "copyStrategy": "st_joseph_corridor",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -36788,14 +37073,14 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "peakToEndDays": 37
             },
             "label": "Peak",
-            "headline": "This is the best St. Joseph Chinook salmon window, but it remains a selective 3-of-10 opportunity.",
-            "detail": "The calendar supports the best chance of finding Chinook in proven lower-Michigan, Niles, or selective Indiana holding water. It does not imply strong or uniform occupation of the full corridor.",
-            "tip": "Choose a proven section and cover deep holding water from head to tail. Change sections only after a clean search, and leave shallow spawning fish undisturbed.",
-            "whereToStart": "Start with proven lower-Michigan and Niles holding water, then make one selective South Bend or Mishawaka check below Twin Branch; this smaller Chinook run is not a reason to cover all 63 miles.",
+            "headline": "This is the best St. Joseph Chinook salmon window, but opportunity remains selective.",
+            "detail": "This is a limited 3-of-10 run, not a claim of strong or uniform presence.",
+            "tip": "Choose one section and cover it completely before changing reaches. Leave shallow spawning fish undisturbed.",
+            "whereToStart": "Start in the Middle river (Berrien Springs–Niles). Treat the Upper river (Niles–Twin Branch Dam) as a selective second check.",
             "reasonCodes": [
               "stage_peak"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -36864,7 +37149,7 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "conditions_insufficient",
               "conditions_checkpoint_peak_start"
             ],
-            "copyVersion": "river-run-copy-v27",
+            "copyVersion": "river-run-copy-v34",
             "previousCheckpointId": "building_established",
             "previousCheckpointDate": "2026-09-15",
             "previousTimingLabel": "Insufficient evidence"
@@ -36888,7 +37173,7 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "gauge_missing"
             ],
             "rulesVersion": "st-joseph-fall-chinook-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": null,
@@ -36900,15 +37185,15 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "gauge_missing"
             ],
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 53,
             "maximum": 100,
             "label": "Moderate",
-            "headline": "Today’s Chinook activity outlook is moderate.",
-            "detail": "Some useful factors are present, but the response window is mixed. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Current river behavior is unavailable. Broad seasonal presence improves the chance of locating fish, but this score measures responsiveness rather than abundance. Measured river conditions describe the St. Joseph mainstem at Niles. Water temperature, clarity, hydraulic shape, and presentation conditions can differ in the harbor and lower Michigan river, at individual ladder tailwaters, and through South Bend, Mishawaka, and the Twin Branch reach. One important reading is unavailable or comes from tomorrow’s forecast, so the outlook is kept conservative.",
-            "tip": "Start with 5–9 AM. If the sky changes from the forecast, favor the darkest practical window. Apply this response window at Niles; verify temperature, clarity, flow shape, and legal access again before carrying it to another St. Joseph section.",
+            "headline": "Today’s Niles Chinook responsiveness is moderate.",
+            "detail": "Conditions offer mixed support for Chinook responsiveness. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Moderate confidence reflects missing or forecast inputs; river measurements still represent only Niles.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify other sections directly.",
             "reasonCodes": [
               "activity_confidence_moderate",
               "activity_today",
@@ -36960,10 +37245,13 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 29,
+            "displayScore": 30,
+            "scoreIsApproximate": true,
             "stage": "peak",
             "maximum": 100,
             "riverCeiling": 30,
@@ -36972,14 +37260,14 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "curveDirection": "falling",
             "winterHoldingContext": false,
             "label": "Peak presence",
-            "headline": "Seasonal timing still supports Chinook salmon being near their strongest in-river presence, even if the migration may be just beyond its usual peak.",
-            "detail": "This point in the season may sit just beyond the usual peak while the limited seasonal opportunity remains near its high point. This is a seasonal estimate, not a live fish count. This seasonal presence applies to the accessible St. Joseph corridor as a whole; it does not claim equal fish numbers at the harbor, Niles, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Treat this as near the high point of a limited seasonal opportunity. Focus on the most dependable water, and require direct fish activity before committing more time. Use Migration Stage to choose the specific St. Joseph section, then verify that water directly.",
+            "headline": "Seasonal Chinook salmon presence is near its expected St. Joseph peak.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the St. Joseph Chinook salmon ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_peak",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": null,
           "weather": {
@@ -37223,6 +37511,7 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "nextConditionRefreshAt": "2026-10-01T05:00:00.000Z",
           "runStage": {
             "stage": "peak",
+            "copyStrategy": "st_joseph_corridor",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -37245,14 +37534,14 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "peakToEndDays": 37
             },
             "label": "Peak",
-            "headline": "This is the best St. Joseph Chinook salmon window, but it remains a selective 3-of-10 opportunity.",
-            "detail": "The calendar supports the best chance of finding Chinook in proven lower-Michigan, Niles, or selective Indiana holding water. It does not imply strong or uniform occupation of the full corridor.",
-            "tip": "Choose a proven section and cover deep holding water from head to tail. Change sections only after a clean search, and leave shallow spawning fish undisturbed.",
-            "whereToStart": "Start with proven lower-Michigan and Niles holding water, then make one selective South Bend or Mishawaka check below Twin Branch; this smaller Chinook run is not a reason to cover all 63 miles.",
+            "headline": "This is the best St. Joseph Chinook salmon window, but opportunity remains selective.",
+            "detail": "This is a limited 3-of-10 run, not a claim of strong or uniform presence.",
+            "tip": "Choose one section and cover it completely before changing reaches. Leave shallow spawning fish undisturbed.",
+            "whereToStart": "Start in the Middle river (Berrien Springs–Niles). Treat the Upper river (Niles–Twin Branch Dam) as a selective second check.",
             "reasonCodes": [
               "stage_peak"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -37321,7 +37610,7 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "conditions_insufficient",
               "conditions_checkpoint_peak_start"
             ],
-            "copyVersion": "river-run-copy-v27",
+            "copyVersion": "river-run-copy-v34",
             "previousCheckpointId": "building_established",
             "previousCheckpointDate": "2026-09-15",
             "previousTimingLabel": "Insufficient evidence"
@@ -37346,14 +37635,14 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "temperature_unavailable"
             ],
             "rulesVersion": "st-joseph-fall-chinook-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 93,
             "label": "Excellent",
             "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river. This flow shape applies to the Niles mainstem reach only; verify the harbor, lower Michigan river, individual tailwaters, and Indiana water directly.",
-            "tip": "Begin on the primary travel lane feeding deep holding water. Work each hole from its head through the inside seam and tail, then keep moving until fish establish a pattern. Apply this recommendation at Niles; recheck water shape and safe access before carrying it to another St. Joseph section.",
+            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. This read applies only to the Niles mainstem reach.",
+            "tip": "Cover readable seams and holding water with a controlled presentation. Verify every other section directly.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band"
@@ -37364,15 +37653,15 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 53,
             "maximum": 100,
             "label": "Moderate",
-            "headline": "Today’s Chinook activity outlook is moderate.",
-            "detail": "Some useful factors are present, but the response window is mixed. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Measured water temperature is unavailable. Broad seasonal presence improves the chance of locating fish, but this score measures responsiveness rather than abundance. Measured river conditions describe the St. Joseph mainstem at Niles. Water temperature, clarity, hydraulic shape, and presentation conditions can differ in the harbor and lower Michigan river, at individual ladder tailwaters, and through South Bend, Mishawaka, and the Twin Branch reach. One important reading is unavailable or comes from tomorrow’s forecast, so the outlook is kept conservative.",
-            "tip": "Start with 5–9 AM. If the sky changes from the forecast, favor the darkest practical window. Apply this response window at Niles; verify temperature, clarity, flow shape, and legal access again before carrying it to another St. Joseph section.",
+            "headline": "Today’s Niles Chinook responsiveness is moderate.",
+            "detail": "Conditions offer mixed support for Chinook responsiveness. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Moderate confidence reflects missing or forecast inputs; river measurements still represent only Niles.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify other sections directly.",
             "reasonCodes": [
               "activity_confidence_moderate",
               "activity_today",
@@ -37424,10 +37713,13 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 29,
+            "displayScore": 30,
+            "scoreIsApproximate": true,
             "stage": "peak",
             "maximum": 100,
             "riverCeiling": 30,
@@ -37436,14 +37728,14 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "curveDirection": "falling",
             "winterHoldingContext": false,
             "label": "Peak presence",
-            "headline": "Seasonal timing still supports Chinook salmon being near their strongest in-river presence, even if the migration may be just beyond its usual peak.",
-            "detail": "This point in the season may sit just beyond the usual peak while the limited seasonal opportunity remains near its high point. This is a seasonal estimate, not a live fish count. This seasonal presence applies to the accessible St. Joseph corridor as a whole; it does not claim equal fish numbers at the harbor, Niles, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Treat this as near the high point of a limited seasonal opportunity. Focus on the most dependable water, and require direct fish activity before committing more time. Use Migration Stage to choose the specific St. Joseph section, then verify that water directly.",
+            "headline": "Seasonal Chinook salmon presence is near its expected St. Joseph peak.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the St. Joseph Chinook salmon ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_peak",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",

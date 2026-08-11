@@ -1,7 +1,7 @@
 # River Run Copy Model and River Onboarding Standard
 
 **Status:** Normative product standard
-**Version:** 1.3
+**Version:** 1.6
 **Established:** 2026-08-09
 **Applies to:** Every existing and future River Run river, species, run, state,
 and public copy surface
@@ -67,6 +67,24 @@ rewrite.
     implemented and available to the selected river/run.
 12. **River Run is not a safety system.** It does not determine whether wading,
     boating, floating, access, ice, or personal conditions are safe.
+13. **A tailwater emphasis is not automatically a public section.** When an
+    immediate dam area sits inside a larger approved Upper river, use it as an
+    emphasis or landmark within that section instead of creating a fourth
+    competing geography.
+14. **Do not infer a Steelhead strain from timing alone.** Unless the engine has
+    direct evidence for strain identity, describe unusually early fall fish as
+    `early Steelhead`; do not label them Skamania, summer-run, or winter-run in
+    public copy. When current authoritative stocking or management evidence
+    proves that a separate strain is established in the selected river, copy
+    may name it as separate seasonal context. It still may not identify an
+    individual fish's strain from its capture date or use one fish to prove a
+    broader run state.
+15. **Describe the river, not the product's approval process.** Public copy must
+    state the seasonal or environmental fact directly. It must not qualify that
+    fact with internal workflow terms such as `accepted`, `configured`,
+    `owner-approved`, `research-approved`, `audited`, or `calibrated`. For
+    example, write `The river-entry window has not opened yet`, never `The
+    accepted river-entry window has not opened`.
 
 ## 3. The three-layer model
 
@@ -149,6 +167,13 @@ Rules:
   sources document limited or conditional biological passage. Store passage
   and product scope separately; never rewrite `limited passage` as
   `impassable`.
+- A corridor with several passable dams must still use a small, stable public
+  section model. Define sections with recognizable boundary landmarks; do not
+  turn every ladder, dam, city, or jurisdiction crossing into a public section.
+- Keep the complete passage sequence in the river foundation, barrier
+  inventory, and permanent scope material. Routine rotating state copy should
+  name the approved section and endpoint, not recite every intermediate
+  passage facility.
 
 ### 4.3 Mandatory dam and barrier inventory
 
@@ -623,6 +648,8 @@ The second form sets the product boundary without claiming fish cannot pass.
 - Do not repeat the headline, Guide's Read, or permanent scope note.
 - Do not expose internal scores, weights, thresholds, percentiles, checkpoint
   dates, rule IDs, or engine names.
+- Do not expose internal approval or configuration language. State what is
+  happening, unavailable, or not yet supported in plain user-facing terms.
 
 ### 7.4 Guide's Read
 
@@ -727,6 +754,8 @@ Before owner review, require all applicable checks to pass:
 - Every material dam/barrier has a verification date and citation.
 - Barrier-aware rivers mention the approved accessible boundary wherever
   `upper` could otherwise mislead.
+- Multi-passage corridors use their approved section model and reject routine
+  city-by-city, dam-by-dam, or ladder-by-ladder itineraries in state copy.
 - Dam-free copy does not contain generic dam/barrier filler.
 
 ### Leakage and capability gates
@@ -749,8 +778,14 @@ Before owner review, require all applicable checks to pass:
 - No public internal threshold, date machinery, percentile, weight, engine ID,
   reason code, `curve`, `modeled`, or similar implementation language leaks
   into copy.
+- No public copy contains internal workflow qualifiers such as `accepted`,
+  `configured`, `owner-approved`, `research-approved`, `audited`, or
+  `calibrated`.
 - Missing inputs cannot produce a specific strongest window or location that
   those inputs would be needed to support.
+- Completed salmon and Steelhead states are consistent across primitives,
+  expose no active seasonal score, and never hand users to an unimplemented
+  seasonal experience.
 
 ### Determination and contradiction gates
 

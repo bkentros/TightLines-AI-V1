@@ -1,7 +1,12 @@
 # Muskegon River Run research and build audit
 
-Build version: `2026-08-06-muskegon-steelhead-activity.1` Status: beta, enabled
-for owner audit
+Build version: `2026-08-11-muskegon-copy.1` Status: beta, enabled for owner
+audit
+
+> Copy authority: the owner-approved
+> [`river_run_muskegon_copy_foundation.md`](./river_run_muskegon_copy_foundation.md)
+> supersedes this older calibration audit wherever public geography or terminal
+> copy differs. Calibration and replay results below remain historical evidence.
 
 ## Decision
 
@@ -44,9 +49,10 @@ lifecycle decline.
   current FO-200 source. The app tells anglers to verify current rules and
   posted notices instead of borrowing a closure or gear rule from another river.
 
-Reach vocabulary is: Croton tailwater; Croton-to-Newaygo corridor;
-Newaygo-to-M-120 lower migratory corridor; lower river/Muskegon Lake approach;
-Muskegon Lake and channel context.
+Public reach vocabulary is: Lower river (Muskegon Lake–M-120); Middle river
+(M-120–Newaygo); Upper river (Newaygo–Croton Dam); and Muskegon Lake, Lake
+Michigan channel, and river entrance as staging context. The Croton Dam area is
+an emphasis inside the Upper river, not a fourth public section.
 
 ## Calibration
 
@@ -76,8 +82,9 @@ through Nov 15; end Nov 30; presence tail Dec 7.
 
 Steelhead: monitor Aug 20; stage Sep 10; river start Sep 25; established Oct 15;
 broad Nov 1; peak approach Nov 10; 9/10 reference Nov 15; peak complete Dec 5;
-taper through Dec 19; fall-entry end Dec 22; winter-holding handoff Dec 23
-retaining 80/100.
+taper through Dec 19; fall-entry end Dec 22; scoreless `Fall entry complete`
+state Dec 23. Steelhead may remain, but this feature does not publish a winter
+read.
 
 ## Replay results
 
@@ -146,14 +153,14 @@ slower winter behavior but does not erase them from the river.
 
 Unlike salmon, Steelhead receive no spawning decline, response-floor fade,
 lifecycle deduction, late ceiling, or ending cap. Identical environmental
-conditions produce identical scores across Peak, Tapering, Ending, and the
-December 23 winter-holding handoff.
+conditions produce identical in-window scores across Peak, Tapering, and
+Ending. December 23 is now outside public fall-entry scoring.
 
 The 2007–2025 replay produced 1,962 usable days from 1,995 expected (98.3%).
 Daily scores ranged from 3–97 with a median of 70. The 44–56°F band produced a
 median of 87; water below 44°F produced a median of 68, while 64–68°F fell to 18
 and 68°F or warmer fell to 7. Late fall declined with actual cooling: Peak had a
-median of 80, Tapering 64, Ending 60, and the winter handoff 60. All scope,
+median of 80, Tapering 64, and Ending 60. All scope,
 warm-water, copy, mortality-language, and stage-penalty invariants were zero.
 
 Artifacts:

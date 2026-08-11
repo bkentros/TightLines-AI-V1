@@ -24,6 +24,7 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "nextConditionRefreshAt": "2026-11-16T05:00:00.000Z",
           "runStage": {
             "stage": "post_run",
+            "copyStrategy": "muskegon_croton_tailwater",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -45,16 +46,16 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "startToPeakDays": 42,
               "peakToEndDays": 35
             },
-            "label": "Offseason",
-            "headline": "The Muskegon Chinook salmon run is outside its researched window.",
-            "whereToStart": "No dependable Muskegon River location for this fall migration model right now.",
-            "detail": "The fall run is over for this read. Use the read for the current season instead.",
-            "tip": "This fall read is finished. Use the read for the current season instead.",
+            "label": "Fall run complete",
+            "headline": "The Muskegon Chinook salmon fall run is complete.",
+            "whereToStart": "There is no active Muskegon starting section in this fall-run model.",
+            "detail": "Chinook salmon staging typically begins in early August. This seasonal estimate is inactive until then.",
+            "tip": "Check back in early August when Muskegon fall-run tracking resumes.",
             "reasonCodes": [
               "stage_post_run",
               "stage_offseason"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Not monitoring yet",
@@ -72,13 +73,13 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "historicalYears": 0,
             "sourceDates": [],
             "sourceRefreshSlots": {},
-            "headline": "Migration Timing is not active right now.",
-            "detail": "Timing monitoring begins before the expected river entry, but that seasonal observation window is not active yet.",
-            "tip": "Check Migration Stage for the current seasonal position and return to Migration Timing when early monitoring begins.",
+            "headline": "Muskegon Migration Timing is not monitoring yet.",
+            "detail": "Season-to-date Croton flow and measured-temperature monitoring resumes in early August.",
+            "tip": "Check back in early August when Muskegon timing monitoring resumes.",
             "reasonCodes": [
               "conditions_monitoring_inactive"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -92,21 +93,21 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "push": {
             "score": null,
             "label": "Offseason",
-            "headline": "Push is not active outside the river migration season.",
-            "detail": "Rain, river level, and water temperature can still change, but they do not provide a useful fresh-arrival signal for this species right now.",
-            "tip": "Do not use Push to plan for this species outside its migration season. Follow an active species instead, or return when early monitoring begins.",
+            "headline": "Muskegon Push is outside its fall movement window.",
+            "detail": "Current Croton flow and measured temperature do not provide an in-season fresh-movement signal for this run.",
+            "tip": "Check back in early August.",
             "reasonCodes": [
               "push_tracking_offseason"
             ],
             "rulesVersion": "muskegon-croton-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 93,
             "label": "Excellent",
-            "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river.",
-            "tip": "Begin on the primary travel lane feeding deep holding water. Work each hole from its head through the inside seam and tail, then keep moving until fish establish a pattern.",
+            "headline": "Croton-area flow is in its best presentation range.",
+            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read applies only near Croton Dam within the Upper river (Newaygo–Croton Dam).",
+            "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band"
@@ -117,11 +118,12 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": null,
           "fishInRiver": {
-            "score": 0,
+            "score": null,
+            "scoreIsApproximate": false,
             "stage": "post_run",
             "maximum": 100,
             "riverCeiling": 90,
@@ -129,15 +131,15 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "curveFraction": 0,
             "curveDirection": "outside",
             "winterHoldingContext": false,
-            "label": "Offseason",
-            "headline": "Chinook salmon are outside their river migration season.",
-            "detail": "A dependable seasonal presence of Chinook salmon is not expected in the river right now.",
-            "tip": "Do not build a river trip around this species right now. Target a species with an active seasonal window and return as the next migration approaches.",
+            "label": "Fall run complete",
+            "headline": "The Muskegon Chinook salmon fall run is complete.",
+            "detail": "Chinook salmon staging typically begins in early August. This seasonal estimate is inactive until then.",
+            "tip": "Check back in early August when Muskegon fall-run tracking resumes.",
             "reasonCodes": [
               "stage_post_run",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -363,21 +365,15 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "data_quality_fresh"
             ]
           },
-          "interpretationNote": {
-            "headline": "The river should fish well, but seasonal fish presence is still low.",
-            "detail": "Good flow makes presentations easier, but it does not put fish in the river. Begin in the deepest established holding water and skip broad searches through fast travel lanes as seasonal presence thins.",
-            "reasonCodes": [
-              "good_fishability_low_presence"
-            ]
-          },
-          "secondaryNote": "Based on USGS 04121970 immediately below Croton Dam. It represents the regulated Croton tailwater; flow, temperature, access, and safety can differ through Newaygo, the lower river, Muskegon Lake, and the channel.",
+          "interpretationNote": null,
+          "secondaryNote": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
           "safety": {
             "regulationReminder": "Croton Dam is the hard upstream migration boundary. Fish only legal water below the dam, use established public access, respect private land and posted closures, and check current Michigan regulations and dam-safety notices.",
-            "gaugeBasis": "Based on USGS 04121970 immediately below Croton Dam. It represents the regulated Croton tailwater; flow, temperature, access, and safety can differ through Newaygo, the lower river, Muskegon Lake, and the channel.",
+            "gaugeBasis": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-muskegon-steelhead-activity.1"
+          "configVersion": "2026-08-11-muskegon-copy.1"
         }
       },
       {
@@ -396,6 +392,7 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "nextConditionRefreshAt": "2026-07-21T05:00:00.000Z",
           "runStage": {
             "stage": "pre_run",
+            "copyStrategy": "muskegon_croton_tailwater",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -419,13 +416,13 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             },
             "label": "Before migration",
             "headline": "Chinook salmon have not started their main Muskegon River run.",
-            "whereToStart": "Lake Michigan, the Muskegon channel, Muskegon Lake, and the river mouth—not the inland river yet.",
-            "detail": "It is still too early to expect Chinook salmon between Muskegon Lake and Croton Dam.",
-            "tip": "Keep the trip in lake, channel, and mouth water until staging begins.",
+            "whereToStart": "Stay with Muskegon Lake, the Lake Michigan channel, and the river entrance.",
+            "detail": "The river-entry window has not opened yet. An isolated river fish would be an early exception.",
+            "tip": "Do not build an inland trip around Chinook salmon yet.",
             "reasonCodes": [
               "stage_pre_run"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Not monitoring yet",
@@ -444,13 +441,13 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "historicalYears": 0,
             "sourceDates": [],
             "sourceRefreshSlots": {},
-            "headline": "Migration Timing is not active right now.",
-            "detail": "Timing monitoring begins before the expected river entry, but that seasonal observation window is not active yet.",
-            "tip": "Check Migration Stage for the current seasonal position and return to Migration Timing when early monitoring begins.",
+            "headline": "Muskegon Migration Timing is not monitoring yet.",
+            "detail": "Season-to-date Croton flow and measured-temperature monitoring resumes in early August.",
+            "tip": "Check back in early August when Muskegon timing monitoring resumes.",
             "reasonCodes": [
               "conditions_monitoring_inactive"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -464,21 +461,21 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "push": {
             "score": null,
             "label": "Waiting for migration",
-            "headline": "Fish have not started entering the river, so there is no Push read yet.",
-            "detail": "Push is meant to spot water conditions that may help fish enter or move during the active migration. Before that, most opportunity should remain in the lake, harbor, or river-mouth transition.",
-            "tip": "Keep the trip in the lake, harbor, and river-mouth zone. Do not move inland just because rain or cooling resembles an in-season movement event.",
+            "headline": "Dependable Muskegon river entry has not started.",
+            "detail": "Croton flow and measured temperature are not scored as an in-season fresh-movement signal yet.",
+            "tip": "Use Migration Stage. Do not move inland because offseason water resembles a Push.",
             "reasonCodes": [
               "push_tracking_not_started"
             ],
             "rulesVersion": "muskegon-croton-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 93,
             "label": "Excellent",
-            "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river.",
-            "tip": "Begin on the primary travel lane feeding deep holding water. Work each hole from its head through the inside seam and tail, then keep moving until fish establish a pattern.",
+            "headline": "Croton-area flow is in its best presentation range.",
+            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read applies only near Croton Dam within the Upper river (Newaygo–Croton Dam).",
+            "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band"
@@ -489,11 +486,13 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": null,
           "fishInRiver": {
             "score": 0,
+            "displayScore": 0,
+            "scoreIsApproximate": false,
             "stage": "pre_run",
             "maximum": 100,
             "riverCeiling": 90,
@@ -502,14 +501,14 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "curveDirection": "outside",
             "winterHoldingContext": false,
             "label": "Not expected yet",
-            "headline": "Chinook salmon are not expected in meaningful numbers yet.",
-            "detail": "Most Chinook salmon are not expected to have entered the river in dependable numbers. Any fish already present would be early exceptions.",
-            "tip": "Treat this as no dependable in-river opportunity yet. Keep expectations at zero, and do not interpret an isolated early fish as evidence of dependable river presence.",
+            "headline": "Dependable Chinook salmon presence is not expected in the Muskegon River yet.",
+            "detail": "The seasonal estimate remains at zero. Any river fish would be an early exception.",
+            "tip": "Use Migration Stage for Muskegon Lake, channel, and river-entrance context.",
             "reasonCodes": [
               "stage_pre_run",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -742,14 +741,14 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "good_fishability_low_presence"
             ]
           },
-          "secondaryNote": "Based on USGS 04121970 immediately below Croton Dam. It represents the regulated Croton tailwater; flow, temperature, access, and safety can differ through Newaygo, the lower river, Muskegon Lake, and the channel.",
+          "secondaryNote": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
           "safety": {
             "regulationReminder": "Croton Dam is the hard upstream migration boundary. Fish only legal water below the dam, use established public access, respect private land and posted closures, and check current Michigan regulations and dam-safety notices.",
-            "gaugeBasis": "Based on USGS 04121970 immediately below Croton Dam. It represents the regulated Croton tailwater; flow, temperature, access, and safety can differ through Newaygo, the lower river, Muskegon Lake, and the channel.",
+            "gaugeBasis": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-muskegon-steelhead-activity.1"
+          "configVersion": "2026-08-11-muskegon-copy.1"
         }
       },
       {
@@ -768,6 +767,7 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "nextConditionRefreshAt": "2026-08-13T05:00:00.000Z",
           "runStage": {
             "stage": "pre_run",
+            "copyStrategy": "muskegon_croton_tailwater",
             "stagingContext": true,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -790,15 +790,15 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "peakToEndDays": 35
             },
             "label": "Before migration",
-            "headline": "Chinook salmon may be staging in Muskegon Lake, the channel, and near the river mouth.",
-            "whereToStart": "Muskegon Lake, the Lake Michigan channel, the river mouth, and one quick check of deep lower-river water below M-120.",
-            "detail": "An early Chinook salmon can enter the lower Muskegon, but that does not mean fish are spread through Newaygo or up to Croton Dam.",
-            "tip": "Stay closer to the lake. One early river fish does not mean the whole river has fish yet.",
+            "headline": "Chinook salmon may be staging near the Muskegon River entrance.",
+            "whereToStart": "Start at Muskegon Lake, the Lake Michigan channel, and the river entrance. Add the Lower river (Muskegon Lake–M-120) only for an early-fish check.",
+            "detail": "Staging does not confirm dependable river entry.",
+            "tip": "Keep the river check brief. Do not move into the Middle river (M-120–Newaygo) or Upper river (Newaygo–Croton Dam) from calendar timing alone.",
             "reasonCodes": [
               "stage_pre_run",
               "stage_pre_run_staging"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Evaluating",
@@ -817,13 +817,13 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "historicalYears": 0,
             "sourceDates": [],
             "sourceRefreshSlots": {},
-            "headline": "Migration Timing is still taking shape.",
-            "detail": "The early river and temperature pattern is still developing, so an Ahead, Typical, or Delayed call would be premature.",
-            "tip": "Keep the trip centered on the river mouth and earliest lower-river holding water. Move inland only when Migration Stage advances or direct fish activity supports it.",
+            "headline": "Muskegon Migration Timing is still taking shape.",
+            "detail": "Croton flow and measured temperature do not yet support an Ahead, Typical, or Delayed call.",
+            "tip": "Keep the section named by Migration Stage until this read has enough Croton-area evidence.",
             "reasonCodes": [
               "conditions_checkpoint_evaluating"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -837,21 +837,21 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "push": {
             "score": null,
             "label": "Waiting for migration",
-            "headline": "Fish have not started entering the river, so there is no Push read yet.",
-            "detail": "Push is meant to spot water conditions that may help fish enter or move during the active migration. Before that, most opportunity should remain in the lake, harbor, or river-mouth transition.",
-            "tip": "Keep the trip in the lake, harbor, and river-mouth zone. Do not move inland just because rain or cooling resembles an in-season movement event.",
+            "headline": "Dependable Muskegon river entry has not started.",
+            "detail": "Croton flow and measured temperature are not scored as an in-season fresh-movement signal yet.",
+            "tip": "Use Migration Stage. Do not move inland because offseason water resembles a Push.",
             "reasonCodes": [
               "push_tracking_not_started"
             ],
             "rulesVersion": "muskegon-croton-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 93,
             "label": "Excellent",
-            "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river.",
-            "tip": "Begin on the primary travel lane feeding deep holding water. Work each hole from its head through the inside seam and tail, then keep moving until fish establish a pattern.",
+            "headline": "Croton-area flow is in its best presentation range.",
+            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read applies only near Croton Dam within the Upper river (Newaygo–Croton Dam).",
+            "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band"
@@ -862,15 +862,15 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 80,
             "maximum": 100,
             "label": "Highly active",
-            "headline": "Today’s Chinook activity outlook is highly active.",
-            "detail": "Conditions strongly favor a response from Chinook that are present and capable of reacting. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. Dependable river presence has not begun. The score applies only to a sparse early Chinook that may already have entered. The measured conditions represent the regulated Croton tailwater immediately below Croton Dam; water temperature, clarity, tributary influence, and presentation conditions can differ through Newaygo, the lower river, Muskegon Lake, and the channel. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
-            "tip": "Start with 5–9 AM. If the sky changes from the forecast, favor the darkest practical window.",
+            "headline": "Today’s Croton-area responsiveness is highly active, but dependable Chinook presence has not begun.",
+            "detail": "Conditions strongly support Chinook responsiveness. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. This applies only to an early Chinook already near Croton Dam.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify downstream sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -922,10 +922,13 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 0,
+            "displayScore": 0,
+            "scoreIsApproximate": false,
             "stage": "pre_run",
             "maximum": 100,
             "riverCeiling": 90,
@@ -934,14 +937,14 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "curveDirection": "outside",
             "winterHoldingContext": false,
             "label": "Not expected yet",
-            "headline": "Chinook salmon are not expected in meaningful numbers yet.",
-            "detail": "Most Chinook salmon are not expected to have entered the river in dependable numbers. Any fish already present would be early exceptions.",
-            "tip": "Treat this as no dependable in-river opportunity yet. Keep expectations at zero, and do not interpret an isolated early fish as evidence of dependable river presence.",
+            "headline": "Dependable Chinook salmon presence is not expected in the Muskegon River yet.",
+            "detail": "The seasonal estimate remains at zero. Any river fish would be an early exception.",
+            "tip": "Use Migration Stage for Muskegon Lake, channel, and river-entrance context.",
             "reasonCodes": [
               "stage_pre_run",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -1174,14 +1177,14 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "good_fishability_low_presence"
             ]
           },
-          "secondaryNote": "Based on USGS 04121970 immediately below Croton Dam. It represents the regulated Croton tailwater; flow, temperature, access, and safety can differ through Newaygo, the lower river, Muskegon Lake, and the channel.",
+          "secondaryNote": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
           "safety": {
             "regulationReminder": "Croton Dam is the hard upstream migration boundary. Fish only legal water below the dam, use established public access, respect private land and posted closures, and check current Michigan regulations and dam-safety notices.",
-            "gaugeBasis": "Based on USGS 04121970 immediately below Croton Dam. It represents the regulated Croton tailwater; flow, temperature, access, and safety can differ through Newaygo, the lower river, Muskegon Lake, and the channel.",
+            "gaugeBasis": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-muskegon-steelhead-activity.1"
+          "configVersion": "2026-08-11-muskegon-copy.1"
         }
       },
       {
@@ -1200,6 +1203,7 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "nextConditionRefreshAt": "2026-08-21T05:00:00.000Z",
           "runStage": {
             "stage": "beginning",
+            "copyStrategy": "muskegon_croton_tailwater",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -1222,14 +1226,14 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "peakToEndDays": 35
             },
             "label": "Beginning",
-            "headline": "The first Chinook salmon are starting to enter the Muskegon River.",
-            "whereToStart": "Start in the deep lower river from Muskegon Lake toward M-120, then sample Newaygo-to-M-120 travel lanes before making a selective Croton-tailwater check.",
-            "detail": "New fish can be scattered across more than forty river miles. A few may already be near Croton, but the lower and middle river are the better places to start.",
-            "tip": "Check deep bends, wood edges, and resting spots in two parts of the river before heading straight to the dam.",
+            "headline": "The first Chinook salmon are entering the Muskegon River.",
+            "whereToStart": "Start in the Lower river (Muskegon Lake–M-120). Add the Middle river (M-120–Newaygo) after direct fish activity supports the move.",
+            "detail": "Early fish remain scattered; earlier arrivals may already be farther upstream.",
+            "tip": "Cover travel water and the first substantial holding areas before moving upstream.",
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -1262,15 +1266,15 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "2026-08-19"
             ],
             "sourceRefreshSlots": {},
-            "headline": "There is not enough reliable information for a Migration Timing call.",
-            "tip": "Do not move farther upstream or stay lower based on this timing read. Fish the section identified by Migration Stage and begin in its most established holding water; change sections only when direct fish activity or a dependable later read supports it.",
+            "headline": "There is not enough reliable Muskegon evidence for a Migration Timing call.",
+            "tip": "Keep the Muskegon section named by Migration Stage. Do not shift sections from this timing read.",
             "detail": "There are not enough dependable past seasons to judge whether this migration is early, normal, or late.",
             "reasonCodes": [
               "conditions_baseline_missing",
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -1284,9 +1288,9 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "push": {
             "score": 30,
             "label": "No clear push",
-            "headline": "Today's water does not show a clear signal for a fresh wave of fish.",
-            "detail": "The river is holding steady with no meaningful rise yet. Water temperature is favorable for fall migration and is relatively steady. Recent weather estimates indicate very little rain around the river.",
-            "tip": "Fish established holding water from the head through the inside seam and tail. Do not spend the day racing between lower travel lanes for a wave the water does not support.",
+            "headline": "Croton-area water does not show a clear fresh-movement signal.",
+            "detail": "The river is holding steady with no meaningful rise yet. Water temperature is favorable for fall migration and is relatively steady. Recent watershed weather shows little rain.",
+            "tip": "Keep Migration Stage’s section primary. Do not shift sections from this read.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
@@ -1305,14 +1309,14 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 93,
             "label": "Excellent",
-            "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river.",
-            "tip": "Begin on the primary travel lane feeding deep holding water. Work each hole from its head through the inside seam and tail, then keep moving until fish establish a pattern.",
+            "headline": "Croton-area flow is in its best presentation range.",
+            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read applies only near Croton Dam within the Upper river (Newaygo–Croton Dam).",
+            "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band"
@@ -1323,15 +1327,15 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 80,
             "maximum": 100,
             "label": "Highly active",
-            "headline": "Today’s Chinook activity outlook is highly active.",
-            "detail": "Conditions strongly favor a response from Chinook that are present and capable of reacting. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. Early lake-fresh Chinook can remain reactive in tolerable water, so warmth is penalized without automatically erasing response potential. The measured conditions represent the regulated Croton tailwater immediately below Croton Dam; water temperature, clarity, tributary influence, and presentation conditions can differ through Newaygo, the lower river, Muskegon Lake, and the channel. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
-            "tip": "Start with 5–9 AM. If the sky changes from the forecast, favor the darkest practical window.",
+            "headline": "Today’s Croton-area Chinook responsiveness is highly active.",
+            "detail": "Conditions strongly support Chinook responsiveness. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Croton flow and temperature represent only the area near the dam.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify downstream sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -1383,10 +1387,13 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 5,
+            "displayScore": 5,
+            "scoreIsApproximate": true,
             "stage": "beginning",
             "maximum": 100,
             "riverCeiling": 90,
@@ -1395,14 +1402,14 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "curveDirection": "rising",
             "winterHoldingContext": false,
             "label": "Low presence",
-            "headline": "A small number of Chinook salmon may be in the river, and seasonal presence is still building.",
-            "detail": "This part of the season usually brings low presence, with more fish expected to enter and spread through the river. This is a seasonal estimate, not a live fish count.",
-            "tip": "Treat this as an early, low-odds river opportunity. Expect scattered results, and use direct fish activity before committing the full day.",
+            "headline": "Seasonal Chinook salmon presence is low and building.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the Muskegon Chinook salmon ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -1636,14 +1643,14 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "good_fishability_low_presence"
             ]
           },
-          "secondaryNote": "Based on USGS 04121970 immediately below Croton Dam. It represents the regulated Croton tailwater; flow, temperature, access, and safety can differ through Newaygo, the lower river, Muskegon Lake, and the channel.",
+          "secondaryNote": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
           "safety": {
             "regulationReminder": "Croton Dam is the hard upstream migration boundary. Fish only legal water below the dam, use established public access, respect private land and posted closures, and check current Michigan regulations and dam-safety notices.",
-            "gaugeBasis": "Based on USGS 04121970 immediately below Croton Dam. It represents the regulated Croton tailwater; flow, temperature, access, and safety can differ through Newaygo, the lower river, Muskegon Lake, and the channel.",
+            "gaugeBasis": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-muskegon-steelhead-activity.1"
+          "configVersion": "2026-08-11-muskegon-copy.1"
         }
       },
       {
@@ -1662,6 +1669,7 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "nextConditionRefreshAt": "2026-08-29T05:00:00.000Z",
           "runStage": {
             "stage": "beginning",
+            "copyStrategy": "muskegon_croton_tailwater",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -1684,14 +1692,14 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "peakToEndDays": 35
             },
             "label": "Beginning",
-            "headline": "The first Chinook salmon are starting to enter the Muskegon River.",
-            "whereToStart": "Start in the deep lower river from Muskegon Lake toward M-120, then sample Newaygo-to-M-120 travel lanes before making a selective Croton-tailwater check.",
-            "detail": "New fish can be scattered across more than forty river miles. A few may already be near Croton, but the lower and middle river are the better places to start.",
-            "tip": "Check deep bends, wood edges, and resting spots in two parts of the river before heading straight to the dam.",
+            "headline": "Chinook salmon are accumulating through more of the Muskegon River.",
+            "whereToStart": "Start in the Lower river (Muskegon Lake–M-120). Add the Middle river (M-120–Newaygo) after direct fish activity supports the move.",
+            "detail": "Early fish remain scattered; earlier arrivals may already be farther upstream.",
+            "tip": "Cover travel water and the first substantial holding areas before moving upstream.",
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -1724,15 +1732,15 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "2026-08-19"
             ],
             "sourceRefreshSlots": {},
-            "headline": "There is not enough reliable information for a Migration Timing call.",
-            "tip": "Do not move farther upstream or stay lower based on this timing read. Fish the section identified by Migration Stage and begin in its most established holding water; change sections only when direct fish activity or a dependable later read supports it.",
+            "headline": "There is not enough reliable Muskegon evidence for a Migration Timing call.",
+            "tip": "Keep the Muskegon section named by Migration Stage. Do not shift sections from this timing read.",
             "detail": "There are not enough dependable past seasons to judge whether this migration is early, normal, or late.",
             "reasonCodes": [
               "conditions_baseline_missing",
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -1746,9 +1754,9 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "push": {
             "score": 30,
             "label": "No clear push",
-            "headline": "Today's water does not show a clear signal for a fresh wave of fish.",
-            "detail": "The river is holding steady with no meaningful rise yet. Water temperature is favorable for fall migration and is relatively steady. Recent weather estimates indicate very little rain around the river.",
-            "tip": "Fish established holding water from the head through the inside seam and tail. Do not spend the day racing between lower travel lanes for a wave the water does not support.",
+            "headline": "Croton-area water does not show a clear fresh-movement signal.",
+            "detail": "The river is holding steady with no meaningful rise yet. Water temperature is favorable for fall migration and is relatively steady. Recent watershed weather shows little rain.",
+            "tip": "Keep Migration Stage’s section primary. Do not shift sections from this read.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
@@ -1767,14 +1775,14 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 93,
             "label": "Excellent",
-            "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river.",
-            "tip": "Begin on the primary travel lane feeding deep holding water. Work each hole from its head through the inside seam and tail, then keep moving until fish establish a pattern.",
+            "headline": "Croton-area flow is in its best presentation range.",
+            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read applies only near Croton Dam within the Upper river (Newaygo–Croton Dam).",
+            "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band"
@@ -1785,15 +1793,15 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 80,
             "maximum": 100,
             "label": "Highly active",
-            "headline": "Today’s Chinook activity outlook is highly active.",
-            "detail": "Conditions strongly favor a response from Chinook that are present and capable of reacting. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. Early lake-fresh Chinook can remain reactive in tolerable water, so warmth is penalized without automatically erasing response potential. The measured conditions represent the regulated Croton tailwater immediately below Croton Dam; water temperature, clarity, tributary influence, and presentation conditions can differ through Newaygo, the lower river, Muskegon Lake, and the channel. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
-            "tip": "Start with 5–9 AM. If the sky changes from the forecast, favor the darkest practical window.",
+            "headline": "Today’s Croton-area Chinook responsiveness is highly active.",
+            "detail": "Conditions strongly support Chinook responsiveness. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Croton flow and temperature represent only the area near the dam.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify downstream sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -1845,10 +1853,13 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 14,
+            "displayScore": 15,
+            "scoreIsApproximate": true,
             "stage": "beginning",
             "maximum": 100,
             "riverCeiling": 90,
@@ -1857,14 +1868,14 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "curveDirection": "rising",
             "winterHoldingContext": false,
             "label": "Low presence",
-            "headline": "A small number of Chinook salmon may be in the river, and seasonal presence is still building.",
-            "detail": "This part of the season usually brings low presence, with more fish expected to enter and spread through the river. This is a seasonal estimate, not a live fish count.",
-            "tip": "Treat this as an early, low-odds river opportunity. Expect scattered results, and use direct fish activity before committing the full day.",
+            "headline": "Seasonal Chinook salmon presence is low and building.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the Muskegon Chinook salmon ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -2098,14 +2109,14 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "good_fishability_low_presence"
             ]
           },
-          "secondaryNote": "Based on USGS 04121970 immediately below Croton Dam. It represents the regulated Croton tailwater; flow, temperature, access, and safety can differ through Newaygo, the lower river, Muskegon Lake, and the channel.",
+          "secondaryNote": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
           "safety": {
             "regulationReminder": "Croton Dam is the hard upstream migration boundary. Fish only legal water below the dam, use established public access, respect private land and posted closures, and check current Michigan regulations and dam-safety notices.",
-            "gaugeBasis": "Based on USGS 04121970 immediately below Croton Dam. It represents the regulated Croton tailwater; flow, temperature, access, and safety can differ through Newaygo, the lower river, Muskegon Lake, and the channel.",
+            "gaugeBasis": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-muskegon-steelhead-activity.1"
+          "configVersion": "2026-08-11-muskegon-copy.1"
         }
       },
       {
@@ -2124,6 +2135,7 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "nextConditionRefreshAt": "2026-09-06T05:00:00.000Z",
           "runStage": {
             "stage": "building",
+            "copyStrategy": "muskegon_croton_tailwater",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -2147,13 +2159,13 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             },
             "label": "Building",
             "headline": "Chinook salmon are becoming dependably established through more of the Muskegon River.",
-            "whereToStart": "Begin with Croton-to-Newaygo pools and runs, then compare deeper Newaygo-to-M-120 bends with lower-river travel water below M-120.",
-            "detail": "Earlier fish can hold below Croton while newer fish move through the lower river. What you find in one section may not match the rest of the river.",
-            "tip": "Check upper-river holding water and at least one middle or lower section before settling in for the day.",
+            "whereToStart": "Start in the Middle river (M-120–Newaygo). Check the Croton Dam area in the Upper river (Newaygo–Croton Dam) for early arrivals.",
+            "detail": "Earlier arrivals can hold near Croton while newer fish remain farther downstream.",
+            "tip": "Compare the two sections directly; the Croton gauge does not describe the Middle river.",
             "reasonCodes": [
               "stage_building"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -2202,15 +2214,15 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "2026-09-04"
             ],
             "sourceRefreshSlots": {},
-            "headline": "There is not enough reliable information for a Migration Timing call.",
-            "tip": "Do not move farther upstream or stay lower based on this timing read. Fish the section identified by Migration Stage and begin in its most established holding water; change sections only when direct fish activity or a dependable later read supports it.",
+            "headline": "There is not enough reliable Muskegon evidence for a Migration Timing call.",
+            "tip": "Keep the Muskegon section named by Migration Stage. Do not shift sections from this timing read.",
             "detail": "There are not enough dependable past seasons to judge whether this migration is early, normal, or late.",
             "reasonCodes": [
               "conditions_baseline_missing",
               "conditions_insufficient",
               "conditions_checkpoint_building_established"
             ],
-            "copyVersion": "river-run-copy-v27",
+            "copyVersion": "river-run-copy-v34",
             "previousCheckpointId": "building_start",
             "previousCheckpointDate": "2026-09-05",
             "previousTimingLabel": "Insufficient evidence"
@@ -2227,9 +2239,9 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "push": {
             "score": 30,
             "label": "No clear push",
-            "headline": "Today's water does not show a clear signal for a fresh wave of fish.",
-            "detail": "The river is holding steady with no meaningful rise yet. Water temperature is favorable for fall migration and is relatively steady. Recent weather estimates indicate very little rain around the river.",
-            "tip": "Fish established holding water from the head through the inside seam and tail. Do not spend the day racing between lower travel lanes for a wave the water does not support.",
+            "headline": "Croton-area water does not show a clear fresh-movement signal.",
+            "detail": "The river is holding steady with no meaningful rise yet. Water temperature is favorable for fall migration and is relatively steady. Recent watershed weather shows little rain.",
+            "tip": "Keep Migration Stage’s section primary. Do not shift sections from this read.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
@@ -2248,14 +2260,14 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 93,
             "label": "Excellent",
-            "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river.",
-            "tip": "Begin on the primary travel lane feeding deep holding water. Work each hole from its head through the inside seam and tail, then keep moving until fish establish a pattern.",
+            "headline": "Croton-area flow is in its best presentation range.",
+            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read applies only near Croton Dam within the Upper river (Newaygo–Croton Dam).",
+            "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band"
@@ -2266,15 +2278,15 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 80,
             "maximum": 100,
             "label": "Highly active",
-            "headline": "Today’s Chinook activity outlook is highly active.",
-            "detail": "Conditions strongly favor a response from Chinook that are present and capable of reacting. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. More Chinook are moving and settling into the river; the score describes reaction conditions for fish already present. The measured conditions represent the regulated Croton tailwater immediately below Croton Dam; water temperature, clarity, tributary influence, and presentation conditions can differ through Newaygo, the lower river, Muskegon Lake, and the channel. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
-            "tip": "Start with 5–9 AM. If the sky changes from the forecast, favor the darkest practical window.",
+            "headline": "Today’s Croton-area Chinook responsiveness is highly active.",
+            "detail": "Conditions strongly support Chinook responsiveness. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Croton flow and temperature represent only the area near the dam.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify downstream sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -2326,10 +2338,13 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 27,
+            "displayScore": 25,
+            "scoreIsApproximate": true,
             "stage": "building",
             "maximum": 100,
             "riverCeiling": 90,
@@ -2338,14 +2353,14 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "curveDirection": "rising",
             "winterHoldingContext": false,
             "label": "Limited presence",
-            "headline": "Some Chinook salmon are likely in the river, but seasonal presence is still developing.",
-            "detail": "This part of the season usually brings limited presence, with more fish expected to enter and spread through the river. This is a seasonal estimate, not a live fish count.",
-            "tip": "Plan for an emerging but uneven river opportunity. Cover water efficiently, and do not assume every promising stop holds fish.",
+            "headline": "Seasonal Chinook salmon presence is limited and building.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the Muskegon Chinook salmon ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_building",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -2579,14 +2594,14 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "good_fishability_low_presence"
             ]
           },
-          "secondaryNote": "Based on USGS 04121970 immediately below Croton Dam. It represents the regulated Croton tailwater; flow, temperature, access, and safety can differ through Newaygo, the lower river, Muskegon Lake, and the channel.",
+          "secondaryNote": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
           "safety": {
             "regulationReminder": "Croton Dam is the hard upstream migration boundary. Fish only legal water below the dam, use established public access, respect private land and posted closures, and check current Michigan regulations and dam-safety notices.",
-            "gaugeBasis": "Based on USGS 04121970 immediately below Croton Dam. It represents the regulated Croton tailwater; flow, temperature, access, and safety can differ through Newaygo, the lower river, Muskegon Lake, and the channel.",
+            "gaugeBasis": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-muskegon-steelhead-activity.1"
+          "configVersion": "2026-08-11-muskegon-copy.1"
         }
       },
       {
@@ -2605,6 +2620,7 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "nextConditionRefreshAt": "2026-09-16T05:00:00.000Z",
           "runStage": {
             "stage": "building",
+            "copyStrategy": "muskegon_croton_tailwater",
             "stagingContext": false,
             "broadBuildingContext": true,
             "winterHoldingContext": false,
@@ -2627,14 +2643,14 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "peakToEndDays": 35
             },
             "label": "Building",
-            "headline": "Chinook salmon are broadly established below Croton Dam.",
-            "whereToStart": "Compare Croton-tailwater pools, the Croton-to-Newaygo corridor, Newaygo-to-M-120 holding water, and major lower-river bends toward Muskegon Lake.",
-            "detail": "Fish from several waves can be spread through the river, but the Croton gauge only measures water near the dam. Fish numbers can be very different downstream.",
-            "tip": "Check the upper, middle, and lower river. Let what you see on the water—not just the Croton gauge—tell you where to stay.",
+            "headline": "Chinook salmon are broadly established through the Muskegon River.",
+            "whereToStart": "Start in the Upper river (Newaygo–Croton Dam), emphasizing the Croton Dam area. Compare the Middle river (M-120–Newaygo) for fresher fish.",
+            "detail": "Repeated entry periods support broad presence, not equal numbers in every section.",
+            "tip": "Croton measurements apply only near the dam. Verify downstream water directly.",
             "reasonCodes": [
               "stage_building"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -2683,15 +2699,15 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "2026-09-04"
             ],
             "sourceRefreshSlots": {},
-            "headline": "There is not enough reliable information for a Migration Timing call.",
-            "tip": "Do not move farther upstream or stay lower based on this timing read. Fish the section identified by Migration Stage and begin in its most established holding water; change sections only when direct fish activity or a dependable later read supports it.",
+            "headline": "There is not enough reliable Muskegon evidence for a Migration Timing call.",
+            "tip": "Keep the Muskegon section named by Migration Stage. Do not shift sections from this timing read.",
             "detail": "There are not enough dependable past seasons to judge whether this migration is early, normal, or late.",
             "reasonCodes": [
               "conditions_baseline_missing",
               "conditions_insufficient",
               "conditions_checkpoint_building_established"
             ],
-            "copyVersion": "river-run-copy-v27",
+            "copyVersion": "river-run-copy-v34",
             "previousCheckpointId": "building_start",
             "previousCheckpointDate": "2026-09-05",
             "previousTimingLabel": "Insufficient evidence"
@@ -2708,9 +2724,9 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "push": {
             "score": 30,
             "label": "No clear push",
-            "headline": "Today's water does not show a clear signal for a fresh wave of fish.",
-            "detail": "The river is holding steady with no meaningful rise yet. Water temperature is favorable for fall migration and is relatively steady. Recent weather estimates indicate very little rain around the river.",
-            "tip": "Fish established holding water from the head through the inside seam and tail. Do not spend the day racing between lower travel lanes for a wave the water does not support.",
+            "headline": "Croton-area water does not show a clear fresh-movement signal.",
+            "detail": "The river is holding steady with no meaningful rise yet. Water temperature is favorable for fall migration and is relatively steady. Recent watershed weather shows little rain.",
+            "tip": "Keep Migration Stage’s section primary. Do not shift sections from this read.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
@@ -2729,14 +2745,14 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 93,
             "label": "Excellent",
-            "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river.",
-            "tip": "Begin on the primary travel lane feeding deep holding water. Work each hole from its head through the inside seam and tail, then keep moving until fish establish a pattern.",
+            "headline": "Croton-area flow is in its best presentation range.",
+            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read applies only near Croton Dam within the Upper river (Newaygo–Croton Dam).",
+            "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band"
@@ -2747,15 +2763,15 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 80,
             "maximum": 100,
             "label": "Highly active",
-            "headline": "Today’s Chinook activity outlook is highly active.",
-            "detail": "Conditions strongly favor a response from Chinook that are present and capable of reacting. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. More Chinook are moving and settling into the river; the score describes reaction conditions for fish already present. The measured conditions represent the regulated Croton tailwater immediately below Croton Dam; water temperature, clarity, tributary influence, and presentation conditions can differ through Newaygo, the lower river, Muskegon Lake, and the channel. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
-            "tip": "Start with 5–9 AM. If the sky changes from the forecast, favor the darkest practical window.",
+            "headline": "Today’s Croton-area Chinook responsiveness is highly active.",
+            "detail": "Conditions strongly support Chinook responsiveness. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Croton flow and temperature represent only the area near the dam.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify downstream sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -2807,10 +2823,13 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 50,
+            "displayScore": 50,
+            "scoreIsApproximate": true,
             "stage": "building",
             "maximum": 100,
             "riverCeiling": 90,
@@ -2819,14 +2838,14 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "curveDirection": "rising",
             "winterHoldingContext": false,
             "label": "Moderate presence",
-            "headline": "A meaningful number of Chinook salmon are likely in the river, with seasonal presence still building.",
-            "detail": "This part of the season usually brings moderate presence, with more fish expected to enter and spread through the river. This is a seasonal estimate, not a live fish count.",
-            "tip": "Plan for a credible river opportunity that is still improving. Stay mobile until direct fish activity gives you a reason to slow down.",
+            "headline": "Seasonal Chinook salmon presence is moderate and building.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the Muskegon Chinook salmon ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_building",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -3054,14 +3073,14 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             ]
           },
           "interpretationNote": null,
-          "secondaryNote": "Based on USGS 04121970 immediately below Croton Dam. It represents the regulated Croton tailwater; flow, temperature, access, and safety can differ through Newaygo, the lower river, Muskegon Lake, and the channel.",
+          "secondaryNote": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
           "safety": {
             "regulationReminder": "Croton Dam is the hard upstream migration boundary. Fish only legal water below the dam, use established public access, respect private land and posted closures, and check current Michigan regulations and dam-safety notices.",
-            "gaugeBasis": "Based on USGS 04121970 immediately below Croton Dam. It represents the regulated Croton tailwater; flow, temperature, access, and safety can differ through Newaygo, the lower river, Muskegon Lake, and the channel.",
+            "gaugeBasis": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-muskegon-steelhead-activity.1"
+          "configVersion": "2026-08-11-muskegon-copy.1"
         }
       },
       {
@@ -3080,6 +3099,7 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "nextConditionRefreshAt": "2026-09-26T05:00:00.000Z",
           "runStage": {
             "stage": "building",
+            "copyStrategy": "muskegon_croton_tailwater",
             "stagingContext": false,
             "broadBuildingContext": true,
             "winterHoldingContext": false,
@@ -3102,14 +3122,14 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "peakToEndDays": 35
             },
             "label": "Building",
-            "headline": "Chinook salmon are broadly established below Croton Dam.",
-            "whereToStart": "Compare Croton-tailwater pools, the Croton-to-Newaygo corridor, Newaygo-to-M-120 holding water, and major lower-river bends toward Muskegon Lake.",
-            "detail": "Fish from several waves can be spread through the river, but the Croton gauge only measures water near the dam. Fish numbers can be very different downstream.",
-            "tip": "Check the upper, middle, and lower river. Let what you see on the water—not just the Croton gauge—tell you where to stay.",
+            "headline": "Chinook salmon are broadly established through the Muskegon River.",
+            "whereToStart": "Start in the Upper river (Newaygo–Croton Dam), emphasizing the Croton Dam area. Compare the Middle river (M-120–Newaygo) for fresher fish.",
+            "detail": "Repeated entry periods support broad presence, not equal numbers in every section.",
+            "tip": "Croton measurements apply only near the dam. Verify downstream water directly.",
             "reasonCodes": [
               "stage_building"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -3178,15 +3198,15 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "2026-09-24"
             ],
             "sourceRefreshSlots": {},
-            "headline": "There is not enough reliable information for a Migration Timing call.",
-            "tip": "Do not move farther upstream or stay lower based on this timing read. Fish the section identified by Migration Stage and begin in its most established holding water; change sections only when direct fish activity or a dependable later read supports it.",
+            "headline": "There is not enough reliable Muskegon evidence for a Migration Timing call.",
+            "tip": "Keep the Muskegon section named by Migration Stage. Do not shift sections from this timing read.",
             "detail": "There are not enough dependable past seasons to judge whether this migration is early, normal, or late.",
             "reasonCodes": [
               "conditions_baseline_missing",
               "conditions_insufficient",
               "conditions_checkpoint_peak_start"
             ],
-            "copyVersion": "river-run-copy-v27",
+            "copyVersion": "river-run-copy-v34",
             "previousCheckpointId": "building_established",
             "previousCheckpointDate": "2026-09-05",
             "previousTimingLabel": "Insufficient evidence"
@@ -3203,9 +3223,9 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "push": {
             "score": 30,
             "label": "No clear push",
-            "headline": "Today's water does not show a clear signal for a fresh wave of fish.",
-            "detail": "The river is holding steady with no meaningful rise yet. Water temperature is favorable for fall migration and is relatively steady. Recent weather estimates indicate very little rain around the river.",
-            "tip": "Fish established holding water from the head through the inside seam and tail. Do not spend the day racing between lower travel lanes for a wave the water does not support.",
+            "headline": "Croton-area water does not show a clear fresh-movement signal.",
+            "detail": "The river is holding steady with no meaningful rise yet. Water temperature is favorable for fall migration and is relatively steady. Recent watershed weather shows little rain.",
+            "tip": "Keep Migration Stage’s section primary. Do not shift sections from this read.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
@@ -3224,14 +3244,14 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 93,
             "label": "Excellent",
-            "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river.",
-            "tip": "Begin on the primary travel lane feeding deep holding water. Work each hole from its head through the inside seam and tail, then keep moving until fish establish a pattern.",
+            "headline": "Croton-area flow is in its best presentation range.",
+            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read applies only near Croton Dam within the Upper river (Newaygo–Croton Dam).",
+            "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band"
@@ -3242,15 +3262,15 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 80,
             "maximum": 100,
             "label": "Highly active",
-            "headline": "Today’s Chinook activity outlook is highly active.",
-            "detail": "Conditions strongly favor a response from Chinook that are present and capable of reacting. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. More Chinook are moving and settling into the river; the score describes reaction conditions for fish already present. The measured conditions represent the regulated Croton tailwater immediately below Croton Dam; water temperature, clarity, tributary influence, and presentation conditions can differ through Newaygo, the lower river, Muskegon Lake, and the channel. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
-            "tip": "Start with 5–9 AM. If the sky changes from the forecast, favor the darkest practical window.",
+            "headline": "Today’s Croton-area Chinook responsiveness is highly active.",
+            "detail": "Conditions strongly support Chinook responsiveness. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Croton flow and temperature represent only the area near the dam.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify downstream sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -3302,10 +3322,13 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 74,
+            "displayScore": 75,
+            "scoreIsApproximate": true,
             "stage": "building",
             "maximum": 100,
             "riverCeiling": 90,
@@ -3314,14 +3337,14 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "curveDirection": "rising",
             "winterHoldingContext": false,
             "label": "High presence",
-            "headline": "Chinook salmon are likely spread through more of the river as seasonal presence builds toward its strongest point.",
-            "detail": "The migration is approaching its strongest seasonal point, and fish are likely distributed through more of the river. This is a seasonal estimate, not a live fish count.",
-            "tip": "Treat this as one of the stronger parts of a strong river season. Give each stop a complete pass, but do not mistake this seasonal estimate for a live fish count.",
+            "headline": "Seasonal Chinook salmon presence is high and building.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the Muskegon Chinook salmon ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_building",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -3549,14 +3572,14 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             ]
           },
           "interpretationNote": null,
-          "secondaryNote": "Based on USGS 04121970 immediately below Croton Dam. It represents the regulated Croton tailwater; flow, temperature, access, and safety can differ through Newaygo, the lower river, Muskegon Lake, and the channel.",
+          "secondaryNote": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
           "safety": {
             "regulationReminder": "Croton Dam is the hard upstream migration boundary. Fish only legal water below the dam, use established public access, respect private land and posted closures, and check current Michigan regulations and dam-safety notices.",
-            "gaugeBasis": "Based on USGS 04121970 immediately below Croton Dam. It represents the regulated Croton tailwater; flow, temperature, access, and safety can differ through Newaygo, the lower river, Muskegon Lake, and the channel.",
+            "gaugeBasis": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-muskegon-steelhead-activity.1"
+          "configVersion": "2026-08-11-muskegon-copy.1"
         }
       },
       {
@@ -3575,6 +3598,7 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "nextConditionRefreshAt": "2026-10-02T05:00:00.000Z",
           "runStage": {
             "stage": "peak",
+            "copyStrategy": "muskegon_croton_tailwater",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -3598,13 +3622,13 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             },
             "label": "Peak",
             "headline": "This is typically the strongest Muskegon River Chinook salmon opportunity.",
-            "whereToStart": "Compare the Croton tailwater, Croton-to-Newaygo pools, Newaygo-to-M-120 bends and wood, and major lower-river holes toward Muskegon Lake.",
-            "detail": "Fish can be spread through the river now, but water clarity, access, and how the fish act can still be very different from one section to another.",
-            "tip": "The Croton gauge tells you what is happening near the dam. Check the middle and lower river yourself because conditions can be different downstream.",
+            "whereToStart": "Start in the Upper river (Newaygo–Croton Dam), emphasizing the Croton Dam area. Compare the Middle river (M-120–Newaygo) for fresher fish.",
+            "detail": "Fish can be broadly present, but concentrations still vary by section.",
+            "tip": "Croton measurements apply only near the dam. Verify downstream water directly.",
             "reasonCodes": [
               "stage_peak"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -3673,15 +3697,15 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "2026-09-24"
             ],
             "sourceRefreshSlots": {},
-            "headline": "There is not enough reliable information for a Migration Timing call.",
-            "tip": "Do not move farther upstream or stay lower based on this timing read. Fish the section identified by Migration Stage and begin in its most established holding water; change sections only when direct fish activity or a dependable later read supports it.",
+            "headline": "There is not enough reliable Muskegon evidence for a Migration Timing call.",
+            "tip": "Keep the Muskegon section named by Migration Stage. Do not shift sections from this timing read.",
             "detail": "There are not enough dependable past seasons to judge whether this migration is early, normal, or late.",
             "reasonCodes": [
               "conditions_baseline_missing",
               "conditions_insufficient",
               "conditions_checkpoint_peak_start"
             ],
-            "copyVersion": "river-run-copy-v27",
+            "copyVersion": "river-run-copy-v34",
             "previousCheckpointId": "building_established",
             "previousCheckpointDate": "2026-09-05",
             "previousTimingLabel": "Insufficient evidence"
@@ -3698,9 +3722,9 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "push": {
             "score": 30,
             "label": "No clear push",
-            "headline": "Today's water does not show a clear signal for a fresh wave of fish.",
-            "detail": "The river is holding steady with no meaningful rise yet. Water temperature is favorable for fall migration and is relatively steady. Recent weather estimates indicate very little rain around the river.",
-            "tip": "Fish established holding water from the head through the inside seam and tail. Do not spend the day racing between lower travel lanes for a wave the water does not support.",
+            "headline": "Croton-area water does not show a clear fresh-movement signal.",
+            "detail": "The river is holding steady with no meaningful rise yet. Water temperature is favorable for fall migration and is relatively steady. Recent watershed weather shows little rain.",
+            "tip": "Keep Migration Stage’s section primary. Do not shift sections from this read.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
@@ -3719,14 +3743,14 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 93,
             "label": "Excellent",
-            "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river.",
-            "tip": "Begin on the primary travel lane feeding deep holding water. Work each hole from its head through the inside seam and tail, then keep moving until fish establish a pattern.",
+            "headline": "Croton-area flow is in its best presentation range.",
+            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read applies only near Croton Dam within the Upper river (Newaygo–Croton Dam).",
+            "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band"
@@ -3737,15 +3761,15 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 80,
             "maximum": 100,
             "label": "Highly active",
-            "headline": "Today’s Chinook activity outlook is highly active.",
-            "detail": "Conditions strongly favor a response from Chinook that are present and capable of reacting. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. Broad seasonal presence improves the chance of locating fish, but this score measures responsiveness rather than abundance. The measured conditions represent the regulated Croton tailwater immediately below Croton Dam; water temperature, clarity, tributary influence, and presentation conditions can differ through Newaygo, the lower river, Muskegon Lake, and the channel. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
-            "tip": "Start with 5–9 AM. If the sky changes from the forecast, favor the darkest practical window.",
+            "headline": "Today’s Croton-area Chinook responsiveness is highly active.",
+            "detail": "Conditions strongly support Chinook responsiveness. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Croton flow and temperature represent only the area near the dam.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify downstream sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -3797,10 +3821,13 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 90,
+            "displayScore": 90,
+            "scoreIsApproximate": false,
             "stage": "peak",
             "maximum": 100,
             "riverCeiling": 90,
@@ -3809,14 +3836,14 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "curveDirection": "near_peak",
             "winterHoldingContext": false,
             "label": "Peak presence",
-            "headline": "Chinook salmon are likely near their highest seasonal presence in the river.",
-            "detail": "This is the part of the season when in-river presence is usually strongest. The read describes the river as a whole; it does not place fish in a specific pool or confirm a live count.",
-            "tip": "Plan for the strongest seasonal presence this river usually offers, while remembering that this estimate cannot confirm fish at a specific spot or describe today's river conditions.",
+            "headline": "Seasonal Chinook salmon presence is near its expected Muskegon peak.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the Muskegon Chinook salmon ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_peak",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -4050,14 +4077,14 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "peak_presence_weak_push"
             ]
           },
-          "secondaryNote": "Based on USGS 04121970 immediately below Croton Dam. It represents the regulated Croton tailwater; flow, temperature, access, and safety can differ through Newaygo, the lower river, Muskegon Lake, and the channel.",
+          "secondaryNote": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
           "safety": {
             "regulationReminder": "Croton Dam is the hard upstream migration boundary. Fish only legal water below the dam, use established public access, respect private land and posted closures, and check current Michigan regulations and dam-safety notices.",
-            "gaugeBasis": "Based on USGS 04121970 immediately below Croton Dam. It represents the regulated Croton tailwater; flow, temperature, access, and safety can differ through Newaygo, the lower river, Muskegon Lake, and the channel.",
+            "gaugeBasis": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-muskegon-steelhead-activity.1"
+          "configVersion": "2026-08-11-muskegon-copy.1"
         }
       },
       {
@@ -4076,6 +4103,7 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "nextConditionRefreshAt": "2026-10-11T05:00:00.000Z",
           "runStage": {
             "stage": "peak",
+            "copyStrategy": "muskegon_croton_tailwater",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -4099,13 +4127,13 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             },
             "label": "Peak",
             "headline": "This is typically the strongest Muskegon River Chinook salmon opportunity.",
-            "whereToStart": "Compare the Croton tailwater, Croton-to-Newaygo pools, Newaygo-to-M-120 bends and wood, and major lower-river holes toward Muskegon Lake.",
-            "detail": "Fish can be spread through the river now, but water clarity, access, and how the fish act can still be very different from one section to another.",
-            "tip": "The Croton gauge tells you what is happening near the dam. Check the middle and lower river yourself because conditions can be different downstream.",
+            "whereToStart": "Start in the Upper river (Newaygo–Croton Dam), emphasizing the Croton Dam area. Compare the Middle river (M-120–Newaygo) for fresher fish.",
+            "detail": "Fish can be broadly present, but concentrations still vary by section.",
+            "tip": "Croton measurements apply only near the dam. Verify downstream water directly.",
             "reasonCodes": [
               "stage_peak"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Timing complete",
@@ -4194,7 +4222,7 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "conditions_checkpoint_peak_complete",
               "conditions_timing_complete"
             ],
-            "copyVersion": "river-run-copy-v27",
+            "copyVersion": "river-run-copy-v34",
             "previousCheckpointId": "peak_start",
             "previousCheckpointDate": "2026-09-25",
             "previousTimingLabel": "Insufficient evidence"
@@ -4211,9 +4239,9 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "push": {
             "score": 30,
             "label": "No clear push",
-            "headline": "Today's water does not show a clear signal for a fresh wave of fish.",
-            "detail": "The river is holding steady with no meaningful rise yet. Water temperature is favorable for fall migration and is relatively steady. Recent weather estimates indicate very little rain around the river.",
-            "tip": "Fish established holding water from the head through the inside seam and tail. Do not spend the day racing between lower travel lanes for a wave the water does not support.",
+            "headline": "Croton-area water does not show a clear fresh-movement signal.",
+            "detail": "The river is holding steady with no meaningful rise yet. Water temperature is favorable for fall migration and is relatively steady. Recent watershed weather shows little rain.",
+            "tip": "Keep Migration Stage’s section primary. Do not shift sections from this read.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
@@ -4232,14 +4260,14 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 93,
             "label": "Excellent",
-            "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river.",
-            "tip": "Begin on the primary travel lane feeding deep holding water. Work each hole from its head through the inside seam and tail, then keep moving until fish establish a pattern.",
+            "headline": "Croton-area flow is in its best presentation range.",
+            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read applies only near Croton Dam within the Upper river (Newaygo–Croton Dam).",
+            "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band"
@@ -4250,15 +4278,15 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 80,
             "maximum": 100,
             "label": "Highly active",
-            "headline": "Today’s Chinook activity outlook is highly active.",
-            "detail": "Conditions strongly favor a response from Chinook that are present and capable of reacting. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. Broad seasonal presence improves the chance of locating fish, but this score measures responsiveness rather than abundance. The measured conditions represent the regulated Croton tailwater immediately below Croton Dam; water temperature, clarity, tributary influence, and presentation conditions can differ through Newaygo, the lower river, Muskegon Lake, and the channel. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
-            "tip": "Start with 5–9 AM. If the sky changes from the forecast, favor the darkest practical window.",
+            "headline": "Today’s Croton-area Chinook responsiveness is highly active.",
+            "detail": "Conditions strongly support Chinook responsiveness. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Croton flow and temperature represent only the area near the dam.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify downstream sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -4310,10 +4338,13 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 84,
+            "displayScore": 85,
+            "scoreIsApproximate": true,
             "stage": "peak",
             "maximum": 100,
             "riverCeiling": 90,
@@ -4322,14 +4353,14 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "curveDirection": "falling",
             "winterHoldingContext": false,
             "label": "Peak presence",
-            "headline": "Seasonal timing still supports Chinook salmon being near their strongest in-river presence, even if the migration may be just beyond its usual peak.",
-            "detail": "This point in the season may sit just beyond the usual peak while the seasonal pattern still supports strong in-river presence. This is a seasonal estimate, not a live fish count.",
-            "tip": "Plan around fish already likely to be in the river. Seasonal presence is still near its high point, but remember that this seasonal estimate cannot tell whether a fresh wave is entering today.",
+            "headline": "Seasonal Chinook salmon presence is near its expected Muskegon peak.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the Muskegon Chinook salmon ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_peak",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -4563,14 +4594,14 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "peak_presence_weak_push"
             ]
           },
-          "secondaryNote": "Based on USGS 04121970 immediately below Croton Dam. It represents the regulated Croton tailwater; flow, temperature, access, and safety can differ through Newaygo, the lower river, Muskegon Lake, and the channel.",
+          "secondaryNote": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
           "safety": {
             "regulationReminder": "Croton Dam is the hard upstream migration boundary. Fish only legal water below the dam, use established public access, respect private land and posted closures, and check current Michigan regulations and dam-safety notices.",
-            "gaugeBasis": "Based on USGS 04121970 immediately below Croton Dam. It represents the regulated Croton tailwater; flow, temperature, access, and safety can differ through Newaygo, the lower river, Muskegon Lake, and the channel.",
+            "gaugeBasis": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-muskegon-steelhead-activity.1"
+          "configVersion": "2026-08-11-muskegon-copy.1"
         }
       },
       {
@@ -4589,6 +4620,7 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "nextConditionRefreshAt": "2026-10-14T05:00:00.000Z",
           "runStage": {
             "stage": "tapering",
+            "copyStrategy": "muskegon_croton_tailwater",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -4611,14 +4643,14 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "peakToEndDays": 35
             },
             "label": "Tapering",
-            "headline": "The Muskegon Chinook salmon run is tapering, with established fish still present below Croton.",
-            "whereToStart": "Start with deep Croton-to-Newaygo pools, slower bends near Newaygo, and known holding water around M-120. Check the lower river when there are signs of later fish coming in.",
-            "detail": "October can still hold fish, but more of them have been in the river for a while, are spawning, or are starting to wear down. Do not expect a fresh wave everywhere.",
-            "tip": "Fish the deeper holding water, leave fish on shallow spawning gravel alone, and remember that one bright fish does not mean a fresh wave came in.",
+            "headline": "Chinook salmon remain present, but fresh arrivals are less consistent.",
+            "whereToStart": "Start in the Upper river (Newaygo–Croton Dam), especially the Croton Dam area. Add the Middle river (M-120–Newaygo) only when direct activity supports it.",
+            "detail": "The run is declining and concentrating in established holding water.",
+            "tip": "Look for genuinely fresh fish and leave visible spawning or deteriorated fish alone.",
             "reasonCodes": [
               "stage_tapering"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Timing complete",
@@ -4707,7 +4739,7 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "conditions_checkpoint_peak_complete",
               "conditions_timing_complete"
             ],
-            "copyVersion": "river-run-copy-v27",
+            "copyVersion": "river-run-copy-v34",
             "previousCheckpointId": "peak_start",
             "previousCheckpointDate": "2026-09-25",
             "previousTimingLabel": "Insufficient evidence"
@@ -4724,9 +4756,9 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "push": {
             "score": 30,
             "label": "No clear push",
-            "headline": "Today's water does not show a clear signal for a fresh wave of fish.",
-            "detail": "The river is holding steady with no meaningful rise yet. Water temperature is favorable for fall migration and is relatively steady. Recent weather estimates indicate very little rain around the river.",
-            "tip": "Fish established holding water from the head through the inside seam and tail. Do not spend the day racing between lower travel lanes for a wave the water does not support.",
+            "headline": "Croton-area water does not show a clear fresh-movement signal.",
+            "detail": "The river is holding steady with no meaningful rise yet. Water temperature is favorable for fall migration and is relatively steady. Recent watershed weather shows little rain.",
+            "tip": "Keep Migration Stage’s section primary. Do not shift sections from this read.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
@@ -4745,14 +4777,14 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 93,
             "label": "Excellent",
-            "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river.",
-            "tip": "Begin on the primary travel lane feeding deep holding water. Work each hole from its head through the inside seam and tail, then keep moving until fish establish a pattern.",
+            "headline": "Croton-area flow is in its best presentation range.",
+            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read applies only near Croton Dam within the Upper river (Newaygo–Croton Dam).",
+            "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band"
@@ -4763,15 +4795,15 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 79,
             "maximum": 100,
             "label": "Active",
-            "headline": "Today’s Chinook activity outlook is active.",
-            "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. This score represents a Chinook of unknown condition at this point in the season. A newly arrived or fresher fish may be more active than this score, while a spawning or deteriorating fish may be less responsive. The measured conditions represent the regulated Croton tailwater immediately below Croton Dam; water temperature, clarity, tributary influence, and presentation conditions can differ through Newaygo, the lower river, Muskegon Lake, and the channel. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
-            "tip": "Compare the four time windows, but treat every difference as conditional on finding a living Chinook still capable of responding.",
+            "headline": "Today’s Croton-area Chinook responsiveness is active.",
+            "detail": "Conditions support a meaningful Chinook response. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Late-run Chinook condition varies widely, so individual fish may respond above or below this outlook.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify downstream sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -4824,10 +4856,13 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 80,
+            "displayScore": 80,
+            "scoreIsApproximate": true,
             "stage": "tapering",
             "maximum": 100,
             "riverCeiling": 90,
@@ -4836,14 +4871,14 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "curveDirection": "falling",
             "winterHoldingContext": false,
             "label": "High presence",
-            "headline": "Seasonal timing still supports strong Chinook salmon presence across much of the river, even as the usual peak window may be easing.",
-            "detail": "Seasonal presence remains elevated relative to the rest of the season, but fresh arrivals may be less consistent than around the usual peak. This is a seasonal estimate, not a live fish count.",
-            "tip": "Plan around fish already likely to be in the river. Seasonal presence is still near its high point, but remember that this seasonal estimate cannot tell whether a fresh wave is entering today.",
+            "headline": "Seasonal Chinook salmon presence is high and declining.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the Muskegon Chinook salmon ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_tapering",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -5071,14 +5106,14 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             ]
           },
           "interpretationNote": null,
-          "secondaryNote": "Based on USGS 04121970 immediately below Croton Dam. It represents the regulated Croton tailwater; flow, temperature, access, and safety can differ through Newaygo, the lower river, Muskegon Lake, and the channel.",
+          "secondaryNote": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
           "safety": {
             "regulationReminder": "Croton Dam is the hard upstream migration boundary. Fish only legal water below the dam, use established public access, respect private land and posted closures, and check current Michigan regulations and dam-safety notices.",
-            "gaugeBasis": "Based on USGS 04121970 immediately below Croton Dam. It represents the regulated Croton tailwater; flow, temperature, access, and safety can differ through Newaygo, the lower river, Muskegon Lake, and the channel.",
+            "gaugeBasis": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-muskegon-steelhead-activity.1"
+          "configVersion": "2026-08-11-muskegon-copy.1"
         }
       },
       {
@@ -5097,6 +5132,7 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "nextConditionRefreshAt": "2026-10-25T05:00:00.000Z",
           "runStage": {
             "stage": "tapering",
+            "copyStrategy": "muskegon_croton_tailwater",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -5119,14 +5155,14 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "peakToEndDays": 35
             },
             "label": "Tapering",
-            "headline": "The Muskegon Chinook salmon run is tapering, with established fish still present below Croton.",
-            "whereToStart": "Start with deep Croton-to-Newaygo pools, slower bends near Newaygo, and known holding water around M-120. Check the lower river when there are signs of later fish coming in.",
-            "detail": "October can still hold fish, but more of them have been in the river for a while, are spawning, or are starting to wear down. Do not expect a fresh wave everywhere.",
-            "tip": "Fish the deeper holding water, leave fish on shallow spawning gravel alone, and remember that one bright fish does not mean a fresh wave came in.",
+            "headline": "The Muskegon Chinook salmon run is entering its late taper.",
+            "whereToStart": "Start in the Upper river (Newaygo–Croton Dam), especially the Croton Dam area. Add the Middle river (M-120–Newaygo) only when direct activity supports it.",
+            "detail": "Fresh arrivals are becoming exceptions and dependable distribution is narrowing.",
+            "tip": "Look for genuinely fresh fish and leave visible spawning or deteriorated fish alone.",
             "reasonCodes": [
               "stage_tapering"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Timing complete",
@@ -5215,7 +5251,7 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "conditions_checkpoint_peak_complete",
               "conditions_timing_complete"
             ],
-            "copyVersion": "river-run-copy-v27",
+            "copyVersion": "river-run-copy-v34",
             "previousCheckpointId": "peak_start",
             "previousCheckpointDate": "2026-09-25",
             "previousTimingLabel": "Insufficient evidence"
@@ -5232,9 +5268,9 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "push": {
             "score": 30,
             "label": "No clear push",
-            "headline": "Today's water does not show a clear signal for a fresh wave of fish.",
-            "detail": "The river is holding steady with no meaningful rise yet. Water temperature is favorable for fall migration and is relatively steady. Recent weather estimates indicate very little rain around the river.",
-            "tip": "Fish established holding water from the head through the inside seam and tail. Do not spend the day racing between lower travel lanes for a wave the water does not support.",
+            "headline": "Croton-area water does not show a clear fresh-movement signal.",
+            "detail": "The river is holding steady with no meaningful rise yet. Water temperature is favorable for fall migration and is relatively steady. Recent watershed weather shows little rain.",
+            "tip": "Keep Migration Stage’s section primary. Do not shift sections from this read.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
@@ -5253,14 +5289,14 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 93,
             "label": "Excellent",
-            "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river.",
-            "tip": "Begin on the primary travel lane feeding deep holding water. Work each hole from its head through the inside seam and tail, then keep moving until fish establish a pattern.",
+            "headline": "Croton-area flow is in its best presentation range.",
+            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read applies only near Croton Dam within the Upper river (Newaygo–Croton Dam).",
+            "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band"
@@ -5271,15 +5307,15 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 66,
             "maximum": 100,
             "label": "Active",
-            "headline": "Today’s Chinook activity outlook is active.",
-            "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. This score represents a Chinook of unknown condition at this point in the season. A newly arrived or fresher fish may be more active than this score, while a spawning or deteriorating fish may be less responsive. The measured conditions represent the regulated Croton tailwater immediately below Croton Dam; water temperature, clarity, tributary influence, and presentation conditions can differ through Newaygo, the lower river, Muskegon Lake, and the channel. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
-            "tip": "Compare the four time windows, but treat every difference as conditional on finding a living Chinook still capable of responding.",
+            "headline": "Today’s Croton-area Chinook responsiveness is active.",
+            "detail": "Conditions support a meaningful Chinook response. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Late-run Chinook condition varies widely, so individual fish may respond above or below this outlook.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify downstream sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -5332,10 +5368,13 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 52,
+            "displayScore": 50,
+            "scoreIsApproximate": true,
             "stage": "tapering",
             "maximum": 100,
             "riverCeiling": 90,
@@ -5344,14 +5383,14 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "curveDirection": "falling",
             "winterHoldingContext": false,
             "label": "Moderate presence",
-            "headline": "Seasonal timing still supports meaningful Chinook salmon presence, especially in established holding water.",
-            "detail": "This part of the season usually supports moderate presence, while fresh arrivals often become less consistent later in the season. This is a seasonal estimate, not a live fish count.",
-            "tip": "Plan for a worthwhile but less consistent river opportunity. Expect more searching than near the seasonal high, and let direct fish activity determine how long you stay.",
+            "headline": "Seasonal Chinook salmon presence is moderate and declining.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the Muskegon Chinook salmon ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_tapering",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -5579,14 +5618,14 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             ]
           },
           "interpretationNote": null,
-          "secondaryNote": "Based on USGS 04121970 immediately below Croton Dam. It represents the regulated Croton tailwater; flow, temperature, access, and safety can differ through Newaygo, the lower river, Muskegon Lake, and the channel.",
+          "secondaryNote": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
           "safety": {
             "regulationReminder": "Croton Dam is the hard upstream migration boundary. Fish only legal water below the dam, use established public access, respect private land and posted closures, and check current Michigan regulations and dam-safety notices.",
-            "gaugeBasis": "Based on USGS 04121970 immediately below Croton Dam. It represents the regulated Croton tailwater; flow, temperature, access, and safety can differ through Newaygo, the lower river, Muskegon Lake, and the channel.",
+            "gaugeBasis": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-muskegon-steelhead-activity.1"
+          "configVersion": "2026-08-11-muskegon-copy.1"
         }
       },
       {
@@ -5605,6 +5644,7 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "nextConditionRefreshAt": "2026-10-28T05:00:00.000Z",
           "runStage": {
             "stage": "ending",
+            "copyStrategy": "muskegon_croton_tailwater",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -5627,14 +5667,14 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "peakToEndDays": 35
             },
             "label": "Ending",
-            "headline": "Only a small late Muskegon Chinook salmon opportunity remains.",
-            "whereToStart": "Limit the search to proven deep pools below Croton, slower inside bends near Newaygo, and one or two substantial M-120-area holes.",
-            "detail": "Most fish left in the river have been there for a while. A late bright fish is still possible, but a steady new wave is no longer expected.",
-            "tip": "Keep expectations low, leave spawning or worn-out fish alone, and move on if you are not seeing signs of fish.",
+            "headline": "The main Muskegon Chinook salmon run is winding down.",
+            "whereToStart": "Start in the Upper river (Newaygo–Croton Dam), emphasizing established water near Croton Dam.",
+            "detail": "Residual fish can remain, but fresh movement is no longer dependable.",
+            "tip": "Keep expectations narrow and stop searching when direct evidence is absent.",
             "reasonCodes": [
               "stage_ending"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Timing complete",
@@ -5723,7 +5763,7 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "conditions_checkpoint_peak_complete",
               "conditions_timing_complete"
             ],
-            "copyVersion": "river-run-copy-v27",
+            "copyVersion": "river-run-copy-v34",
             "previousCheckpointId": "peak_start",
             "previousCheckpointDate": "2026-09-25",
             "previousTimingLabel": "Insufficient evidence"
@@ -5740,9 +5780,9 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "push": {
             "score": 30,
             "label": "No clear push",
-            "headline": "Today's water does not show a clear signal for a fresh wave of fish.",
-            "detail": "The river is holding steady with no meaningful rise yet. Water temperature is favorable for fall migration and is relatively steady. Recent weather estimates indicate very little rain around the river.",
-            "tip": "Fish established holding water from the head through the inside seam and tail. Do not spend the day racing between lower travel lanes for a wave the water does not support.",
+            "headline": "Croton-area water does not show a clear fresh-movement signal.",
+            "detail": "The river is holding steady with no meaningful rise yet. Water temperature is favorable for fall migration and is relatively steady. Recent watershed weather shows little rain.",
+            "tip": "Keep Migration Stage’s section primary. Do not shift sections from this read.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
@@ -5761,14 +5801,14 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 93,
             "label": "Excellent",
-            "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river.",
-            "tip": "Begin on the primary travel lane feeding deep holding water. Work each hole from its head through the inside seam and tail, then keep moving until fish establish a pattern.",
+            "headline": "Croton-area flow is in its best presentation range.",
+            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read applies only near Croton Dam within the Upper river (Newaygo–Croton Dam).",
+            "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band"
@@ -5779,15 +5819,15 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 60,
             "maximum": 100,
             "label": "Active",
-            "headline": "Today’s Chinook activity outlook is active.",
-            "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. This score represents a remaining Chinook of unknown condition late in the season. A newly arrived or fresher fish may be more active than this score, while a spent or dying fish may respond less or not at all. The measured conditions represent the regulated Croton tailwater immediately below Croton Dam; water temperature, clarity, tributary influence, and presentation conditions can differ through Newaygo, the lower river, Muskegon Lake, and the channel. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
-            "tip": "No late-season window should be treated as broadly favorable; use the block scores only for a living Chinook that is still capable of reacting.",
+            "headline": "Today’s Croton-area Chinook responsiveness is active.",
+            "detail": "Conditions support a meaningful Chinook response. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Late-run Chinook condition varies widely, so individual fish may respond above or below this outlook.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify downstream sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -5840,10 +5880,13 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 44,
+            "displayScore": 45,
+            "scoreIsApproximate": true,
             "stage": "ending",
             "maximum": 100,
             "riverCeiling": 90,
@@ -5852,14 +5895,14 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "curveDirection": "falling",
             "winterHoldingContext": false,
             "label": "Moderate presence",
-            "headline": "Seasonal timing still supports meaningful Chinook salmon presence, especially in established holding water.",
-            "detail": "This part of the season usually supports moderate presence, while fresh arrivals often become less consistent later in the season. This is a seasonal estimate, not a live fish count.",
-            "tip": "Plan for a worthwhile but less consistent river opportunity. Expect more searching than near the seasonal high, and let direct fish activity determine how long you stay.",
+            "headline": "Seasonal Chinook salmon presence is moderate and declining.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the Muskegon Chinook salmon ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_ending",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -6087,14 +6130,14 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             ]
           },
           "interpretationNote": null,
-          "secondaryNote": "Based on USGS 04121970 immediately below Croton Dam. It represents the regulated Croton tailwater; flow, temperature, access, and safety can differ through Newaygo, the lower river, Muskegon Lake, and the channel.",
+          "secondaryNote": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
           "safety": {
             "regulationReminder": "Croton Dam is the hard upstream migration boundary. Fish only legal water below the dam, use established public access, respect private land and posted closures, and check current Michigan regulations and dam-safety notices.",
-            "gaugeBasis": "Based on USGS 04121970 immediately below Croton Dam. It represents the regulated Croton tailwater; flow, temperature, access, and safety can differ through Newaygo, the lower river, Muskegon Lake, and the channel.",
+            "gaugeBasis": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-muskegon-steelhead-activity.1"
+          "configVersion": "2026-08-11-muskegon-copy.1"
         }
       },
       {
@@ -6113,6 +6156,7 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "nextConditionRefreshAt": "2026-11-05T05:00:00.000Z",
           "runStage": {
             "stage": "ending",
+            "copyStrategy": "muskegon_croton_tailwater",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -6135,14 +6179,14 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "peakToEndDays": 35
             },
             "label": "Ending",
-            "headline": "Only a small late Muskegon Chinook salmon opportunity remains.",
-            "whereToStart": "Limit the search to proven deep pools below Croton, slower inside bends near Newaygo, and one or two substantial M-120-area holes.",
-            "detail": "Most fish left in the river have been there for a while. A late bright fish is still possible, but a steady new wave is no longer expected.",
-            "tip": "Keep expectations low, leave spawning or worn-out fish alone, and move on if you are not seeing signs of fish.",
+            "headline": "Only a residual late Chinook salmon opportunity remains.",
+            "whereToStart": "Start in the Upper river (Newaygo–Croton Dam), emphasizing established water near Croton Dam.",
+            "detail": "Residual fish can remain, but fresh movement is no longer dependable.",
+            "tip": "Keep expectations narrow and stop searching when direct evidence is absent.",
             "reasonCodes": [
               "stage_ending"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Timing complete",
@@ -6231,7 +6275,7 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "conditions_checkpoint_peak_complete",
               "conditions_timing_complete"
             ],
-            "copyVersion": "river-run-copy-v27",
+            "copyVersion": "river-run-copy-v34",
             "previousCheckpointId": "peak_start",
             "previousCheckpointDate": "2026-09-25",
             "previousTimingLabel": "Insufficient evidence"
@@ -6248,9 +6292,9 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "push": {
             "score": 30,
             "label": "No clear push",
-            "headline": "Today's water does not show a clear signal for a fresh wave of fish.",
-            "detail": "The river is holding steady with no meaningful rise yet. Water temperature is favorable for fall migration and is relatively steady. Recent weather estimates indicate very little rain around the river.",
-            "tip": "Fish established holding water from the head through the inside seam and tail. Do not spend the day racing between lower travel lanes for a wave the water does not support.",
+            "headline": "Croton-area water does not show a clear fresh-movement signal.",
+            "detail": "The river is holding steady with no meaningful rise yet. Water temperature is favorable for fall migration and is relatively steady. Recent watershed weather shows little rain.",
+            "tip": "Keep Migration Stage’s section primary. Do not shift sections from this read.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
@@ -6269,14 +6313,14 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 93,
             "label": "Excellent",
-            "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river.",
-            "tip": "Begin on the primary travel lane feeding deep holding water. Work each hole from its head through the inside seam and tail, then keep moving until fish establish a pattern.",
+            "headline": "Croton-area flow is in its best presentation range.",
+            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read applies only near Croton Dam within the Upper river (Newaygo–Croton Dam).",
+            "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band"
@@ -6287,15 +6331,15 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 40,
             "maximum": 100,
             "label": "Moderate",
-            "headline": "Today’s Chinook activity outlook is moderate.",
-            "detail": "Some useful factors are present, but the response window is mixed. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. This score represents a remaining Chinook of unknown condition late in the season. A newly arrived or fresher fish may be more active than this score, while a spent or dying fish may respond less or not at all. The measured conditions represent the regulated Croton tailwater immediately below Croton Dam; water temperature, clarity, tributary influence, and presentation conditions can differ through Newaygo, the lower river, Muskegon Lake, and the channel. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
-            "tip": "No late-season window should be treated as broadly favorable; use the block scores only for a living Chinook that is still capable of reacting.",
+            "headline": "Today’s Croton-area Chinook responsiveness is moderate.",
+            "detail": "Conditions offer mixed support for Chinook responsiveness. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Late-run Chinook condition varies widely, so individual fish may respond above or below this outlook.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify downstream sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -6348,10 +6392,13 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 21,
+            "displayScore": 20,
+            "scoreIsApproximate": true,
             "stage": "ending",
             "maximum": 100,
             "riverCeiling": 90,
@@ -6360,14 +6407,14 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "curveDirection": "falling",
             "winterHoldingContext": false,
             "label": "Limited presence",
-            "headline": "Seasonal timing still supports some Chinook salmon in established holding water, but they are less likely to be spread throughout the river.",
-            "detail": "This part of the season usually supports limited presence concentrated in dependable holes and slower holding water. This is a seasonal estimate, not a live fish count.",
-            "tip": "Treat this as a lower-odds late-season opportunity. Keep the trip flexible, and require direct fish activity before committing more time.",
+            "headline": "Seasonal Chinook salmon presence is limited and declining.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the Muskegon Chinook salmon ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_ending",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -6601,14 +6648,14 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "good_fishability_low_presence"
             ]
           },
-          "secondaryNote": "Based on USGS 04121970 immediately below Croton Dam. It represents the regulated Croton tailwater; flow, temperature, access, and safety can differ through Newaygo, the lower river, Muskegon Lake, and the channel.",
+          "secondaryNote": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
           "safety": {
             "regulationReminder": "Croton Dam is the hard upstream migration boundary. Fish only legal water below the dam, use established public access, respect private land and posted closures, and check current Michigan regulations and dam-safety notices.",
-            "gaugeBasis": "Based on USGS 04121970 immediately below Croton Dam. It represents the regulated Croton tailwater; flow, temperature, access, and safety can differ through Newaygo, the lower river, Muskegon Lake, and the channel.",
+            "gaugeBasis": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-muskegon-steelhead-activity.1"
+          "configVersion": "2026-08-11-muskegon-copy.1"
         }
       },
       {
@@ -6627,6 +6674,7 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "nextConditionRefreshAt": "2026-11-11T05:00:00.000Z",
           "runStage": {
             "stage": "post_run",
+            "copyStrategy": "muskegon_croton_tailwater",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -6650,13 +6698,13 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             },
             "label": "After migration",
             "headline": "A few late Chinook salmon may remain in established Muskegon River holding water.",
-            "whereToStart": "There is no dependable starting reach; if you still go, make one careful check of a proven deep pool below Croton, near Newaygo, or around M-120.",
-            "detail": "A few late fish may remain, but that does not mean a fresh wave or good numbers are in the river.",
-            "tip": "A few leftover fish do not mean a new wave has entered the river.",
+            "whereToStart": "There is no dependable starting section. If you go, make one careful Upper river (Newaygo–Croton Dam) check near Croton Dam.",
+            "detail": "The seasonal tail does not indicate a fresh movement event.",
+            "tip": "Do not build a broad corridor search around isolated late fish.",
             "reasonCodes": [
               "stage_post_run"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Timing complete",
@@ -6745,7 +6793,7 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "conditions_checkpoint_peak_complete",
               "conditions_timing_complete"
             ],
-            "copyVersion": "river-run-copy-v27",
+            "copyVersion": "river-run-copy-v34",
             "previousCheckpointId": "peak_start",
             "previousCheckpointDate": "2026-09-25",
             "previousTimingLabel": "Insufficient evidence"
@@ -6761,22 +6809,22 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           },
           "push": {
             "score": null,
-            "label": "Migration complete",
-            "headline": "The season's fresh-movement read is complete.",
-            "detail": "At this point in the season, current rain, river level, and water temperature no longer provide a dependable read on fresh arrivals.",
-            "tip": "Stop searching lower travel lanes for a new wave. Fish only established late-season holding water supported by Fish In River, or shift to another seasonal species.",
+            "label": "Fall run complete",
+            "headline": "Muskegon fall-run Push is complete.",
+            "detail": "Current Croton water no longer provides an in-season fresh-movement read for this run.",
+            "tip": "Do not use a completed Push to infer current presence. Return when fall movement tracking resumes.",
             "reasonCodes": [
               "push_tracking_complete"
             ],
             "rulesVersion": "muskegon-croton-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 93,
             "label": "Excellent",
-            "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river.",
-            "tip": "Begin on the primary travel lane feeding deep holding water. Work each hole from its head through the inside seam and tail, then keep moving until fish establish a pattern.",
+            "headline": "Croton-area flow is in its best presentation range.",
+            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read applies only near Croton Dam within the Upper river (Newaygo–Croton Dam).",
+            "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band"
@@ -6787,15 +6835,15 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 37,
             "maximum": 100,
             "label": "Reserved",
-            "headline": "Today’s Chinook activity outlook is reserved.",
-            "detail": "Fish may respond selectively, with important environmental limitations. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. This score represents a remaining Chinook of unknown condition late in the season. A newly arrived or fresher fish may be more active than this score, while a spent or dying fish may respond less or not at all. The measured conditions represent the regulated Croton tailwater immediately below Croton Dam; water temperature, clarity, tributary influence, and presentation conditions can differ through Newaygo, the lower river, Muskegon Lake, and the channel. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
-            "tip": "No late-season window should be treated as broadly favorable; use the block scores only for a living Chinook that is still capable of reacting.",
+            "headline": "Today’s Croton-area Chinook responsiveness is reserved.",
+            "detail": "Chinook may respond selectively under current limitations. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Late-run Chinook condition varies widely, so individual fish may respond above or below this outlook.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify downstream sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -6848,10 +6896,13 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 5,
+            "displayScore": 5,
+            "scoreIsApproximate": true,
             "stage": "post_run",
             "maximum": 100,
             "riverCeiling": 90,
@@ -6860,14 +6911,14 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "curveDirection": "falling",
             "winterHoldingContext": false,
             "label": "Low presence",
-            "headline": "Some Chinook salmon may still be in the river, with seasonal presence more likely to be scattered.",
-            "detail": "This part of the season usually supports low presence, while fresh arrivals often become less consistent later in the season. This is a seasonal estimate, not a live fish count.",
-            "tip": "Treat any remaining fish as a bonus rather than a dependable trip plan. Keep expectations narrow and be ready to shift to another seasonal species.",
+            "headline": "Seasonal Chinook salmon presence is low and declining.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the Muskegon Chinook salmon ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_post_run",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -7102,14 +7153,14 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "post_run_residual_presence"
             ]
           },
-          "secondaryNote": "Based on USGS 04121970 immediately below Croton Dam. It represents the regulated Croton tailwater; flow, temperature, access, and safety can differ through Newaygo, the lower river, Muskegon Lake, and the channel.",
+          "secondaryNote": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
           "safety": {
             "regulationReminder": "Croton Dam is the hard upstream migration boundary. Fish only legal water below the dam, use established public access, respect private land and posted closures, and check current Michigan regulations and dam-safety notices.",
-            "gaugeBasis": "Based on USGS 04121970 immediately below Croton Dam. It represents the regulated Croton tailwater; flow, temperature, access, and safety can differ through Newaygo, the lower river, Muskegon Lake, and the channel.",
+            "gaugeBasis": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-muskegon-steelhead-activity.1"
+          "configVersion": "2026-08-11-muskegon-copy.1"
         }
       }
     ]
@@ -7134,6 +7185,7 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "nextConditionRefreshAt": "2026-07-25T05:00:00.000Z",
           "runStage": {
             "stage": "pre_run",
+            "copyStrategy": "muskegon_croton_tailwater",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -7157,13 +7209,13 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             },
             "label": "Before migration",
             "headline": "Chinook salmon have not started their main Muskegon River run.",
-            "whereToStart": "Lake Michigan, the Muskegon channel, Muskegon Lake, and the river mouth—not the inland river yet.",
-            "detail": "It is still too early to expect Chinook salmon between Muskegon Lake and Croton Dam.",
-            "tip": "Keep the trip in lake, channel, and mouth water until staging begins.",
+            "whereToStart": "Stay with Muskegon Lake, the Lake Michigan channel, and the river entrance.",
+            "detail": "The river-entry window has not opened yet. An isolated river fish would be an early exception.",
+            "tip": "Do not build an inland trip around Chinook salmon yet.",
             "reasonCodes": [
               "stage_pre_run"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Not monitoring yet",
@@ -7182,13 +7234,13 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "historicalYears": 0,
             "sourceDates": [],
             "sourceRefreshSlots": {},
-            "headline": "Migration Timing is not active right now.",
-            "detail": "Timing monitoring begins before the expected river entry, but that seasonal observation window is not active yet.",
-            "tip": "Check Migration Stage for the current seasonal position and return to Migration Timing when early monitoring begins.",
+            "headline": "Muskegon Migration Timing is not monitoring yet.",
+            "detail": "Season-to-date Croton flow and measured-temperature monitoring resumes in early August.",
+            "tip": "Check back in early August when Muskegon timing monitoring resumes.",
             "reasonCodes": [
               "conditions_monitoring_inactive"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -7202,21 +7254,21 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "push": {
             "score": null,
             "label": "Waiting for migration",
-            "headline": "Fish have not started entering the river, so there is no Push read yet.",
-            "detail": "Push is meant to spot water conditions that may help fish enter or move during the active migration. Before that, most opportunity should remain in the lake, harbor, or river-mouth transition.",
-            "tip": "Keep the trip in the lake, harbor, and river-mouth zone. Do not move inland just because rain or cooling resembles an in-season movement event.",
+            "headline": "Dependable Muskegon river entry has not started.",
+            "detail": "Croton flow and measured temperature are not scored as an in-season fresh-movement signal yet.",
+            "tip": "Use Migration Stage. Do not move inland because offseason water resembles a Push.",
             "reasonCodes": [
               "push_tracking_not_started"
             ],
             "rulesVersion": "muskegon-croton-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 93,
             "label": "Excellent",
-            "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river.",
-            "tip": "Begin on the primary travel lane feeding deep holding water. Work each hole from its head through the inside seam and tail, then keep moving until fish establish a pattern.",
+            "headline": "Croton-area flow is in its best presentation range.",
+            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read applies only near Croton Dam within the Upper river (Newaygo–Croton Dam).",
+            "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band"
@@ -7227,11 +7279,13 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": null,
           "fishInRiver": {
             "score": 0,
+            "displayScore": 0,
+            "scoreIsApproximate": false,
             "stage": "pre_run",
             "maximum": 100,
             "riverCeiling": 90,
@@ -7240,14 +7294,14 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "curveDirection": "outside",
             "winterHoldingContext": false,
             "label": "Not expected yet",
-            "headline": "Chinook salmon are not expected in meaningful numbers yet.",
-            "detail": "Most Chinook salmon are not expected to have entered the river in dependable numbers. Any fish already present would be early exceptions.",
-            "tip": "Treat this as no dependable in-river opportunity yet. Keep expectations at zero, and do not interpret an isolated early fish as evidence of dependable river presence.",
+            "headline": "Dependable Chinook salmon presence is not expected in the Muskegon River yet.",
+            "detail": "The seasonal estimate remains at zero. Any river fish would be an early exception.",
+            "tip": "Use Migration Stage for Muskegon Lake, channel, and river-entrance context.",
             "reasonCodes": [
               "stage_pre_run",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -7480,14 +7534,14 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "good_fishability_low_presence"
             ]
           },
-          "secondaryNote": "Based on USGS 04121970 immediately below Croton Dam. It represents the regulated Croton tailwater; flow, temperature, access, and safety can differ through Newaygo, the lower river, Muskegon Lake, and the channel.",
+          "secondaryNote": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
           "safety": {
             "regulationReminder": "Croton Dam is the hard upstream migration boundary. Fish only legal water below the dam, use established public access, respect private land and posted closures, and check current Michigan regulations and dam-safety notices.",
-            "gaugeBasis": "Based on USGS 04121970 immediately below Croton Dam. It represents the regulated Croton tailwater; flow, temperature, access, and safety can differ through Newaygo, the lower river, Muskegon Lake, and the channel.",
+            "gaugeBasis": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-muskegon-steelhead-activity.1"
+          "configVersion": "2026-08-11-muskegon-copy.1"
         }
       },
       {
@@ -7506,6 +7560,7 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "nextConditionRefreshAt": "2026-08-06T05:00:00.000Z",
           "runStage": {
             "stage": "pre_run",
+            "copyStrategy": "muskegon_croton_tailwater",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -7529,13 +7584,13 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             },
             "label": "Before migration",
             "headline": "Chinook salmon have not started their main Muskegon River run.",
-            "whereToStart": "Lake Michigan, the Muskegon channel, Muskegon Lake, and the river mouth—not the inland river yet.",
-            "detail": "It is still too early to expect Chinook salmon between Muskegon Lake and Croton Dam.",
-            "tip": "Keep the trip in lake, channel, and mouth water until staging begins.",
+            "whereToStart": "Stay with Muskegon Lake, the Lake Michigan channel, and the river entrance.",
+            "detail": "The river-entry window has not opened yet. An isolated river fish would be an early exception.",
+            "tip": "Do not build an inland trip around Chinook salmon yet.",
             "reasonCodes": [
               "stage_pre_run"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Not monitoring yet",
@@ -7554,13 +7609,13 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "historicalYears": 0,
             "sourceDates": [],
             "sourceRefreshSlots": {},
-            "headline": "Migration Timing is not active right now.",
-            "detail": "Timing monitoring begins before the expected river entry, but that seasonal observation window is not active yet.",
-            "tip": "Check Migration Stage for the current seasonal position and return to Migration Timing when early monitoring begins.",
+            "headline": "Muskegon Migration Timing is not monitoring yet.",
+            "detail": "Season-to-date Croton flow and measured-temperature monitoring resumes in early August.",
+            "tip": "Check back in early August when Muskegon timing monitoring resumes.",
             "reasonCodes": [
               "conditions_monitoring_inactive"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -7574,21 +7629,21 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "push": {
             "score": null,
             "label": "Waiting for migration",
-            "headline": "Fish have not started entering the river, so there is no Push read yet.",
-            "detail": "Push is meant to spot water conditions that may help fish enter or move during the active migration. Before that, most opportunity should remain in the lake, harbor, or river-mouth transition.",
-            "tip": "Keep the trip in the lake, harbor, and river-mouth zone. Do not move inland just because rain or cooling resembles an in-season movement event.",
+            "headline": "Dependable Muskegon river entry has not started.",
+            "detail": "Croton flow and measured temperature are not scored as an in-season fresh-movement signal yet.",
+            "tip": "Use Migration Stage. Do not move inland because offseason water resembles a Push.",
             "reasonCodes": [
               "push_tracking_not_started"
             ],
             "rulesVersion": "muskegon-croton-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 93,
             "label": "Excellent",
-            "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river.",
-            "tip": "Begin on the primary travel lane feeding deep holding water. Work each hole from its head through the inside seam and tail, then keep moving until fish establish a pattern.",
+            "headline": "Croton-area flow is in its best presentation range.",
+            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read applies only near Croton Dam within the Upper river (Newaygo–Croton Dam).",
+            "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band"
@@ -7599,11 +7654,13 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": null,
           "fishInRiver": {
             "score": 0,
+            "displayScore": 0,
+            "scoreIsApproximate": false,
             "stage": "pre_run",
             "maximum": 100,
             "riverCeiling": 90,
@@ -7612,14 +7669,14 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "curveDirection": "outside",
             "winterHoldingContext": false,
             "label": "Not expected yet",
-            "headline": "Chinook salmon are not expected in meaningful numbers yet.",
-            "detail": "Most Chinook salmon are not expected to have entered the river in dependable numbers. Any fish already present would be early exceptions.",
-            "tip": "Treat this as no dependable in-river opportunity yet. Keep expectations at zero, and do not interpret an isolated early fish as evidence of dependable river presence.",
+            "headline": "Dependable Chinook salmon presence is not expected in the Muskegon River yet.",
+            "detail": "The seasonal estimate remains at zero. Any river fish would be an early exception.",
+            "tip": "Use Migration Stage for Muskegon Lake, channel, and river-entrance context.",
             "reasonCodes": [
               "stage_pre_run",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -7852,14 +7909,14 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "good_fishability_low_presence"
             ]
           },
-          "secondaryNote": "Based on USGS 04121970 immediately below Croton Dam. It represents the regulated Croton tailwater; flow, temperature, access, and safety can differ through Newaygo, the lower river, Muskegon Lake, and the channel.",
+          "secondaryNote": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
           "safety": {
             "regulationReminder": "Croton Dam is the hard upstream migration boundary. Fish only legal water below the dam, use established public access, respect private land and posted closures, and check current Michigan regulations and dam-safety notices.",
-            "gaugeBasis": "Based on USGS 04121970 immediately below Croton Dam. It represents the regulated Croton tailwater; flow, temperature, access, and safety can differ through Newaygo, the lower river, Muskegon Lake, and the channel.",
+            "gaugeBasis": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-muskegon-steelhead-activity.1"
+          "configVersion": "2026-08-11-muskegon-copy.1"
         }
       },
       {
@@ -7878,6 +7935,7 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "nextConditionRefreshAt": "2026-08-16T05:00:00.000Z",
           "runStage": {
             "stage": "pre_run",
+            "copyStrategy": "muskegon_croton_tailwater",
             "stagingContext": true,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -7900,15 +7958,15 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "peakToEndDays": 35
             },
             "label": "Before migration",
-            "headline": "Chinook salmon may be staging in Muskegon Lake, the channel, and near the river mouth.",
-            "whereToStart": "Muskegon Lake, the Lake Michigan channel, the river mouth, and one quick check of deep lower-river water below M-120.",
-            "detail": "An early Chinook salmon can enter the lower Muskegon, but that does not mean fish are spread through Newaygo or up to Croton Dam.",
-            "tip": "Stay closer to the lake. One early river fish does not mean the whole river has fish yet.",
+            "headline": "Chinook salmon may be staging near the Muskegon River entrance.",
+            "whereToStart": "Start at Muskegon Lake, the Lake Michigan channel, and the river entrance. Add the Lower river (Muskegon Lake–M-120) only for an early-fish check.",
+            "detail": "Staging does not confirm dependable river entry.",
+            "tip": "Keep the river check brief. Do not move into the Middle river (M-120–Newaygo) or Upper river (Newaygo–Croton Dam) from calendar timing alone.",
             "reasonCodes": [
               "stage_pre_run",
               "stage_pre_run_staging"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Evaluating",
@@ -7927,13 +7985,13 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "historicalYears": 0,
             "sourceDates": [],
             "sourceRefreshSlots": {},
-            "headline": "Migration Timing is still taking shape.",
-            "detail": "The early river and temperature pattern is still developing, so an Ahead, Typical, or Delayed call would be premature.",
-            "tip": "Keep the trip centered on the river mouth and earliest lower-river holding water. Move inland only when Migration Stage advances or direct fish activity supports it.",
+            "headline": "Muskegon Migration Timing is still taking shape.",
+            "detail": "Croton flow and measured temperature do not yet support an Ahead, Typical, or Delayed call.",
+            "tip": "Keep the section named by Migration Stage until this read has enough Croton-area evidence.",
             "reasonCodes": [
               "conditions_checkpoint_evaluating"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -7947,21 +8005,21 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "push": {
             "score": null,
             "label": "Waiting for migration",
-            "headline": "Fish have not started entering the river, so there is no Push read yet.",
-            "detail": "Push is meant to spot water conditions that may help fish enter or move during the active migration. Before that, most opportunity should remain in the lake, harbor, or river-mouth transition.",
-            "tip": "Keep the trip in the lake, harbor, and river-mouth zone. Do not move inland just because rain or cooling resembles an in-season movement event.",
+            "headline": "Dependable Muskegon river entry has not started.",
+            "detail": "Croton flow and measured temperature are not scored as an in-season fresh-movement signal yet.",
+            "tip": "Use Migration Stage. Do not move inland because offseason water resembles a Push.",
             "reasonCodes": [
               "push_tracking_not_started"
             ],
             "rulesVersion": "muskegon-croton-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 93,
             "label": "Excellent",
-            "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river.",
-            "tip": "Begin on the primary travel lane feeding deep holding water. Work each hole from its head through the inside seam and tail, then keep moving until fish establish a pattern.",
+            "headline": "Croton-area flow is in its best presentation range.",
+            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read applies only near Croton Dam within the Upper river (Newaygo–Croton Dam).",
+            "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band"
@@ -7972,15 +8030,15 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 80,
             "maximum": 100,
             "label": "Highly active",
-            "headline": "Today’s Chinook activity outlook is highly active.",
-            "detail": "Conditions strongly favor a response from Chinook that are present and capable of reacting. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. Dependable river presence has not begun. The score applies only to a sparse early Chinook that may already have entered. The measured conditions represent the regulated Croton tailwater immediately below Croton Dam; water temperature, clarity, tributary influence, and presentation conditions can differ through Newaygo, the lower river, Muskegon Lake, and the channel. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
-            "tip": "Start with 5–9 AM. If the sky changes from the forecast, favor the darkest practical window.",
+            "headline": "Today’s Croton-area responsiveness is highly active, but dependable Chinook presence has not begun.",
+            "detail": "Conditions strongly support Chinook responsiveness. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. This applies only to an early Chinook already near Croton Dam.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify downstream sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -8032,10 +8090,13 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 0,
+            "displayScore": 0,
+            "scoreIsApproximate": false,
             "stage": "pre_run",
             "maximum": 100,
             "riverCeiling": 90,
@@ -8044,14 +8105,14 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "curveDirection": "outside",
             "winterHoldingContext": false,
             "label": "Not expected yet",
-            "headline": "Chinook salmon are not expected in meaningful numbers yet.",
-            "detail": "Most Chinook salmon are not expected to have entered the river in dependable numbers. Any fish already present would be early exceptions.",
-            "tip": "Treat this as no dependable in-river opportunity yet. Keep expectations at zero, and do not interpret an isolated early fish as evidence of dependable river presence.",
+            "headline": "Dependable Chinook salmon presence is not expected in the Muskegon River yet.",
+            "detail": "The seasonal estimate remains at zero. Any river fish would be an early exception.",
+            "tip": "Use Migration Stage for Muskegon Lake, channel, and river-entrance context.",
             "reasonCodes": [
               "stage_pre_run",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -8284,14 +8345,14 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "good_fishability_low_presence"
             ]
           },
-          "secondaryNote": "Based on USGS 04121970 immediately below Croton Dam. It represents the regulated Croton tailwater; flow, temperature, access, and safety can differ through Newaygo, the lower river, Muskegon Lake, and the channel.",
+          "secondaryNote": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
           "safety": {
             "regulationReminder": "Croton Dam is the hard upstream migration boundary. Fish only legal water below the dam, use established public access, respect private land and posted closures, and check current Michigan regulations and dam-safety notices.",
-            "gaugeBasis": "Based on USGS 04121970 immediately below Croton Dam. It represents the regulated Croton tailwater; flow, temperature, access, and safety can differ through Newaygo, the lower river, Muskegon Lake, and the channel.",
+            "gaugeBasis": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-muskegon-steelhead-activity.1"
+          "configVersion": "2026-08-11-muskegon-copy.1"
         }
       },
       {
@@ -8310,6 +8371,7 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "nextConditionRefreshAt": "2026-08-16T05:00:00.000Z",
           "runStage": {
             "stage": "pre_run",
+            "copyStrategy": "muskegon_croton_tailwater",
             "stagingContext": true,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -8332,15 +8394,15 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "peakToEndDays": 35
             },
             "label": "Before migration",
-            "headline": "Chinook salmon may be staging in Muskegon Lake, the channel, and near the river mouth.",
-            "whereToStart": "Muskegon Lake, the Lake Michigan channel, the river mouth, and one quick check of deep lower-river water below M-120.",
-            "detail": "An early Chinook salmon can enter the lower Muskegon, but that does not mean fish are spread through Newaygo or up to Croton Dam.",
-            "tip": "Stay closer to the lake. One early river fish does not mean the whole river has fish yet.",
+            "headline": "Chinook salmon may be staging near the Muskegon River entrance.",
+            "whereToStart": "Start at Muskegon Lake, the Lake Michigan channel, and the river entrance. Add the Lower river (Muskegon Lake–M-120) only for an early-fish check.",
+            "detail": "Staging does not confirm dependable river entry.",
+            "tip": "Keep the river check brief. Do not move into the Middle river (M-120–Newaygo) or Upper river (Newaygo–Croton Dam) from calendar timing alone.",
             "reasonCodes": [
               "stage_pre_run",
               "stage_pre_run_staging"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Evaluating",
@@ -8359,13 +8421,13 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "historicalYears": 0,
             "sourceDates": [],
             "sourceRefreshSlots": {},
-            "headline": "Migration Timing is still taking shape.",
-            "detail": "The early river and temperature pattern is still developing, so an Ahead, Typical, or Delayed call would be premature.",
-            "tip": "Keep the trip centered on the river mouth and earliest lower-river holding water. Move inland only when Migration Stage advances or direct fish activity supports it.",
+            "headline": "Muskegon Migration Timing is still taking shape.",
+            "detail": "Croton flow and measured temperature do not yet support an Ahead, Typical, or Delayed call.",
+            "tip": "Keep the section named by Migration Stage until this read has enough Croton-area evidence.",
             "reasonCodes": [
               "conditions_checkpoint_evaluating"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -8379,21 +8441,21 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "push": {
             "score": null,
             "label": "Waiting for migration",
-            "headline": "Fish have not started entering the river, so there is no Push read yet.",
-            "detail": "Push is meant to spot water conditions that may help fish enter or move during the active migration. Before that, most opportunity should remain in the lake, harbor, or river-mouth transition.",
-            "tip": "Keep the trip in the lake, harbor, and river-mouth zone. Do not move inland just because rain or cooling resembles an in-season movement event.",
+            "headline": "Dependable Muskegon river entry has not started.",
+            "detail": "Croton flow and measured temperature are not scored as an in-season fresh-movement signal yet.",
+            "tip": "Use Migration Stage. Do not move inland because offseason water resembles a Push.",
             "reasonCodes": [
               "push_tracking_not_started"
             ],
             "rulesVersion": "muskegon-croton-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 93,
             "label": "Excellent",
-            "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river.",
-            "tip": "Begin on the primary travel lane feeding deep holding water. Work each hole from its head through the inside seam and tail, then keep moving until fish establish a pattern.",
+            "headline": "Croton-area flow is in its best presentation range.",
+            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read applies only near Croton Dam within the Upper river (Newaygo–Croton Dam).",
+            "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band"
@@ -8404,15 +8466,15 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 80,
             "maximum": 100,
             "label": "Highly active",
-            "headline": "Today’s Chinook activity outlook is highly active.",
-            "detail": "Conditions strongly favor a response from Chinook that are present and capable of reacting. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. Dependable river presence has not begun. The score applies only to a sparse early Chinook that may already have entered. The measured conditions represent the regulated Croton tailwater immediately below Croton Dam; water temperature, clarity, tributary influence, and presentation conditions can differ through Newaygo, the lower river, Muskegon Lake, and the channel. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
-            "tip": "Start with 5–9 AM. If the sky changes from the forecast, favor the darkest practical window.",
+            "headline": "Today’s Croton-area responsiveness is highly active, but dependable Chinook presence has not begun.",
+            "detail": "Conditions strongly support Chinook responsiveness. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. This applies only to an early Chinook already near Croton Dam.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify downstream sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -8464,10 +8526,13 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 0,
+            "displayScore": 0,
+            "scoreIsApproximate": false,
             "stage": "pre_run",
             "maximum": 100,
             "riverCeiling": 90,
@@ -8476,14 +8541,14 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "curveDirection": "outside",
             "winterHoldingContext": false,
             "label": "Not expected yet",
-            "headline": "Chinook salmon are not expected in meaningful numbers yet.",
-            "detail": "Most Chinook salmon are not expected to have entered the river in dependable numbers. Any fish already present would be early exceptions.",
-            "tip": "Treat this as no dependable in-river opportunity yet. Keep expectations at zero, and do not interpret an isolated early fish as evidence of dependable river presence.",
+            "headline": "Dependable Chinook salmon presence is not expected in the Muskegon River yet.",
+            "detail": "The seasonal estimate remains at zero. Any river fish would be an early exception.",
+            "tip": "Use Migration Stage for Muskegon Lake, channel, and river-entrance context.",
             "reasonCodes": [
               "stage_pre_run",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -8716,14 +8781,14 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "good_fishability_low_presence"
             ]
           },
-          "secondaryNote": "Based on USGS 04121970 immediately below Croton Dam. It represents the regulated Croton tailwater; flow, temperature, access, and safety can differ through Newaygo, the lower river, Muskegon Lake, and the channel.",
+          "secondaryNote": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
           "safety": {
             "regulationReminder": "Croton Dam is the hard upstream migration boundary. Fish only legal water below the dam, use established public access, respect private land and posted closures, and check current Michigan regulations and dam-safety notices.",
-            "gaugeBasis": "Based on USGS 04121970 immediately below Croton Dam. It represents the regulated Croton tailwater; flow, temperature, access, and safety can differ through Newaygo, the lower river, Muskegon Lake, and the channel.",
+            "gaugeBasis": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-muskegon-steelhead-activity.1"
+          "configVersion": "2026-08-11-muskegon-copy.1"
         }
       },
       {
@@ -8742,6 +8807,7 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "nextConditionRefreshAt": "2026-08-16T05:00:00.000Z",
           "runStage": {
             "stage": "pre_run",
+            "copyStrategy": "muskegon_croton_tailwater",
             "stagingContext": true,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -8764,15 +8830,15 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "peakToEndDays": 35
             },
             "label": "Before migration",
-            "headline": "Chinook salmon may be staging in Muskegon Lake, the channel, and near the river mouth.",
-            "whereToStart": "Muskegon Lake, the Lake Michigan channel, the river mouth, and one quick check of deep lower-river water below M-120.",
-            "detail": "An early Chinook salmon can enter the lower Muskegon, but that does not mean fish are spread through Newaygo or up to Croton Dam.",
-            "tip": "Stay closer to the lake. One early river fish does not mean the whole river has fish yet.",
+            "headline": "Chinook salmon may be staging near the Muskegon River entrance.",
+            "whereToStart": "Start at Muskegon Lake, the Lake Michigan channel, and the river entrance. Add the Lower river (Muskegon Lake–M-120) only for an early-fish check.",
+            "detail": "Staging does not confirm dependable river entry.",
+            "tip": "Keep the river check brief. Do not move into the Middle river (M-120–Newaygo) or Upper river (Newaygo–Croton Dam) from calendar timing alone.",
             "reasonCodes": [
               "stage_pre_run",
               "stage_pre_run_staging"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Evaluating",
@@ -8791,13 +8857,13 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "historicalYears": 0,
             "sourceDates": [],
             "sourceRefreshSlots": {},
-            "headline": "Migration Timing is still taking shape.",
-            "detail": "The early river and temperature pattern is still developing, so an Ahead, Typical, or Delayed call would be premature.",
-            "tip": "Keep the trip centered on the river mouth and earliest lower-river holding water. Move inland only when Migration Stage advances or direct fish activity supports it.",
+            "headline": "Muskegon Migration Timing is still taking shape.",
+            "detail": "Croton flow and measured temperature do not yet support an Ahead, Typical, or Delayed call.",
+            "tip": "Keep the section named by Migration Stage until this read has enough Croton-area evidence.",
             "reasonCodes": [
               "conditions_checkpoint_evaluating"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -8811,21 +8877,21 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "push": {
             "score": null,
             "label": "Waiting for migration",
-            "headline": "Fish have not started entering the river, so there is no Push read yet.",
-            "detail": "Push is meant to spot water conditions that may help fish enter or move during the active migration. Before that, most opportunity should remain in the lake, harbor, or river-mouth transition.",
-            "tip": "Keep the trip in the lake, harbor, and river-mouth zone. Do not move inland just because rain or cooling resembles an in-season movement event.",
+            "headline": "Dependable Muskegon river entry has not started.",
+            "detail": "Croton flow and measured temperature are not scored as an in-season fresh-movement signal yet.",
+            "tip": "Use Migration Stage. Do not move inland because offseason water resembles a Push.",
             "reasonCodes": [
               "push_tracking_not_started"
             ],
             "rulesVersion": "muskegon-croton-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 93,
             "label": "Excellent",
-            "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river.",
-            "tip": "Begin on the primary travel lane feeding deep holding water. Work each hole from its head through the inside seam and tail, then keep moving until fish establish a pattern.",
+            "headline": "Croton-area flow is in its best presentation range.",
+            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read applies only near Croton Dam within the Upper river (Newaygo–Croton Dam).",
+            "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band"
@@ -8836,15 +8902,15 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 80,
             "maximum": 100,
             "label": "Highly active",
-            "headline": "Today’s Chinook activity outlook is highly active.",
-            "detail": "Conditions strongly favor a response from Chinook that are present and capable of reacting. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. Dependable river presence has not begun. The score applies only to a sparse early Chinook that may already have entered. The measured conditions represent the regulated Croton tailwater immediately below Croton Dam; water temperature, clarity, tributary influence, and presentation conditions can differ through Newaygo, the lower river, Muskegon Lake, and the channel. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
-            "tip": "Start with 5–9 AM. If the sky changes from the forecast, favor the darkest practical window.",
+            "headline": "Today’s Croton-area responsiveness is highly active, but dependable Chinook presence has not begun.",
+            "detail": "Conditions strongly support Chinook responsiveness. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. This applies only to an early Chinook already near Croton Dam.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify downstream sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -8896,10 +8962,13 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 0,
+            "displayScore": 0,
+            "scoreIsApproximate": false,
             "stage": "pre_run",
             "maximum": 100,
             "riverCeiling": 90,
@@ -8908,14 +8977,14 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "curveDirection": "outside",
             "winterHoldingContext": false,
             "label": "Not expected yet",
-            "headline": "Chinook salmon are not expected in meaningful numbers yet.",
-            "detail": "Most Chinook salmon are not expected to have entered the river in dependable numbers. Any fish already present would be early exceptions.",
-            "tip": "Treat this as no dependable in-river opportunity yet. Keep expectations at zero, and do not interpret an isolated early fish as evidence of dependable river presence.",
+            "headline": "Dependable Chinook salmon presence is not expected in the Muskegon River yet.",
+            "detail": "The seasonal estimate remains at zero. Any river fish would be an early exception.",
+            "tip": "Use Migration Stage for Muskegon Lake, channel, and river-entrance context.",
             "reasonCodes": [
               "stage_pre_run",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -9148,14 +9217,14 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "good_fishability_low_presence"
             ]
           },
-          "secondaryNote": "Based on USGS 04121970 immediately below Croton Dam. It represents the regulated Croton tailwater; flow, temperature, access, and safety can differ through Newaygo, the lower river, Muskegon Lake, and the channel.",
+          "secondaryNote": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
           "safety": {
             "regulationReminder": "Croton Dam is the hard upstream migration boundary. Fish only legal water below the dam, use established public access, respect private land and posted closures, and check current Michigan regulations and dam-safety notices.",
-            "gaugeBasis": "Based on USGS 04121970 immediately below Croton Dam. It represents the regulated Croton tailwater; flow, temperature, access, and safety can differ through Newaygo, the lower river, Muskegon Lake, and the channel.",
+            "gaugeBasis": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-muskegon-steelhead-activity.1"
+          "configVersion": "2026-08-11-muskegon-copy.1"
         }
       },
       {
@@ -9174,6 +9243,7 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "nextConditionRefreshAt": "2026-08-16T05:00:00.000Z",
           "runStage": {
             "stage": "pre_run",
+            "copyStrategy": "muskegon_croton_tailwater",
             "stagingContext": true,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -9196,15 +9266,15 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "peakToEndDays": 35
             },
             "label": "Before migration",
-            "headline": "Chinook salmon may be staging in Muskegon Lake, the channel, and near the river mouth.",
-            "whereToStart": "Muskegon Lake, the Lake Michigan channel, the river mouth, and one quick check of deep lower-river water below M-120.",
-            "detail": "An early Chinook salmon can enter the lower Muskegon, but that does not mean fish are spread through Newaygo or up to Croton Dam.",
-            "tip": "Stay closer to the lake. One early river fish does not mean the whole river has fish yet.",
+            "headline": "Chinook salmon may be staging near the Muskegon River entrance.",
+            "whereToStart": "Start at Muskegon Lake, the Lake Michigan channel, and the river entrance. Add the Lower river (Muskegon Lake–M-120) only for an early-fish check.",
+            "detail": "Staging does not confirm dependable river entry.",
+            "tip": "Keep the river check brief. Do not move into the Middle river (M-120–Newaygo) or Upper river (Newaygo–Croton Dam) from calendar timing alone.",
             "reasonCodes": [
               "stage_pre_run",
               "stage_pre_run_staging"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Evaluating",
@@ -9223,13 +9293,13 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "historicalYears": 0,
             "sourceDates": [],
             "sourceRefreshSlots": {},
-            "headline": "Migration Timing is still taking shape.",
-            "detail": "The early river and temperature pattern is still developing, so an Ahead, Typical, or Delayed call would be premature.",
-            "tip": "Keep the trip centered on the river mouth and earliest lower-river holding water. Move inland only when Migration Stage advances or direct fish activity supports it.",
+            "headline": "Muskegon Migration Timing is still taking shape.",
+            "detail": "Croton flow and measured temperature do not yet support an Ahead, Typical, or Delayed call.",
+            "tip": "Keep the section named by Migration Stage until this read has enough Croton-area evidence.",
             "reasonCodes": [
               "conditions_checkpoint_evaluating"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -9243,21 +9313,21 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "push": {
             "score": null,
             "label": "Waiting for migration",
-            "headline": "Fish have not started entering the river, so there is no Push read yet.",
-            "detail": "Push is meant to spot water conditions that may help fish enter or move during the active migration. Before that, most opportunity should remain in the lake, harbor, or river-mouth transition.",
-            "tip": "Keep the trip in the lake, harbor, and river-mouth zone. Do not move inland just because rain or cooling resembles an in-season movement event.",
+            "headline": "Dependable Muskegon river entry has not started.",
+            "detail": "Croton flow and measured temperature are not scored as an in-season fresh-movement signal yet.",
+            "tip": "Use Migration Stage. Do not move inland because offseason water resembles a Push.",
             "reasonCodes": [
               "push_tracking_not_started"
             ],
             "rulesVersion": "muskegon-croton-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 93,
             "label": "Excellent",
-            "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river.",
-            "tip": "Begin on the primary travel lane feeding deep holding water. Work each hole from its head through the inside seam and tail, then keep moving until fish establish a pattern.",
+            "headline": "Croton-area flow is in its best presentation range.",
+            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read applies only near Croton Dam within the Upper river (Newaygo–Croton Dam).",
+            "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band"
@@ -9268,15 +9338,15 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 80,
             "maximum": 100,
             "label": "Highly active",
-            "headline": "Today’s Chinook activity outlook is highly active.",
-            "detail": "Conditions strongly favor a response from Chinook that are present and capable of reacting. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. Dependable river presence has not begun. The score applies only to a sparse early Chinook that may already have entered. The measured conditions represent the regulated Croton tailwater immediately below Croton Dam; water temperature, clarity, tributary influence, and presentation conditions can differ through Newaygo, the lower river, Muskegon Lake, and the channel. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
-            "tip": "Start with 5–9 AM. If the sky changes from the forecast, favor the darkest practical window.",
+            "headline": "Today’s Croton-area responsiveness is highly active, but dependable Chinook presence has not begun.",
+            "detail": "Conditions strongly support Chinook responsiveness. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. This applies only to an early Chinook already near Croton Dam.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify downstream sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -9328,10 +9398,13 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 0,
+            "displayScore": 0,
+            "scoreIsApproximate": false,
             "stage": "pre_run",
             "maximum": 100,
             "riverCeiling": 90,
@@ -9340,14 +9413,14 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "curveDirection": "outside",
             "winterHoldingContext": false,
             "label": "Not expected yet",
-            "headline": "Chinook salmon are not expected in meaningful numbers yet.",
-            "detail": "Most Chinook salmon are not expected to have entered the river in dependable numbers. Any fish already present would be early exceptions.",
-            "tip": "Treat this as no dependable in-river opportunity yet. Keep expectations at zero, and do not interpret an isolated early fish as evidence of dependable river presence.",
+            "headline": "Dependable Chinook salmon presence is not expected in the Muskegon River yet.",
+            "detail": "The seasonal estimate remains at zero. Any river fish would be an early exception.",
+            "tip": "Use Migration Stage for Muskegon Lake, channel, and river-entrance context.",
             "reasonCodes": [
               "stage_pre_run",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -9580,14 +9653,14 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "good_fishability_low_presence"
             ]
           },
-          "secondaryNote": "Based on USGS 04121970 immediately below Croton Dam. It represents the regulated Croton tailwater; flow, temperature, access, and safety can differ through Newaygo, the lower river, Muskegon Lake, and the channel.",
+          "secondaryNote": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
           "safety": {
             "regulationReminder": "Croton Dam is the hard upstream migration boundary. Fish only legal water below the dam, use established public access, respect private land and posted closures, and check current Michigan regulations and dam-safety notices.",
-            "gaugeBasis": "Based on USGS 04121970 immediately below Croton Dam. It represents the regulated Croton tailwater; flow, temperature, access, and safety can differ through Newaygo, the lower river, Muskegon Lake, and the channel.",
+            "gaugeBasis": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-muskegon-steelhead-activity.1"
+          "configVersion": "2026-08-11-muskegon-copy.1"
         }
       },
       {
@@ -9606,6 +9679,7 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "nextConditionRefreshAt": "2026-10-07T05:00:00.000Z",
           "runStage": {
             "stage": "peak",
+            "copyStrategy": "muskegon_croton_tailwater",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -9629,13 +9703,13 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             },
             "label": "Peak",
             "headline": "This is typically the strongest Muskegon River Chinook salmon opportunity.",
-            "whereToStart": "Compare the Croton tailwater, Croton-to-Newaygo pools, Newaygo-to-M-120 bends and wood, and major lower-river holes toward Muskegon Lake.",
-            "detail": "Fish can be spread through the river now, but water clarity, access, and how the fish act can still be very different from one section to another.",
-            "tip": "The Croton gauge tells you what is happening near the dam. Check the middle and lower river yourself because conditions can be different downstream.",
+            "whereToStart": "Start in the Upper river (Newaygo–Croton Dam), emphasizing the Croton Dam area. Compare the Middle river (M-120–Newaygo) for fresher fish.",
+            "detail": "Fish can be broadly present, but concentrations still vary by section.",
+            "tip": "Croton measurements apply only near the dam. Verify downstream water directly.",
             "reasonCodes": [
               "stage_peak"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Typical",
@@ -9754,16 +9828,16 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "2026-09-23": "16:00",
               "2026-09-24": "16:00"
             },
-            "headline": "The migration appears to be progressing at a normal seasonal pace.",
-            "detail": "River rises and cooling are close to what is usually seen by this point in the season.",
-            "tip": "Fish the core river section identified by Migration Stage. Begin where a travel lane feeds established holding water, then adjust presentation—not seasonal location—using Fishability.",
+            "headline": "Muskegon migration is progressing at its usual seasonal pace.",
+            "detail": "Season-to-date Croton river-rise activity and measured cooling are close to the usual pattern.",
+            "tip": "Keep the Muskegon section named by Migration Stage.",
             "reasonCodes": [
               "gauge_fresh",
               "temperature_measured",
               "conditions_checkpoint_peak_start",
               "conditions_typical"
             ],
-            "copyVersion": "river-run-copy-v27",
+            "copyVersion": "river-run-copy-v34",
             "previousCheckpointId": "building_established",
             "previousCheckpointDate": "2026-09-05",
             "previousTimingLabel": "Typical"
@@ -9780,9 +9854,9 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "push": {
             "score": 30,
             "label": "No clear push",
-            "headline": "Today's water does not show a clear signal for a fresh wave of fish.",
-            "detail": "The river is holding steady with no meaningful rise yet. Water temperature is favorable for fall migration and is relatively steady. Recent weather estimates indicate very little rain around the river.",
-            "tip": "Fish established holding water from the head through the inside seam and tail. Do not spend the day racing between lower travel lanes for a wave the water does not support.",
+            "headline": "Croton-area water does not show a clear fresh-movement signal.",
+            "detail": "The river is holding steady with no meaningful rise yet. Water temperature is favorable for fall migration and is relatively steady. Recent watershed weather shows little rain.",
+            "tip": "Keep Migration Stage’s section primary. Do not shift sections from this read.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
@@ -9801,14 +9875,14 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 93,
             "label": "Excellent",
-            "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river.",
-            "tip": "Begin on the primary travel lane feeding deep holding water. Work each hole from its head through the inside seam and tail, then keep moving until fish establish a pattern.",
+            "headline": "Croton-area flow is in its best presentation range.",
+            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read applies only near Croton Dam within the Upper river (Newaygo–Croton Dam).",
+            "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band"
@@ -9819,15 +9893,15 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 80,
             "maximum": 100,
             "label": "Highly active",
-            "headline": "Today’s Chinook activity outlook is highly active.",
-            "detail": "Conditions strongly favor a response from Chinook that are present and capable of reacting. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. Broad seasonal presence improves the chance of locating fish, but this score measures responsiveness rather than abundance. The measured conditions represent the regulated Croton tailwater immediately below Croton Dam; water temperature, clarity, tributary influence, and presentation conditions can differ through Newaygo, the lower river, Muskegon Lake, and the channel. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
-            "tip": "Start with 5–9 AM. If the sky changes from the forecast, favor the darkest practical window.",
+            "headline": "Today’s Croton-area Chinook responsiveness is highly active.",
+            "detail": "Conditions strongly support Chinook responsiveness. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Croton flow and temperature represent only the area near the dam.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify downstream sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -9879,10 +9953,13 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 87,
+            "displayScore": 85,
+            "scoreIsApproximate": true,
             "stage": "peak",
             "maximum": 100,
             "riverCeiling": 90,
@@ -9891,14 +9968,14 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "curveDirection": "falling",
             "winterHoldingContext": false,
             "label": "Peak presence",
-            "headline": "Seasonal timing still supports Chinook salmon being near their strongest in-river presence, even if the migration may be just beyond its usual peak.",
-            "detail": "This point in the season may sit just beyond the usual peak while the seasonal pattern still supports strong in-river presence. This is a seasonal estimate, not a live fish count.",
-            "tip": "Plan around fish already likely to be in the river. Seasonal presence is still near its high point, but remember that this seasonal estimate cannot tell whether a fresh wave is entering today.",
+            "headline": "Seasonal Chinook salmon presence is near its expected Muskegon peak.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the Muskegon Chinook salmon ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_peak",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -10132,14 +10209,14 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "peak_presence_weak_push"
             ]
           },
-          "secondaryNote": "Based on USGS 04121970 immediately below Croton Dam. It represents the regulated Croton tailwater; flow, temperature, access, and safety can differ through Newaygo, the lower river, Muskegon Lake, and the channel.",
+          "secondaryNote": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
           "safety": {
             "regulationReminder": "Croton Dam is the hard upstream migration boundary. Fish only legal water below the dam, use established public access, respect private land and posted closures, and check current Michigan regulations and dam-safety notices.",
-            "gaugeBasis": "Based on USGS 04121970 immediately below Croton Dam. It represents the regulated Croton tailwater; flow, temperature, access, and safety can differ through Newaygo, the lower river, Muskegon Lake, and the channel.",
+            "gaugeBasis": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-muskegon-steelhead-activity.1"
+          "configVersion": "2026-08-11-muskegon-copy.1"
         }
       }
     ]
@@ -10164,6 +10241,7 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "nextConditionRefreshAt": "2026-10-01T05:00:00.000Z",
           "runStage": {
             "stage": "building",
+            "copyStrategy": "muskegon_croton_tailwater",
             "stagingContext": false,
             "broadBuildingContext": true,
             "winterHoldingContext": false,
@@ -10186,14 +10264,14 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "peakToEndDays": 35
             },
             "label": "Building",
-            "headline": "Chinook salmon are broadly established below Croton Dam.",
-            "whereToStart": "Compare Croton-tailwater pools, the Croton-to-Newaygo corridor, Newaygo-to-M-120 holding water, and major lower-river bends toward Muskegon Lake.",
-            "detail": "Fish from several waves can be spread through the river, but the Croton gauge only measures water near the dam. Fish numbers can be very different downstream.",
-            "tip": "Check the upper, middle, and lower river. Let what you see on the water—not just the Croton gauge—tell you where to stay.",
+            "headline": "Chinook salmon are broadly established through the Muskegon River.",
+            "whereToStart": "Start in the Upper river (Newaygo–Croton Dam), emphasizing the Croton Dam area. Compare the Middle river (M-120–Newaygo) for fresher fish.",
+            "detail": "Repeated entry periods support broad presence, not equal numbers in every section.",
+            "tip": "Croton measurements apply only near the dam. Verify downstream water directly.",
             "reasonCodes": [
               "stage_building"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -10262,15 +10340,15 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "2026-09-24"
             ],
             "sourceRefreshSlots": {},
-            "headline": "There is not enough reliable information for a Migration Timing call.",
-            "tip": "Do not move farther upstream or stay lower based on this timing read. Fish the section identified by Migration Stage and begin in its most established holding water; change sections only when direct fish activity or a dependable later read supports it.",
+            "headline": "There is not enough reliable Muskegon evidence for a Migration Timing call.",
+            "tip": "Keep the Muskegon section named by Migration Stage. Do not shift sections from this timing read.",
             "detail": "There are not enough dependable past seasons to judge whether this migration is early, normal, or late.",
             "reasonCodes": [
               "conditions_baseline_missing",
               "conditions_insufficient",
               "conditions_checkpoint_peak_start"
             ],
-            "copyVersion": "river-run-copy-v27",
+            "copyVersion": "river-run-copy-v34",
             "previousCheckpointId": "building_established",
             "previousCheckpointDate": "2026-09-05",
             "previousTimingLabel": "Insufficient evidence"
@@ -10287,9 +10365,9 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "push": {
             "score": 30,
             "label": "No clear push",
-            "headline": "Today's water does not show a clear signal for a fresh wave of fish.",
-            "detail": "The river is holding steady with no meaningful rise yet. Water temperature is favorable for fall migration and is relatively steady. Recent weather estimates indicate very little rain around the river.",
-            "tip": "Fish established holding water from the head through the inside seam and tail. Do not spend the day racing between lower travel lanes for a wave the water does not support.",
+            "headline": "Croton-area water does not show a clear fresh-movement signal.",
+            "detail": "The river is holding steady with no meaningful rise yet. Water temperature is favorable for fall migration and is relatively steady. Recent watershed weather shows little rain.",
+            "tip": "Keep Migration Stage’s section primary. Do not shift sections from this read.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
@@ -10308,14 +10386,14 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 93,
             "label": "Excellent",
-            "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river.",
-            "tip": "Begin on the primary travel lane feeding deep holding water. Work each hole from its head through the inside seam and tail, then keep moving until fish establish a pattern.",
+            "headline": "Croton-area flow is in its best presentation range.",
+            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read applies only near Croton Dam within the Upper river (Newaygo–Croton Dam).",
+            "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band"
@@ -10326,15 +10404,15 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 80,
             "maximum": 100,
             "label": "Highly active",
-            "headline": "Today’s Chinook activity outlook is highly active.",
-            "detail": "Conditions strongly favor a response from Chinook that are present and capable of reacting. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. More Chinook are moving and settling into the river; the score describes reaction conditions for fish already present. The measured conditions represent the regulated Croton tailwater immediately below Croton Dam; water temperature, clarity, tributary influence, and presentation conditions can differ through Newaygo, the lower river, Muskegon Lake, and the channel. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
-            "tip": "Start with 5–9 AM. If the sky changes from the forecast, favor the darkest practical window.",
+            "headline": "Today’s Croton-area Chinook responsiveness is highly active.",
+            "detail": "Conditions strongly support Chinook responsiveness. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Croton flow and temperature represent only the area near the dam.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify downstream sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -10386,10 +10464,13 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 87,
+            "displayScore": 85,
+            "scoreIsApproximate": true,
             "stage": "building",
             "maximum": 100,
             "riverCeiling": 90,
@@ -10398,14 +10479,14 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "curveDirection": "rising",
             "winterHoldingContext": false,
             "label": "Peak presence",
-            "headline": "Chinook salmon are likely spread through more of the river as seasonal presence builds toward its strongest point.",
-            "detail": "The migration is approaching its strongest seasonal point, and fish are likely distributed through more of the river. This is a seasonal estimate, not a live fish count.",
-            "tip": "Treat this as one of the stronger parts of a strong river season. Give each stop a complete pass, but do not mistake this seasonal estimate for a live fish count.",
+            "headline": "Seasonal Chinook salmon presence is near its expected Muskegon peak.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the Muskegon Chinook salmon ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_building",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -10633,14 +10714,14 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             ]
           },
           "interpretationNote": null,
-          "secondaryNote": "Based on USGS 04121970 immediately below Croton Dam. It represents the regulated Croton tailwater; flow, temperature, access, and safety can differ through Newaygo, the lower river, Muskegon Lake, and the channel.",
+          "secondaryNote": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
           "safety": {
             "regulationReminder": "Croton Dam is the hard upstream migration boundary. Fish only legal water below the dam, use established public access, respect private land and posted closures, and check current Michigan regulations and dam-safety notices.",
-            "gaugeBasis": "Based on USGS 04121970 immediately below Croton Dam. It represents the regulated Croton tailwater; flow, temperature, access, and safety can differ through Newaygo, the lower river, Muskegon Lake, and the channel.",
+            "gaugeBasis": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-muskegon-steelhead-activity.1"
+          "configVersion": "2026-08-11-muskegon-copy.1"
         }
       },
       {
@@ -10659,6 +10740,7 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "nextConditionRefreshAt": "2026-10-01T05:00:00.000Z",
           "runStage": {
             "stage": "building",
+            "copyStrategy": "muskegon_croton_tailwater",
             "stagingContext": false,
             "broadBuildingContext": true,
             "winterHoldingContext": false,
@@ -10681,14 +10763,14 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "peakToEndDays": 35
             },
             "label": "Building",
-            "headline": "Chinook salmon are broadly established below Croton Dam.",
-            "whereToStart": "Compare Croton-tailwater pools, the Croton-to-Newaygo corridor, Newaygo-to-M-120 holding water, and major lower-river bends toward Muskegon Lake.",
-            "detail": "Fish from several waves can be spread through the river, but the Croton gauge only measures water near the dam. Fish numbers can be very different downstream.",
-            "tip": "Check the upper, middle, and lower river. Let what you see on the water—not just the Croton gauge—tell you where to stay.",
+            "headline": "Chinook salmon are broadly established through the Muskegon River.",
+            "whereToStart": "Start in the Upper river (Newaygo–Croton Dam), emphasizing the Croton Dam area. Compare the Middle river (M-120–Newaygo) for fresher fish.",
+            "detail": "Repeated entry periods support broad presence, not equal numbers in every section.",
+            "tip": "Croton measurements apply only near the dam. Verify downstream water directly.",
             "reasonCodes": [
               "stage_building"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -10757,15 +10839,15 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "2026-09-24"
             ],
             "sourceRefreshSlots": {},
-            "headline": "There is not enough reliable information for a Migration Timing call.",
-            "tip": "Do not move farther upstream or stay lower based on this timing read. Fish the section identified by Migration Stage and begin in its most established holding water; change sections only when direct fish activity or a dependable later read supports it.",
+            "headline": "There is not enough reliable Muskegon evidence for a Migration Timing call.",
+            "tip": "Keep the Muskegon section named by Migration Stage. Do not shift sections from this timing read.",
             "detail": "There are not enough dependable past seasons to judge whether this migration is early, normal, or late.",
             "reasonCodes": [
               "conditions_baseline_missing",
               "conditions_insufficient",
               "conditions_checkpoint_peak_start"
             ],
-            "copyVersion": "river-run-copy-v27",
+            "copyVersion": "river-run-copy-v34",
             "previousCheckpointId": "building_established",
             "previousCheckpointDate": "2026-09-05",
             "previousTimingLabel": "Insufficient evidence"
@@ -10782,9 +10864,9 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "push": {
             "score": 0,
             "label": "Weak",
-            "headline": "Today's water shows little support for a fresh wave of fish.",
-            "detail": "The river is falling instead of showing a fresh rise. Water temperature remains too warm to support a strong Push but is warming sharply. Recent weather estimates indicate very little rain around the river.",
-            "tip": "Do not build the day around new arrivals while the river remains warm. Start in established holding water at first or last light and leave lower travel lanes secondary.",
+            "headline": "Croton-area water shows little support for fresh movement.",
+            "detail": "The river is falling instead of showing a fresh rise. Water temperature remains too warm to support a strong Push but is warming sharply. Recent watershed weather shows little rain.",
+            "tip": "Keep Migration Stage’s section primary. Do not shift sections from this read.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
@@ -10804,14 +10886,14 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 90,
             "label": "Excellent",
-            "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The river is settling, which should sharpen seams and make established holding water easier to read. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river.",
-            "tip": "Begin on the primary seam feeding deep holding water. Work each hole from head to tail, giving the deeper downstream half one final pass as the river settles.",
+            "headline": "Croton-area flow is in its best presentation range.",
+            "detail": "The flow band offers the broadest mix of depth and presentation control. Falling flow should sharpen established seams. This read applies only near Croton Dam within the Upper river (Newaygo–Croton Dam).",
+            "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band"
@@ -10822,15 +10904,15 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 28,
             "maximum": 100,
             "label": "Reserved",
-            "headline": "Today’s Chinook activity outlook is reserved.",
-            "detail": "Fish may respond selectively, with important environmental limitations. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Water temperature limits responsiveness. More Chinook are moving and settling into the river; the score describes reaction conditions for fish already present. The measured conditions represent the regulated Croton tailwater immediately below Croton Dam; water temperature, clarity, tributary influence, and presentation conditions can differ through Newaygo, the lower river, Muskegon Lake, and the channel. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
-            "tip": "Start with 5–9 AM. If the sky changes from the forecast, favor the darkest practical window.",
+            "headline": "Today’s Croton-area Chinook responsiveness is reserved.",
+            "detail": "Chinook may respond selectively under current limitations. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Croton flow and temperature represent only the area near the dam.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify downstream sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -10883,10 +10965,13 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 87,
+            "displayScore": 85,
+            "scoreIsApproximate": true,
             "stage": "building",
             "maximum": 100,
             "riverCeiling": 90,
@@ -10895,14 +10980,14 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "curveDirection": "rising",
             "winterHoldingContext": false,
             "label": "Peak presence",
-            "headline": "Chinook salmon are likely spread through more of the river as seasonal presence builds toward its strongest point.",
-            "detail": "The migration is approaching its strongest seasonal point, and fish are likely distributed through more of the river. This is a seasonal estimate, not a live fish count.",
-            "tip": "Treat this as one of the stronger parts of a strong river season. Give each stop a complete pass, but do not mistake this seasonal estimate for a live fish count.",
+            "headline": "Seasonal Chinook salmon presence is near its expected Muskegon peak.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the Muskegon Chinook salmon ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_building",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -11130,14 +11215,14 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             ]
           },
           "interpretationNote": null,
-          "secondaryNote": "Based on USGS 04121970 immediately below Croton Dam. It represents the regulated Croton tailwater; flow, temperature, access, and safety can differ through Newaygo, the lower river, Muskegon Lake, and the channel.",
+          "secondaryNote": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
           "safety": {
             "regulationReminder": "Croton Dam is the hard upstream migration boundary. Fish only legal water below the dam, use established public access, respect private land and posted closures, and check current Michigan regulations and dam-safety notices.",
-            "gaugeBasis": "Based on USGS 04121970 immediately below Croton Dam. It represents the regulated Croton tailwater; flow, temperature, access, and safety can differ through Newaygo, the lower river, Muskegon Lake, and the channel.",
+            "gaugeBasis": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-muskegon-steelhead-activity.1"
+          "configVersion": "2026-08-11-muskegon-copy.1"
         }
       },
       {
@@ -11156,6 +11241,7 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "nextConditionRefreshAt": "2026-10-01T05:00:00.000Z",
           "runStage": {
             "stage": "building",
+            "copyStrategy": "muskegon_croton_tailwater",
             "stagingContext": false,
             "broadBuildingContext": true,
             "winterHoldingContext": false,
@@ -11178,14 +11264,14 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "peakToEndDays": 35
             },
             "label": "Building",
-            "headline": "Chinook salmon are broadly established below Croton Dam.",
-            "whereToStart": "Compare Croton-tailwater pools, the Croton-to-Newaygo corridor, Newaygo-to-M-120 holding water, and major lower-river bends toward Muskegon Lake.",
-            "detail": "Fish from several waves can be spread through the river, but the Croton gauge only measures water near the dam. Fish numbers can be very different downstream.",
-            "tip": "Check the upper, middle, and lower river. Let what you see on the water—not just the Croton gauge—tell you where to stay.",
+            "headline": "Chinook salmon are broadly established through the Muskegon River.",
+            "whereToStart": "Start in the Upper river (Newaygo–Croton Dam), emphasizing the Croton Dam area. Compare the Middle river (M-120–Newaygo) for fresher fish.",
+            "detail": "Repeated entry periods support broad presence, not equal numbers in every section.",
+            "tip": "Croton measurements apply only near the dam. Verify downstream water directly.",
             "reasonCodes": [
               "stage_building"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -11254,15 +11340,15 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "2026-09-24"
             ],
             "sourceRefreshSlots": {},
-            "headline": "There is not enough reliable information for a Migration Timing call.",
-            "tip": "Do not move farther upstream or stay lower based on this timing read. Fish the section identified by Migration Stage and begin in its most established holding water; change sections only when direct fish activity or a dependable later read supports it.",
+            "headline": "There is not enough reliable Muskegon evidence for a Migration Timing call.",
+            "tip": "Keep the Muskegon section named by Migration Stage. Do not shift sections from this timing read.",
             "detail": "There are not enough dependable past seasons to judge whether this migration is early, normal, or late.",
             "reasonCodes": [
               "conditions_baseline_missing",
               "conditions_insufficient",
               "conditions_checkpoint_peak_start"
             ],
-            "copyVersion": "river-run-copy-v27",
+            "copyVersion": "river-run-copy-v34",
             "previousCheckpointId": "building_established",
             "previousCheckpointDate": "2026-09-05",
             "previousTimingLabel": "Insufficient evidence"
@@ -11279,9 +11365,9 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "push": {
             "score": 61,
             "label": "Possible",
-            "headline": "Today's water offers some support for fresh fish moving into or through the river.",
-            "detail": "The river has started to rise since yesterday. Water temperature is favorable for fall migration and is cooling. Recent rain around the river adds some support while the river begins to rise.",
-            "tip": "Start in lower-river travel lanes, then fish the first deep resting water immediately upstream. Move to established holding water if those entry routes stay quiet.",
+            "headline": "Croton-area water offers some support for fresh movement.",
+            "detail": "The river has started to rise since yesterday. Water temperature is favorable for fall migration and is cooling. Rain adds limited support while Croton begins to rise.",
+            "tip": "Keep Migration Stage’s section primary and add one Croton Dam-area movement check.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
@@ -11299,14 +11385,14 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 88,
             "label": "Excellent",
-            "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The early rise is adding pace and depth, with inside seams and the upstream edges of holes changing first. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river.",
-            "tip": "Begin on the soft inside edge of the primary travel lane, then fish the first deep resting hole above it. Recheck that edge as added depth changes the lane.",
+            "headline": "Croton-area flow is in its best presentation range.",
+            "detail": "The flow band offers the broadest mix of depth and presentation control. A modest rise is shifting lanes toward softer edges. This read applies only near Croton Dam within the Upper river (Newaygo–Croton Dam).",
+            "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band"
@@ -11317,15 +11403,15 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 81,
             "maximum": 100,
             "label": "Highly active",
-            "headline": "Today’s Chinook activity outlook is highly active.",
-            "detail": "Conditions strongly favor a response from Chinook that are present and capable of reacting. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. More Chinook are moving and settling into the river; the score describes reaction conditions for fish already present. The measured conditions represent the regulated Croton tailwater immediately below Croton Dam; water temperature, clarity, tributary influence, and presentation conditions can differ through Newaygo, the lower river, Muskegon Lake, and the channel. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
-            "tip": "Start with 5–9 AM. If the sky changes from the forecast, favor the darkest practical window.",
+            "headline": "Today’s Croton-area Chinook responsiveness is highly active.",
+            "detail": "Conditions strongly support Chinook responsiveness. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Croton flow and temperature represent only the area near the dam.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify downstream sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -11377,10 +11463,13 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 87,
+            "displayScore": 85,
+            "scoreIsApproximate": true,
             "stage": "building",
             "maximum": 100,
             "riverCeiling": 90,
@@ -11389,14 +11478,14 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "curveDirection": "rising",
             "winterHoldingContext": false,
             "label": "Peak presence",
-            "headline": "Chinook salmon are likely spread through more of the river as seasonal presence builds toward its strongest point.",
-            "detail": "The migration is approaching its strongest seasonal point, and fish are likely distributed through more of the river. This is a seasonal estimate, not a live fish count.",
-            "tip": "Treat this as one of the stronger parts of a strong river season. Give each stop a complete pass, but do not mistake this seasonal estimate for a live fish count.",
+            "headline": "Seasonal Chinook salmon presence is near its expected Muskegon peak.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the Muskegon Chinook salmon ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_building",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -11624,14 +11713,14 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             ]
           },
           "interpretationNote": null,
-          "secondaryNote": "Based on USGS 04121970 immediately below Croton Dam. It represents the regulated Croton tailwater; flow, temperature, access, and safety can differ through Newaygo, the lower river, Muskegon Lake, and the channel.",
+          "secondaryNote": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
           "safety": {
             "regulationReminder": "Croton Dam is the hard upstream migration boundary. Fish only legal water below the dam, use established public access, respect private land and posted closures, and check current Michigan regulations and dam-safety notices.",
-            "gaugeBasis": "Based on USGS 04121970 immediately below Croton Dam. It represents the regulated Croton tailwater; flow, temperature, access, and safety can differ through Newaygo, the lower river, Muskegon Lake, and the channel.",
+            "gaugeBasis": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-muskegon-steelhead-activity.1"
+          "configVersion": "2026-08-11-muskegon-copy.1"
         }
       },
       {
@@ -11650,6 +11739,7 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "nextConditionRefreshAt": "2026-10-01T05:00:00.000Z",
           "runStage": {
             "stage": "building",
+            "copyStrategy": "muskegon_croton_tailwater",
             "stagingContext": false,
             "broadBuildingContext": true,
             "winterHoldingContext": false,
@@ -11672,14 +11762,14 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "peakToEndDays": 35
             },
             "label": "Building",
-            "headline": "Chinook salmon are broadly established below Croton Dam.",
-            "whereToStart": "Compare Croton-tailwater pools, the Croton-to-Newaygo corridor, Newaygo-to-M-120 holding water, and major lower-river bends toward Muskegon Lake.",
-            "detail": "Fish from several waves can be spread through the river, but the Croton gauge only measures water near the dam. Fish numbers can be very different downstream.",
-            "tip": "Check the upper, middle, and lower river. Let what you see on the water—not just the Croton gauge—tell you where to stay.",
+            "headline": "Chinook salmon are broadly established through the Muskegon River.",
+            "whereToStart": "Start in the Upper river (Newaygo–Croton Dam), emphasizing the Croton Dam area. Compare the Middle river (M-120–Newaygo) for fresher fish.",
+            "detail": "Repeated entry periods support broad presence, not equal numbers in every section.",
+            "tip": "Croton measurements apply only near the dam. Verify downstream water directly.",
             "reasonCodes": [
               "stage_building"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -11748,15 +11838,15 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "2026-09-24"
             ],
             "sourceRefreshSlots": {},
-            "headline": "There is not enough reliable information for a Migration Timing call.",
-            "tip": "Do not move farther upstream or stay lower based on this timing read. Fish the section identified by Migration Stage and begin in its most established holding water; change sections only when direct fish activity or a dependable later read supports it.",
+            "headline": "There is not enough reliable Muskegon evidence for a Migration Timing call.",
+            "tip": "Keep the Muskegon section named by Migration Stage. Do not shift sections from this timing read.",
             "detail": "There are not enough dependable past seasons to judge whether this migration is early, normal, or late.",
             "reasonCodes": [
               "conditions_baseline_missing",
               "conditions_insufficient",
               "conditions_checkpoint_peak_start"
             ],
-            "copyVersion": "river-run-copy-v27",
+            "copyVersion": "river-run-copy-v34",
             "previousCheckpointId": "building_established",
             "previousCheckpointDate": "2026-09-05",
             "previousTimingLabel": "Insufficient evidence"
@@ -11773,9 +11863,9 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "push": {
             "score": 76,
             "label": "Strong",
-            "headline": "Today's river rise and water temperature strongly support the possibility of a fresh wave moving into the river.",
-            "detail": "The river has made a clear rise since yesterday. Water temperature is favorable for fall migration and is cooling. The river has already made a meaningful rise, so that measured response carries the useful movement signal and rainfall adds no separate weight.",
-            "tip": "Begin on lower-river travel lanes and inside seams, then work the first resting holes along that route. Keep moving until fish establish a pattern; the signal still does not prove a wave entered.",
+            "headline": "Croton-area water strongly supports possible fresh movement.",
+            "detail": "The river has made a clear rise since yesterday. Water temperature is favorable for fall migration and is cooling. Croton already reflects the rain response, so rain adds no extra credit.",
+            "tip": "Prioritize movement water near Croton Dam, then verify any downstream section directly.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
@@ -11793,14 +11883,14 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 80,
             "label": "Good",
-            "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. Depth and current are changing enough to move the most controllable presentations toward inside seams and current breaks. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river.",
-            "tip": "Move off the center lane. Work inside seams, the downstream side of current breaks, and the first deep resting pocket with short controlled presentations.",
+            "headline": "Croton-area flow is in its best presentation range.",
+            "detail": "The flow band offers the broadest mix of depth and presentation control. A clear rise is moving controllable water toward current breaks. This read applies only near Croton Dam within the Upper river (Newaygo–Croton Dam).",
+            "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band"
@@ -11811,15 +11901,15 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 81,
             "maximum": 100,
             "label": "Highly active",
-            "headline": "Today’s Chinook activity outlook is highly active.",
-            "detail": "Conditions strongly favor a response from Chinook that are present and capable of reacting. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. More Chinook are moving and settling into the river; the score describes reaction conditions for fish already present. The measured conditions represent the regulated Croton tailwater immediately below Croton Dam; water temperature, clarity, tributary influence, and presentation conditions can differ through Newaygo, the lower river, Muskegon Lake, and the channel. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
-            "tip": "Start with 5–9 AM. If the sky changes from the forecast, favor the darkest practical window.",
+            "headline": "Today’s Croton-area Chinook responsiveness is highly active.",
+            "detail": "Conditions strongly support Chinook responsiveness. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Croton flow and temperature represent only the area near the dam.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify downstream sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -11871,10 +11961,13 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 87,
+            "displayScore": 85,
+            "scoreIsApproximate": true,
             "stage": "building",
             "maximum": 100,
             "riverCeiling": 90,
@@ -11883,14 +11976,14 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "curveDirection": "rising",
             "winterHoldingContext": false,
             "label": "Peak presence",
-            "headline": "Chinook salmon are likely spread through more of the river as seasonal presence builds toward its strongest point.",
-            "detail": "The migration is approaching its strongest seasonal point, and fish are likely distributed through more of the river. This is a seasonal estimate, not a live fish count.",
-            "tip": "Treat this as one of the stronger parts of a strong river season. Give each stop a complete pass, but do not mistake this seasonal estimate for a live fish count.",
+            "headline": "Seasonal Chinook salmon presence is near its expected Muskegon peak.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the Muskegon Chinook salmon ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_building",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -12118,14 +12211,14 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             ]
           },
           "interpretationNote": null,
-          "secondaryNote": "Based on USGS 04121970 immediately below Croton Dam. It represents the regulated Croton tailwater; flow, temperature, access, and safety can differ through Newaygo, the lower river, Muskegon Lake, and the channel.",
+          "secondaryNote": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
           "safety": {
             "regulationReminder": "Croton Dam is the hard upstream migration boundary. Fish only legal water below the dam, use established public access, respect private land and posted closures, and check current Michigan regulations and dam-safety notices.",
-            "gaugeBasis": "Based on USGS 04121970 immediately below Croton Dam. It represents the regulated Croton tailwater; flow, temperature, access, and safety can differ through Newaygo, the lower river, Muskegon Lake, and the channel.",
+            "gaugeBasis": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-muskegon-steelhead-activity.1"
+          "configVersion": "2026-08-11-muskegon-copy.1"
         }
       },
       {
@@ -12144,6 +12237,7 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "nextConditionRefreshAt": "2026-10-01T05:00:00.000Z",
           "runStage": {
             "stage": "building",
+            "copyStrategy": "muskegon_croton_tailwater",
             "stagingContext": false,
             "broadBuildingContext": true,
             "winterHoldingContext": false,
@@ -12166,14 +12260,14 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "peakToEndDays": 35
             },
             "label": "Building",
-            "headline": "Chinook salmon are broadly established below Croton Dam.",
-            "whereToStart": "Compare Croton-tailwater pools, the Croton-to-Newaygo corridor, Newaygo-to-M-120 holding water, and major lower-river bends toward Muskegon Lake.",
-            "detail": "Fish from several waves can be spread through the river, but the Croton gauge only measures water near the dam. Fish numbers can be very different downstream.",
-            "tip": "Check the upper, middle, and lower river. Let what you see on the water—not just the Croton gauge—tell you where to stay.",
+            "headline": "Chinook salmon are broadly established through the Muskegon River.",
+            "whereToStart": "Start in the Upper river (Newaygo–Croton Dam), emphasizing the Croton Dam area. Compare the Middle river (M-120–Newaygo) for fresher fish.",
+            "detail": "Repeated entry periods support broad presence, not equal numbers in every section.",
+            "tip": "Croton measurements apply only near the dam. Verify downstream water directly.",
             "reasonCodes": [
               "stage_building"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -12242,15 +12336,15 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "2026-09-24"
             ],
             "sourceRefreshSlots": {},
-            "headline": "There is not enough reliable information for a Migration Timing call.",
-            "tip": "Do not move farther upstream or stay lower based on this timing read. Fish the section identified by Migration Stage and begin in its most established holding water; change sections only when direct fish activity or a dependable later read supports it.",
+            "headline": "There is not enough reliable Muskegon evidence for a Migration Timing call.",
+            "tip": "Keep the Muskegon section named by Migration Stage. Do not shift sections from this timing read.",
             "detail": "There are not enough dependable past seasons to judge whether this migration is early, normal, or late.",
             "reasonCodes": [
               "conditions_baseline_missing",
               "conditions_insufficient",
               "conditions_checkpoint_peak_start"
             ],
-            "copyVersion": "river-run-copy-v27",
+            "copyVersion": "river-run-copy-v34",
             "previousCheckpointId": "building_established",
             "previousCheckpointDate": "2026-09-05",
             "previousTimingLabel": "Insufficient evidence"
@@ -12267,9 +12361,9 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "push": {
             "score": 90,
             "label": "Very strong",
-            "headline": "Today's water shows the strongest support for a fresh wave moving into the river.",
-            "detail": "The river is rising quickly, creating conditions fish often use to move. Water temperature is favorable for fall migration and is cooling sharply. The river has already made a meaningful rise, so that measured response carries the useful movement signal and rainfall adds no separate weight.",
-            "tip": "Start low and fish softer travel lanes, newly formed inside seams, and the first resting water above them. Skip any lane Fishability says is too fast or difficult to control.",
+            "headline": "Croton-area water offers its strongest support for fresh movement.",
+            "detail": "The river is rising quickly, creating conditions fish often use to move. Water temperature is favorable for fall migration and is cooling sharply. Croton already reflects the rain response, so rain adds no extra credit.",
+            "tip": "Prioritize movement water near Croton Dam, then verify any downstream section directly.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
@@ -12287,14 +12381,14 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 68,
             "label": "Fishable",
-            "headline": "The river is rising fast, and usable fishing water is shifting toward slower margins and current breaks.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The fast rise is quickly replacing settled lanes with heavier current and newly formed soft edges. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river.",
-            "tip": "Leave the main channel alone. Fish newly formed soft margins, inside bends, and the downstream side of current breaks with short controlled presentations.",
+            "headline": "A fast Croton-area rise is shifting usable water toward protected edges.",
+            "detail": "The flow band offers the broadest mix of depth and presentation control. A fast rise is replacing settled lanes with heavier current. This read applies only near Croton Dam within the Upper river (Newaygo–Croton Dam).",
+            "tip": "Favor protected margins and short controlled presentations. Choose another day if control is not dependable.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band"
@@ -12305,15 +12399,15 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 79,
             "maximum": 100,
             "label": "Active",
-            "headline": "Today’s Chinook activity outlook is active.",
-            "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. More Chinook are moving and settling into the river; the score describes reaction conditions for fish already present. The measured conditions represent the regulated Croton tailwater immediately below Croton Dam; water temperature, clarity, tributary influence, and presentation conditions can differ through Newaygo, the lower river, Muskegon Lake, and the channel. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
-            "tip": "Start with 5–9 AM. If the sky changes from the forecast, favor the darkest practical window.",
+            "headline": "Today’s Croton-area Chinook responsiveness is active.",
+            "detail": "Conditions support a meaningful Chinook response. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Croton flow and temperature represent only the area near the dam.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify downstream sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -12365,10 +12459,13 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 87,
+            "displayScore": 85,
+            "scoreIsApproximate": true,
             "stage": "building",
             "maximum": 100,
             "riverCeiling": 90,
@@ -12377,14 +12474,14 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "curveDirection": "rising",
             "winterHoldingContext": false,
             "label": "Peak presence",
-            "headline": "Chinook salmon are likely spread through more of the river as seasonal presence builds toward its strongest point.",
-            "detail": "The migration is approaching its strongest seasonal point, and fish are likely distributed through more of the river. This is a seasonal estimate, not a live fish count.",
-            "tip": "Treat this as one of the stronger parts of a strong river season. Give each stop a complete pass, but do not mistake this seasonal estimate for a live fish count.",
+            "headline": "Seasonal Chinook salmon presence is near its expected Muskegon peak.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the Muskegon Chinook salmon ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_building",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -12612,14 +12709,14 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             ]
           },
           "interpretationNote": null,
-          "secondaryNote": "Based on USGS 04121970 immediately below Croton Dam. It represents the regulated Croton tailwater; flow, temperature, access, and safety can differ through Newaygo, the lower river, Muskegon Lake, and the channel.",
+          "secondaryNote": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
           "safety": {
             "regulationReminder": "Croton Dam is the hard upstream migration boundary. Fish only legal water below the dam, use established public access, respect private land and posted closures, and check current Michigan regulations and dam-safety notices.",
-            "gaugeBasis": "Based on USGS 04121970 immediately below Croton Dam. It represents the regulated Croton tailwater; flow, temperature, access, and safety can differ through Newaygo, the lower river, Muskegon Lake, and the channel.",
+            "gaugeBasis": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-muskegon-steelhead-activity.1"
+          "configVersion": "2026-08-11-muskegon-copy.1"
         }
       },
       {
@@ -12638,6 +12735,7 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "nextConditionRefreshAt": "2026-10-01T05:00:00.000Z",
           "runStage": {
             "stage": "building",
+            "copyStrategy": "muskegon_croton_tailwater",
             "stagingContext": false,
             "broadBuildingContext": true,
             "winterHoldingContext": false,
@@ -12660,14 +12758,14 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "peakToEndDays": 35
             },
             "label": "Building",
-            "headline": "Chinook salmon are broadly established below Croton Dam.",
-            "whereToStart": "Compare Croton-tailwater pools, the Croton-to-Newaygo corridor, Newaygo-to-M-120 holding water, and major lower-river bends toward Muskegon Lake.",
-            "detail": "Fish from several waves can be spread through the river, but the Croton gauge only measures water near the dam. Fish numbers can be very different downstream.",
-            "tip": "Check the upper, middle, and lower river. Let what you see on the water—not just the Croton gauge—tell you where to stay.",
+            "headline": "Chinook salmon are broadly established through the Muskegon River.",
+            "whereToStart": "Start in the Upper river (Newaygo–Croton Dam), emphasizing the Croton Dam area. Compare the Middle river (M-120–Newaygo) for fresher fish.",
+            "detail": "Repeated entry periods support broad presence, not equal numbers in every section.",
+            "tip": "Croton measurements apply only near the dam. Verify downstream water directly.",
             "reasonCodes": [
               "stage_building"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -12736,15 +12834,15 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "2026-09-24"
             ],
             "sourceRefreshSlots": {},
-            "headline": "There is not enough reliable information for a Migration Timing call.",
-            "tip": "Do not move farther upstream or stay lower based on this timing read. Fish the section identified by Migration Stage and begin in its most established holding water; change sections only when direct fish activity or a dependable later read supports it.",
+            "headline": "There is not enough reliable Muskegon evidence for a Migration Timing call.",
+            "tip": "Keep the Muskegon section named by Migration Stage. Do not shift sections from this timing read.",
             "detail": "There are not enough dependable past seasons to judge whether this migration is early, normal, or late.",
             "reasonCodes": [
               "conditions_baseline_missing",
               "conditions_insufficient",
               "conditions_checkpoint_peak_start"
             ],
-            "copyVersion": "river-run-copy-v27",
+            "copyVersion": "river-run-copy-v34",
             "previousCheckpointId": "building_established",
             "previousCheckpointDate": "2026-09-05",
             "previousTimingLabel": "Insufficient evidence"
@@ -12761,9 +12859,9 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "push": {
             "score": 51,
             "label": "Possible",
-            "headline": "Today's water offers some support for fresh fish moving into or through the river.",
-            "detail": "The river is holding steady with no meaningful rise yet. Water temperature is favorable for fall migration and is cooling. Recent rain around the river may help, but the river has not responded enough for rain alone to create a strong Push.",
-            "tip": "Start in lower-river travel lanes, then fish the first deep resting water immediately upstream. Move to established holding water if those entry routes stay quiet.",
+            "headline": "Croton-area water offers some support for fresh movement.",
+            "detail": "The river is holding steady with no meaningful rise yet. Water temperature is favorable for fall migration and is cooling. Rain is only a precursor because Croton has not responded.",
+            "tip": "Keep Migration Stage’s section primary and add one Croton Dam-area movement check.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
@@ -12782,14 +12880,14 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 93,
             "label": "Excellent",
-            "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river.",
-            "tip": "Begin on the primary travel lane feeding deep holding water. Work each hole from its head through the inside seam and tail, then keep moving until fish establish a pattern.",
+            "headline": "Croton-area flow is in its best presentation range.",
+            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read applies only near Croton Dam within the Upper river (Newaygo–Croton Dam).",
+            "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band"
@@ -12800,15 +12898,15 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 80,
             "maximum": 100,
             "label": "Highly active",
-            "headline": "Today’s Chinook activity outlook is highly active.",
-            "detail": "Conditions strongly favor a response from Chinook that are present and capable of reacting. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. More Chinook are moving and settling into the river; the score describes reaction conditions for fish already present. The measured conditions represent the regulated Croton tailwater immediately below Croton Dam; water temperature, clarity, tributary influence, and presentation conditions can differ through Newaygo, the lower river, Muskegon Lake, and the channel. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
-            "tip": "Start with 5–9 AM. If the sky changes from the forecast, favor the darkest practical window.",
+            "headline": "Today’s Croton-area Chinook responsiveness is highly active.",
+            "detail": "Conditions strongly support Chinook responsiveness. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Croton flow and temperature represent only the area near the dam.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify downstream sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -12860,10 +12958,13 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 87,
+            "displayScore": 85,
+            "scoreIsApproximate": true,
             "stage": "building",
             "maximum": 100,
             "riverCeiling": 90,
@@ -12872,14 +12973,14 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "curveDirection": "rising",
             "winterHoldingContext": false,
             "label": "Peak presence",
-            "headline": "Chinook salmon are likely spread through more of the river as seasonal presence builds toward its strongest point.",
-            "detail": "The migration is approaching its strongest seasonal point, and fish are likely distributed through more of the river. This is a seasonal estimate, not a live fish count.",
-            "tip": "Treat this as one of the stronger parts of a strong river season. Give each stop a complete pass, but do not mistake this seasonal estimate for a live fish count.",
+            "headline": "Seasonal Chinook salmon presence is near its expected Muskegon peak.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the Muskegon Chinook salmon ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_building",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -13107,14 +13208,14 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             ]
           },
           "interpretationNote": null,
-          "secondaryNote": "Based on USGS 04121970 immediately below Croton Dam. It represents the regulated Croton tailwater; flow, temperature, access, and safety can differ through Newaygo, the lower river, Muskegon Lake, and the channel.",
+          "secondaryNote": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
           "safety": {
             "regulationReminder": "Croton Dam is the hard upstream migration boundary. Fish only legal water below the dam, use established public access, respect private land and posted closures, and check current Michigan regulations and dam-safety notices.",
-            "gaugeBasis": "Based on USGS 04121970 immediately below Croton Dam. It represents the regulated Croton tailwater; flow, temperature, access, and safety can differ through Newaygo, the lower river, Muskegon Lake, and the channel.",
+            "gaugeBasis": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-muskegon-steelhead-activity.1"
+          "configVersion": "2026-08-11-muskegon-copy.1"
         }
       },
       {
@@ -13133,6 +13234,7 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "nextConditionRefreshAt": "2026-10-01T05:00:00.000Z",
           "runStage": {
             "stage": "building",
+            "copyStrategy": "muskegon_croton_tailwater",
             "stagingContext": false,
             "broadBuildingContext": true,
             "winterHoldingContext": false,
@@ -13155,14 +13257,14 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "peakToEndDays": 35
             },
             "label": "Building",
-            "headline": "Chinook salmon are broadly established below Croton Dam.",
-            "whereToStart": "Compare Croton-tailwater pools, the Croton-to-Newaygo corridor, Newaygo-to-M-120 holding water, and major lower-river bends toward Muskegon Lake.",
-            "detail": "Fish from several waves can be spread through the river, but the Croton gauge only measures water near the dam. Fish numbers can be very different downstream.",
-            "tip": "Check the upper, middle, and lower river. Let what you see on the water—not just the Croton gauge—tell you where to stay.",
+            "headline": "Chinook salmon are broadly established through the Muskegon River.",
+            "whereToStart": "Start in the Upper river (Newaygo–Croton Dam), emphasizing the Croton Dam area. Compare the Middle river (M-120–Newaygo) for fresher fish.",
+            "detail": "Repeated entry periods support broad presence, not equal numbers in every section.",
+            "tip": "Croton measurements apply only near the dam. Verify downstream water directly.",
             "reasonCodes": [
               "stage_building"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -13231,15 +13333,15 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "2026-09-24"
             ],
             "sourceRefreshSlots": {},
-            "headline": "There is not enough reliable information for a Migration Timing call.",
-            "tip": "Do not move farther upstream or stay lower based on this timing read. Fish the section identified by Migration Stage and begin in its most established holding water; change sections only when direct fish activity or a dependable later read supports it.",
+            "headline": "There is not enough reliable Muskegon evidence for a Migration Timing call.",
+            "tip": "Keep the Muskegon section named by Migration Stage. Do not shift sections from this timing read.",
             "detail": "There are not enough dependable past seasons to judge whether this migration is early, normal, or late.",
             "reasonCodes": [
               "conditions_baseline_missing",
               "conditions_insufficient",
               "conditions_checkpoint_peak_start"
             ],
-            "copyVersion": "river-run-copy-v27",
+            "copyVersion": "river-run-copy-v34",
             "previousCheckpointId": "building_established",
             "previousCheckpointDate": "2026-09-05",
             "previousTimingLabel": "Insufficient evidence"
@@ -13256,9 +13358,9 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "push": {
             "score": 46,
             "label": "No clear push",
-            "headline": "Today's water does not show a clear signal for a fresh wave of fish.",
-            "detail": "There is not enough recent river-level history to tell whether the river is rising or falling. Water temperature is favorable for fall migration and is cooling. Recent rain around the river may help, but the river has not responded enough for rain alone to create a strong Push. Without a dependable river trend, there is no clear Push.",
-            "tip": "Do not relocate the trip around this Push read. Begin in established holding water, verify the river at the first access, and add travel lanes only after confirming workable conditions.",
+            "headline": "Croton-area water does not show a clear fresh-movement signal.",
+            "detail": "There is not enough recent river-level history to tell whether the river is rising or falling. Water temperature is favorable for fall migration and is cooling. Without a dependable Croton trend, the read cannot show a clear Push.",
+            "tip": "Keep Migration Stage’s section primary. Do not shift sections from this read.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
@@ -13278,14 +13380,14 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 69,
             "label": "Fishable",
-            "headline": "The river appears fishable, but its direction is unclear, so confidence is limited.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. There is not enough recent information to tell whether the river is rising or falling, which lowers confidence in the read. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river.",
-            "tip": "Start at a bank-side inside bend or soft seam where the full presentation stays under control. Skip faster water until the river's direction is verified.",
+            "headline": "Croton-area flow is workable, but its direction is unknown.",
+            "detail": "The flow band offers the broadest mix of depth and presentation control. Recent Croton history cannot establish the flow direction. This read applies only near Croton Dam within the Upper river (Newaygo–Croton Dam).",
+            "tip": "Verify the Croton area directly before choosing presentation water.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band",
@@ -13299,15 +13401,15 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               ]
             },
             "rulesVersion": "muskegon-croton-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 80,
             "maximum": 100,
             "label": "Highly active",
-            "headline": "Today’s Chinook activity outlook is highly active.",
-            "detail": "Conditions strongly favor a response from Chinook that are present and capable of reacting. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. More Chinook are moving and settling into the river; the score describes reaction conditions for fish already present. The measured conditions represent the regulated Croton tailwater immediately below Croton Dam; water temperature, clarity, tributary influence, and presentation conditions can differ through Newaygo, the lower river, Muskegon Lake, and the channel. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
-            "tip": "Start with 5–9 AM. If the sky changes from the forecast, favor the darkest practical window.",
+            "headline": "Today’s Croton-area Chinook responsiveness is highly active.",
+            "detail": "Conditions strongly support Chinook responsiveness. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Croton flow and temperature represent only the area near the dam.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify downstream sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -13359,10 +13461,13 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 87,
+            "displayScore": 85,
+            "scoreIsApproximate": true,
             "stage": "building",
             "maximum": 100,
             "riverCeiling": 90,
@@ -13371,14 +13476,14 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "curveDirection": "rising",
             "winterHoldingContext": false,
             "label": "Peak presence",
-            "headline": "Chinook salmon are likely spread through more of the river as seasonal presence builds toward its strongest point.",
-            "detail": "The migration is approaching its strongest seasonal point, and fish are likely distributed through more of the river. This is a seasonal estimate, not a live fish count.",
-            "tip": "Treat this as one of the stronger parts of a strong river season. Give each stop a complete pass, but do not mistake this seasonal estimate for a live fish count.",
+            "headline": "Seasonal Chinook salmon presence is near its expected Muskegon peak.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the Muskegon Chinook salmon ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_building",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -13606,14 +13711,14 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             ]
           },
           "interpretationNote": null,
-          "secondaryNote": "Based on USGS 04121970 immediately below Croton Dam. It represents the regulated Croton tailwater; flow, temperature, access, and safety can differ through Newaygo, the lower river, Muskegon Lake, and the channel.",
+          "secondaryNote": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
           "safety": {
             "regulationReminder": "Croton Dam is the hard upstream migration boundary. Fish only legal water below the dam, use established public access, respect private land and posted closures, and check current Michigan regulations and dam-safety notices.",
-            "gaugeBasis": "Based on USGS 04121970 immediately below Croton Dam. It represents the regulated Croton tailwater; flow, temperature, access, and safety can differ through Newaygo, the lower river, Muskegon Lake, and the channel.",
+            "gaugeBasis": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-muskegon-steelhead-activity.1"
+          "configVersion": "2026-08-11-muskegon-copy.1"
         }
       },
       {
@@ -13632,6 +13737,7 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "nextConditionRefreshAt": "2026-10-01T05:00:00.000Z",
           "runStage": {
             "stage": "building",
+            "copyStrategy": "muskegon_croton_tailwater",
             "stagingContext": false,
             "broadBuildingContext": true,
             "winterHoldingContext": false,
@@ -13654,14 +13760,14 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "peakToEndDays": 35
             },
             "label": "Building",
-            "headline": "Chinook salmon are broadly established below Croton Dam.",
-            "whereToStart": "Compare Croton-tailwater pools, the Croton-to-Newaygo corridor, Newaygo-to-M-120 holding water, and major lower-river bends toward Muskegon Lake.",
-            "detail": "Fish from several waves can be spread through the river, but the Croton gauge only measures water near the dam. Fish numbers can be very different downstream.",
-            "tip": "Check the upper, middle, and lower river. Let what you see on the water—not just the Croton gauge—tell you where to stay.",
+            "headline": "Chinook salmon are broadly established through the Muskegon River.",
+            "whereToStart": "Start in the Upper river (Newaygo–Croton Dam), emphasizing the Croton Dam area. Compare the Middle river (M-120–Newaygo) for fresher fish.",
+            "detail": "Repeated entry periods support broad presence, not equal numbers in every section.",
+            "tip": "Croton measurements apply only near the dam. Verify downstream water directly.",
             "reasonCodes": [
               "stage_building"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -13730,15 +13836,15 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "2026-09-24"
             ],
             "sourceRefreshSlots": {},
-            "headline": "There is not enough reliable information for a Migration Timing call.",
-            "tip": "Do not move farther upstream or stay lower based on this timing read. Fish the section identified by Migration Stage and begin in its most established holding water; change sections only when direct fish activity or a dependable later read supports it.",
+            "headline": "There is not enough reliable Muskegon evidence for a Migration Timing call.",
+            "tip": "Keep the Muskegon section named by Migration Stage. Do not shift sections from this timing read.",
             "detail": "There are not enough dependable past seasons to judge whether this migration is early, normal, or late.",
             "reasonCodes": [
               "conditions_baseline_missing",
               "conditions_insufficient",
               "conditions_checkpoint_peak_start"
             ],
-            "copyVersion": "river-run-copy-v27",
+            "copyVersion": "river-run-copy-v34",
             "previousCheckpointId": "building_established",
             "previousCheckpointDate": "2026-09-05",
             "previousTimingLabel": "Insufficient evidence"
@@ -13755,9 +13861,9 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "push": {
             "score": 55,
             "label": "Possible",
-            "headline": "The water may support fresh movement, but an aging river reading limits confidence.",
-            "detail": "The river is rising quickly, creating conditions fish often use to move. Water temperature is favorable for fall migration and is cooling sharply. The river has already made a meaningful rise, so that measured response carries the useful movement signal and rainfall adds no separate weight. The latest river-level reading is aging, so confidence is reduced.",
-            "tip": "Do not relocate the trip around this Push read. Begin in established holding water, verify the river at the first access, and add travel lanes only after confirming workable conditions.",
+            "headline": "Croton-area water offers some support for fresh movement.",
+            "detail": "The river is rising quickly, creating conditions fish often use to move. Water temperature is favorable for fall migration and is cooling sharply. The Croton reading is aging, so confidence is reduced.",
+            "tip": "Keep Migration Stage’s section primary and add one Croton Dam-area movement check.",
             "reasonCodes": [
               "gauge_stale",
               "push_normal_flow_context",
@@ -13778,14 +13884,14 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               ]
             },
             "rulesVersion": "muskegon-croton-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 55,
             "label": "Fishable",
-            "headline": "The last river reading was fishable, but it is aging and may no longer describe the water accurately.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. Because the latest reading is aging, the river may have changed since it was reported. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river.",
-            "tip": "Do not choose a reach from this reading alone. Check the water at the first access, and begin only in bank-side water where you can control the entire presentation.",
+            "headline": "The aging Croton reading limits Croton-area Fishability confidence.",
+            "detail": "The flow band offers the broadest mix of depth and presentation control. The Croton area may have changed since the last Croton reading. This read applies only near Croton Dam within the Upper river (Newaygo–Croton Dam).",
+            "tip": "Verify the Croton area directly before choosing presentation water.",
             "reasonCodes": [
               "gauge_stale",
               "ideal_flow_band",
@@ -13799,15 +13905,15 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               ]
             },
             "rulesVersion": "muskegon-croton-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 54,
             "maximum": 100,
             "label": "Moderate",
-            "headline": "Today’s Chinook activity outlook is moderate.",
-            "detail": "Some useful factors are present, but the response window is mixed. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Current river behavior is unavailable. More Chinook are moving and settling into the river; the score describes reaction conditions for fish already present. The measured conditions represent the regulated Croton tailwater immediately below Croton Dam; water temperature, clarity, tributary influence, and presentation conditions can differ through Newaygo, the lower river, Muskegon Lake, and the channel. One important reading is unavailable or comes from tomorrow’s forecast, so the outlook is kept conservative.",
-            "tip": "Start with 5–9 AM. If the sky changes from the forecast, favor the darkest practical window.",
+            "headline": "Today’s Croton-area Chinook responsiveness is moderate.",
+            "detail": "Conditions offer mixed support for Chinook responsiveness. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Moderate confidence reflects missing or forecast inputs; river measurements still represent only the Croton Dam area.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify downstream sections directly.",
             "reasonCodes": [
               "activity_confidence_moderate",
               "activity_today",
@@ -13859,10 +13965,13 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 87,
+            "displayScore": 85,
+            "scoreIsApproximate": true,
             "stage": "building",
             "maximum": 100,
             "riverCeiling": 90,
@@ -13871,14 +13980,14 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "curveDirection": "rising",
             "winterHoldingContext": false,
             "label": "Peak presence",
-            "headline": "Chinook salmon are likely spread through more of the river as seasonal presence builds toward its strongest point.",
-            "detail": "The migration is approaching its strongest seasonal point, and fish are likely distributed through more of the river. This is a seasonal estimate, not a live fish count.",
-            "tip": "Treat this as one of the stronger parts of a strong river season. Give each stop a complete pass, but do not mistake this seasonal estimate for a live fish count.",
+            "headline": "Seasonal Chinook salmon presence is near its expected Muskegon peak.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the Muskegon Chinook salmon ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_building",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -14106,14 +14215,14 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             ]
           },
           "interpretationNote": null,
-          "secondaryNote": "Based on USGS 04121970 immediately below Croton Dam. It represents the regulated Croton tailwater; flow, temperature, access, and safety can differ through Newaygo, the lower river, Muskegon Lake, and the channel.",
+          "secondaryNote": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
           "safety": {
             "regulationReminder": "Croton Dam is the hard upstream migration boundary. Fish only legal water below the dam, use established public access, respect private land and posted closures, and check current Michigan regulations and dam-safety notices.",
-            "gaugeBasis": "Based on USGS 04121970 immediately below Croton Dam. It represents the regulated Croton tailwater; flow, temperature, access, and safety can differ through Newaygo, the lower river, Muskegon Lake, and the channel.",
+            "gaugeBasis": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-muskegon-steelhead-activity.1"
+          "configVersion": "2026-08-11-muskegon-copy.1"
         }
       },
       {
@@ -14132,6 +14241,7 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "nextConditionRefreshAt": "2026-10-01T05:00:00.000Z",
           "runStage": {
             "stage": "building",
+            "copyStrategy": "muskegon_croton_tailwater",
             "stagingContext": false,
             "broadBuildingContext": true,
             "winterHoldingContext": false,
@@ -14154,14 +14264,14 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "peakToEndDays": 35
             },
             "label": "Building",
-            "headline": "Chinook salmon are broadly established below Croton Dam.",
-            "whereToStart": "Compare Croton-tailwater pools, the Croton-to-Newaygo corridor, Newaygo-to-M-120 holding water, and major lower-river bends toward Muskegon Lake.",
-            "detail": "Fish from several waves can be spread through the river, but the Croton gauge only measures water near the dam. Fish numbers can be very different downstream.",
-            "tip": "Check the upper, middle, and lower river. Let what you see on the water—not just the Croton gauge—tell you where to stay.",
+            "headline": "Chinook salmon are broadly established through the Muskegon River.",
+            "whereToStart": "Start in the Upper river (Newaygo–Croton Dam), emphasizing the Croton Dam area. Compare the Middle river (M-120–Newaygo) for fresher fish.",
+            "detail": "Repeated entry periods support broad presence, not equal numbers in every section.",
+            "tip": "Croton measurements apply only near the dam. Verify downstream water directly.",
             "reasonCodes": [
               "stage_building"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -14230,15 +14340,15 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "2026-09-24"
             ],
             "sourceRefreshSlots": {},
-            "headline": "There is not enough reliable information for a Migration Timing call.",
-            "tip": "Do not move farther upstream or stay lower based on this timing read. Fish the section identified by Migration Stage and begin in its most established holding water; change sections only when direct fish activity or a dependable later read supports it.",
+            "headline": "There is not enough reliable Muskegon evidence for a Migration Timing call.",
+            "tip": "Keep the Muskegon section named by Migration Stage. Do not shift sections from this timing read.",
             "detail": "There are not enough dependable past seasons to judge whether this migration is early, normal, or late.",
             "reasonCodes": [
               "conditions_baseline_missing",
               "conditions_insufficient",
               "conditions_checkpoint_peak_start"
             ],
-            "copyVersion": "river-run-copy-v27",
+            "copyVersion": "river-run-copy-v34",
             "previousCheckpointId": "building_established",
             "previousCheckpointDate": "2026-09-05",
             "previousTimingLabel": "Insufficient evidence"
@@ -14255,9 +14365,9 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "push": {
             "score": 49,
             "label": "No clear push",
-            "headline": "The river is rising hard, but extreme flow makes this an unreliable fresh-movement read.",
-            "detail": "The river is rising quickly, creating conditions fish often use to move. Overall flow is extremely high. Water temperature is favorable for fall migration and is cooling sharply. Additional rain does not improve the read while the river is already high.",
-            "tip": "Do not chase movement in the main channel. If Fishability remains usable, fish only protected margins, inside turns, and soft current with short controlled presentations.",
+            "headline": "Extreme Croton-area flow prevents a dependable fresh-movement signal.",
+            "detail": "The river is rising quickly, creating conditions fish often use to move; overall flow is extremely high. Water temperature is favorable for fall migration and is cooling sharply. Rain adds no support while Croton-area flow is already high.",
+            "tip": "Keep Migration Stage’s section primary. Do not shift sections from this read.",
             "reasonCodes": [
               "gauge_fresh",
               "push_severe_high_flow_context",
@@ -14278,14 +14388,14 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               ]
             },
             "rulesVersion": "muskegon-croton-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 0,
             "label": "Poor",
-            "headline": "The river is blown out and still rising fast, so normal fishing water is not dependable.",
-            "detail": "Excessive flow is overwhelming normal holding water and making access and presentation unreliable. The fast rise is forcing usable fishing water out of the main flow and into the slowest protected margins. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river.",
-            "tip": "Choose a lower-water day for the better fishing opportunity. If you fish now, stay tight to protected banks, slow inside turns, and the downstream side of major current breaks; keep presentations short and leave the main flow alone.",
+            "headline": "The Croton area is blown out for a dependable presentation plan.",
+            "detail": "Excessive flow overwhelms normal lanes and presentation control. A fast rise is replacing settled lanes with heavier current. This read applies only near Croton Dam within the Upper river (Newaygo–Croton Dam).",
+            "tip": "Choose another day and verify current conditions through authoritative local sources.",
             "reasonCodes": [
               "gauge_fresh",
               "blown_out_flow_band",
@@ -14298,15 +14408,15 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 24,
             "maximum": 100,
             "label": "Reserved",
-            "headline": "Today’s Chinook activity outlook is reserved.",
-            "detail": "Fish may respond selectively, with important environmental limitations. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: The river level or its recent change is less favorable. More Chinook are moving and settling into the river; the score describes reaction conditions for fish already present. The measured conditions represent the regulated Croton tailwater immediately below Croton Dam; water temperature, clarity, tributary influence, and presentation conditions can differ through Newaygo, the lower river, Muskegon Lake, and the channel. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
-            "tip": "Start with 5–9 AM. If the sky changes from the forecast, favor the darkest practical window.",
+            "headline": "Today’s Croton-area Chinook responsiveness is reserved.",
+            "detail": "Chinook may respond selectively under current limitations. 5–9 AM and 9 AM–1 PM are the leading windows, but neither has a clear advantage. Croton flow and temperature represent only the area near the dam.",
+            "tip": "Choose between 5–9 AM and 9 AM–1 PM using actual light. Verify downstream sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -14359,10 +14469,13 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 87,
+            "displayScore": 85,
+            "scoreIsApproximate": true,
             "stage": "building",
             "maximum": 100,
             "riverCeiling": 90,
@@ -14371,14 +14484,14 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "curveDirection": "rising",
             "winterHoldingContext": false,
             "label": "Peak presence",
-            "headline": "Chinook salmon are likely spread through more of the river as seasonal presence builds toward its strongest point.",
-            "detail": "The migration is approaching its strongest seasonal point, and fish are likely distributed through more of the river. This is a seasonal estimate, not a live fish count.",
-            "tip": "Treat this as one of the stronger parts of a strong river season. Give each stop a complete pass, but do not mistake this seasonal estimate for a live fish count.",
+            "headline": "Seasonal Chinook salmon presence is near its expected Muskegon peak.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the Muskegon Chinook salmon ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_building",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -14606,14 +14719,14 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             ]
           },
           "interpretationNote": null,
-          "secondaryNote": "Based on USGS 04121970 immediately below Croton Dam. It represents the regulated Croton tailwater; flow, temperature, access, and safety can differ through Newaygo, the lower river, Muskegon Lake, and the channel.",
+          "secondaryNote": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
           "safety": {
             "regulationReminder": "Croton Dam is the hard upstream migration boundary. Fish only legal water below the dam, use established public access, respect private land and posted closures, and check current Michigan regulations and dam-safety notices.",
-            "gaugeBasis": "Based on USGS 04121970 immediately below Croton Dam. It represents the regulated Croton tailwater; flow, temperature, access, and safety can differ through Newaygo, the lower river, Muskegon Lake, and the channel.",
+            "gaugeBasis": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-muskegon-steelhead-activity.1"
+          "configVersion": "2026-08-11-muskegon-copy.1"
         }
       },
       {
@@ -14632,6 +14745,7 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "nextConditionRefreshAt": "2026-10-01T05:00:00.000Z",
           "runStage": {
             "stage": "building",
+            "copyStrategy": "muskegon_croton_tailwater",
             "stagingContext": false,
             "broadBuildingContext": true,
             "winterHoldingContext": false,
@@ -14654,14 +14768,14 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "peakToEndDays": 35
             },
             "label": "Building",
-            "headline": "Chinook salmon are broadly established below Croton Dam.",
-            "whereToStart": "Compare Croton-tailwater pools, the Croton-to-Newaygo corridor, Newaygo-to-M-120 holding water, and major lower-river bends toward Muskegon Lake.",
-            "detail": "Fish from several waves can be spread through the river, but the Croton gauge only measures water near the dam. Fish numbers can be very different downstream.",
-            "tip": "Check the upper, middle, and lower river. Let what you see on the water—not just the Croton gauge—tell you where to stay.",
+            "headline": "Chinook salmon are broadly established through the Muskegon River.",
+            "whereToStart": "Start in the Upper river (Newaygo–Croton Dam), emphasizing the Croton Dam area. Compare the Middle river (M-120–Newaygo) for fresher fish.",
+            "detail": "Repeated entry periods support broad presence, not equal numbers in every section.",
+            "tip": "Croton measurements apply only near the dam. Verify downstream water directly.",
             "reasonCodes": [
               "stage_building"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -14730,15 +14844,15 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "2026-09-24"
             ],
             "sourceRefreshSlots": {},
-            "headline": "There is not enough reliable information for a Migration Timing call.",
-            "tip": "Do not move farther upstream or stay lower based on this timing read. Fish the section identified by Migration Stage and begin in its most established holding water; change sections only when direct fish activity or a dependable later read supports it.",
+            "headline": "There is not enough reliable Muskegon evidence for a Migration Timing call.",
+            "tip": "Keep the Muskegon section named by Migration Stage. Do not shift sections from this timing read.",
             "detail": "There are not enough dependable past seasons to judge whether this migration is early, normal, or late.",
             "reasonCodes": [
               "conditions_baseline_missing",
               "conditions_insufficient",
               "conditions_checkpoint_peak_start"
             ],
-            "copyVersion": "river-run-copy-v27",
+            "copyVersion": "river-run-copy-v34",
             "previousCheckpointId": "building_established",
             "previousCheckpointDate": "2026-09-05",
             "previousTimingLabel": "Insufficient evidence"
@@ -14762,27 +14876,27 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "gauge_missing"
             ],
             "rulesVersion": "muskegon-croton-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": null,
             "label": "Unavailable",
-            "headline": "There is no dependable Fishability read right now.",
-            "detail": "A recent river-level reading is missing, so current flow and direction cannot be judged responsibly.",
-            "tip": "Do not plan from the last known level. Check again after the next update, and verify the river at the first access before choosing where or how to fish.",
+            "headline": "A current Croton Fishability reading is unavailable.",
+            "detail": "Without current Croton flow and direction, presentation conditions near the dam cannot be determined.",
+            "tip": "Do not extend an old or missing Croton read through the Muskegon River. Verify current conditions directly.",
             "reasonCodes": [
               "gauge_missing"
             ],
             "rulesVersion": "muskegon-croton-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 54,
             "maximum": 100,
             "label": "Moderate",
-            "headline": "Today’s Chinook activity outlook is moderate.",
-            "detail": "Some useful factors are present, but the response window is mixed. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Current river behavior is unavailable. More Chinook are moving and settling into the river; the score describes reaction conditions for fish already present. The measured conditions represent the regulated Croton tailwater immediately below Croton Dam; water temperature, clarity, tributary influence, and presentation conditions can differ through Newaygo, the lower river, Muskegon Lake, and the channel. One important reading is unavailable or comes from tomorrow’s forecast, so the outlook is kept conservative.",
-            "tip": "Start with 5–9 AM. If the sky changes from the forecast, favor the darkest practical window.",
+            "headline": "Today’s Croton-area Chinook responsiveness is moderate.",
+            "detail": "Conditions offer mixed support for Chinook responsiveness. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Moderate confidence reflects missing or forecast inputs; river measurements still represent only the Croton Dam area.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify downstream sections directly.",
             "reasonCodes": [
               "activity_confidence_moderate",
               "activity_today",
@@ -14834,10 +14948,13 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 87,
+            "displayScore": 85,
+            "scoreIsApproximate": true,
             "stage": "building",
             "maximum": 100,
             "riverCeiling": 90,
@@ -14846,14 +14963,14 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "curveDirection": "rising",
             "winterHoldingContext": false,
             "label": "Peak presence",
-            "headline": "Chinook salmon are likely spread through more of the river as seasonal presence builds toward its strongest point.",
-            "detail": "The migration is approaching its strongest seasonal point, and fish are likely distributed through more of the river. This is a seasonal estimate, not a live fish count.",
-            "tip": "Treat this as one of the stronger parts of a strong river season. Give each stop a complete pass, but do not mistake this seasonal estimate for a live fish count.",
+            "headline": "Seasonal Chinook salmon presence is near its expected Muskegon peak.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the Muskegon Chinook salmon ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_building",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": null,
           "weather": {
@@ -15071,14 +15188,14 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             ]
           },
           "interpretationNote": null,
-          "secondaryNote": "Based on USGS 04121970 immediately below Croton Dam. It represents the regulated Croton tailwater; flow, temperature, access, and safety can differ through Newaygo, the lower river, Muskegon Lake, and the channel.",
+          "secondaryNote": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
           "safety": {
             "regulationReminder": "Croton Dam is the hard upstream migration boundary. Fish only legal water below the dam, use established public access, respect private land and posted closures, and check current Michigan regulations and dam-safety notices.",
-            "gaugeBasis": "Based on USGS 04121970 immediately below Croton Dam. It represents the regulated Croton tailwater; flow, temperature, access, and safety can differ through Newaygo, the lower river, Muskegon Lake, and the channel.",
+            "gaugeBasis": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-muskegon-steelhead-activity.1"
+          "configVersion": "2026-08-11-muskegon-copy.1"
         }
       },
       {
@@ -15097,6 +15214,7 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "nextConditionRefreshAt": "2026-10-01T05:00:00.000Z",
           "runStage": {
             "stage": "building",
+            "copyStrategy": "muskegon_croton_tailwater",
             "stagingContext": false,
             "broadBuildingContext": true,
             "winterHoldingContext": false,
@@ -15119,14 +15237,14 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "peakToEndDays": 35
             },
             "label": "Building",
-            "headline": "Chinook salmon are broadly established below Croton Dam.",
-            "whereToStart": "Compare Croton-tailwater pools, the Croton-to-Newaygo corridor, Newaygo-to-M-120 holding water, and major lower-river bends toward Muskegon Lake.",
-            "detail": "Fish from several waves can be spread through the river, but the Croton gauge only measures water near the dam. Fish numbers can be very different downstream.",
-            "tip": "Check the upper, middle, and lower river. Let what you see on the water—not just the Croton gauge—tell you where to stay.",
+            "headline": "Chinook salmon are broadly established through the Muskegon River.",
+            "whereToStart": "Start in the Upper river (Newaygo–Croton Dam), emphasizing the Croton Dam area. Compare the Middle river (M-120–Newaygo) for fresher fish.",
+            "detail": "Repeated entry periods support broad presence, not equal numbers in every section.",
+            "tip": "Croton measurements apply only near the dam. Verify downstream water directly.",
             "reasonCodes": [
               "stage_building"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -15195,15 +15313,15 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "2026-09-24"
             ],
             "sourceRefreshSlots": {},
-            "headline": "There is not enough reliable information for a Migration Timing call.",
-            "tip": "Do not move farther upstream or stay lower based on this timing read. Fish the section identified by Migration Stage and begin in its most established holding water; change sections only when direct fish activity or a dependable later read supports it.",
+            "headline": "There is not enough reliable Muskegon evidence for a Migration Timing call.",
+            "tip": "Keep the Muskegon section named by Migration Stage. Do not shift sections from this timing read.",
             "detail": "There are not enough dependable past seasons to judge whether this migration is early, normal, or late.",
             "reasonCodes": [
               "conditions_baseline_missing",
               "conditions_insufficient",
               "conditions_checkpoint_peak_start"
             ],
-            "copyVersion": "river-run-copy-v27",
+            "copyVersion": "river-run-copy-v34",
             "previousCheckpointId": "building_established",
             "previousCheckpointDate": "2026-09-05",
             "previousTimingLabel": "Insufficient evidence"
@@ -15228,14 +15346,14 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "temperature_unavailable"
             ],
             "rulesVersion": "muskegon-croton-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 93,
             "label": "Excellent",
-            "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river.",
-            "tip": "Begin on the primary travel lane feeding deep holding water. Work each hole from its head through the inside seam and tail, then keep moving until fish establish a pattern.",
+            "headline": "Croton-area flow is in its best presentation range.",
+            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read applies only near Croton Dam within the Upper river (Newaygo–Croton Dam).",
+            "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band"
@@ -15246,15 +15364,15 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 53,
             "maximum": 100,
             "label": "Moderate",
-            "headline": "Today’s Chinook activity outlook is moderate.",
-            "detail": "Some useful factors are present, but the response window is mixed. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Measured water temperature is unavailable. More Chinook are moving and settling into the river; the score describes reaction conditions for fish already present. The measured conditions represent the regulated Croton tailwater immediately below Croton Dam; water temperature, clarity, tributary influence, and presentation conditions can differ through Newaygo, the lower river, Muskegon Lake, and the channel. One important reading is unavailable or comes from tomorrow’s forecast, so the outlook is kept conservative.",
-            "tip": "Start with 5–9 AM. If the sky changes from the forecast, favor the darkest practical window.",
+            "headline": "Today’s Croton-area Chinook responsiveness is moderate.",
+            "detail": "Conditions offer mixed support for Chinook responsiveness. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Moderate confidence reflects missing or forecast inputs; river measurements still represent only the Croton Dam area.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify downstream sections directly.",
             "reasonCodes": [
               "activity_confidence_moderate",
               "activity_today",
@@ -15306,10 +15424,13 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 87,
+            "displayScore": 85,
+            "scoreIsApproximate": true,
             "stage": "building",
             "maximum": 100,
             "riverCeiling": 90,
@@ -15318,14 +15439,14 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "curveDirection": "rising",
             "winterHoldingContext": false,
             "label": "Peak presence",
-            "headline": "Chinook salmon are likely spread through more of the river as seasonal presence builds toward its strongest point.",
-            "detail": "The migration is approaching its strongest seasonal point, and fish are likely distributed through more of the river. This is a seasonal estimate, not a live fish count.",
-            "tip": "Treat this as one of the stronger parts of a strong river season. Give each stop a complete pass, but do not mistake this seasonal estimate for a live fish count.",
+            "headline": "Seasonal Chinook salmon presence is near its expected Muskegon peak.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the Muskegon Chinook salmon ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_building",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -15536,14 +15657,14 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             ]
           },
           "interpretationNote": null,
-          "secondaryNote": "Based on USGS 04121970 immediately below Croton Dam. It represents the regulated Croton tailwater; flow, temperature, access, and safety can differ through Newaygo, the lower river, Muskegon Lake, and the channel.",
+          "secondaryNote": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
           "safety": {
             "regulationReminder": "Croton Dam is the hard upstream migration boundary. Fish only legal water below the dam, use established public access, respect private land and posted closures, and check current Michigan regulations and dam-safety notices.",
-            "gaugeBasis": "Based on USGS 04121970 immediately below Croton Dam. It represents the regulated Croton tailwater; flow, temperature, access, and safety can differ through Newaygo, the lower river, Muskegon Lake, and the channel.",
+            "gaugeBasis": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-muskegon-steelhead-activity.1"
+          "configVersion": "2026-08-11-muskegon-copy.1"
         }
       },
       {
@@ -15562,6 +15683,7 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "nextConditionRefreshAt": "2026-08-16T05:00:00.000Z",
           "runStage": {
             "stage": "pre_run",
+            "copyStrategy": "muskegon_croton_tailwater",
             "stagingContext": true,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -15584,15 +15706,15 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "peakToEndDays": 35
             },
             "label": "Before migration",
-            "headline": "Chinook salmon may be staging in Muskegon Lake, the channel, and near the river mouth.",
-            "whereToStart": "Muskegon Lake, the Lake Michigan channel, the river mouth, and one quick check of deep lower-river water below M-120.",
-            "detail": "An early Chinook salmon can enter the lower Muskegon, but that does not mean fish are spread through Newaygo or up to Croton Dam.",
-            "tip": "Stay closer to the lake. One early river fish does not mean the whole river has fish yet.",
+            "headline": "Chinook salmon may be staging near the Muskegon River entrance.",
+            "whereToStart": "Start at Muskegon Lake, the Lake Michigan channel, and the river entrance. Add the Lower river (Muskegon Lake–M-120) only for an early-fish check.",
+            "detail": "Staging does not confirm dependable river entry.",
+            "tip": "Keep the river check brief. Do not move into the Middle river (M-120–Newaygo) or Upper river (Newaygo–Croton Dam) from calendar timing alone.",
             "reasonCodes": [
               "stage_pre_run",
               "stage_pre_run_staging"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Evaluating",
@@ -15611,13 +15733,13 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "historicalYears": 0,
             "sourceDates": [],
             "sourceRefreshSlots": {},
-            "headline": "Migration Timing is still taking shape.",
-            "detail": "The early river and temperature pattern is still developing, so an Ahead, Typical, or Delayed call would be premature.",
-            "tip": "Keep the trip centered on the river mouth and earliest lower-river holding water. Move inland only when Migration Stage advances or direct fish activity supports it.",
+            "headline": "Muskegon Migration Timing is still taking shape.",
+            "detail": "Croton flow and measured temperature do not yet support an Ahead, Typical, or Delayed call.",
+            "tip": "Keep the section named by Migration Stage until this read has enough Croton-area evidence.",
             "reasonCodes": [
               "conditions_checkpoint_evaluating"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -15631,21 +15753,21 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "push": {
             "score": null,
             "label": "Waiting for migration",
-            "headline": "Fish have not started entering the river, so there is no Push read yet.",
-            "detail": "Push is meant to spot water conditions that may help fish enter or move during the active migration. Before that, most opportunity should remain in the lake, harbor, or river-mouth transition.",
-            "tip": "Keep the trip in the lake, harbor, and river-mouth zone. Do not move inland just because rain or cooling resembles an in-season movement event.",
+            "headline": "Dependable Muskegon river entry has not started.",
+            "detail": "Croton flow and measured temperature are not scored as an in-season fresh-movement signal yet.",
+            "tip": "Use Migration Stage. Do not move inland because offseason water resembles a Push.",
             "reasonCodes": [
               "push_tracking_not_started"
             ],
             "rulesVersion": "muskegon-croton-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 93,
             "label": "Excellent",
-            "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river.",
-            "tip": "Begin on the primary travel lane feeding deep holding water. Work each hole from its head through the inside seam and tail, then keep moving until fish establish a pattern.",
+            "headline": "Croton-area flow is in its best presentation range.",
+            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read applies only near Croton Dam within the Upper river (Newaygo–Croton Dam).",
+            "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band"
@@ -15656,15 +15778,15 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 70,
             "maximum": 100,
             "label": "Active",
-            "headline": "Today’s Chinook activity outlook is active.",
-            "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Water temperature limits responsiveness. Dependable river presence has not begun. The score applies only to a sparse early Chinook that may already have entered. The measured conditions represent the regulated Croton tailwater immediately below Croton Dam; water temperature, clarity, tributary influence, and presentation conditions can differ through Newaygo, the lower river, Muskegon Lake, and the channel. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
-            "tip": "Start with 5–9 AM. If the sky changes from the forecast, favor the darkest practical window.",
+            "headline": "Today’s Croton-area responsiveness is active, but dependable Chinook presence has not begun.",
+            "detail": "Conditions support a meaningful Chinook response. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. This applies only to an early Chinook already near Croton Dam.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify downstream sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -15716,10 +15838,13 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 0,
+            "displayScore": 0,
+            "scoreIsApproximate": false,
             "stage": "pre_run",
             "maximum": 100,
             "riverCeiling": 90,
@@ -15728,14 +15853,14 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "curveDirection": "outside",
             "winterHoldingContext": false,
             "label": "Not expected yet",
-            "headline": "Chinook salmon are not expected in meaningful numbers yet.",
-            "detail": "Most Chinook salmon are not expected to have entered the river in dependable numbers. Any fish already present would be early exceptions.",
-            "tip": "Treat this as no dependable in-river opportunity yet. Keep expectations at zero, and do not interpret an isolated early fish as evidence of dependable river presence.",
+            "headline": "Dependable Chinook salmon presence is not expected in the Muskegon River yet.",
+            "detail": "The seasonal estimate remains at zero. Any river fish would be an early exception.",
+            "tip": "Use Migration Stage for Muskegon Lake, channel, and river-entrance context.",
             "reasonCodes": [
               "stage_pre_run",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -15968,14 +16093,14 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "good_fishability_low_presence"
             ]
           },
-          "secondaryNote": "Based on USGS 04121970 immediately below Croton Dam. It represents the regulated Croton tailwater; flow, temperature, access, and safety can differ through Newaygo, the lower river, Muskegon Lake, and the channel.",
+          "secondaryNote": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
           "safety": {
             "regulationReminder": "Croton Dam is the hard upstream migration boundary. Fish only legal water below the dam, use established public access, respect private land and posted closures, and check current Michigan regulations and dam-safety notices.",
-            "gaugeBasis": "Based on USGS 04121970 immediately below Croton Dam. It represents the regulated Croton tailwater; flow, temperature, access, and safety can differ through Newaygo, the lower river, Muskegon Lake, and the channel.",
+            "gaugeBasis": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-muskegon-steelhead-activity.1"
+          "configVersion": "2026-08-11-muskegon-copy.1"
         }
       },
       {
@@ -15994,6 +16119,7 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "nextConditionRefreshAt": "2026-08-16T05:00:00.000Z",
           "runStage": {
             "stage": "pre_run",
+            "copyStrategy": "muskegon_croton_tailwater",
             "stagingContext": true,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -16016,15 +16142,15 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "peakToEndDays": 35
             },
             "label": "Before migration",
-            "headline": "Chinook salmon may be staging in Muskegon Lake, the channel, and near the river mouth.",
-            "whereToStart": "Muskegon Lake, the Lake Michigan channel, the river mouth, and one quick check of deep lower-river water below M-120.",
-            "detail": "An early Chinook salmon can enter the lower Muskegon, but that does not mean fish are spread through Newaygo or up to Croton Dam.",
-            "tip": "Stay closer to the lake. One early river fish does not mean the whole river has fish yet.",
+            "headline": "Chinook salmon may be staging near the Muskegon River entrance.",
+            "whereToStart": "Start at Muskegon Lake, the Lake Michigan channel, and the river entrance. Add the Lower river (Muskegon Lake–M-120) only for an early-fish check.",
+            "detail": "Staging does not confirm dependable river entry.",
+            "tip": "Keep the river check brief. Do not move into the Middle river (M-120–Newaygo) or Upper river (Newaygo–Croton Dam) from calendar timing alone.",
             "reasonCodes": [
               "stage_pre_run",
               "stage_pre_run_staging"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Evaluating",
@@ -16043,13 +16169,13 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "historicalYears": 0,
             "sourceDates": [],
             "sourceRefreshSlots": {},
-            "headline": "Migration Timing is still taking shape.",
-            "detail": "The early river and temperature pattern is still developing, so an Ahead, Typical, or Delayed call would be premature.",
-            "tip": "Keep the trip centered on the river mouth and earliest lower-river holding water. Move inland only when Migration Stage advances or direct fish activity supports it.",
+            "headline": "Muskegon Migration Timing is still taking shape.",
+            "detail": "Croton flow and measured temperature do not yet support an Ahead, Typical, or Delayed call.",
+            "tip": "Keep the section named by Migration Stage until this read has enough Croton-area evidence.",
             "reasonCodes": [
               "conditions_checkpoint_evaluating"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -16063,21 +16189,21 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "push": {
             "score": null,
             "label": "Waiting for migration",
-            "headline": "Fish have not started entering the river, so there is no Push read yet.",
-            "detail": "Push is meant to spot water conditions that may help fish enter or move during the active migration. Before that, most opportunity should remain in the lake, harbor, or river-mouth transition.",
-            "tip": "Keep the trip in the lake, harbor, and river-mouth zone. Do not move inland just because rain or cooling resembles an in-season movement event.",
+            "headline": "Dependable Muskegon river entry has not started.",
+            "detail": "Croton flow and measured temperature are not scored as an in-season fresh-movement signal yet.",
+            "tip": "Use Migration Stage. Do not move inland because offseason water resembles a Push.",
             "reasonCodes": [
               "push_tracking_not_started"
             ],
             "rulesVersion": "muskegon-croton-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 80,
             "label": "Good",
-            "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. Depth and current are changing enough to move the most controllable presentations toward inside seams and current breaks. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river.",
-            "tip": "Move off the center lane. Work inside seams, the downstream side of current breaks, and the first deep resting pocket with short controlled presentations.",
+            "headline": "Croton-area flow is in its best presentation range.",
+            "detail": "The flow band offers the broadest mix of depth and presentation control. A clear rise is moving controllable water toward current breaks. This read applies only near Croton Dam within the Upper river (Newaygo–Croton Dam).",
+            "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band"
@@ -16088,15 +16214,15 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 29,
             "maximum": 100,
             "label": "Reserved",
-            "headline": "Today’s Chinook activity outlook is reserved.",
-            "detail": "Fish may respond selectively, with important environmental limitations. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Water temperature limits responsiveness. Dependable river presence has not begun. The score applies only to a sparse early Chinook that may already have entered. The measured conditions represent the regulated Croton tailwater immediately below Croton Dam; water temperature, clarity, tributary influence, and presentation conditions can differ through Newaygo, the lower river, Muskegon Lake, and the channel. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
-            "tip": "Start with 5–9 AM. If the sky changes from the forecast, favor the darkest practical window.",
+            "headline": "Today’s Croton-area responsiveness is reserved, but dependable Chinook presence has not begun.",
+            "detail": "Chinook may respond selectively under current limitations. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. This applies only to an early Chinook already near Croton Dam.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify downstream sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -16149,10 +16275,13 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 0,
+            "displayScore": 0,
+            "scoreIsApproximate": false,
             "stage": "pre_run",
             "maximum": 100,
             "riverCeiling": 90,
@@ -16161,14 +16290,14 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "curveDirection": "outside",
             "winterHoldingContext": false,
             "label": "Not expected yet",
-            "headline": "Chinook salmon are not expected in meaningful numbers yet.",
-            "detail": "Most Chinook salmon are not expected to have entered the river in dependable numbers. Any fish already present would be early exceptions.",
-            "tip": "Treat this as no dependable in-river opportunity yet. Keep expectations at zero, and do not interpret an isolated early fish as evidence of dependable river presence.",
+            "headline": "Dependable Chinook salmon presence is not expected in the Muskegon River yet.",
+            "detail": "The seasonal estimate remains at zero. Any river fish would be an early exception.",
+            "tip": "Use Migration Stage for Muskegon Lake, channel, and river-entrance context.",
             "reasonCodes": [
               "stage_pre_run",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -16401,14 +16530,14 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "good_fishability_low_presence"
             ]
           },
-          "secondaryNote": "Based on USGS 04121970 immediately below Croton Dam. It represents the regulated Croton tailwater; flow, temperature, access, and safety can differ through Newaygo, the lower river, Muskegon Lake, and the channel.",
+          "secondaryNote": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
           "safety": {
             "regulationReminder": "Croton Dam is the hard upstream migration boundary. Fish only legal water below the dam, use established public access, respect private land and posted closures, and check current Michigan regulations and dam-safety notices.",
-            "gaugeBasis": "Based on USGS 04121970 immediately below Croton Dam. It represents the regulated Croton tailwater; flow, temperature, access, and safety can differ through Newaygo, the lower river, Muskegon Lake, and the channel.",
+            "gaugeBasis": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-muskegon-steelhead-activity.1"
+          "configVersion": "2026-08-11-muskegon-copy.1"
         }
       },
       {
@@ -16427,6 +16556,7 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "nextConditionRefreshAt": "2026-08-16T05:00:00.000Z",
           "runStage": {
             "stage": "pre_run",
+            "copyStrategy": "muskegon_croton_tailwater",
             "stagingContext": true,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -16449,15 +16579,15 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "peakToEndDays": 35
             },
             "label": "Before migration",
-            "headline": "Chinook salmon may be staging in Muskegon Lake, the channel, and near the river mouth.",
-            "whereToStart": "Muskegon Lake, the Lake Michigan channel, the river mouth, and one quick check of deep lower-river water below M-120.",
-            "detail": "An early Chinook salmon can enter the lower Muskegon, but that does not mean fish are spread through Newaygo or up to Croton Dam.",
-            "tip": "Stay closer to the lake. One early river fish does not mean the whole river has fish yet.",
+            "headline": "Chinook salmon may be staging near the Muskegon River entrance.",
+            "whereToStart": "Start at Muskegon Lake, the Lake Michigan channel, and the river entrance. Add the Lower river (Muskegon Lake–M-120) only for an early-fish check.",
+            "detail": "Staging does not confirm dependable river entry.",
+            "tip": "Keep the river check brief. Do not move into the Middle river (M-120–Newaygo) or Upper river (Newaygo–Croton Dam) from calendar timing alone.",
             "reasonCodes": [
               "stage_pre_run",
               "stage_pre_run_staging"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Evaluating",
@@ -16476,13 +16606,13 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "historicalYears": 0,
             "sourceDates": [],
             "sourceRefreshSlots": {},
-            "headline": "Migration Timing is still taking shape.",
-            "detail": "The early river and temperature pattern is still developing, so an Ahead, Typical, or Delayed call would be premature.",
-            "tip": "Keep the trip centered on the river mouth and earliest lower-river holding water. Move inland only when Migration Stage advances or direct fish activity supports it.",
+            "headline": "Muskegon Migration Timing is still taking shape.",
+            "detail": "Croton flow and measured temperature do not yet support an Ahead, Typical, or Delayed call.",
+            "tip": "Keep the section named by Migration Stage until this read has enough Croton-area evidence.",
             "reasonCodes": [
               "conditions_checkpoint_evaluating"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -16496,21 +16626,21 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "push": {
             "score": null,
             "label": "Waiting for migration",
-            "headline": "Fish have not started entering the river, so there is no Push read yet.",
-            "detail": "Push is meant to spot water conditions that may help fish enter or move during the active migration. Before that, most opportunity should remain in the lake, harbor, or river-mouth transition.",
-            "tip": "Keep the trip in the lake, harbor, and river-mouth zone. Do not move inland just because rain or cooling resembles an in-season movement event.",
+            "headline": "Dependable Muskegon river entry has not started.",
+            "detail": "Croton flow and measured temperature are not scored as an in-season fresh-movement signal yet.",
+            "tip": "Use Migration Stage. Do not move inland because offseason water resembles a Push.",
             "reasonCodes": [
               "push_tracking_not_started"
             ],
             "rulesVersion": "muskegon-croton-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 80,
             "label": "Good",
-            "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. Depth and current are changing enough to move the most controllable presentations toward inside seams and current breaks. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river.",
-            "tip": "Move off the center lane. Work inside seams, the downstream side of current breaks, and the first deep resting pocket with short controlled presentations.",
+            "headline": "Croton-area flow is in its best presentation range.",
+            "detail": "The flow band offers the broadest mix of depth and presentation control. A clear rise is moving controllable water toward current breaks. This read applies only near Croton Dam within the Upper river (Newaygo–Croton Dam).",
+            "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band"
@@ -16521,15 +16651,15 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 24,
             "maximum": 100,
             "label": "Reserved",
-            "headline": "Today’s Chinook activity outlook is reserved.",
-            "detail": "Fish may respond selectively, with important environmental limitations. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Water temperature limits responsiveness. Dependable river presence has not begun. The score applies only to a sparse early Chinook that may already have entered. The measured conditions represent the regulated Croton tailwater immediately below Croton Dam; water temperature, clarity, tributary influence, and presentation conditions can differ through Newaygo, the lower river, Muskegon Lake, and the channel. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
-            "tip": "Start with 5–9 AM. If the sky changes from the forecast, favor the darkest practical window.",
+            "headline": "Today’s Croton-area responsiveness is reserved, but dependable Chinook presence has not begun.",
+            "detail": "Chinook may respond selectively under current limitations. 5–9 AM and 9 AM–1 PM are the leading windows, but neither has a clear advantage. This applies only to an early Chinook already near Croton Dam.",
+            "tip": "Choose between 5–9 AM and 9 AM–1 PM using actual light. Verify downstream sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -16582,10 +16712,13 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 0,
+            "displayScore": 0,
+            "scoreIsApproximate": false,
             "stage": "pre_run",
             "maximum": 100,
             "riverCeiling": 90,
@@ -16594,14 +16727,14 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "curveDirection": "outside",
             "winterHoldingContext": false,
             "label": "Not expected yet",
-            "headline": "Chinook salmon are not expected in meaningful numbers yet.",
-            "detail": "Most Chinook salmon are not expected to have entered the river in dependable numbers. Any fish already present would be early exceptions.",
-            "tip": "Treat this as no dependable in-river opportunity yet. Keep expectations at zero, and do not interpret an isolated early fish as evidence of dependable river presence.",
+            "headline": "Dependable Chinook salmon presence is not expected in the Muskegon River yet.",
+            "detail": "The seasonal estimate remains at zero. Any river fish would be an early exception.",
+            "tip": "Use Migration Stage for Muskegon Lake, channel, and river-entrance context.",
             "reasonCodes": [
               "stage_pre_run",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -16834,14 +16967,14 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "good_fishability_low_presence"
             ]
           },
-          "secondaryNote": "Based on USGS 04121970 immediately below Croton Dam. It represents the regulated Croton tailwater; flow, temperature, access, and safety can differ through Newaygo, the lower river, Muskegon Lake, and the channel.",
+          "secondaryNote": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
           "safety": {
             "regulationReminder": "Croton Dam is the hard upstream migration boundary. Fish only legal water below the dam, use established public access, respect private land and posted closures, and check current Michigan regulations and dam-safety notices.",
-            "gaugeBasis": "Based on USGS 04121970 immediately below Croton Dam. It represents the regulated Croton tailwater; flow, temperature, access, and safety can differ through Newaygo, the lower river, Muskegon Lake, and the channel.",
+            "gaugeBasis": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-muskegon-steelhead-activity.1"
+          "configVersion": "2026-08-11-muskegon-copy.1"
         }
       },
       {
@@ -16860,6 +16993,7 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "nextConditionRefreshAt": "2026-10-01T05:00:00.000Z",
           "runStage": {
             "stage": "building",
+            "copyStrategy": "muskegon_croton_tailwater",
             "stagingContext": false,
             "broadBuildingContext": true,
             "winterHoldingContext": false,
@@ -16882,14 +17016,14 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "peakToEndDays": 35
             },
             "label": "Building",
-            "headline": "Chinook salmon are broadly established below Croton Dam.",
-            "whereToStart": "Compare Croton-tailwater pools, the Croton-to-Newaygo corridor, Newaygo-to-M-120 holding water, and major lower-river bends toward Muskegon Lake.",
-            "detail": "Fish from several waves can be spread through the river, but the Croton gauge only measures water near the dam. Fish numbers can be very different downstream.",
-            "tip": "Check the upper, middle, and lower river. Let what you see on the water—not just the Croton gauge—tell you where to stay.",
+            "headline": "Chinook salmon are broadly established through the Muskegon River.",
+            "whereToStart": "Start in the Upper river (Newaygo–Croton Dam), emphasizing the Croton Dam area. Compare the Middle river (M-120–Newaygo) for fresher fish.",
+            "detail": "Repeated entry periods support broad presence, not equal numbers in every section.",
+            "tip": "Croton measurements apply only near the dam. Verify downstream water directly.",
             "reasonCodes": [
               "stage_building"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -16958,15 +17092,15 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "2026-09-24"
             ],
             "sourceRefreshSlots": {},
-            "headline": "There is not enough reliable information for a Migration Timing call.",
-            "tip": "Do not move farther upstream or stay lower based on this timing read. Fish the section identified by Migration Stage and begin in its most established holding water; change sections only when direct fish activity or a dependable later read supports it.",
+            "headline": "There is not enough reliable Muskegon evidence for a Migration Timing call.",
+            "tip": "Keep the Muskegon section named by Migration Stage. Do not shift sections from this timing read.",
             "detail": "There are not enough dependable past seasons to judge whether this migration is early, normal, or late.",
             "reasonCodes": [
               "conditions_baseline_missing",
               "conditions_insufficient",
               "conditions_checkpoint_peak_start"
             ],
-            "copyVersion": "river-run-copy-v27",
+            "copyVersion": "river-run-copy-v34",
             "previousCheckpointId": "building_established",
             "previousCheckpointDate": "2026-09-05",
             "previousTimingLabel": "Insufficient evidence"
@@ -16983,9 +17117,9 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "push": {
             "score": 25,
             "label": "No clear push",
-            "headline": "Today's water does not show a clear signal for a fresh wave of fish.",
-            "detail": "The river is holding steady with no meaningful rise yet. Overall flow remains low. Water temperature is favorable for fall migration and is relatively steady. Recent weather estimates indicate very little rain around the river.",
-            "tip": "Fish established holding water from the head through the inside seam and tail. Do not spend the day racing between lower travel lanes for a wave the water does not support.",
+            "headline": "Croton-area water does not show a clear fresh-movement signal.",
+            "detail": "The river is holding steady with no meaningful rise yet; overall flow remains low. Water temperature is favorable for fall migration and is relatively steady. Recent watershed weather shows little rain.",
+            "tip": "Keep Migration Stage’s section primary. Do not shift sections from this read.",
             "reasonCodes": [
               "gauge_fresh",
               "push_low_flow_context",
@@ -17004,14 +17138,14 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 40,
             "label": "Tough",
-            "headline": "The river is fishable, but very low water will make fish easier to disturb and productive water harder to find.",
-            "detail": "Water is unusually low, reducing cover and concentrating the best depth into fewer places. The low water is holding rather than refilling, so the few deeper slots should remain easy to identify. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river.",
-            "tip": "Fish first or last light. Begin at the deepest shaded holes and slots, approach quietly, and keep foot traffic out of shallow travel lanes.",
+            "headline": "Very low Croton-area flow leaves limited depth and cover.",
+            "detail": "Unusually low flow concentrates useful depth into fewer places. Steady flow should keep presentation lanes consistent. This read applies only near Croton Dam within the Upper river (Newaygo–Croton Dam).",
+            "tip": "Use the deepest connected water and keep disturbance low.",
             "reasonCodes": [
               "gauge_fresh",
               "very_low_flow_band",
@@ -17023,15 +17157,15 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 71,
             "maximum": 100,
             "label": "Active",
-            "headline": "Today’s Chinook activity outlook is active.",
-            "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: The river level or its recent change is less favorable. More Chinook are moving and settling into the river; the score describes reaction conditions for fish already present. The measured conditions represent the regulated Croton tailwater immediately below Croton Dam; water temperature, clarity, tributary influence, and presentation conditions can differ through Newaygo, the lower river, Muskegon Lake, and the channel. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
-            "tip": "Start with 5–9 AM. If the sky changes from the forecast, favor the darkest practical window.",
+            "headline": "Today’s Croton-area Chinook responsiveness is active.",
+            "detail": "Conditions support a meaningful Chinook response. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Croton flow and temperature represent only the area near the dam.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify downstream sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -17083,10 +17217,13 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 87,
+            "displayScore": 85,
+            "scoreIsApproximate": true,
             "stage": "building",
             "maximum": 100,
             "riverCeiling": 90,
@@ -17095,14 +17232,14 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "curveDirection": "rising",
             "winterHoldingContext": false,
             "label": "Peak presence",
-            "headline": "Chinook salmon are likely spread through more of the river as seasonal presence builds toward its strongest point.",
-            "detail": "The migration is approaching its strongest seasonal point, and fish are likely distributed through more of the river. This is a seasonal estimate, not a live fish count.",
-            "tip": "Treat this as one of the stronger parts of a strong river season. Give each stop a complete pass, but do not mistake this seasonal estimate for a live fish count.",
+            "headline": "Seasonal Chinook salmon presence is near its expected Muskegon peak.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the Muskegon Chinook salmon ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_building",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -17330,14 +17467,14 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             ]
           },
           "interpretationNote": null,
-          "secondaryNote": "Based on USGS 04121970 immediately below Croton Dam. It represents the regulated Croton tailwater; flow, temperature, access, and safety can differ through Newaygo, the lower river, Muskegon Lake, and the channel.",
+          "secondaryNote": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
           "safety": {
             "regulationReminder": "Croton Dam is the hard upstream migration boundary. Fish only legal water below the dam, use established public access, respect private land and posted closures, and check current Michigan regulations and dam-safety notices.",
-            "gaugeBasis": "Based on USGS 04121970 immediately below Croton Dam. It represents the regulated Croton tailwater; flow, temperature, access, and safety can differ through Newaygo, the lower river, Muskegon Lake, and the channel.",
+            "gaugeBasis": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-muskegon-steelhead-activity.1"
+          "configVersion": "2026-08-11-muskegon-copy.1"
         }
       }
     ]
@@ -17362,6 +17499,7 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "nextConditionRefreshAt": "2026-10-01T05:00:00.000Z",
           "runStage": {
             "stage": "building",
+            "copyStrategy": "muskegon_croton_tailwater",
             "stagingContext": false,
             "broadBuildingContext": true,
             "winterHoldingContext": false,
@@ -17384,14 +17522,14 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "peakToEndDays": 35
             },
             "label": "Building",
-            "headline": "Chinook salmon are broadly established below Croton Dam.",
-            "whereToStart": "Compare Croton-tailwater pools, the Croton-to-Newaygo corridor, Newaygo-to-M-120 holding water, and major lower-river bends toward Muskegon Lake.",
-            "detail": "Fish from several waves can be spread through the river, but the Croton gauge only measures water near the dam. Fish numbers can be very different downstream.",
-            "tip": "Check the upper, middle, and lower river. Let what you see on the water—not just the Croton gauge—tell you where to stay.",
+            "headline": "Chinook salmon are broadly established through the Muskegon River.",
+            "whereToStart": "Start in the Upper river (Newaygo–Croton Dam), emphasizing the Croton Dam area. Compare the Middle river (M-120–Newaygo) for fresher fish.",
+            "detail": "Repeated entry periods support broad presence, not equal numbers in every section.",
+            "tip": "Croton measurements apply only near the dam. Verify downstream water directly.",
             "reasonCodes": [
               "stage_building"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -17460,15 +17598,15 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "2026-09-24"
             ],
             "sourceRefreshSlots": {},
-            "headline": "There is not enough reliable information for a Migration Timing call.",
-            "tip": "Do not move farther upstream or stay lower based on this timing read. Fish the section identified by Migration Stage and begin in its most established holding water; change sections only when direct fish activity or a dependable later read supports it.",
+            "headline": "There is not enough reliable Muskegon evidence for a Migration Timing call.",
+            "tip": "Keep the Muskegon section named by Migration Stage. Do not shift sections from this timing read.",
             "detail": "There are not enough dependable past seasons to judge whether this migration is early, normal, or late.",
             "reasonCodes": [
               "conditions_baseline_missing",
               "conditions_insufficient",
               "conditions_checkpoint_peak_start"
             ],
-            "copyVersion": "river-run-copy-v27",
+            "copyVersion": "river-run-copy-v34",
             "previousCheckpointId": "building_established",
             "previousCheckpointDate": "2026-09-05",
             "previousTimingLabel": "Insufficient evidence"
@@ -17485,9 +17623,9 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "push": {
             "score": 30,
             "label": "No clear push",
-            "headline": "Today's water does not show a clear signal for a fresh wave of fish.",
-            "detail": "The river is holding steady with no meaningful rise yet. Water temperature is favorable for fall migration and is relatively steady. Recent weather estimates indicate very little rain around the river.",
-            "tip": "Fish established holding water from the head through the inside seam and tail. Do not spend the day racing between lower travel lanes for a wave the water does not support.",
+            "headline": "Croton-area water does not show a clear fresh-movement signal.",
+            "detail": "The river is holding steady with no meaningful rise yet. Water temperature is favorable for fall migration and is relatively steady. Recent watershed weather shows little rain.",
+            "tip": "Keep Migration Stage’s section primary. Do not shift sections from this read.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
@@ -17506,14 +17644,14 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 60,
             "label": "Fishable",
-            "headline": "The river is fishable, but lower water leaves less cover and less room for error.",
-            "detail": "Water is lower than ideal but still workable, with less depth and cover across the river. The lower flow is holding steady, so its limited depth and cover should remain consistent. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river.",
-            "tip": "Start with the deepest connected holding water, then fish shaded outside bends and cover. Approach quietly and make the first pass count.",
+            "headline": "Low Croton-area flow remains workable with less depth and cover.",
+            "detail": "Low flow reduces depth and cover across the Croton area. Steady flow should keep presentation lanes consistent. This read applies only near Croton Dam within the Upper river (Newaygo–Croton Dam).",
+            "tip": "Use the deepest connected water and keep disturbance low.",
             "reasonCodes": [
               "gauge_fresh",
               "low_flow_band"
@@ -17524,15 +17662,15 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 74,
             "maximum": 100,
             "label": "Active",
-            "headline": "Today’s Chinook activity outlook is active.",
-            "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. More Chinook are moving and settling into the river; the score describes reaction conditions for fish already present. The measured conditions represent the regulated Croton tailwater immediately below Croton Dam; water temperature, clarity, tributary influence, and presentation conditions can differ through Newaygo, the lower river, Muskegon Lake, and the channel. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
-            "tip": "Start with 5–9 AM. If the sky changes from the forecast, favor the darkest practical window.",
+            "headline": "Today’s Croton-area Chinook responsiveness is active.",
+            "detail": "Conditions support a meaningful Chinook response. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Croton flow and temperature represent only the area near the dam.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify downstream sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -17584,10 +17722,13 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 87,
+            "displayScore": 85,
+            "scoreIsApproximate": true,
             "stage": "building",
             "maximum": 100,
             "riverCeiling": 90,
@@ -17596,14 +17737,14 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "curveDirection": "rising",
             "winterHoldingContext": false,
             "label": "Peak presence",
-            "headline": "Chinook salmon are likely spread through more of the river as seasonal presence builds toward its strongest point.",
-            "detail": "The migration is approaching its strongest seasonal point, and fish are likely distributed through more of the river. This is a seasonal estimate, not a live fish count.",
-            "tip": "Treat this as one of the stronger parts of a strong river season. Give each stop a complete pass, but do not mistake this seasonal estimate for a live fish count.",
+            "headline": "Seasonal Chinook salmon presence is near its expected Muskegon peak.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the Muskegon Chinook salmon ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_building",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -17831,14 +17972,14 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             ]
           },
           "interpretationNote": null,
-          "secondaryNote": "Based on USGS 04121970 immediately below Croton Dam. It represents the regulated Croton tailwater; flow, temperature, access, and safety can differ through Newaygo, the lower river, Muskegon Lake, and the channel.",
+          "secondaryNote": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
           "safety": {
             "regulationReminder": "Croton Dam is the hard upstream migration boundary. Fish only legal water below the dam, use established public access, respect private land and posted closures, and check current Michigan regulations and dam-safety notices.",
-            "gaugeBasis": "Based on USGS 04121970 immediately below Croton Dam. It represents the regulated Croton tailwater; flow, temperature, access, and safety can differ through Newaygo, the lower river, Muskegon Lake, and the channel.",
+            "gaugeBasis": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-muskegon-steelhead-activity.1"
+          "configVersion": "2026-08-11-muskegon-copy.1"
         }
       },
       {
@@ -17857,6 +17998,7 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "nextConditionRefreshAt": "2026-10-01T05:00:00.000Z",
           "runStage": {
             "stage": "building",
+            "copyStrategy": "muskegon_croton_tailwater",
             "stagingContext": false,
             "broadBuildingContext": true,
             "winterHoldingContext": false,
@@ -17879,14 +18021,14 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "peakToEndDays": 35
             },
             "label": "Building",
-            "headline": "Chinook salmon are broadly established below Croton Dam.",
-            "whereToStart": "Compare Croton-tailwater pools, the Croton-to-Newaygo corridor, Newaygo-to-M-120 holding water, and major lower-river bends toward Muskegon Lake.",
-            "detail": "Fish from several waves can be spread through the river, but the Croton gauge only measures water near the dam. Fish numbers can be very different downstream.",
-            "tip": "Check the upper, middle, and lower river. Let what you see on the water—not just the Croton gauge—tell you where to stay.",
+            "headline": "Chinook salmon are broadly established through the Muskegon River.",
+            "whereToStart": "Start in the Upper river (Newaygo–Croton Dam), emphasizing the Croton Dam area. Compare the Middle river (M-120–Newaygo) for fresher fish.",
+            "detail": "Repeated entry periods support broad presence, not equal numbers in every section.",
+            "tip": "Croton measurements apply only near the dam. Verify downstream water directly.",
             "reasonCodes": [
               "stage_building"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -17955,15 +18097,15 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "2026-09-24"
             ],
             "sourceRefreshSlots": {},
-            "headline": "There is not enough reliable information for a Migration Timing call.",
-            "tip": "Do not move farther upstream or stay lower based on this timing read. Fish the section identified by Migration Stage and begin in its most established holding water; change sections only when direct fish activity or a dependable later read supports it.",
+            "headline": "There is not enough reliable Muskegon evidence for a Migration Timing call.",
+            "tip": "Keep the Muskegon section named by Migration Stage. Do not shift sections from this timing read.",
             "detail": "There are not enough dependable past seasons to judge whether this migration is early, normal, or late.",
             "reasonCodes": [
               "conditions_baseline_missing",
               "conditions_insufficient",
               "conditions_checkpoint_peak_start"
             ],
-            "copyVersion": "river-run-copy-v27",
+            "copyVersion": "river-run-copy-v34",
             "previousCheckpointId": "building_established",
             "previousCheckpointDate": "2026-09-05",
             "previousTimingLabel": "Insufficient evidence"
@@ -17980,9 +18122,9 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "push": {
             "score": 25,
             "label": "No clear push",
-            "headline": "The river is rising hard, but extreme flow makes this an unreliable fresh-movement read.",
-            "detail": "The river is holding steady with no meaningful rise yet. Overall flow is extremely high. Water temperature is favorable for fall migration and is relatively steady. Recent weather estimates indicate very little rain around the river.",
-            "tip": "Do not chase movement in the main channel. If Fishability remains usable, fish only protected margins, inside turns, and soft current with short controlled presentations.",
+            "headline": "Extreme Croton-area flow prevents a dependable fresh-movement signal.",
+            "detail": "The river is holding steady with no meaningful rise yet; overall flow is extremely high. Water temperature is favorable for fall migration and is relatively steady. Recent watershed weather shows little rain.",
+            "tip": "Keep Migration Stage’s section primary. Do not shift sections from this read.",
             "reasonCodes": [
               "gauge_fresh",
               "push_severe_high_flow_context",
@@ -18002,14 +18144,14 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 20,
             "label": "Poor",
-            "headline": "The river is too high and unsettled for a dependable fishing recommendation.",
-            "detail": "Excessive flow is overwhelming normal holding water and making access and presentation unreliable. The river is not climbing quickly, but it must fall substantially before normal holding lanes and presentation control return. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river.",
-            "tip": "Choose a lower-water day for the better fishing opportunity. If you fish now, stay tight to protected banks, slow inside turns, and the downstream side of major current breaks; keep presentations short and leave the main flow alone.",
+            "headline": "The Croton area is blown out for a dependable presentation plan.",
+            "detail": "Excessive flow overwhelms normal lanes and presentation control. Steady flow should keep presentation lanes consistent. This read applies only near Croton Dam within the Upper river (Newaygo–Croton Dam).",
+            "tip": "Choose another day and verify current conditions through authoritative local sources.",
             "reasonCodes": [
               "gauge_fresh",
               "blown_out_flow_band",
@@ -18021,15 +18163,15 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 24,
             "maximum": 100,
             "label": "Reserved",
-            "headline": "Today’s Chinook activity outlook is reserved.",
-            "detail": "Fish may respond selectively, with important environmental limitations. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: The river level or its recent change is less favorable. More Chinook are moving and settling into the river; the score describes reaction conditions for fish already present. The measured conditions represent the regulated Croton tailwater immediately below Croton Dam; water temperature, clarity, tributary influence, and presentation conditions can differ through Newaygo, the lower river, Muskegon Lake, and the channel. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
-            "tip": "Start with 5–9 AM. If the sky changes from the forecast, favor the darkest practical window.",
+            "headline": "Today’s Croton-area Chinook responsiveness is reserved.",
+            "detail": "Chinook may respond selectively under current limitations. 5–9 AM and 9 AM–1 PM are the leading windows, but neither has a clear advantage. Croton flow and temperature represent only the area near the dam.",
+            "tip": "Choose between 5–9 AM and 9 AM–1 PM using actual light. Verify downstream sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -18082,10 +18224,13 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 87,
+            "displayScore": 85,
+            "scoreIsApproximate": true,
             "stage": "building",
             "maximum": 100,
             "riverCeiling": 90,
@@ -18094,14 +18239,14 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "curveDirection": "rising",
             "winterHoldingContext": false,
             "label": "Peak presence",
-            "headline": "Chinook salmon are likely spread through more of the river as seasonal presence builds toward its strongest point.",
-            "detail": "The migration is approaching its strongest seasonal point, and fish are likely distributed through more of the river. This is a seasonal estimate, not a live fish count.",
-            "tip": "Treat this as one of the stronger parts of a strong river season. Give each stop a complete pass, but do not mistake this seasonal estimate for a live fish count.",
+            "headline": "Seasonal Chinook salmon presence is near its expected Muskegon peak.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the Muskegon Chinook salmon ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_building",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -18329,14 +18474,14 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             ]
           },
           "interpretationNote": null,
-          "secondaryNote": "Based on USGS 04121970 immediately below Croton Dam. It represents the regulated Croton tailwater; flow, temperature, access, and safety can differ through Newaygo, the lower river, Muskegon Lake, and the channel.",
+          "secondaryNote": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
           "safety": {
             "regulationReminder": "Croton Dam is the hard upstream migration boundary. Fish only legal water below the dam, use established public access, respect private land and posted closures, and check current Michigan regulations and dam-safety notices.",
-            "gaugeBasis": "Based on USGS 04121970 immediately below Croton Dam. It represents the regulated Croton tailwater; flow, temperature, access, and safety can differ through Newaygo, the lower river, Muskegon Lake, and the channel.",
+            "gaugeBasis": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-muskegon-steelhead-activity.1"
+          "configVersion": "2026-08-11-muskegon-copy.1"
         }
       },
       {
@@ -18355,6 +18500,7 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "nextConditionRefreshAt": "2026-10-01T05:00:00.000Z",
           "runStage": {
             "stage": "building",
+            "copyStrategy": "muskegon_croton_tailwater",
             "stagingContext": false,
             "broadBuildingContext": true,
             "winterHoldingContext": false,
@@ -18377,14 +18523,14 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "peakToEndDays": 35
             },
             "label": "Building",
-            "headline": "Chinook salmon are broadly established below Croton Dam.",
-            "whereToStart": "Compare Croton-tailwater pools, the Croton-to-Newaygo corridor, Newaygo-to-M-120 holding water, and major lower-river bends toward Muskegon Lake.",
-            "detail": "Fish from several waves can be spread through the river, but the Croton gauge only measures water near the dam. Fish numbers can be very different downstream.",
-            "tip": "Check the upper, middle, and lower river. Let what you see on the water—not just the Croton gauge—tell you where to stay.",
+            "headline": "Chinook salmon are broadly established through the Muskegon River.",
+            "whereToStart": "Start in the Upper river (Newaygo–Croton Dam), emphasizing the Croton Dam area. Compare the Middle river (M-120–Newaygo) for fresher fish.",
+            "detail": "Repeated entry periods support broad presence, not equal numbers in every section.",
+            "tip": "Croton measurements apply only near the dam. Verify downstream water directly.",
             "reasonCodes": [
               "stage_building"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -18453,15 +18599,15 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "2026-09-24"
             ],
             "sourceRefreshSlots": {},
-            "headline": "There is not enough reliable information for a Migration Timing call.",
-            "tip": "Do not move farther upstream or stay lower based on this timing read. Fish the section identified by Migration Stage and begin in its most established holding water; change sections only when direct fish activity or a dependable later read supports it.",
+            "headline": "There is not enough reliable Muskegon evidence for a Migration Timing call.",
+            "tip": "Keep the Muskegon section named by Migration Stage. Do not shift sections from this timing read.",
             "detail": "There are not enough dependable past seasons to judge whether this migration is early, normal, or late.",
             "reasonCodes": [
               "conditions_baseline_missing",
               "conditions_insufficient",
               "conditions_checkpoint_peak_start"
             ],
-            "copyVersion": "river-run-copy-v27",
+            "copyVersion": "river-run-copy-v34",
             "previousCheckpointId": "building_established",
             "previousCheckpointDate": "2026-09-05",
             "previousTimingLabel": "Insufficient evidence"
@@ -18478,9 +18624,9 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "push": {
             "score": 47,
             "label": "No clear push",
-            "headline": "Today's water does not show a clear signal for a fresh wave of fish.",
-            "detail": "The river has started to rise since yesterday. Water temperature is favorable for fall migration and is relatively steady. Recent weather estimates indicate very little rain around the river.",
-            "tip": "Fish established holding water from the head through the inside seam and tail. Do not spend the day racing between lower travel lanes for a wave the water does not support.",
+            "headline": "Croton-area water does not show a clear fresh-movement signal.",
+            "detail": "The river has started to rise since yesterday. Water temperature is favorable for fall migration and is relatively steady. Recent watershed weather shows little rain.",
+            "tip": "Keep Migration Stage’s section primary. Do not shift sections from this read.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
@@ -18498,14 +18644,14 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 88,
             "label": "Excellent",
-            "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The early rise is adding pace and depth, with inside seams and the upstream edges of holes changing first. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river.",
-            "tip": "Begin on the soft inside edge of the primary travel lane, then fish the first deep resting hole above it. Recheck that edge as added depth changes the lane.",
+            "headline": "Croton-area flow is in its best presentation range.",
+            "detail": "The flow band offers the broadest mix of depth and presentation control. A modest rise is shifting lanes toward softer edges. This read applies only near Croton Dam within the Upper river (Newaygo–Croton Dam).",
+            "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band"
@@ -18516,15 +18662,15 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 80,
             "maximum": 100,
             "label": "Highly active",
-            "headline": "Today’s Chinook activity outlook is highly active.",
-            "detail": "Conditions strongly favor a response from Chinook that are present and capable of reacting. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. More Chinook are moving and settling into the river; the score describes reaction conditions for fish already present. The measured conditions represent the regulated Croton tailwater immediately below Croton Dam; water temperature, clarity, tributary influence, and presentation conditions can differ through Newaygo, the lower river, Muskegon Lake, and the channel. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
-            "tip": "Start with 5–9 AM. If the sky changes from the forecast, favor the darkest practical window.",
+            "headline": "Today’s Croton-area Chinook responsiveness is highly active.",
+            "detail": "Conditions strongly support Chinook responsiveness. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Croton flow and temperature represent only the area near the dam.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify downstream sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -18576,10 +18722,13 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 87,
+            "displayScore": 85,
+            "scoreIsApproximate": true,
             "stage": "building",
             "maximum": 100,
             "riverCeiling": 90,
@@ -18588,14 +18737,14 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "curveDirection": "rising",
             "winterHoldingContext": false,
             "label": "Peak presence",
-            "headline": "Chinook salmon are likely spread through more of the river as seasonal presence builds toward its strongest point.",
-            "detail": "The migration is approaching its strongest seasonal point, and fish are likely distributed through more of the river. This is a seasonal estimate, not a live fish count.",
-            "tip": "Treat this as one of the stronger parts of a strong river season. Give each stop a complete pass, but do not mistake this seasonal estimate for a live fish count.",
+            "headline": "Seasonal Chinook salmon presence is near its expected Muskegon peak.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the Muskegon Chinook salmon ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_building",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -18823,14 +18972,14 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             ]
           },
           "interpretationNote": null,
-          "secondaryNote": "Based on USGS 04121970 immediately below Croton Dam. It represents the regulated Croton tailwater; flow, temperature, access, and safety can differ through Newaygo, the lower river, Muskegon Lake, and the channel.",
+          "secondaryNote": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
           "safety": {
             "regulationReminder": "Croton Dam is the hard upstream migration boundary. Fish only legal water below the dam, use established public access, respect private land and posted closures, and check current Michigan regulations and dam-safety notices.",
-            "gaugeBasis": "Based on USGS 04121970 immediately below Croton Dam. It represents the regulated Croton tailwater; flow, temperature, access, and safety can differ through Newaygo, the lower river, Muskegon Lake, and the channel.",
+            "gaugeBasis": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-muskegon-steelhead-activity.1"
+          "configVersion": "2026-08-11-muskegon-copy.1"
         }
       },
       {
@@ -18849,6 +18998,7 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "nextConditionRefreshAt": "2026-10-01T05:00:00.000Z",
           "runStage": {
             "stage": "building",
+            "copyStrategy": "muskegon_croton_tailwater",
             "stagingContext": false,
             "broadBuildingContext": true,
             "winterHoldingContext": false,
@@ -18871,14 +19021,14 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "peakToEndDays": 35
             },
             "label": "Building",
-            "headline": "Chinook salmon are broadly established below Croton Dam.",
-            "whereToStart": "Compare Croton-tailwater pools, the Croton-to-Newaygo corridor, Newaygo-to-M-120 holding water, and major lower-river bends toward Muskegon Lake.",
-            "detail": "Fish from several waves can be spread through the river, but the Croton gauge only measures water near the dam. Fish numbers can be very different downstream.",
-            "tip": "Check the upper, middle, and lower river. Let what you see on the water—not just the Croton gauge—tell you where to stay.",
+            "headline": "Chinook salmon are broadly established through the Muskegon River.",
+            "whereToStart": "Start in the Upper river (Newaygo–Croton Dam), emphasizing the Croton Dam area. Compare the Middle river (M-120–Newaygo) for fresher fish.",
+            "detail": "Repeated entry periods support broad presence, not equal numbers in every section.",
+            "tip": "Croton measurements apply only near the dam. Verify downstream water directly.",
             "reasonCodes": [
               "stage_building"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -18947,15 +19097,15 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "2026-09-24"
             ],
             "sourceRefreshSlots": {},
-            "headline": "There is not enough reliable information for a Migration Timing call.",
-            "tip": "Do not move farther upstream or stay lower based on this timing read. Fish the section identified by Migration Stage and begin in its most established holding water; change sections only when direct fish activity or a dependable later read supports it.",
+            "headline": "There is not enough reliable Muskegon evidence for a Migration Timing call.",
+            "tip": "Keep the Muskegon section named by Migration Stage. Do not shift sections from this timing read.",
             "detail": "There are not enough dependable past seasons to judge whether this migration is early, normal, or late.",
             "reasonCodes": [
               "conditions_baseline_missing",
               "conditions_insufficient",
               "conditions_checkpoint_peak_start"
             ],
-            "copyVersion": "river-run-copy-v27",
+            "copyVersion": "river-run-copy-v34",
             "previousCheckpointId": "building_established",
             "previousCheckpointDate": "2026-09-05",
             "previousTimingLabel": "Insufficient evidence"
@@ -18972,9 +19122,9 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "push": {
             "score": 80,
             "label": "Strong",
-            "headline": "Today's river rise and water temperature strongly support the possibility of a fresh wave moving into the river.",
-            "detail": "The river is rising quickly, creating conditions fish often use to move. Water temperature is favorable for fall migration and is relatively steady. The river has already made a meaningful rise, so that measured response carries the useful movement signal and rainfall adds no separate weight.",
-            "tip": "Begin on lower-river travel lanes and inside seams, then work the first resting holes along that route. Keep moving until fish establish a pattern; the signal still does not prove a wave entered.",
+            "headline": "Croton-area water strongly supports possible fresh movement.",
+            "detail": "The river is rising quickly, creating conditions fish often use to move. Water temperature is favorable for fall migration and is relatively steady. Croton already reflects the rain response, so rain adds no extra credit.",
+            "tip": "Prioritize movement water near Croton Dam, then verify any downstream section directly.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
@@ -18992,14 +19142,14 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 40,
             "label": "Tough",
-            "headline": "The river is rising fast, and usable fishing water is shifting toward slower margins and current breaks.",
-            "detail": "Higher flow is pushing more current through the main channel, but softer edges and protected lanes remain workable. The fast rise is forcing usable fishing water out of the main flow and into the slowest protected margins. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river.",
-            "tip": "Leave the main channel alone. Fish newly formed soft margins, inside bends, and the downstream side of current breaks with short controlled presentations.",
+            "headline": "A fast Croton-area rise is shifting usable water toward protected edges.",
+            "detail": "Higher flow pushes useful presentation water toward softer edges. A fast rise is replacing settled lanes with heavier current. This read applies only near Croton Dam within the Upper river (Newaygo–Croton Dam).",
+            "tip": "Favor protected margins and short controlled presentations. Choose another day if control is not dependable.",
             "reasonCodes": [
               "gauge_fresh",
               "high_fishable_flow_band",
@@ -19013,15 +19163,15 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               ]
             },
             "rulesVersion": "muskegon-croton-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 75,
             "maximum": 100,
             "label": "Active",
-            "headline": "Today’s Chinook activity outlook is active.",
-            "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. More Chinook are moving and settling into the river; the score describes reaction conditions for fish already present. The measured conditions represent the regulated Croton tailwater immediately below Croton Dam; water temperature, clarity, tributary influence, and presentation conditions can differ through Newaygo, the lower river, Muskegon Lake, and the channel. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
-            "tip": "Start with 5–9 AM. If the sky changes from the forecast, favor the darkest practical window.",
+            "headline": "Today’s Croton-area Chinook responsiveness is active.",
+            "detail": "Conditions support a meaningful Chinook response. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Croton flow and temperature represent only the area near the dam.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify downstream sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -19073,10 +19223,13 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 87,
+            "displayScore": 85,
+            "scoreIsApproximate": true,
             "stage": "building",
             "maximum": 100,
             "riverCeiling": 90,
@@ -19085,14 +19238,14 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "curveDirection": "rising",
             "winterHoldingContext": false,
             "label": "Peak presence",
-            "headline": "Chinook salmon are likely spread through more of the river as seasonal presence builds toward its strongest point.",
-            "detail": "The migration is approaching its strongest seasonal point, and fish are likely distributed through more of the river. This is a seasonal estimate, not a live fish count.",
-            "tip": "Treat this as one of the stronger parts of a strong river season. Give each stop a complete pass, but do not mistake this seasonal estimate for a live fish count.",
+            "headline": "Seasonal Chinook salmon presence is near its expected Muskegon peak.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the Muskegon Chinook salmon ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_building",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -19326,14 +19479,14 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "strong_push_low_fishability"
             ]
           },
-          "secondaryNote": "Based on USGS 04121970 immediately below Croton Dam. It represents the regulated Croton tailwater; flow, temperature, access, and safety can differ through Newaygo, the lower river, Muskegon Lake, and the channel.",
+          "secondaryNote": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
           "safety": {
             "regulationReminder": "Croton Dam is the hard upstream migration boundary. Fish only legal water below the dam, use established public access, respect private land and posted closures, and check current Michigan regulations and dam-safety notices.",
-            "gaugeBasis": "Based on USGS 04121970 immediately below Croton Dam. It represents the regulated Croton tailwater; flow, temperature, access, and safety can differ through Newaygo, the lower river, Muskegon Lake, and the channel.",
+            "gaugeBasis": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-muskegon-steelhead-activity.1"
+          "configVersion": "2026-08-11-muskegon-copy.1"
         }
       },
       {
@@ -19352,6 +19505,7 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "nextConditionRefreshAt": "2026-10-01T05:00:00.000Z",
           "runStage": {
             "stage": "building",
+            "copyStrategy": "muskegon_croton_tailwater",
             "stagingContext": false,
             "broadBuildingContext": true,
             "winterHoldingContext": false,
@@ -19374,14 +19528,14 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "peakToEndDays": 35
             },
             "label": "Building",
-            "headline": "Chinook salmon are broadly established below Croton Dam.",
-            "whereToStart": "Compare Croton-tailwater pools, the Croton-to-Newaygo corridor, Newaygo-to-M-120 holding water, and major lower-river bends toward Muskegon Lake.",
-            "detail": "Fish from several waves can be spread through the river, but the Croton gauge only measures water near the dam. Fish numbers can be very different downstream.",
-            "tip": "Check the upper, middle, and lower river. Let what you see on the water—not just the Croton gauge—tell you where to stay.",
+            "headline": "Chinook salmon are broadly established through the Muskegon River.",
+            "whereToStart": "Start in the Upper river (Newaygo–Croton Dam), emphasizing the Croton Dam area. Compare the Middle river (M-120–Newaygo) for fresher fish.",
+            "detail": "Repeated entry periods support broad presence, not equal numbers in every section.",
+            "tip": "Croton measurements apply only near the dam. Verify downstream water directly.",
             "reasonCodes": [
               "stage_building"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -19450,15 +19604,15 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "2026-09-24"
             ],
             "sourceRefreshSlots": {},
-            "headline": "There is not enough reliable information for a Migration Timing call.",
-            "tip": "Do not move farther upstream or stay lower based on this timing read. Fish the section identified by Migration Stage and begin in its most established holding water; change sections only when direct fish activity or a dependable later read supports it.",
+            "headline": "There is not enough reliable Muskegon evidence for a Migration Timing call.",
+            "tip": "Keep the Muskegon section named by Migration Stage. Do not shift sections from this timing read.",
             "detail": "There are not enough dependable past seasons to judge whether this migration is early, normal, or late.",
             "reasonCodes": [
               "conditions_baseline_missing",
               "conditions_insufficient",
               "conditions_checkpoint_peak_start"
             ],
-            "copyVersion": "river-run-copy-v27",
+            "copyVersion": "river-run-copy-v34",
             "previousCheckpointId": "building_established",
             "previousCheckpointDate": "2026-09-05",
             "previousTimingLabel": "Insufficient evidence"
@@ -19475,9 +19629,9 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "push": {
             "score": 25,
             "label": "No clear push",
-            "headline": "Today's water does not show a clear signal for a fresh wave of fish.",
-            "detail": "There is not enough recent river-level history to tell whether the river is rising or falling. Water temperature is favorable for fall migration and is relatively steady. Recent weather estimates indicate very little rain around the river. Without a dependable river trend, there is no clear Push.",
-            "tip": "Do not relocate the trip around this Push read. Begin in established holding water, verify the river at the first access, and add travel lanes only after confirming workable conditions.",
+            "headline": "Croton-area water does not show a clear fresh-movement signal.",
+            "detail": "There is not enough recent river-level history to tell whether the river is rising or falling. Water temperature is favorable for fall migration and is relatively steady. Without a dependable Croton trend, the read cannot show a clear Push.",
+            "tip": "Keep Migration Stage’s section primary. Do not shift sections from this read.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
@@ -19497,14 +19651,14 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 69,
             "label": "Fishable",
-            "headline": "The river appears fishable, but its direction is unclear, so confidence is limited.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. There is not enough recent information to tell whether the river is rising or falling, which lowers confidence in the read. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river.",
-            "tip": "Start at a bank-side inside bend or soft seam where the full presentation stays under control. Skip faster water until the river's direction is verified.",
+            "headline": "Croton-area flow is workable, but its direction is unknown.",
+            "detail": "The flow band offers the broadest mix of depth and presentation control. Recent Croton history cannot establish the flow direction. This read applies only near Croton Dam within the Upper river (Newaygo–Croton Dam).",
+            "tip": "Verify the Croton area directly before choosing presentation water.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band",
@@ -19518,15 +19672,15 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               ]
             },
             "rulesVersion": "muskegon-croton-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 80,
             "maximum": 100,
             "label": "Highly active",
-            "headline": "Today’s Chinook activity outlook is highly active.",
-            "detail": "Conditions strongly favor a response from Chinook that are present and capable of reacting. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. More Chinook are moving and settling into the river; the score describes reaction conditions for fish already present. The measured conditions represent the regulated Croton tailwater immediately below Croton Dam; water temperature, clarity, tributary influence, and presentation conditions can differ through Newaygo, the lower river, Muskegon Lake, and the channel. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
-            "tip": "Start with 5–9 AM. If the sky changes from the forecast, favor the darkest practical window.",
+            "headline": "Today’s Croton-area Chinook responsiveness is highly active.",
+            "detail": "Conditions strongly support Chinook responsiveness. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Croton flow and temperature represent only the area near the dam.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify downstream sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -19578,10 +19732,13 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 87,
+            "displayScore": 85,
+            "scoreIsApproximate": true,
             "stage": "building",
             "maximum": 100,
             "riverCeiling": 90,
@@ -19590,14 +19747,14 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "curveDirection": "rising",
             "winterHoldingContext": false,
             "label": "Peak presence",
-            "headline": "Chinook salmon are likely spread through more of the river as seasonal presence builds toward its strongest point.",
-            "detail": "The migration is approaching its strongest seasonal point, and fish are likely distributed through more of the river. This is a seasonal estimate, not a live fish count.",
-            "tip": "Treat this as one of the stronger parts of a strong river season. Give each stop a complete pass, but do not mistake this seasonal estimate for a live fish count.",
+            "headline": "Seasonal Chinook salmon presence is near its expected Muskegon peak.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the Muskegon Chinook salmon ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_building",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -19825,14 +19982,14 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             ]
           },
           "interpretationNote": null,
-          "secondaryNote": "Based on USGS 04121970 immediately below Croton Dam. It represents the regulated Croton tailwater; flow, temperature, access, and safety can differ through Newaygo, the lower river, Muskegon Lake, and the channel.",
+          "secondaryNote": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
           "safety": {
             "regulationReminder": "Croton Dam is the hard upstream migration boundary. Fish only legal water below the dam, use established public access, respect private land and posted closures, and check current Michigan regulations and dam-safety notices.",
-            "gaugeBasis": "Based on USGS 04121970 immediately below Croton Dam. It represents the regulated Croton tailwater; flow, temperature, access, and safety can differ through Newaygo, the lower river, Muskegon Lake, and the channel.",
+            "gaugeBasis": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-muskegon-steelhead-activity.1"
+          "configVersion": "2026-08-11-muskegon-copy.1"
         }
       },
       {
@@ -19851,6 +20008,7 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "nextConditionRefreshAt": "2026-10-01T05:00:00.000Z",
           "runStage": {
             "stage": "building",
+            "copyStrategy": "muskegon_croton_tailwater",
             "stagingContext": false,
             "broadBuildingContext": true,
             "winterHoldingContext": false,
@@ -19873,14 +20031,14 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "peakToEndDays": 35
             },
             "label": "Building",
-            "headline": "Chinook salmon are broadly established below Croton Dam.",
-            "whereToStart": "Compare Croton-tailwater pools, the Croton-to-Newaygo corridor, Newaygo-to-M-120 holding water, and major lower-river bends toward Muskegon Lake.",
-            "detail": "Fish from several waves can be spread through the river, but the Croton gauge only measures water near the dam. Fish numbers can be very different downstream.",
-            "tip": "Check the upper, middle, and lower river. Let what you see on the water—not just the Croton gauge—tell you where to stay.",
+            "headline": "Chinook salmon are broadly established through the Muskegon River.",
+            "whereToStart": "Start in the Upper river (Newaygo–Croton Dam), emphasizing the Croton Dam area. Compare the Middle river (M-120–Newaygo) for fresher fish.",
+            "detail": "Repeated entry periods support broad presence, not equal numbers in every section.",
+            "tip": "Croton measurements apply only near the dam. Verify downstream water directly.",
             "reasonCodes": [
               "stage_building"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -19949,15 +20107,15 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "2026-09-24"
             ],
             "sourceRefreshSlots": {},
-            "headline": "There is not enough reliable information for a Migration Timing call.",
-            "tip": "Do not move farther upstream or stay lower based on this timing read. Fish the section identified by Migration Stage and begin in its most established holding water; change sections only when direct fish activity or a dependable later read supports it.",
+            "headline": "There is not enough reliable Muskegon evidence for a Migration Timing call.",
+            "tip": "Keep the Muskegon section named by Migration Stage. Do not shift sections from this timing read.",
             "detail": "There are not enough dependable past seasons to judge whether this migration is early, normal, or late.",
             "reasonCodes": [
               "conditions_baseline_missing",
               "conditions_insufficient",
               "conditions_checkpoint_peak_start"
             ],
-            "copyVersion": "river-run-copy-v27",
+            "copyVersion": "river-run-copy-v34",
             "previousCheckpointId": "building_established",
             "previousCheckpointDate": "2026-09-05",
             "previousTimingLabel": "Insufficient evidence"
@@ -19974,9 +20132,9 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "push": {
             "score": 20,
             "label": "Weak",
-            "headline": "The water may support fresh movement, but an aging river reading limits confidence.",
-            "detail": "The river is holding steady with no meaningful rise yet. Water temperature is favorable for fall migration and is relatively steady. Recent weather estimates indicate very little rain around the river. The latest river-level reading is aging, so confidence is reduced.",
-            "tip": "Do not relocate the trip around this Push read. Begin in established holding water, verify the river at the first access, and add travel lanes only after confirming workable conditions.",
+            "headline": "Croton-area water shows little support for fresh movement.",
+            "detail": "The river is holding steady with no meaningful rise yet. Water temperature is favorable for fall migration and is relatively steady. The Croton reading is aging, so confidence is reduced.",
+            "tip": "Keep Migration Stage’s section primary. Do not shift sections from this read.",
             "reasonCodes": [
               "gauge_stale",
               "push_normal_flow_context",
@@ -19996,14 +20154,14 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 55,
             "label": "Fishable",
-            "headline": "The last river reading was fishable, but it is aging and may no longer describe the water accurately.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. Because the latest reading is aging, the river may have changed since it was reported. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river.",
-            "tip": "Do not choose a reach from this reading alone. Check the water at the first access, and begin only in bank-side water where you can control the entire presentation.",
+            "headline": "The aging Croton reading limits Croton-area Fishability confidence.",
+            "detail": "The flow band offers the broadest mix of depth and presentation control. The Croton area may have changed since the last Croton reading. This read applies only near Croton Dam within the Upper river (Newaygo–Croton Dam).",
+            "tip": "Verify the Croton area directly before choosing presentation water.",
             "reasonCodes": [
               "gauge_stale",
               "ideal_flow_band",
@@ -20017,15 +20175,15 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               ]
             },
             "rulesVersion": "muskegon-croton-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 54,
             "maximum": 100,
             "label": "Moderate",
-            "headline": "Today’s Chinook activity outlook is moderate.",
-            "detail": "Some useful factors are present, but the response window is mixed. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Current river behavior is unavailable. More Chinook are moving and settling into the river; the score describes reaction conditions for fish already present. The measured conditions represent the regulated Croton tailwater immediately below Croton Dam; water temperature, clarity, tributary influence, and presentation conditions can differ through Newaygo, the lower river, Muskegon Lake, and the channel. One important reading is unavailable or comes from tomorrow’s forecast, so the outlook is kept conservative.",
-            "tip": "Start with 5–9 AM. If the sky changes from the forecast, favor the darkest practical window.",
+            "headline": "Today’s Croton-area Chinook responsiveness is moderate.",
+            "detail": "Conditions offer mixed support for Chinook responsiveness. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Moderate confidence reflects missing or forecast inputs; river measurements still represent only the Croton Dam area.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify downstream sections directly.",
             "reasonCodes": [
               "activity_confidence_moderate",
               "activity_today",
@@ -20077,10 +20235,13 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 87,
+            "displayScore": 85,
+            "scoreIsApproximate": true,
             "stage": "building",
             "maximum": 100,
             "riverCeiling": 90,
@@ -20089,14 +20250,14 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "curveDirection": "rising",
             "winterHoldingContext": false,
             "label": "Peak presence",
-            "headline": "Chinook salmon are likely spread through more of the river as seasonal presence builds toward its strongest point.",
-            "detail": "The migration is approaching its strongest seasonal point, and fish are likely distributed through more of the river. This is a seasonal estimate, not a live fish count.",
-            "tip": "Treat this as one of the stronger parts of a strong river season. Give each stop a complete pass, but do not mistake this seasonal estimate for a live fish count.",
+            "headline": "Seasonal Chinook salmon presence is near its expected Muskegon peak.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the Muskegon Chinook salmon ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_building",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -20324,14 +20485,14 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             ]
           },
           "interpretationNote": null,
-          "secondaryNote": "Based on USGS 04121970 immediately below Croton Dam. It represents the regulated Croton tailwater; flow, temperature, access, and safety can differ through Newaygo, the lower river, Muskegon Lake, and the channel.",
+          "secondaryNote": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
           "safety": {
             "regulationReminder": "Croton Dam is the hard upstream migration boundary. Fish only legal water below the dam, use established public access, respect private land and posted closures, and check current Michigan regulations and dam-safety notices.",
-            "gaugeBasis": "Based on USGS 04121970 immediately below Croton Dam. It represents the regulated Croton tailwater; flow, temperature, access, and safety can differ through Newaygo, the lower river, Muskegon Lake, and the channel.",
+            "gaugeBasis": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-muskegon-steelhead-activity.1"
+          "configVersion": "2026-08-11-muskegon-copy.1"
         }
       },
       {
@@ -20350,6 +20511,7 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "nextConditionRefreshAt": "2026-10-01T05:00:00.000Z",
           "runStage": {
             "stage": "building",
+            "copyStrategy": "muskegon_croton_tailwater",
             "stagingContext": false,
             "broadBuildingContext": true,
             "winterHoldingContext": false,
@@ -20372,14 +20534,14 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "peakToEndDays": 35
             },
             "label": "Building",
-            "headline": "Chinook salmon are broadly established below Croton Dam.",
-            "whereToStart": "Compare Croton-tailwater pools, the Croton-to-Newaygo corridor, Newaygo-to-M-120 holding water, and major lower-river bends toward Muskegon Lake.",
-            "detail": "Fish from several waves can be spread through the river, but the Croton gauge only measures water near the dam. Fish numbers can be very different downstream.",
-            "tip": "Check the upper, middle, and lower river. Let what you see on the water—not just the Croton gauge—tell you where to stay.",
+            "headline": "Chinook salmon are broadly established through the Muskegon River.",
+            "whereToStart": "Start in the Upper river (Newaygo–Croton Dam), emphasizing the Croton Dam area. Compare the Middle river (M-120–Newaygo) for fresher fish.",
+            "detail": "Repeated entry periods support broad presence, not equal numbers in every section.",
+            "tip": "Croton measurements apply only near the dam. Verify downstream water directly.",
             "reasonCodes": [
               "stage_building"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -20448,15 +20610,15 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "2026-09-24"
             ],
             "sourceRefreshSlots": {},
-            "headline": "There is not enough reliable information for a Migration Timing call.",
-            "tip": "Do not move farther upstream or stay lower based on this timing read. Fish the section identified by Migration Stage and begin in its most established holding water; change sections only when direct fish activity or a dependable later read supports it.",
+            "headline": "There is not enough reliable Muskegon evidence for a Migration Timing call.",
+            "tip": "Keep the Muskegon section named by Migration Stage. Do not shift sections from this timing read.",
             "detail": "There are not enough dependable past seasons to judge whether this migration is early, normal, or late.",
             "reasonCodes": [
               "conditions_baseline_missing",
               "conditions_insufficient",
               "conditions_checkpoint_peak_start"
             ],
-            "copyVersion": "river-run-copy-v27",
+            "copyVersion": "river-run-copy-v34",
             "previousCheckpointId": "building_established",
             "previousCheckpointDate": "2026-09-05",
             "previousTimingLabel": "Insufficient evidence"
@@ -20480,27 +20642,27 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "gauge_missing"
             ],
             "rulesVersion": "muskegon-croton-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": null,
             "label": "Unavailable",
-            "headline": "There is no dependable Fishability read right now.",
-            "detail": "A recent river-level reading is missing, so current flow and direction cannot be judged responsibly.",
-            "tip": "Do not plan from the last known level. Check again after the next update, and verify the river at the first access before choosing where or how to fish.",
+            "headline": "A current Croton Fishability reading is unavailable.",
+            "detail": "Without current Croton flow and direction, presentation conditions near the dam cannot be determined.",
+            "tip": "Do not extend an old or missing Croton read through the Muskegon River. Verify current conditions directly.",
             "reasonCodes": [
               "gauge_missing"
             ],
             "rulesVersion": "muskegon-croton-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 54,
             "maximum": 100,
             "label": "Moderate",
-            "headline": "Today’s Chinook activity outlook is moderate.",
-            "detail": "Some useful factors are present, but the response window is mixed. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Current river behavior is unavailable. More Chinook are moving and settling into the river; the score describes reaction conditions for fish already present. The measured conditions represent the regulated Croton tailwater immediately below Croton Dam; water temperature, clarity, tributary influence, and presentation conditions can differ through Newaygo, the lower river, Muskegon Lake, and the channel. One important reading is unavailable or comes from tomorrow’s forecast, so the outlook is kept conservative.",
-            "tip": "Start with 5–9 AM. If the sky changes from the forecast, favor the darkest practical window.",
+            "headline": "Today’s Croton-area Chinook responsiveness is moderate.",
+            "detail": "Conditions offer mixed support for Chinook responsiveness. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Moderate confidence reflects missing or forecast inputs; river measurements still represent only the Croton Dam area.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify downstream sections directly.",
             "reasonCodes": [
               "activity_confidence_moderate",
               "activity_today",
@@ -20552,10 +20714,13 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 87,
+            "displayScore": 85,
+            "scoreIsApproximate": true,
             "stage": "building",
             "maximum": 100,
             "riverCeiling": 90,
@@ -20564,14 +20729,14 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "curveDirection": "rising",
             "winterHoldingContext": false,
             "label": "Peak presence",
-            "headline": "Chinook salmon are likely spread through more of the river as seasonal presence builds toward its strongest point.",
-            "detail": "The migration is approaching its strongest seasonal point, and fish are likely distributed through more of the river. This is a seasonal estimate, not a live fish count.",
-            "tip": "Treat this as one of the stronger parts of a strong river season. Give each stop a complete pass, but do not mistake this seasonal estimate for a live fish count.",
+            "headline": "Seasonal Chinook salmon presence is near its expected Muskegon peak.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the Muskegon Chinook salmon ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_building",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": null,
           "weather": {
@@ -20789,14 +20954,14 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             ]
           },
           "interpretationNote": null,
-          "secondaryNote": "Based on USGS 04121970 immediately below Croton Dam. It represents the regulated Croton tailwater; flow, temperature, access, and safety can differ through Newaygo, the lower river, Muskegon Lake, and the channel.",
+          "secondaryNote": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
           "safety": {
             "regulationReminder": "Croton Dam is the hard upstream migration boundary. Fish only legal water below the dam, use established public access, respect private land and posted closures, and check current Michigan regulations and dam-safety notices.",
-            "gaugeBasis": "Based on USGS 04121970 immediately below Croton Dam. It represents the regulated Croton tailwater; flow, temperature, access, and safety can differ through Newaygo, the lower river, Muskegon Lake, and the channel.",
+            "gaugeBasis": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-muskegon-steelhead-activity.1"
+          "configVersion": "2026-08-11-muskegon-copy.1"
         }
       },
       {
@@ -20815,6 +20980,7 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "nextConditionRefreshAt": "2026-10-01T05:00:00.000Z",
           "runStage": {
             "stage": "building",
+            "copyStrategy": "muskegon_croton_tailwater",
             "stagingContext": false,
             "broadBuildingContext": true,
             "winterHoldingContext": false,
@@ -20837,14 +21003,14 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "peakToEndDays": 35
             },
             "label": "Building",
-            "headline": "Chinook salmon are broadly established below Croton Dam.",
-            "whereToStart": "Compare Croton-tailwater pools, the Croton-to-Newaygo corridor, Newaygo-to-M-120 holding water, and major lower-river bends toward Muskegon Lake.",
-            "detail": "Fish from several waves can be spread through the river, but the Croton gauge only measures water near the dam. Fish numbers can be very different downstream.",
-            "tip": "Check the upper, middle, and lower river. Let what you see on the water—not just the Croton gauge—tell you where to stay.",
+            "headline": "Chinook salmon are broadly established through the Muskegon River.",
+            "whereToStart": "Start in the Upper river (Newaygo–Croton Dam), emphasizing the Croton Dam area. Compare the Middle river (M-120–Newaygo) for fresher fish.",
+            "detail": "Repeated entry periods support broad presence, not equal numbers in every section.",
+            "tip": "Croton measurements apply only near the dam. Verify downstream water directly.",
             "reasonCodes": [
               "stage_building"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -20913,15 +21079,15 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "2026-09-24"
             ],
             "sourceRefreshSlots": {},
-            "headline": "There is not enough reliable information for a Migration Timing call.",
-            "tip": "Do not move farther upstream or stay lower based on this timing read. Fish the section identified by Migration Stage and begin in its most established holding water; change sections only when direct fish activity or a dependable later read supports it.",
+            "headline": "There is not enough reliable Muskegon evidence for a Migration Timing call.",
+            "tip": "Keep the Muskegon section named by Migration Stage. Do not shift sections from this timing read.",
             "detail": "There are not enough dependable past seasons to judge whether this migration is early, normal, or late.",
             "reasonCodes": [
               "conditions_baseline_missing",
               "conditions_insufficient",
               "conditions_checkpoint_peak_start"
             ],
-            "copyVersion": "river-run-copy-v27",
+            "copyVersion": "river-run-copy-v34",
             "previousCheckpointId": "building_established",
             "previousCheckpointDate": "2026-09-05",
             "previousTimingLabel": "Insufficient evidence"
@@ -20938,9 +21104,9 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "push": {
             "score": 30,
             "label": "No clear push",
-            "headline": "Today's water does not show a clear signal for a fresh wave of fish.",
-            "detail": "The river is holding steady with no meaningful rise yet. Water temperature is favorable for fall migration and is relatively steady. Recent weather estimates indicate very little rain around the river.",
-            "tip": "Fish established holding water from the head through the inside seam and tail. Do not spend the day racing between lower travel lanes for a wave the water does not support.",
+            "headline": "Croton-area water does not show a clear fresh-movement signal.",
+            "detail": "The river is holding steady with no meaningful rise yet. Water temperature is favorable for fall migration and is relatively steady. Recent watershed weather shows little rain.",
+            "tip": "Keep Migration Stage’s section primary. Do not shift sections from this read.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
@@ -20959,14 +21125,14 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 93,
             "label": "Excellent",
-            "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river.",
-            "tip": "Begin on the primary travel lane feeding deep holding water. Work each hole from its head through the inside seam and tail, then keep moving until fish establish a pattern.",
+            "headline": "Croton-area flow is in its best presentation range.",
+            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read applies only near Croton Dam within the Upper river (Newaygo–Croton Dam).",
+            "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band"
@@ -20977,15 +21143,15 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 80,
             "maximum": 100,
             "label": "Highly active",
-            "headline": "Today’s Chinook activity outlook is highly active.",
-            "detail": "Conditions strongly favor a response from Chinook that are present and capable of reacting. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. More Chinook are moving and settling into the river; the score describes reaction conditions for fish already present. The measured conditions represent the regulated Croton tailwater immediately below Croton Dam; water temperature, clarity, tributary influence, and presentation conditions can differ through Newaygo, the lower river, Muskegon Lake, and the channel. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
-            "tip": "Start with 5–9 AM. If the sky changes from the forecast, favor the darkest practical window.",
+            "headline": "Today’s Croton-area Chinook responsiveness is highly active.",
+            "detail": "Conditions strongly support Chinook responsiveness. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Croton flow and temperature represent only the area near the dam.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify downstream sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -21037,10 +21203,13 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 87,
+            "displayScore": 85,
+            "scoreIsApproximate": true,
             "stage": "building",
             "maximum": 100,
             "riverCeiling": 90,
@@ -21049,14 +21218,14 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "curveDirection": "rising",
             "winterHoldingContext": false,
             "label": "Peak presence",
-            "headline": "Chinook salmon are likely spread through more of the river as seasonal presence builds toward its strongest point.",
-            "detail": "The migration is approaching its strongest seasonal point, and fish are likely distributed through more of the river. This is a seasonal estimate, not a live fish count.",
-            "tip": "Treat this as one of the stronger parts of a strong river season. Give each stop a complete pass, but do not mistake this seasonal estimate for a live fish count.",
+            "headline": "Seasonal Chinook salmon presence is near its expected Muskegon peak.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the Muskegon Chinook salmon ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_building",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -21284,14 +21453,14 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             ]
           },
           "interpretationNote": null,
-          "secondaryNote": "Based on USGS 04121970 immediately below Croton Dam. It represents the regulated Croton tailwater; flow, temperature, access, and safety can differ through Newaygo, the lower river, Muskegon Lake, and the channel.",
+          "secondaryNote": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
           "safety": {
             "regulationReminder": "Croton Dam is the hard upstream migration boundary. Fish only legal water below the dam, use established public access, respect private land and posted closures, and check current Michigan regulations and dam-safety notices.",
-            "gaugeBasis": "Based on USGS 04121970 immediately below Croton Dam. It represents the regulated Croton tailwater; flow, temperature, access, and safety can differ through Newaygo, the lower river, Muskegon Lake, and the channel.",
+            "gaugeBasis": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-muskegon-steelhead-activity.1"
+          "configVersion": "2026-08-11-muskegon-copy.1"
         }
       },
       {
@@ -21310,6 +21479,7 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "nextConditionRefreshAt": "2026-10-01T05:00:00.000Z",
           "runStage": {
             "stage": "building",
+            "copyStrategy": "muskegon_croton_tailwater",
             "stagingContext": false,
             "broadBuildingContext": true,
             "winterHoldingContext": false,
@@ -21332,14 +21502,14 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "peakToEndDays": 35
             },
             "label": "Building",
-            "headline": "Chinook salmon are broadly established below Croton Dam.",
-            "whereToStart": "Compare Croton-tailwater pools, the Croton-to-Newaygo corridor, Newaygo-to-M-120 holding water, and major lower-river bends toward Muskegon Lake.",
-            "detail": "Fish from several waves can be spread through the river, but the Croton gauge only measures water near the dam. Fish numbers can be very different downstream.",
-            "tip": "Check the upper, middle, and lower river. Let what you see on the water—not just the Croton gauge—tell you where to stay.",
+            "headline": "Chinook salmon are broadly established through the Muskegon River.",
+            "whereToStart": "Start in the Upper river (Newaygo–Croton Dam), emphasizing the Croton Dam area. Compare the Middle river (M-120–Newaygo) for fresher fish.",
+            "detail": "Repeated entry periods support broad presence, not equal numbers in every section.",
+            "tip": "Croton measurements apply only near the dam. Verify downstream water directly.",
             "reasonCodes": [
               "stage_building"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -21408,15 +21578,15 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "2026-09-24"
             ],
             "sourceRefreshSlots": {},
-            "headline": "There is not enough reliable information for a Migration Timing call.",
-            "tip": "Do not move farther upstream or stay lower based on this timing read. Fish the section identified by Migration Stage and begin in its most established holding water; change sections only when direct fish activity or a dependable later read supports it.",
+            "headline": "There is not enough reliable Muskegon evidence for a Migration Timing call.",
+            "tip": "Keep the Muskegon section named by Migration Stage. Do not shift sections from this timing read.",
             "detail": "There are not enough dependable past seasons to judge whether this migration is early, normal, or late.",
             "reasonCodes": [
               "conditions_baseline_missing",
               "conditions_insufficient",
               "conditions_checkpoint_peak_start"
             ],
-            "copyVersion": "river-run-copy-v27",
+            "copyVersion": "river-run-copy-v34",
             "previousCheckpointId": "building_established",
             "previousCheckpointDate": "2026-09-05",
             "previousTimingLabel": "Insufficient evidence"
@@ -21433,9 +21603,9 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "push": {
             "score": 30,
             "label": "No clear push",
-            "headline": "Today's water does not show a clear signal for a fresh wave of fish.",
-            "detail": "The river is holding steady with no meaningful rise yet. Water temperature is favorable for fall migration and is relatively steady. Recent weather estimates indicate very little rain around the river.",
-            "tip": "Fish established holding water from the head through the inside seam and tail. Do not spend the day racing between lower travel lanes for a wave the water does not support.",
+            "headline": "Croton-area water does not show a clear fresh-movement signal.",
+            "detail": "The river is holding steady with no meaningful rise yet. Water temperature is favorable for fall migration and is relatively steady. Recent watershed weather shows little rain.",
+            "tip": "Keep Migration Stage’s section primary. Do not shift sections from this read.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
@@ -21454,14 +21624,14 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 73,
             "label": "Good",
-            "headline": "The river is fishable, but higher flow is moving at a faster pace and narrowing the easiest water.",
-            "detail": "Higher flow is pushing more current through the main channel, but softer edges and protected lanes remain workable. The higher flow is not climbing, so softer edges beside the main current should remain well defined. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river.",
-            "tip": "Start tight to the bank on inside bends and below current-breaking cover. Shorten the presentation and keep it in the slower edge instead of forcing the main flow.",
+            "headline": "High Croton-area flow remains fishable in slower water.",
+            "detail": "Higher flow pushes useful presentation water toward softer edges. Steady flow should keep presentation lanes consistent. This read applies only near Croton Dam within the Upper river (Newaygo–Croton Dam).",
+            "tip": "Prioritize inside seams, protected edges, and current breaks.",
             "reasonCodes": [
               "gauge_fresh",
               "high_fishable_flow_band"
@@ -21472,15 +21642,15 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 76,
             "maximum": 100,
             "label": "Active",
-            "headline": "Today’s Chinook activity outlook is active.",
-            "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. More Chinook are moving and settling into the river; the score describes reaction conditions for fish already present. The measured conditions represent the regulated Croton tailwater immediately below Croton Dam; water temperature, clarity, tributary influence, and presentation conditions can differ through Newaygo, the lower river, Muskegon Lake, and the channel. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
-            "tip": "Start with 5–9 AM. If the sky changes from the forecast, favor the darkest practical window.",
+            "headline": "Today’s Croton-area Chinook responsiveness is active.",
+            "detail": "Conditions support a meaningful Chinook response. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Croton flow and temperature represent only the area near the dam.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify downstream sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -21532,10 +21702,13 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 87,
+            "displayScore": 85,
+            "scoreIsApproximate": true,
             "stage": "building",
             "maximum": 100,
             "riverCeiling": 90,
@@ -21544,14 +21717,14 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "curveDirection": "rising",
             "winterHoldingContext": false,
             "label": "Peak presence",
-            "headline": "Chinook salmon are likely spread through more of the river as seasonal presence builds toward its strongest point.",
-            "detail": "The migration is approaching its strongest seasonal point, and fish are likely distributed through more of the river. This is a seasonal estimate, not a live fish count.",
-            "tip": "Treat this as one of the stronger parts of a strong river season. Give each stop a complete pass, but do not mistake this seasonal estimate for a live fish count.",
+            "headline": "Seasonal Chinook salmon presence is near its expected Muskegon peak.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the Muskegon Chinook salmon ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_building",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -21779,14 +21952,14 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             ]
           },
           "interpretationNote": null,
-          "secondaryNote": "Based on USGS 04121970 immediately below Croton Dam. It represents the regulated Croton tailwater; flow, temperature, access, and safety can differ through Newaygo, the lower river, Muskegon Lake, and the channel.",
+          "secondaryNote": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
           "safety": {
             "regulationReminder": "Croton Dam is the hard upstream migration boundary. Fish only legal water below the dam, use established public access, respect private land and posted closures, and check current Michigan regulations and dam-safety notices.",
-            "gaugeBasis": "Based on USGS 04121970 immediately below Croton Dam. It represents the regulated Croton tailwater; flow, temperature, access, and safety can differ through Newaygo, the lower river, Muskegon Lake, and the channel.",
+            "gaugeBasis": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-muskegon-steelhead-activity.1"
+          "configVersion": "2026-08-11-muskegon-copy.1"
         }
       },
       {
@@ -21805,6 +21978,7 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "nextConditionRefreshAt": "2026-10-01T05:00:00.000Z",
           "runStage": {
             "stage": "building",
+            "copyStrategy": "muskegon_croton_tailwater",
             "stagingContext": false,
             "broadBuildingContext": true,
             "winterHoldingContext": false,
@@ -21827,14 +22001,14 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "peakToEndDays": 35
             },
             "label": "Building",
-            "headline": "Chinook salmon are broadly established below Croton Dam.",
-            "whereToStart": "Compare Croton-tailwater pools, the Croton-to-Newaygo corridor, Newaygo-to-M-120 holding water, and major lower-river bends toward Muskegon Lake.",
-            "detail": "Fish from several waves can be spread through the river, but the Croton gauge only measures water near the dam. Fish numbers can be very different downstream.",
-            "tip": "Check the upper, middle, and lower river. Let what you see on the water—not just the Croton gauge—tell you where to stay.",
+            "headline": "Chinook salmon are broadly established through the Muskegon River.",
+            "whereToStart": "Start in the Upper river (Newaygo–Croton Dam), emphasizing the Croton Dam area. Compare the Middle river (M-120–Newaygo) for fresher fish.",
+            "detail": "Repeated entry periods support broad presence, not equal numbers in every section.",
+            "tip": "Croton measurements apply only near the dam. Verify downstream water directly.",
             "reasonCodes": [
               "stage_building"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -21903,15 +22077,15 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "2026-09-24"
             ],
             "sourceRefreshSlots": {},
-            "headline": "There is not enough reliable information for a Migration Timing call.",
-            "tip": "Do not move farther upstream or stay lower based on this timing read. Fish the section identified by Migration Stage and begin in its most established holding water; change sections only when direct fish activity or a dependable later read supports it.",
+            "headline": "There is not enough reliable Muskegon evidence for a Migration Timing call.",
+            "tip": "Keep the Muskegon section named by Migration Stage. Do not shift sections from this timing read.",
             "detail": "There are not enough dependable past seasons to judge whether this migration is early, normal, or late.",
             "reasonCodes": [
               "conditions_baseline_missing",
               "conditions_insufficient",
               "conditions_checkpoint_peak_start"
             ],
-            "copyVersion": "river-run-copy-v27",
+            "copyVersion": "river-run-copy-v34",
             "previousCheckpointId": "building_established",
             "previousCheckpointDate": "2026-09-05",
             "previousTimingLabel": "Insufficient evidence"
@@ -21928,9 +22102,9 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "push": {
             "score": 25,
             "label": "No clear push",
-            "headline": "Today's water does not show a clear signal for a fresh wave of fish.",
-            "detail": "The river is holding steady with no meaningful rise yet. Overall flow is already high. Water temperature is favorable for fall migration and is relatively steady. Recent weather estimates indicate very little rain around the river.",
-            "tip": "Fish established holding water from the head through the inside seam and tail. Do not spend the day racing between lower travel lanes for a wave the water does not support.",
+            "headline": "Croton-area water does not show a clear fresh-movement signal.",
+            "detail": "The river is holding steady with no meaningful rise yet; overall flow is already high. Water temperature is favorable for fall migration and is relatively steady. Recent watershed weather shows little rain.",
+            "tip": "Keep Migration Stage’s section primary. Do not shift sections from this read.",
             "reasonCodes": [
               "gauge_fresh",
               "push_high_flow_context",
@@ -21949,14 +22123,14 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 45,
             "label": "Tough",
-            "headline": "The river is running very high, leaving fewer practical places to fish effectively.",
-            "detail": "Very high flow is reducing access and the amount of water where a presentation can be controlled. The river is not climbing quickly, but practical fishing water remains compressed into the slowest edges. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river.",
-            "tip": "Fish only bank-side soft pockets, protected inside turns, and current breaks. Make short controlled presentations and skip every main-channel lane.",
+            "headline": "Very high Croton-area flow leaves little controllable presentation water.",
+            "detail": "Very high flow compresses controllable water into protected edges. Steady flow should keep presentation lanes consistent. This read applies only near Croton Dam within the Upper river (Newaygo–Croton Dam).",
+            "tip": "Favor protected margins and short controlled presentations. Choose another day if control is not dependable.",
             "reasonCodes": [
               "gauge_fresh",
               "very_high_flow_band"
@@ -21967,15 +22141,15 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 71,
             "maximum": 100,
             "label": "Active",
-            "headline": "Today’s Chinook activity outlook is active.",
-            "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: The river level or its recent change is less favorable. More Chinook are moving and settling into the river; the score describes reaction conditions for fish already present. The measured conditions represent the regulated Croton tailwater immediately below Croton Dam; water temperature, clarity, tributary influence, and presentation conditions can differ through Newaygo, the lower river, Muskegon Lake, and the channel. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
-            "tip": "Start with 5–9 AM. If the sky changes from the forecast, favor the darkest practical window.",
+            "headline": "Today’s Croton-area Chinook responsiveness is active.",
+            "detail": "Conditions support a meaningful Chinook response. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Croton flow and temperature represent only the area near the dam.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify downstream sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -22027,10 +22201,13 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 87,
+            "displayScore": 85,
+            "scoreIsApproximate": true,
             "stage": "building",
             "maximum": 100,
             "riverCeiling": 90,
@@ -22039,14 +22216,14 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "curveDirection": "rising",
             "winterHoldingContext": false,
             "label": "Peak presence",
-            "headline": "Chinook salmon are likely spread through more of the river as seasonal presence builds toward its strongest point.",
-            "detail": "The migration is approaching its strongest seasonal point, and fish are likely distributed through more of the river. This is a seasonal estimate, not a live fish count.",
-            "tip": "Treat this as one of the stronger parts of a strong river season. Give each stop a complete pass, but do not mistake this seasonal estimate for a live fish count.",
+            "headline": "Seasonal Chinook salmon presence is near its expected Muskegon peak.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the Muskegon Chinook salmon ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_building",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -22274,14 +22451,14 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             ]
           },
           "interpretationNote": null,
-          "secondaryNote": "Based on USGS 04121970 immediately below Croton Dam. It represents the regulated Croton tailwater; flow, temperature, access, and safety can differ through Newaygo, the lower river, Muskegon Lake, and the channel.",
+          "secondaryNote": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
           "safety": {
             "regulationReminder": "Croton Dam is the hard upstream migration boundary. Fish only legal water below the dam, use established public access, respect private land and posted closures, and check current Michigan regulations and dam-safety notices.",
-            "gaugeBasis": "Based on USGS 04121970 immediately below Croton Dam. It represents the regulated Croton tailwater; flow, temperature, access, and safety can differ through Newaygo, the lower river, Muskegon Lake, and the channel.",
+            "gaugeBasis": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-muskegon-steelhead-activity.1"
+          "configVersion": "2026-08-11-muskegon-copy.1"
         }
       }
     ]
@@ -22306,6 +22483,7 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "nextConditionRefreshAt": "2026-08-13T05:00:00.000Z",
           "runStage": {
             "stage": "pre_run",
+            "copyStrategy": "muskegon_croton_tailwater",
             "stagingContext": true,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -22328,15 +22506,15 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "peakToEndDays": 35
             },
             "label": "Before migration",
-            "headline": "Chinook salmon may be staging in Muskegon Lake, the channel, and near the river mouth.",
-            "whereToStart": "Muskegon Lake, the Lake Michigan channel, the river mouth, and one quick check of deep lower-river water below M-120.",
-            "detail": "An early Chinook salmon can enter the lower Muskegon, but that does not mean fish are spread through Newaygo or up to Croton Dam.",
-            "tip": "Stay closer to the lake. One early river fish does not mean the whole river has fish yet.",
+            "headline": "Chinook salmon may be staging near the Muskegon River entrance.",
+            "whereToStart": "Start at Muskegon Lake, the Lake Michigan channel, and the river entrance. Add the Lower river (Muskegon Lake–M-120) only for an early-fish check.",
+            "detail": "Staging does not confirm dependable river entry.",
+            "tip": "Keep the river check brief. Do not move into the Middle river (M-120–Newaygo) or Upper river (Newaygo–Croton Dam) from calendar timing alone.",
             "reasonCodes": [
               "stage_pre_run",
               "stage_pre_run_staging"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Evaluating",
@@ -22355,13 +22533,13 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "historicalYears": 0,
             "sourceDates": [],
             "sourceRefreshSlots": {},
-            "headline": "Migration Timing is still taking shape.",
-            "detail": "The early river and temperature pattern is still developing, so an Ahead, Typical, or Delayed call would be premature.",
-            "tip": "Keep the trip centered on the river mouth and earliest lower-river holding water. Move inland only when Migration Stage advances or direct fish activity supports it.",
+            "headline": "Muskegon Migration Timing is still taking shape.",
+            "detail": "Croton flow and measured temperature do not yet support an Ahead, Typical, or Delayed call.",
+            "tip": "Keep the section named by Migration Stage until this read has enough Croton-area evidence.",
             "reasonCodes": [
               "conditions_checkpoint_evaluating"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -22375,21 +22553,21 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "push": {
             "score": null,
             "label": "Waiting for migration",
-            "headline": "Fish have not started entering the river, so there is no Push read yet.",
-            "detail": "Push is meant to spot water conditions that may help fish enter or move during the active migration. Before that, most opportunity should remain in the lake, harbor, or river-mouth transition.",
-            "tip": "Keep the trip in the lake, harbor, and river-mouth zone. Do not move inland just because rain or cooling resembles an in-season movement event.",
+            "headline": "Dependable Muskegon river entry has not started.",
+            "detail": "Croton flow and measured temperature are not scored as an in-season fresh-movement signal yet.",
+            "tip": "Use Migration Stage. Do not move inland because offseason water resembles a Push.",
             "reasonCodes": [
               "push_tracking_not_started"
             ],
             "rulesVersion": "muskegon-croton-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 93,
             "label": "Excellent",
-            "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river.",
-            "tip": "Begin on the primary travel lane feeding deep holding water. Work each hole from its head through the inside seam and tail, then keep moving until fish establish a pattern.",
+            "headline": "Croton-area flow is in its best presentation range.",
+            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read applies only near Croton Dam within the Upper river (Newaygo–Croton Dam).",
+            "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band"
@@ -22400,15 +22578,15 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 29,
             "maximum": 100,
             "label": "Reserved",
-            "headline": "Today’s Chinook activity outlook is reserved.",
-            "detail": "Fish may respond selectively, with important environmental limitations. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Water temperature limits responsiveness. Dependable river presence has not begun. The score applies only to a sparse early Chinook that may already have entered. The measured conditions represent the regulated Croton tailwater immediately below Croton Dam; water temperature, clarity, tributary influence, and presentation conditions can differ through Newaygo, the lower river, Muskegon Lake, and the channel. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
-            "tip": "Start with 5–9 AM. If the sky changes from the forecast, favor the darkest practical window.",
+            "headline": "Today’s Croton-area responsiveness is reserved, but dependable Chinook presence has not begun.",
+            "detail": "Chinook may respond selectively under current limitations. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. This applies only to an early Chinook already near Croton Dam.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify downstream sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -22461,10 +22639,13 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "cloudCoverPct": 85,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 0,
+            "displayScore": 0,
+            "scoreIsApproximate": false,
             "stage": "pre_run",
             "maximum": 100,
             "riverCeiling": 90,
@@ -22473,14 +22654,14 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "curveDirection": "outside",
             "winterHoldingContext": false,
             "label": "Not expected yet",
-            "headline": "Chinook salmon are not expected in meaningful numbers yet.",
-            "detail": "Most Chinook salmon are not expected to have entered the river in dependable numbers. Any fish already present would be early exceptions.",
-            "tip": "Treat this as no dependable in-river opportunity yet. Keep expectations at zero, and do not interpret an isolated early fish as evidence of dependable river presence.",
+            "headline": "Dependable Chinook salmon presence is not expected in the Muskegon River yet.",
+            "detail": "The seasonal estimate remains at zero. Any river fish would be an early exception.",
+            "tip": "Use Migration Stage for Muskegon Lake, channel, and river-entrance context.",
             "reasonCodes": [
               "stage_pre_run",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -22713,14 +22894,14 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "good_fishability_low_presence"
             ]
           },
-          "secondaryNote": "Based on USGS 04121970 immediately below Croton Dam. It represents the regulated Croton tailwater; flow, temperature, access, and safety can differ through Newaygo, the lower river, Muskegon Lake, and the channel.",
+          "secondaryNote": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
           "safety": {
             "regulationReminder": "Croton Dam is the hard upstream migration boundary. Fish only legal water below the dam, use established public access, respect private land and posted closures, and check current Michigan regulations and dam-safety notices.",
-            "gaugeBasis": "Based on USGS 04121970 immediately below Croton Dam. It represents the regulated Croton tailwater; flow, temperature, access, and safety can differ through Newaygo, the lower river, Muskegon Lake, and the channel.",
+            "gaugeBasis": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-muskegon-steelhead-activity.1"
+          "configVersion": "2026-08-11-muskegon-copy.1"
         }
       },
       {
@@ -22739,6 +22920,7 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "nextConditionRefreshAt": "2026-08-29T05:00:00.000Z",
           "runStage": {
             "stage": "beginning",
+            "copyStrategy": "muskegon_croton_tailwater",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -22761,14 +22943,14 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "peakToEndDays": 35
             },
             "label": "Beginning",
-            "headline": "The first Chinook salmon are starting to enter the Muskegon River.",
-            "whereToStart": "Start in the deep lower river from Muskegon Lake toward M-120, then sample Newaygo-to-M-120 travel lanes before making a selective Croton-tailwater check.",
-            "detail": "New fish can be scattered across more than forty river miles. A few may already be near Croton, but the lower and middle river are the better places to start.",
-            "tip": "Check deep bends, wood edges, and resting spots in two parts of the river before heading straight to the dam.",
+            "headline": "Chinook salmon are accumulating through more of the Muskegon River.",
+            "whereToStart": "Start in the Lower river (Muskegon Lake–M-120). Add the Middle river (M-120–Newaygo) after direct fish activity supports the move.",
+            "detail": "Early fish remain scattered; earlier arrivals may already be farther upstream.",
+            "tip": "Cover travel water and the first substantial holding areas before moving upstream.",
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -22801,15 +22983,15 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "2026-08-19"
             ],
             "sourceRefreshSlots": {},
-            "headline": "There is not enough reliable information for a Migration Timing call.",
-            "tip": "Do not move farther upstream or stay lower based on this timing read. Fish the section identified by Migration Stage and begin in its most established holding water; change sections only when direct fish activity or a dependable later read supports it.",
+            "headline": "There is not enough reliable Muskegon evidence for a Migration Timing call.",
+            "tip": "Keep the Muskegon section named by Migration Stage. Do not shift sections from this timing read.",
             "detail": "There are not enough dependable past seasons to judge whether this migration is early, normal, or late.",
             "reasonCodes": [
               "conditions_baseline_missing",
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -22823,9 +23005,9 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "push": {
             "score": 27,
             "label": "No clear push",
-            "headline": "Today's water does not show a clear signal for a fresh wave of fish.",
-            "detail": "The river is holding steady with no meaningful rise yet. Water is on the warm side for fall migration and is relatively steady. Recent weather estimates indicate very little rain around the river.",
-            "tip": "Fish established holding water from the head through the inside seam and tail. Do not spend the day racing between lower travel lanes for a wave the water does not support.",
+            "headline": "Croton-area water does not show a clear fresh-movement signal.",
+            "detail": "The river is holding steady with no meaningful rise yet. Water is on the warm side for fall migration and is relatively steady. Recent watershed weather shows little rain.",
+            "tip": "Keep Migration Stage’s section primary. Do not shift sections from this read.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
@@ -22844,14 +23026,14 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 93,
             "label": "Excellent",
-            "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river.",
-            "tip": "Begin on the primary travel lane feeding deep holding water. Work each hole from its head through the inside seam and tail, then keep moving until fish establish a pattern.",
+            "headline": "Croton-area flow is in its best presentation range.",
+            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read applies only near Croton Dam within the Upper river (Newaygo–Croton Dam).",
+            "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band"
@@ -22862,15 +23044,15 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 83,
             "maximum": 100,
             "label": "Highly active",
-            "headline": "Today’s Chinook activity outlook is highly active.",
-            "detail": "Conditions strongly favor a response from Chinook that are present and capable of reacting. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Water temperature limits responsiveness. Early lake-fresh Chinook can remain reactive in tolerable water, so warmth is penalized without automatically erasing response potential. The measured conditions represent the regulated Croton tailwater immediately below Croton Dam; water temperature, clarity, tributary influence, and presentation conditions can differ through Newaygo, the lower river, Muskegon Lake, and the channel. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
-            "tip": "Start with 5–9 AM. If the sky changes from the forecast, favor the darkest practical window.",
+            "headline": "Today’s Croton-area Chinook responsiveness is highly active.",
+            "detail": "Conditions strongly support Chinook responsiveness. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Croton flow and temperature represent only the area near the dam.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify downstream sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -22922,10 +23104,13 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "cloudCoverPct": 100,
                 "precipitationIn": 0.08
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 14,
+            "displayScore": 15,
+            "scoreIsApproximate": true,
             "stage": "beginning",
             "maximum": 100,
             "riverCeiling": 90,
@@ -22934,14 +23119,14 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "curveDirection": "rising",
             "winterHoldingContext": false,
             "label": "Low presence",
-            "headline": "A small number of Chinook salmon may be in the river, and seasonal presence is still building.",
-            "detail": "This part of the season usually brings low presence, with more fish expected to enter and spread through the river. This is a seasonal estimate, not a live fish count.",
-            "tip": "Treat this as an early, low-odds river opportunity. Expect scattered results, and use direct fish activity before committing the full day.",
+            "headline": "Seasonal Chinook salmon presence is low and building.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the Muskegon Chinook salmon ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -23175,14 +23360,14 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "good_fishability_low_presence"
             ]
           },
-          "secondaryNote": "Based on USGS 04121970 immediately below Croton Dam. It represents the regulated Croton tailwater; flow, temperature, access, and safety can differ through Newaygo, the lower river, Muskegon Lake, and the channel.",
+          "secondaryNote": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
           "safety": {
             "regulationReminder": "Croton Dam is the hard upstream migration boundary. Fish only legal water below the dam, use established public access, respect private land and posted closures, and check current Michigan regulations and dam-safety notices.",
-            "gaugeBasis": "Based on USGS 04121970 immediately below Croton Dam. It represents the regulated Croton tailwater; flow, temperature, access, and safety can differ through Newaygo, the lower river, Muskegon Lake, and the channel.",
+            "gaugeBasis": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-muskegon-steelhead-activity.1"
+          "configVersion": "2026-08-11-muskegon-copy.1"
         }
       },
       {
@@ -23201,6 +23386,7 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "nextConditionRefreshAt": "2026-09-16T05:00:00.000Z",
           "runStage": {
             "stage": "building",
+            "copyStrategy": "muskegon_croton_tailwater",
             "stagingContext": false,
             "broadBuildingContext": true,
             "winterHoldingContext": false,
@@ -23223,14 +23409,14 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "peakToEndDays": 35
             },
             "label": "Building",
-            "headline": "Chinook salmon are broadly established below Croton Dam.",
-            "whereToStart": "Compare Croton-tailwater pools, the Croton-to-Newaygo corridor, Newaygo-to-M-120 holding water, and major lower-river bends toward Muskegon Lake.",
-            "detail": "Fish from several waves can be spread through the river, but the Croton gauge only measures water near the dam. Fish numbers can be very different downstream.",
-            "tip": "Check the upper, middle, and lower river. Let what you see on the water—not just the Croton gauge—tell you where to stay.",
+            "headline": "Chinook salmon are broadly established through the Muskegon River.",
+            "whereToStart": "Start in the Upper river (Newaygo–Croton Dam), emphasizing the Croton Dam area. Compare the Middle river (M-120–Newaygo) for fresher fish.",
+            "detail": "Repeated entry periods support broad presence, not equal numbers in every section.",
+            "tip": "Croton measurements apply only near the dam. Verify downstream water directly.",
             "reasonCodes": [
               "stage_building"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -23279,15 +23465,15 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "2026-09-04"
             ],
             "sourceRefreshSlots": {},
-            "headline": "There is not enough reliable information for a Migration Timing call.",
-            "tip": "Do not move farther upstream or stay lower based on this timing read. Fish the section identified by Migration Stage and begin in its most established holding water; change sections only when direct fish activity or a dependable later read supports it.",
+            "headline": "There is not enough reliable Muskegon evidence for a Migration Timing call.",
+            "tip": "Keep the Muskegon section named by Migration Stage. Do not shift sections from this timing read.",
             "detail": "There are not enough dependable past seasons to judge whether this migration is early, normal, or late.",
             "reasonCodes": [
               "conditions_baseline_missing",
               "conditions_insufficient",
               "conditions_checkpoint_building_established"
             ],
-            "copyVersion": "river-run-copy-v27",
+            "copyVersion": "river-run-copy-v34",
             "previousCheckpointId": "building_start",
             "previousCheckpointDate": "2026-09-05",
             "previousTimingLabel": "Insufficient evidence"
@@ -23304,9 +23490,9 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "push": {
             "score": 30,
             "label": "No clear push",
-            "headline": "Today's water does not show a clear signal for a fresh wave of fish.",
-            "detail": "The river is holding steady with no meaningful rise yet. Water temperature is favorable for fall migration and is relatively steady. Recent weather estimates indicate very little rain around the river.",
-            "tip": "Fish established holding water from the head through the inside seam and tail. Do not spend the day racing between lower travel lanes for a wave the water does not support.",
+            "headline": "Croton-area water does not show a clear fresh-movement signal.",
+            "detail": "The river is holding steady with no meaningful rise yet. Water temperature is favorable for fall migration and is relatively steady. Recent watershed weather shows little rain.",
+            "tip": "Keep Migration Stage’s section primary. Do not shift sections from this read.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
@@ -23325,14 +23511,14 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 93,
             "label": "Excellent",
-            "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river.",
-            "tip": "Begin on the primary travel lane feeding deep holding water. Work each hole from its head through the inside seam and tail, then keep moving until fish establish a pattern.",
+            "headline": "Croton-area flow is in its best presentation range.",
+            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read applies only near Croton Dam within the Upper river (Newaygo–Croton Dam).",
+            "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band"
@@ -23343,15 +23529,15 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 87,
             "maximum": 100,
             "label": "Highly active",
-            "headline": "Today’s Chinook activity outlook is highly active.",
-            "detail": "Conditions strongly favor a response from Chinook that are present and capable of reacting. The strongest window is 9 AM–1 PM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. More Chinook are moving and settling into the river; the score describes reaction conditions for fish already present. The measured conditions represent the regulated Croton tailwater immediately below Croton Dam; water temperature, clarity, tributary influence, and presentation conditions can differ through Newaygo, the lower river, Muskegon Lake, and the channel. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
-            "tip": "Start with 9 AM–1 PM. If the sky changes from the forecast, favor the darkest practical window.",
+            "headline": "Today’s Croton-area Chinook responsiveness is highly active.",
+            "detail": "Conditions strongly support Chinook responsiveness. 9 AM–1 PM and 1–5 PM are the leading windows, but neither has a clear advantage. Croton flow and temperature represent only the area near the dam.",
+            "tip": "Choose between 9 AM–1 PM and 1–5 PM using actual light. Verify downstream sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -23403,10 +23589,13 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "cloudCoverPct": 100,
                 "precipitationIn": 0.08
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 50,
+            "displayScore": 50,
+            "scoreIsApproximate": true,
             "stage": "building",
             "maximum": 100,
             "riverCeiling": 90,
@@ -23415,14 +23604,14 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "curveDirection": "rising",
             "winterHoldingContext": false,
             "label": "Moderate presence",
-            "headline": "A meaningful number of Chinook salmon are likely in the river, with seasonal presence still building.",
-            "detail": "This part of the season usually brings moderate presence, with more fish expected to enter and spread through the river. This is a seasonal estimate, not a live fish count.",
-            "tip": "Plan for a credible river opportunity that is still improving. Stay mobile until direct fish activity gives you a reason to slow down.",
+            "headline": "Seasonal Chinook salmon presence is moderate and building.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the Muskegon Chinook salmon ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_building",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -23650,14 +23839,14 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             ]
           },
           "interpretationNote": null,
-          "secondaryNote": "Based on USGS 04121970 immediately below Croton Dam. It represents the regulated Croton tailwater; flow, temperature, access, and safety can differ through Newaygo, the lower river, Muskegon Lake, and the channel.",
+          "secondaryNote": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
           "safety": {
             "regulationReminder": "Croton Dam is the hard upstream migration boundary. Fish only legal water below the dam, use established public access, respect private land and posted closures, and check current Michigan regulations and dam-safety notices.",
-            "gaugeBasis": "Based on USGS 04121970 immediately below Croton Dam. It represents the regulated Croton tailwater; flow, temperature, access, and safety can differ through Newaygo, the lower river, Muskegon Lake, and the channel.",
+            "gaugeBasis": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-muskegon-steelhead-activity.1"
+          "configVersion": "2026-08-11-muskegon-copy.1"
         }
       },
       {
@@ -23676,6 +23865,7 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "nextConditionRefreshAt": "2026-10-02T05:00:00.000Z",
           "runStage": {
             "stage": "peak",
+            "copyStrategy": "muskegon_croton_tailwater",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -23699,13 +23889,13 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             },
             "label": "Peak",
             "headline": "This is typically the strongest Muskegon River Chinook salmon opportunity.",
-            "whereToStart": "Compare the Croton tailwater, Croton-to-Newaygo pools, Newaygo-to-M-120 bends and wood, and major lower-river holes toward Muskegon Lake.",
-            "detail": "Fish can be spread through the river now, but water clarity, access, and how the fish act can still be very different from one section to another.",
-            "tip": "The Croton gauge tells you what is happening near the dam. Check the middle and lower river yourself because conditions can be different downstream.",
+            "whereToStart": "Start in the Upper river (Newaygo–Croton Dam), emphasizing the Croton Dam area. Compare the Middle river (M-120–Newaygo) for fresher fish.",
+            "detail": "Fish can be broadly present, but concentrations still vary by section.",
+            "tip": "Croton measurements apply only near the dam. Verify downstream water directly.",
             "reasonCodes": [
               "stage_peak"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -23774,15 +23964,15 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "2026-09-24"
             ],
             "sourceRefreshSlots": {},
-            "headline": "There is not enough reliable information for a Migration Timing call.",
-            "tip": "Do not move farther upstream or stay lower based on this timing read. Fish the section identified by Migration Stage and begin in its most established holding water; change sections only when direct fish activity or a dependable later read supports it.",
+            "headline": "There is not enough reliable Muskegon evidence for a Migration Timing call.",
+            "tip": "Keep the Muskegon section named by Migration Stage. Do not shift sections from this timing read.",
             "detail": "There are not enough dependable past seasons to judge whether this migration is early, normal, or late.",
             "reasonCodes": [
               "conditions_baseline_missing",
               "conditions_insufficient",
               "conditions_checkpoint_peak_start"
             ],
-            "copyVersion": "river-run-copy-v27",
+            "copyVersion": "river-run-copy-v34",
             "previousCheckpointId": "building_established",
             "previousCheckpointDate": "2026-09-05",
             "previousTimingLabel": "Insufficient evidence"
@@ -23799,9 +23989,9 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "push": {
             "score": 30,
             "label": "No clear push",
-            "headline": "Today's water does not show a clear signal for a fresh wave of fish.",
-            "detail": "The river is holding steady with no meaningful rise yet. Water temperature is favorable for fall migration and is relatively steady. Recent weather estimates indicate very little rain around the river.",
-            "tip": "Fish established holding water from the head through the inside seam and tail. Do not spend the day racing between lower travel lanes for a wave the water does not support.",
+            "headline": "Croton-area water does not show a clear fresh-movement signal.",
+            "detail": "The river is holding steady with no meaningful rise yet. Water temperature is favorable for fall migration and is relatively steady. Recent watershed weather shows little rain.",
+            "tip": "Keep Migration Stage’s section primary. Do not shift sections from this read.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
@@ -23820,14 +24010,14 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 93,
             "label": "Excellent",
-            "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river.",
-            "tip": "Begin on the primary travel lane feeding deep holding water. Work each hole from its head through the inside seam and tail, then keep moving until fish establish a pattern.",
+            "headline": "Croton-area flow is in its best presentation range.",
+            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read applies only near Croton Dam within the Upper river (Newaygo–Croton Dam).",
+            "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band"
@@ -23838,15 +24028,15 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 81,
             "maximum": 100,
             "label": "Highly active",
-            "headline": "Today’s Chinook activity outlook is highly active.",
-            "detail": "Conditions strongly favor a response from Chinook that are present and capable of reacting. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. Broad seasonal presence improves the chance of locating fish, but this score measures responsiveness rather than abundance. The measured conditions represent the regulated Croton tailwater immediately below Croton Dam; water temperature, clarity, tributary influence, and presentation conditions can differ through Newaygo, the lower river, Muskegon Lake, and the channel. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
-            "tip": "Start with 5–9 AM. If the sky changes from the forecast, favor the darkest practical window.",
+            "headline": "Today’s Croton-area Chinook responsiveness is highly active.",
+            "detail": "Conditions strongly support Chinook responsiveness. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Croton flow and temperature represent only the area near the dam.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify downstream sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -23898,10 +24088,13 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "cloudCoverPct": 65,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 90,
+            "displayScore": 90,
+            "scoreIsApproximate": false,
             "stage": "peak",
             "maximum": 100,
             "riverCeiling": 90,
@@ -23910,14 +24103,14 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "curveDirection": "near_peak",
             "winterHoldingContext": false,
             "label": "Peak presence",
-            "headline": "Chinook salmon are likely near their highest seasonal presence in the river.",
-            "detail": "This is the part of the season when in-river presence is usually strongest. The read describes the river as a whole; it does not place fish in a specific pool or confirm a live count.",
-            "tip": "Plan for the strongest seasonal presence this river usually offers, while remembering that this estimate cannot confirm fish at a specific spot or describe today's river conditions.",
+            "headline": "Seasonal Chinook salmon presence is near its expected Muskegon peak.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the Muskegon Chinook salmon ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_peak",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -24151,14 +24344,14 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "peak_presence_weak_push"
             ]
           },
-          "secondaryNote": "Based on USGS 04121970 immediately below Croton Dam. It represents the regulated Croton tailwater; flow, temperature, access, and safety can differ through Newaygo, the lower river, Muskegon Lake, and the channel.",
+          "secondaryNote": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
           "safety": {
             "regulationReminder": "Croton Dam is the hard upstream migration boundary. Fish only legal water below the dam, use established public access, respect private land and posted closures, and check current Michigan regulations and dam-safety notices.",
-            "gaugeBasis": "Based on USGS 04121970 immediately below Croton Dam. It represents the regulated Croton tailwater; flow, temperature, access, and safety can differ through Newaygo, the lower river, Muskegon Lake, and the channel.",
+            "gaugeBasis": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-muskegon-steelhead-activity.1"
+          "configVersion": "2026-08-11-muskegon-copy.1"
         }
       },
       {
@@ -24177,6 +24370,7 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "nextConditionRefreshAt": "2026-09-16T05:00:00.000Z",
           "runStage": {
             "stage": "building",
+            "copyStrategy": "muskegon_croton_tailwater",
             "stagingContext": false,
             "broadBuildingContext": true,
             "winterHoldingContext": false,
@@ -24199,14 +24393,14 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "peakToEndDays": 35
             },
             "label": "Building",
-            "headline": "Chinook salmon are broadly established below Croton Dam.",
-            "whereToStart": "Compare Croton-tailwater pools, the Croton-to-Newaygo corridor, Newaygo-to-M-120 holding water, and major lower-river bends toward Muskegon Lake.",
-            "detail": "Fish from several waves can be spread through the river, but the Croton gauge only measures water near the dam. Fish numbers can be very different downstream.",
-            "tip": "Check the upper, middle, and lower river. Let what you see on the water—not just the Croton gauge—tell you where to stay.",
+            "headline": "Chinook salmon are broadly established through the Muskegon River.",
+            "whereToStart": "Start in the Upper river (Newaygo–Croton Dam), emphasizing the Croton Dam area. Compare the Middle river (M-120–Newaygo) for fresher fish.",
+            "detail": "Repeated entry periods support broad presence, not equal numbers in every section.",
+            "tip": "Croton measurements apply only near the dam. Verify downstream water directly.",
             "reasonCodes": [
               "stage_building"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -24255,15 +24449,15 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "2026-09-04"
             ],
             "sourceRefreshSlots": {},
-            "headline": "There is not enough reliable information for a Migration Timing call.",
-            "tip": "Do not move farther upstream or stay lower based on this timing read. Fish the section identified by Migration Stage and begin in its most established holding water; change sections only when direct fish activity or a dependable later read supports it.",
+            "headline": "There is not enough reliable Muskegon evidence for a Migration Timing call.",
+            "tip": "Keep the Muskegon section named by Migration Stage. Do not shift sections from this timing read.",
             "detail": "There are not enough dependable past seasons to judge whether this migration is early, normal, or late.",
             "reasonCodes": [
               "conditions_baseline_missing",
               "conditions_insufficient",
               "conditions_checkpoint_building_established"
             ],
-            "copyVersion": "river-run-copy-v27",
+            "copyVersion": "river-run-copy-v34",
             "previousCheckpointId": "building_start",
             "previousCheckpointDate": "2026-09-05",
             "previousTimingLabel": "Insufficient evidence"
@@ -24280,9 +24474,9 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "push": {
             "score": 13,
             "label": "Weak",
-            "headline": "Today's water shows little support for a fresh wave of fish.",
-            "detail": "The river is holding steady with no meaningful rise yet. Overall flow is already high. Water is on the warm side for fall migration but is warming sharply. Recent weather estimates indicate very little rain around the river.",
-            "tip": "Skip the fresh-arrival hunt. Begin in established holding holes and fish each one thoroughly before moving; leave lower travel lanes as a secondary check.",
+            "headline": "Croton-area water shows little support for fresh movement.",
+            "detail": "The river is holding steady with no meaningful rise yet; overall flow is already high. Water is on the warm side for fall migration but is warming sharply. Recent watershed weather shows little rain.",
+            "tip": "Keep Migration Stage’s section primary. Do not shift sections from this read.",
             "reasonCodes": [
               "gauge_fresh",
               "push_high_flow_context",
@@ -24301,14 +24495,14 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 45,
             "label": "Tough",
-            "headline": "The river is running very high, leaving fewer practical places to fish effectively.",
-            "detail": "Very high flow is reducing access and the amount of water where a presentation can be controlled. The river is not climbing quickly, but practical fishing water remains compressed into the slowest edges. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river.",
-            "tip": "Fish only bank-side soft pockets, protected inside turns, and current breaks. Make short controlled presentations and skip every main-channel lane.",
+            "headline": "Very high Croton-area flow leaves little controllable presentation water.",
+            "detail": "Very high flow compresses controllable water into protected edges. Steady flow should keep presentation lanes consistent. This read applies only near Croton Dam within the Upper river (Newaygo–Croton Dam).",
+            "tip": "Favor protected margins and short controlled presentations. Choose another day if control is not dependable.",
             "reasonCodes": [
               "gauge_fresh",
               "very_high_flow_band"
@@ -24319,15 +24513,15 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 55,
             "maximum": 100,
             "label": "Moderate",
-            "headline": "Today’s Chinook activity outlook is moderate.",
-            "detail": "Some useful factors are present, but the response window is mixed. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: The river level or its recent change is less favorable. More Chinook are moving and settling into the river; the score describes reaction conditions for fish already present. The measured conditions represent the regulated Croton tailwater immediately below Croton Dam; water temperature, clarity, tributary influence, and presentation conditions can differ through Newaygo, the lower river, Muskegon Lake, and the channel. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
-            "tip": "Start with 5–9 AM. If the sky changes from the forecast, favor the darkest practical window.",
+            "headline": "Today’s Croton-area Chinook responsiveness is moderate.",
+            "detail": "Conditions offer mixed support for Chinook responsiveness. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Croton flow and temperature represent only the area near the dam.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify downstream sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -24379,10 +24573,13 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "cloudCoverPct": 0,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 50,
+            "displayScore": 50,
+            "scoreIsApproximate": true,
             "stage": "building",
             "maximum": 100,
             "riverCeiling": 90,
@@ -24391,14 +24588,14 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "curveDirection": "rising",
             "winterHoldingContext": false,
             "label": "Moderate presence",
-            "headline": "A meaningful number of Chinook salmon are likely in the river, with seasonal presence still building.",
-            "detail": "This part of the season usually brings moderate presence, with more fish expected to enter and spread through the river. This is a seasonal estimate, not a live fish count.",
-            "tip": "Plan for a credible river opportunity that is still improving. Stay mobile until direct fish activity gives you a reason to slow down.",
+            "headline": "Seasonal Chinook salmon presence is moderate and building.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the Muskegon Chinook salmon ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_building",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -24626,14 +24823,14 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             ]
           },
           "interpretationNote": null,
-          "secondaryNote": "Based on USGS 04121970 immediately below Croton Dam. It represents the regulated Croton tailwater; flow, temperature, access, and safety can differ through Newaygo, the lower river, Muskegon Lake, and the channel.",
+          "secondaryNote": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
           "safety": {
             "regulationReminder": "Croton Dam is the hard upstream migration boundary. Fish only legal water below the dam, use established public access, respect private land and posted closures, and check current Michigan regulations and dam-safety notices.",
-            "gaugeBasis": "Based on USGS 04121970 immediately below Croton Dam. It represents the regulated Croton tailwater; flow, temperature, access, and safety can differ through Newaygo, the lower river, Muskegon Lake, and the channel.",
+            "gaugeBasis": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-muskegon-steelhead-activity.1"
+          "configVersion": "2026-08-11-muskegon-copy.1"
         }
       },
       {
@@ -24652,6 +24849,7 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "nextConditionRefreshAt": "2026-08-29T05:00:00.000Z",
           "runStage": {
             "stage": "beginning",
+            "copyStrategy": "muskegon_croton_tailwater",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -24674,14 +24872,14 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "peakToEndDays": 35
             },
             "label": "Beginning",
-            "headline": "The first Chinook salmon are starting to enter the Muskegon River.",
-            "whereToStart": "Start in the deep lower river from Muskegon Lake toward M-120, then sample Newaygo-to-M-120 travel lanes before making a selective Croton-tailwater check.",
-            "detail": "New fish can be scattered across more than forty river miles. A few may already be near Croton, but the lower and middle river are the better places to start.",
-            "tip": "Check deep bends, wood edges, and resting spots in two parts of the river before heading straight to the dam.",
+            "headline": "Chinook salmon are accumulating through more of the Muskegon River.",
+            "whereToStart": "Start in the Lower river (Muskegon Lake–M-120). Add the Middle river (M-120–Newaygo) after direct fish activity supports the move.",
+            "detail": "Early fish remain scattered; earlier arrivals may already be farther upstream.",
+            "tip": "Cover travel water and the first substantial holding areas before moving upstream.",
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -24714,15 +24912,15 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "2026-08-19"
             ],
             "sourceRefreshSlots": {},
-            "headline": "There is not enough reliable information for a Migration Timing call.",
-            "tip": "Do not move farther upstream or stay lower based on this timing read. Fish the section identified by Migration Stage and begin in its most established holding water; change sections only when direct fish activity or a dependable later read supports it.",
+            "headline": "There is not enough reliable Muskegon evidence for a Migration Timing call.",
+            "tip": "Keep the Muskegon section named by Migration Stage. Do not shift sections from this timing read.",
             "detail": "There are not enough dependable past seasons to judge whether this migration is early, normal, or late.",
             "reasonCodes": [
               "conditions_baseline_missing",
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -24736,9 +24934,9 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "push": {
             "score": 27,
             "label": "No clear push",
-            "headline": "Today's water does not show a clear signal for a fresh wave of fish.",
-            "detail": "The river is holding steady with no meaningful rise yet. Water is on the warm side for fall migration and is relatively steady. Recent weather estimates indicate very little rain around the river.",
-            "tip": "Fish established holding water from the head through the inside seam and tail. Do not spend the day racing between lower travel lanes for a wave the water does not support.",
+            "headline": "Croton-area water does not show a clear fresh-movement signal.",
+            "detail": "The river is holding steady with no meaningful rise yet. Water is on the warm side for fall migration and is relatively steady. Recent watershed weather shows little rain.",
+            "tip": "Keep Migration Stage’s section primary. Do not shift sections from this read.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
@@ -24757,14 +24955,14 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 93,
             "label": "Excellent",
-            "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river.",
-            "tip": "Begin on the primary travel lane feeding deep holding water. Work each hole from its head through the inside seam and tail, then keep moving until fish establish a pattern.",
+            "headline": "Croton-area flow is in its best presentation range.",
+            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read applies only near Croton Dam within the Upper river (Newaygo–Croton Dam).",
+            "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band"
@@ -24775,15 +24973,15 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 30,
             "maximum": 100,
             "label": "Reserved",
-            "headline": "Today’s Chinook activity outlook is reserved.",
-            "detail": "Fish may respond selectively, with important environmental limitations. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Water temperature limits responsiveness. Early lake-fresh Chinook can remain reactive in tolerable water, so warmth is penalized without automatically erasing response potential. The measured conditions represent the regulated Croton tailwater immediately below Croton Dam; water temperature, clarity, tributary influence, and presentation conditions can differ through Newaygo, the lower river, Muskegon Lake, and the channel. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
-            "tip": "Start with 5–9 AM. If the sky changes from the forecast, favor the darkest practical window.",
+            "headline": "Today’s Croton-area Chinook responsiveness is reserved.",
+            "detail": "Chinook may respond selectively under current limitations. 5–9 AM and 9 AM–1 PM are the leading windows, but neither has a clear advantage. Croton flow and temperature represent only the area near the dam.",
+            "tip": "Choose between 5–9 AM and 9 AM–1 PM using actual light. Verify downstream sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -24836,10 +25034,13 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "cloudCoverPct": 100,
                 "precipitationIn": 0.08
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 14,
+            "displayScore": 15,
+            "scoreIsApproximate": true,
             "stage": "beginning",
             "maximum": 100,
             "riverCeiling": 90,
@@ -24848,14 +25049,14 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "curveDirection": "rising",
             "winterHoldingContext": false,
             "label": "Low presence",
-            "headline": "A small number of Chinook salmon may be in the river, and seasonal presence is still building.",
-            "detail": "This part of the season usually brings low presence, with more fish expected to enter and spread through the river. This is a seasonal estimate, not a live fish count.",
-            "tip": "Treat this as an early, low-odds river opportunity. Expect scattered results, and use direct fish activity before committing the full day.",
+            "headline": "Seasonal Chinook salmon presence is low and building.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the Muskegon Chinook salmon ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -25089,14 +25290,14 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "good_fishability_low_presence"
             ]
           },
-          "secondaryNote": "Based on USGS 04121970 immediately below Croton Dam. It represents the regulated Croton tailwater; flow, temperature, access, and safety can differ through Newaygo, the lower river, Muskegon Lake, and the channel.",
+          "secondaryNote": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
           "safety": {
             "regulationReminder": "Croton Dam is the hard upstream migration boundary. Fish only legal water below the dam, use established public access, respect private land and posted closures, and check current Michigan regulations and dam-safety notices.",
-            "gaugeBasis": "Based on USGS 04121970 immediately below Croton Dam. It represents the regulated Croton tailwater; flow, temperature, access, and safety can differ through Newaygo, the lower river, Muskegon Lake, and the channel.",
+            "gaugeBasis": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-muskegon-steelhead-activity.1"
+          "configVersion": "2026-08-11-muskegon-copy.1"
         }
       },
       {
@@ -25115,6 +25316,7 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "nextConditionRefreshAt": "2026-08-29T05:00:00.000Z",
           "runStage": {
             "stage": "beginning",
+            "copyStrategy": "muskegon_croton_tailwater",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -25137,14 +25339,14 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "peakToEndDays": 35
             },
             "label": "Beginning",
-            "headline": "The first Chinook salmon are starting to enter the Muskegon River.",
-            "whereToStart": "Start in the deep lower river from Muskegon Lake toward M-120, then sample Newaygo-to-M-120 travel lanes before making a selective Croton-tailwater check.",
-            "detail": "New fish can be scattered across more than forty river miles. A few may already be near Croton, but the lower and middle river are the better places to start.",
-            "tip": "Check deep bends, wood edges, and resting spots in two parts of the river before heading straight to the dam.",
+            "headline": "Chinook salmon are accumulating through more of the Muskegon River.",
+            "whereToStart": "Start in the Lower river (Muskegon Lake–M-120). Add the Middle river (M-120–Newaygo) after direct fish activity supports the move.",
+            "detail": "Early fish remain scattered; earlier arrivals may already be farther upstream.",
+            "tip": "Cover travel water and the first substantial holding areas before moving upstream.",
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -25177,15 +25379,15 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "2026-08-19"
             ],
             "sourceRefreshSlots": {},
-            "headline": "There is not enough reliable information for a Migration Timing call.",
-            "tip": "Do not move farther upstream or stay lower based on this timing read. Fish the section identified by Migration Stage and begin in its most established holding water; change sections only when direct fish activity or a dependable later read supports it.",
+            "headline": "There is not enough reliable Muskegon evidence for a Migration Timing call.",
+            "tip": "Keep the Muskegon section named by Migration Stage. Do not shift sections from this timing read.",
             "detail": "There are not enough dependable past seasons to judge whether this migration is early, normal, or late.",
             "reasonCodes": [
               "conditions_baseline_missing",
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -25199,9 +25401,9 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "push": {
             "score": 10,
             "label": "Weak",
-            "headline": "The river is rising, but warm water prevents a dependable fresh-movement read.",
-            "detail": "The river is holding steady with no meaningful rise yet. Water temperature is warm enough to seriously limit confidence in fresh movement. Recent weather estimates indicate very little rain around the river.",
-            "tip": "Do not build the day around new arrivals while the river remains warm. Start in established holding water at first or last light and leave lower travel lanes secondary.",
+            "headline": "Warm Croton-area water prevents a dependable fresh-movement signal.",
+            "detail": "The river is holding steady with no meaningful rise yet. Water temperature is warm enough to seriously limit confidence in fresh movement. Recent watershed weather shows little rain.",
+            "tip": "Keep Migration Stage’s section primary. Do not shift sections from this read.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
@@ -25221,14 +25423,14 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 93,
             "label": "Excellent",
-            "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river.",
-            "tip": "Begin on the primary travel lane feeding deep holding water. Work each hole from its head through the inside seam and tail, then keep moving until fish establish a pattern.",
+            "headline": "Croton-area flow is in its best presentation range.",
+            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read applies only near Croton Dam within the Upper river (Newaygo–Croton Dam).",
+            "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band"
@@ -25239,15 +25441,15 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 25,
             "maximum": 100,
             "label": "Reserved",
-            "headline": "Today’s Chinook activity outlook is reserved.",
-            "detail": "Fish may respond selectively, with important environmental limitations. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Water temperature limits responsiveness. Early lake-fresh Chinook can remain reactive in tolerable water, so warmth is penalized without automatically erasing response potential. The measured conditions represent the regulated Croton tailwater immediately below Croton Dam; water temperature, clarity, tributary influence, and presentation conditions can differ through Newaygo, the lower river, Muskegon Lake, and the channel. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
-            "tip": "Start with 5–9 AM. If the sky changes from the forecast, favor the darkest practical window.",
+            "headline": "Today’s Croton-area Chinook responsiveness is reserved.",
+            "detail": "Chinook may respond selectively under current limitations. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Croton flow and temperature represent only the area near the dam.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify downstream sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -25300,10 +25502,13 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "cloudCoverPct": 100,
                 "precipitationIn": 0.08
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 14,
+            "displayScore": 15,
+            "scoreIsApproximate": true,
             "stage": "beginning",
             "maximum": 100,
             "riverCeiling": 90,
@@ -25312,14 +25517,14 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "curveDirection": "rising",
             "winterHoldingContext": false,
             "label": "Low presence",
-            "headline": "A small number of Chinook salmon may be in the river, and seasonal presence is still building.",
-            "detail": "This part of the season usually brings low presence, with more fish expected to enter and spread through the river. This is a seasonal estimate, not a live fish count.",
-            "tip": "Treat this as an early, low-odds river opportunity. Expect scattered results, and use direct fish activity before committing the full day.",
+            "headline": "Seasonal Chinook salmon presence is low and building.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the Muskegon Chinook salmon ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -25553,14 +25758,14 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "good_fishability_low_presence"
             ]
           },
-          "secondaryNote": "Based on USGS 04121970 immediately below Croton Dam. It represents the regulated Croton tailwater; flow, temperature, access, and safety can differ through Newaygo, the lower river, Muskegon Lake, and the channel.",
+          "secondaryNote": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
           "safety": {
             "regulationReminder": "Croton Dam is the hard upstream migration boundary. Fish only legal water below the dam, use established public access, respect private land and posted closures, and check current Michigan regulations and dam-safety notices.",
-            "gaugeBasis": "Based on USGS 04121970 immediately below Croton Dam. It represents the regulated Croton tailwater; flow, temperature, access, and safety can differ through Newaygo, the lower river, Muskegon Lake, and the channel.",
+            "gaugeBasis": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-muskegon-steelhead-activity.1"
+          "configVersion": "2026-08-11-muskegon-copy.1"
         }
       },
       {
@@ -25579,6 +25784,7 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "nextConditionRefreshAt": "2026-10-02T05:00:00.000Z",
           "runStage": {
             "stage": "peak",
+            "copyStrategy": "muskegon_croton_tailwater",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -25602,13 +25808,13 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             },
             "label": "Peak",
             "headline": "This is typically the strongest Muskegon River Chinook salmon opportunity.",
-            "whereToStart": "Compare the Croton tailwater, Croton-to-Newaygo pools, Newaygo-to-M-120 bends and wood, and major lower-river holes toward Muskegon Lake.",
-            "detail": "Fish can be spread through the river now, but water clarity, access, and how the fish act can still be very different from one section to another.",
-            "tip": "The Croton gauge tells you what is happening near the dam. Check the middle and lower river yourself because conditions can be different downstream.",
+            "whereToStart": "Start in the Upper river (Newaygo–Croton Dam), emphasizing the Croton Dam area. Compare the Middle river (M-120–Newaygo) for fresher fish.",
+            "detail": "Fish can be broadly present, but concentrations still vary by section.",
+            "tip": "Croton measurements apply only near the dam. Verify downstream water directly.",
             "reasonCodes": [
               "stage_peak"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -25677,15 +25883,15 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "2026-09-24"
             ],
             "sourceRefreshSlots": {},
-            "headline": "There is not enough reliable information for a Migration Timing call.",
-            "tip": "Do not move farther upstream or stay lower based on this timing read. Fish the section identified by Migration Stage and begin in its most established holding water; change sections only when direct fish activity or a dependable later read supports it.",
+            "headline": "There is not enough reliable Muskegon evidence for a Migration Timing call.",
+            "tip": "Keep the Muskegon section named by Migration Stage. Do not shift sections from this timing read.",
             "detail": "There are not enough dependable past seasons to judge whether this migration is early, normal, or late.",
             "reasonCodes": [
               "conditions_baseline_missing",
               "conditions_insufficient",
               "conditions_checkpoint_peak_start"
             ],
-            "copyVersion": "river-run-copy-v27",
+            "copyVersion": "river-run-copy-v34",
             "previousCheckpointId": "building_established",
             "previousCheckpointDate": "2026-09-05",
             "previousTimingLabel": "Insufficient evidence"
@@ -25702,9 +25908,9 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "push": {
             "score": 25,
             "label": "No clear push",
-            "headline": "The river is rising hard, but extreme flow makes this an unreliable fresh-movement read.",
-            "detail": "The river is holding steady with no meaningful rise yet. Overall flow is extremely high. Water temperature is favorable for fall migration and is relatively steady. Recent weather estimates indicate very little rain around the river.",
-            "tip": "Do not chase movement in the main channel. If Fishability remains usable, fish only protected margins, inside turns, and soft current with short controlled presentations.",
+            "headline": "Extreme Croton-area flow prevents a dependable fresh-movement signal.",
+            "detail": "The river is holding steady with no meaningful rise yet; overall flow is extremely high. Water temperature is favorable for fall migration and is relatively steady. Recent watershed weather shows little rain.",
+            "tip": "Keep Migration Stage’s section primary. Do not shift sections from this read.",
             "reasonCodes": [
               "gauge_fresh",
               "push_severe_high_flow_context",
@@ -25724,14 +25930,14 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 20,
             "label": "Poor",
-            "headline": "The river is too high and unsettled for a dependable fishing recommendation.",
-            "detail": "Excessive flow is overwhelming normal holding water and making access and presentation unreliable. The river is not climbing quickly, but it must fall substantially before normal holding lanes and presentation control return. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river.",
-            "tip": "Choose a lower-water day for the better fishing opportunity. If you fish now, stay tight to protected banks, slow inside turns, and the downstream side of major current breaks; keep presentations short and leave the main flow alone.",
+            "headline": "The Croton area is blown out for a dependable presentation plan.",
+            "detail": "Excessive flow overwhelms normal lanes and presentation control. Steady flow should keep presentation lanes consistent. This read applies only near Croton Dam within the Upper river (Newaygo–Croton Dam).",
+            "tip": "Choose another day and verify current conditions through authoritative local sources.",
             "reasonCodes": [
               "gauge_fresh",
               "blown_out_flow_band",
@@ -25743,15 +25949,15 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 25,
             "maximum": 100,
             "label": "Reserved",
-            "headline": "Today’s Chinook activity outlook is reserved.",
-            "detail": "Fish may respond selectively, with important environmental limitations. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: The river level or its recent change is less favorable. Broad seasonal presence improves the chance of locating fish, but this score measures responsiveness rather than abundance. The measured conditions represent the regulated Croton tailwater immediately below Croton Dam; water temperature, clarity, tributary influence, and presentation conditions can differ through Newaygo, the lower river, Muskegon Lake, and the channel. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
-            "tip": "Start with 5–9 AM. If the sky changes from the forecast, favor the darkest practical window.",
+            "headline": "Today’s Croton-area Chinook responsiveness is reserved.",
+            "detail": "Chinook may respond selectively under current limitations. 5–9 AM and 9 AM–1 PM are the leading windows, but neither has a clear advantage. Croton flow and temperature represent only the area near the dam.",
+            "tip": "Choose between 5–9 AM and 9 AM–1 PM using actual light. Verify downstream sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -25804,10 +26010,13 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "cloudCoverPct": 100,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 90,
+            "displayScore": 90,
+            "scoreIsApproximate": false,
             "stage": "peak",
             "maximum": 100,
             "riverCeiling": 90,
@@ -25816,14 +26025,14 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "curveDirection": "near_peak",
             "winterHoldingContext": false,
             "label": "Peak presence",
-            "headline": "Chinook salmon are likely near their highest seasonal presence in the river.",
-            "detail": "This is the part of the season when in-river presence is usually strongest. The read describes the river as a whole; it does not place fish in a specific pool or confirm a live count.",
-            "tip": "Plan for the strongest seasonal presence this river usually offers, while remembering that this estimate cannot confirm fish at a specific spot or describe today's river conditions.",
+            "headline": "Seasonal Chinook salmon presence is near its expected Muskegon peak.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the Muskegon Chinook salmon ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_peak",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -26057,14 +26266,14 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "peak_presence_weak_push"
             ]
           },
-          "secondaryNote": "Based on USGS 04121970 immediately below Croton Dam. It represents the regulated Croton tailwater; flow, temperature, access, and safety can differ through Newaygo, the lower river, Muskegon Lake, and the channel.",
+          "secondaryNote": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
           "safety": {
             "regulationReminder": "Croton Dam is the hard upstream migration boundary. Fish only legal water below the dam, use established public access, respect private land and posted closures, and check current Michigan regulations and dam-safety notices.",
-            "gaugeBasis": "Based on USGS 04121970 immediately below Croton Dam. It represents the regulated Croton tailwater; flow, temperature, access, and safety can differ through Newaygo, the lower river, Muskegon Lake, and the channel.",
+            "gaugeBasis": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-muskegon-steelhead-activity.1"
+          "configVersion": "2026-08-11-muskegon-copy.1"
         }
       },
       {
@@ -26083,6 +26292,7 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "nextConditionRefreshAt": "2026-10-21T05:00:00.000Z",
           "runStage": {
             "stage": "tapering",
+            "copyStrategy": "muskegon_croton_tailwater",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -26105,14 +26315,14 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "peakToEndDays": 35
             },
             "label": "Tapering",
-            "headline": "The Muskegon Chinook salmon run is tapering, with established fish still present below Croton.",
-            "whereToStart": "Start with deep Croton-to-Newaygo pools, slower bends near Newaygo, and known holding water around M-120. Check the lower river when there are signs of later fish coming in.",
-            "detail": "October can still hold fish, but more of them have been in the river for a while, are spawning, or are starting to wear down. Do not expect a fresh wave everywhere.",
-            "tip": "Fish the deeper holding water, leave fish on shallow spawning gravel alone, and remember that one bright fish does not mean a fresh wave came in.",
+            "headline": "The Muskegon Chinook salmon run is entering its late taper.",
+            "whereToStart": "Start in the Upper river (Newaygo–Croton Dam), especially the Croton Dam area. Add the Middle river (M-120–Newaygo) only when direct activity supports it.",
+            "detail": "Fresh arrivals are becoming exceptions and dependable distribution is narrowing.",
+            "tip": "Look for genuinely fresh fish and leave visible spawning or deteriorated fish alone.",
             "reasonCodes": [
               "stage_tapering"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Timing complete",
@@ -26201,7 +26411,7 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "conditions_checkpoint_peak_complete",
               "conditions_timing_complete"
             ],
-            "copyVersion": "river-run-copy-v27",
+            "copyVersion": "river-run-copy-v34",
             "previousCheckpointId": "peak_start",
             "previousCheckpointDate": "2026-09-25",
             "previousTimingLabel": "Insufficient evidence"
@@ -26218,9 +26428,9 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "push": {
             "score": 30,
             "label": "No clear push",
-            "headline": "Today's water does not show a clear signal for a fresh wave of fish.",
-            "detail": "The river is holding steady with no meaningful rise yet. Water temperature is favorable for fall migration and is relatively steady. Recent weather estimates indicate very little rain around the river.",
-            "tip": "Fish established holding water from the head through the inside seam and tail. Do not spend the day racing between lower travel lanes for a wave the water does not support.",
+            "headline": "Croton-area water does not show a clear fresh-movement signal.",
+            "detail": "The river is holding steady with no meaningful rise yet. Water temperature is favorable for fall migration and is relatively steady. Recent watershed weather shows little rain.",
+            "tip": "Keep Migration Stage’s section primary. Do not shift sections from this read.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
@@ -26239,14 +26449,14 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 93,
             "label": "Excellent",
-            "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river.",
-            "tip": "Begin on the primary travel lane feeding deep holding water. Work each hole from its head through the inside seam and tail, then keep moving until fish establish a pattern.",
+            "headline": "Croton-area flow is in its best presentation range.",
+            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read applies only near Croton Dam within the Upper river (Newaygo–Croton Dam).",
+            "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band"
@@ -26257,15 +26467,15 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 81,
             "maximum": 100,
             "label": "Highly active",
-            "headline": "Today’s Chinook activity outlook is highly active.",
-            "detail": "Conditions strongly favor a response from Chinook that are present and capable of reacting. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. This score represents a Chinook of unknown condition at this point in the season. A newly arrived or fresher fish may be more active than this score, while a spawning or deteriorating fish may be less responsive. The measured conditions represent the regulated Croton tailwater immediately below Croton Dam; water temperature, clarity, tributary influence, and presentation conditions can differ through Newaygo, the lower river, Muskegon Lake, and the channel. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
-            "tip": "Compare the four time windows, but treat every difference as conditional on finding a living Chinook still capable of responding.",
+            "headline": "Today’s Croton-area Chinook responsiveness is highly active.",
+            "detail": "Conditions strongly support Chinook responsiveness. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Late-run Chinook condition varies widely, so individual fish may respond above or below this outlook.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify downstream sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -26318,10 +26528,13 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "cloudCoverPct": 100,
                 "precipitationIn": 0.08
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 62,
+            "displayScore": 60,
+            "scoreIsApproximate": true,
             "stage": "tapering",
             "maximum": 100,
             "riverCeiling": 90,
@@ -26330,14 +26543,14 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "curveDirection": "falling",
             "winterHoldingContext": false,
             "label": "High presence",
-            "headline": "Seasonal timing still supports Chinook salmon being well distributed, although fresh arrivals may be less consistent than near peak.",
-            "detail": "Seasonal presence is usually elevated relative to the rest of the season, while fresh arrivals often become less consistent later in the season. This is a seasonal estimate, not a live fish count.",
-            "tip": "Plan around fish already likely to be in the river. A meaningful seasonal presence may remain, but remember that this seasonal estimate cannot tell whether a fresh wave is entering today.",
+            "headline": "Seasonal Chinook salmon presence is high and declining.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the Muskegon Chinook salmon ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_tapering",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -26565,14 +26778,14 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             ]
           },
           "interpretationNote": null,
-          "secondaryNote": "Based on USGS 04121970 immediately below Croton Dam. It represents the regulated Croton tailwater; flow, temperature, access, and safety can differ through Newaygo, the lower river, Muskegon Lake, and the channel.",
+          "secondaryNote": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
           "safety": {
             "regulationReminder": "Croton Dam is the hard upstream migration boundary. Fish only legal water below the dam, use established public access, respect private land and posted closures, and check current Michigan regulations and dam-safety notices.",
-            "gaugeBasis": "Based on USGS 04121970 immediately below Croton Dam. It represents the regulated Croton tailwater; flow, temperature, access, and safety can differ through Newaygo, the lower river, Muskegon Lake, and the channel.",
+            "gaugeBasis": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-muskegon-steelhead-activity.1"
+          "configVersion": "2026-08-11-muskegon-copy.1"
         }
       },
       {
@@ -26591,6 +26804,7 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "nextConditionRefreshAt": "2026-11-02T05:00:00.000Z",
           "runStage": {
             "stage": "ending",
+            "copyStrategy": "muskegon_croton_tailwater",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -26613,14 +26827,14 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "peakToEndDays": 35
             },
             "label": "Ending",
-            "headline": "Only a small late Muskegon Chinook salmon opportunity remains.",
-            "whereToStart": "Limit the search to proven deep pools below Croton, slower inside bends near Newaygo, and one or two substantial M-120-area holes.",
-            "detail": "Most fish left in the river have been there for a while. A late bright fish is still possible, but a steady new wave is no longer expected.",
-            "tip": "Keep expectations low, leave spawning or worn-out fish alone, and move on if you are not seeing signs of fish.",
+            "headline": "Only a residual late Chinook salmon opportunity remains.",
+            "whereToStart": "Start in the Upper river (Newaygo–Croton Dam), emphasizing established water near Croton Dam.",
+            "detail": "Residual fish can remain, but fresh movement is no longer dependable.",
+            "tip": "Keep expectations narrow and stop searching when direct evidence is absent.",
             "reasonCodes": [
               "stage_ending"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Timing complete",
@@ -26709,7 +26923,7 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "conditions_checkpoint_peak_complete",
               "conditions_timing_complete"
             ],
-            "copyVersion": "river-run-copy-v27",
+            "copyVersion": "river-run-copy-v34",
             "previousCheckpointId": "peak_start",
             "previousCheckpointDate": "2026-09-25",
             "previousTimingLabel": "Insufficient evidence"
@@ -26726,9 +26940,9 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "push": {
             "score": 30,
             "label": "No clear push",
-            "headline": "Today's water does not show a clear signal for a fresh wave of fish.",
-            "detail": "The river is holding steady with no meaningful rise yet. Water temperature is favorable for fall migration and is relatively steady. Recent weather estimates indicate very little rain around the river.",
-            "tip": "Fish established holding water from the head through the inside seam and tail. Do not spend the day racing between lower travel lanes for a wave the water does not support.",
+            "headline": "Croton-area water does not show a clear fresh-movement signal.",
+            "detail": "The river is holding steady with no meaningful rise yet. Water temperature is favorable for fall migration and is relatively steady. Recent watershed weather shows little rain.",
+            "tip": "Keep Migration Stage’s section primary. Do not shift sections from this read.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
@@ -26747,14 +26961,14 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 93,
             "label": "Excellent",
-            "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river.",
-            "tip": "Begin on the primary travel lane feeding deep holding water. Work each hole from its head through the inside seam and tail, then keep moving until fish establish a pattern.",
+            "headline": "Croton-area flow is in its best presentation range.",
+            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read applies only near Croton Dam within the Upper river (Newaygo–Croton Dam).",
+            "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band"
@@ -26765,15 +26979,15 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 54,
             "maximum": 100,
             "label": "Moderate",
-            "headline": "Today’s Chinook activity outlook is moderate.",
-            "detail": "Some useful factors are present, but the response window is mixed. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. This score represents a remaining Chinook of unknown condition late in the season. A newly arrived or fresher fish may be more active than this score, while a spent or dying fish may respond less or not at all. The measured conditions represent the regulated Croton tailwater immediately below Croton Dam; water temperature, clarity, tributary influence, and presentation conditions can differ through Newaygo, the lower river, Muskegon Lake, and the channel. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
-            "tip": "No late-season window should be treated as broadly favorable; use the block scores only for a living Chinook that is still capable of reacting.",
+            "headline": "Today’s Croton-area Chinook responsiveness is moderate.",
+            "detail": "Conditions offer mixed support for Chinook responsiveness. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Late-run Chinook condition varies widely, so individual fish may respond above or below this outlook.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify downstream sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -26826,10 +27040,13 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "cloudCoverPct": 100,
                 "precipitationIn": 0.08
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 29,
+            "displayScore": 30,
+            "scoreIsApproximate": true,
             "stage": "ending",
             "maximum": 100,
             "riverCeiling": 90,
@@ -26838,14 +27055,14 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "curveDirection": "falling",
             "winterHoldingContext": false,
             "label": "Limited presence",
-            "headline": "Seasonal timing still supports some Chinook salmon in established holding water, but they are less likely to be spread throughout the river.",
-            "detail": "This part of the season usually supports limited presence concentrated in dependable holes and slower holding water. This is a seasonal estimate, not a live fish count.",
-            "tip": "Treat this as a lower-odds late-season opportunity. Keep the trip flexible, and require direct fish activity before committing more time.",
+            "headline": "Seasonal Chinook salmon presence is limited and declining.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the Muskegon Chinook salmon ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_ending",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -27073,14 +27290,14 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             ]
           },
           "interpretationNote": null,
-          "secondaryNote": "Based on USGS 04121970 immediately below Croton Dam. It represents the regulated Croton tailwater; flow, temperature, access, and safety can differ through Newaygo, the lower river, Muskegon Lake, and the channel.",
+          "secondaryNote": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
           "safety": {
             "regulationReminder": "Croton Dam is the hard upstream migration boundary. Fish only legal water below the dam, use established public access, respect private land and posted closures, and check current Michigan regulations and dam-safety notices.",
-            "gaugeBasis": "Based on USGS 04121970 immediately below Croton Dam. It represents the regulated Croton tailwater; flow, temperature, access, and safety can differ through Newaygo, the lower river, Muskegon Lake, and the channel.",
+            "gaugeBasis": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-muskegon-steelhead-activity.1"
+          "configVersion": "2026-08-11-muskegon-copy.1"
         }
       },
       {
@@ -27099,6 +27316,7 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "nextConditionRefreshAt": "2026-11-11T05:00:00.000Z",
           "runStage": {
             "stage": "post_run",
+            "copyStrategy": "muskegon_croton_tailwater",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -27122,13 +27340,13 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             },
             "label": "After migration",
             "headline": "A few late Chinook salmon may remain in established Muskegon River holding water.",
-            "whereToStart": "There is no dependable starting reach; if you still go, make one careful check of a proven deep pool below Croton, near Newaygo, or around M-120.",
-            "detail": "A few late fish may remain, but that does not mean a fresh wave or good numbers are in the river.",
-            "tip": "A few leftover fish do not mean a new wave has entered the river.",
+            "whereToStart": "There is no dependable starting section. If you go, make one careful Upper river (Newaygo–Croton Dam) check near Croton Dam.",
+            "detail": "The seasonal tail does not indicate a fresh movement event.",
+            "tip": "Do not build a broad corridor search around isolated late fish.",
             "reasonCodes": [
               "stage_post_run"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Timing complete",
@@ -27217,7 +27435,7 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "conditions_checkpoint_peak_complete",
               "conditions_timing_complete"
             ],
-            "copyVersion": "river-run-copy-v27",
+            "copyVersion": "river-run-copy-v34",
             "previousCheckpointId": "peak_start",
             "previousCheckpointDate": "2026-09-25",
             "previousTimingLabel": "Insufficient evidence"
@@ -27233,22 +27451,22 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           },
           "push": {
             "score": null,
-            "label": "Migration complete",
-            "headline": "The season's fresh-movement read is complete.",
-            "detail": "At this point in the season, current rain, river level, and water temperature no longer provide a dependable read on fresh arrivals.",
-            "tip": "Stop searching lower travel lanes for a new wave. Fish only established late-season holding water supported by Fish In River, or shift to another seasonal species.",
+            "label": "Fall run complete",
+            "headline": "Muskegon fall-run Push is complete.",
+            "detail": "Current Croton water no longer provides an in-season fresh-movement read for this run.",
+            "tip": "Do not use a completed Push to infer current presence. Return when fall movement tracking resumes.",
             "reasonCodes": [
               "push_tracking_complete"
             ],
             "rulesVersion": "muskegon-croton-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 93,
             "label": "Excellent",
-            "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river.",
-            "tip": "Begin on the primary travel lane feeding deep holding water. Work each hole from its head through the inside seam and tail, then keep moving until fish establish a pattern.",
+            "headline": "Croton-area flow is in its best presentation range.",
+            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read applies only near Croton Dam within the Upper river (Newaygo–Croton Dam).",
+            "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band"
@@ -27259,15 +27477,15 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 42,
             "maximum": 100,
             "label": "Moderate",
-            "headline": "Today’s Chinook activity outlook is moderate.",
-            "detail": "Some useful factors are present, but the response window is mixed. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. This score represents a remaining Chinook of unknown condition late in the season. A newly arrived or fresher fish may be more active than this score, while a spent or dying fish may respond less or not at all. The measured conditions represent the regulated Croton tailwater immediately below Croton Dam; water temperature, clarity, tributary influence, and presentation conditions can differ through Newaygo, the lower river, Muskegon Lake, and the channel. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
-            "tip": "No late-season window should be treated as broadly favorable; use the block scores only for a living Chinook that is still capable of reacting.",
+            "headline": "Today’s Croton-area Chinook responsiveness is moderate.",
+            "detail": "Conditions offer mixed support for Chinook responsiveness. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Late-run Chinook condition varies widely, so individual fish may respond above or below this outlook.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify downstream sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -27320,10 +27538,13 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "cloudCoverPct": 100,
                 "precipitationIn": 0.08
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 5,
+            "displayScore": 5,
+            "scoreIsApproximate": true,
             "stage": "post_run",
             "maximum": 100,
             "riverCeiling": 90,
@@ -27332,14 +27553,14 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "curveDirection": "falling",
             "winterHoldingContext": false,
             "label": "Low presence",
-            "headline": "Some Chinook salmon may still be in the river, with seasonal presence more likely to be scattered.",
-            "detail": "This part of the season usually supports low presence, while fresh arrivals often become less consistent later in the season. This is a seasonal estimate, not a live fish count.",
-            "tip": "Treat any remaining fish as a bonus rather than a dependable trip plan. Keep expectations narrow and be ready to shift to another seasonal species.",
+            "headline": "Seasonal Chinook salmon presence is low and declining.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the Muskegon Chinook salmon ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_post_run",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -27574,14 +27795,14 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "post_run_residual_presence"
             ]
           },
-          "secondaryNote": "Based on USGS 04121970 immediately below Croton Dam. It represents the regulated Croton tailwater; flow, temperature, access, and safety can differ through Newaygo, the lower river, Muskegon Lake, and the channel.",
+          "secondaryNote": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
           "safety": {
             "regulationReminder": "Croton Dam is the hard upstream migration boundary. Fish only legal water below the dam, use established public access, respect private land and posted closures, and check current Michigan regulations and dam-safety notices.",
-            "gaugeBasis": "Based on USGS 04121970 immediately below Croton Dam. It represents the regulated Croton tailwater; flow, temperature, access, and safety can differ through Newaygo, the lower river, Muskegon Lake, and the channel.",
+            "gaugeBasis": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-muskegon-steelhead-activity.1"
+          "configVersion": "2026-08-11-muskegon-copy.1"
         }
       },
       {
@@ -27600,6 +27821,7 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "nextConditionRefreshAt": "2026-10-02T05:00:00.000Z",
           "runStage": {
             "stage": "peak",
+            "copyStrategy": "muskegon_croton_tailwater",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -27623,13 +27845,13 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             },
             "label": "Peak",
             "headline": "This is typically the strongest Muskegon River Chinook salmon opportunity.",
-            "whereToStart": "Compare the Croton tailwater, Croton-to-Newaygo pools, Newaygo-to-M-120 bends and wood, and major lower-river holes toward Muskegon Lake.",
-            "detail": "Fish can be spread through the river now, but water clarity, access, and how the fish act can still be very different from one section to another.",
-            "tip": "The Croton gauge tells you what is happening near the dam. Check the middle and lower river yourself because conditions can be different downstream.",
+            "whereToStart": "Start in the Upper river (Newaygo–Croton Dam), emphasizing the Croton Dam area. Compare the Middle river (M-120–Newaygo) for fresher fish.",
+            "detail": "Fish can be broadly present, but concentrations still vary by section.",
+            "tip": "Croton measurements apply only near the dam. Verify downstream water directly.",
             "reasonCodes": [
               "stage_peak"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -27698,15 +27920,15 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "2026-09-24"
             ],
             "sourceRefreshSlots": {},
-            "headline": "There is not enough reliable information for a Migration Timing call.",
-            "tip": "Do not move farther upstream or stay lower based on this timing read. Fish the section identified by Migration Stage and begin in its most established holding water; change sections only when direct fish activity or a dependable later read supports it.",
+            "headline": "There is not enough reliable Muskegon evidence for a Migration Timing call.",
+            "tip": "Keep the Muskegon section named by Migration Stage. Do not shift sections from this timing read.",
             "detail": "There are not enough dependable past seasons to judge whether this migration is early, normal, or late.",
             "reasonCodes": [
               "conditions_baseline_missing",
               "conditions_insufficient",
               "conditions_checkpoint_peak_start"
             ],
-            "copyVersion": "river-run-copy-v27",
+            "copyVersion": "river-run-copy-v34",
             "previousCheckpointId": "building_established",
             "previousCheckpointDate": "2026-09-05",
             "previousTimingLabel": "Insufficient evidence"
@@ -27731,14 +27953,14 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "temperature_unavailable"
             ],
             "rulesVersion": "muskegon-croton-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 93,
             "label": "Excellent",
-            "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river.",
-            "tip": "Begin on the primary travel lane feeding deep holding water. Work each hole from its head through the inside seam and tail, then keep moving until fish establish a pattern.",
+            "headline": "Croton-area flow is in its best presentation range.",
+            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read applies only near Croton Dam within the Upper river (Newaygo–Croton Dam).",
+            "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band"
@@ -27749,15 +27971,15 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 55,
             "maximum": 100,
             "label": "Moderate",
-            "headline": "Today’s Chinook activity outlook is moderate.",
-            "detail": "Some useful factors are present, but the response window is mixed. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Measured water temperature is unavailable. Broad seasonal presence improves the chance of locating fish, but this score measures responsiveness rather than abundance. The measured conditions represent the regulated Croton tailwater immediately below Croton Dam; water temperature, clarity, tributary influence, and presentation conditions can differ through Newaygo, the lower river, Muskegon Lake, and the channel. One important reading is unavailable or comes from tomorrow’s forecast, so the outlook is kept conservative.",
-            "tip": "Start with 5–9 AM. If the sky changes from the forecast, favor the darkest practical window.",
+            "headline": "Today’s Croton-area Chinook responsiveness is moderate.",
+            "detail": "Conditions offer mixed support for Chinook responsiveness. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Moderate confidence reflects missing or forecast inputs; river measurements still represent only the Croton Dam area.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify downstream sections directly.",
             "reasonCodes": [
               "activity_confidence_moderate",
               "activity_today",
@@ -27809,10 +28031,13 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "cloudCoverPct": 75,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 90,
+            "displayScore": 90,
+            "scoreIsApproximate": false,
             "stage": "peak",
             "maximum": 100,
             "riverCeiling": 90,
@@ -27821,14 +28046,14 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "curveDirection": "near_peak",
             "winterHoldingContext": false,
             "label": "Peak presence",
-            "headline": "Chinook salmon are likely near their highest seasonal presence in the river.",
-            "detail": "This is the part of the season when in-river presence is usually strongest. The read describes the river as a whole; it does not place fish in a specific pool or confirm a live count.",
-            "tip": "Plan for the strongest seasonal presence this river usually offers, while remembering that this estimate cannot confirm fish at a specific spot or describe today's river conditions.",
+            "headline": "Seasonal Chinook salmon presence is near its expected Muskegon peak.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the Muskegon Chinook salmon ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_peak",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -28039,14 +28264,14 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             ]
           },
           "interpretationNote": null,
-          "secondaryNote": "Based on USGS 04121970 immediately below Croton Dam. It represents the regulated Croton tailwater; flow, temperature, access, and safety can differ through Newaygo, the lower river, Muskegon Lake, and the channel.",
+          "secondaryNote": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
           "safety": {
             "regulationReminder": "Croton Dam is the hard upstream migration boundary. Fish only legal water below the dam, use established public access, respect private land and posted closures, and check current Michigan regulations and dam-safety notices.",
-            "gaugeBasis": "Based on USGS 04121970 immediately below Croton Dam. It represents the regulated Croton tailwater; flow, temperature, access, and safety can differ through Newaygo, the lower river, Muskegon Lake, and the channel.",
+            "gaugeBasis": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-muskegon-steelhead-activity.1"
+          "configVersion": "2026-08-11-muskegon-copy.1"
         }
       },
       {
@@ -28065,6 +28290,7 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "nextConditionRefreshAt": "2026-10-02T05:00:00.000Z",
           "runStage": {
             "stage": "peak",
+            "copyStrategy": "muskegon_croton_tailwater",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -28088,13 +28314,13 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             },
             "label": "Peak",
             "headline": "This is typically the strongest Muskegon River Chinook salmon opportunity.",
-            "whereToStart": "Compare the Croton tailwater, Croton-to-Newaygo pools, Newaygo-to-M-120 bends and wood, and major lower-river holes toward Muskegon Lake.",
-            "detail": "Fish can be spread through the river now, but water clarity, access, and how the fish act can still be very different from one section to another.",
-            "tip": "The Croton gauge tells you what is happening near the dam. Check the middle and lower river yourself because conditions can be different downstream.",
+            "whereToStart": "Start in the Upper river (Newaygo–Croton Dam), emphasizing the Croton Dam area. Compare the Middle river (M-120–Newaygo) for fresher fish.",
+            "detail": "Fish can be broadly present, but concentrations still vary by section.",
+            "tip": "Croton measurements apply only near the dam. Verify downstream water directly.",
             "reasonCodes": [
               "stage_peak"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -28163,15 +28389,15 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "2026-09-24"
             ],
             "sourceRefreshSlots": {},
-            "headline": "There is not enough reliable information for a Migration Timing call.",
-            "tip": "Do not move farther upstream or stay lower based on this timing read. Fish the section identified by Migration Stage and begin in its most established holding water; change sections only when direct fish activity or a dependable later read supports it.",
+            "headline": "There is not enough reliable Muskegon evidence for a Migration Timing call.",
+            "tip": "Keep the Muskegon section named by Migration Stage. Do not shift sections from this timing read.",
             "detail": "There are not enough dependable past seasons to judge whether this migration is early, normal, or late.",
             "reasonCodes": [
               "conditions_baseline_missing",
               "conditions_insufficient",
               "conditions_checkpoint_peak_start"
             ],
-            "copyVersion": "river-run-copy-v27",
+            "copyVersion": "river-run-copy-v34",
             "previousCheckpointId": "building_established",
             "previousCheckpointDate": "2026-09-05",
             "previousTimingLabel": "Insufficient evidence"
@@ -28195,27 +28421,27 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "gauge_missing"
             ],
             "rulesVersion": "muskegon-croton-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": null,
             "label": "Unavailable",
-            "headline": "There is no dependable Fishability read right now.",
-            "detail": "A recent river-level reading is missing, so current flow and direction cannot be judged responsibly.",
-            "tip": "Do not plan from the last known level. Check again after the next update, and verify the river at the first access before choosing where or how to fish.",
+            "headline": "A current Croton Fishability reading is unavailable.",
+            "detail": "Without current Croton flow and direction, presentation conditions near the dam cannot be determined.",
+            "tip": "Do not extend an old or missing Croton read through the Muskegon River. Verify current conditions directly.",
             "reasonCodes": [
               "gauge_missing"
             ],
             "rulesVersion": "muskegon-croton-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 55,
             "maximum": 100,
             "label": "Moderate",
-            "headline": "Today’s Chinook activity outlook is moderate.",
-            "detail": "Some useful factors are present, but the response window is mixed. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Current river behavior is unavailable. Broad seasonal presence improves the chance of locating fish, but this score measures responsiveness rather than abundance. The measured conditions represent the regulated Croton tailwater immediately below Croton Dam; water temperature, clarity, tributary influence, and presentation conditions can differ through Newaygo, the lower river, Muskegon Lake, and the channel. One important reading is unavailable or comes from tomorrow’s forecast, so the outlook is kept conservative.",
-            "tip": "Start with 5–9 AM. If the sky changes from the forecast, favor the darkest practical window.",
+            "headline": "Today’s Croton-area Chinook responsiveness is moderate.",
+            "detail": "Conditions offer mixed support for Chinook responsiveness. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Moderate confidence reflects missing or forecast inputs; river measurements still represent only the Croton Dam area.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify downstream sections directly.",
             "reasonCodes": [
               "activity_confidence_moderate",
               "activity_today",
@@ -28267,10 +28493,13 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "cloudCoverPct": 75,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 90,
+            "displayScore": 90,
+            "scoreIsApproximate": false,
             "stage": "peak",
             "maximum": 100,
             "riverCeiling": 90,
@@ -28279,14 +28508,14 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "curveDirection": "near_peak",
             "winterHoldingContext": false,
             "label": "Peak presence",
-            "headline": "Chinook salmon are likely near their highest seasonal presence in the river.",
-            "detail": "This is the part of the season when in-river presence is usually strongest. The read describes the river as a whole; it does not place fish in a specific pool or confirm a live count.",
-            "tip": "Plan for the strongest seasonal presence this river usually offers, while remembering that this estimate cannot confirm fish at a specific spot or describe today's river conditions.",
+            "headline": "Seasonal Chinook salmon presence is near its expected Muskegon peak.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the Muskegon Chinook salmon ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_peak",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": null,
           "weather": {
@@ -28504,14 +28733,14 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             ]
           },
           "interpretationNote": null,
-          "secondaryNote": "Based on USGS 04121970 immediately below Croton Dam. It represents the regulated Croton tailwater; flow, temperature, access, and safety can differ through Newaygo, the lower river, Muskegon Lake, and the channel.",
+          "secondaryNote": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
           "safety": {
             "regulationReminder": "Croton Dam is the hard upstream migration boundary. Fish only legal water below the dam, use established public access, respect private land and posted closures, and check current Michigan regulations and dam-safety notices.",
-            "gaugeBasis": "Based on USGS 04121970 immediately below Croton Dam. It represents the regulated Croton tailwater; flow, temperature, access, and safety can differ through Newaygo, the lower river, Muskegon Lake, and the channel.",
+            "gaugeBasis": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-muskegon-steelhead-activity.1"
+          "configVersion": "2026-08-11-muskegon-copy.1"
         }
       }
     ]
@@ -28521,8 +28750,8 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
     "label": "Fish In River",
     "scenarios": [
       {
-        "id": "presence_post_run_offseason",
-        "label": "0 / 100 · Offseason · outside",
+        "id": "presence_fall_run_complete_outside",
+        "label": "null / 100 · Fall run complete · outside",
         "note": "Canonical Muskegon River Fall Chinook production copy · owner audit",
         "snapshot": {
           "riverId": "muskegon",
@@ -28536,6 +28765,7 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "nextConditionRefreshAt": "2026-07-01T05:00:00.000Z",
           "runStage": {
             "stage": "post_run",
+            "copyStrategy": "muskegon_croton_tailwater",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -28557,16 +28787,16 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "startToPeakDays": 42,
               "peakToEndDays": 35
             },
-            "label": "Offseason",
-            "headline": "The Muskegon Chinook salmon run is outside its researched window.",
-            "whereToStart": "No dependable Muskegon River location for this fall migration model right now.",
-            "detail": "The fall run is over for this read. Use the read for the current season instead.",
-            "tip": "This fall read is finished. Use the read for the current season instead.",
+            "label": "Fall run complete",
+            "headline": "The Muskegon Chinook salmon fall run is complete.",
+            "whereToStart": "There is no active Muskegon starting section in this fall-run model.",
+            "detail": "Chinook salmon staging typically begins in early August. This seasonal estimate is inactive until then.",
+            "tip": "Check back in early August when Muskegon fall-run tracking resumes.",
             "reasonCodes": [
               "stage_post_run",
               "stage_offseason"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Not monitoring yet",
@@ -28585,13 +28815,13 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "historicalYears": 0,
             "sourceDates": [],
             "sourceRefreshSlots": {},
-            "headline": "Migration Timing is not active right now.",
-            "detail": "Timing monitoring begins before the expected river entry, but that seasonal observation window is not active yet.",
-            "tip": "Check Migration Stage for the current seasonal position and return to Migration Timing when early monitoring begins.",
+            "headline": "Muskegon Migration Timing is not monitoring yet.",
+            "detail": "Season-to-date Croton flow and measured-temperature monitoring resumes in early August.",
+            "tip": "Check back in early August when Muskegon timing monitoring resumes.",
             "reasonCodes": [
               "conditions_monitoring_inactive"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -28605,21 +28835,21 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "push": {
             "score": null,
             "label": "Offseason",
-            "headline": "Push is not active outside the river migration season.",
-            "detail": "Rain, river level, and water temperature can still change, but they do not provide a useful fresh-arrival signal for this species right now.",
-            "tip": "Do not use Push to plan for this species outside its migration season. Follow an active species instead, or return when early monitoring begins.",
+            "headline": "Muskegon Push is outside its fall movement window.",
+            "detail": "Current Croton flow and measured temperature do not provide an in-season fresh-movement signal for this run.",
+            "tip": "Check back in early August.",
             "reasonCodes": [
               "push_tracking_offseason"
             ],
             "rulesVersion": "muskegon-croton-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 93,
             "label": "Excellent",
-            "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river.",
-            "tip": "Begin on the primary travel lane feeding deep holding water. Work each hole from its head through the inside seam and tail, then keep moving until fish establish a pattern.",
+            "headline": "Croton-area flow is in its best presentation range.",
+            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read applies only near Croton Dam within the Upper river (Newaygo–Croton Dam).",
+            "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band"
@@ -28630,11 +28860,12 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": null,
           "fishInRiver": {
-            "score": 0,
+            "score": null,
+            "scoreIsApproximate": false,
             "stage": "post_run",
             "maximum": 100,
             "riverCeiling": 90,
@@ -28642,15 +28873,15 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "curveFraction": 0,
             "curveDirection": "outside",
             "winterHoldingContext": false,
-            "label": "Offseason",
-            "headline": "Chinook salmon are outside their river migration season.",
-            "detail": "A dependable seasonal presence of Chinook salmon is not expected in the river right now.",
-            "tip": "Do not build a river trip around this species right now. Target a species with an active seasonal window and return as the next migration approaches.",
+            "label": "Fall run complete",
+            "headline": "The Muskegon Chinook salmon fall run is complete.",
+            "detail": "Chinook salmon staging typically begins in early August. This seasonal estimate is inactive until then.",
+            "tip": "Check back in early August when Muskegon fall-run tracking resumes.",
             "reasonCodes": [
               "stage_post_run",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -28876,21 +29107,15 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "data_quality_fresh"
             ]
           },
-          "interpretationNote": {
-            "headline": "The river should fish well, but seasonal fish presence is still low.",
-            "detail": "Good flow makes presentations easier, but it does not put fish in the river. Begin in the deepest established holding water and skip broad searches through fast travel lanes as seasonal presence thins.",
-            "reasonCodes": [
-              "good_fishability_low_presence"
-            ]
-          },
-          "secondaryNote": "Based on USGS 04121970 immediately below Croton Dam. It represents the regulated Croton tailwater; flow, temperature, access, and safety can differ through Newaygo, the lower river, Muskegon Lake, and the channel.",
+          "interpretationNote": null,
+          "secondaryNote": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
           "safety": {
             "regulationReminder": "Croton Dam is the hard upstream migration boundary. Fish only legal water below the dam, use established public access, respect private land and posted closures, and check current Michigan regulations and dam-safety notices.",
-            "gaugeBasis": "Based on USGS 04121970 immediately below Croton Dam. It represents the regulated Croton tailwater; flow, temperature, access, and safety can differ through Newaygo, the lower river, Muskegon Lake, and the channel.",
+            "gaugeBasis": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-muskegon-steelhead-activity.1"
+          "configVersion": "2026-08-11-muskegon-copy.1"
         }
       },
       {
@@ -28909,6 +29134,7 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "nextConditionRefreshAt": "2026-07-16T05:00:00.000Z",
           "runStage": {
             "stage": "pre_run",
+            "copyStrategy": "muskegon_croton_tailwater",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -28932,13 +29158,13 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             },
             "label": "Before migration",
             "headline": "Chinook salmon have not started their main Muskegon River run.",
-            "whereToStart": "Lake Michigan, the Muskegon channel, Muskegon Lake, and the river mouth—not the inland river yet.",
-            "detail": "It is still too early to expect Chinook salmon between Muskegon Lake and Croton Dam.",
-            "tip": "Keep the trip in lake, channel, and mouth water until staging begins.",
+            "whereToStart": "Stay with Muskegon Lake, the Lake Michigan channel, and the river entrance.",
+            "detail": "The river-entry window has not opened yet. An isolated river fish would be an early exception.",
+            "tip": "Do not build an inland trip around Chinook salmon yet.",
             "reasonCodes": [
               "stage_pre_run"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Not monitoring yet",
@@ -28957,13 +29183,13 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "historicalYears": 0,
             "sourceDates": [],
             "sourceRefreshSlots": {},
-            "headline": "Migration Timing is not active right now.",
-            "detail": "Timing monitoring begins before the expected river entry, but that seasonal observation window is not active yet.",
-            "tip": "Check Migration Stage for the current seasonal position and return to Migration Timing when early monitoring begins.",
+            "headline": "Muskegon Migration Timing is not monitoring yet.",
+            "detail": "Season-to-date Croton flow and measured-temperature monitoring resumes in early August.",
+            "tip": "Check back in early August when Muskegon timing monitoring resumes.",
             "reasonCodes": [
               "conditions_monitoring_inactive"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -28977,21 +29203,21 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "push": {
             "score": null,
             "label": "Waiting for migration",
-            "headline": "Fish have not started entering the river, so there is no Push read yet.",
-            "detail": "Push is meant to spot water conditions that may help fish enter or move during the active migration. Before that, most opportunity should remain in the lake, harbor, or river-mouth transition.",
-            "tip": "Keep the trip in the lake, harbor, and river-mouth zone. Do not move inland just because rain or cooling resembles an in-season movement event.",
+            "headline": "Dependable Muskegon river entry has not started.",
+            "detail": "Croton flow and measured temperature are not scored as an in-season fresh-movement signal yet.",
+            "tip": "Use Migration Stage. Do not move inland because offseason water resembles a Push.",
             "reasonCodes": [
               "push_tracking_not_started"
             ],
             "rulesVersion": "muskegon-croton-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 93,
             "label": "Excellent",
-            "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river.",
-            "tip": "Begin on the primary travel lane feeding deep holding water. Work each hole from its head through the inside seam and tail, then keep moving until fish establish a pattern.",
+            "headline": "Croton-area flow is in its best presentation range.",
+            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read applies only near Croton Dam within the Upper river (Newaygo–Croton Dam).",
+            "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band"
@@ -29002,11 +29228,13 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": null,
           "fishInRiver": {
             "score": 0,
+            "displayScore": 0,
+            "scoreIsApproximate": false,
             "stage": "pre_run",
             "maximum": 100,
             "riverCeiling": 90,
@@ -29015,14 +29243,14 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "curveDirection": "outside",
             "winterHoldingContext": false,
             "label": "Not expected yet",
-            "headline": "Chinook salmon are not expected in meaningful numbers yet.",
-            "detail": "Most Chinook salmon are not expected to have entered the river in dependable numbers. Any fish already present would be early exceptions.",
-            "tip": "Treat this as no dependable in-river opportunity yet. Keep expectations at zero, and do not interpret an isolated early fish as evidence of dependable river presence.",
+            "headline": "Dependable Chinook salmon presence is not expected in the Muskegon River yet.",
+            "detail": "The seasonal estimate remains at zero. Any river fish would be an early exception.",
+            "tip": "Use Migration Stage for Muskegon Lake, channel, and river-entrance context.",
             "reasonCodes": [
               "stage_pre_run",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -29255,14 +29483,14 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "good_fishability_low_presence"
             ]
           },
-          "secondaryNote": "Based on USGS 04121970 immediately below Croton Dam. It represents the regulated Croton tailwater; flow, temperature, access, and safety can differ through Newaygo, the lower river, Muskegon Lake, and the channel.",
+          "secondaryNote": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
           "safety": {
             "regulationReminder": "Croton Dam is the hard upstream migration boundary. Fish only legal water below the dam, use established public access, respect private land and posted closures, and check current Michigan regulations and dam-safety notices.",
-            "gaugeBasis": "Based on USGS 04121970 immediately below Croton Dam. It represents the regulated Croton tailwater; flow, temperature, access, and safety can differ through Newaygo, the lower river, Muskegon Lake, and the channel.",
+            "gaugeBasis": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-muskegon-steelhead-activity.1"
+          "configVersion": "2026-08-11-muskegon-copy.1"
         }
       },
       {
@@ -29281,6 +29509,7 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "nextConditionRefreshAt": "2026-08-21T05:00:00.000Z",
           "runStage": {
             "stage": "beginning",
+            "copyStrategy": "muskegon_croton_tailwater",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -29303,14 +29532,14 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "peakToEndDays": 35
             },
             "label": "Beginning",
-            "headline": "The first Chinook salmon are starting to enter the Muskegon River.",
-            "whereToStart": "Start in the deep lower river from Muskegon Lake toward M-120, then sample Newaygo-to-M-120 travel lanes before making a selective Croton-tailwater check.",
-            "detail": "New fish can be scattered across more than forty river miles. A few may already be near Croton, but the lower and middle river are the better places to start.",
-            "tip": "Check deep bends, wood edges, and resting spots in two parts of the river before heading straight to the dam.",
+            "headline": "The first Chinook salmon are entering the Muskegon River.",
+            "whereToStart": "Start in the Lower river (Muskegon Lake–M-120). Add the Middle river (M-120–Newaygo) after direct fish activity supports the move.",
+            "detail": "Early fish remain scattered; earlier arrivals may already be farther upstream.",
+            "tip": "Cover travel water and the first substantial holding areas before moving upstream.",
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -29343,15 +29572,15 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "2026-08-19"
             ],
             "sourceRefreshSlots": {},
-            "headline": "There is not enough reliable information for a Migration Timing call.",
-            "tip": "Do not move farther upstream or stay lower based on this timing read. Fish the section identified by Migration Stage and begin in its most established holding water; change sections only when direct fish activity or a dependable later read supports it.",
+            "headline": "There is not enough reliable Muskegon evidence for a Migration Timing call.",
+            "tip": "Keep the Muskegon section named by Migration Stage. Do not shift sections from this timing read.",
             "detail": "There are not enough dependable past seasons to judge whether this migration is early, normal, or late.",
             "reasonCodes": [
               "conditions_baseline_missing",
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -29365,9 +29594,9 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "push": {
             "score": 30,
             "label": "No clear push",
-            "headline": "Today's water does not show a clear signal for a fresh wave of fish.",
-            "detail": "The river is holding steady with no meaningful rise yet. Water temperature is favorable for fall migration and is relatively steady. Recent weather estimates indicate very little rain around the river.",
-            "tip": "Fish established holding water from the head through the inside seam and tail. Do not spend the day racing between lower travel lanes for a wave the water does not support.",
+            "headline": "Croton-area water does not show a clear fresh-movement signal.",
+            "detail": "The river is holding steady with no meaningful rise yet. Water temperature is favorable for fall migration and is relatively steady. Recent watershed weather shows little rain.",
+            "tip": "Keep Migration Stage’s section primary. Do not shift sections from this read.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
@@ -29386,14 +29615,14 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 93,
             "label": "Excellent",
-            "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river.",
-            "tip": "Begin on the primary travel lane feeding deep holding water. Work each hole from its head through the inside seam and tail, then keep moving until fish establish a pattern.",
+            "headline": "Croton-area flow is in its best presentation range.",
+            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read applies only near Croton Dam within the Upper river (Newaygo–Croton Dam).",
+            "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band"
@@ -29404,15 +29633,15 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 80,
             "maximum": 100,
             "label": "Highly active",
-            "headline": "Today’s Chinook activity outlook is highly active.",
-            "detail": "Conditions strongly favor a response from Chinook that are present and capable of reacting. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. Early lake-fresh Chinook can remain reactive in tolerable water, so warmth is penalized without automatically erasing response potential. The measured conditions represent the regulated Croton tailwater immediately below Croton Dam; water temperature, clarity, tributary influence, and presentation conditions can differ through Newaygo, the lower river, Muskegon Lake, and the channel. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
-            "tip": "Start with 5–9 AM. If the sky changes from the forecast, favor the darkest practical window.",
+            "headline": "Today’s Croton-area Chinook responsiveness is highly active.",
+            "detail": "Conditions strongly support Chinook responsiveness. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Croton flow and temperature represent only the area near the dam.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify downstream sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -29464,10 +29693,13 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 5,
+            "displayScore": 5,
+            "scoreIsApproximate": true,
             "stage": "beginning",
             "maximum": 100,
             "riverCeiling": 90,
@@ -29476,14 +29708,14 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "curveDirection": "rising",
             "winterHoldingContext": false,
             "label": "Low presence",
-            "headline": "A small number of Chinook salmon may be in the river, and seasonal presence is still building.",
-            "detail": "This part of the season usually brings low presence, with more fish expected to enter and spread through the river. This is a seasonal estimate, not a live fish count.",
-            "tip": "Treat this as an early, low-odds river opportunity. Expect scattered results, and use direct fish activity before committing the full day.",
+            "headline": "Seasonal Chinook salmon presence is low and building.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the Muskegon Chinook salmon ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -29717,14 +29949,14 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "good_fishability_low_presence"
             ]
           },
-          "secondaryNote": "Based on USGS 04121970 immediately below Croton Dam. It represents the regulated Croton tailwater; flow, temperature, access, and safety can differ through Newaygo, the lower river, Muskegon Lake, and the channel.",
+          "secondaryNote": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
           "safety": {
             "regulationReminder": "Croton Dam is the hard upstream migration boundary. Fish only legal water below the dam, use established public access, respect private land and posted closures, and check current Michigan regulations and dam-safety notices.",
-            "gaugeBasis": "Based on USGS 04121970 immediately below Croton Dam. It represents the regulated Croton tailwater; flow, temperature, access, and safety can differ through Newaygo, the lower river, Muskegon Lake, and the channel.",
+            "gaugeBasis": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-muskegon-steelhead-activity.1"
+          "configVersion": "2026-08-11-muskegon-copy.1"
         }
       },
       {
@@ -29743,6 +29975,7 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "nextConditionRefreshAt": "2026-09-01T05:00:00.000Z",
           "runStage": {
             "stage": "beginning",
+            "copyStrategy": "muskegon_croton_tailwater",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -29765,14 +29998,14 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "peakToEndDays": 35
             },
             "label": "Beginning",
-            "headline": "The first Chinook salmon are starting to enter the Muskegon River.",
-            "whereToStart": "Start in the deep lower river from Muskegon Lake toward M-120, then sample Newaygo-to-M-120 travel lanes before making a selective Croton-tailwater check.",
-            "detail": "New fish can be scattered across more than forty river miles. A few may already be near Croton, but the lower and middle river are the better places to start.",
-            "tip": "Check deep bends, wood edges, and resting spots in two parts of the river before heading straight to the dam.",
+            "headline": "Chinook salmon are accumulating through more of the Muskegon River.",
+            "whereToStart": "Start in the Lower river (Muskegon Lake–M-120). Add the Middle river (M-120–Newaygo) after direct fish activity supports the move.",
+            "detail": "Early fish remain scattered; earlier arrivals may already be farther upstream.",
+            "tip": "Cover travel water and the first substantial holding areas before moving upstream.",
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -29805,15 +30038,15 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "2026-08-19"
             ],
             "sourceRefreshSlots": {},
-            "headline": "There is not enough reliable information for a Migration Timing call.",
-            "tip": "Do not move farther upstream or stay lower based on this timing read. Fish the section identified by Migration Stage and begin in its most established holding water; change sections only when direct fish activity or a dependable later read supports it.",
+            "headline": "There is not enough reliable Muskegon evidence for a Migration Timing call.",
+            "tip": "Keep the Muskegon section named by Migration Stage. Do not shift sections from this timing read.",
             "detail": "There are not enough dependable past seasons to judge whether this migration is early, normal, or late.",
             "reasonCodes": [
               "conditions_baseline_missing",
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -29827,9 +30060,9 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "push": {
             "score": 30,
             "label": "No clear push",
-            "headline": "Today's water does not show a clear signal for a fresh wave of fish.",
-            "detail": "The river is holding steady with no meaningful rise yet. Water temperature is favorable for fall migration and is relatively steady. Recent weather estimates indicate very little rain around the river.",
-            "tip": "Fish established holding water from the head through the inside seam and tail. Do not spend the day racing between lower travel lanes for a wave the water does not support.",
+            "headline": "Croton-area water does not show a clear fresh-movement signal.",
+            "detail": "The river is holding steady with no meaningful rise yet. Water temperature is favorable for fall migration and is relatively steady. Recent watershed weather shows little rain.",
+            "tip": "Keep Migration Stage’s section primary. Do not shift sections from this read.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
@@ -29848,14 +30081,14 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 93,
             "label": "Excellent",
-            "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river.",
-            "tip": "Begin on the primary travel lane feeding deep holding water. Work each hole from its head through the inside seam and tail, then keep moving until fish establish a pattern.",
+            "headline": "Croton-area flow is in its best presentation range.",
+            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read applies only near Croton Dam within the Upper river (Newaygo–Croton Dam).",
+            "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band"
@@ -29866,15 +30099,15 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 80,
             "maximum": 100,
             "label": "Highly active",
-            "headline": "Today’s Chinook activity outlook is highly active.",
-            "detail": "Conditions strongly favor a response from Chinook that are present and capable of reacting. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. Early lake-fresh Chinook can remain reactive in tolerable water, so warmth is penalized without automatically erasing response potential. The measured conditions represent the regulated Croton tailwater immediately below Croton Dam; water temperature, clarity, tributary influence, and presentation conditions can differ through Newaygo, the lower river, Muskegon Lake, and the channel. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
-            "tip": "Start with 5–9 AM. If the sky changes from the forecast, favor the darkest practical window.",
+            "headline": "Today’s Croton-area Chinook responsiveness is highly active.",
+            "detail": "Conditions strongly support Chinook responsiveness. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Croton flow and temperature represent only the area near the dam.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify downstream sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -29926,10 +30159,13 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 19,
+            "displayScore": 20,
+            "scoreIsApproximate": true,
             "stage": "beginning",
             "maximum": 100,
             "riverCeiling": 90,
@@ -29938,14 +30174,14 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "curveDirection": "rising",
             "winterHoldingContext": false,
             "label": "Limited presence",
-            "headline": "Some Chinook salmon are likely in the river, but seasonal presence is still developing.",
-            "detail": "This part of the season usually brings limited presence, with more fish expected to enter and spread through the river. This is a seasonal estimate, not a live fish count.",
-            "tip": "Plan for an emerging but uneven river opportunity. Cover water efficiently, and do not assume every promising stop holds fish.",
+            "headline": "Seasonal Chinook salmon presence is limited and building.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the Muskegon Chinook salmon ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -30179,14 +30415,14 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "good_fishability_low_presence"
             ]
           },
-          "secondaryNote": "Based on USGS 04121970 immediately below Croton Dam. It represents the regulated Croton tailwater; flow, temperature, access, and safety can differ through Newaygo, the lower river, Muskegon Lake, and the channel.",
+          "secondaryNote": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
           "safety": {
             "regulationReminder": "Croton Dam is the hard upstream migration boundary. Fish only legal water below the dam, use established public access, respect private land and posted closures, and check current Michigan regulations and dam-safety notices.",
-            "gaugeBasis": "Based on USGS 04121970 immediately below Croton Dam. It represents the regulated Croton tailwater; flow, temperature, access, and safety can differ through Newaygo, the lower river, Muskegon Lake, and the channel.",
+            "gaugeBasis": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-muskegon-steelhead-activity.1"
+          "configVersion": "2026-08-11-muskegon-copy.1"
         }
       },
       {
@@ -30205,6 +30441,7 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "nextConditionRefreshAt": "2026-09-11T05:00:00.000Z",
           "runStage": {
             "stage": "building",
+            "copyStrategy": "muskegon_croton_tailwater",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -30228,13 +30465,13 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             },
             "label": "Building",
             "headline": "Chinook salmon are becoming dependably established through more of the Muskegon River.",
-            "whereToStart": "Begin with Croton-to-Newaygo pools and runs, then compare deeper Newaygo-to-M-120 bends with lower-river travel water below M-120.",
-            "detail": "Earlier fish can hold below Croton while newer fish move through the lower river. What you find in one section may not match the rest of the river.",
-            "tip": "Check upper-river holding water and at least one middle or lower section before settling in for the day.",
+            "whereToStart": "Start in the Middle river (M-120–Newaygo). Check the Croton Dam area in the Upper river (Newaygo–Croton Dam) for early arrivals.",
+            "detail": "Earlier arrivals can hold near Croton while newer fish remain farther downstream.",
+            "tip": "Compare the two sections directly; the Croton gauge does not describe the Middle river.",
             "reasonCodes": [
               "stage_building"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -30283,15 +30520,15 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "2026-09-04"
             ],
             "sourceRefreshSlots": {},
-            "headline": "There is not enough reliable information for a Migration Timing call.",
-            "tip": "Do not move farther upstream or stay lower based on this timing read. Fish the section identified by Migration Stage and begin in its most established holding water; change sections only when direct fish activity or a dependable later read supports it.",
+            "headline": "There is not enough reliable Muskegon evidence for a Migration Timing call.",
+            "tip": "Keep the Muskegon section named by Migration Stage. Do not shift sections from this timing read.",
             "detail": "There are not enough dependable past seasons to judge whether this migration is early, normal, or late.",
             "reasonCodes": [
               "conditions_baseline_missing",
               "conditions_insufficient",
               "conditions_checkpoint_building_established"
             ],
-            "copyVersion": "river-run-copy-v27",
+            "copyVersion": "river-run-copy-v34",
             "previousCheckpointId": "building_start",
             "previousCheckpointDate": "2026-09-05",
             "previousTimingLabel": "Insufficient evidence"
@@ -30308,9 +30545,9 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "push": {
             "score": 30,
             "label": "No clear push",
-            "headline": "Today's water does not show a clear signal for a fresh wave of fish.",
-            "detail": "The river is holding steady with no meaningful rise yet. Water temperature is favorable for fall migration and is relatively steady. Recent weather estimates indicate very little rain around the river.",
-            "tip": "Fish established holding water from the head through the inside seam and tail. Do not spend the day racing between lower travel lanes for a wave the water does not support.",
+            "headline": "Croton-area water does not show a clear fresh-movement signal.",
+            "detail": "The river is holding steady with no meaningful rise yet. Water temperature is favorable for fall migration and is relatively steady. Recent watershed weather shows little rain.",
+            "tip": "Keep Migration Stage’s section primary. Do not shift sections from this read.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
@@ -30329,14 +30566,14 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 93,
             "label": "Excellent",
-            "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river.",
-            "tip": "Begin on the primary travel lane feeding deep holding water. Work each hole from its head through the inside seam and tail, then keep moving until fish establish a pattern.",
+            "headline": "Croton-area flow is in its best presentation range.",
+            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read applies only near Croton Dam within the Upper river (Newaygo–Croton Dam).",
+            "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band"
@@ -30347,15 +30584,15 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 80,
             "maximum": 100,
             "label": "Highly active",
-            "headline": "Today’s Chinook activity outlook is highly active.",
-            "detail": "Conditions strongly favor a response from Chinook that are present and capable of reacting. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. More Chinook are moving and settling into the river; the score describes reaction conditions for fish already present. The measured conditions represent the regulated Croton tailwater immediately below Croton Dam; water temperature, clarity, tributary influence, and presentation conditions can differ through Newaygo, the lower river, Muskegon Lake, and the channel. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
-            "tip": "Start with 5–9 AM. If the sky changes from the forecast, favor the darkest practical window.",
+            "headline": "Today’s Croton-area Chinook responsiveness is highly active.",
+            "detail": "Conditions strongly support Chinook responsiveness. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Croton flow and temperature represent only the area near the dam.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify downstream sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -30407,10 +30644,13 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 38,
+            "displayScore": 40,
+            "scoreIsApproximate": true,
             "stage": "building",
             "maximum": 100,
             "riverCeiling": 90,
@@ -30419,14 +30659,14 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "curveDirection": "rising",
             "winterHoldingContext": false,
             "label": "Moderate presence",
-            "headline": "A meaningful number of Chinook salmon are likely in the river, with seasonal presence still building.",
-            "detail": "This part of the season usually brings moderate presence, with more fish expected to enter and spread through the river. This is a seasonal estimate, not a live fish count.",
-            "tip": "Plan for a credible river opportunity that is still improving. Stay mobile until direct fish activity gives you a reason to slow down.",
+            "headline": "Seasonal Chinook salmon presence is moderate and building.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the Muskegon Chinook salmon ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_building",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -30654,14 +30894,14 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             ]
           },
           "interpretationNote": null,
-          "secondaryNote": "Based on USGS 04121970 immediately below Croton Dam. It represents the regulated Croton tailwater; flow, temperature, access, and safety can differ through Newaygo, the lower river, Muskegon Lake, and the channel.",
+          "secondaryNote": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
           "safety": {
             "regulationReminder": "Croton Dam is the hard upstream migration boundary. Fish only legal water below the dam, use established public access, respect private land and posted closures, and check current Michigan regulations and dam-safety notices.",
-            "gaugeBasis": "Based on USGS 04121970 immediately below Croton Dam. It represents the regulated Croton tailwater; flow, temperature, access, and safety can differ through Newaygo, the lower river, Muskegon Lake, and the channel.",
+            "gaugeBasis": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-muskegon-steelhead-activity.1"
+          "configVersion": "2026-08-11-muskegon-copy.1"
         }
       },
       {
@@ -30680,6 +30920,7 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "nextConditionRefreshAt": "2026-09-18T05:00:00.000Z",
           "runStage": {
             "stage": "building",
+            "copyStrategy": "muskegon_croton_tailwater",
             "stagingContext": false,
             "broadBuildingContext": true,
             "winterHoldingContext": false,
@@ -30702,14 +30943,14 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "peakToEndDays": 35
             },
             "label": "Building",
-            "headline": "Chinook salmon are broadly established below Croton Dam.",
-            "whereToStart": "Compare Croton-tailwater pools, the Croton-to-Newaygo corridor, Newaygo-to-M-120 holding water, and major lower-river bends toward Muskegon Lake.",
-            "detail": "Fish from several waves can be spread through the river, but the Croton gauge only measures water near the dam. Fish numbers can be very different downstream.",
-            "tip": "Check the upper, middle, and lower river. Let what you see on the water—not just the Croton gauge—tell you where to stay.",
+            "headline": "Chinook salmon are broadly established through the Muskegon River.",
+            "whereToStart": "Start in the Upper river (Newaygo–Croton Dam), emphasizing the Croton Dam area. Compare the Middle river (M-120–Newaygo) for fresher fish.",
+            "detail": "Repeated entry periods support broad presence, not equal numbers in every section.",
+            "tip": "Croton measurements apply only near the dam. Verify downstream water directly.",
             "reasonCodes": [
               "stage_building"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -30758,15 +30999,15 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "2026-09-04"
             ],
             "sourceRefreshSlots": {},
-            "headline": "There is not enough reliable information for a Migration Timing call.",
-            "tip": "Do not move farther upstream or stay lower based on this timing read. Fish the section identified by Migration Stage and begin in its most established holding water; change sections only when direct fish activity or a dependable later read supports it.",
+            "headline": "There is not enough reliable Muskegon evidence for a Migration Timing call.",
+            "tip": "Keep the Muskegon section named by Migration Stage. Do not shift sections from this timing read.",
             "detail": "There are not enough dependable past seasons to judge whether this migration is early, normal, or late.",
             "reasonCodes": [
               "conditions_baseline_missing",
               "conditions_insufficient",
               "conditions_checkpoint_building_established"
             ],
-            "copyVersion": "river-run-copy-v27",
+            "copyVersion": "river-run-copy-v34",
             "previousCheckpointId": "building_start",
             "previousCheckpointDate": "2026-09-05",
             "previousTimingLabel": "Insufficient evidence"
@@ -30783,9 +31024,9 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "push": {
             "score": 30,
             "label": "No clear push",
-            "headline": "Today's water does not show a clear signal for a fresh wave of fish.",
-            "detail": "The river is holding steady with no meaningful rise yet. Water temperature is favorable for fall migration and is relatively steady. Recent weather estimates indicate very little rain around the river.",
-            "tip": "Fish established holding water from the head through the inside seam and tail. Do not spend the day racing between lower travel lanes for a wave the water does not support.",
+            "headline": "Croton-area water does not show a clear fresh-movement signal.",
+            "detail": "The river is holding steady with no meaningful rise yet. Water temperature is favorable for fall migration and is relatively steady. Recent watershed weather shows little rain.",
+            "tip": "Keep Migration Stage’s section primary. Do not shift sections from this read.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
@@ -30804,14 +31045,14 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 93,
             "label": "Excellent",
-            "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river.",
-            "tip": "Begin on the primary travel lane feeding deep holding water. Work each hole from its head through the inside seam and tail, then keep moving until fish establish a pattern.",
+            "headline": "Croton-area flow is in its best presentation range.",
+            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read applies only near Croton Dam within the Upper river (Newaygo–Croton Dam).",
+            "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band"
@@ -30822,15 +31063,15 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 80,
             "maximum": 100,
             "label": "Highly active",
-            "headline": "Today’s Chinook activity outlook is highly active.",
-            "detail": "Conditions strongly favor a response from Chinook that are present and capable of reacting. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. More Chinook are moving and settling into the river; the score describes reaction conditions for fish already present. The measured conditions represent the regulated Croton tailwater immediately below Croton Dam; water temperature, clarity, tributary influence, and presentation conditions can differ through Newaygo, the lower river, Muskegon Lake, and the channel. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
-            "tip": "Start with 5–9 AM. If the sky changes from the forecast, favor the darkest practical window.",
+            "headline": "Today’s Croton-area Chinook responsiveness is highly active.",
+            "detail": "Conditions strongly support Chinook responsiveness. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Croton flow and temperature represent only the area near the dam.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify downstream sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -30882,10 +31123,13 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 54,
+            "displayScore": 55,
+            "scoreIsApproximate": true,
             "stage": "building",
             "maximum": 100,
             "riverCeiling": 90,
@@ -30894,14 +31138,14 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "curveDirection": "rising",
             "winterHoldingContext": false,
             "label": "High presence",
-            "headline": "Chinook salmon are likely spread through more of the river as seasonal presence builds toward its strongest point.",
-            "detail": "Seasonal presence is usually elevated relative to the rest of the season, with more fish expected to enter and spread through the river. This is a seasonal estimate, not a live fish count.",
-            "tip": "Treat this as one of the stronger parts of a strong river season. Give each stop a complete pass, but do not mistake this seasonal estimate for a live fish count.",
+            "headline": "Seasonal Chinook salmon presence is high and building.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the Muskegon Chinook salmon ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_building",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -31129,14 +31373,14 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             ]
           },
           "interpretationNote": null,
-          "secondaryNote": "Based on USGS 04121970 immediately below Croton Dam. It represents the regulated Croton tailwater; flow, temperature, access, and safety can differ through Newaygo, the lower river, Muskegon Lake, and the channel.",
+          "secondaryNote": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
           "safety": {
             "regulationReminder": "Croton Dam is the hard upstream migration boundary. Fish only legal water below the dam, use established public access, respect private land and posted closures, and check current Michigan regulations and dam-safety notices.",
-            "gaugeBasis": "Based on USGS 04121970 immediately below Croton Dam. It represents the regulated Croton tailwater; flow, temperature, access, and safety can differ through Newaygo, the lower river, Muskegon Lake, and the channel.",
+            "gaugeBasis": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-muskegon-steelhead-activity.1"
+          "configVersion": "2026-08-11-muskegon-copy.1"
         }
       },
       {
@@ -31155,6 +31399,7 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "nextConditionRefreshAt": "2026-09-26T05:00:00.000Z",
           "runStage": {
             "stage": "building",
+            "copyStrategy": "muskegon_croton_tailwater",
             "stagingContext": false,
             "broadBuildingContext": true,
             "winterHoldingContext": false,
@@ -31177,14 +31422,14 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "peakToEndDays": 35
             },
             "label": "Building",
-            "headline": "Chinook salmon are broadly established below Croton Dam.",
-            "whereToStart": "Compare Croton-tailwater pools, the Croton-to-Newaygo corridor, Newaygo-to-M-120 holding water, and major lower-river bends toward Muskegon Lake.",
-            "detail": "Fish from several waves can be spread through the river, but the Croton gauge only measures water near the dam. Fish numbers can be very different downstream.",
-            "tip": "Check the upper, middle, and lower river. Let what you see on the water—not just the Croton gauge—tell you where to stay.",
+            "headline": "Chinook salmon are broadly established through the Muskegon River.",
+            "whereToStart": "Start in the Upper river (Newaygo–Croton Dam), emphasizing the Croton Dam area. Compare the Middle river (M-120–Newaygo) for fresher fish.",
+            "detail": "Repeated entry periods support broad presence, not equal numbers in every section.",
+            "tip": "Croton measurements apply only near the dam. Verify downstream water directly.",
             "reasonCodes": [
               "stage_building"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -31253,15 +31498,15 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "2026-09-24"
             ],
             "sourceRefreshSlots": {},
-            "headline": "There is not enough reliable information for a Migration Timing call.",
-            "tip": "Do not move farther upstream or stay lower based on this timing read. Fish the section identified by Migration Stage and begin in its most established holding water; change sections only when direct fish activity or a dependable later read supports it.",
+            "headline": "There is not enough reliable Muskegon evidence for a Migration Timing call.",
+            "tip": "Keep the Muskegon section named by Migration Stage. Do not shift sections from this timing read.",
             "detail": "There are not enough dependable past seasons to judge whether this migration is early, normal, or late.",
             "reasonCodes": [
               "conditions_baseline_missing",
               "conditions_insufficient",
               "conditions_checkpoint_peak_start"
             ],
-            "copyVersion": "river-run-copy-v27",
+            "copyVersion": "river-run-copy-v34",
             "previousCheckpointId": "building_established",
             "previousCheckpointDate": "2026-09-05",
             "previousTimingLabel": "Insufficient evidence"
@@ -31278,9 +31523,9 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "push": {
             "score": 30,
             "label": "No clear push",
-            "headline": "Today's water does not show a clear signal for a fresh wave of fish.",
-            "detail": "The river is holding steady with no meaningful rise yet. Water temperature is favorable for fall migration and is relatively steady. Recent weather estimates indicate very little rain around the river.",
-            "tip": "Fish established holding water from the head through the inside seam and tail. Do not spend the day racing between lower travel lanes for a wave the water does not support.",
+            "headline": "Croton-area water does not show a clear fresh-movement signal.",
+            "detail": "The river is holding steady with no meaningful rise yet. Water temperature is favorable for fall migration and is relatively steady. Recent watershed weather shows little rain.",
+            "tip": "Keep Migration Stage’s section primary. Do not shift sections from this read.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
@@ -31299,14 +31544,14 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 93,
             "label": "Excellent",
-            "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river.",
-            "tip": "Begin on the primary travel lane feeding deep holding water. Work each hole from its head through the inside seam and tail, then keep moving until fish establish a pattern.",
+            "headline": "Croton-area flow is in its best presentation range.",
+            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read applies only near Croton Dam within the Upper river (Newaygo–Croton Dam).",
+            "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band"
@@ -31317,15 +31562,15 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 80,
             "maximum": 100,
             "label": "Highly active",
-            "headline": "Today’s Chinook activity outlook is highly active.",
-            "detail": "Conditions strongly favor a response from Chinook that are present and capable of reacting. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. More Chinook are moving and settling into the river; the score describes reaction conditions for fish already present. The measured conditions represent the regulated Croton tailwater immediately below Croton Dam; water temperature, clarity, tributary influence, and presentation conditions can differ through Newaygo, the lower river, Muskegon Lake, and the channel. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
-            "tip": "Start with 5–9 AM. If the sky changes from the forecast, favor the darkest practical window.",
+            "headline": "Today’s Croton-area Chinook responsiveness is highly active.",
+            "detail": "Conditions strongly support Chinook responsiveness. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Croton flow and temperature represent only the area near the dam.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify downstream sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -31377,10 +31622,13 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 74,
+            "displayScore": 75,
+            "scoreIsApproximate": true,
             "stage": "building",
             "maximum": 100,
             "riverCeiling": 90,
@@ -31389,14 +31637,14 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "curveDirection": "rising",
             "winterHoldingContext": false,
             "label": "High presence",
-            "headline": "Chinook salmon are likely spread through more of the river as seasonal presence builds toward its strongest point.",
-            "detail": "The migration is approaching its strongest seasonal point, and fish are likely distributed through more of the river. This is a seasonal estimate, not a live fish count.",
-            "tip": "Treat this as one of the stronger parts of a strong river season. Give each stop a complete pass, but do not mistake this seasonal estimate for a live fish count.",
+            "headline": "Seasonal Chinook salmon presence is high and building.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the Muskegon Chinook salmon ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_building",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -31624,14 +31872,14 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             ]
           },
           "interpretationNote": null,
-          "secondaryNote": "Based on USGS 04121970 immediately below Croton Dam. It represents the regulated Croton tailwater; flow, temperature, access, and safety can differ through Newaygo, the lower river, Muskegon Lake, and the channel.",
+          "secondaryNote": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
           "safety": {
             "regulationReminder": "Croton Dam is the hard upstream migration boundary. Fish only legal water below the dam, use established public access, respect private land and posted closures, and check current Michigan regulations and dam-safety notices.",
-            "gaugeBasis": "Based on USGS 04121970 immediately below Croton Dam. It represents the regulated Croton tailwater; flow, temperature, access, and safety can differ through Newaygo, the lower river, Muskegon Lake, and the channel.",
+            "gaugeBasis": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-muskegon-steelhead-activity.1"
+          "configVersion": "2026-08-11-muskegon-copy.1"
         }
       },
       {
@@ -31650,6 +31898,7 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "nextConditionRefreshAt": "2026-09-29T05:00:00.000Z",
           "runStage": {
             "stage": "building",
+            "copyStrategy": "muskegon_croton_tailwater",
             "stagingContext": false,
             "broadBuildingContext": true,
             "winterHoldingContext": false,
@@ -31672,14 +31921,14 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "peakToEndDays": 35
             },
             "label": "Building",
-            "headline": "Chinook salmon are broadly established below Croton Dam.",
-            "whereToStart": "Compare Croton-tailwater pools, the Croton-to-Newaygo corridor, Newaygo-to-M-120 holding water, and major lower-river bends toward Muskegon Lake.",
-            "detail": "Fish from several waves can be spread through the river, but the Croton gauge only measures water near the dam. Fish numbers can be very different downstream.",
-            "tip": "Check the upper, middle, and lower river. Let what you see on the water—not just the Croton gauge—tell you where to stay.",
+            "headline": "Chinook salmon are broadly established through the Muskegon River.",
+            "whereToStart": "Start in the Upper river (Newaygo–Croton Dam), emphasizing the Croton Dam area. Compare the Middle river (M-120–Newaygo) for fresher fish.",
+            "detail": "Repeated entry periods support broad presence, not equal numbers in every section.",
+            "tip": "Croton measurements apply only near the dam. Verify downstream water directly.",
             "reasonCodes": [
               "stage_building"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -31748,15 +31997,15 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "2026-09-24"
             ],
             "sourceRefreshSlots": {},
-            "headline": "There is not enough reliable information for a Migration Timing call.",
-            "tip": "Do not move farther upstream or stay lower based on this timing read. Fish the section identified by Migration Stage and begin in its most established holding water; change sections only when direct fish activity or a dependable later read supports it.",
+            "headline": "There is not enough reliable Muskegon evidence for a Migration Timing call.",
+            "tip": "Keep the Muskegon section named by Migration Stage. Do not shift sections from this timing read.",
             "detail": "There are not enough dependable past seasons to judge whether this migration is early, normal, or late.",
             "reasonCodes": [
               "conditions_baseline_missing",
               "conditions_insufficient",
               "conditions_checkpoint_peak_start"
             ],
-            "copyVersion": "river-run-copy-v27",
+            "copyVersion": "river-run-copy-v34",
             "previousCheckpointId": "building_established",
             "previousCheckpointDate": "2026-09-05",
             "previousTimingLabel": "Insufficient evidence"
@@ -31773,9 +32022,9 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "push": {
             "score": 30,
             "label": "No clear push",
-            "headline": "Today's water does not show a clear signal for a fresh wave of fish.",
-            "detail": "The river is holding steady with no meaningful rise yet. Water temperature is favorable for fall migration and is relatively steady. Recent weather estimates indicate very little rain around the river.",
-            "tip": "Fish established holding water from the head through the inside seam and tail. Do not spend the day racing between lower travel lanes for a wave the water does not support.",
+            "headline": "Croton-area water does not show a clear fresh-movement signal.",
+            "detail": "The river is holding steady with no meaningful rise yet. Water temperature is favorable for fall migration and is relatively steady. Recent watershed weather shows little rain.",
+            "tip": "Keep Migration Stage’s section primary. Do not shift sections from this read.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
@@ -31794,14 +32043,14 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 93,
             "label": "Excellent",
-            "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river.",
-            "tip": "Begin on the primary travel lane feeding deep holding water. Work each hole from its head through the inside seam and tail, then keep moving until fish establish a pattern.",
+            "headline": "Croton-area flow is in its best presentation range.",
+            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read applies only near Croton Dam within the Upper river (Newaygo–Croton Dam).",
+            "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band"
@@ -31812,15 +32061,15 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 80,
             "maximum": 100,
             "label": "Highly active",
-            "headline": "Today’s Chinook activity outlook is highly active.",
-            "detail": "Conditions strongly favor a response from Chinook that are present and capable of reacting. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. More Chinook are moving and settling into the river; the score describes reaction conditions for fish already present. The measured conditions represent the regulated Croton tailwater immediately below Croton Dam; water temperature, clarity, tributary influence, and presentation conditions can differ through Newaygo, the lower river, Muskegon Lake, and the channel. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
-            "tip": "Start with 5–9 AM. If the sky changes from the forecast, favor the darkest practical window.",
+            "headline": "Today’s Croton-area Chinook responsiveness is highly active.",
+            "detail": "Conditions strongly support Chinook responsiveness. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Croton flow and temperature represent only the area near the dam.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify downstream sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -31872,10 +32121,13 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 82,
+            "displayScore": 85,
+            "scoreIsApproximate": true,
             "stage": "building",
             "maximum": 100,
             "riverCeiling": 90,
@@ -31884,14 +32136,14 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "curveDirection": "rising",
             "winterHoldingContext": false,
             "label": "Peak presence",
-            "headline": "Chinook salmon are likely spread through more of the river as seasonal presence builds toward its strongest point.",
-            "detail": "The migration is approaching its strongest seasonal point, and fish are likely distributed through more of the river. This is a seasonal estimate, not a live fish count.",
-            "tip": "Treat this as one of the stronger parts of a strong river season. Give each stop a complete pass, but do not mistake this seasonal estimate for a live fish count.",
+            "headline": "Seasonal Chinook salmon presence is near its expected Muskegon peak.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the Muskegon Chinook salmon ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_building",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -32119,14 +32371,14 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             ]
           },
           "interpretationNote": null,
-          "secondaryNote": "Based on USGS 04121970 immediately below Croton Dam. It represents the regulated Croton tailwater; flow, temperature, access, and safety can differ through Newaygo, the lower river, Muskegon Lake, and the channel.",
+          "secondaryNote": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
           "safety": {
             "regulationReminder": "Croton Dam is the hard upstream migration boundary. Fish only legal water below the dam, use established public access, respect private land and posted closures, and check current Michigan regulations and dam-safety notices.",
-            "gaugeBasis": "Based on USGS 04121970 immediately below Croton Dam. It represents the regulated Croton tailwater; flow, temperature, access, and safety can differ through Newaygo, the lower river, Muskegon Lake, and the channel.",
+            "gaugeBasis": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-muskegon-steelhead-activity.1"
+          "configVersion": "2026-08-11-muskegon-copy.1"
         }
       },
       {
@@ -32145,6 +32397,7 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "nextConditionRefreshAt": "2026-10-02T05:00:00.000Z",
           "runStage": {
             "stage": "peak",
+            "copyStrategy": "muskegon_croton_tailwater",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -32168,13 +32421,13 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             },
             "label": "Peak",
             "headline": "This is typically the strongest Muskegon River Chinook salmon opportunity.",
-            "whereToStart": "Compare the Croton tailwater, Croton-to-Newaygo pools, Newaygo-to-M-120 bends and wood, and major lower-river holes toward Muskegon Lake.",
-            "detail": "Fish can be spread through the river now, but water clarity, access, and how the fish act can still be very different from one section to another.",
-            "tip": "The Croton gauge tells you what is happening near the dam. Check the middle and lower river yourself because conditions can be different downstream.",
+            "whereToStart": "Start in the Upper river (Newaygo–Croton Dam), emphasizing the Croton Dam area. Compare the Middle river (M-120–Newaygo) for fresher fish.",
+            "detail": "Fish can be broadly present, but concentrations still vary by section.",
+            "tip": "Croton measurements apply only near the dam. Verify downstream water directly.",
             "reasonCodes": [
               "stage_peak"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -32243,15 +32496,15 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "2026-09-24"
             ],
             "sourceRefreshSlots": {},
-            "headline": "There is not enough reliable information for a Migration Timing call.",
-            "tip": "Do not move farther upstream or stay lower based on this timing read. Fish the section identified by Migration Stage and begin in its most established holding water; change sections only when direct fish activity or a dependable later read supports it.",
+            "headline": "There is not enough reliable Muskegon evidence for a Migration Timing call.",
+            "tip": "Keep the Muskegon section named by Migration Stage. Do not shift sections from this timing read.",
             "detail": "There are not enough dependable past seasons to judge whether this migration is early, normal, or late.",
             "reasonCodes": [
               "conditions_baseline_missing",
               "conditions_insufficient",
               "conditions_checkpoint_peak_start"
             ],
-            "copyVersion": "river-run-copy-v27",
+            "copyVersion": "river-run-copy-v34",
             "previousCheckpointId": "building_established",
             "previousCheckpointDate": "2026-09-05",
             "previousTimingLabel": "Insufficient evidence"
@@ -32268,9 +32521,9 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "push": {
             "score": 30,
             "label": "No clear push",
-            "headline": "Today's water does not show a clear signal for a fresh wave of fish.",
-            "detail": "The river is holding steady with no meaningful rise yet. Water temperature is favorable for fall migration and is relatively steady. Recent weather estimates indicate very little rain around the river.",
-            "tip": "Fish established holding water from the head through the inside seam and tail. Do not spend the day racing between lower travel lanes for a wave the water does not support.",
+            "headline": "Croton-area water does not show a clear fresh-movement signal.",
+            "detail": "The river is holding steady with no meaningful rise yet. Water temperature is favorable for fall migration and is relatively steady. Recent watershed weather shows little rain.",
+            "tip": "Keep Migration Stage’s section primary. Do not shift sections from this read.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
@@ -32289,14 +32542,14 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 93,
             "label": "Excellent",
-            "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river.",
-            "tip": "Begin on the primary travel lane feeding deep holding water. Work each hole from its head through the inside seam and tail, then keep moving until fish establish a pattern.",
+            "headline": "Croton-area flow is in its best presentation range.",
+            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read applies only near Croton Dam within the Upper river (Newaygo–Croton Dam).",
+            "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band"
@@ -32307,15 +32560,15 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 80,
             "maximum": 100,
             "label": "Highly active",
-            "headline": "Today’s Chinook activity outlook is highly active.",
-            "detail": "Conditions strongly favor a response from Chinook that are present and capable of reacting. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. Broad seasonal presence improves the chance of locating fish, but this score measures responsiveness rather than abundance. The measured conditions represent the regulated Croton tailwater immediately below Croton Dam; water temperature, clarity, tributary influence, and presentation conditions can differ through Newaygo, the lower river, Muskegon Lake, and the channel. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
-            "tip": "Start with 5–9 AM. If the sky changes from the forecast, favor the darkest practical window.",
+            "headline": "Today’s Croton-area Chinook responsiveness is highly active.",
+            "detail": "Conditions strongly support Chinook responsiveness. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Croton flow and temperature represent only the area near the dam.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify downstream sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -32367,10 +32620,13 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 90,
+            "displayScore": 90,
+            "scoreIsApproximate": false,
             "stage": "peak",
             "maximum": 100,
             "riverCeiling": 90,
@@ -32379,14 +32635,14 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "curveDirection": "near_peak",
             "winterHoldingContext": false,
             "label": "Peak presence",
-            "headline": "Chinook salmon are likely near their highest seasonal presence in the river.",
-            "detail": "This is the part of the season when in-river presence is usually strongest. The read describes the river as a whole; it does not place fish in a specific pool or confirm a live count.",
-            "tip": "Plan for the strongest seasonal presence this river usually offers, while remembering that this estimate cannot confirm fish at a specific spot or describe today's river conditions.",
+            "headline": "Seasonal Chinook salmon presence is near its expected Muskegon peak.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the Muskegon Chinook salmon ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_peak",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -32620,14 +32876,14 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "peak_presence_weak_push"
             ]
           },
-          "secondaryNote": "Based on USGS 04121970 immediately below Croton Dam. It represents the regulated Croton tailwater; flow, temperature, access, and safety can differ through Newaygo, the lower river, Muskegon Lake, and the channel.",
+          "secondaryNote": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
           "safety": {
             "regulationReminder": "Croton Dam is the hard upstream migration boundary. Fish only legal water below the dam, use established public access, respect private land and posted closures, and check current Michigan regulations and dam-safety notices.",
-            "gaugeBasis": "Based on USGS 04121970 immediately below Croton Dam. It represents the regulated Croton tailwater; flow, temperature, access, and safety can differ through Newaygo, the lower river, Muskegon Lake, and the channel.",
+            "gaugeBasis": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-muskegon-steelhead-activity.1"
+          "configVersion": "2026-08-11-muskegon-copy.1"
         }
       },
       {
@@ -32646,6 +32902,7 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "nextConditionRefreshAt": "2026-10-03T05:00:00.000Z",
           "runStage": {
             "stage": "peak",
+            "copyStrategy": "muskegon_croton_tailwater",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -32669,13 +32926,13 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             },
             "label": "Peak",
             "headline": "This is typically the strongest Muskegon River Chinook salmon opportunity.",
-            "whereToStart": "Compare the Croton tailwater, Croton-to-Newaygo pools, Newaygo-to-M-120 bends and wood, and major lower-river holes toward Muskegon Lake.",
-            "detail": "Fish can be spread through the river now, but water clarity, access, and how the fish act can still be very different from one section to another.",
-            "tip": "The Croton gauge tells you what is happening near the dam. Check the middle and lower river yourself because conditions can be different downstream.",
+            "whereToStart": "Start in the Upper river (Newaygo–Croton Dam), emphasizing the Croton Dam area. Compare the Middle river (M-120–Newaygo) for fresher fish.",
+            "detail": "Fish can be broadly present, but concentrations still vary by section.",
+            "tip": "Croton measurements apply only near the dam. Verify downstream water directly.",
             "reasonCodes": [
               "stage_peak"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -32744,15 +33001,15 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "2026-09-24"
             ],
             "sourceRefreshSlots": {},
-            "headline": "There is not enough reliable information for a Migration Timing call.",
-            "tip": "Do not move farther upstream or stay lower based on this timing read. Fish the section identified by Migration Stage and begin in its most established holding water; change sections only when direct fish activity or a dependable later read supports it.",
+            "headline": "There is not enough reliable Muskegon evidence for a Migration Timing call.",
+            "tip": "Keep the Muskegon section named by Migration Stage. Do not shift sections from this timing read.",
             "detail": "There are not enough dependable past seasons to judge whether this migration is early, normal, or late.",
             "reasonCodes": [
               "conditions_baseline_missing",
               "conditions_insufficient",
               "conditions_checkpoint_peak_start"
             ],
-            "copyVersion": "river-run-copy-v27",
+            "copyVersion": "river-run-copy-v34",
             "previousCheckpointId": "building_established",
             "previousCheckpointDate": "2026-09-05",
             "previousTimingLabel": "Insufficient evidence"
@@ -32769,9 +33026,9 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "push": {
             "score": 30,
             "label": "No clear push",
-            "headline": "Today's water does not show a clear signal for a fresh wave of fish.",
-            "detail": "The river is holding steady with no meaningful rise yet. Water temperature is favorable for fall migration and is relatively steady. Recent weather estimates indicate very little rain around the river.",
-            "tip": "Fish established holding water from the head through the inside seam and tail. Do not spend the day racing between lower travel lanes for a wave the water does not support.",
+            "headline": "Croton-area water does not show a clear fresh-movement signal.",
+            "detail": "The river is holding steady with no meaningful rise yet. Water temperature is favorable for fall migration and is relatively steady. Recent watershed weather shows little rain.",
+            "tip": "Keep Migration Stage’s section primary. Do not shift sections from this read.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
@@ -32790,14 +33047,14 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 93,
             "label": "Excellent",
-            "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river.",
-            "tip": "Begin on the primary travel lane feeding deep holding water. Work each hole from its head through the inside seam and tail, then keep moving until fish establish a pattern.",
+            "headline": "Croton-area flow is in its best presentation range.",
+            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read applies only near Croton Dam within the Upper river (Newaygo–Croton Dam).",
+            "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band"
@@ -32808,15 +33065,15 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 80,
             "maximum": 100,
             "label": "Highly active",
-            "headline": "Today’s Chinook activity outlook is highly active.",
-            "detail": "Conditions strongly favor a response from Chinook that are present and capable of reacting. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. Broad seasonal presence improves the chance of locating fish, but this score measures responsiveness rather than abundance. The measured conditions represent the regulated Croton tailwater immediately below Croton Dam; water temperature, clarity, tributary influence, and presentation conditions can differ through Newaygo, the lower river, Muskegon Lake, and the channel. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
-            "tip": "Start with 5–9 AM. If the sky changes from the forecast, favor the darkest practical window.",
+            "headline": "Today’s Croton-area Chinook responsiveness is highly active.",
+            "detail": "Conditions strongly support Chinook responsiveness. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Croton flow and temperature represent only the area near the dam.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify downstream sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -32868,10 +33125,13 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 89,
+            "displayScore": 90,
+            "scoreIsApproximate": true,
             "stage": "peak",
             "maximum": 100,
             "riverCeiling": 90,
@@ -32880,14 +33140,14 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "curveDirection": "falling",
             "winterHoldingContext": false,
             "label": "Peak presence",
-            "headline": "Seasonal timing still supports Chinook salmon being near their strongest in-river presence, even if the migration may be just beyond its usual peak.",
-            "detail": "This point in the season may sit just beyond the usual peak while the seasonal pattern still supports strong in-river presence. This is a seasonal estimate, not a live fish count.",
-            "tip": "Plan around fish already likely to be in the river. Seasonal presence is still near its high point, but remember that this seasonal estimate cannot tell whether a fresh wave is entering today.",
+            "headline": "Seasonal Chinook salmon presence is near its expected Muskegon peak.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the Muskegon Chinook salmon ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_peak",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -33121,14 +33381,14 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "peak_presence_weak_push"
             ]
           },
-          "secondaryNote": "Based on USGS 04121970 immediately below Croton Dam. It represents the regulated Croton tailwater; flow, temperature, access, and safety can differ through Newaygo, the lower river, Muskegon Lake, and the channel.",
+          "secondaryNote": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
           "safety": {
             "regulationReminder": "Croton Dam is the hard upstream migration boundary. Fish only legal water below the dam, use established public access, respect private land and posted closures, and check current Michigan regulations and dam-safety notices.",
-            "gaugeBasis": "Based on USGS 04121970 immediately below Croton Dam. It represents the regulated Croton tailwater; flow, temperature, access, and safety can differ through Newaygo, the lower river, Muskegon Lake, and the channel.",
+            "gaugeBasis": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-muskegon-steelhead-activity.1"
+          "configVersion": "2026-08-11-muskegon-copy.1"
         }
       },
       {
@@ -33147,6 +33407,7 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "nextConditionRefreshAt": "2026-10-14T05:00:00.000Z",
           "runStage": {
             "stage": "tapering",
+            "copyStrategy": "muskegon_croton_tailwater",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -33169,14 +33430,14 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "peakToEndDays": 35
             },
             "label": "Tapering",
-            "headline": "The Muskegon Chinook salmon run is tapering, with established fish still present below Croton.",
-            "whereToStart": "Start with deep Croton-to-Newaygo pools, slower bends near Newaygo, and known holding water around M-120. Check the lower river when there are signs of later fish coming in.",
-            "detail": "October can still hold fish, but more of them have been in the river for a while, are spawning, or are starting to wear down. Do not expect a fresh wave everywhere.",
-            "tip": "Fish the deeper holding water, leave fish on shallow spawning gravel alone, and remember that one bright fish does not mean a fresh wave came in.",
+            "headline": "Chinook salmon remain present, but fresh arrivals are less consistent.",
+            "whereToStart": "Start in the Upper river (Newaygo–Croton Dam), especially the Croton Dam area. Add the Middle river (M-120–Newaygo) only when direct activity supports it.",
+            "detail": "The run is declining and concentrating in established holding water.",
+            "tip": "Look for genuinely fresh fish and leave visible spawning or deteriorated fish alone.",
             "reasonCodes": [
               "stage_tapering"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Timing complete",
@@ -33265,7 +33526,7 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "conditions_checkpoint_peak_complete",
               "conditions_timing_complete"
             ],
-            "copyVersion": "river-run-copy-v27",
+            "copyVersion": "river-run-copy-v34",
             "previousCheckpointId": "peak_start",
             "previousCheckpointDate": "2026-09-25",
             "previousTimingLabel": "Insufficient evidence"
@@ -33282,9 +33543,9 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "push": {
             "score": 30,
             "label": "No clear push",
-            "headline": "Today's water does not show a clear signal for a fresh wave of fish.",
-            "detail": "The river is holding steady with no meaningful rise yet. Water temperature is favorable for fall migration and is relatively steady. Recent weather estimates indicate very little rain around the river.",
-            "tip": "Fish established holding water from the head through the inside seam and tail. Do not spend the day racing between lower travel lanes for a wave the water does not support.",
+            "headline": "Croton-area water does not show a clear fresh-movement signal.",
+            "detail": "The river is holding steady with no meaningful rise yet. Water temperature is favorable for fall migration and is relatively steady. Recent watershed weather shows little rain.",
+            "tip": "Keep Migration Stage’s section primary. Do not shift sections from this read.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
@@ -33303,14 +33564,14 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 93,
             "label": "Excellent",
-            "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river.",
-            "tip": "Begin on the primary travel lane feeding deep holding water. Work each hole from its head through the inside seam and tail, then keep moving until fish establish a pattern.",
+            "headline": "Croton-area flow is in its best presentation range.",
+            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read applies only near Croton Dam within the Upper river (Newaygo–Croton Dam).",
+            "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band"
@@ -33321,15 +33582,15 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 79,
             "maximum": 100,
             "label": "Active",
-            "headline": "Today’s Chinook activity outlook is active.",
-            "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. This score represents a Chinook of unknown condition at this point in the season. A newly arrived or fresher fish may be more active than this score, while a spawning or deteriorating fish may be less responsive. The measured conditions represent the regulated Croton tailwater immediately below Croton Dam; water temperature, clarity, tributary influence, and presentation conditions can differ through Newaygo, the lower river, Muskegon Lake, and the channel. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
-            "tip": "Compare the four time windows, but treat every difference as conditional on finding a living Chinook still capable of responding.",
+            "headline": "Today’s Croton-area Chinook responsiveness is active.",
+            "detail": "Conditions support a meaningful Chinook response. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Late-run Chinook condition varies widely, so individual fish may respond above or below this outlook.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify downstream sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -33382,10 +33643,13 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 80,
+            "displayScore": 80,
+            "scoreIsApproximate": true,
             "stage": "tapering",
             "maximum": 100,
             "riverCeiling": 90,
@@ -33394,14 +33658,14 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "curveDirection": "falling",
             "winterHoldingContext": false,
             "label": "High presence",
-            "headline": "Seasonal timing still supports strong Chinook salmon presence across much of the river, even as the usual peak window may be easing.",
-            "detail": "Seasonal presence remains elevated relative to the rest of the season, but fresh arrivals may be less consistent than around the usual peak. This is a seasonal estimate, not a live fish count.",
-            "tip": "Plan around fish already likely to be in the river. Seasonal presence is still near its high point, but remember that this seasonal estimate cannot tell whether a fresh wave is entering today.",
+            "headline": "Seasonal Chinook salmon presence is high and declining.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the Muskegon Chinook salmon ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_tapering",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -33629,14 +33893,14 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             ]
           },
           "interpretationNote": null,
-          "secondaryNote": "Based on USGS 04121970 immediately below Croton Dam. It represents the regulated Croton tailwater; flow, temperature, access, and safety can differ through Newaygo, the lower river, Muskegon Lake, and the channel.",
+          "secondaryNote": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
           "safety": {
             "regulationReminder": "Croton Dam is the hard upstream migration boundary. Fish only legal water below the dam, use established public access, respect private land and posted closures, and check current Michigan regulations and dam-safety notices.",
-            "gaugeBasis": "Based on USGS 04121970 immediately below Croton Dam. It represents the regulated Croton tailwater; flow, temperature, access, and safety can differ through Newaygo, the lower river, Muskegon Lake, and the channel.",
+            "gaugeBasis": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-muskegon-steelhead-activity.1"
+          "configVersion": "2026-08-11-muskegon-copy.1"
         }
       },
       {
@@ -33655,6 +33919,7 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "nextConditionRefreshAt": "2026-10-18T05:00:00.000Z",
           "runStage": {
             "stage": "tapering",
+            "copyStrategy": "muskegon_croton_tailwater",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -33677,14 +33942,14 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "peakToEndDays": 35
             },
             "label": "Tapering",
-            "headline": "The Muskegon Chinook salmon run is tapering, with established fish still present below Croton.",
-            "whereToStart": "Start with deep Croton-to-Newaygo pools, slower bends near Newaygo, and known holding water around M-120. Check the lower river when there are signs of later fish coming in.",
-            "detail": "October can still hold fish, but more of them have been in the river for a while, are spawning, or are starting to wear down. Do not expect a fresh wave everywhere.",
-            "tip": "Fish the deeper holding water, leave fish on shallow spawning gravel alone, and remember that one bright fish does not mean a fresh wave came in.",
+            "headline": "Chinook salmon remain present, but fresh arrivals are less consistent.",
+            "whereToStart": "Start in the Upper river (Newaygo–Croton Dam), especially the Croton Dam area. Add the Middle river (M-120–Newaygo) only when direct activity supports it.",
+            "detail": "The run is declining and concentrating in established holding water.",
+            "tip": "Look for genuinely fresh fish and leave visible spawning or deteriorated fish alone.",
             "reasonCodes": [
               "stage_tapering"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Timing complete",
@@ -33773,7 +34038,7 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "conditions_checkpoint_peak_complete",
               "conditions_timing_complete"
             ],
-            "copyVersion": "river-run-copy-v27",
+            "copyVersion": "river-run-copy-v34",
             "previousCheckpointId": "peak_start",
             "previousCheckpointDate": "2026-09-25",
             "previousTimingLabel": "Insufficient evidence"
@@ -33790,9 +34055,9 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "push": {
             "score": 30,
             "label": "No clear push",
-            "headline": "Today's water does not show a clear signal for a fresh wave of fish.",
-            "detail": "The river is holding steady with no meaningful rise yet. Water temperature is favorable for fall migration and is relatively steady. Recent weather estimates indicate very little rain around the river.",
-            "tip": "Fish established holding water from the head through the inside seam and tail. Do not spend the day racing between lower travel lanes for a wave the water does not support.",
+            "headline": "Croton-area water does not show a clear fresh-movement signal.",
+            "detail": "The river is holding steady with no meaningful rise yet. Water temperature is favorable for fall migration and is relatively steady. Recent watershed weather shows little rain.",
+            "tip": "Keep Migration Stage’s section primary. Do not shift sections from this read.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
@@ -33811,14 +34076,14 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 93,
             "label": "Excellent",
-            "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river.",
-            "tip": "Begin on the primary travel lane feeding deep holding water. Work each hole from its head through the inside seam and tail, then keep moving until fish establish a pattern.",
+            "headline": "Croton-area flow is in its best presentation range.",
+            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read applies only near Croton Dam within the Upper river (Newaygo–Croton Dam).",
+            "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band"
@@ -33829,15 +34094,15 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 74,
             "maximum": 100,
             "label": "Active",
-            "headline": "Today’s Chinook activity outlook is active.",
-            "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. This score represents a Chinook of unknown condition at this point in the season. A newly arrived or fresher fish may be more active than this score, while a spawning or deteriorating fish may be less responsive. The measured conditions represent the regulated Croton tailwater immediately below Croton Dam; water temperature, clarity, tributary influence, and presentation conditions can differ through Newaygo, the lower river, Muskegon Lake, and the channel. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
-            "tip": "Compare the four time windows, but treat every difference as conditional on finding a living Chinook still capable of responding.",
+            "headline": "Today’s Croton-area Chinook responsiveness is active.",
+            "detail": "Conditions support a meaningful Chinook response. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Late-run Chinook condition varies widely, so individual fish may respond above or below this outlook.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify downstream sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -33890,10 +34155,13 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 70,
+            "displayScore": 70,
+            "scoreIsApproximate": true,
             "stage": "tapering",
             "maximum": 100,
             "riverCeiling": 90,
@@ -33902,14 +34170,14 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "curveDirection": "falling",
             "winterHoldingContext": false,
             "label": "High presence",
-            "headline": "Seasonal timing still supports Chinook salmon being well distributed, although fresh arrivals may be less consistent than near peak.",
-            "detail": "Seasonal presence is usually elevated relative to the rest of the season, while fresh arrivals often become less consistent later in the season. This is a seasonal estimate, not a live fish count.",
-            "tip": "Plan around fish already likely to be in the river. A meaningful seasonal presence may remain, but remember that this seasonal estimate cannot tell whether a fresh wave is entering today.",
+            "headline": "Seasonal Chinook salmon presence is high and declining.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the Muskegon Chinook salmon ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_tapering",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -34137,14 +34405,14 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             ]
           },
           "interpretationNote": null,
-          "secondaryNote": "Based on USGS 04121970 immediately below Croton Dam. It represents the regulated Croton tailwater; flow, temperature, access, and safety can differ through Newaygo, the lower river, Muskegon Lake, and the channel.",
+          "secondaryNote": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
           "safety": {
             "regulationReminder": "Croton Dam is the hard upstream migration boundary. Fish only legal water below the dam, use established public access, respect private land and posted closures, and check current Michigan regulations and dam-safety notices.",
-            "gaugeBasis": "Based on USGS 04121970 immediately below Croton Dam. It represents the regulated Croton tailwater; flow, temperature, access, and safety can differ through Newaygo, the lower river, Muskegon Lake, and the channel.",
+            "gaugeBasis": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-muskegon-steelhead-activity.1"
+          "configVersion": "2026-08-11-muskegon-copy.1"
         }
       },
       {
@@ -34163,6 +34431,7 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "nextConditionRefreshAt": "2026-10-25T05:00:00.000Z",
           "runStage": {
             "stage": "tapering",
+            "copyStrategy": "muskegon_croton_tailwater",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -34185,14 +34454,14 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "peakToEndDays": 35
             },
             "label": "Tapering",
-            "headline": "The Muskegon Chinook salmon run is tapering, with established fish still present below Croton.",
-            "whereToStart": "Start with deep Croton-to-Newaygo pools, slower bends near Newaygo, and known holding water around M-120. Check the lower river when there are signs of later fish coming in.",
-            "detail": "October can still hold fish, but more of them have been in the river for a while, are spawning, or are starting to wear down. Do not expect a fresh wave everywhere.",
-            "tip": "Fish the deeper holding water, leave fish on shallow spawning gravel alone, and remember that one bright fish does not mean a fresh wave came in.",
+            "headline": "The Muskegon Chinook salmon run is entering its late taper.",
+            "whereToStart": "Start in the Upper river (Newaygo–Croton Dam), especially the Croton Dam area. Add the Middle river (M-120–Newaygo) only when direct activity supports it.",
+            "detail": "Fresh arrivals are becoming exceptions and dependable distribution is narrowing.",
+            "tip": "Look for genuinely fresh fish and leave visible spawning or deteriorated fish alone.",
             "reasonCodes": [
               "stage_tapering"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Timing complete",
@@ -34281,7 +34550,7 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "conditions_checkpoint_peak_complete",
               "conditions_timing_complete"
             ],
-            "copyVersion": "river-run-copy-v27",
+            "copyVersion": "river-run-copy-v34",
             "previousCheckpointId": "peak_start",
             "previousCheckpointDate": "2026-09-25",
             "previousTimingLabel": "Insufficient evidence"
@@ -34298,9 +34567,9 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "push": {
             "score": 30,
             "label": "No clear push",
-            "headline": "Today's water does not show a clear signal for a fresh wave of fish.",
-            "detail": "The river is holding steady with no meaningful rise yet. Water temperature is favorable for fall migration and is relatively steady. Recent weather estimates indicate very little rain around the river.",
-            "tip": "Fish established holding water from the head through the inside seam and tail. Do not spend the day racing between lower travel lanes for a wave the water does not support.",
+            "headline": "Croton-area water does not show a clear fresh-movement signal.",
+            "detail": "The river is holding steady with no meaningful rise yet. Water temperature is favorable for fall migration and is relatively steady. Recent watershed weather shows little rain.",
+            "tip": "Keep Migration Stage’s section primary. Do not shift sections from this read.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
@@ -34319,14 +34588,14 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 93,
             "label": "Excellent",
-            "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river.",
-            "tip": "Begin on the primary travel lane feeding deep holding water. Work each hole from its head through the inside seam and tail, then keep moving until fish establish a pattern.",
+            "headline": "Croton-area flow is in its best presentation range.",
+            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read applies only near Croton Dam within the Upper river (Newaygo–Croton Dam).",
+            "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band"
@@ -34337,15 +34606,15 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 66,
             "maximum": 100,
             "label": "Active",
-            "headline": "Today’s Chinook activity outlook is active.",
-            "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. This score represents a Chinook of unknown condition at this point in the season. A newly arrived or fresher fish may be more active than this score, while a spawning or deteriorating fish may be less responsive. The measured conditions represent the regulated Croton tailwater immediately below Croton Dam; water temperature, clarity, tributary influence, and presentation conditions can differ through Newaygo, the lower river, Muskegon Lake, and the channel. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
-            "tip": "Compare the four time windows, but treat every difference as conditional on finding a living Chinook still capable of responding.",
+            "headline": "Today’s Croton-area Chinook responsiveness is active.",
+            "detail": "Conditions support a meaningful Chinook response. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Late-run Chinook condition varies widely, so individual fish may respond above or below this outlook.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify downstream sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -34398,10 +34667,13 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 52,
+            "displayScore": 50,
+            "scoreIsApproximate": true,
             "stage": "tapering",
             "maximum": 100,
             "riverCeiling": 90,
@@ -34410,14 +34682,14 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "curveDirection": "falling",
             "winterHoldingContext": false,
             "label": "Moderate presence",
-            "headline": "Seasonal timing still supports meaningful Chinook salmon presence, especially in established holding water.",
-            "detail": "This part of the season usually supports moderate presence, while fresh arrivals often become less consistent later in the season. This is a seasonal estimate, not a live fish count.",
-            "tip": "Plan for a worthwhile but less consistent river opportunity. Expect more searching than near the seasonal high, and let direct fish activity determine how long you stay.",
+            "headline": "Seasonal Chinook salmon presence is moderate and declining.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the Muskegon Chinook salmon ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_tapering",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -34645,14 +34917,14 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             ]
           },
           "interpretationNote": null,
-          "secondaryNote": "Based on USGS 04121970 immediately below Croton Dam. It represents the regulated Croton tailwater; flow, temperature, access, and safety can differ through Newaygo, the lower river, Muskegon Lake, and the channel.",
+          "secondaryNote": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
           "safety": {
             "regulationReminder": "Croton Dam is the hard upstream migration boundary. Fish only legal water below the dam, use established public access, respect private land and posted closures, and check current Michigan regulations and dam-safety notices.",
-            "gaugeBasis": "Based on USGS 04121970 immediately below Croton Dam. It represents the regulated Croton tailwater; flow, temperature, access, and safety can differ through Newaygo, the lower river, Muskegon Lake, and the channel.",
+            "gaugeBasis": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-muskegon-steelhead-activity.1"
+          "configVersion": "2026-08-11-muskegon-copy.1"
         }
       },
       {
@@ -34671,6 +34943,7 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "nextConditionRefreshAt": "2026-10-31T05:00:00.000Z",
           "runStage": {
             "stage": "ending",
+            "copyStrategy": "muskegon_croton_tailwater",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -34693,14 +34966,14 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "peakToEndDays": 35
             },
             "label": "Ending",
-            "headline": "Only a small late Muskegon Chinook salmon opportunity remains.",
-            "whereToStart": "Limit the search to proven deep pools below Croton, slower inside bends near Newaygo, and one or two substantial M-120-area holes.",
-            "detail": "Most fish left in the river have been there for a while. A late bright fish is still possible, but a steady new wave is no longer expected.",
-            "tip": "Keep expectations low, leave spawning or worn-out fish alone, and move on if you are not seeing signs of fish.",
+            "headline": "The main Muskegon Chinook salmon run is winding down.",
+            "whereToStart": "Start in the Upper river (Newaygo–Croton Dam), emphasizing established water near Croton Dam.",
+            "detail": "Residual fish can remain, but fresh movement is no longer dependable.",
+            "tip": "Keep expectations narrow and stop searching when direct evidence is absent.",
             "reasonCodes": [
               "stage_ending"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Timing complete",
@@ -34789,7 +35062,7 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "conditions_checkpoint_peak_complete",
               "conditions_timing_complete"
             ],
-            "copyVersion": "river-run-copy-v27",
+            "copyVersion": "river-run-copy-v34",
             "previousCheckpointId": "peak_start",
             "previousCheckpointDate": "2026-09-25",
             "previousTimingLabel": "Insufficient evidence"
@@ -34806,9 +35079,9 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "push": {
             "score": 30,
             "label": "No clear push",
-            "headline": "Today's water does not show a clear signal for a fresh wave of fish.",
-            "detail": "The river is holding steady with no meaningful rise yet. Water temperature is favorable for fall migration and is relatively steady. Recent weather estimates indicate very little rain around the river.",
-            "tip": "Fish established holding water from the head through the inside seam and tail. Do not spend the day racing between lower travel lanes for a wave the water does not support.",
+            "headline": "Croton-area water does not show a clear fresh-movement signal.",
+            "detail": "The river is holding steady with no meaningful rise yet. Water temperature is favorable for fall migration and is relatively steady. Recent watershed weather shows little rain.",
+            "tip": "Keep Migration Stage’s section primary. Do not shift sections from this read.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
@@ -34827,14 +35100,14 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 93,
             "label": "Excellent",
-            "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river.",
-            "tip": "Begin on the primary travel lane feeding deep holding water. Work each hole from its head through the inside seam and tail, then keep moving until fish establish a pattern.",
+            "headline": "Croton-area flow is in its best presentation range.",
+            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read applies only near Croton Dam within the Upper river (Newaygo–Croton Dam).",
+            "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band"
@@ -34845,15 +35118,15 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 52,
             "maximum": 100,
             "label": "Moderate",
-            "headline": "Today’s Chinook activity outlook is moderate.",
-            "detail": "Some useful factors are present, but the response window is mixed. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. This score represents a remaining Chinook of unknown condition late in the season. A newly arrived or fresher fish may be more active than this score, while a spent or dying fish may respond less or not at all. The measured conditions represent the regulated Croton tailwater immediately below Croton Dam; water temperature, clarity, tributary influence, and presentation conditions can differ through Newaygo, the lower river, Muskegon Lake, and the channel. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
-            "tip": "No late-season window should be treated as broadly favorable; use the block scores only for a living Chinook that is still capable of reacting.",
+            "headline": "Today’s Croton-area Chinook responsiveness is moderate.",
+            "detail": "Conditions offer mixed support for Chinook responsiveness. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Late-run Chinook condition varies widely, so individual fish may respond above or below this outlook.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify downstream sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -34906,10 +35179,13 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 35,
+            "displayScore": 35,
+            "scoreIsApproximate": true,
             "stage": "ending",
             "maximum": 100,
             "riverCeiling": 90,
@@ -34918,14 +35194,14 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "curveDirection": "falling",
             "winterHoldingContext": false,
             "label": "Limited presence",
-            "headline": "Seasonal timing still supports some Chinook salmon in established holding water, but they are less likely to be spread throughout the river.",
-            "detail": "This part of the season usually supports limited presence concentrated in dependable holes and slower holding water. This is a seasonal estimate, not a live fish count.",
-            "tip": "Treat this as a lower-odds late-season opportunity. Keep the trip flexible, and require direct fish activity before committing more time.",
+            "headline": "Seasonal Chinook salmon presence is limited and declining.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the Muskegon Chinook salmon ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_ending",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -35153,14 +35429,14 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             ]
           },
           "interpretationNote": null,
-          "secondaryNote": "Based on USGS 04121970 immediately below Croton Dam. It represents the regulated Croton tailwater; flow, temperature, access, and safety can differ through Newaygo, the lower river, Muskegon Lake, and the channel.",
+          "secondaryNote": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
           "safety": {
             "regulationReminder": "Croton Dam is the hard upstream migration boundary. Fish only legal water below the dam, use established public access, respect private land and posted closures, and check current Michigan regulations and dam-safety notices.",
-            "gaugeBasis": "Based on USGS 04121970 immediately below Croton Dam. It represents the regulated Croton tailwater; flow, temperature, access, and safety can differ through Newaygo, the lower river, Muskegon Lake, and the channel.",
+            "gaugeBasis": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-muskegon-steelhead-activity.1"
+          "configVersion": "2026-08-11-muskegon-copy.1"
         }
       },
       {
@@ -35179,6 +35455,7 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "nextConditionRefreshAt": "2026-11-06T05:00:00.000Z",
           "runStage": {
             "stage": "ending",
+            "copyStrategy": "muskegon_croton_tailwater",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -35201,14 +35478,14 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "peakToEndDays": 35
             },
             "label": "Ending",
-            "headline": "Only a small late Muskegon Chinook salmon opportunity remains.",
-            "whereToStart": "Limit the search to proven deep pools below Croton, slower inside bends near Newaygo, and one or two substantial M-120-area holes.",
-            "detail": "Most fish left in the river have been there for a while. A late bright fish is still possible, but a steady new wave is no longer expected.",
-            "tip": "Keep expectations low, leave spawning or worn-out fish alone, and move on if you are not seeing signs of fish.",
+            "headline": "Only a residual late Chinook salmon opportunity remains.",
+            "whereToStart": "Start in the Upper river (Newaygo–Croton Dam), emphasizing established water near Croton Dam.",
+            "detail": "Residual fish can remain, but fresh movement is no longer dependable.",
+            "tip": "Keep expectations narrow and stop searching when direct evidence is absent.",
             "reasonCodes": [
               "stage_ending"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Timing complete",
@@ -35297,7 +35574,7 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "conditions_checkpoint_peak_complete",
               "conditions_timing_complete"
             ],
-            "copyVersion": "river-run-copy-v27",
+            "copyVersion": "river-run-copy-v34",
             "previousCheckpointId": "peak_start",
             "previousCheckpointDate": "2026-09-25",
             "previousTimingLabel": "Insufficient evidence"
@@ -35314,9 +35591,9 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "push": {
             "score": 30,
             "label": "No clear push",
-            "headline": "Today's water does not show a clear signal for a fresh wave of fish.",
-            "detail": "The river is holding steady with no meaningful rise yet. Water temperature is favorable for fall migration and is relatively steady. Recent weather estimates indicate very little rain around the river.",
-            "tip": "Fish established holding water from the head through the inside seam and tail. Do not spend the day racing between lower travel lanes for a wave the water does not support.",
+            "headline": "Croton-area water does not show a clear fresh-movement signal.",
+            "detail": "The river is holding steady with no meaningful rise yet. Water temperature is favorable for fall migration and is relatively steady. Recent watershed weather shows little rain.",
+            "tip": "Keep Migration Stage’s section primary. Do not shift sections from this read.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
@@ -35335,14 +35612,14 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 93,
             "label": "Excellent",
-            "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river.",
-            "tip": "Begin on the primary travel lane feeding deep holding water. Work each hole from its head through the inside seam and tail, then keep moving until fish establish a pattern.",
+            "headline": "Croton-area flow is in its best presentation range.",
+            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read applies only near Croton Dam within the Upper river (Newaygo–Croton Dam).",
+            "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band"
@@ -35353,15 +35630,15 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 37,
             "maximum": 100,
             "label": "Reserved",
-            "headline": "Today’s Chinook activity outlook is reserved.",
-            "detail": "Fish may respond selectively, with important environmental limitations. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. This score represents a remaining Chinook of unknown condition late in the season. A newly arrived or fresher fish may be more active than this score, while a spent or dying fish may respond less or not at all. The measured conditions represent the regulated Croton tailwater immediately below Croton Dam; water temperature, clarity, tributary influence, and presentation conditions can differ through Newaygo, the lower river, Muskegon Lake, and the channel. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
-            "tip": "No late-season window should be treated as broadly favorable; use the block scores only for a living Chinook that is still capable of reacting.",
+            "headline": "Today’s Croton-area Chinook responsiveness is reserved.",
+            "detail": "Chinook may respond selectively under current limitations. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Late-run Chinook condition varies widely, so individual fish may respond above or below this outlook.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify downstream sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -35414,10 +35691,13 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 18,
+            "displayScore": 15,
+            "scoreIsApproximate": true,
             "stage": "ending",
             "maximum": 100,
             "riverCeiling": 90,
@@ -35426,14 +35706,14 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "curveDirection": "falling",
             "winterHoldingContext": false,
             "label": "Low presence",
-            "headline": "Some Chinook salmon may still be in the river, with seasonal presence more likely to be scattered.",
-            "detail": "This part of the season usually supports low presence, while fresh arrivals often become less consistent later in the season. This is a seasonal estimate, not a live fish count.",
-            "tip": "Treat any remaining fish as a bonus rather than a dependable trip plan. Keep expectations narrow and be ready to shift to another seasonal species.",
+            "headline": "Seasonal Chinook salmon presence is low and declining.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the Muskegon Chinook salmon ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_ending",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -35667,14 +35947,14 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "good_fishability_low_presence"
             ]
           },
-          "secondaryNote": "Based on USGS 04121970 immediately below Croton Dam. It represents the regulated Croton tailwater; flow, temperature, access, and safety can differ through Newaygo, the lower river, Muskegon Lake, and the channel.",
+          "secondaryNote": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
           "safety": {
             "regulationReminder": "Croton Dam is the hard upstream migration boundary. Fish only legal water below the dam, use established public access, respect private land and posted closures, and check current Michigan regulations and dam-safety notices.",
-            "gaugeBasis": "Based on USGS 04121970 immediately below Croton Dam. It represents the regulated Croton tailwater; flow, temperature, access, and safety can differ through Newaygo, the lower river, Muskegon Lake, and the channel.",
+            "gaugeBasis": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-muskegon-steelhead-activity.1"
+          "configVersion": "2026-08-11-muskegon-copy.1"
         }
       },
       {
@@ -35693,6 +35973,7 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "nextConditionRefreshAt": "2026-11-13T05:00:00.000Z",
           "runStage": {
             "stage": "post_run",
+            "copyStrategy": "muskegon_croton_tailwater",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -35716,13 +35997,13 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             },
             "label": "After migration",
             "headline": "A few late Chinook salmon may remain in established Muskegon River holding water.",
-            "whereToStart": "There is no dependable starting reach; if you still go, make one careful check of a proven deep pool below Croton, near Newaygo, or around M-120.",
-            "detail": "A few late fish may remain, but that does not mean a fresh wave or good numbers are in the river.",
-            "tip": "A few leftover fish do not mean a new wave has entered the river.",
+            "whereToStart": "There is no dependable starting section. If you go, make one careful Upper river (Newaygo–Croton Dam) check near Croton Dam.",
+            "detail": "The seasonal tail does not indicate a fresh movement event.",
+            "tip": "Do not build a broad corridor search around isolated late fish.",
             "reasonCodes": [
               "stage_post_run"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Timing complete",
@@ -35811,7 +36092,7 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "conditions_checkpoint_peak_complete",
               "conditions_timing_complete"
             ],
-            "copyVersion": "river-run-copy-v27",
+            "copyVersion": "river-run-copy-v34",
             "previousCheckpointId": "peak_start",
             "previousCheckpointDate": "2026-09-25",
             "previousTimingLabel": "Insufficient evidence"
@@ -35827,22 +36108,22 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           },
           "push": {
             "score": null,
-            "label": "Migration complete",
-            "headline": "The season's fresh-movement read is complete.",
-            "detail": "At this point in the season, current rain, river level, and water temperature no longer provide a dependable read on fresh arrivals.",
-            "tip": "Stop searching lower travel lanes for a new wave. Fish only established late-season holding water supported by Fish In River, or shift to another seasonal species.",
+            "label": "Fall run complete",
+            "headline": "Muskegon fall-run Push is complete.",
+            "detail": "Current Croton water no longer provides an in-season fresh-movement read for this run.",
+            "tip": "Do not use a completed Push to infer current presence. Return when fall movement tracking resumes.",
             "reasonCodes": [
               "push_tracking_complete"
             ],
             "rulesVersion": "muskegon-croton-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 93,
             "label": "Excellent",
-            "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river.",
-            "tip": "Begin on the primary travel lane feeding deep holding water. Work each hole from its head through the inside seam and tail, then keep moving until fish establish a pattern.",
+            "headline": "Croton-area flow is in its best presentation range.",
+            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read applies only near Croton Dam within the Upper river (Newaygo–Croton Dam).",
+            "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band"
@@ -35853,15 +36134,15 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 37,
             "maximum": 100,
             "label": "Reserved",
-            "headline": "Today’s Chinook activity outlook is reserved.",
-            "detail": "Fish may respond selectively, with important environmental limitations. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. This score represents a remaining Chinook of unknown condition late in the season. A newly arrived or fresher fish may be more active than this score, while a spent or dying fish may respond less or not at all. The measured conditions represent the regulated Croton tailwater immediately below Croton Dam; water temperature, clarity, tributary influence, and presentation conditions can differ through Newaygo, the lower river, Muskegon Lake, and the channel. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
-            "tip": "No late-season window should be treated as broadly favorable; use the block scores only for a living Chinook that is still capable of reacting.",
+            "headline": "Today’s Croton-area Chinook responsiveness is reserved.",
+            "detail": "Chinook may respond selectively under current limitations. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Late-run Chinook condition varies widely, so individual fish may respond above or below this outlook.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify downstream sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -35914,10 +36195,13 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 0,
+            "displayScore": 0,
+            "scoreIsApproximate": false,
             "stage": "post_run",
             "maximum": 100,
             "riverCeiling": 90,
@@ -35926,14 +36210,14 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "curveDirection": "falling",
             "winterHoldingContext": false,
             "label": "Migration complete",
-            "headline": "The season no longer supports a dependable in-river migration.",
-            "detail": "A few Chinook salmon may remain, but their presence is likely isolated rather than part of a consistent river-wide opportunity.",
-            "tip": "Do not build a trip around scattered late fish. Shift to another seasonal species, and leave any actively spawning fish undisturbed.",
+            "headline": "The Muskegon Chinook salmon migration no longer has dependable seasonal presence.",
+            "detail": "The seasonal estimate has reached zero. Isolated late fish are not a dependable migration opportunity.",
+            "tip": "Do not build a three-section search around isolated late fish.",
             "reasonCodes": [
               "stage_post_run",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -36167,14 +36451,14 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "good_fishability_low_presence"
             ]
           },
-          "secondaryNote": "Based on USGS 04121970 immediately below Croton Dam. It represents the regulated Croton tailwater; flow, temperature, access, and safety can differ through Newaygo, the lower river, Muskegon Lake, and the channel.",
+          "secondaryNote": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
           "safety": {
             "regulationReminder": "Croton Dam is the hard upstream migration boundary. Fish only legal water below the dam, use established public access, respect private land and posted closures, and check current Michigan regulations and dam-safety notices.",
-            "gaugeBasis": "Based on USGS 04121970 immediately below Croton Dam. It represents the regulated Croton tailwater; flow, temperature, access, and safety can differ through Newaygo, the lower river, Muskegon Lake, and the channel.",
+            "gaugeBasis": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-muskegon-steelhead-activity.1"
+          "configVersion": "2026-08-11-muskegon-copy.1"
         }
       }
     ]
@@ -36199,6 +36483,7 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "nextConditionRefreshAt": "2026-10-01T05:00:00.000Z",
           "runStage": {
             "stage": "building",
+            "copyStrategy": "muskegon_croton_tailwater",
             "stagingContext": false,
             "broadBuildingContext": true,
             "winterHoldingContext": false,
@@ -36221,14 +36506,14 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "peakToEndDays": 35
             },
             "label": "Building",
-            "headline": "Chinook salmon are broadly established below Croton Dam.",
-            "whereToStart": "Compare Croton-tailwater pools, the Croton-to-Newaygo corridor, Newaygo-to-M-120 holding water, and major lower-river bends toward Muskegon Lake.",
-            "detail": "Fish from several waves can be spread through the river, but the Croton gauge only measures water near the dam. Fish numbers can be very different downstream.",
-            "tip": "Check the upper, middle, and lower river. Let what you see on the water—not just the Croton gauge—tell you where to stay.",
+            "headline": "Chinook salmon are broadly established through the Muskegon River.",
+            "whereToStart": "Start in the Upper river (Newaygo–Croton Dam), emphasizing the Croton Dam area. Compare the Middle river (M-120–Newaygo) for fresher fish.",
+            "detail": "Repeated entry periods support broad presence, not equal numbers in every section.",
+            "tip": "Croton measurements apply only near the dam. Verify downstream water directly.",
             "reasonCodes": [
               "stage_building"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -36297,15 +36582,15 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "2026-09-24"
             ],
             "sourceRefreshSlots": {},
-            "headline": "There is not enough reliable information for a Migration Timing call.",
-            "tip": "Do not move farther upstream or stay lower based on this timing read. Fish the section identified by Migration Stage and begin in its most established holding water; change sections only when direct fish activity or a dependable later read supports it.",
+            "headline": "There is not enough reliable Muskegon evidence for a Migration Timing call.",
+            "tip": "Keep the Muskegon section named by Migration Stage. Do not shift sections from this timing read.",
             "detail": "There are not enough dependable past seasons to judge whether this migration is early, normal, or late.",
             "reasonCodes": [
               "conditions_baseline_missing",
               "conditions_insufficient",
               "conditions_checkpoint_peak_start"
             ],
-            "copyVersion": "river-run-copy-v27",
+            "copyVersion": "river-run-copy-v34",
             "previousCheckpointId": "building_established",
             "previousCheckpointDate": "2026-09-05",
             "previousTimingLabel": "Insufficient evidence"
@@ -36322,9 +36607,9 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "push": {
             "score": 71,
             "label": "Strong",
-            "headline": "Today's river rise and water temperature strongly support the possibility of a fresh wave moving into the river.",
-            "detail": "The river has made a clear rise since yesterday. Overall flow is already high. Water temperature is favorable for fall migration and is cooling. Additional rain does not improve the read while the river is already high.",
-            "tip": "Begin on lower-river travel lanes and inside seams, then work the first resting holes along that route. Keep moving until fish establish a pattern; the signal still does not prove a wave entered.",
+            "headline": "Croton-area water strongly supports possible fresh movement.",
+            "detail": "The river has made a clear rise since yesterday; overall flow is already high. Water temperature is favorable for fall migration and is cooling. Rain adds no support while Croton-area flow is already high.",
+            "tip": "Prioritize movement water near Croton Dam, then verify any downstream section directly.",
             "reasonCodes": [
               "gauge_fresh",
               "push_high_flow_context",
@@ -36342,14 +36627,14 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 32,
             "label": "Tough",
-            "headline": "The river is running very high, leaving fewer practical places to fish effectively.",
-            "detail": "Very high flow is reducing access and the amount of water where a presentation can be controlled. The rising water is pushing hard through the main channel and compressing practical fishing water along protected edges. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river.",
-            "tip": "Fish only protected margins, inside bends, and the downstream side of major current breaks. Leave the main-channel current alone while the rise continues.",
+            "headline": "Very high Croton-area flow leaves little controllable presentation water.",
+            "detail": "Very high flow compresses controllable water into protected edges. A clear rise is moving controllable water toward current breaks. This read applies only near Croton Dam within the Upper river (Newaygo–Croton Dam).",
+            "tip": "Favor protected margins and short controlled presentations. Choose another day if control is not dependable.",
             "reasonCodes": [
               "gauge_fresh",
               "very_high_flow_band"
@@ -36360,15 +36645,15 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 72,
             "maximum": 100,
             "label": "Active",
-            "headline": "Today’s Chinook activity outlook is active.",
-            "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: The river level or its recent change is less favorable. More Chinook are moving and settling into the river; the score describes reaction conditions for fish already present. The measured conditions represent the regulated Croton tailwater immediately below Croton Dam; water temperature, clarity, tributary influence, and presentation conditions can differ through Newaygo, the lower river, Muskegon Lake, and the channel. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
-            "tip": "Start with 5–9 AM. If the sky changes from the forecast, favor the darkest practical window.",
+            "headline": "Today’s Croton-area Chinook responsiveness is active.",
+            "detail": "Conditions support a meaningful Chinook response. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Croton flow and temperature represent only the area near the dam.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify downstream sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -36420,10 +36705,13 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 87,
+            "displayScore": 85,
+            "scoreIsApproximate": true,
             "stage": "building",
             "maximum": 100,
             "riverCeiling": 90,
@@ -36432,14 +36720,14 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "curveDirection": "rising",
             "winterHoldingContext": false,
             "label": "Peak presence",
-            "headline": "Chinook salmon are likely spread through more of the river as seasonal presence builds toward its strongest point.",
-            "detail": "The migration is approaching its strongest seasonal point, and fish are likely distributed through more of the river. This is a seasonal estimate, not a live fish count.",
-            "tip": "Treat this as one of the stronger parts of a strong river season. Give each stop a complete pass, but do not mistake this seasonal estimate for a live fish count.",
+            "headline": "Seasonal Chinook salmon presence is near its expected Muskegon peak.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the Muskegon Chinook salmon ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_building",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -36673,14 +36961,14 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "strong_push_low_fishability"
             ]
           },
-          "secondaryNote": "Based on USGS 04121970 immediately below Croton Dam. It represents the regulated Croton tailwater; flow, temperature, access, and safety can differ through Newaygo, the lower river, Muskegon Lake, and the channel.",
+          "secondaryNote": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
           "safety": {
             "regulationReminder": "Croton Dam is the hard upstream migration boundary. Fish only legal water below the dam, use established public access, respect private land and posted closures, and check current Michigan regulations and dam-safety notices.",
-            "gaugeBasis": "Based on USGS 04121970 immediately below Croton Dam. It represents the regulated Croton tailwater; flow, temperature, access, and safety can differ through Newaygo, the lower river, Muskegon Lake, and the channel.",
+            "gaugeBasis": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-muskegon-steelhead-activity.1"
+          "configVersion": "2026-08-11-muskegon-copy.1"
         }
       },
       {
@@ -36699,6 +36987,7 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "nextConditionRefreshAt": "2026-10-01T05:00:00.000Z",
           "runStage": {
             "stage": "building",
+            "copyStrategy": "muskegon_croton_tailwater",
             "stagingContext": false,
             "broadBuildingContext": true,
             "winterHoldingContext": false,
@@ -36721,14 +37010,14 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "peakToEndDays": 35
             },
             "label": "Building",
-            "headline": "Chinook salmon are broadly established below Croton Dam.",
-            "whereToStart": "Compare Croton-tailwater pools, the Croton-to-Newaygo corridor, Newaygo-to-M-120 holding water, and major lower-river bends toward Muskegon Lake.",
-            "detail": "Fish from several waves can be spread through the river, but the Croton gauge only measures water near the dam. Fish numbers can be very different downstream.",
-            "tip": "Check the upper, middle, and lower river. Let what you see on the water—not just the Croton gauge—tell you where to stay.",
+            "headline": "Chinook salmon are broadly established through the Muskegon River.",
+            "whereToStart": "Start in the Upper river (Newaygo–Croton Dam), emphasizing the Croton Dam area. Compare the Middle river (M-120–Newaygo) for fresher fish.",
+            "detail": "Repeated entry periods support broad presence, not equal numbers in every section.",
+            "tip": "Croton measurements apply only near the dam. Verify downstream water directly.",
             "reasonCodes": [
               "stage_building"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -36797,15 +37086,15 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "2026-09-24"
             ],
             "sourceRefreshSlots": {},
-            "headline": "There is not enough reliable information for a Migration Timing call.",
-            "tip": "Do not move farther upstream or stay lower based on this timing read. Fish the section identified by Migration Stage and begin in its most established holding water; change sections only when direct fish activity or a dependable later read supports it.",
+            "headline": "There is not enough reliable Muskegon evidence for a Migration Timing call.",
+            "tip": "Keep the Muskegon section named by Migration Stage. Do not shift sections from this timing read.",
             "detail": "There are not enough dependable past seasons to judge whether this migration is early, normal, or late.",
             "reasonCodes": [
               "conditions_baseline_missing",
               "conditions_insufficient",
               "conditions_checkpoint_peak_start"
             ],
-            "copyVersion": "river-run-copy-v27",
+            "copyVersion": "river-run-copy-v34",
             "previousCheckpointId": "building_established",
             "previousCheckpointDate": "2026-09-05",
             "previousTimingLabel": "Insufficient evidence"
@@ -36822,9 +37111,9 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "push": {
             "score": 0,
             "label": "Weak",
-            "headline": "Today's water shows little support for a fresh wave of fish.",
-            "detail": "The river is falling instead of showing a fresh rise. Water temperature remains too warm to support a strong Push but is warming sharply. Recent weather estimates indicate very little rain around the river.",
-            "tip": "Do not build the day around new arrivals while the river remains warm. Start in established holding water at first or last light and leave lower travel lanes secondary.",
+            "headline": "Croton-area water shows little support for fresh movement.",
+            "detail": "The river is falling instead of showing a fresh rise. Water temperature remains too warm to support a strong Push but is warming sharply. Recent watershed weather shows little rain.",
+            "tip": "Keep Migration Stage’s section primary. Do not shift sections from this read.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
@@ -36844,14 +37133,14 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 90,
             "label": "Excellent",
-            "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The river is settling, which should sharpen seams and make established holding water easier to read. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river.",
-            "tip": "Begin on the primary seam feeding deep holding water. Work each hole from head to tail, giving the deeper downstream half one final pass as the river settles.",
+            "headline": "Croton-area flow is in its best presentation range.",
+            "detail": "The flow band offers the broadest mix of depth and presentation control. Falling flow should sharpen established seams. This read applies only near Croton Dam within the Upper river (Newaygo–Croton Dam).",
+            "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band"
@@ -36862,15 +37151,15 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 28,
             "maximum": 100,
             "label": "Reserved",
-            "headline": "Today’s Chinook activity outlook is reserved.",
-            "detail": "Fish may respond selectively, with important environmental limitations. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Water temperature limits responsiveness. More Chinook are moving and settling into the river; the score describes reaction conditions for fish already present. The measured conditions represent the regulated Croton tailwater immediately below Croton Dam; water temperature, clarity, tributary influence, and presentation conditions can differ through Newaygo, the lower river, Muskegon Lake, and the channel. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
-            "tip": "Start with 5–9 AM. If the sky changes from the forecast, favor the darkest practical window.",
+            "headline": "Today’s Croton-area Chinook responsiveness is reserved.",
+            "detail": "Chinook may respond selectively under current limitations. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Croton flow and temperature represent only the area near the dam.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify downstream sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -36923,10 +37212,13 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 87,
+            "displayScore": 85,
+            "scoreIsApproximate": true,
             "stage": "building",
             "maximum": 100,
             "riverCeiling": 90,
@@ -36935,14 +37227,14 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "curveDirection": "rising",
             "winterHoldingContext": false,
             "label": "Peak presence",
-            "headline": "Chinook salmon are likely spread through more of the river as seasonal presence builds toward its strongest point.",
-            "detail": "The migration is approaching its strongest seasonal point, and fish are likely distributed through more of the river. This is a seasonal estimate, not a live fish count.",
-            "tip": "Treat this as one of the stronger parts of a strong river season. Give each stop a complete pass, but do not mistake this seasonal estimate for a live fish count.",
+            "headline": "Seasonal Chinook salmon presence is near its expected Muskegon peak.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the Muskegon Chinook salmon ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_building",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -37170,14 +37462,14 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             ]
           },
           "interpretationNote": null,
-          "secondaryNote": "Based on USGS 04121970 immediately below Croton Dam. It represents the regulated Croton tailwater; flow, temperature, access, and safety can differ through Newaygo, the lower river, Muskegon Lake, and the channel.",
+          "secondaryNote": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
           "safety": {
             "regulationReminder": "Croton Dam is the hard upstream migration boundary. Fish only legal water below the dam, use established public access, respect private land and posted closures, and check current Michigan regulations and dam-safety notices.",
-            "gaugeBasis": "Based on USGS 04121970 immediately below Croton Dam. It represents the regulated Croton tailwater; flow, temperature, access, and safety can differ through Newaygo, the lower river, Muskegon Lake, and the channel.",
+            "gaugeBasis": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-muskegon-steelhead-activity.1"
+          "configVersion": "2026-08-11-muskegon-copy.1"
         }
       },
       {
@@ -37196,6 +37488,7 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "nextConditionRefreshAt": "2026-09-21T05:00:00.000Z",
           "runStage": {
             "stage": "building",
+            "copyStrategy": "muskegon_croton_tailwater",
             "stagingContext": false,
             "broadBuildingContext": true,
             "winterHoldingContext": false,
@@ -37218,14 +37511,14 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "peakToEndDays": 35
             },
             "label": "Building",
-            "headline": "Chinook salmon are broadly established below Croton Dam.",
-            "whereToStart": "Compare Croton-tailwater pools, the Croton-to-Newaygo corridor, Newaygo-to-M-120 holding water, and major lower-river bends toward Muskegon Lake.",
-            "detail": "Fish from several waves can be spread through the river, but the Croton gauge only measures water near the dam. Fish numbers can be very different downstream.",
-            "tip": "Check the upper, middle, and lower river. Let what you see on the water—not just the Croton gauge—tell you where to stay.",
+            "headline": "Chinook salmon are broadly established through the Muskegon River.",
+            "whereToStart": "Start in the Upper river (Newaygo–Croton Dam), emphasizing the Croton Dam area. Compare the Middle river (M-120–Newaygo) for fresher fish.",
+            "detail": "Repeated entry periods support broad presence, not equal numbers in every section.",
+            "tip": "Croton measurements apply only near the dam. Verify downstream water directly.",
             "reasonCodes": [
               "stage_building"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -37274,15 +37567,15 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "2026-09-04"
             ],
             "sourceRefreshSlots": {},
-            "headline": "There is not enough reliable information for a Migration Timing call.",
-            "tip": "Do not move farther upstream or stay lower based on this timing read. Fish the section identified by Migration Stage and begin in its most established holding water; change sections only when direct fish activity or a dependable later read supports it.",
+            "headline": "There is not enough reliable Muskegon evidence for a Migration Timing call.",
+            "tip": "Keep the Muskegon section named by Migration Stage. Do not shift sections from this timing read.",
             "detail": "There are not enough dependable past seasons to judge whether this migration is early, normal, or late.",
             "reasonCodes": [
               "conditions_baseline_missing",
               "conditions_insufficient",
               "conditions_checkpoint_building_established"
             ],
-            "copyVersion": "river-run-copy-v27",
+            "copyVersion": "river-run-copy-v34",
             "previousCheckpointId": "building_start",
             "previousCheckpointDate": "2026-09-05",
             "previousTimingLabel": "Insufficient evidence"
@@ -37307,14 +37600,14 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "temperature_unavailable"
             ],
             "rulesVersion": "muskegon-croton-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 93,
             "label": "Excellent",
-            "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river.",
-            "tip": "Begin on the primary travel lane feeding deep holding water. Work each hole from its head through the inside seam and tail, then keep moving until fish establish a pattern.",
+            "headline": "Croton-area flow is in its best presentation range.",
+            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read applies only near Croton Dam within the Upper river (Newaygo–Croton Dam).",
+            "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band"
@@ -37325,15 +37618,15 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 53,
             "maximum": 100,
             "label": "Moderate",
-            "headline": "Today’s Chinook activity outlook is moderate.",
-            "detail": "Some useful factors are present, but the response window is mixed. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Measured water temperature is unavailable. More Chinook are moving and settling into the river; the score describes reaction conditions for fish already present. The measured conditions represent the regulated Croton tailwater immediately below Croton Dam; water temperature, clarity, tributary influence, and presentation conditions can differ through Newaygo, the lower river, Muskegon Lake, and the channel. One important reading is unavailable or comes from tomorrow’s forecast, so the outlook is kept conservative.",
-            "tip": "Start with 5–9 AM. If the sky changes from the forecast, favor the darkest practical window.",
+            "headline": "Today’s Croton-area Chinook responsiveness is moderate.",
+            "detail": "Conditions offer mixed support for Chinook responsiveness. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Moderate confidence reflects missing or forecast inputs; river measurements still represent only the Croton Dam area.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify downstream sections directly.",
             "reasonCodes": [
               "activity_confidence_moderate",
               "activity_today",
@@ -37385,10 +37678,13 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 62,
+            "displayScore": 60,
+            "scoreIsApproximate": true,
             "stage": "building",
             "maximum": 100,
             "riverCeiling": 90,
@@ -37397,14 +37693,14 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "curveDirection": "rising",
             "winterHoldingContext": false,
             "label": "High presence",
-            "headline": "Chinook salmon are likely spread through more of the river as seasonal presence builds toward its strongest point.",
-            "detail": "Seasonal presence is usually elevated relative to the rest of the season, with more fish expected to enter and spread through the river. This is a seasonal estimate, not a live fish count.",
-            "tip": "Treat this as one of the stronger parts of a strong river season. Give each stop a complete pass, but do not mistake this seasonal estimate for a live fish count.",
+            "headline": "Seasonal Chinook salmon presence is high and building.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the Muskegon Chinook salmon ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_building",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -37615,14 +37911,14 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             ]
           },
           "interpretationNote": null,
-          "secondaryNote": "Based on USGS 04121970 immediately below Croton Dam. It represents the regulated Croton tailwater; flow, temperature, access, and safety can differ through Newaygo, the lower river, Muskegon Lake, and the channel.",
+          "secondaryNote": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
           "safety": {
             "regulationReminder": "Croton Dam is the hard upstream migration boundary. Fish only legal water below the dam, use established public access, respect private land and posted closures, and check current Michigan regulations and dam-safety notices.",
-            "gaugeBasis": "Based on USGS 04121970 immediately below Croton Dam. It represents the regulated Croton tailwater; flow, temperature, access, and safety can differ through Newaygo, the lower river, Muskegon Lake, and the channel.",
+            "gaugeBasis": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-muskegon-steelhead-activity.1"
+          "configVersion": "2026-08-11-muskegon-copy.1"
         }
       },
       {
@@ -37641,6 +37937,7 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "nextConditionRefreshAt": "2026-08-16T05:00:00.000Z",
           "runStage": {
             "stage": "pre_run",
+            "copyStrategy": "muskegon_croton_tailwater",
             "stagingContext": true,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -37663,15 +37960,15 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "peakToEndDays": 35
             },
             "label": "Before migration",
-            "headline": "Chinook salmon may be staging in Muskegon Lake, the channel, and near the river mouth.",
-            "whereToStart": "Muskegon Lake, the Lake Michigan channel, the river mouth, and one quick check of deep lower-river water below M-120.",
-            "detail": "An early Chinook salmon can enter the lower Muskegon, but that does not mean fish are spread through Newaygo or up to Croton Dam.",
-            "tip": "Stay closer to the lake. One early river fish does not mean the whole river has fish yet.",
+            "headline": "Chinook salmon may be staging near the Muskegon River entrance.",
+            "whereToStart": "Start at Muskegon Lake, the Lake Michigan channel, and the river entrance. Add the Lower river (Muskegon Lake–M-120) only for an early-fish check.",
+            "detail": "Staging does not confirm dependable river entry.",
+            "tip": "Keep the river check brief. Do not move into the Middle river (M-120–Newaygo) or Upper river (Newaygo–Croton Dam) from calendar timing alone.",
             "reasonCodes": [
               "stage_pre_run",
               "stage_pre_run_staging"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Evaluating",
@@ -37690,13 +37987,13 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "historicalYears": 0,
             "sourceDates": [],
             "sourceRefreshSlots": {},
-            "headline": "Migration Timing is still taking shape.",
-            "detail": "The early river and temperature pattern is still developing, so an Ahead, Typical, or Delayed call would be premature.",
-            "tip": "Keep the trip centered on the river mouth and earliest lower-river holding water. Move inland only when Migration Stage advances or direct fish activity supports it.",
+            "headline": "Muskegon Migration Timing is still taking shape.",
+            "detail": "Croton flow and measured temperature do not yet support an Ahead, Typical, or Delayed call.",
+            "tip": "Keep the section named by Migration Stage until this read has enough Croton-area evidence.",
             "reasonCodes": [
               "conditions_checkpoint_evaluating"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -37710,21 +38007,21 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "push": {
             "score": null,
             "label": "Waiting for migration",
-            "headline": "Fish have not started entering the river, so there is no Push read yet.",
-            "detail": "Push is meant to spot water conditions that may help fish enter or move during the active migration. Before that, most opportunity should remain in the lake, harbor, or river-mouth transition.",
-            "tip": "Keep the trip in the lake, harbor, and river-mouth zone. Do not move inland just because rain or cooling resembles an in-season movement event.",
+            "headline": "Dependable Muskegon river entry has not started.",
+            "detail": "Croton flow and measured temperature are not scored as an in-season fresh-movement signal yet.",
+            "tip": "Use Migration Stage. Do not move inland because offseason water resembles a Push.",
             "reasonCodes": [
               "push_tracking_not_started"
             ],
             "rulesVersion": "muskegon-croton-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 93,
             "label": "Excellent",
-            "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river.",
-            "tip": "Begin on the primary travel lane feeding deep holding water. Work each hole from its head through the inside seam and tail, then keep moving until fish establish a pattern.",
+            "headline": "Croton-area flow is in its best presentation range.",
+            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read applies only near Croton Dam within the Upper river (Newaygo–Croton Dam).",
+            "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band"
@@ -37735,15 +38032,15 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 80,
             "maximum": 100,
             "label": "Highly active",
-            "headline": "Today’s Chinook activity outlook is highly active.",
-            "detail": "Conditions strongly favor a response from Chinook that are present and capable of reacting. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. Dependable river presence has not begun. The score applies only to a sparse early Chinook that may already have entered. The measured conditions represent the regulated Croton tailwater immediately below Croton Dam; water temperature, clarity, tributary influence, and presentation conditions can differ through Newaygo, the lower river, Muskegon Lake, and the channel. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
-            "tip": "Start with 5–9 AM. If the sky changes from the forecast, favor the darkest practical window.",
+            "headline": "Today’s Croton-area responsiveness is highly active, but dependable Chinook presence has not begun.",
+            "detail": "Conditions strongly support Chinook responsiveness. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. This applies only to an early Chinook already near Croton Dam.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify downstream sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -37795,10 +38092,13 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 0,
+            "displayScore": 0,
+            "scoreIsApproximate": false,
             "stage": "pre_run",
             "maximum": 100,
             "riverCeiling": 90,
@@ -37807,14 +38107,14 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "curveDirection": "outside",
             "winterHoldingContext": false,
             "label": "Not expected yet",
-            "headline": "Chinook salmon are not expected in meaningful numbers yet.",
-            "detail": "Most Chinook salmon are not expected to have entered the river in dependable numbers. Any fish already present would be early exceptions.",
-            "tip": "Treat this as no dependable in-river opportunity yet. Keep expectations at zero, and do not interpret an isolated early fish as evidence of dependable river presence.",
+            "headline": "Dependable Chinook salmon presence is not expected in the Muskegon River yet.",
+            "detail": "The seasonal estimate remains at zero. Any river fish would be an early exception.",
+            "tip": "Use Migration Stage for Muskegon Lake, channel, and river-entrance context.",
             "reasonCodes": [
               "stage_pre_run",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -38047,14 +38347,14 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "good_fishability_low_presence"
             ]
           },
-          "secondaryNote": "Based on USGS 04121970 immediately below Croton Dam. It represents the regulated Croton tailwater; flow, temperature, access, and safety can differ through Newaygo, the lower river, Muskegon Lake, and the channel.",
+          "secondaryNote": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
           "safety": {
             "regulationReminder": "Croton Dam is the hard upstream migration boundary. Fish only legal water below the dam, use established public access, respect private land and posted closures, and check current Michigan regulations and dam-safety notices.",
-            "gaugeBasis": "Based on USGS 04121970 immediately below Croton Dam. It represents the regulated Croton tailwater; flow, temperature, access, and safety can differ through Newaygo, the lower river, Muskegon Lake, and the channel.",
+            "gaugeBasis": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-muskegon-steelhead-activity.1"
+          "configVersion": "2026-08-11-muskegon-copy.1"
         }
       }
     ]
@@ -38079,6 +38379,7 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "nextConditionRefreshAt": "2026-10-02T05:00:00.000Z",
           "runStage": {
             "stage": "peak",
+            "copyStrategy": "muskegon_croton_tailwater",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -38102,13 +38403,13 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             },
             "label": "Peak",
             "headline": "This is typically the strongest Muskegon River Chinook salmon opportunity.",
-            "whereToStart": "Compare the Croton tailwater, Croton-to-Newaygo pools, Newaygo-to-M-120 bends and wood, and major lower-river holes toward Muskegon Lake.",
-            "detail": "Fish can be spread through the river now, but water clarity, access, and how the fish act can still be very different from one section to another.",
-            "tip": "The Croton gauge tells you what is happening near the dam. Check the middle and lower river yourself because conditions can be different downstream.",
+            "whereToStart": "Start in the Upper river (Newaygo–Croton Dam), emphasizing the Croton Dam area. Compare the Middle river (M-120–Newaygo) for fresher fish.",
+            "detail": "Fish can be broadly present, but concentrations still vary by section.",
+            "tip": "Croton measurements apply only near the dam. Verify downstream water directly.",
             "reasonCodes": [
               "stage_peak"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -38177,15 +38478,15 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "2026-09-24"
             ],
             "sourceRefreshSlots": {},
-            "headline": "There is not enough reliable information for a Migration Timing call.",
-            "tip": "Do not move farther upstream or stay lower based on this timing read. Fish the section identified by Migration Stage and begin in its most established holding water; change sections only when direct fish activity or a dependable later read supports it.",
+            "headline": "There is not enough reliable Muskegon evidence for a Migration Timing call.",
+            "tip": "Keep the Muskegon section named by Migration Stage. Do not shift sections from this timing read.",
             "detail": "There are not enough dependable past seasons to judge whether this migration is early, normal, or late.",
             "reasonCodes": [
               "conditions_baseline_missing",
               "conditions_insufficient",
               "conditions_checkpoint_peak_start"
             ],
-            "copyVersion": "river-run-copy-v27",
+            "copyVersion": "river-run-copy-v34",
             "previousCheckpointId": "building_established",
             "previousCheckpointDate": "2026-09-05",
             "previousTimingLabel": "Insufficient evidence"
@@ -38202,9 +38503,9 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "push": {
             "score": 30,
             "label": "No clear push",
-            "headline": "Today's water does not show a clear signal for a fresh wave of fish.",
-            "detail": "The river is holding steady with no meaningful rise yet. Water temperature is favorable for fall migration and is relatively steady. Recent weather estimates indicate very little rain around the river.",
-            "tip": "Fish established holding water from the head through the inside seam and tail. Do not spend the day racing between lower travel lanes for a wave the water does not support.",
+            "headline": "Croton-area water does not show a clear fresh-movement signal.",
+            "detail": "The river is holding steady with no meaningful rise yet. Water temperature is favorable for fall migration and is relatively steady. Recent watershed weather shows little rain.",
+            "tip": "Keep Migration Stage’s section primary. Do not shift sections from this read.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
@@ -38223,14 +38524,14 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 93,
             "label": "Excellent",
-            "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river.",
-            "tip": "Begin on the primary travel lane feeding deep holding water. Work each hole from its head through the inside seam and tail, then keep moving until fish establish a pattern.",
+            "headline": "Croton-area flow is in its best presentation range.",
+            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read applies only near Croton Dam within the Upper river (Newaygo–Croton Dam).",
+            "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band"
@@ -38241,15 +38542,15 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 80,
             "maximum": 100,
             "label": "Highly active",
-            "headline": "Today’s Chinook activity outlook is highly active.",
-            "detail": "Conditions strongly favor a response from Chinook that are present and capable of reacting. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. Broad seasonal presence improves the chance of locating fish, but this score measures responsiveness rather than abundance. The measured conditions represent the regulated Croton tailwater immediately below Croton Dam; water temperature, clarity, tributary influence, and presentation conditions can differ through Newaygo, the lower river, Muskegon Lake, and the channel. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
-            "tip": "Start with 5–9 AM. If the sky changes from the forecast, favor the darkest practical window.",
+            "headline": "Today’s Croton-area Chinook responsiveness is highly active.",
+            "detail": "Conditions strongly support Chinook responsiveness. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Croton flow and temperature represent only the area near the dam.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify downstream sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -38301,10 +38602,13 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 90,
+            "displayScore": 90,
+            "scoreIsApproximate": false,
             "stage": "peak",
             "maximum": 100,
             "riverCeiling": 90,
@@ -38313,14 +38617,14 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "curveDirection": "near_peak",
             "winterHoldingContext": false,
             "label": "Peak presence",
-            "headline": "Chinook salmon are likely near their highest seasonal presence in the river.",
-            "detail": "This is the part of the season when in-river presence is usually strongest. The read describes the river as a whole; it does not place fish in a specific pool or confirm a live count.",
-            "tip": "Plan for the strongest seasonal presence this river usually offers, while remembering that this estimate cannot confirm fish at a specific spot or describe today's river conditions.",
+            "headline": "Seasonal Chinook salmon presence is near its expected Muskegon peak.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the Muskegon Chinook salmon ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_peak",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -38554,14 +38858,14 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "peak_presence_weak_push"
             ]
           },
-          "secondaryNote": "Based on USGS 04121970 immediately below Croton Dam. It represents the regulated Croton tailwater; flow, temperature, access, and safety can differ through Newaygo, the lower river, Muskegon Lake, and the channel.",
+          "secondaryNote": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
           "safety": {
             "regulationReminder": "Croton Dam is the hard upstream migration boundary. Fish only legal water below the dam, use established public access, respect private land and posted closures, and check current Michigan regulations and dam-safety notices.",
-            "gaugeBasis": "Based on USGS 04121970 immediately below Croton Dam. It represents the regulated Croton tailwater; flow, temperature, access, and safety can differ through Newaygo, the lower river, Muskegon Lake, and the channel.",
+            "gaugeBasis": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-muskegon-steelhead-activity.1"
+          "configVersion": "2026-08-11-muskegon-copy.1"
         }
       },
       {
@@ -38580,6 +38884,7 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "nextConditionRefreshAt": "2026-10-01T05:00:00.000Z",
           "runStage": {
             "stage": "building",
+            "copyStrategy": "muskegon_croton_tailwater",
             "stagingContext": false,
             "broadBuildingContext": true,
             "winterHoldingContext": false,
@@ -38602,14 +38907,14 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "peakToEndDays": 35
             },
             "label": "Building",
-            "headline": "Chinook salmon are broadly established below Croton Dam.",
-            "whereToStart": "Compare Croton-tailwater pools, the Croton-to-Newaygo corridor, Newaygo-to-M-120 holding water, and major lower-river bends toward Muskegon Lake.",
-            "detail": "Fish from several waves can be spread through the river, but the Croton gauge only measures water near the dam. Fish numbers can be very different downstream.",
-            "tip": "Check the upper, middle, and lower river. Let what you see on the water—not just the Croton gauge—tell you where to stay.",
+            "headline": "Chinook salmon are broadly established through the Muskegon River.",
+            "whereToStart": "Start in the Upper river (Newaygo–Croton Dam), emphasizing the Croton Dam area. Compare the Middle river (M-120–Newaygo) for fresher fish.",
+            "detail": "Repeated entry periods support broad presence, not equal numbers in every section.",
+            "tip": "Croton measurements apply only near the dam. Verify downstream water directly.",
             "reasonCodes": [
               "stage_building"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -38678,15 +38983,15 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "2026-09-24"
             ],
             "sourceRefreshSlots": {},
-            "headline": "There is not enough reliable information for a Migration Timing call.",
-            "tip": "Do not move farther upstream or stay lower based on this timing read. Fish the section identified by Migration Stage and begin in its most established holding water; change sections only when direct fish activity or a dependable later read supports it.",
+            "headline": "There is not enough reliable Muskegon evidence for a Migration Timing call.",
+            "tip": "Keep the Muskegon section named by Migration Stage. Do not shift sections from this timing read.",
             "detail": "There are not enough dependable past seasons to judge whether this migration is early, normal, or late.",
             "reasonCodes": [
               "conditions_baseline_missing",
               "conditions_insufficient",
               "conditions_checkpoint_peak_start"
             ],
-            "copyVersion": "river-run-copy-v27",
+            "copyVersion": "river-run-copy-v34",
             "previousCheckpointId": "building_established",
             "previousCheckpointDate": "2026-09-05",
             "previousTimingLabel": "Insufficient evidence"
@@ -38703,9 +39008,9 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "push": {
             "score": 20,
             "label": "Weak",
-            "headline": "The water may support fresh movement, but an aging river reading limits confidence.",
-            "detail": "The river is holding steady with no meaningful rise yet. Water temperature is favorable for fall migration and is relatively steady. Recent weather estimates indicate very little rain around the river. The latest river-level reading is aging, so confidence is reduced.",
-            "tip": "Do not relocate the trip around this Push read. Begin in established holding water, verify the river at the first access, and add travel lanes only after confirming workable conditions.",
+            "headline": "Croton-area water shows little support for fresh movement.",
+            "detail": "The river is holding steady with no meaningful rise yet. Water temperature is favorable for fall migration and is relatively steady. The Croton reading is aging, so confidence is reduced.",
+            "tip": "Keep Migration Stage’s section primary. Do not shift sections from this read.",
             "reasonCodes": [
               "gauge_stale",
               "push_normal_flow_context",
@@ -38725,14 +39030,14 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 55,
             "label": "Fishable",
-            "headline": "The last river reading was fishable, but it is aging and may no longer describe the water accurately.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. Because the latest reading is aging, the river may have changed since it was reported. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river.",
-            "tip": "Do not choose a reach from this reading alone. Check the water at the first access, and begin only in bank-side water where you can control the entire presentation.",
+            "headline": "The aging Croton reading limits Croton-area Fishability confidence.",
+            "detail": "The flow band offers the broadest mix of depth and presentation control. The Croton area may have changed since the last Croton reading. This read applies only near Croton Dam within the Upper river (Newaygo–Croton Dam).",
+            "tip": "Verify the Croton area directly before choosing presentation water.",
             "reasonCodes": [
               "gauge_stale",
               "ideal_flow_band",
@@ -38746,15 +39051,15 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               ]
             },
             "rulesVersion": "muskegon-croton-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 54,
             "maximum": 100,
             "label": "Moderate",
-            "headline": "Today’s Chinook activity outlook is moderate.",
-            "detail": "Some useful factors are present, but the response window is mixed. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Current river behavior is unavailable. More Chinook are moving and settling into the river; the score describes reaction conditions for fish already present. The measured conditions represent the regulated Croton tailwater immediately below Croton Dam; water temperature, clarity, tributary influence, and presentation conditions can differ through Newaygo, the lower river, Muskegon Lake, and the channel. One important reading is unavailable or comes from tomorrow’s forecast, so the outlook is kept conservative.",
-            "tip": "Start with 5–9 AM. If the sky changes from the forecast, favor the darkest practical window.",
+            "headline": "Today’s Croton-area Chinook responsiveness is moderate.",
+            "detail": "Conditions offer mixed support for Chinook responsiveness. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Moderate confidence reflects missing or forecast inputs; river measurements still represent only the Croton Dam area.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify downstream sections directly.",
             "reasonCodes": [
               "activity_confidence_moderate",
               "activity_today",
@@ -38806,10 +39111,13 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 87,
+            "displayScore": 85,
+            "scoreIsApproximate": true,
             "stage": "building",
             "maximum": 100,
             "riverCeiling": 90,
@@ -38818,14 +39126,14 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "curveDirection": "rising",
             "winterHoldingContext": false,
             "label": "Peak presence",
-            "headline": "Chinook salmon are likely spread through more of the river as seasonal presence builds toward its strongest point.",
-            "detail": "The migration is approaching its strongest seasonal point, and fish are likely distributed through more of the river. This is a seasonal estimate, not a live fish count.",
-            "tip": "Treat this as one of the stronger parts of a strong river season. Give each stop a complete pass, but do not mistake this seasonal estimate for a live fish count.",
+            "headline": "Seasonal Chinook salmon presence is near its expected Muskegon peak.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the Muskegon Chinook salmon ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_building",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -39053,14 +39361,14 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             ]
           },
           "interpretationNote": null,
-          "secondaryNote": "Based on USGS 04121970 immediately below Croton Dam. It represents the regulated Croton tailwater; flow, temperature, access, and safety can differ through Newaygo, the lower river, Muskegon Lake, and the channel.",
+          "secondaryNote": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
           "safety": {
             "regulationReminder": "Croton Dam is the hard upstream migration boundary. Fish only legal water below the dam, use established public access, respect private land and posted closures, and check current Michigan regulations and dam-safety notices.",
-            "gaugeBasis": "Based on USGS 04121970 immediately below Croton Dam. It represents the regulated Croton tailwater; flow, temperature, access, and safety can differ through Newaygo, the lower river, Muskegon Lake, and the channel.",
+            "gaugeBasis": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-muskegon-steelhead-activity.1"
+          "configVersion": "2026-08-11-muskegon-copy.1"
         }
       },
       {
@@ -39079,6 +39387,7 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "nextConditionRefreshAt": "2026-10-01T05:00:00.000Z",
           "runStage": {
             "stage": "building",
+            "copyStrategy": "muskegon_croton_tailwater",
             "stagingContext": false,
             "broadBuildingContext": true,
             "winterHoldingContext": false,
@@ -39101,14 +39410,14 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "peakToEndDays": 35
             },
             "label": "Building",
-            "headline": "Chinook salmon are broadly established below Croton Dam.",
-            "whereToStart": "Compare Croton-tailwater pools, the Croton-to-Newaygo corridor, Newaygo-to-M-120 holding water, and major lower-river bends toward Muskegon Lake.",
-            "detail": "Fish from several waves can be spread through the river, but the Croton gauge only measures water near the dam. Fish numbers can be very different downstream.",
-            "tip": "Check the upper, middle, and lower river. Let what you see on the water—not just the Croton gauge—tell you where to stay.",
+            "headline": "Chinook salmon are broadly established through the Muskegon River.",
+            "whereToStart": "Start in the Upper river (Newaygo–Croton Dam), emphasizing the Croton Dam area. Compare the Middle river (M-120–Newaygo) for fresher fish.",
+            "detail": "Repeated entry periods support broad presence, not equal numbers in every section.",
+            "tip": "Croton measurements apply only near the dam. Verify downstream water directly.",
             "reasonCodes": [
               "stage_building"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -39177,15 +39486,15 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "2026-09-24"
             ],
             "sourceRefreshSlots": {},
-            "headline": "There is not enough reliable information for a Migration Timing call.",
-            "tip": "Do not move farther upstream or stay lower based on this timing read. Fish the section identified by Migration Stage and begin in its most established holding water; change sections only when direct fish activity or a dependable later read supports it.",
+            "headline": "There is not enough reliable Muskegon evidence for a Migration Timing call.",
+            "tip": "Keep the Muskegon section named by Migration Stage. Do not shift sections from this timing read.",
             "detail": "There are not enough dependable past seasons to judge whether this migration is early, normal, or late.",
             "reasonCodes": [
               "conditions_baseline_missing",
               "conditions_insufficient",
               "conditions_checkpoint_peak_start"
             ],
-            "copyVersion": "river-run-copy-v27",
+            "copyVersion": "river-run-copy-v34",
             "previousCheckpointId": "building_established",
             "previousCheckpointDate": "2026-09-05",
             "previousTimingLabel": "Insufficient evidence"
@@ -39209,27 +39518,27 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "gauge_missing"
             ],
             "rulesVersion": "muskegon-croton-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": null,
             "label": "Unavailable",
-            "headline": "There is no dependable Fishability read right now.",
-            "detail": "A recent river-level reading is missing, so current flow and direction cannot be judged responsibly.",
-            "tip": "Do not plan from the last known level. Check again after the next update, and verify the river at the first access before choosing where or how to fish.",
+            "headline": "A current Croton Fishability reading is unavailable.",
+            "detail": "Without current Croton flow and direction, presentation conditions near the dam cannot be determined.",
+            "tip": "Do not extend an old or missing Croton read through the Muskegon River. Verify current conditions directly.",
             "reasonCodes": [
               "gauge_missing"
             ],
             "rulesVersion": "muskegon-croton-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 54,
             "maximum": 100,
             "label": "Moderate",
-            "headline": "Today’s Chinook activity outlook is moderate.",
-            "detail": "Some useful factors are present, but the response window is mixed. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Current river behavior is unavailable. More Chinook are moving and settling into the river; the score describes reaction conditions for fish already present. The measured conditions represent the regulated Croton tailwater immediately below Croton Dam; water temperature, clarity, tributary influence, and presentation conditions can differ through Newaygo, the lower river, Muskegon Lake, and the channel. One important reading is unavailable or comes from tomorrow’s forecast, so the outlook is kept conservative.",
-            "tip": "Start with 5–9 AM. If the sky changes from the forecast, favor the darkest practical window.",
+            "headline": "Today’s Croton-area Chinook responsiveness is moderate.",
+            "detail": "Conditions offer mixed support for Chinook responsiveness. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Moderate confidence reflects missing or forecast inputs; river measurements still represent only the Croton Dam area.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify downstream sections directly.",
             "reasonCodes": [
               "activity_confidence_moderate",
               "activity_today",
@@ -39281,10 +39590,13 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 87,
+            "displayScore": 85,
+            "scoreIsApproximate": true,
             "stage": "building",
             "maximum": 100,
             "riverCeiling": 90,
@@ -39293,14 +39605,14 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "curveDirection": "rising",
             "winterHoldingContext": false,
             "label": "Peak presence",
-            "headline": "Chinook salmon are likely spread through more of the river as seasonal presence builds toward its strongest point.",
-            "detail": "The migration is approaching its strongest seasonal point, and fish are likely distributed through more of the river. This is a seasonal estimate, not a live fish count.",
-            "tip": "Treat this as one of the stronger parts of a strong river season. Give each stop a complete pass, but do not mistake this seasonal estimate for a live fish count.",
+            "headline": "Seasonal Chinook salmon presence is near its expected Muskegon peak.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the Muskegon Chinook salmon ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_building",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": null,
           "weather": {
@@ -39518,14 +39830,14 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             ]
           },
           "interpretationNote": null,
-          "secondaryNote": "Based on USGS 04121970 immediately below Croton Dam. It represents the regulated Croton tailwater; flow, temperature, access, and safety can differ through Newaygo, the lower river, Muskegon Lake, and the channel.",
+          "secondaryNote": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
           "safety": {
             "regulationReminder": "Croton Dam is the hard upstream migration boundary. Fish only legal water below the dam, use established public access, respect private land and posted closures, and check current Michigan regulations and dam-safety notices.",
-            "gaugeBasis": "Based on USGS 04121970 immediately below Croton Dam. It represents the regulated Croton tailwater; flow, temperature, access, and safety can differ through Newaygo, the lower river, Muskegon Lake, and the channel.",
+            "gaugeBasis": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-muskegon-steelhead-activity.1"
+          "configVersion": "2026-08-11-muskegon-copy.1"
         }
       },
       {
@@ -39544,6 +39856,7 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "nextConditionRefreshAt": "2026-10-01T05:00:00.000Z",
           "runStage": {
             "stage": "building",
+            "copyStrategy": "muskegon_croton_tailwater",
             "stagingContext": false,
             "broadBuildingContext": true,
             "winterHoldingContext": false,
@@ -39566,14 +39879,14 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "peakToEndDays": 35
             },
             "label": "Building",
-            "headline": "Chinook salmon are broadly established below Croton Dam.",
-            "whereToStart": "Compare Croton-tailwater pools, the Croton-to-Newaygo corridor, Newaygo-to-M-120 holding water, and major lower-river bends toward Muskegon Lake.",
-            "detail": "Fish from several waves can be spread through the river, but the Croton gauge only measures water near the dam. Fish numbers can be very different downstream.",
-            "tip": "Check the upper, middle, and lower river. Let what you see on the water—not just the Croton gauge—tell you where to stay.",
+            "headline": "Chinook salmon are broadly established through the Muskegon River.",
+            "whereToStart": "Start in the Upper river (Newaygo–Croton Dam), emphasizing the Croton Dam area. Compare the Middle river (M-120–Newaygo) for fresher fish.",
+            "detail": "Repeated entry periods support broad presence, not equal numbers in every section.",
+            "tip": "Croton measurements apply only near the dam. Verify downstream water directly.",
             "reasonCodes": [
               "stage_building"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -39642,15 +39955,15 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "2026-09-24"
             ],
             "sourceRefreshSlots": {},
-            "headline": "There is not enough reliable information for a Migration Timing call.",
-            "tip": "Do not move farther upstream or stay lower based on this timing read. Fish the section identified by Migration Stage and begin in its most established holding water; change sections only when direct fish activity or a dependable later read supports it.",
+            "headline": "There is not enough reliable Muskegon evidence for a Migration Timing call.",
+            "tip": "Keep the Muskegon section named by Migration Stage. Do not shift sections from this timing read.",
             "detail": "There are not enough dependable past seasons to judge whether this migration is early, normal, or late.",
             "reasonCodes": [
               "conditions_baseline_missing",
               "conditions_insufficient",
               "conditions_checkpoint_peak_start"
             ],
-            "copyVersion": "river-run-copy-v27",
+            "copyVersion": "river-run-copy-v34",
             "previousCheckpointId": "building_established",
             "previousCheckpointDate": "2026-09-05",
             "previousTimingLabel": "Insufficient evidence"
@@ -39675,14 +39988,14 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "temperature_unavailable"
             ],
             "rulesVersion": "muskegon-croton-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 93,
             "label": "Excellent",
-            "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river.",
-            "tip": "Begin on the primary travel lane feeding deep holding water. Work each hole from its head through the inside seam and tail, then keep moving until fish establish a pattern.",
+            "headline": "Croton-area flow is in its best presentation range.",
+            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read applies only near Croton Dam within the Upper river (Newaygo–Croton Dam).",
+            "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band"
@@ -39693,15 +40006,15 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 53,
             "maximum": 100,
             "label": "Moderate",
-            "headline": "Today’s Chinook activity outlook is moderate.",
-            "detail": "Some useful factors are present, but the response window is mixed. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Measured water temperature is unavailable. More Chinook are moving and settling into the river; the score describes reaction conditions for fish already present. The measured conditions represent the regulated Croton tailwater immediately below Croton Dam; water temperature, clarity, tributary influence, and presentation conditions can differ through Newaygo, the lower river, Muskegon Lake, and the channel. One important reading is unavailable or comes from tomorrow’s forecast, so the outlook is kept conservative.",
-            "tip": "Start with 5–9 AM. If the sky changes from the forecast, favor the darkest practical window.",
+            "headline": "Today’s Croton-area Chinook responsiveness is moderate.",
+            "detail": "Conditions offer mixed support for Chinook responsiveness. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Moderate confidence reflects missing or forecast inputs; river measurements still represent only the Croton Dam area.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify downstream sections directly.",
             "reasonCodes": [
               "activity_confidence_moderate",
               "activity_today",
@@ -39753,10 +40066,13 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 87,
+            "displayScore": 85,
+            "scoreIsApproximate": true,
             "stage": "building",
             "maximum": 100,
             "riverCeiling": 90,
@@ -39765,14 +40081,14 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "curveDirection": "rising",
             "winterHoldingContext": false,
             "label": "Peak presence",
-            "headline": "Chinook salmon are likely spread through more of the river as seasonal presence builds toward its strongest point.",
-            "detail": "The migration is approaching its strongest seasonal point, and fish are likely distributed through more of the river. This is a seasonal estimate, not a live fish count.",
-            "tip": "Treat this as one of the stronger parts of a strong river season. Give each stop a complete pass, but do not mistake this seasonal estimate for a live fish count.",
+            "headline": "Seasonal Chinook salmon presence is near its expected Muskegon peak.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the Muskegon Chinook salmon ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_building",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -39983,14 +40299,14 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             ]
           },
           "interpretationNote": null,
-          "secondaryNote": "Based on USGS 04121970 immediately below Croton Dam. It represents the regulated Croton tailwater; flow, temperature, access, and safety can differ through Newaygo, the lower river, Muskegon Lake, and the channel.",
+          "secondaryNote": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
           "safety": {
             "regulationReminder": "Croton Dam is the hard upstream migration boundary. Fish only legal water below the dam, use established public access, respect private land and posted closures, and check current Michigan regulations and dam-safety notices.",
-            "gaugeBasis": "Based on USGS 04121970 immediately below Croton Dam. It represents the regulated Croton tailwater; flow, temperature, access, and safety can differ through Newaygo, the lower river, Muskegon Lake, and the channel.",
+            "gaugeBasis": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-muskegon-steelhead-activity.1"
+          "configVersion": "2026-08-11-muskegon-copy.1"
         }
       }
     ]

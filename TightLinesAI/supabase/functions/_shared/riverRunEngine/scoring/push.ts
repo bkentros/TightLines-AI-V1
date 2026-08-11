@@ -443,8 +443,15 @@ function pushCopy(input: {
   if (input.input.copyStrategy === "pere_marquette") {
     return pereMarquettePushCopy(input);
   }
+  if (input.input.copyStrategy === "big_manistee_tailwater") {
+    return bigManisteePushCopy(input);
+  }
+  if (input.input.copyStrategy === "muskegon_croton_tailwater") {
+    return muskegonPushCopy(input);
+  }
   const nilesScoped = input.input.rules.hydraulic.sourceLabel ===
     "Niles mainstem reach";
+  if (nilesScoped) return stJosephPushCopy(input);
   const detail = [
     hydraulicCopy(input.input),
     temperatureCopy(input.input, input.components.temperatureState),
@@ -462,6 +469,193 @@ function pushCopy(input: {
       ? `${tip} Use the Niles signal to choose between Niles-area holding water and a lower-Michigan travel-water check; verify Indiana movement directly.`
       : tip,
   };
+}
+
+function stJosephPushCopy(input: {
+  label: string;
+  input: PushScoreInput;
+  components: PushScoreComponents;
+}): Pick<PrimitiveDisplay, "headline" | "detail" | "tip"> {
+  const points = [
+    stJosephHydraulicPoint(input.input, input.components.hydraulicState),
+    temperatureCopy(input.input, input.components.temperatureState),
+    input.input.gaugeFreshness === "stale"
+      ? "The Niles reading is aging, so confidence is reduced."
+      : input.input.flowSignal === "unknown"
+      ? "Without a dependable Niles trend, the read cannot show a clear Push."
+      : stJosephRainPoint(input.components.rainRole),
+  ].filter((point): point is string => Boolean(point));
+  const headline = input.components.hydraulicState === "severe_high"
+    ? "Extreme Niles flow prevents a dependable fresh-movement signal."
+    : input.components.temperatureState === "migration_barrier"
+    ? "Warm Niles water prevents a dependable fresh-movement signal."
+    : input.components.temperatureState === "cold_holding"
+    ? "Cold Niles water limits confidence in continued fall entry."
+    : ({
+      Weak: "Niles water shows little support for fresh movement.",
+      "No clear push":
+        "Niles water does not show a clear fresh-movement signal.",
+      Possible: "Niles water offers some support for fresh movement.",
+      Strong: "Niles water strongly supports possible fresh movement.",
+      "Very strong":
+        "Niles water offers its strongest support for fresh movement.",
+    } as Record<string, string>)[input.label] ??
+      "A Niles fresh-movement read is available.";
+  const tip = input.label === "Weak" || input.label === "No clear push"
+    ? "Keep Migration Stage’s section primary. Do not shift sections from this Niles read."
+    : input.label === "Possible"
+    ? "Keep Migration Stage’s section primary and add one Niles-area movement check."
+    : "Use Niles as the movement check, then verify the Lower and Upper river directly.";
+  return { headline, detail: points.slice(0, 3).join(" "), tip };
+}
+
+function stJosephHydraulicPoint(
+  input: PushScoreInput,
+  state: PushHydraulicState,
+): string {
+  const trend = ({
+    sharp_rise: "is rising quickly",
+    meaningful_rise: "has made a clear rise",
+    rising: "has started to rise",
+    stable: "is steady without a meaningful rise",
+    falling: "is falling",
+    unknown: "does not have a dependable recent trend",
+  } as Record<RawFlowTrendSignal, string>)[input.flowSignal];
+  const level = state === "low"
+    ? ", while overall flow remains low"
+    : state === "high"
+    ? ", while overall flow is high"
+    : state === "severe_high"
+    ? ", while overall flow is extreme"
+    : "";
+  return `Niles flow ${trend}${level}.`;
+}
+
+function stJosephRainPoint(role: PushRainRole): string {
+  return ({
+    precursor: "Rain is only a precursor because Niles has not responded.",
+    partial_precursor: "Rain adds limited support while Niles begins to rise.",
+    absorbed_by_gauge:
+      "Niles already reflects the rain response, so rain adds no extra credit.",
+    suppressed_high_flow:
+      "Rain adds no support while Niles flow is already high.",
+    dry: "Recent watershed weather shows little rain.",
+    missing: "Rainfall data is unavailable and adds no confidence.",
+    neutral: "Recent rainfall is too light to affect the read.",
+  } as Record<PushRainRole, string>)[role];
+}
+
+function bigManisteePushCopy(input: {
+  label: string;
+  input: PushScoreInput;
+  components: PushScoreComponents;
+}): Pick<PrimitiveDisplay, "headline" | "detail" | "tip"> {
+  const points = [
+    hydraulicCopy(input.input).replace(". Overall flow", "; overall flow"),
+    temperatureCopy(input.input, input.components.temperatureState),
+    input.input.gaugeFreshness === "stale"
+      ? "The Wellston reading is aging, so confidence is reduced."
+      : input.input.flowSignal === "unknown"
+      ? "Without a dependable Wellston trend, the read cannot show a clear Push."
+      : bigManisteeRainPoint(input.components.rainRole),
+  ].filter((point): point is string => Boolean(point));
+  const headline = input.components.hydraulicState === "severe_high"
+    ? "Extreme Upper-river flow prevents a dependable fresh-movement signal."
+    : input.components.temperatureState === "migration_barrier"
+    ? "Warm Upper-river water prevents a dependable fresh-movement signal."
+    : input.components.temperatureState === "cold_holding"
+    ? "Cold Upper-river water limits confidence in continued fall entry."
+    : ({
+      Weak: "Upper-river water shows little support for fresh movement.",
+      "No clear push":
+        "Upper-river water does not show a clear fresh-movement signal.",
+      Possible: "Upper-river water offers some support for fresh movement.",
+      Strong: "Upper-river water strongly supports possible fresh movement.",
+      "Very strong":
+        "Upper-river water offers its strongest support for fresh movement.",
+    } as Record<string, string>)[input.label] ??
+      "An Upper-river fresh-movement read is available.";
+  const tip = input.label === "Weak" || input.label === "No clear push"
+    ? "Keep Migration Stage’s section primary. Do not shift to fresh-entry water from this read."
+    : input.label === "Possible"
+    ? "Keep Migration Stage’s section primary and add one Lower-river fresh-entry check."
+    : "Use the Lower river as the fresh-entry comparison, then return to Migration Stage’s section.";
+  return {
+    headline,
+    detail: points.slice(0, 3).join(" "),
+    tip,
+  };
+}
+
+function bigManisteeRainPoint(role: PushRainRole): string {
+  return ({
+    precursor: "Rain is only a precursor because Wellston has not responded.",
+    partial_precursor:
+      "Rain adds limited support while Wellston begins to rise.",
+    absorbed_by_gauge:
+      "Wellston already reflects the rain response, so rain adds no extra credit.",
+    suppressed_high_flow:
+      "Rain adds no support while Wellston flow is already high.",
+    dry: "Recent watershed weather shows little rain.",
+    missing: "Rainfall data is unavailable and adds no confidence.",
+    neutral: "Recent rainfall is too light to affect the read.",
+  } as Record<PushRainRole, string>)[role];
+}
+
+function muskegonPushCopy(input: {
+  label: string;
+  input: PushScoreInput;
+  components: PushScoreComponents;
+}): Pick<PrimitiveDisplay, "headline" | "detail" | "tip"> {
+  const points = [
+    hydraulicCopy(input.input).replace(". Overall flow", "; overall flow"),
+    temperatureCopy(input.input, input.components.temperatureState),
+    input.input.gaugeFreshness === "stale"
+      ? "The Croton reading is aging, so confidence is reduced."
+      : input.input.flowSignal === "unknown"
+      ? "Without a dependable Croton trend, the read cannot show a clear Push."
+      : muskegonRainPoint(input.components.rainRole),
+  ].filter((point): point is string => Boolean(point));
+  const headline = input.components.hydraulicState === "severe_high"
+    ? "Extreme Croton-area flow prevents a dependable fresh-movement signal."
+    : input.components.temperatureState === "migration_barrier"
+    ? "Warm Croton-area water prevents a dependable fresh-movement signal."
+    : input.components.temperatureState === "cold_holding"
+    ? "Cold Croton-area water limits confidence in continued fall entry."
+    : ({
+      Weak: "Croton-area water shows little support for fresh movement.",
+      "No clear push":
+        "Croton-area water does not show a clear fresh-movement signal.",
+      Possible: "Croton-area water offers some support for fresh movement.",
+      Strong: "Croton-area water strongly supports possible fresh movement.",
+      "Very strong":
+        "Croton-area water offers its strongest support for fresh movement.",
+    } as Record<string, string>)[input.label] ??
+      "A Croton-area fresh-movement read is available.";
+  const tip = input.label === "Weak" || input.label === "No clear push"
+    ? "Keep Migration Stage’s section primary. Do not shift sections from this read."
+    : input.label === "Possible"
+    ? "Keep Migration Stage’s section primary and add one Croton Dam-area movement check."
+    : "Prioritize movement water near Croton Dam, then verify any downstream section directly.";
+  return {
+    headline,
+    detail: points.slice(0, 3).join(" "),
+    tip,
+  };
+}
+
+function muskegonRainPoint(role: PushRainRole): string {
+  return ({
+    precursor: "Rain is only a precursor because Croton has not responded.",
+    partial_precursor: "Rain adds limited support while Croton begins to rise.",
+    absorbed_by_gauge:
+      "Croton already reflects the rain response, so rain adds no extra credit.",
+    suppressed_high_flow:
+      "Rain adds no support while Croton-area flow is already high.",
+    dry: "Recent watershed weather shows little rain.",
+    missing: "Rainfall data is unavailable and adds no confidence.",
+    neutral: "Recent rainfall is too light to affect the read.",
+  } as Record<PushRainRole, string>)[role];
 }
 
 function pereMarquettePushCopy(input: {
@@ -591,6 +785,40 @@ function inactiveTrackingResult(
   input: PushScoreInput,
 ): PushScoreResult {
   if (input.trackingState === "offseason") {
+    if (input.copyStrategy === "muskegon_croton_tailwater") {
+      return {
+        score: null,
+        label: "Offseason",
+        headline: "Muskegon Push is outside its fall movement window.",
+        detail:
+          "Current Croton flow and measured temperature do not provide an in-season fresh-movement signal for this run.",
+        tip: `Check back ${
+          input.monitoringStartDate
+            ? seasonalReturnPhrase(input.monitoringStartDate.slice(5))
+            : "when fall tracking resumes"
+        }.`,
+        reasonCodes: ["push_tracking_offseason"],
+        rulesVersion: input.rules.version,
+        copyVersion: RIVER_RUN_COPY_VERSION,
+      };
+    }
+    if (input.copyStrategy === "big_manistee_tailwater") {
+      return {
+        score: null,
+        label: "Offseason",
+        headline: "Big Manistee Push is outside its fall movement window.",
+        detail:
+          "Current Wellston flow and temperature do not provide an in-season fresh-movement signal for this run.",
+        tip: `Check back ${
+          input.monitoringStartDate
+            ? seasonalReturnPhrase(input.monitoringStartDate.slice(5))
+            : "when fall tracking resumes"
+        }.`,
+        reasonCodes: ["push_tracking_offseason"],
+        rulesVersion: input.rules.version,
+        copyVersion: RIVER_RUN_COPY_VERSION,
+      };
+    }
     if (input.copyStrategy === "pere_marquette") {
       const returnPhrase = input.monitoringStartDate
         ? seasonalReturnPhrase(input.monitoringStartDate.slice(5))
@@ -639,6 +867,36 @@ function inactiveTrackingResult(
         copyVersion: RIVER_RUN_COPY_VERSION,
       };
     }
+    if (input.copyStrategy === "big_manistee_tailwater") {
+      return {
+        score: null,
+        label: "Waiting for migration",
+        headline: "Dependable Big Manistee river entry has not started.",
+        detail:
+          "Wellston flow and temperature are not scored as an in-season fresh-movement signal yet.",
+        tip:
+          "Use Migration Stage. Do not move inland because offseason water resembles a Push.",
+        reasonCodes: ["push_tracking_not_started"],
+        rulesVersion: input.rules.version,
+        copyVersion: RIVER_RUN_COPY_VERSION,
+      };
+    }
+    if (input.copyStrategy === "muskegon_croton_tailwater") {
+      return {
+        score: null,
+        label: "Waiting for migration",
+        headline: fallEntry
+          ? "Dependable Muskegon Steelhead fall entry has not started."
+          : "Dependable Muskegon river entry has not started.",
+        detail:
+          "Croton flow and measured temperature are not scored as an in-season fresh-movement signal yet.",
+        tip:
+          "Use Migration Stage. Do not move inland because offseason water resembles a Push.",
+        reasonCodes: ["push_tracking_not_started"],
+        rulesVersion: input.rules.version,
+        copyVersion: RIVER_RUN_COPY_VERSION,
+      };
+    }
     return {
       score: null,
       label: "Waiting for migration",
@@ -657,17 +915,40 @@ function inactiveTrackingResult(
     };
   }
   if (
-    input.copyStrategy === "pere_marquette" &&
+    (input.copyStrategy === "pere_marquette" ||
+      input.copyStrategy === "big_manistee_tailwater" ||
+      input.copyStrategy === "muskegon_croton_tailwater" ||
+      input.copyStrategy === "st_joseph_corridor") &&
     input.movementEngineId === "fall_entry_cooling"
   ) {
     return {
       score: null,
       label: "Fall entry complete",
-      headline: "PM Steelhead fall-entry Push is complete.",
+      headline: input.copyStrategy === "big_manistee_tailwater"
+        ? "Big Manistee Steelhead fall-entry Push is complete."
+        : input.copyStrategy === "muskegon_croton_tailwater"
+        ? "Muskegon Steelhead fall-entry Push is complete."
+        : input.copyStrategy === "st_joseph_corridor"
+        ? "St. Joseph Steelhead fall-entry Push is complete."
+        : "PM Steelhead fall-entry Push is complete.",
       detail:
         "Current water may affect Steelhead still in the river. This fall model no longer scores fresh-entry support.",
       tip:
-        "Do not use a muted fall Push as evidence that Steelhead left the river. Check back in early September.",
+        "Do not use a completed fall Push to infer current presence. Check back in early September.",
+      reasonCodes: ["push_tracking_complete"],
+      rulesVersion: input.rules.version,
+      copyVersion: RIVER_RUN_COPY_VERSION,
+    };
+  }
+  if (input.copyStrategy === "muskegon_croton_tailwater") {
+    return {
+      score: null,
+      label: "Fall run complete",
+      headline: "Muskegon fall-run Push is complete.",
+      detail:
+        "Current Croton water no longer provides an in-season fresh-movement read for this run.",
+      tip:
+        "Do not use a completed Push to infer current presence. Return when fall movement tracking resumes.",
       reasonCodes: ["push_tracking_complete"],
       rulesVersion: input.rules.version,
       copyVersion: RIVER_RUN_COPY_VERSION,

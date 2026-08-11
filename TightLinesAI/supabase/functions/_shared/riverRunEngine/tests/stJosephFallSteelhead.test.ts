@@ -39,35 +39,43 @@ Deno.test("St. Joseph Fall Steelhead is public in both states and includes calib
   );
 });
 
-Deno.test("St. Joseph Steelhead separates Skamania presence from winter-run fall entry", () => {
+Deno.test("St. Joseph Steelhead separates Skamania context from fall entry", () => {
   const early = resolveRunStage(run, "2026-08-10");
-  assertMatch(early.headline, /Skamania/i);
-  assertMatch(early.detail, /later winter-run/i);
+  assertMatch(early.detail, /Skamania/i);
+  assertMatch(early.detail, /separate from this fall-entry estimate/i);
   assertEquals(/Manistee/i.test(early.detail), false);
   assertMatch(early.whereToStart ?? "", /harbor/i);
 
   const building = resolveRunStage(run, "2026-10-15");
   assertMatch(building.whereToStart ?? "", /Niles/i);
   const peak = resolveRunStage(run, "2026-11-15");
-  assertMatch(peak.whereToStart ?? "", /Berrien Springs/i);
-  assertMatch(peak.whereToStart ?? "", /South Bend-Mishawaka/i);
-  assertMatch(peak.whereToStart ?? "", /Niles gauge only for the Niles reach/i);
+  assertMatch(peak.whereToStart ?? "", /Middle river/i);
+  assertMatch(peak.whereToStart ?? "", /Upper river/i);
+  assertMatch(peak.whereToStart ?? "", /Twin Branch/i);
 
-  const winter = resolveRunStage(run, "2026-12-23");
-  assertEquals(winter.label, "Winter holding");
-  assertMatch(winter.detail, /have not left/i);
-  assertMatch(winter.detail, /responsiveness at Niles/i);
+  const complete = resolveRunStage(run, "2026-12-23");
+  assertEquals(complete.label, "Fall entry complete");
+  assertMatch(complete.detail, /may remain/i);
+  assertEquals(
+    /winter/i.test(
+      `${complete.headline} ${complete.detail} ${complete.tip} ${complete.whereToStart}`,
+    ),
+    false,
+  );
 });
 
-Deno.test("St. Joseph Steelhead presence is 9/10 and hands 81 into winter", () => {
+Deno.test("St. Joseph Steelhead presence is 9/10 and closes fall entry after 81", () => {
   assertEquals(run.historicalPresence.maximum, 9);
   assertEquals(run.historicalPresence.distributionScope, "broad");
   assertEquals(scoreFishInRiver(run, "2026-09-24").score, 0);
   assertEquals(scoreFishInRiver(run, "2026-09-25").score, 7);
   assertEquals(scoreFishInRiver(run, "2026-11-15").score, 90);
   assertEquals(scoreFishInRiver(run, "2026-12-22").score, 81);
-  assertEquals(scoreFishInRiver(run, "2026-12-23").score, 81);
-  assertEquals(scoreFishInRiver(run, "2026-12-23").label, "Winter holding");
+  assertEquals(scoreFishInRiver(run, "2026-12-23").score, null);
+  assertEquals(
+    scoreFishInRiver(run, "2026-12-23").label,
+    "Fall entry complete",
+  );
 });
 
 Deno.test("St. Joseph Niles Fishability honors every calibrated boundary", () => {

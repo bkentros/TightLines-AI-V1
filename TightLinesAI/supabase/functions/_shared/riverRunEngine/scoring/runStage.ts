@@ -53,6 +53,9 @@ export function resolveRunStage(
     compareLocalDates(localDate, window.postRunLateCopyEndDate) <= 0;
   const winterHoldingContext = run.runType === "fall_entry" && !!run.handoff &&
     run.runStageCopyStrategy !== "pere_marquette" &&
+    run.runStageCopyStrategy !== "big_manistee_tailwater" &&
+    run.runStageCopyStrategy !== "muskegon_croton_tailwater" &&
+    run.runStageCopyStrategy !== "st_joseph_corridor" &&
     stage === "post_run" && compareLocalDates(localDate, window.endDate) > 0;
 
   const opportunity = resolveRunOpportunityCopyContext(run.historicalPresence);
@@ -150,7 +153,10 @@ export function resolveRunStage(
       broadBuildingContext,
       winterHoldingContext,
       window,
-      label: run.runStageCopyStrategy === "pere_marquette" &&
+      label: (run.runStageCopyStrategy === "pere_marquette" ||
+          run.runStageCopyStrategy === "big_manistee_tailwater" ||
+          run.runStageCopyStrategy === "muskegon_croton_tailwater" ||
+          run.runStageCopyStrategy === "st_joseph_corridor") &&
           stage === "post_run"
         ? "Fall entry complete"
         : fallEntryStageLabel(stage, winterHoldingContext),
@@ -185,7 +191,9 @@ export function resolveRunStage(
       broadBuildingContext,
       winterHoldingContext: false,
       window,
-      label: stageLabel(stage, latePostRunContext),
+      label: stage === "post_run" && !latePostRunContext
+        ? "Fall run complete"
+        : stageLabel(stage, latePostRunContext),
       ...copy,
       whereToStart: stJosephFallSpawnWhereToStartCopy({
         stage,
@@ -214,7 +222,9 @@ export function resolveRunStage(
       broadBuildingContext,
       winterHoldingContext: false,
       window,
-      label: stageLabel(stage, latePostRunContext),
+      label: stage === "post_run" && !latePostRunContext
+        ? "Fall run complete"
+        : stageLabel(stage, latePostRunContext),
       ...bigManisteeTailwaterStageCopy({
         stage,
         localDate,
@@ -244,7 +254,9 @@ export function resolveRunStage(
       broadBuildingContext,
       winterHoldingContext: false,
       window,
-      label: stageLabel(stage, latePostRunContext),
+      label: stage === "post_run" && !latePostRunContext
+        ? "Fall run complete"
+        : stageLabel(stage, latePostRunContext),
       ...muskegonCrotonStageCopy({
         stage,
         localDate,
@@ -373,38 +385,37 @@ function stJosephFallSpawnWhereToStartCopy(input: {
   opportunity: RunOpportunityCopyContext;
 }): string {
   const limited = input.opportunity.strength === "limited";
+  const lower = "Lower river (St. Joseph harbor–Berrien Springs)";
+  const middle = "Middle river (Berrien Springs–Niles)";
+  const upper = "Upper river (Niles–Twin Branch Dam)";
   switch (input.stage) {
     case "pre_run":
       return input.stagingContext
-        ? "Start with the St. Joseph harbor, river mouth, and deep lower Michigan travel water; do not assume fish have passed Niles or reached South Bend."
-        : "Keep the search in Lake Michigan, the harbor, and river-mouth water until river staging begins.";
+        ? `Start at the St. Joseph harbor and river mouth. Add the ${lower} only for an early-fish check.`
+        : "Stay with Lake Michigan, the St. Joseph harbor, and the river mouth.";
     case "beginning":
-      return limited
-        ? "Start in deep lower-Michigan travel and holding water below Berrien Springs; make Niles a selective second check and do not chase this smaller Chinook return across the full corridor."
-        : "Start in deep lower-Michigan travel water below Berrien Springs, then compare legal holding water around Buchanan and Niles before making a selective Indiana check.";
+      return `Start in the ${lower}. Add the ${middle} only after direct fish activity supports the move.`;
     case "building":
       if (input.broadBuildingContext) {
         return limited
-          ? "Prioritize proven lower-Michigan and Niles holding water; use South Bend or Mishawaka only as selective passage checks, always away from posted ladder and dam boundaries."
-          : "Compare lower-Michigan holding water, Buchanan and Niles, then legal South Bend-Mishawaka water below Twin Branch; never infer every section from the Niles gauge.";
+          ? `Start in the ${middle}. Check the ${upper} only as a selective comparison.`
+          : `Start in the ${middle}. Compare the ${upper} for earlier arrivals.`;
       }
       return input.establishedBuildingContext
-        ? limited
-          ? "Work proven Berrien Springs-to-Niles holding water first, then make one legal South Bend passage check rather than assuming broad corridor occupation."
-          : "Compare Berrien Springs-to-Niles holding water with legal South Bend travel and resting reaches; expect uneven passage between sections."
-        : "Follow lower-river travel lanes toward Berrien Springs and Buchanan, then sample Niles before considering Indiana water.";
+        ? `Start in the ${middle}. Compare the ${lower} for newer fish.`
+        : `Start in the ${lower}. Check the ${middle} for earlier arrivals.`;
     case "peak":
       return limited
-        ? "Start with proven lower-Michigan and Niles holding water, then make one selective South Bend or Mishawaka check below Twin Branch; this smaller Chinook run is not a reason to cover all 63 miles."
-        : "Compare Berrien Springs, Buchanan, and Niles holding water with legal South Bend-Mishawaka water below Twin Branch; stay outside every posted dam and ladder boundary.";
+        ? `Start in the ${middle}. Treat the ${upper} as a selective second check.`
+        : `Start in the ${middle}. Compare the ${upper} for established fish.`;
     case "tapering":
-      return "Prioritize established holding and spawning water near Niles, South Bend, and Mishawaka while checking the lower river only for a late fresh wave.";
+      return `Start in established ${middle} or ${upper} holding water.`;
     case "ending":
-      return "Focus on proven deep holding water near Niles, South Bend, or Mishawaka; treat fresh lower-river entry as secondary and leave shallow spawning fish alone.";
+      return `Start in one proven ${middle} or ${upper} holding section.`;
     case "post_run":
       return input.latePostRunContext
-        ? "Make only a selective check of established late holding water below Twin Branch; the main migration window has ended."
-        : `Shift to an in-season species and do not plan a St. Joseph ${input.species} migration trip from this inactive calendar.`;
+        ? `Make only a selective check in established ${middle} or ${upper} holding water.`
+        : "There is no active St. Joseph starting section for this fall run.";
   }
 }
 
@@ -433,94 +444,92 @@ function stJosephFallSpawnStageCopy(input: {
         ? {
           ...base,
           headline:
-            `${input.species} may be staging around the St. Joseph harbor and mouth, but dependable inland passage has not begun.`,
+            `${input.species} may be staging near the St. Joseph River entrance.`,
           detail: limited
-            ? `A few early ${input.species} can enter lower Michigan water, but this smaller run should not be projected through Niles, South Bend, or Mishawaka from one fish near the mouth.`
-            : `An early ${input.species} can enter lower Michigan water, but harbor activity does not prove passage through Berrien Springs, Niles, or the Indiana ladders.`,
+            ? `Staging does not confirm dependable river entry. This remains a limited, sectional ${input.species} run.`
+            : "Staging does not confirm dependable river entry or inland distribution.",
           tip:
-            "Fish the harbor-to-river transition and one deep lower-river travel lane. Skip an inland corridor run until Migration Stage and Fish In River show dependable entry.",
+            "Keep the inland check brief. Do not move upriver from calendar timing alone.",
         }
         : {
           ...base,
           headline:
-            `${input.species} have not begun their dependable St. Joseph River migration.`,
+            `${input.species} have not started their main St. Joseph River run.`,
           detail:
-            "The seasonal calendar still points to Lake Michigan, the harbor, and the river mouth—not an established inland opportunity.",
+            "The river-entry window has not opened yet. An isolated river fish would be an early exception.",
           tip:
-            "Keep the trip lakeward and return when staging monitoring begins. Do not let rain or one isolated river fish turn into a corridor-wide claim.",
+            "Keep the trip lakeward and return when staging monitoring begins.",
         };
     case "beginning":
       return {
         ...base,
         headline: limited
-          ? `The first ${input.species} are entering the St. Joseph, but the opportunity remains small and sectional.`
-          : `The first ${input.species} are entering the St. Joseph and beginning to move beyond the lower river.`,
+          ? `The first ${input.species} are entering the St. Joseph, but the run remains limited.`
+          : `The first ${input.species} are entering the St. Joseph River.`,
         detail: limited
-          ? "Lower Michigan travel and holding water is the most defensible first look. Passage through the five ladders can occur, but Niles or Indiana fish should be treated as selective opportunities—not broad distribution."
-          : "New fish should still be weighted toward lower Michigan travel water, while earlier arrivals may already be using Buchanan, Niles, and selective Indiana resting water.",
+          ? "Early Chinook remain scattered and concentrated in select water."
+          : "New fish remain weighted toward the Lower river; earlier arrivals may be farther upstream.",
         tip:
-          "Cover a lower-Michigan travel-and-holding sequence first. Move upriver only after direct fish activity, local observations, or established passage supports the change.",
+          "Cover travel water and the first substantial holding areas before moving upstream.",
       };
     case "building":
       return {
         ...base,
         headline: limited
-          ? `${input.species} are established in select St. Joseph sections, but this remains a limited run.`
+          ? `${input.species} are established in select St. Joseph sections.`
           : input.broadBuildingContext
-          ? `${input.species} are now established through multiple sections of the interstate St. Joseph corridor.`
-          : `${input.species} are becoming established from lower Michigan water toward Niles and Indiana.`,
+          ? `${input.species} are established through multiple St. Joseph sections.`
+          : `${input.species} are becoming established through more of the St. Joseph.`,
         detail: limited
-          ? "Earlier fish can be holding from lower Michigan through Niles, with some passage into South Bend and Mishawaka. Empty water between fish remains normal for this smaller Chinook return."
-          : "Earlier arrivals have had time to pass Berrien Springs, Buchanan, and Niles while newer fish continue entering below. Distribution can be broad without being even between Michigan and Indiana sections.",
+          ? "This smaller Chinook run remains selective, with empty water between fish."
+          : "Earlier arrivals may be farther upstream while newer fish continue entering below.",
         tip: limited
-          ? "Pick one proven Michigan or Niles holding section and fish it thoroughly before making one legal Indiana check. Do not run every ladder looking for scattered Chinook."
-          : "Compare one Michigan section with one Indiana section, working deep travel lanes, current breaks, and resting water away from every ladder safety zone.",
+          ? "Fish one proven section thoroughly before making a selective second check."
+          : "Compare two sections, then stay where direct fish activity is strongest.",
       };
     case "peak":
       return {
         ...base,
         headline: limited
-          ? `This is the best St. Joseph ${input.species} window, but it remains a selective 3-of-10 opportunity.`
-          : `This is typically the strongest St. Joseph ${input.species} window across the five-ladder corridor.`,
+          ? `This is the best St. Joseph ${input.species} window, but opportunity remains selective.`
+          : `This is typically the strongest St. Joseph ${input.species} window.`,
         detail: limited
-          ? "The calendar supports the best chance of finding Chinook in proven lower-Michigan, Niles, or selective Indiana holding water. It does not imply strong or uniform occupation of the full corridor."
-          : "Multiple waves have had time to spread from the lower river through Berrien Springs, Buchanan, Niles, South Bend, and Mishawaka, but each section still needs to be checked independently.",
+          ? "This is a limited 3-of-10 run, not a claim of strong or uniform presence."
+          : "Repeated entry periods support broad presence, not equal numbers in every section.",
         tip:
-          "Choose a proven section and cover deep holding water from head to tail. Change sections only after a clean search, and leave shallow spawning fish undisturbed.",
+          "Choose one section and cover it completely before changing reaches. Leave shallow spawning fish undisturbed.",
       };
     case "tapering":
       return {
         ...base,
         detail:
-          "Fresh passage is becoming less dependable, so established Niles, South Bend, and Mishawaka holding or spawning water matters more than racing the lower river for a new wave.",
+          "Fresh entry is slowing, so established holding water matters more than Lower-river travel lanes.",
         tip:
-          "Start in proven deep holding water, check lower travel lanes only when Push supports new movement, and leave fish on shallow gravel alone.",
+          "Start in proven holding water. Check the Lower river only when Push supports fresh movement.",
       };
     case "ending":
       return {
         ...base,
         detail:
-          "Most remaining fish have been in the system for some time. A fresh fish is possible, but the guide-level plan is a short, selective holding-water search—not a corridor-wide run.",
+          "Most remaining fish have been in the river for some time. A fresh fish is possible but not dependable.",
         tip:
-          "Fish one or two proven deep holding areas, avoid shallow spawning fish, and stop searching if direct signs are absent.",
+          "Fish one proven holding section, avoid shallow spawning fish, and stop searching if direct signs are absent.",
       };
     case "post_run":
       return input.latePostRunContext
         ? {
           ...base,
           detail:
-            "A few late fish may remain below Twin Branch, but the main migration no longer supports a dependable St. Joseph trip.",
+            "A few late fish may remain, but the main migration no longer supports a dependable trip.",
           tip:
-            "Make only a selective established-water check, or shift to an active species. Do not chase isolated holdovers from ladder to ladder.",
+            "Make one selective established-water check or shift to an active species.",
         }
         : {
           ...base,
-          headline:
-            `${input.species} are outside their St. Joseph River migration season.`,
+          headline: `The St. Joseph ${input.species} fall run is complete.`,
           detail:
-            "This fall migration read is inactive and should not be used to recommend a harbor, Michigan, Niles, or Indiana starting reach.",
-          tip:
-            "Choose a species with an active St. Joseph seasonal window and return to this read when early monitoring begins.",
+            "This seasonal run estimate is inactive until staging begins again.",
+          tip: "Return when St. Joseph fall-run staging begins.",
         };
   }
 }
@@ -537,53 +546,70 @@ function muskegonCrotonStageCopy(input: {
   opportunity: RunOpportunityCopyContext;
 }): Pick<PrimitiveDisplay, "headline" | "whereToStart" | "detail" | "tip"> {
   const limited = input.opportunity.strength === "limited";
+  const lower = "Lower river (Muskegon Lake–M-120)";
+  const middle = "Middle river (M-120–Newaygo)";
+  const upper = "Upper river (Newaygo–Croton Dam)";
+  const accumulatedBeginning = compareLocalDates(
+    input.localDate,
+    addDays(input.window.startDate, 7),
+  ) >= 0;
+  const lateTaper = compareLocalDates(
+    input.localDate,
+    addDays(input.window.peakEndDate, 6),
+  ) >= 0;
+  const residualEnding = compareLocalDates(
+    input.localDate,
+    addDays(input.window.taperingEndDate, 6),
+  ) >= 0;
   switch (input.stage) {
     case "pre_run":
       return input.stagingContext
         ? {
           headline:
-            `${input.species} may be staging in Muskegon Lake, the channel, and near the river mouth.`,
+            `${input.species} may be staging near the Muskegon River entrance.`,
           whereToStart:
-            "Muskegon Lake, the Lake Michigan channel, the river mouth, and one quick check of deep lower-river water below M-120.",
-          detail:
-            `An early ${input.species} can enter the lower Muskegon, but that does not mean fish are spread through Newaygo or up to Croton Dam.`,
+            `Start at Muskegon Lake, the Lake Michigan channel, and the river entrance. Add the ${lower} only for an early-fish check.`,
+          detail: `Staging does not confirm dependable river entry.${
+            limited ? " Coho opportunity remains limited and sectional." : ""
+          }`,
           tip:
-            "Stay closer to the lake. One early river fish does not mean the whole river has fish yet.",
+            `Keep the river check brief. Do not move into the ${middle} or ${upper} from calendar timing alone.`,
         }
         : {
           headline:
             `${input.species} have not started their main Muskegon River run.`,
           whereToStart:
-            "Lake Michigan, the Muskegon channel, Muskegon Lake, and the river mouth—not the inland river yet.",
+            "Stay with Muskegon Lake, the Lake Michigan channel, and the river entrance.",
           detail:
-            `It is still too early to expect ${input.species} between Muskegon Lake and Croton Dam.`,
-          tip:
-            "Keep the trip in lake, channel, and mouth water until staging begins.",
+            "The river-entry window has not opened yet. An isolated river fish would be an early exception.",
+          tip: `Do not build an inland trip around ${input.species} yet.`,
         };
     case "beginning":
       return {
-        headline:
-          `The first ${input.species} are starting to enter the Muskegon River.`,
+        headline: accumulatedBeginning
+          ? `${input.species} are accumulating through more of the Muskegon River.`
+          : `The first ${input.species} are entering the Muskegon River.`,
         whereToStart:
-          "Start in the deep lower river from Muskegon Lake toward M-120, then sample Newaygo-to-M-120 travel lanes before making a selective Croton-tailwater check.",
-        detail:
-          "New fish can be scattered across more than forty river miles. A few may already be near Croton, but the lower and middle river are the better places to start.",
+          `Start in the ${lower}. Add the ${middle} after direct fish activity supports the move.`,
+        detail: limited
+          ? "Early Coho remain scattered and concentrated in select water."
+          : "Early fish remain scattered; earlier arrivals may already be farther upstream.",
         tip:
-          "Check deep bends, wood edges, and resting spots in two parts of the river before heading straight to the dam.",
+          "Cover travel water and the first substantial holding areas before moving upstream.",
       };
     case "building":
       if (input.broadBuildingContext) {
         return {
           headline: limited
-            ? `${input.species} are established in several Muskegon River sections.`
-            : `${input.species} are broadly established below Croton Dam.`,
+            ? `${input.species} are established in select Muskegon River sections.`
+            : `${input.species} are broadly established through the Muskegon River.`,
           whereToStart:
-            "Compare Croton-tailwater pools, the Croton-to-Newaygo corridor, Newaygo-to-M-120 holding water, and major lower-river bends toward Muskegon Lake.",
+            `Start in the ${upper}, emphasizing the Croton Dam area. Compare the ${middle} for fresher fish.`,
           detail: limited
-            ? "Fish may be using several sections, but this is still a smaller run and many good-looking spots may be empty. The Croton gauge only measures water near the dam."
-            : "Fish from several waves can be spread through the river, but the Croton gauge only measures water near the dam. Fish numbers can be very different downstream.",
+            ? "More than one section may hold Coho, but concentrations remain selective."
+            : "Repeated entry periods support broad presence, not equal numbers in every section.",
           tip:
-            "Check the upper, middle, and lower river. Let what you see on the water—not just the Croton gauge—tell you where to stay.",
+            "Croton measurements apply only near the dam. Verify downstream water directly.",
         };
       }
       return input.establishedBuildingContext
@@ -592,54 +618,58 @@ function muskegonCrotonStageCopy(input: {
             ? `${input.species} are becoming established in select Muskegon River reaches.`
             : `${input.species} are becoming dependably established through more of the Muskegon River.`,
           whereToStart:
-            "Begin with Croton-to-Newaygo pools and runs, then compare deeper Newaygo-to-M-120 bends with lower-river travel water below M-120.",
-          detail:
-            "Earlier fish can hold below Croton while newer fish move through the lower river. What you find in one section may not match the rest of the river.",
+            `Start in the ${middle}. Check the Croton Dam area in the ${upper} for early arrivals.`,
+          detail: limited
+            ? "Coho may occupy more than one section, but the opportunity remains selective."
+            : "Earlier arrivals can hold near Croton while newer fish remain farther downstream.",
           tip:
-            "Check upper-river holding water and at least one middle or lower section before settling in for the day.",
+            "Compare the two sections directly; the Croton gauge does not describe the Middle river.",
         }
         : {
           headline:
             `More ${input.species} are entering and spreading through the Muskegon River.`,
           whereToStart:
-            "Follow lower-river travel water below M-120 into the bigger resting holes between M-120 and Newaygo, then check the Croton-to-Newaygo section.",
+            `Start in the ${middle}. Check the Croton Dam area in the ${upper} for early arrivals.`,
           detail:
-            "More than a few early fish are in the river now, but they may still be spread unevenly through the lower and middle sections.",
-          tip:
-            "Keep moving between sections until you find signs that fish are using the water.",
+            "Presence is growing beyond isolated fish, but distribution remains uneven.",
+          tip: `Keep the ${lower} as the fresh-entry comparison.`,
         };
     case "peak":
       return {
         headline:
           `This is typically the strongest Muskegon River ${input.species} opportunity.`,
         whereToStart:
-          "Compare the Croton tailwater, Croton-to-Newaygo pools, Newaygo-to-M-120 bends and wood, and major lower-river holes toward Muskegon Lake.",
-        detail:
-          "Fish can be spread through the river now, but water clarity, access, and how the fish act can still be very different from one section to another.",
+          `Start in the ${upper}, emphasizing the Croton Dam area. Compare the ${middle} for fresher fish.`,
+        detail: limited
+          ? "This remains a limited, sectional Coho opportunity."
+          : "Fish can be broadly present, but concentrations still vary by section.",
         tip:
-          "The Croton gauge tells you what is happening near the dam. Check the middle and lower river yourself because conditions can be different downstream.",
+          "Croton measurements apply only near the dam. Verify downstream water directly.",
       };
     case "tapering":
       return {
-        headline:
-          `The Muskegon ${input.species} run is tapering, with established fish still present below Croton.`,
+        headline: lateTaper
+          ? `The Muskegon ${input.species} run is entering its late taper.`
+          : `${input.species} remain present, but fresh arrivals are less consistent.`,
         whereToStart:
-          "Start with deep Croton-to-Newaygo pools, slower bends near Newaygo, and known holding water around M-120. Check the lower river when there are signs of later fish coming in.",
-        detail:
-          "October can still hold fish, but more of them have been in the river for a while, are spawning, or are starting to wear down. Do not expect a fresh wave everywhere.",
+          `Start in the ${upper}, especially the Croton Dam area. Add the ${middle} only when direct activity supports it.`,
+        detail: lateTaper
+          ? "Fresh arrivals are becoming exceptions and dependable distribution is narrowing."
+          : "The run is declining and concentrating in established holding water.",
         tip:
-          "Fish the deeper holding water, leave fish on shallow spawning gravel alone, and remember that one bright fish does not mean a fresh wave came in.",
+          "Look for genuinely fresh fish and leave visible spawning or deteriorated fish alone.",
       };
     case "ending":
       return {
-        headline:
-          `Only a small late Muskegon ${input.species} opportunity remains.`,
+        headline: residualEnding
+          ? `Only a residual late ${input.species} opportunity remains.`
+          : `The main Muskegon ${input.species} run is winding down.`,
         whereToStart:
-          "Limit the search to proven deep pools below Croton, slower inside bends near Newaygo, and one or two substantial M-120-area holes.",
+          `Start in the ${upper}, emphasizing established water near Croton Dam.`,
         detail:
-          "Most fish left in the river have been there for a while. A late bright fish is still possible, but a steady new wave is no longer expected.",
+          "Residual fish can remain, but fresh movement is no longer dependable.",
         tip:
-          "Keep expectations low, leave spawning or worn-out fish alone, and move on if you are not seeing signs of fish.",
+          "Keep expectations narrow and stop searching when direct evidence is absent.",
       };
     case "post_run":
       return input.latePostRunContext
@@ -647,21 +677,21 @@ function muskegonCrotonStageCopy(input: {
           headline:
             `A few late ${input.species} may remain in established Muskegon River holding water.`,
           whereToStart:
-            "There is no dependable starting reach; if you still go, make one careful check of a proven deep pool below Croton, near Newaygo, or around M-120.",
-          detail:
-            "A few late fish may remain, but that does not mean a fresh wave or good numbers are in the river.",
+            `There is no dependable starting section. If you go, make one careful ${upper} check near Croton Dam.`,
+          detail: "The seasonal tail does not indicate a fresh movement event.",
           tip:
-            "A few leftover fish do not mean a new wave has entered the river.",
+            "Do not build a broad corridor search around isolated late fish.",
         }
         : {
-          headline:
-            `The Muskegon ${input.species} run is outside its researched window.`,
+          headline: `The Muskegon ${input.species} fall run is complete.`,
           whereToStart:
-            "No dependable Muskegon River location for this fall migration model right now.",
-          detail:
-            "The fall run is over for this read. Use the read for the current season instead.",
-          tip:
-            "This fall read is finished. Use the read for the current season instead.",
+            "There is no active Muskegon starting section in this fall-run model.",
+          detail: `${input.species} staging typically begins ${
+            seasonalReturnPhrase(input.window.stagingStartDate.slice(5))
+          }. This seasonal estimate is inactive until then.`,
+          tip: `Check back ${
+            seasonalReturnPhrase(input.window.stagingStartDate.slice(5))
+          } when Muskegon fall-run tracking resumes.`,
         };
   }
 }
@@ -677,211 +707,185 @@ function bigManisteeTailwaterStageCopy(input: {
   species: string;
   opportunity: RunOpportunityCopyContext;
 }): Pick<PrimitiveDisplay, "headline" | "whereToStart" | "detail" | "tip"> {
-  const strong = input.opportunity.strength === "strong";
+  const lower = "Lower river (M-55–Bear Creek)";
+  const middle = "Middle river (Bear Creek–High Bridge)";
+  const upper = "Upper river (High Bridge–Tippy Dam)";
+  const sectional = input.opportunity.distributionScope === "sectional";
+  const accumulatedBeginning = compareLocalDates(
+    input.localDate,
+    addDays(input.window.startDate, 7),
+  ) >= 0;
+  const peakShoulder = compareLocalDates(
+    input.localDate,
+    addDays(input.window.peakDate, 6),
+  ) >= 0;
+  const lateTaper = compareLocalDates(
+    input.localDate,
+    addDays(input.window.peakEndDate, 6),
+  ) >= 0;
+  const residualEnding = compareLocalDates(
+    input.localDate,
+    addDays(input.window.taperingEndDate, 6),
+  ) >= 0;
   switch (input.stage) {
     case "pre_run":
       return input.stagingContext
         ? {
-          headline:
-            `${input.species} may be staging in Lake Michigan, Manistee Lake, and near the river mouth.`,
+          headline: `${input.species} may be staging near the river entrance.`,
           whereToStart:
-            "Manistee Lake, the harbor, the river mouth, and the first deep travel water in the lower migratory river toward M-55.",
-          detail:
-            `Early ${input.species} can begin checking the Big Manistee, but the Wellston gauge and Tippy tailwater should not be treated as proof that the entire lower corridor is occupied.`,
+            `Start at Manistee Lake, the harbor, and the river entrance. Add the ${lower} only for an early-fish check.`,
+          detail: `Staging context does not confirm dependable river entry.${
+            sectional ? " Coho opportunity remains sectional." : ""
+          }`,
           tip:
-            "Use the lake-to-river transition for staging context. Treat an early river fish as real evidence, not as a reason to claim broad river presence.",
+            `Keep the river check brief. Do not move into the ${middle} or ${upper} from calendar timing alone.`,
         }
         : {
           headline:
-            `${input.species} have not begun their dependable Big Manistee river run.`,
+            `${input.species} have not begun dependable Big Manistee river entry.`,
           whereToStart:
-            "Lake Michigan, Manistee Lake, the harbor, and the river mouth.",
+            "Stay with Manistee Lake, the harbor, and the river entrance.",
           detail:
-            `The fixed seasonal calendar has not reached dependable ${input.species} river presence yet.`,
-          tip:
-            "Keep staging context separate from river presence until the river window opens.",
+            "The river-entry window has not opened yet. An isolated river fish would be an early exception.",
+          tip: `Do not build an inland trip around ${input.species} yet.`,
         };
     case "beginning":
-      if (
-        compareLocalDates(
-          input.localDate,
-          addDays(input.window.startDate, 7),
-        ) >= 0
-      ) {
-        return {
-          headline:
-            `${input.species} are accumulating through more of the Big Manistee below Tippy Dam.`,
-          whereToStart:
-            "Check the Tippy tailwater and Tippy-to-High Bridge reach first; if fish are scattered there, compare the High Bridge-Bear Creek middle corridor and lower migratory river for newer arrivals.",
-          detail:
-            "Earlier fish can already be established in tailwater holding areas while newer fish continue moving through the lower and middle migratory corridor. Numbers can still be uneven between sections.",
-          tip:
-            "Treat Tippy, High Bridge, and Bear Creek as different checks—not one uniform gauge reach—and let direct fish activity decide where to slow down.",
-        };
-      }
       return {
-        headline:
-          `The first ${input.species} are beginning to enter the Big Manistee below Tippy Dam.`,
+        headline: accumulatedBeginning
+          ? `${input.species} are accumulating through more of the Big Manistee.`
+          : `The first ${input.species} are entering the Big Manistee.`,
         whereToStart:
-          "Make a quick Tippy-tailwater check. If it is empty or sparse, compare the High Bridge-Bear Creek middle corridor with the lower migratory river toward M-55, where newer fish are more likely still traveling.",
-        detail:
-          "The dam concentrates migrants, but early fish are not necessarily distributed through the full 25-mile corridor. Wellston describes the tailwater and upper corridor only.",
-        tip:
-          "Start near the tailwater, then cover deep travel and holding water downstream rather than assuming every reach is equally populated.",
+          `Start in the ${lower}. Add the ${middle} after direct fish activity supports the move.`,
+        detail: accumulatedBeginning
+          ? sectional
+            ? "More Coho are present, but concentrations remain selective."
+            : "More than isolated fish can be present, but distribution remains uneven."
+          : `Early fish remain scattered.${
+            sectional ? " Coho opportunity is limited to select water." : ""
+          }`,
+        tip: accumulatedBeginning
+          ? "Follow travel water into substantial holding areas before moving upstream."
+          : "Cover travel water and the first substantial holding areas before moving upstream.",
       };
     case "building":
       if (compareLocalDates(input.localDate, input.window.peakStartDate) >= 0) {
         return {
           headline:
-            `${input.species} are moving into the Big Manistee's strongest seasonal window.`,
+            `${input.species} are approaching their strongest Big Manistee window.`,
           whereToStart:
-            "Start in the Tippy-to-High Bridge reach for accumulated fish, then compare the High Bridge-Bear Creek middle corridor and lower-river bends toward M-55 for fresher arrivals.",
-          detail:
-            "Multiple waves have had time to spread through the corridor, and the tailwater reach is building toward its heaviest-use period. Reach-to-reach clarity and fish freshness can still differ sharply.",
+            `Start in the ${upper}, emphasizing the Tippy Dam area. Compare the ${middle} for fresher fish.`,
+          detail: sectional
+            ? "Seasonal opportunity is broadening, but Coho remain concentrated in select water."
+            : "Multiple entry periods now support broad corridor presence.",
           tip:
-            "Use Wellston to judge the tailwater response, but compare several sections before assuming the most crowded water holds the freshest fish.",
+            "Use Wellston only for Upper-river conditions and verify downstream water directly.",
         };
       }
       if (input.broadBuildingContext) {
-        const sectional = input.opportunity.distributionScope === "sectional";
         return {
-          headline: strong
-            ? `${input.species} are becoming established through the Big Manistee migratory corridor.`
-            : `The Big Manistee ${input.species} opportunity is broadening through the migratory corridor.`,
-          whereToStart: sectional
-            ? "Sample select Tippy-to-High Bridge pools, the High Bridge-Bear Creek middle corridor, and one or two substantial lower-river bends toward M-55."
-            : "Fish the Tippy-to-High Bridge pools and runs first, then sample the High Bridge-Bear Creek middle corridor and major lower-river bends toward M-55.",
+          headline: sectional
+            ? `${input.species} are established in select Big Manistee sections.`
+            : `${input.species} are broadly established through the Big Manistee.`,
+          whereToStart:
+            `Start in the ${upper}, emphasizing the Tippy Dam area. Compare the ${middle} when direct activity favors it.`,
           detail: sectional
-            ? "More than one migratory reach is now plausible, but this remains sectional opportunity—not evidence that fish occupy every reach or good-looking hole. Wellston directly measures only the regulated tailwater."
-            : "Multiple arrival waves can now occupy the tailwater, middle reaches, and lower corridor, but Wellston still measures only the regulated tailwater and cannot certify downstream conditions.",
+            ? "More than one section may hold Coho, but concentrations remain selective."
+            : "Repeated entry periods support broad corridor presence, not equal numbers in every section.",
           tip:
-            "Use the gauge for the Tippy tailwater. Treat lower-river clarity, access, and holding water as separate reach questions.",
+            "Use Wellston conditions only for the Upper river. Verify downstream water directly.",
         };
       }
       if (input.establishedBuildingContext) {
         return {
           headline:
-            `More ${input.species} are becoming established below Tippy Dam.`,
+            `${input.species} are becoming established through more of the river.`,
           whereToStart:
-            "Begin in the Tippy tailwater, then compare the Tippy-to-High Bridge reach with deeper bends in the High Bridge-Bear Creek middle corridor before committing to one section.",
-          detail:
-            "Earlier fish can be established near the dam while newer arrivals remain distributed farther downstream. The river is not a single uniform gauge reach.",
+            `Start in the ${middle}. Add the ${upper}, especially the Tippy Dam area, when direct activity supports it.`,
+          detail: sectional
+            ? "Coho may occupy more than one section, but the opportunity remains selective."
+            : "Earlier arrivals can be farther upstream while newer fish remain below Bear Creek.",
           tip:
-            "Work substantial holding water and current breaks section by section. Do not turn a Wellston reading into a claim about the lower river.",
+            "Compare one section at a time; Wellston does not describe the Middle or Lower river.",
         };
       }
       return {
         headline:
-          `More ${input.species} are entering the Big Manistee below Tippy Dam.`,
+          `More ${input.species} are entering and spreading through the Big Manistee.`,
         whereToStart:
-          "The first tailwater pools and current breaks below Tippy, followed by deeper bends in the Tippy-to-High Bridge reach.",
+          `Start in the ${middle}. Keep the ${lower} as the fresh-entry comparison.`,
         detail:
-          "Presence is growing beyond isolated early fish, but concentrations can still vary sharply between the tailwater, middle river, and lower corridor.",
+          "Presence is growing beyond isolated early fish, but distribution remains uneven.",
         tip:
-          "Cover water until direct fish activity gives you a reason to slow down.",
+          "Stay mobile until direct fish activity gives you a reason to slow down.",
       };
     case "peak":
-      if (
-        compareLocalDates(input.localDate, addDays(input.window.peakDate, 6)) >=
-          0
-      ) {
-        return {
-          headline:
-            `The Big Manistee remains near peak ${input.species} presence as the run begins shifting toward a late-season mix.`,
-          whereToStart:
-            "Work the deeper pools below Tippy, High Bridge bends, and the Bear Creek junction; visit lower-river travel holes only when fresh movement is evident.",
-          detail:
-            "Strong numbers can remain through the system, but the mix increasingly includes fish that have held for days or begun spawning alongside later arrivals.",
-          tip:
-            "Prioritize deep holding water connected to current, look for genuinely fresh fish, and leave visible fish on shallow spawning gravel undisturbed.",
-        };
-      }
       return {
-        headline: strong
-          ? `This is typically the strongest Big Manistee ${input.species} opportunity.`
-          : `This is typically the strongest part of the Big Manistee ${input.species} window.`,
+        headline: peakShoulder
+          ? `Big Manistee ${input.species} presence remains near its seasonal peak.`
+          : sectional
+          ? `This is the strongest seasonal Big Manistee ${input.species} window.`
+          : `This is typically the strongest Big Manistee ${input.species} opportunity.`,
         whereToStart:
-          "Compare the Tippy tailwater, Tippy-to-High Bridge reach, High Bridge-Bear Creek middle corridor, and major lower-river holes toward M-55.",
-        detail: strong
-          ? "The fall run can be broad and powerful here, but fish concentrations, clarity, access, and presentation conditions still change by reach."
-          : "This is the best seasonal chance to find fish in more than one migratory reach, but the opportunity remains sectional and concentrations can change sharply from one access or hole to the next.",
-        tip:
-          "Use Wellston for the regulated tailwater response, then make lower-river decisions from local water conditions rather than extrapolation.",
+          `Start in the ${upper}, emphasizing the Tippy Dam area. Compare the ${middle} for fresher fish.`,
+        detail: peakShoulder
+          ? sectional
+            ? "Coho remain sectional as the run begins shifting toward a later mix."
+            : "Fish remain broadly present as the run begins shifting toward a later mix."
+          : sectional
+          ? "This is still sectional opportunity; Coho will not be evenly distributed."
+          : "Fish can be broadly present, but concentrations still vary by section.",
+        tip: peakShoulder
+          ? "Look for genuinely fresh fish and leave visible spawning fish undisturbed."
+          : "Use Wellston only for Upper-river conditions and leave visible spawning fish undisturbed.",
       };
     case "tapering":
-      if (
-        compareLocalDates(
-          input.localDate,
-          addDays(input.window.peakEndDate, 6),
-        ) >= 0
-      ) {
-        return {
-          headline:
-            `The Big Manistee ${input.species} run is entering its late taper.`,
-          whereToStart:
-            "Target the deepest pools below Tippy, slower inside bends near High Bridge, and current seams around Bear Creek; go lower only on a fresh response.",
-          detail:
-            "Fish can remain numerous in selected holding and spawning reaches, but fresh silver arrivals are becoming the exception and river-wide distribution is less dependable.",
-          tip:
-            "Fish selected deep water carefully, avoid shallow spawning fish, and do not let one late arrival stand in for a broad new wave.",
-        };
-      }
       return {
-        headline:
-          `The Big Manistee can remain productive for ${input.species}, although fresh arrivals are becoming less consistent.`,
+        headline: lateTaper
+          ? `The Big Manistee ${input.species} run is entering its late taper.`
+          : `${input.species} remain present, but fresh arrivals are less consistent.`,
         whereToStart:
-          "Begin with shaded pools below Tippy and the slower edges of High Bridge bends, then check Bear Creek for late moving fish.",
-        detail:
-          "Older fish may remain while new movement becomes more dependent on cooling water and a measured hydraulic response.",
-        tip:
-          "Prioritize established holding water and do not treat rain alone as a confirmed push.",
+          `Start in the ${upper}, especially the Tippy Dam area. Add the ${middle} only when direct activity supports it.`,
+        detail: lateTaper
+          ? "Fresh arrivals are becoming exceptions and dependable distribution is narrowing."
+          : "The run is declining and increasingly concentrated in established holding water.",
+        tip: lateTaper
+          ? "Fish selected holding water carefully and leave visible spawning fish undisturbed."
+          : "Look for genuinely fresh fish and leave visible spawning or deteriorated fish alone.",
       };
     case "ending":
-      if (
-        compareLocalDates(
-          input.localDate,
-          addDays(input.window.taperingEndDate, 6),
-        ) >= 0
-      ) {
-        return {
-          headline:
-            `Only a residual late ${input.species} opportunity remains in the Big Manistee.`,
-          whereToStart:
-            "Limit the search to the deepest Tippy-area pools, High Bridge inside bends, and one or two proven Bear Creek-area holes.",
-          detail:
-            "Most remaining fish have been in the system for some time. A genuinely fresh fish is possible, but no longer represents a dependable new migration wave.",
-          tip:
-            "Keep expectations narrow, leave spawning or visibly deteriorated fish alone, and shift effort when direct evidence is absent.",
-        };
-      }
       return {
-        headline: `The main Big Manistee ${input.species} run is winding down.`,
+        headline: residualEnding
+          ? `Only a residual late ${input.species} opportunity remains.`
+          : `The main Big Manistee ${input.species} run is winding down.`,
         whereToStart:
-          "The deepest pools below Tippy and High Bridge, especially soft edges beside the main current; skip broad exploratory water.",
-        detail:
-          "Residual fish can remain, but active movement and fresh distribution are becoming less dependable.",
+          `Start in the ${upper}, emphasizing established water near Tippy Dam.`,
+        detail: residualEnding
+          ? "A fresh fish is possible, but no longer represents a dependable movement wave."
+          : "Residual fish can remain, but fresh movement is no longer dependable.",
         tip:
-          "Require a measured rise and suitable water before giving late movement strong weight.",
+          "Keep expectations narrow and stop searching when direct evidence is absent.",
       };
     case "post_run":
       return input.latePostRunContext
         ? {
           headline:
-            `A few late ${input.species} may remain in established Big Manistee holding water.`,
+            `Only a residual late ${input.species} opportunity remains.`,
           whereToStart:
-            "There is no dependable starting reach; if you still go, make one careful check of a proven deep pool below Tippy or near High Bridge.",
-          detail:
-            "The seasonal presence tail is not a live abundance estimate and does not imply a fresh river push.",
-          tip: "Do not convert residual presence into a new-run signal.",
+            `There is no dependable starting section. If you go, make one careful ${upper} check near Tippy Dam.`,
+          detail: "The seasonal tail does not indicate a fresh movement event.",
+          tip:
+            "Do not build a broad corridor search around isolated late fish.",
         }
         : {
-          headline:
-            `The Big Manistee ${input.species} run is outside its researched window.`,
+          headline: `The Big Manistee ${input.species} fall run is complete.`,
           whereToStart:
-            "No dependable Big Manistee location for this fall migration model right now.",
-          detail:
-            "This fall-spawn profile has ended; another seasonal experience must supply any later species guidance.",
-          tip: "Do not use this profile to score a different season.",
+            "There is no active Big Manistee starting section in this fall-run model.",
+          detail: `${input.species} staging typically begins ${
+            seasonalReturnPhrase(input.window.stagingStartDate.slice(5))
+          }. This seasonal estimate is inactive until then.`,
+          tip: `Check back ${
+            seasonalReturnPhrase(input.window.stagingStartDate.slice(5))
+          } when Big Manistee fall-run tracking resumes.`,
         };
   }
 }
@@ -1149,31 +1153,27 @@ function bigManisteeFallEntryWhereToStartCopy(input: {
   broadBuildingContext: boolean;
   winterHoldingContext: boolean;
 }): string {
-  if (input.winterHoldingContext) {
-    return "Deep, speed-controlled holding water in the Tippy-to-High Bridge reach and High Bridge-Bear Creek middle corridor, with nearby feeding current; compare lower-river wintering holes when access and local conditions support them.";
-  }
   switch (input.stage) {
     case "pre_run":
       return input.stagingContext
-        ? "Manistee Lake, the river mouth, and lower migratory river toward M-55 for new fall entrants; treat a Tippy-tailwater Skamania check as separate summer-run context."
-        : "Manistee Lake, the harbor, and the river mouth for fall-entry context; summer-run Steelhead may already hold near Tippy, but they do not confirm the winter-run fall build.";
+        ? "Start at Manistee Lake, the harbor, and the river entrance. Add the Lower river (M-55–Bear Creek) only for an early-Steelhead check."
+        : "Stay with Manistee Lake, the harbor, and the river entrance for fall-entry context.";
     case "beginning":
-      return "Lower migratory river toward M-55 first, then substantial travel-and-resting water through the High Bridge-Bear Creek middle corridor; check Tippy only after those fresh-entry sections.";
+      return "Start in the Lower river (M-55–Bear Creek). Add the Middle river (Bear Creek–High Bridge) after direct fish activity supports the move.";
     case "building":
-      if (input.broadBuildingContext) {
-        return "Compare substantial holding water in the Tippy-to-High Bridge reach and High Bridge-Bear Creek middle corridor, then add lower-river travel lanes when Push supports fresh arrivals.";
-      }
-      return input.establishedBuildingContext
-        ? "High Bridge-Bear Creek middle-corridor holding water first, then compare the Tippy-to-High Bridge reach and lower migratory river for accumulated versus fresher fish."
-        : "Lower-river travel water toward M-55 into the first substantial High Bridge-Bear Creek resting holes.";
+      return input.broadBuildingContext
+        ? "Start in the Upper river (High Bridge–Tippy Dam), emphasizing the Tippy Dam area. Compare the Middle river (Bear Creek–High Bridge) for fresher fish."
+        : input.establishedBuildingContext
+        ? "Start in the Middle river (Bear Creek–High Bridge). Add the Upper river (High Bridge–Tippy Dam) when direct activity supports it."
+        : "Start in the Middle river (Bear Creek–High Bridge). Keep the Lower river (M-55–Bear Creek) as the fresh-entry comparison.";
     case "peak":
-      return "Compare the Tippy tailwater, Tippy-to-High Bridge reach, High Bridge-Bear Creek middle corridor, and substantial lower-river holes toward M-55; use Push to separate fresh travel water from established holding fish.";
+      return "Start in the Upper river (High Bridge–Tippy Dam), emphasizing the Tippy Dam area. Compare the Middle river (Bear Creek–High Bridge) for fresher fish.";
     case "tapering":
-      return "Established Tippy-to-High Bridge and High Bridge-Bear Creek holding water, especially deeper bends and slower edges; add lower travel lanes only on a credible fresh Push.";
+      return "Start in the Upper river (High Bridge–Tippy Dam), especially the Tippy Dam area. Add the Middle river (Bear Creek–High Bridge) for established holding water.";
     case "ending":
-      return "Deep, speed-controlled holding water from the Tippy tailwater through High Bridge and Bear Creek, with nearby current and an efficient feeding lane.";
+      return "Start in the Upper river (High Bridge–Tippy Dam), emphasizing deep, speed-controlled water near Tippy Dam.";
     case "post_run":
-      return "No active fall-entry starting reach; use the winter Steelhead read for deep holding water and current activity instead.";
+      return "There is no active Big Manistee starting section in this fall-entry model.";
   }
 }
 
@@ -1186,118 +1186,102 @@ function bigManisteeFallEntryStageCopy(input: {
   species: string;
 }): Pick<PrimitiveDisplay, "headline" | "whereToStart" | "detail" | "tip"> {
   const whereToStart = bigManisteeFallEntryWhereToStartCopy(input);
-  if (input.winterHoldingContext) {
-    return {
-      headline:
-        `${input.species} have transitioned from fall entry into winter holding throughout the Big Manistee corridor.`,
-      whereToStart,
-      detail:
-        "The fish have not left the river. Colder water shifts the useful question from upstream entry toward daily activity, feeding position, and efficient winter holding water.",
-      tip:
-        "Use the winter Steelhead read for current activity and presentation guidance; 70/100 is retained seasonal presence, not a live movement score.",
-    };
-  }
   switch (input.stage) {
     case "pre_run":
       return input.stagingContext
         ? {
-          headline:
-            `${input.species} fall entry is approaching, while separate summer-run fish may already be holding below Tippy.`,
+          headline: "Early Steelhead may begin entering the Big Manistee.",
           whereToStart,
           detail:
-            "A Skamania already near the tailwater is not evidence that the winter-run fall migration is ahead. New fall entrants are more appropriately evaluated from Manistee Lake into the lower migratory corridor.",
+            "An early Steelhead is possible, but it does not confirm a broad fall-entry build.",
           tip:
-            "Keep summer-run and fall-entry evidence separate. Treat an isolated fish as context until the seasonal curve and measured conditions support a broader build.",
+            "Keep the river check brief and move inland only after direct activity supports it.",
         }
         : {
           headline:
-            `${input.species} winter-run fall entry has not started yet.`,
+            "Dependable Big Manistee Steelhead fall entry has not started.",
           whereToStart,
           detail:
-            "Summer-run Steelhead can make the Big Manistee a real fishery before this model begins, but dependable winter-run fall entry is not expected yet.",
-          tip:
-            "Do not turn a tailwater Skamania encounter into an early winter-run signal. Return as the September monitoring window develops.",
+            "Early Steelhead are possible, but the fall-entry window has not opened yet.",
+          tip: "Check back in early September as staging monitoring begins.",
         };
     case "beginning":
       return {
         headline:
-          `The first winter-run ${input.species} are beginning to enter and move through the Big Manistee.`,
+          "The first fall Steelhead are entering and moving through the Big Manistee.",
         whereToStart,
         detail:
-          "Fresh fish can be scattered from the lower migratory river into middle-corridor resting water, while some earlier arrivals or summer-run fish may already be nearer Tippy.",
+          "Early fish remain scattered, with the freshest entry evidence most useful below Bear Creek.",
         tip:
-          "Cover lakeward travel lanes and substantial resting holes before assuming the tailwater holds the freshest fish.",
+          "Cover travel water and the first substantial holding areas before moving upstream.",
       };
     case "building":
-      if (input.broadBuildingContext) {
-        return {
-          headline:
-            `${input.species} are broadly established through the Big Manistee migratory corridor.`,
-          whereToStart,
-          detail:
-            "Multiple entry periods have given fish time to occupy the tailwater, middle corridor, and substantial lower-river water, although Wellston directly measures only the Tippy reach.",
-          tip:
-            "Compare at least two named reaches and use direct fish activity to choose where to slow down; use Wellston only for the regulated tailwater response.",
-        };
-      }
-      return input.establishedBuildingContext
+      return input.broadBuildingContext
         ? {
           headline:
-            `${input.species} are becoming dependably established across more of the Big Manistee.`,
+            "Steelhead are broadly established through the Big Manistee.",
           whereToStart,
           detail:
-            "Earlier arrivals can be established from High Bridge toward Tippy while newer fish continue entering below Bear Creek and toward M-55. Concentrations and freshness can differ sharply by reach.",
+            "Repeated entry periods support broad corridor presence, not equal numbers in every section.",
           tip:
-            "Compare middle-corridor holding water with one tailwater and one lower-river check instead of treating the entire system as one gauge reach.",
+            "Use Wellston only for Upper-river conditions and verify downstream water directly.",
+        }
+        : input.establishedBuildingContext
+        ? {
+          headline:
+            "Steelhead are becoming established through more of the Big Manistee.",
+          whereToStart,
+          detail:
+            "Earlier arrivals can be farther upstream while newer fish remain below Bear Creek.",
+          tip:
+            "Compare one section at a time; Wellston does not describe the Middle or Lower river.",
         }
         : {
           headline:
-            `More ${input.species} are entering and spreading through the Big Manistee.`,
+            "More Steelhead are entering and spreading through the Big Manistee.",
           whereToStart,
           detail:
-            "Presence is building beyond isolated early fish, but the lakeward and middle migratory reaches remain the better places to evaluate fresh entry before committing to Tippy.",
+            "Presence is building beyond isolated early fish, but distribution remains uneven.",
           tip:
-            "Follow travel water into the first substantial resting holes and remain mobile until direct activity provides a reason to settle into one reach.",
+            "Stay mobile until direct fish activity gives you a reason to slow down.",
         };
     case "peak":
       return {
         headline:
-          `This is typically the strongest and most dependable Big Manistee fall ${input.species} opportunity.`,
+          "This is typically the strongest Big Manistee fall Steelhead opportunity.",
         whereToStart,
         detail:
-          "Repeated entry periods have produced broad corridor presence, but fresh fish, established holders, water clarity, and access can still differ materially between Tippy, High Bridge, Bear Creek, and M-55 water.",
+          "Steelhead can be broadly present, but concentrations still vary by section.",
         tip:
-          "Use Push to decide whether to emphasize lower travel lanes or established tailwater and middle-corridor holes, then verify the choice with direct fish activity.",
+          "Use Wellston only for Upper-river conditions; verify the Middle and Lower river directly.",
       };
     case "tapering":
       return {
         headline:
-          `${input.species} presence remains high as the Big Manistee shifts toward winter holding.`,
+          "Steelhead remain strongly present, but fresh fall entry is slowing.",
         whereToStart,
         detail:
-          "Many fish remain in the corridor, but colder water increasingly favors established holding positions over continuous upstream travel. Fresh arrivals can still occur without defining the whole fishery.",
+          "Colder water increasingly favors established holding positions over continuous upstream travel.",
         tip:
-          "Begin with efficient holding water and add lower-river travel lanes only when measured flow and temperature support a credible new movement period.",
+          "Keep fresh-entry travel water secondary unless Push supports a new movement period.",
       };
     case "ending":
       return {
-        headline:
-          `${input.species} remain strongly present as fall entry hands off to winter holding.`,
+        headline: "Big Manistee Steelhead fall entry is nearing its endpoint.",
         whereToStart,
         detail:
-          "The migration phase is ending, not the fishery. Retained fish increasingly favor deep water where they can hold near feeding current without spending excessive energy.",
+          "Steelhead may remain in the river, but this model's fresh-entry phase is ending.",
         tip:
-          "Prioritize depth, controlled speed, and nearby feeding lanes. Use Push only as a secondary fresh-arrival check as the winter read approaches.",
+          "Prioritize controlled presentations and use Push only as a fresh-arrival check.",
       };
     case "post_run":
       return {
-        headline:
-          `${input.species} are outside the Big Manistee fall-entry model.`,
+        headline: "Big Manistee Steelhead fall entry is complete.",
         whereToStart,
         detail:
-          "This profile no longer evaluates fall migration. Steelhead can remain throughout winter, but their activity requires a holding-focused seasonal read.",
+          "Steelhead may remain in the river. This model no longer estimates current presence or activity.",
         tip:
-          "Use the active winter Steelhead experience instead of extending fall-entry guidance beyond its researched endpoint.",
+          "Check back in early September when Big Manistee fall-entry tracking resumes.",
       };
   }
 }
@@ -1309,31 +1293,31 @@ function muskegonFallEntryWhereToStartCopy(input: {
   broadBuildingContext: boolean;
   winterHoldingContext: boolean;
 }): string {
-  if (input.winterHoldingContext) {
-    return "Deep, speed-controlled holding water below Croton, through the Croton-to-Newaygo corridor, and in substantial Newaygo-to-M-120 bends; compare lower-river wintering holes only when local conditions support them.";
-  }
+  const lower = "Lower river (Muskegon Lake–M-120)";
+  const middle = "Middle river (M-120–Newaygo)";
+  const upper = "Upper river (Newaygo–Croton Dam)";
   switch (input.stage) {
     case "pre_run":
       return input.stagingContext
-        ? "Muskegon Lake, the channel, and deep lower-river travel water below M-120 for new fall entrants; do not treat a fish already near Croton as proof of a broad new entry."
-        : "Muskegon Lake, the Lake Michigan channel, and the river mouth for fall-entry context—not the inland corridor yet.";
+        ? `Start at Muskegon Lake and the river entrance. Add the ${lower} only for an early-Steelhead check.`
+        : "Stay with Muskegon Lake, the Lake Michigan channel, and the river entrance.";
     case "beginning":
-      return "Deep lower-river travel water from Muskegon Lake toward M-120 first, then substantial Newaygo-to-M-120 resting water; check Croton only after those fresh-entry reaches.";
+      return `Start in the ${lower}. Add the ${middle} after direct fish activity supports the move.`;
     case "building":
       if (input.broadBuildingContext) {
-        return "Compare Croton-to-Newaygo holding water, Newaygo-to-M-120 bends, and lower-river travel lanes below M-120; use Push to decide whether lakeward water deserves extra time.";
+        return `Start in the ${upper}, emphasizing the Croton Dam area. Compare the ${middle} for fresher fish.`;
       }
       return input.establishedBuildingContext
-        ? "Newaygo-to-M-120 holding water first, then compare Croton-to-Newaygo pools with the deep lower river for accumulated versus newer fish."
-        : "Lower-river travel water below M-120 into the first substantial Newaygo-area resting holes.";
+        ? `Start in the ${middle}. Check the Croton Dam area in the ${upper} for earlier arrivals.`
+        : `Start in the ${middle}. Check the Croton Dam area in the ${upper} for early arrivals.`;
     case "peak":
-      return "Compare the Croton tailwater, Croton-to-Newaygo pools, Newaygo-to-M-120 bends, and substantial lower-river holes toward Muskegon Lake.";
+      return `Start in the ${upper}, emphasizing the Croton Dam area. Compare the ${middle} for fresher fish.`;
     case "tapering":
-      return "Established Croton-to-Newaygo and Newaygo-to-M-120 holding water, especially deep bends and controlled-speed edges; add lower travel lanes only on credible fresh-entry evidence.";
+      return `Start in the ${upper}, especially the Croton Dam area. Add the ${middle} only when direct activity supports it.`;
     case "ending":
-      return "Deep, speed-controlled holding water below Croton, around Newaygo, and in substantial M-120-area bends with nearby feeding current.";
+      return `Start in established ${upper} water near Croton Dam.`;
     case "post_run":
-      return "No active fall-entry starting reach; use the winter Steelhead read for current holding-water guidance instead.";
+      return "There is no active Muskegon starting section in this fall-entry model.";
   }
 }
 
@@ -1346,97 +1330,83 @@ function muskegonFallEntryStageCopy(input: {
   species: string;
 }): Pick<PrimitiveDisplay, "headline" | "whereToStart" | "detail" | "tip"> {
   const whereToStart = muskegonFallEntryWhereToStartCopy(input);
-  if (input.winterHoldingContext) {
-    return {
-      headline:
-        `${input.species} have transitioned from fall entry into winter holding below Croton Dam.`,
-      whereToStart,
-      detail:
-        "The fish have not left the river. Colder water shifts the useful question from entry toward daily activity, feeding position, and efficient holding water across the long corridor.",
-      tip:
-        "Use the winter Steelhead read to see how active the fish may be. Fish staying in the river does not mean new fish are moving in.",
-    };
-  }
   switch (input.stage) {
     case "pre_run":
       return input.stagingContext
         ? {
-          headline:
-            `${input.species} fall entry is approaching the Muskegon River.`,
+          headline: "Early Steelhead may begin entering the Muskegon River.",
           whereToStart,
           detail:
-            "New entrants are most honestly evaluated from Muskegon Lake through the lower river. An isolated fish farther upstream does not establish a corridor-wide fall build.",
+            "An early Steelhead is possible, but one fish does not establish the broader fall-entry build.",
           tip:
-            "One fish is just one fish. Wait for the season and river conditions to point to a wider run.",
+            "Keep the river check brief and do not infer a separate strain from timing alone.",
         }
         : {
-          headline: `${input.species} fall entry has not started yet.`,
+          headline: "Dependable Muskegon Steelhead fall entry has not started.",
           whereToStart,
           detail:
-            "Dependable fall entry is not expected through the Muskegon Lake-to-Croton corridor yet.",
+            "The fall-entry window has not opened yet. An isolated river fish would be an early exception.",
           tip:
-            "Check again when fish begin staging near the lake and river mouth.",
+            "Check again when early Steelhead begin appearing near the river entrance.",
         };
     case "beginning":
       return {
         headline:
-          `The first fall ${input.species} are entering the Muskegon's long migratory corridor.`,
+          "The first fall Steelhead are entering and moving through the Muskegon River.",
         whereToStart,
         detail:
-          "New fish can be scattered from the lower river into middle-corridor resting water while earlier arrivals may already be nearer Croton.",
+          "New fish remain scattered while earlier arrivals may already be farther upstream.",
         tip:
-          "Check lower-river travel lanes and good resting holes before assuming the newest fish are up by Croton.",
+          "Cover travel water and the first substantial holding areas before moving upstream.",
       };
     case "building":
       return {
         headline: input.broadBuildingContext
-          ? `${input.species} are broadly established below Croton Dam.`
-          : `${input.species} are becoming established through more of the Muskegon River.`,
+          ? "Steelhead are broadly established through the Muskegon River."
+          : "Steelhead are becoming established through more of the Muskegon River.",
         whereToStart,
         detail: input.broadBuildingContext
-          ? "Multiple entry periods can place fish in upper, middle, and lower reaches, although Croton directly measures only the tailwater."
-          : "Earlier arrivals can hold nearer Croton while newer fish continue entering below M-120; freshness and concentrations can differ sharply by reach.",
+          ? "Multiple entry periods support broad presence, not equal numbers in every section."
+          : "Earlier arrivals can hold near Croton while newer fish remain farther downstream.",
         tip:
-          "Check at least two sections of river, then stay where you find the best signs of fish.",
+          "Croton measurements apply only near the dam. Verify downstream water directly.",
       };
     case "peak":
       return {
         headline:
-          `This is typically the strongest Muskegon fall ${input.species} entry opportunity.`,
+          "This is typically the strongest Muskegon fall Steelhead opportunity.",
         whereToStart,
         detail:
-          "Repeated entry periods support broad corridor presence, but fresh fish, established holders, clarity, and access still differ from Croton to Muskegon Lake.",
+          "Steelhead can be broadly present, but freshness and concentrations still vary by section.",
         tip:
-          "Use Push to choose between lower travel water and upper holding water, then make sure the water you find matches the read.",
+          "Croton measurements apply only near the dam. Verify downstream water directly.",
       };
     case "tapering":
       return {
-        headline:
-          `${input.species} remain well established as fall entry slows.`,
+        headline: "Steelhead remain established as fall entry slows.",
         whereToStart,
         detail:
-          "Many fish remain, but colder water increasingly favors efficient holding positions over continuous upstream travel.",
+          "Many fish may remain, but this card only describes the slowing fall-entry phase.",
         tip:
-          "Start in slower holding water. Check lower travel lanes when the river shows signs that new fish may be moving.",
+          "Use Push to judge current movement support; Stage does not confirm a fresh wave.",
       };
     case "ending":
       return {
-        headline:
-          `${input.species} remain in the Muskegon as fall entry hands off to winter holding.`,
+        headline: "Muskegon Steelhead fall entry is nearing its endpoint.",
         whereToStart,
         detail:
-          "The migration phase is ending, not the fishery. Retained fish increasingly use deep water beside efficient feeding current.",
+          "This seasonal entry phase is ending. Steelhead may remain after this model stops.",
         tip:
-          "Look for deep water, softer current, and an easy feeding lane nearby.",
+          "Do not use a late Stage to infer current activity or a new movement wave.",
       };
     case "post_run":
       return {
-        headline: `${input.species} are outside the Muskegon fall-entry model.`,
+        headline: "Muskegon Steelhead fall entry is complete.",
         whereToStart,
         detail:
-          "This profile no longer evaluates fall migration; winter activity requires a holding-focused seasonal read.",
+          "Steelhead may remain in the river. This model no longer estimates current presence or activity.",
         tip:
-          "The fall-entry read is finished. Use the winter Steelhead read instead.",
+          "Check back in early September when Muskegon fall-entry tracking resumes.",
       };
   }
 }
@@ -1846,30 +1816,30 @@ function stJosephFallEntryWhereToStartCopy(input: {
   broadBuildingContext: boolean;
   winterHoldingContext: boolean;
 }): string {
-  if (input.winterHoldingContext) {
-    return "Deep, speed-controlled legal holding water from the lower Michigan corridor through Niles and into Indiana below Twin Branch, always outside posted dam and fish-ladder restrictions.";
-  }
+  const lower = "Lower river (St. Joseph harbor–Berrien Springs)";
+  const middle = "Middle river (Berrien Springs–Niles)";
+  const upper = "Upper river (Niles–Twin Branch Dam)";
   switch (input.stage) {
     case "pre_run":
       return input.stagingContext
-        ? "The St. Joseph harbor and river mouth, plus one deliberate lower-Michigan travel-water check; Skamania may already be inland, but that is separate from the winter-run build."
-        : "Lake Michigan off St. Joseph, the harbor, and the river mouth for new-entry context; do not infer an inland fall build yet.";
+        ? `Start at the St. Joseph harbor and river mouth. Add the ${lower} only for an early fall-entry check.`
+        : "Stay with Lake Michigan, the St. Joseph harbor, and the river mouth for new fall-entry context.";
     case "beginning":
-      return "Lower Michigan travel and holding water toward Berrien Springs, while recognizing that summer-run Skamania may already be distributed farther upstream through open passage.";
+      return `Start in the ${lower}. Add the ${middle} after direct fish activity supports the move.`;
     case "building":
       return input.broadBuildingContext
-        ? "Compare legal holding water in the lower Michigan corridor, the Niles reach, and South Bend-Mishawaka below Twin Branch; stay outside every posted ladder and dam boundary."
+        ? `Start in the ${middle}. Compare the ${upper} for established fish.`
         : input.establishedBuildingContext
-        ? "Begin with the Niles reach and substantial lower-Michigan holding water, then compare legal Indiana reaches for accumulated fish."
-        : "Lower Michigan travel water through the first substantial Berrien Springs and Buchanan-area holding reaches, outside all dam and ladder restrictions.";
+        ? `Start in the ${middle}. Compare the ${lower} for fresher fish.`
+        : `Start in the ${lower}. Check the ${middle} for earlier arrivals.`;
     case "peak":
-      return "Compare substantial legal holding water below Berrien Springs, through Buchanan and Niles, and in South Bend-Mishawaka below Twin Branch; use the Niles gauge only for the Niles reach.";
+      return `Start in the ${middle}. Compare the ${upper} for established fish.`;
     case "tapering":
-      return "Established deep holding water from the Michigan corridor through legal Indiana water below Twin Branch; add lower travel lanes only when Niles Push supports fresh movement.";
+      return `Start in established ${middle} or ${upper} holding water.`;
     case "ending":
-      return "Deep, speed-controlled holding water with adjacent feeding current below Twin Branch, outside the 100-foot Indiana ladder restrictions and all posted dam boundaries.";
+      return `Start in one proven ${middle} or ${upper} holding section.`;
     case "post_run":
-      return "No active fall-entry starting reach; use a dedicated winter Steelhead read when available rather than extending this fall model.";
+      return "There is no active St. Joseph starting section in this fall-entry model.";
   }
 }
 
@@ -1884,36 +1854,52 @@ function stJosephFallEntryStageCopy(input: {
   const base = fallEntryStageCopy(input);
   const whereToStart = stJosephFallEntryWhereToStartCopy(input);
   const tip = stJosephFallEntryTip(input);
-  if (input.winterHoldingContext) {
-    return {
-      ...base,
-      headline:
-        `${input.species} remain broadly present as St. Joseph fall entry hands off to winter holding.`,
-      whereToStart,
-      detail:
-        "The fish have not left the 63-mile accessible corridor. Colder water changes the useful question from new entry to holding position; Activity describes likely responsiveness at Niles, not river-wide movement.",
-      tip,
-    };
-  }
   if (input.stage === "pre_run") {
     return {
       ...base,
       headline: input.stagingContext
-        ? "Summer-run Skamania can already be present, while the later winter-run Steelhead build is still ahead."
-        : "The modeled St. Joseph fall-entry build has not started, although summer-run Skamania are a separate possibility.",
+        ? "Early fall Steelhead may begin entering the St. Joseph River."
+        : "Dependable St. Joseph Steelhead fall entry has not started.",
       whereToStart,
-      detail:
-        "This fall read separates summer-run Steelhead already in the St. Joseph system from the later winter-run component that normally begins building in fall.",
+      detail: input.stagingContext
+        ? "A new fall entrant is possible, while summer-run Skamania may already be inland. Neither establishes a broad fall-entry build."
+        : "The fall-entry window has not opened yet. Summer-run Skamania may already be inland, but they are separate from this fall-entry estimate.",
       tip,
     };
   }
-  return {
-    ...base,
-    whereToStart,
-    detail:
-      `${base.detail} Five passage facilities allow distribution from the lower river through South Bend and Mishawaka, but Twin Branch is the hard upstream limit and Niles measurements are reach-specific.`,
-    tip,
-  };
+  if (input.stage === "post_run") {
+    return {
+      ...base,
+      headline: "St. Joseph Steelhead fall entry is complete.",
+      whereToStart,
+      detail:
+        "Steelhead may remain in the river. This fall-entry model no longer estimates current presence or activity.",
+      tip: "Check back around September 10 when fall-entry monitoring resumes.",
+    };
+  }
+  const detail = input.stage === "beginning"
+    ? "New fall entrants remain scattered while summer-run Skamania may already be farther inland."
+    : input.stage === "building"
+    ? input.broadBuildingContext
+      ? "Repeated entry periods support broad corridor presence, not equal numbers in every section."
+      : "Earlier arrivals may be farther upstream while newer fish continue entering below."
+    : input.stage === "peak"
+    ? "This is typically the strongest fall-entry period, but concentrations still vary by section."
+    : input.stage === "tapering"
+    ? "Fresh fall entry is slowing while established Steelhead may remain throughout the corridor."
+    : "This fall-entry phase is ending. Steelhead may remain after the model stops.";
+  const headline = input.stage === "beginning"
+    ? "The first fall Steelhead are entering the St. Joseph River."
+    : input.stage === "building"
+    ? input.broadBuildingContext
+      ? "Steelhead are broadly established through the St. Joseph corridor."
+      : "Steelhead are becoming established through more of the St. Joseph."
+    : input.stage === "peak"
+    ? "This is typically the strongest St. Joseph fall Steelhead opportunity."
+    : input.stage === "tapering"
+    ? "Steelhead remain strongly present as fresh fall entry slows."
+    : "St. Joseph Steelhead fall entry is nearing its endpoint.";
+  return { ...base, headline, whereToStart, detail, tip };
 }
 
 function stJosephFallEntryTip(input: {
@@ -1923,28 +1909,25 @@ function stJosephFallEntryTip(input: {
   broadBuildingContext: boolean;
   winterHoldingContext: boolean;
 }): string {
-  if (input.winterHoldingContext) {
-    return "Choose one deep, speed-controlled Michigan or Indiana holding reach, verify its water directly, and treat Activity as a Niles response read—not proof that Steelhead are feeding everywhere.";
-  }
   switch (input.stage) {
     case "pre_run":
       return input.stagingContext
-        ? "Separate summer-run Skamania from the later winter-run build. Check direct local reports before going inland, and do not use one Skamania as proof of a new fall wave."
-        : "Keep new-entry effort around Lake Michigan, the St. Joseph harbor, and the mouth. Use direct local evidence—not this inactive fall calendar—if targeting Skamania already inland.";
+        ? "Keep the fall-entry check brief. Do not treat one Steelhead or an existing Skamania as proof of a new fall wave."
+        : "Keep new fall-entry effort near the harbor and mouth. Use direct local information if targeting Skamania already inland.";
     case "beginning":
-      return "Cover lower-Michigan travel lanes and their first deep resting water before moving toward Niles. Treat inland Skamania separately from evidence of a new winter-run wave.";
+      return "Cover travel water and the first substantial holding areas before moving upstream.";
     case "building":
       return input.broadBuildingContext
-        ? "Compare one legal Michigan holding section with South Bend or Mishawaka, then let direct fish activity decide where to stay; remain outside every posted ladder and dam boundary."
-        : "Begin in substantial lower-Michigan or Niles holding water, then compare legal Indiana water only after a clean search; use Push to decide whether lower travel lanes deserve extra time.";
+        ? "Compare two sections, then stay where direct fish activity is strongest."
+        : "Keep one Lower-river fresh-entry comparison and verify every section directly.";
     case "peak":
-      return "Choose a substantial legal holding section below Berrien Springs, near Buchanan or Niles, or in South Bend-Mishawaka and cover it completely before changing reaches.";
+      return "Choose one substantial holding section and cover it completely before changing reaches.";
     case "tapering":
-      return "Start in deep established holding water and slow the presentation as temperature falls. Add lower travel lanes only when Niles Push supports fresh movement.";
+      return "Start in established holding water. Add Lower-river travel lanes only when Niles Push supports fresh movement.";
     case "ending":
-      return "Prioritize deep, speed-controlled holding water below Twin Branch and use Activity for responsiveness. Do not interpret a muted Push as fish leaving the river.";
+      return "Prioritize controlled presentations. Do not interpret a weak Push as fish leaving the river.";
     case "post_run":
-      return "Use an active winter Steelhead read when available. Do not extend this fall-entry calendar into a winter or spring recommendation.";
+      return "Check back around September 10 when St. Joseph fall-entry tracking resumes.";
   }
 }
 

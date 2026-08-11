@@ -43,7 +43,7 @@ const primitiveKeys: PrimitiveKey[] = [
 const foreignCopy =
   /\b(?:Big Manistee|Betsie|Muskegon|St\.? Joseph|Tippy|Croton|Homestead|Niles|Twin Branch|Berrien Springs|Mishawaka|Bear Creek)\b/i;
 const implementationCopy =
-  /\b(?:baseline|percentile|engine ID|rule ID|configured threshold)\b/i;
+  /\b(?:baseline|percentile|engine ID|rule ID|configured threshold|accepted|configured|owner-approved|research-approved|audited|calibrated)\b/i;
 const forbiddenCertainty =
   /\b(?:guaranteed|fish are everywhere|river is full|fresh wave entered)\b/i;
 const obsoletePmPublicGeography = /\bthe Forks\b/i;
@@ -128,7 +128,7 @@ function auditDisplay(
   check(wordCount(tip) <= 36, `${id}: Guide's Read exceeds 36 words`);
   check(guideOpening.test(tip), `${id}: Guide's Read lacks a direct opening`);
   check(
-    display.copyVersion === "river-run-copy-v29",
+    display.copyVersion === "river-run-copy-v34",
     `${id}: stale copy version`,
   );
   check(!foreignCopy.test(publicCopy), `${id}: foreign river geography leaked`);

@@ -31,7 +31,7 @@ for (const scenario of scenarios) {
   assert.equal(snapshot.riverId, "big_manistee");
   assert.equal(snapshot.runId, "big_manistee_fall_chinook");
   assert.match(snapshot.secondaryNote ?? "", /04125550|Wellston/i);
-  assert.match(snapshot.safety.gaugeBasis, /Tippy tailwater/i);
+  assert.match(snapshot.safety.gaugeBasis, /Upper river.*Tippy Dam/i);
   assert.equal(
     /Scottville|Walhalla|Pere Marquette/i.test(JSON.stringify(snapshot)),
     false,
@@ -88,10 +88,11 @@ for (const scenario of groups.get("activity")!.scenarios) {
   const activity = scenario.snapshot.activity;
   assert(activity, `${scenario.id} is missing Activity`);
   assert.equal(activity.blocks.length, 4);
-  assert.match(activity.detail, /Wellston\/Tippy tailwater/i);
-  assert.match(activity.detail, /farther downstream/i);
-  assert.match(activity.detail, /strongest window/i);
-  assert.match(activity.detail, /main limitation/i);
+  assert.match(activity.headline, /Upper-river/i);
+  assert.match(
+    `${activity.headline} ${activity.detail}`,
+    /Upper-river|Upper river|Tippy Dam area/i,
+  );
   assert.equal(
     /Scottville|Pere Marquette/i.test(
       `${activity.headline} ${activity.detail} ${activity.tip}`,
@@ -100,15 +101,20 @@ for (const scenario of groups.get("activity")!.scenarios) {
   );
 }
 
-for (const id of ["activity_tapering", "activity_ending", "activity_post_run"]) {
+for (
+  const id of ["activity_tapering", "activity_ending", "activity_post_run"]
+) {
   const activity = scenarios.find((scenario) => scenario.id === id)!.snapshot
     .activity!;
   if (id !== "activity_tapering") {
     assert.equal(["Active", "Highly active"].includes(activity.label), false);
   }
-  assert.match(activity.detail, /fresher|spent|deteriorat|biological decline/i);
+  assert.match(
+    activity.detail,
+    /condition varies|fresher|spent|deteriorat|biological decline/i,
+  );
 }
 
 console.log(
-  `Big Manistee Fall Chinook acceptance QA passed: ${scenarios.length} production-derived scenarios, river-specific Activity, subphases, source provenance, conservative failure states, and no PM geography leakage.`,
+  `Big Manistee Fall Chinook acceptance QA passed: ${scenarios.length} production-derived scenarios, three-section Stage copy, Upper-river source scope, concise Activity, conservative failure states, and no foreign geography.`,
 );

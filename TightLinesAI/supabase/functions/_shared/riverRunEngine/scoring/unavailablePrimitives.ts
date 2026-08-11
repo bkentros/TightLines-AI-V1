@@ -32,7 +32,7 @@ export function unavailableMigrationTiming(
       ? "Migration Timing is not available for the Betsie."
       : "Migration Timing is not available for this river.",
     detail: betsie
-      ? "The Betsie lacks an accepted long-term flow and measured water-temperature record for an early, typical, or delayed comparison."
+      ? "The Betsie does not have a long-term flow and measured water-temperature record reliable enough for an early, typical, or delayed comparison."
       : "There is no sufficiently accurate and consistent long-term gauge and measured water-temperature record for this river corridor, so an early, typical, or delayed comparison would not be reliable.",
     tip: betsie
       ? "Use Migration Stage and Fish In River. This card cannot shift the plan between the Betsie Lake–US-31 and US-31–Homestead reaches."

@@ -217,7 +217,7 @@ const stageDates = stJoseph && steelhead
   ? [
     ["offseason", "True offseason", "2026-08-14"],
     ["before_staging", "Before fall-entry monitoring", "2026-08-15"],
-    ["staging", "Staging · Skamania context", "2026-09-01"],
+    ["staging", "Staging · early Steelhead context", "2026-09-01"],
     ["beginning_initial", "Beginning · exploratory entry", "2026-09-15"],
     ["beginning_early", "Beginning · early entry", "2026-09-20"],
     ["beginning_accumulating", "Beginning · accumulating", "2026-10-01"],
@@ -228,7 +228,7 @@ const stageDates = stJoseph && steelhead
     ["peak_late", "Peak · late", "2026-11-25"],
     ["tapering", "Late fall", "2026-12-05"],
     ["ending", "Holding transition", "2026-12-20"],
-    ["winter_holding", "Winter holding handoff", "2026-12-23"],
+    ["fall_entry_complete", "Fall entry complete", "2026-12-23"],
   ]
   : coho
   ? [
@@ -770,9 +770,13 @@ const groups: RiverRunReviewGroup[] = [
           { waterTempF: 50, cloudCoverPct: 100, precipitationIn: 0.02 },
         ),
         scenario(
-          "activity_post_run",
+          !stJoseph && steelhead
+            ? "activity_fall_entry_complete"
+            : "activity_post_run",
           steelhead
-            ? "Winter holding · current responsiveness"
+            ? !stJoseph
+              ? "Fall entry complete"
+              : "Winter holding · current responsiveness"
             : "Late tail · residual living fish",
           activityFixture.postRun,
           { waterTempF: 48, cloudCoverPct: 100, precipitationIn: 0.02 },

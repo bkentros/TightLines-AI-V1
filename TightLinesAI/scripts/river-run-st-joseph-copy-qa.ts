@@ -16,6 +16,12 @@ const runs = [
 
 const leakedRiver =
   /Little Manistee|Tippy|Wellston|Croton|Newaygo|Muskegon|Big Manistee|Pere Marquette|Betsie|Homestead|Scottville|Walhalla|Frankfort|Platte River|White River|Grand River|Au Sable|Root River/i;
+const internalProcessLanguage =
+  /\b(?:accepted|configured|owner-approved|research-approved|audited|calibrated)\b/i;
+const approvedStageGeography =
+  /Lower river \(St\. Joseph harbor–Berrien Springs\)|Middle river \(Berrien Springs–Niles\)|Upper river \(Niles–Twin Branch Dam\)|Lake Michigan|St\. Joseph harbor|no active St\. Joseph starting section/i;
+const unavailableWinter =
+  /winter holding|winter read|winter outlook|winter experience|hands? off to winter|shifts? into winter/i;
 const primitiveGroups = new Set([
   "run_stage",
   "conditions",
@@ -63,6 +69,11 @@ for (const [species, groups] of runs) {
         false,
         `${species} ${group.id}/${scenario.id} leaks foreign geography in user copy`,
       );
+      assert.equal(
+        internalProcessLanguage.test(visibleCopy),
+        false,
+        `${species} ${group.id}/${scenario.id} leaks internal product-process language`,
+      );
       const wrongSpecies = species === "Chinook"
         ? /\bCoho\b|\bSteelhead\b|\bSkamania\b/i
         : species === "Coho"
@@ -97,6 +108,38 @@ for (const [species, groups] of runs) {
           primitive.tip?.trim(),
           `${species} ${group.id}/${scenario.id}: guide read`,
         );
+        const primitiveCopy = [
+          primitive.headline,
+          primitive.detail,
+          primitive.tip,
+          primitive.whereToStart,
+        ].filter(Boolean).join(" ");
+        assert.equal(
+          primitive.copyVersion,
+          "river-run-copy-v34",
+          `${species} ${group.id}/${scenario.id}: stale copy version`,
+        );
+        assert(
+          wordCount(primitive.headline) <= 22,
+          `${species} ${group.id}/${scenario.id}: long headline`,
+        );
+        assert(
+          wordCount(primitive.detail) <= 48,
+          `${species} ${group.id}/${scenario.id}: long Why copy (${
+            wordCount(primitive.detail)
+          } words)`,
+        );
+        assert(
+          wordCount(primitive.tip) <= 40,
+          `${species} ${group.id}/${scenario.id}: long Guide copy (${
+            wordCount(primitive.tip)
+          } words)`,
+        );
+        assert.equal(
+          unavailableWinter.test(primitiveCopy),
+          false,
+          `${species} ${group.id}/${scenario.id}: unavailable winter copy`,
+        );
       }
     }
   }
@@ -112,51 +155,43 @@ for (const [species, groups] of runs) {
     );
     assert(stage.tip?.trim(), `${species} ${scenario.id}: guide read`);
     assert.match(
-      `${stage.whereToStart} ${stage.detail} ${stage.tip}`,
-      /St\. Joseph|Lake Michigan|harbor|Berrien Springs|Buchanan|Niles|South Bend|Mishawaka|Twin Branch|in-season species|winter Steelhead/i,
-      `${species} ${scenario.id}: St. Joseph place or honest inactive handoff`,
+      stage.whereToStart,
+      approvedStageGeography,
+      `${species} ${scenario.id}: Where to Start lacks approved geography`,
     );
   }
 
-  const offseason = stages.find((scenario) =>
-    scenario.snapshot.runStage.label === "Offseason"
+  const complete = stages.find((scenario) =>
+    scenario.snapshot.runStage.label ===
+      (species === "Steelhead" ? "Fall entry complete" : "Fall run complete")
   );
-  assert(offseason, `${species}: offseason review state`);
+  assert(complete, `${species}: terminal review state`);
+  assert.equal(complete.snapshot.fishInRiver.score, null);
   assert.equal(
-    offseason.snapshot.conditionsSuggest.label,
-    "Not monitoring yet",
+    complete.snapshot.fishInRiver.label,
+    species === "Steelhead" ? "Fall entry complete" : "Fall run complete",
   );
-  assert.equal(offseason.snapshot.push.label, "Offseason");
-  assert.equal(offseason.snapshot.fishInRiver.label, "Offseason");
-  assert.match(offseason.snapshot.runStage.headline, /outside|not started/i);
-  assert.match(offseason.snapshot.runStage.tip, /active|return|season/i);
-  assert.match(
-    offseason.snapshot.fishability.detail,
-    /if migratory fish are present/i,
-  );
-  assert.match(offseason.snapshot.fishability.detail, /Niles mainstem reach/i);
 
   for (const scenario of requiredGroup(groups, "push").scenarios) {
     if (scenario.snapshot.push.score == null) continue;
-    assert.match(scenario.snapshot.push.detail, /Niles only/i);
-    assert.match(scenario.snapshot.push.tip, /Niles signal/i);
+    assert.match(
+      `${scenario.snapshot.push.headline} ${scenario.snapshot.push.detail} ${scenario.snapshot.push.tip}`,
+      /Niles/i,
+    );
   }
   for (const scenario of requiredGroup(groups, "fishability").scenarios) {
     if (scenario.snapshot.fishability.label === "Unavailable") continue;
     assert.match(scenario.snapshot.fishability.detail, /Niles mainstem reach/i);
     assert.match(
       scenario.snapshot.fishability.tip,
-      /Apply this recommendation at Niles/i,
+      /Niles|every other section/i,
     );
   }
   for (const scenario of requiredGroup(groups, "activity").scenarios) {
+    if (scenario.snapshot.activity?.score == null) continue;
     assert.match(
-      scenario.snapshot.activity?.detail ?? "",
-      /mainstem at Niles/i,
-    );
-    assert.match(
-      scenario.snapshot.activity?.tip ?? "",
-      /Apply this response window at Niles/i,
+      `${scenario.snapshot.activity?.headline} ${scenario.snapshot.activity?.detail} ${scenario.snapshot.activity?.tip}`,
+      /Niles/i,
     );
   }
 }
@@ -165,10 +200,10 @@ const chinookPeak = stageScenario(
   RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS,
   "stage_peak_core",
 );
-assert.match(chinookPeak.snapshot.runStage.headline, /3-of-10/i);
+assert.match(chinookPeak.snapshot.runStage.headline, /selective/i);
 assert.match(
   chinookPeak.snapshot.runStage.detail,
-  /not imply strong or uniform/i,
+  /3-of-10|not a claim of strong or uniform/i,
 );
 assert.match(chinookPeak.snapshot.runStage.whereToStart ?? "", /selective/i);
 
@@ -176,8 +211,10 @@ const cohoBuilding = stageScenario(
   RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS,
   "stage_building_established",
 );
-assert.match(cohoBuilding.snapshot.runStage.detail, /Berrien Springs/i);
-assert.match(cohoBuilding.snapshot.runStage.detail, /Niles/i);
+assert.match(
+  cohoBuilding.snapshot.runStage.whereToStart ?? "",
+  /Middle river/i,
+);
 
 const steelheadStaging = stageScenario(
   RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS,
@@ -185,10 +222,10 @@ const steelheadStaging = stageScenario(
 );
 assert.match(
   steelheadStaging.snapshot.runStage.detail,
-  /later winter-run/i,
+  /Skamania/i,
 );
 assert.doesNotMatch(steelheadStaging.snapshot.runStage.detail, /Manistee/i);
-assert.match(steelheadStaging.snapshot.runStage.tip, /Skamania/i);
+assert.match(steelheadStaging.snapshot.runStage.tip, /one Steelhead|Skamania/i);
 
 const evidenceLabels = runs.flatMap(([, groups]) =>
   requiredGroup(groups, "evidence").scenarios.map((scenario) => scenario.label)
@@ -197,7 +234,7 @@ assert(evidenceLabels.every((label) => !/Wellston|Croton/i.test(label)));
 assert(evidenceLabels.some((label) => /Niles/i.test(label)));
 
 console.log(
-  "St. Joseph copy QA passed: stage guidance, named reaches, offseason behavior, and Niles scope across all six primitives.",
+  "St. Joseph copy QA passed: three-section Stage guidance, terminal behavior, and Niles scope across all six primitives.",
 );
 
 function requiredGroup(groups: RiverRunReviewGroup[], id: string) {
@@ -276,6 +313,7 @@ function auditDetailPoints(detail: string, context: string) {
     detail.trim().replace(/\s+/g, " "),
     `${context}: parser must preserve the complete Why This Read copy`,
   );
+  assert(points.length <= 3, `${context}: more than three Why points`);
   for (const point of points) {
     assert.match(point, /[.!?]$/, `${context}: incomplete bullet: ${point}`);
     assert.match(
@@ -288,4 +326,8 @@ function auditDetailPoints(detail: string, context: string) {
       `${context}: undersized bullet fragment: ${point}`,
     );
   }
+}
+
+function wordCount(value?: string): number {
+  return value?.trim() ? value.trim().split(/\s+/).length : 0;
 }

@@ -599,12 +599,6 @@ export const BIG_MANISTEE_FALL_STEELHEAD_RUN_PROFILE:
       lateEnd: "12-23",
       postRunLateCopyEnd: "12-24",
     },
-    handoff: {
-      type: "winter_holding",
-      start: "12-23",
-      destinationRunType: "holding",
-      retainedPresenceFraction: 0.875,
-    },
     historicalPresence: {
       maximum: 8,
       distributionScope: "broad",
@@ -707,23 +701,23 @@ export const BIG_MANISTEE_FALL_STEELHEAD_RUN_PROFILE:
     },
     userCopyHints: {
       stagingTip:
-        "Separate summer-run Steelhead already below Tippy from the later winter-run fall-entry build; begin with the lakeward corridor when evaluating genuinely fresh fall arrivals.",
+        "Early Steelhead may enter in September. Begin with Manistee Lake, the river entrance, and the Lower river when evaluating fresh fall entry.",
       preRunTip:
-        "A Skamania encountered before the fall window is real, but it does not prove the winter-run fall entry is ahead of schedule.",
+        "An early Steelhead is real, but one fish does not prove the broader fall-entry build is ahead of schedule.",
       peakTip:
-        "Compare the Tippy tailwater, Tippy-to-High Bridge reach, High Bridge-Bear Creek middle corridor, and lower migratory river while distinguishing fresh travel water from fish already holding.",
+        "Start in the Upper river (High Bridge–Tippy Dam), emphasizing the Tippy Dam area. Compare the Middle river for fresher fish.",
       endingTip:
-        "Shift toward deep, speed-controlled holding water and treat December 23 as a winter-fishery handoff rather than fish leaving the river.",
+        "Use deep, speed-controlled Upper-river holding water while recognizing that the fall-entry model ends after December 22.",
     },
     researchNotes:
-      "Big Manistee Fall Steelhead research build. Pre-run context begins August 15 and explicitly acknowledges the separate Skamania summer-run component. A restrained winter-run scouting phase starts September 15, reaches the previously accepted 8/100 entry level September 20, becomes established October 15, broadens November 1, reaches 80/100 on November 15, remains high through December 4, and retains 70/100 on December 22. December 23 hands those fish into winter holding instead of forcing presence to zero.",
+      "Big Manistee Fall Steelhead research build. Pre-run context begins August 15, with early Steelhead possible before dependable entry. The scored fall-entry phase starts September 15, reaches 8/100 September 20, becomes established October 15, broadens November 1, reaches 80/100 on November 15, and remains high through December 22. December 23 closes this fall-entry experience without implying that Steelhead left the river.",
     sourceNotes:
-      "Primary evidence: Michigan DNR Manistee River below Tippy Status Report 2004-4; DNR 2022-2023 creel survey; DNR Steelhead profile; DNR Tippy Dam plan; USFWS Manistee River profile; USGS 04125550 discharge and measured-water-temperature history. Implementation reuses validated river hydraulics while keeping Steelhead timing, thermal response, presence, and winter handoff species-specific.",
+      "Primary evidence: Michigan DNR Manistee River below Tippy Status Report 2004-4; DNR 2022-2023 creel survey; DNR Steelhead profile; DNR Tippy Dam plan; USFWS Manistee River profile; USGS 04125550 discharge and measured-water-temperature history. Historical strain evidence remains research context; public copy describes September fish as early Steelhead unless direct evidence establishes strain identity.",
     publicAudit: {
       isEnabled: true,
-      auditVersion: "big-manistee-fall-steelhead-activity-audit-v1",
+      auditVersion: "big-manistee-fall-steelhead-copy-audit-v2",
       notes:
-        "Research, river-specific Activity implementation, historical replay, and owner acceptance coverage are complete. Public visibility supports direct app review of Steelhead feeding responsiveness, the 80-point November 15 presence ceiling, 70-point December handoff, named-reach copy, shared Wellston hydraulics, and the absence of any salmon mortality taper.",
+        "Owner-approved copy renovation uses early-Steelhead language, the three approved public sections, Upper-river Wellston scope, and a scoreless Fall entry complete terminal state. Underlying calendars, thresholds, and the 80-point November 15 presence ceiling remain unchanged.",
     },
   };
 
@@ -834,7 +828,7 @@ export const MUSKEGON_FALL_CHINOOK_RUN_PROFILE: AuditedObservedRiverRunProfile =
       version: "muskegon-fall-chinook-activity-v2",
       profile: "chinook_fall_reaction",
       scopeCopy:
-        "The measured conditions represent the regulated Croton tailwater immediately below Croton Dam; water temperature, clarity, tributary influence, and presentation conditions can differ through Newaygo, the lower river, Muskegon Lake, and the channel.",
+        "The measured conditions represent the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
       weights: {
         light: .55,
         waterTemperature: .2,
@@ -905,10 +899,11 @@ export const MUSKEGON_FALL_CHINOOK_RUN_PROFILE: AuditedObservedRiverRunProfile =
       waterTemperatureWeight: .45,
     },
     userCopyHints: {
-      stagingTip: "Check Muskegon Lake, the channel, and lakeward river first.",
+      stagingTip:
+        "Check Muskegon Lake, the Lake Michigan channel, and the river entrance before dependable river entry.",
       preRunTip: "Lake staging does not prove inland occupation.",
       peakTip:
-        "Compare fresh lower-corridor travel water with accumulated fish below Croton.",
+        "Start in the Upper river (Newaygo–Croton Dam), emphasizing the Croton Dam area. Compare the Middle river for fresher fish.",
       endingTip:
         "Use deep established water and require measured response before inferring fresh movement.",
     },
@@ -937,7 +932,7 @@ export const MUSKEGON_FALL_COHO_RUN_PROFILE: AuditedObservedRiverRunProfile = {
     version: "muskegon-fall-coho-activity-v1",
     profile: "coho_fall_reaction",
     scopeCopy:
-      "The measured conditions represent the Croton tailwater immediately below Croton Dam. Water temperature, clarity, and fishing conditions can be different through Newaygo, the lower river, Muskegon Lake, and the channel.",
+      "The measured conditions represent the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
     weights: {
       light: 0.5,
       waterTemperature: 0.25,
@@ -1056,7 +1051,7 @@ export const MUSKEGON_FALL_STEELHEAD_RUN_PROFILE:
       version: "muskegon-fall-steelhead-activity-v1",
       profile: "steelhead_feeding",
       scopeCopy:
-        "The measured conditions represent the Croton tailwater immediately below Croton Dam. Water temperature, clarity, and fishing conditions can be different through Newaygo, the lower river, Muskegon Lake, and the channel.",
+        "The measured conditions represent the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
       weights: {
         light: .25,
         waterTemperature: .5,
@@ -1094,12 +1089,6 @@ export const MUSKEGON_FALL_STEELHEAD_RUN_PROFILE:
       end: "12-22",
       lateEnd: "12-23",
       postRunLateCopyEnd: "12-24",
-    },
-    handoff: {
-      type: "winter_holding",
-      start: "12-23",
-      destinationRunType: "holding",
-      retainedPresenceFraction: .89,
     },
     historicalPresence: {
       maximum: 9,
@@ -1151,21 +1140,22 @@ export const MUSKEGON_FALL_STEELHEAD_RUN_PROFILE:
     },
     userCopyHints: {
       stagingTip:
-        "Check Muskegon Lake and the lakeward lower river for fresh fall entry.",
+        "Early Steelhead may enter in September. Check Muskegon Lake, the river entrance, and the Lower river when evaluating fresh fall entry.",
       preRunTip: "An isolated early fish does not prove the fall run is ahead.",
       peakTip:
-        "Compare fresh lower travel water with established Croton-to-Newaygo holding water.",
+        "Start in the Upper river (Newaygo–Croton Dam), emphasizing the Croton Dam area. Compare the Middle river for fresher fish.",
       endingTip:
-        "Shift to deep speed-controlled winter holding water below Croton.",
+        "Use established Upper-river holding water while recognizing that this fall-entry model ends after December 22.",
     },
     researchNotes:
-      "Muskegon Fall Steelhead v1 models September entry, a strong late-October/November build, and an explicit December 23 winter-holding handoff retaining 80/100 seasonal presence.",
+      "Muskegon Fall Steelhead v1 models early September context, a strong late-October/November build, and a December 23 endpoint for this fall-entry experience without implying that Steelhead left the river.",
     sourceNotes:
-      "Michigan DNR Muskegon River Angler Survey; 2022–2023 creel survey; DNR Steelhead profile; USGS 04121970. Cold holding caps movement only and never deletes fish already present.",
+      "Michigan DNR Muskegon River Angler Survey; 2022–2023 creel survey; DNR Steelhead profile; USGS 04121970. Public copy calls September fish early Steelhead and does not infer strain identity from timing.",
     publicAudit: {
       isEnabled: true,
-      auditVersion: "muskegon-fall-steelhead-build-v1",
-      notes: "Enabled for owner audit with explicit winter retention.",
+      auditVersion: "muskegon-fall-steelhead-copy-audit-v2",
+      notes:
+        "Owner-approved renovation uses early-Steelhead language, three approved public sections, Croton-area source scope, and a scoreless Fall entry complete terminal state.",
     },
   };
 
@@ -1565,18 +1555,12 @@ export const ST_JOSEPH_FALL_STEELHEAD_RUN_PROFILE:
       lateEnd: "12-23",
       postRunLateCopyEnd: "12-24",
     },
-    handoff: {
-      type: "winter_holding",
-      start: "12-23",
-      destinationRunType: "holding",
-      retainedPresenceFraction: .9,
-    },
     historicalPresence: {
       maximum: 9,
       distributionScope: "broad",
       curveVersion: "st-joseph-fall-steelhead-presence-v1",
       evidenceNotes:
-        "The St. Joseph is a major interstate, hatchery-supported Steelhead fishery with five passage facilities and 63 accessible miles. The curve acknowledges summer-run Skamania already present by mid-August, then models the added winter-run entry beginning in October. It reaches a conservative 9/10 fall opportunity reference November 15 and retains 81/100 at the winter handoff; this is not a ladder-count forecast or live abundance estimate.",
+        "The St. Joseph is a major interstate, hatchery-supported Steelhead fishery with five passage facilities and 63 accessible miles. The curve acknowledges summer-run Skamania already present by mid-August, then models the added fall-entry build beginning in October. It reaches a conservative 9/10 fall opportunity reference November 15, retains 81/100 through December 22, and then closes fall scoring; this is not a ladder-count forecast or live abundance estimate.",
       sourceNotes:
         "Indiana DNR Bodine State Fish Hatchery and Lake Michigan fishing guidance; Indiana DNR South Bend ladder program and historical counts since 2011; Michigan DNR St. Joseph River Assessment and Steelhead management material. Annual passage varies, so evidence supports 9/10 rather than an automatic 10/10.",
       anchors: [
@@ -1650,16 +1634,16 @@ export const ST_JOSEPH_FALL_STEELHEAD_RUN_PROFILE:
     },
     userCopyHints: {
       stagingTip:
-        "Treat summer-run Skamania already in the river separately from the later winter-run fall build.",
+        "Treat summer-run Skamania already in the river separately from the later fall-entry build.",
       preRunTip:
-        "An August or early-September Skamania is real, but does not prove the October winter-run entry is early.",
+        "An August or early-September Skamania is real, but does not prove the later fall-entry build is early.",
       peakTip:
-        "Compare the lower Michigan corridor, Niles reach, and legal Indiana water below Twin Branch without treating Niles measurements as river-wide observations.",
+        "Compare the approved Middle and Upper river sections without treating Niles measurements as river-wide observations.",
       endingTip:
-        "Shift toward deep, speed-controlled holding water and treat December 23 as a winter handoff, not fish leaving the river.",
+        "Treat December 22 as the endpoint of fall-entry scoring without claiming Steelhead have left the river.",
     },
     researchNotes:
-      "St. Joseph Fall Steelhead v1 explicitly treats established summer-run Skamania as pre-run context rather than counting them as the winter-run fall build. The scored entry begins September 25, becomes established in October, broadens through the five-ladder corridor in November, reaches a 90/100 seasonal reference November 15, and retains 81/100 into winter holding on December 23.",
+      "St. Joseph Fall Steelhead v1 explicitly treats established summer-run Skamania as pre-run context rather than counting them as the later fall-entry build. Scored entry begins September 25, becomes established in October, broadens through the accessible corridor in November, reaches a 90/100 seasonal reference November 15, retains 81/100 through December 22, and then ends fall scoring.",
     sourceNotes:
       "Primary evidence: Indiana DNR South Bend Fish Ladder, Bodine State Fish Hatchery, and Lake Michigan fishing guidance; Michigan DNR St. Joseph River Assessment and Steelhead management presentations; USGS 04101500 discharge and same-station water temperature. Steelhead response biology is shared with accepted Great Lakes profiles while Activity observations, hydraulic bands, weather point, scope, and replay remain Niles-specific.",
     publicAudit: {

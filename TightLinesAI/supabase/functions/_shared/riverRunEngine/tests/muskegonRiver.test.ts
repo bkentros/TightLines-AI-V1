@@ -69,11 +69,11 @@ Deno.test("Croton is a hard boundary and copy never leaks another river geograph
   );
   assertMatch(
     resolveRunStage(chinook, "2026-09-15").whereToStart ?? "",
-    /Croton-to-Newaygo/i,
+    /Upper river \(Newaygo–Croton Dam\).*Croton Dam area/i,
   );
 });
 
-Deno.test("Muskegon Fish In River interpolates daily and hits exact peaks and handoff", () => {
+Deno.test("Muskegon Fish In River interpolates daily, hits exact peaks, and closes fall entry", () => {
   assert(
     scoreFishInRiver(chinook, "2026-09-10").score !==
       scoreFishInRiver(chinook, "2026-09-11").score,
@@ -82,10 +82,10 @@ Deno.test("Muskegon Fish In River interpolates daily and hits exact peaks and ha
   assertEquals(scoreFishInRiver(coho, "2026-10-25").score, 30);
   assertEquals(scoreFishInRiver(steelhead, "2026-11-15").score, 90);
   assertEquals(scoreFishInRiver(steelhead, "2026-12-22").score, 80);
-  assertEquals(scoreFishInRiver(steelhead, "2026-12-23").score, 80);
+  assertEquals(scoreFishInRiver(steelhead, "2026-12-23").score, null);
   assertEquals(
     resolveRunStage(steelhead, "2026-12-23").label,
-    "Winter holding",
+    "Fall entry complete",
   );
 });
 
@@ -180,9 +180,8 @@ Deno.test("Muskegon Chinook Activity is independently calibrated to the Croton t
 
   const result = activityAt("2026-10-01", "peak");
   assertEquals(result.blocks.length, 4);
-  assertMatch(result.detail, /Croton tailwater immediately below Croton Dam/i);
-  assertMatch(result.detail, /Newaygo/i);
-  assertMatch(result.detail, /Muskegon Lake/i);
+  assertMatch(result.detail, /Croton flow and temperature represent only/i);
+  assertMatch(result.detail, /near the dam/i);
   assertEquals(
     /Tippy|Wellston|Scottville|Pere Marquette/i.test(result.detail),
     false,
@@ -223,8 +222,8 @@ Deno.test("Muskegon Steelhead Activity is temperature-led and has no salmon life
   for (const score of scores.slice(1)) assertEquals(score, scores[0]);
   const copy = JSON.stringify(steelheadActivityAt("2026-12-20", "ending"));
   assertEquals(/spent|dying|deteriorat|mortality/i.test(copy), false);
-  assertMatch(copy, /Croton tailwater immediately below Croton Dam/i);
-  assertMatch(copy, /Newaygo/i);
+  assertMatch(copy, /Croton-area Steelhead responsiveness/i);
+  assertEquals(/winter holding|winter read|winter outlook/i.test(copy), false);
   assertEquals(/Tippy|Wellston|Pere Marquette/i.test(copy), false);
 });
 
@@ -251,8 +250,7 @@ Deno.test("Muskegon Coho Activity is species-specific and scoped to Croton", () 
     endingEnd: "11-30",
   });
   const result = cohoActivityAt("2026-10-25", "peak");
-  assertMatch(result.detail, /Croton tailwater immediately below Croton Dam/i);
-  assertMatch(result.detail, /Newaygo/i);
+  assertMatch(result.detail, /Croton flow and temperature represent only/i);
   assertEquals(/Tippy|Wellston|Pere Marquette/i.test(result.detail), false);
 });
 
@@ -272,7 +270,7 @@ Deno.test("Muskegon Coho Activity lowers its floor and ceiling through the back 
   assert(first(endingEnd) < first(endingStart));
   assert(first(endingEnd) <= 42);
   assert(first(tail) <= 42);
-  assertMatch(tail.detail, /spent|dying|deteriorat/i);
+  assertMatch(tail.detail, /Late-run Coho condition varies widely/i);
 });
 
 Deno.test("Muskegon Chinook Activity fades its floor and ceiling continuously across the back half", () => {
@@ -290,7 +288,7 @@ Deno.test("Muskegon Chinook Activity fades its floor and ceiling continuously ac
   assert(first(endingEnd) < first(endingStart));
   assert(first(endingEnd) <= 46);
   assert(first(tail) <= 46);
-  assertMatch(tail.detail, /spent|dying|deteriorat/i);
+  assertMatch(tail.detail, /Late-run Chinook condition varies widely/i);
 });
 
 function activityAt(
@@ -318,6 +316,7 @@ function activityAt(
       clear_sky_shortwave_w_m2: hour >= 8 && hour <= 18 ? 650 : 120,
       precipitation_in: 0,
     })),
+    copyStrategy: "muskegon_croton_tailwater",
   });
 }
 
@@ -346,6 +345,7 @@ function cohoActivityAt(
       clear_sky_shortwave_w_m2: hour >= 8 && hour <= 18 ? 650 : 120,
       precipitation_in: 0,
     })),
+    copyStrategy: "muskegon_croton_tailwater",
   });
 }
 
@@ -374,5 +374,6 @@ function steelheadActivityAt(
       clear_sky_shortwave_w_m2: hour >= 8 && hour <= 18 ? 650 : 120,
       precipitation_in: 0,
     })),
+    copyStrategy: "muskegon_croton_tailwater",
   });
 }

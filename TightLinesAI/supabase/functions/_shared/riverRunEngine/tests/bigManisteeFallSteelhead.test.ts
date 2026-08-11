@@ -98,9 +98,9 @@ Deno.test("Big Manistee Steelhead Activity is river-scoped and has no salmon tap
   }
 });
 
-Deno.test("Big Manistee Steelhead peaks November 15 and retains 70 into winter", () => {
+Deno.test("Big Manistee Steelhead peaks November 15 and closes fall entry after December 22", () => {
   assertEquals(run.runWindow.peak, "11-15");
-  assertEquals(run.handoff?.start, "12-23");
+  assertEquals(run.handoff, undefined);
   const expected = new Map([
     ["2026-09-15", 4],
     ["2026-09-20", 8],
@@ -115,12 +115,15 @@ Deno.test("Big Manistee Steelhead peaks November 15 and retains 70 into winter",
     ["2026-12-10", 77],
     ["2026-12-19", 72],
     ["2026-12-22", 70],
-    ["2026-12-23", 70],
   ]);
   for (const [localDate, score] of expected) {
     assertEquals(scoreFishInRiver(run, localDate).score, score, localDate);
   }
-  assertEquals(resolveRunStage(run, "2026-12-23").label, "Winter holding");
+  assertEquals(scoreFishInRiver(run, "2026-12-23").score, null);
+  assertEquals(
+    resolveRunStage(run, "2026-12-23").label,
+    "Fall entry complete",
+  );
 });
 
 Deno.test("Big Manistee Steelhead shares hydraulics and uses cold-holding biology", () => {
@@ -161,19 +164,24 @@ Deno.test("Big Manistee Steelhead shares hydraulics and uses cold-holding biolog
   assertEquals(cold.components?.rainRole, "absorbed_by_gauge");
 });
 
-Deno.test("Big Manistee Steelhead copy separates Skamania and uses named reaches", () => {
+Deno.test("Big Manistee Steelhead copy uses early-fish language and approved sections", () => {
   const staging = resolveRunStage(run, "2026-09-01");
-  assertMatch(staging.headline, /summer-run/i);
-  assertMatch(staging.whereToStart ?? "", /lower migratory river/i);
-  assertMatch(staging.whereToStart ?? "", /Skamania/i);
+  assertMatch(staging.headline, /early Steelhead/i);
+  assertMatch(staging.whereToStart ?? "", /Lower river \(M-55–Bear Creek\)/i);
 
   const beginning = resolveRunStage(run, "2026-09-15");
-  assertMatch(beginning.whereToStart ?? "", /High Bridge-Bear Creek/i);
+  assertMatch(
+    beginning.whereToStart ?? "",
+    /Middle river \(Bear Creek–High Bridge\)/i,
+  );
   const peak = resolveRunStage(run, "2026-11-15");
-  assertMatch(peak.whereToStart ?? "", /Tippy-to-High Bridge/i);
-  assertMatch(peak.whereToStart ?? "", /toward M-55/i);
-  const winter = resolveRunStage(run, "2026-12-23");
-  assertMatch(winter.detail, /have not left the river/i);
+  assertMatch(
+    peak.whereToStart ?? "",
+    /Upper river \(High Bridge–Tippy Dam\)/i,
+  );
+  assertMatch(peak.whereToStart ?? "", /Tippy Dam area/i);
+  const complete = resolveRunStage(run, "2026-12-23");
+  assertMatch(complete.headline, /fall entry is complete/i);
 
   for (
     const date of [
@@ -191,6 +199,13 @@ Deno.test("Big Manistee Steelhead copy separates Skamania and uses named reaches
   ) {
     const copy = JSON.stringify(resolveRunStage(run, date));
     assertEquals(/Scottville|Walhalla|Pere Marquette/i.test(copy), false);
-    assertEquals(/\bupper river\b/i.test(copy), false);
+    assertEquals(
+      /Skamania|summer-run|winter-run|winter holding/i.test(copy),
+      false,
+    );
+    assertEquals(
+      /Tippy tailwater|toward M-55|middle corridor/i.test(copy),
+      false,
+    );
   }
 });

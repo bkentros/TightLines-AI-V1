@@ -62,13 +62,23 @@ export function scoreFishInRiver(
   const riverCeiling = run.historicalPresence.maximum * 10;
   const winterHoldingContext = run.runType === "fall_entry" && !!run.handoff &&
     run.runStageCopyStrategy !== "pere_marquette" &&
+    run.runStageCopyStrategy !== "big_manistee_tailwater" &&
+    run.runStageCopyStrategy !== "muskegon_croton_tailwater" &&
+    run.runStageCopyStrategy !== "st_joseph_corridor" &&
     stage === "post_run" && compareLocalDates(localDate, window.endDate) > 0;
   if (
     (run.runStageCopyStrategy === "pere_marquette" ||
-      run.runStageCopyStrategy === "betsie_homestead") &&
+      run.runStageCopyStrategy === "betsie_homestead" ||
+      run.runStageCopyStrategy === "big_manistee_tailwater" ||
+      run.runStageCopyStrategy === "muskegon_croton_tailwater" ||
+      run.runStageCopyStrategy === "st_joseph_corridor") &&
     run.runType === "fall_entry" && stage === "post_run"
   ) {
     const betsie = run.runStageCopyStrategy === "betsie_homestead";
+    const bigManistee = run.runStageCopyStrategy === "big_manistee_tailwater";
+    const muskegon = run.runStageCopyStrategy ===
+      "muskegon_croton_tailwater";
+    const stJoseph = run.runStageCopyStrategy === "st_joseph_corridor";
     return {
       score: null,
       displayScore: undefined,
@@ -83,12 +93,28 @@ export function scoreFishInRiver(
       label: "Fall entry complete",
       headline: betsie
         ? "Betsie Steelhead fall entry is complete."
+        : bigManistee
+        ? "Big Manistee Steelhead fall entry is complete."
+        : muskegon
+        ? "Muskegon Steelhead fall entry is complete."
+        : stJoseph
+        ? "St. Joseph Steelhead fall entry is complete."
         : "PM Steelhead fall entry is complete.",
       detail:
         "Steelhead may remain in the river. This fall-entry model no longer estimates their current seasonal presence.",
       tip: `Check back ${
         seasonalReturnPhrase(window.stagingStartDate.slice(5))
-      } when ${betsie ? "Betsie" : "PM"} fall movement tracking resumes.`,
+      } when ${
+        betsie
+          ? "Betsie"
+          : bigManistee
+          ? "Big Manistee"
+          : muskegon
+          ? "Muskegon"
+          : stJoseph
+          ? "St. Joseph"
+          : "PM"
+      } fall movement tracking resumes.`,
       reasonCodes: [
         stageReasonCode(stage),
         "historical_presence_curve",
@@ -100,11 +126,18 @@ export function scoreFishInRiver(
     compareLocalDates(localDate, window.endDate) > 0 &&
     compareLocalDates(localDate, window.postRunLateCopyEndDate) <= 0;
   if (
-    run.runStageCopyStrategy === "betsie_homestead" &&
+    (run.runStageCopyStrategy === "betsie_homestead" ||
+      run.runStageCopyStrategy === "big_manistee_tailwater" ||
+      run.runStageCopyStrategy === "muskegon_croton_tailwater" ||
+      run.runStageCopyStrategy === "st_joseph_corridor") &&
     run.runType === "fall_spawn" && stage === "post_run" &&
     !latePostRunContext
   ) {
     const species = anglerSpeciesName(run.species);
+    const bigManistee = run.runStageCopyStrategy === "big_manistee_tailwater";
+    const muskegon = run.runStageCopyStrategy ===
+      "muskegon_croton_tailwater";
+    const stJoseph = run.runStageCopyStrategy === "st_joseph_corridor";
     return {
       score: null,
       displayScore: undefined,
@@ -117,13 +150,29 @@ export function scoreFishInRiver(
       curveDirection: "outside",
       winterHoldingContext: false,
       label: "Fall run complete",
-      headline: `The Betsie ${species} fall run is complete.`,
+      headline: `The ${
+        bigManistee
+          ? "Big Manistee"
+          : muskegon
+          ? "Muskegon"
+          : stJoseph
+          ? "St. Joseph"
+          : "Betsie"
+      } ${species} fall run is complete.`,
       detail: `${species} staging typically begins ${
         seasonalReturnPhrase(window.stagingStartDate.slice(5))
       }. This seasonal estimate is inactive until then.`,
       tip: `Check back ${
         seasonalReturnPhrase(window.stagingStartDate.slice(5))
-      } when Betsie fall-run tracking resumes.`,
+      } when ${
+        bigManistee
+          ? "Big Manistee"
+          : muskegon
+          ? "Muskegon"
+          : stJoseph
+          ? "St. Joseph"
+          : "Betsie"
+      } fall-run tracking resumes.`,
       reasonCodes: [stageReasonCode(stage), "historical_presence_curve"],
       copyVersion: RIVER_RUN_COPY_VERSION,
     };
@@ -151,7 +200,7 @@ export function scoreFishInRiver(
         ? "Steelhead remain strongly present through the St. Joseph corridor as fall entry shifts into winter holding."
         : "Steelhead remain strongly present as the fishery shifts into winter holding.",
       detail: betsieHandoff
-        ? `Fall entry finished at ${handoffScore}/100. That retained-presence reference is not a live activity score; the Betsie has no accepted water-temperature or flow sensor for judging today's feeding activity.`
+        ? `Fall entry finished at ${handoffScore}/100. That retained-presence reference is not a live activity score; the Betsie has no water-temperature or flow sensor reliable enough to judge today's feeding activity.`
         : stJosephHandoff
         ? `Fall entry finished at ${handoffScore}/100. That retained-presence reference applies across the accessible season, not equally to every reach; current Niles Activity is a response read for Niles only.`
         : `Fall entry finished at ${handoffScore}/100. That retained-presence reference stays visible, but it is not a winter activity score; winter opportunity depends on water temperature, feeding activity, and presentation.`,
@@ -182,7 +231,10 @@ export function scoreFishInRiver(
     compareLocalDates(localDate, window.postRunLateCopyEndDate) > 0;
   const baseLabel = fishInRiverLabel(score, curveFraction, stage, offseason);
   const terminalCopyStrategy = run.runStageCopyStrategy === "pere_marquette" ||
-    run.runStageCopyStrategy === "betsie_homestead";
+    run.runStageCopyStrategy === "betsie_homestead" ||
+    run.runStageCopyStrategy === "big_manistee_tailwater" ||
+    run.runStageCopyStrategy === "muskegon_croton_tailwater" ||
+    run.runStageCopyStrategy === "st_joseph_corridor";
   const label = terminalCopyStrategy &&
       baseLabel === "Offseason"
     ? "Fall run complete"
@@ -209,18 +261,11 @@ export function scoreFishInRiver(
     fallEntry: run.runType === "fall_entry",
     pereMarquette: run.runStageCopyStrategy === "pere_marquette",
     betsie: run.runStageCopyStrategy === "betsie_homestead",
+    bigManistee: run.runStageCopyStrategy === "big_manistee_tailwater",
+    muskegon: run.runStageCopyStrategy === "muskegon_croton_tailwater",
+    stJoseph: run.runStageCopyStrategy === "st_joseph_corridor",
     stagingStart: window.stagingStartDate.slice(5),
   });
-  const scopedCopy = run.runStageCopyStrategy === "st_joseph_corridor" &&
-      label !== "Offseason"
-    ? {
-      ...copy,
-      detail:
-        `${copy.detail} This seasonal presence applies to the accessible St. Joseph corridor as a whole; it does not claim equal fish numbers at the harbor, Niles, South Bend, Mishawaka, or Twin Branch.`,
-      tip:
-        `${copy.tip} Use Migration Stage to choose the specific St. Joseph section, then verify that water directly.`,
-    }
-    : copy;
   return {
     score,
     displayScore,
@@ -234,7 +279,7 @@ export function scoreFishInRiver(
     curveDirection,
     winterHoldingContext: false,
     label,
-    ...scopedCopy,
+    ...copy,
     reasonCodes: [
       stageReasonCode(stage),
       "historical_presence_curve",
@@ -314,6 +359,9 @@ function fishInRiverCopy(input: {
   fallEntry: boolean;
   pereMarquette: boolean;
   betsie: boolean;
+  bigManistee: boolean;
+  muskegon: boolean;
+  stJoseph: boolean;
   stagingStart: string;
 }): Pick<PrimitiveDisplay, "headline" | "detail" | "tip"> {
   const {
@@ -330,6 +378,9 @@ function fishInRiverCopy(input: {
     return pereMarquetteFishInRiverCopy(input);
   }
   if (input.betsie) return betsieFishInRiverCopy(input);
+  if (input.bigManistee) return bigManisteeFishInRiverCopy(input);
+  if (input.muskegon) return muskegonFishInRiverCopy(input);
+  if (input.stJoseph) return stJosephFishInRiverCopy(input);
   if (label === "Offseason") {
     return {
       headline: `${species} are outside their river migration season.`,
@@ -401,6 +452,174 @@ function fishInRiverCopy(input: {
       fractionOfRiverMaximum,
       opportunity,
     ),
+  };
+}
+
+function stJosephFishInRiverCopy(input: {
+  label: string;
+  score: number;
+  stage: RunStage;
+  direction: FishInRiverCurveDirection;
+  species: string;
+  opportunity: RunOpportunityCopyContext;
+  fallEntry: boolean;
+  stagingStart: string;
+}): Pick<PrimitiveDisplay, "headline" | "detail" | "tip"> {
+  if (input.label === "Offseason" || input.label === "Fall run complete") {
+    return {
+      headline: `The St. Joseph ${input.species} fall run is complete.`,
+      detail: `${input.species} staging typically begins ${
+        seasonalReturnPhrase(input.stagingStart)
+      }. This seasonal estimate is inactive until then.`,
+      tip: `Check back ${
+        seasonalReturnPhrase(input.stagingStart)
+      } when St. Joseph fall-run tracking resumes.`,
+    };
+  }
+  if (input.score === 0 && input.stage === "pre_run") {
+    return {
+      headline:
+        `Dependable ${input.species} presence is not expected in the St. Joseph yet.`,
+      detail:
+        "The seasonal estimate remains at zero. Any river fish would be an early exception.",
+      tip: "Use Migration Stage for harbor and river-entry context.",
+    };
+  }
+  if (input.score === 0) {
+    return {
+      headline:
+        `The St. Joseph ${input.species} migration no longer has dependable seasonal presence.`,
+      detail:
+        "The seasonal estimate has reached zero. Isolated late fish are not a dependable migration opportunity.",
+      tip: "Do not build a three-section search around isolated late fish.",
+    };
+  }
+  const level = input.label.replace(/ presence$/i, "").toLowerCase();
+  const direction = input.direction === "rising"
+    ? "building"
+    : input.direction === "falling"
+    ? "declining"
+    : "holding steady";
+  return {
+    headline: input.label === "Peak presence"
+      ? `Seasonal ${input.species} presence is near its expected St. Joseph peak.`
+      : `Seasonal ${input.species} presence is ${level} and ${direction}.`,
+    detail:
+      `This is a whole-corridor seasonal estimate relative to the St. Joseph ${input.species} ceiling, not a fish count or equal distribution.`,
+    tip:
+      "Use Migration Stage to choose a section, then verify that water directly.",
+  };
+}
+
+function bigManisteeFishInRiverCopy(input: {
+  label: string;
+  score: number;
+  stage: RunStage;
+  direction: FishInRiverCurveDirection;
+  species: string;
+  opportunity: RunOpportunityCopyContext;
+  stagingStart: string;
+}): Pick<PrimitiveDisplay, "headline" | "detail" | "tip"> {
+  if (input.label === "Offseason" || input.label === "Fall run complete") {
+    return {
+      headline: `The Big Manistee ${input.species} fall run is complete.`,
+      detail: `${input.species} staging typically begins ${
+        seasonalReturnPhrase(input.stagingStart)
+      }. This seasonal estimate is inactive until then.`,
+      tip: `Check back ${
+        seasonalReturnPhrase(input.stagingStart)
+      } when Big Manistee fall-run tracking resumes.`,
+    };
+  }
+  if (input.score === 0 && input.stage === "pre_run") {
+    return {
+      headline:
+        `Dependable ${input.species} presence is not expected in the Big Manistee yet.`,
+      detail:
+        "The seasonal estimate remains at zero. Any river fish would be an early exception.",
+      tip:
+        "Use Migration Stage for Manistee Lake, harbor, and river-entrance context.",
+    };
+  }
+  if (input.score === 0) {
+    return {
+      headline:
+        `The Big Manistee ${input.species} migration no longer has dependable seasonal presence.`,
+      detail:
+        "The seasonal estimate has reached zero. Isolated late fish are not a dependable migration opportunity.",
+      tip: "Do not build a three-section search around isolated late fish.",
+    };
+  }
+  const level = input.label.replace(/ presence$/i, "").toLowerCase();
+  const direction = input.direction === "rising"
+    ? "building"
+    : input.direction === "falling"
+    ? "declining"
+    : "holding steady";
+  return {
+    headline: input.label === "Peak presence"
+      ? `Seasonal ${input.species} presence is near its expected Big Manistee peak.`
+      : `Seasonal ${input.species} presence is ${level} and ${direction}.`,
+    detail:
+      `This is a whole-corridor seasonal estimate relative to the Big Manistee ${input.species} ceiling, not a fish count or equal distribution.`,
+    tip:
+      "Use Migration Stage to choose a section, then verify that water directly.",
+  };
+}
+
+function muskegonFishInRiverCopy(input: {
+  label: string;
+  score: number;
+  stage: RunStage;
+  direction: FishInRiverCurveDirection;
+  species: string;
+  opportunity: RunOpportunityCopyContext;
+  stagingStart: string;
+}): Pick<PrimitiveDisplay, "headline" | "detail" | "tip"> {
+  if (input.label === "Offseason" || input.label === "Fall run complete") {
+    return {
+      headline: `The Muskegon ${input.species} fall run is complete.`,
+      detail: `${input.species} staging typically begins ${
+        seasonalReturnPhrase(input.stagingStart)
+      }. This seasonal estimate is inactive until then.`,
+      tip: `Check back ${
+        seasonalReturnPhrase(input.stagingStart)
+      } when Muskegon fall-run tracking resumes.`,
+    };
+  }
+  if (input.score === 0 && input.stage === "pre_run") {
+    return {
+      headline:
+        `Dependable ${input.species} presence is not expected in the Muskegon River yet.`,
+      detail:
+        "The seasonal estimate remains at zero. Any river fish would be an early exception.",
+      tip:
+        "Use Migration Stage for Muskegon Lake, channel, and river-entrance context.",
+    };
+  }
+  if (input.score === 0) {
+    return {
+      headline:
+        `The Muskegon ${input.species} migration no longer has dependable seasonal presence.`,
+      detail:
+        "The seasonal estimate has reached zero. Isolated late fish are not a dependable migration opportunity.",
+      tip: "Do not build a three-section search around isolated late fish.",
+    };
+  }
+  const level = input.label.replace(/ presence$/i, "").toLowerCase();
+  const direction = input.direction === "rising"
+    ? "building"
+    : input.direction === "falling"
+    ? "declining"
+    : "holding steady";
+  return {
+    headline: input.label === "Peak presence"
+      ? `Seasonal ${input.species} presence is near its expected Muskegon peak.`
+      : `Seasonal ${input.species} presence is ${level} and ${direction}.`,
+    detail:
+      `This is a whole-corridor seasonal estimate relative to the Muskegon ${input.species} ceiling, not a fish count or equal distribution.`,
+    tip:
+      "Use Migration Stage to choose a section, then verify that water directly.",
   };
 }
 

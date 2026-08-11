@@ -468,7 +468,7 @@ function scenario(
       regulationReminder: BETSIE_RIVER_PROFILE.regulationReminderCopy ??
         "Follow current regulations and signed boundaries.",
       gaugeBasis:
-        "No accepted live gauge represents the two Betsie River Run reaches; Fishability is unavailable.",
+        "No live gauge reliably represents the two Betsie River Run reaches; Fishability is unavailable.",
       activityDisclaimer:
         "River Migration is not a wading, boating, floating, or personal-safety rating.",
     },

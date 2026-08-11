@@ -24,6 +24,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "nextConditionRefreshAt": "2026-08-10T05:00:00.000Z",
           "runStage": {
             "stage": "post_run",
+            "copyStrategy": "st_joseph_corridor",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -45,16 +46,16 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "startToPeakDays": 39,
               "peakToEndDays": 46
             },
-            "label": "Offseason",
-            "headline": "Coho salmon are outside their St. Joseph River migration season.",
-            "detail": "This fall migration read is inactive and should not be used to recommend a harbor, Michigan, Niles, or Indiana starting reach.",
-            "tip": "Choose a species with an active St. Joseph seasonal window and return to this read when early monitoring begins.",
-            "whereToStart": "Shift to an in-season species and do not plan a St. Joseph Coho salmon migration trip from this inactive calendar.",
+            "label": "Fall run complete",
+            "headline": "The St. Joseph Coho salmon fall run is complete.",
+            "detail": "This seasonal run estimate is inactive until staging begins again.",
+            "tip": "Return when St. Joseph fall-run staging begins.",
+            "whereToStart": "There is no active St. Joseph starting section for this fall run.",
             "reasonCodes": [
               "stage_post_run",
               "stage_offseason"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Not monitoring yet",
@@ -79,7 +80,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "conditions_monitoring_inactive"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -100,14 +101,14 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "push_tracking_offseason"
             ],
             "rulesVersion": "st-joseph-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 93,
             "label": "Excellent",
             "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river. This flow shape applies to the Niles mainstem reach only; verify the harbor, lower Michigan river, individual tailwaters, and Indiana water directly.",
-            "tip": "Begin on the primary travel lane feeding deep holding water. Work each hole from its head through the inside seam and tail, then keep moving until fish establish a pattern. Apply this recommendation at Niles; recheck water shape and safe access before carrying it to another St. Joseph section.",
+            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. This read applies only to the Niles mainstem reach.",
+            "tip": "Cover readable seams and holding water with a controlled presentation. Verify every other section directly.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band"
@@ -118,11 +119,12 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": null,
           "fishInRiver": {
-            "score": 0,
+            "score": null,
+            "scoreIsApproximate": false,
             "stage": "post_run",
             "maximum": 100,
             "riverCeiling": 70,
@@ -130,15 +132,15 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "curveFraction": 0,
             "curveDirection": "outside",
             "winterHoldingContext": false,
-            "label": "Offseason",
-            "headline": "Coho salmon are outside their river migration season.",
-            "detail": "A dependable seasonal presence of Coho salmon is not expected in the river right now.",
-            "tip": "Do not build a river trip around this species right now. Target a species with an active seasonal window and return as the next migration approaches.",
+            "label": "Fall run complete",
+            "headline": "The St. Joseph Coho salmon fall run is complete.",
+            "detail": "Coho salmon staging typically begins in mid August. This seasonal estimate is inactive until then.",
+            "tip": "Check back in mid August when St. Joseph fall-run tracking resumes.",
             "reasonCodes": [
               "stage_post_run",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -364,13 +366,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "data_quality_fresh"
             ]
           },
-          "interpretationNote": {
-            "headline": "The river should fish well, but seasonal fish presence is still low.",
-            "detail": "Good flow makes presentations easier, but it does not put fish in the river. Begin in the deepest established holding water and skip broad searches through fast travel lanes as seasonal presence thins.",
-            "reasonCodes": [
-              "good_fishability_low_presence"
-            ]
-          },
+          "interpretationNote": null,
           "secondaryNote": "Based on the USGS gauge at Niles. It describes the Niles reach; the harbor, lower river, individual dam tailwaters, South Bend, Mishawaka, and Twin Branch may look different.",
           "safety": {
             "regulationReminder": "Select Michigan or Indiana for the correct jurisdiction. Always verify current official regulations, public access, posted closures, and dam safety boundaries.",
@@ -397,6 +393,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "nextConditionRefreshAt": "2026-08-16T05:00:00.000Z",
           "runStage": {
             "stage": "pre_run",
+            "copyStrategy": "st_joseph_corridor",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -419,14 +416,14 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "peakToEndDays": 46
             },
             "label": "Before migration",
-            "headline": "Coho salmon have not begun their dependable St. Joseph River migration.",
-            "detail": "The seasonal calendar still points to Lake Michigan, the harbor, and the river mouth—not an established inland opportunity.",
-            "tip": "Keep the trip lakeward and return when staging monitoring begins. Do not let rain or one isolated river fish turn into a corridor-wide claim.",
-            "whereToStart": "Keep the search in Lake Michigan, the harbor, and river-mouth water until river staging begins.",
+            "headline": "Coho salmon have not started their main St. Joseph River run.",
+            "detail": "The river-entry window has not opened yet. An isolated river fish would be an early exception.",
+            "tip": "Keep the trip lakeward and return when staging monitoring begins.",
+            "whereToStart": "Stay with Lake Michigan, the St. Joseph harbor, and the river mouth.",
             "reasonCodes": [
               "stage_pre_run"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Not monitoring yet",
@@ -451,7 +448,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "conditions_monitoring_inactive"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -472,14 +469,14 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "push_tracking_not_started"
             ],
             "rulesVersion": "st-joseph-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 93,
             "label": "Excellent",
             "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river. This flow shape applies to the Niles mainstem reach only; verify the harbor, lower Michigan river, individual tailwaters, and Indiana water directly.",
-            "tip": "Begin on the primary travel lane feeding deep holding water. Work each hole from its head through the inside seam and tail, then keep moving until fish establish a pattern. Apply this recommendation at Niles; recheck water shape and safe access before carrying it to another St. Joseph section.",
+            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. This read applies only to the Niles mainstem reach.",
+            "tip": "Cover readable seams and holding water with a controlled presentation. Verify every other section directly.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band"
@@ -490,11 +487,13 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": null,
           "fishInRiver": {
             "score": 0,
+            "displayScore": 0,
+            "scoreIsApproximate": false,
             "stage": "pre_run",
             "maximum": 100,
             "riverCeiling": 70,
@@ -503,14 +502,14 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "curveDirection": "outside",
             "winterHoldingContext": false,
             "label": "Not expected yet",
-            "headline": "A dependable presence of Coho salmon is not expected in the river yet.",
-            "detail": "Most Coho salmon are not expected to have entered the river in dependable numbers. Any fish already present would be early exceptions. This seasonal presence applies to the accessible St. Joseph corridor as a whole; it does not claim equal fish numbers at the harbor, Niles, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Treat this as no dependable in-river opportunity yet. Keep expectations at zero, and do not interpret an isolated early fish as evidence of dependable river presence. Use Migration Stage to choose the specific St. Joseph section, then verify that water directly.",
+            "headline": "Dependable Coho salmon presence is not expected in the St. Joseph yet.",
+            "detail": "The seasonal estimate remains at zero. Any river fish would be an early exception.",
+            "tip": "Use Migration Stage for harbor and river-entry context.",
             "reasonCodes": [
               "stage_pre_run",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -769,6 +768,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "nextConditionRefreshAt": "2026-08-21T05:00:00.000Z",
           "runStage": {
             "stage": "pre_run",
+            "copyStrategy": "st_joseph_corridor",
             "stagingContext": true,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -791,15 +791,15 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "peakToEndDays": 46
             },
             "label": "Before migration",
-            "headline": "Coho salmon may be staging around the St. Joseph harbor and mouth, but dependable inland passage has not begun.",
-            "detail": "An early Coho salmon can enter lower Michigan water, but harbor activity does not prove passage through Berrien Springs, Niles, or the Indiana ladders.",
-            "tip": "Fish the harbor-to-river transition and one deep lower-river travel lane. Skip an inland corridor run until Migration Stage and Fish In River show dependable entry.",
-            "whereToStart": "Start with the St. Joseph harbor, river mouth, and deep lower Michigan travel water; do not assume fish have passed Niles or reached South Bend.",
+            "headline": "Coho salmon may be staging near the St. Joseph River entrance.",
+            "detail": "Staging does not confirm dependable river entry or inland distribution.",
+            "tip": "Keep the inland check brief. Do not move upriver from calendar timing alone.",
+            "whereToStart": "Start at the St. Joseph harbor and river mouth. Add the Lower river (St. Joseph harbor–Berrien Springs) only for an early-fish check.",
             "reasonCodes": [
               "stage_pre_run",
               "stage_pre_run_staging"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Evaluating",
@@ -824,7 +824,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "conditions_checkpoint_evaluating"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -845,14 +845,14 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "push_tracking_not_started"
             ],
             "rulesVersion": "st-joseph-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 93,
             "label": "Excellent",
             "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river. This flow shape applies to the Niles mainstem reach only; verify the harbor, lower Michigan river, individual tailwaters, and Indiana water directly.",
-            "tip": "Begin on the primary travel lane feeding deep holding water. Work each hole from its head through the inside seam and tail, then keep moving until fish establish a pattern. Apply this recommendation at Niles; recheck water shape and safe access before carrying it to another St. Joseph section.",
+            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. This read applies only to the Niles mainstem reach.",
+            "tip": "Cover readable seams and holding water with a controlled presentation. Verify every other section directly.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band"
@@ -863,15 +863,15 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 77,
             "maximum": 100,
             "label": "Active",
-            "headline": "Today’s Coho activity outlook is active.",
-            "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. Dependable river presence has not begun. The score applies only to a sparse early Coho that may already have entered. Measured river conditions describe the St. Joseph mainstem at Niles. Water temperature, clarity, hydraulic shape, and presentation conditions can differ in the harbor and lower Michigan river, at individual ladder tailwaters, and through South Bend, Mishawaka, and the Twin Branch reach. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
-            "tip": "Start with 5–9 AM. If the sky changes from the forecast, favor the darkest practical window. Apply this response window at Niles; verify temperature, clarity, flow shape, and legal access again before carrying it to another St. Joseph section.",
+            "headline": "Today’s Niles responsiveness is active, but dependable Coho presence has not begun.",
+            "detail": "Conditions support a meaningful Coho response. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. This applies only to an early Coho already near Niles.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify other sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -923,10 +923,13 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 0,
+            "displayScore": 0,
+            "scoreIsApproximate": false,
             "stage": "pre_run",
             "maximum": 100,
             "riverCeiling": 70,
@@ -935,14 +938,14 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "curveDirection": "outside",
             "winterHoldingContext": false,
             "label": "Not expected yet",
-            "headline": "A dependable presence of Coho salmon is not expected in the river yet.",
-            "detail": "Most Coho salmon are not expected to have entered the river in dependable numbers. Any fish already present would be early exceptions. This seasonal presence applies to the accessible St. Joseph corridor as a whole; it does not claim equal fish numbers at the harbor, Niles, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Treat this as no dependable in-river opportunity yet. Keep expectations at zero, and do not interpret an isolated early fish as evidence of dependable river presence. Use Migration Stage to choose the specific St. Joseph section, then verify that water directly.",
+            "headline": "Dependable Coho salmon presence is not expected in the St. Joseph yet.",
+            "detail": "The seasonal estimate remains at zero. Any river fish would be an early exception.",
+            "tip": "Use Migration Stage for harbor and river-entry context.",
             "reasonCodes": [
               "stage_pre_run",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -1201,6 +1204,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "nextConditionRefreshAt": "2026-09-02T05:00:00.000Z",
           "runStage": {
             "stage": "beginning",
+            "copyStrategy": "st_joseph_corridor",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -1223,14 +1227,14 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "peakToEndDays": 46
             },
             "label": "Beginning",
-            "headline": "The first Coho salmon are entering the St. Joseph and beginning to move beyond the lower river.",
-            "detail": "New fish should still be weighted toward lower Michigan travel water, while earlier arrivals may already be using Buchanan, Niles, and selective Indiana resting water.",
-            "tip": "Cover a lower-Michigan travel-and-holding sequence first. Move upriver only after direct fish activity, local observations, or established passage supports the change.",
-            "whereToStart": "Start in deep lower-Michigan travel water below Berrien Springs, then compare legal holding water around Buchanan and Niles before making a selective Indiana check.",
+            "headline": "The first Coho salmon are entering the St. Joseph River.",
+            "detail": "New fish remain weighted toward the Lower river; earlier arrivals may be farther upstream.",
+            "tip": "Cover travel water and the first substantial holding areas before moving upstream.",
+            "whereToStart": "Start in the Lower river (St. Joseph harbor–Berrien Springs). Add the Middle river (Berrien Springs–Niles) only after direct fish activity supports the move.",
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -1273,7 +1277,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -1287,9 +1291,9 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "push": {
             "score": 30,
             "label": "No clear push",
-            "headline": "Today's water does not show a clear signal for a fresh wave of fish.",
-            "detail": "The river is holding steady with no meaningful rise yet. Water temperature is favorable for fall migration and is relatively steady. Recent weather estimates indicate very little rain around the river. This Push describes fresh-movement support at Niles only; it does not prove a new wave at the harbor, Berrien Springs, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Fish established holding water from the head through the inside seam and tail. Do not spend the day racing between lower travel lanes for a wave the water does not support. Use the Niles signal to choose between Niles-area holding water and a lower-Michigan travel-water check; verify Indiana movement directly.",
+            "headline": "Niles water does not show a clear fresh-movement signal.",
+            "detail": "Niles flow is steady without a meaningful rise. Water temperature is favorable for fall migration and is relatively steady. Recent watershed weather shows little rain.",
+            "tip": "Keep Migration Stage’s section primary. Do not shift sections from this Niles read.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
@@ -1308,14 +1312,14 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 93,
             "label": "Excellent",
             "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river. This flow shape applies to the Niles mainstem reach only; verify the harbor, lower Michigan river, individual tailwaters, and Indiana water directly.",
-            "tip": "Begin on the primary travel lane feeding deep holding water. Work each hole from its head through the inside seam and tail, then keep moving until fish establish a pattern. Apply this recommendation at Niles; recheck water shape and safe access before carrying it to another St. Joseph section.",
+            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. This read applies only to the Niles mainstem reach.",
+            "tip": "Cover readable seams and holding water with a controlled presentation. Verify every other section directly.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band"
@@ -1326,15 +1330,15 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 77,
             "maximum": 100,
             "label": "Active",
-            "headline": "Today’s Coho activity outlook is active.",
-            "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. Early lake-fresh Coho can remain reactive when measured water temperatures are suitable; this score applies only to fish already in the river. Measured river conditions describe the St. Joseph mainstem at Niles. Water temperature, clarity, hydraulic shape, and presentation conditions can differ in the harbor and lower Michigan river, at individual ladder tailwaters, and through South Bend, Mishawaka, and the Twin Branch reach. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
-            "tip": "Start with 5–9 AM. If the sky changes from the forecast, favor the darkest practical window. Apply this response window at Niles; verify temperature, clarity, flow shape, and legal access again before carrying it to another St. Joseph section.",
+            "headline": "Today’s Niles Coho responsiveness is active.",
+            "detail": "Conditions support a meaningful Coho response. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Flow and temperature represent only the Niles mainstem reach.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify other sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -1386,10 +1390,13 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 7,
+            "displayScore": 5,
+            "scoreIsApproximate": true,
             "stage": "beginning",
             "maximum": 100,
             "riverCeiling": 70,
@@ -1398,14 +1405,14 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "curveDirection": "rising",
             "winterHoldingContext": false,
             "label": "Low presence",
-            "headline": "A small number of Coho salmon may be in the river, and seasonal presence is still building.",
-            "detail": "This part of the season usually brings low presence, with more fish expected to enter and become established through a broad part of the accessible river. This is a seasonal estimate, not a live fish count. This seasonal presence applies to the accessible St. Joseph corridor as a whole; it does not claim equal fish numbers at the harbor, Niles, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Treat this as an early, low-odds river opportunity. Expect scattered results, and use direct fish activity before committing the full day. Use Migration Stage to choose the specific St. Joseph section, then verify that water directly.",
+            "headline": "Seasonal Coho salmon presence is low and building.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the St. Joseph Coho salmon ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -1665,6 +1672,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "nextConditionRefreshAt": "2026-09-21T05:00:00.000Z",
           "runStage": {
             "stage": "beginning",
+            "copyStrategy": "st_joseph_corridor",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -1687,14 +1695,14 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "peakToEndDays": 46
             },
             "label": "Beginning",
-            "headline": "The first Coho salmon are entering the St. Joseph and beginning to move beyond the lower river.",
-            "detail": "New fish should still be weighted toward lower Michigan travel water, while earlier arrivals may already be using Buchanan, Niles, and selective Indiana resting water.",
-            "tip": "Cover a lower-Michigan travel-and-holding sequence first. Move upriver only after direct fish activity, local observations, or established passage supports the change.",
-            "whereToStart": "Start in deep lower-Michigan travel water below Berrien Springs, then compare legal holding water around Buchanan and Niles before making a selective Indiana check.",
+            "headline": "The first Coho salmon are entering the St. Joseph River.",
+            "detail": "New fish remain weighted toward the Lower river; earlier arrivals may be farther upstream.",
+            "tip": "Cover travel water and the first substantial holding areas before moving upstream.",
+            "whereToStart": "Start in the Lower river (St. Joseph harbor–Berrien Springs). Add the Middle river (Berrien Springs–Niles) only after direct fish activity supports the move.",
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -1737,7 +1745,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -1751,9 +1759,9 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "push": {
             "score": 30,
             "label": "No clear push",
-            "headline": "Today's water does not show a clear signal for a fresh wave of fish.",
-            "detail": "The river is holding steady with no meaningful rise yet. Water temperature is favorable for fall migration and is relatively steady. Recent weather estimates indicate very little rain around the river. This Push describes fresh-movement support at Niles only; it does not prove a new wave at the harbor, Berrien Springs, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Fish established holding water from the head through the inside seam and tail. Do not spend the day racing between lower travel lanes for a wave the water does not support. Use the Niles signal to choose between Niles-area holding water and a lower-Michigan travel-water check; verify Indiana movement directly.",
+            "headline": "Niles water does not show a clear fresh-movement signal.",
+            "detail": "Niles flow is steady without a meaningful rise. Water temperature is favorable for fall migration and is relatively steady. Recent watershed weather shows little rain.",
+            "tip": "Keep Migration Stage’s section primary. Do not shift sections from this Niles read.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
@@ -1772,14 +1780,14 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 93,
             "label": "Excellent",
             "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river. This flow shape applies to the Niles mainstem reach only; verify the harbor, lower Michigan river, individual tailwaters, and Indiana water directly.",
-            "tip": "Begin on the primary travel lane feeding deep holding water. Work each hole from its head through the inside seam and tail, then keep moving until fish establish a pattern. Apply this recommendation at Niles; recheck water shape and safe access before carrying it to another St. Joseph section.",
+            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. This read applies only to the Niles mainstem reach.",
+            "tip": "Cover readable seams and holding water with a controlled presentation. Verify every other section directly.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band"
@@ -1790,15 +1798,15 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 77,
             "maximum": 100,
             "label": "Active",
-            "headline": "Today’s Coho activity outlook is active.",
-            "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. Early lake-fresh Coho can remain reactive when measured water temperatures are suitable; this score applies only to fish already in the river. Measured river conditions describe the St. Joseph mainstem at Niles. Water temperature, clarity, hydraulic shape, and presentation conditions can differ in the harbor and lower Michigan river, at individual ladder tailwaters, and through South Bend, Mishawaka, and the Twin Branch reach. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
-            "tip": "Start with 5–9 AM. If the sky changes from the forecast, favor the darkest practical window. Apply this response window at Niles; verify temperature, clarity, flow shape, and legal access again before carrying it to another St. Joseph section.",
+            "headline": "Today’s Niles Coho responsiveness is active.",
+            "detail": "Conditions support a meaningful Coho response. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Flow and temperature represent only the Niles mainstem reach.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify other sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -1850,10 +1858,13 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 28,
+            "displayScore": 25,
+            "scoreIsApproximate": true,
             "stage": "beginning",
             "maximum": 100,
             "riverCeiling": 70,
@@ -1862,14 +1873,14 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "curveDirection": "rising",
             "winterHoldingContext": false,
             "label": "Limited presence",
-            "headline": "Some Coho salmon are likely in the river, but seasonal presence is still developing.",
-            "detail": "This part of the season usually brings limited presence, with more fish expected to enter and become established through a broad part of the accessible river. This is a seasonal estimate, not a live fish count. This seasonal presence applies to the accessible St. Joseph corridor as a whole; it does not claim equal fish numbers at the harbor, Niles, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Plan for an emerging but uneven river opportunity. Cover water efficiently, and do not assume every promising stop holds fish. Use Migration Stage to choose the specific St. Joseph section, then verify that water directly.",
+            "headline": "Seasonal Coho salmon presence is limited and building.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the St. Joseph Coho salmon ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -2123,6 +2134,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "nextConditionRefreshAt": "2026-10-02T05:00:00.000Z",
           "runStage": {
             "stage": "building",
+            "copyStrategy": "st_joseph_corridor",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -2145,14 +2157,14 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "peakToEndDays": 46
             },
             "label": "Building",
-            "headline": "Coho salmon are becoming established from lower Michigan water toward Niles and Indiana.",
-            "detail": "Earlier arrivals have had time to pass Berrien Springs, Buchanan, and Niles while newer fish continue entering below. Distribution can be broad without being even between Michigan and Indiana sections.",
-            "tip": "Compare one Michigan section with one Indiana section, working deep travel lanes, current breaks, and resting water away from every ladder safety zone.",
-            "whereToStart": "Compare Berrien Springs-to-Niles holding water with legal South Bend travel and resting reaches; expect uneven passage between sections.",
+            "headline": "Coho salmon are becoming established through more of the St. Joseph.",
+            "detail": "Earlier arrivals may be farther upstream while newer fish continue entering below.",
+            "tip": "Compare two sections, then stay where direct fish activity is strongest.",
+            "whereToStart": "Start in the Middle river (Berrien Springs–Niles). Compare the Lower river (St. Joseph harbor–Berrien Springs) for newer fish.",
             "reasonCodes": [
               "stage_building"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -2225,7 +2237,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "conditions_insufficient",
               "conditions_checkpoint_building_established"
             ],
-            "copyVersion": "river-run-copy-v27",
+            "copyVersion": "river-run-copy-v34",
             "previousCheckpointId": "building_start",
             "previousCheckpointDate": "2026-10-01",
             "previousTimingLabel": "Insufficient evidence"
@@ -2242,9 +2254,9 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "push": {
             "score": 30,
             "label": "No clear push",
-            "headline": "Today's water does not show a clear signal for a fresh wave of fish.",
-            "detail": "The river is holding steady with no meaningful rise yet. Water temperature is favorable for fall migration and is relatively steady. Recent weather estimates indicate very little rain around the river. This Push describes fresh-movement support at Niles only; it does not prove a new wave at the harbor, Berrien Springs, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Fish established holding water from the head through the inside seam and tail. Do not spend the day racing between lower travel lanes for a wave the water does not support. Use the Niles signal to choose between Niles-area holding water and a lower-Michigan travel-water check; verify Indiana movement directly.",
+            "headline": "Niles water does not show a clear fresh-movement signal.",
+            "detail": "Niles flow is steady without a meaningful rise. Water temperature is favorable for fall migration and is relatively steady. Recent watershed weather shows little rain.",
+            "tip": "Keep Migration Stage’s section primary. Do not shift sections from this Niles read.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
@@ -2263,14 +2275,14 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 93,
             "label": "Excellent",
             "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river. This flow shape applies to the Niles mainstem reach only; verify the harbor, lower Michigan river, individual tailwaters, and Indiana water directly.",
-            "tip": "Begin on the primary travel lane feeding deep holding water. Work each hole from its head through the inside seam and tail, then keep moving until fish establish a pattern. Apply this recommendation at Niles; recheck water shape and safe access before carrying it to another St. Joseph section.",
+            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. This read applies only to the Niles mainstem reach.",
+            "tip": "Cover readable seams and holding water with a controlled presentation. Verify every other section directly.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band"
@@ -2281,15 +2293,15 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 77,
             "maximum": 100,
             "label": "Active",
-            "headline": "Today’s Coho activity outlook is active.",
-            "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. More Coho are entering and settling into the river; measured water temperature matters, but this score describes reaction conditions rather than movement or abundance. Measured river conditions describe the St. Joseph mainstem at Niles. Water temperature, clarity, hydraulic shape, and presentation conditions can differ in the harbor and lower Michigan river, at individual ladder tailwaters, and through South Bend, Mishawaka, and the Twin Branch reach. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
-            "tip": "Start with 5–9 AM. If the sky changes from the forecast, favor the darkest practical window. Apply this response window at Niles; verify temperature, clarity, flow shape, and legal access again before carrying it to another St. Joseph section.",
+            "headline": "Today’s Niles Coho responsiveness is active.",
+            "detail": "Conditions support a meaningful Coho response. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Flow and temperature represent only the Niles mainstem reach.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify other sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -2341,10 +2353,13 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 49,
+            "displayScore": 50,
+            "scoreIsApproximate": true,
             "stage": "building",
             "maximum": 100,
             "riverCeiling": 70,
@@ -2353,14 +2368,14 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "curveDirection": "rising",
             "winterHoldingContext": false,
             "label": "High presence",
-            "headline": "Coho salmon are likely present through more dependable river sections as seasonal presence builds toward its strongest point.",
-            "detail": "Seasonal presence is usually elevated relative to the rest of the season, with more fish expected to enter and become established through a broad part of the accessible river. This is a seasonal estimate, not a live fish count. This seasonal presence applies to the accessible St. Joseph corridor as a whole; it does not claim equal fish numbers at the harbor, Niles, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Treat this as one of the stronger parts of this river's moderate seasonal opportunity. Give each stop a complete pass, but do not mistake this seasonal estimate for a live fish count. Use Migration Stage to choose the specific St. Joseph section, then verify that water directly.",
+            "headline": "Seasonal Coho salmon presence is high and building.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the St. Joseph Coho salmon ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_building",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -2614,6 +2629,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "nextConditionRefreshAt": "2026-10-11T05:00:00.000Z",
           "runStage": {
             "stage": "peak",
+            "copyStrategy": "st_joseph_corridor",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -2636,14 +2652,14 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "peakToEndDays": 46
             },
             "label": "Peak",
-            "headline": "This is typically the strongest St. Joseph Coho salmon window across the five-ladder corridor.",
-            "detail": "Multiple waves have had time to spread from the lower river through Berrien Springs, Buchanan, Niles, South Bend, and Mishawaka, but each section still needs to be checked independently.",
-            "tip": "Choose a proven section and cover deep holding water from head to tail. Change sections only after a clean search, and leave shallow spawning fish undisturbed.",
-            "whereToStart": "Compare Berrien Springs, Buchanan, and Niles holding water with legal South Bend-Mishawaka water below Twin Branch; stay outside every posted dam and ladder boundary.",
+            "headline": "This is typically the strongest St. Joseph Coho salmon window.",
+            "detail": "Repeated entry periods support broad presence, not equal numbers in every section.",
+            "tip": "Choose one section and cover it completely before changing reaches. Leave shallow spawning fish undisturbed.",
+            "whereToStart": "Start in the Middle river (Berrien Springs–Niles). Compare the Upper river (Niles–Twin Branch Dam) for established fish.",
             "reasonCodes": [
               "stage_peak"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -2725,7 +2741,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "conditions_insufficient",
               "conditions_checkpoint_peak_start"
             ],
-            "copyVersion": "river-run-copy-v27",
+            "copyVersion": "river-run-copy-v34",
             "previousCheckpointId": "building_established",
             "previousCheckpointDate": "2026-10-01",
             "previousTimingLabel": "Insufficient evidence"
@@ -2742,9 +2758,9 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "push": {
             "score": 30,
             "label": "No clear push",
-            "headline": "Today's water does not show a clear signal for a fresh wave of fish.",
-            "detail": "The river is holding steady with no meaningful rise yet. Water temperature is favorable for fall migration and is relatively steady. Recent weather estimates indicate very little rain around the river. This Push describes fresh-movement support at Niles only; it does not prove a new wave at the harbor, Berrien Springs, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Fish established holding water from the head through the inside seam and tail. Do not spend the day racing between lower travel lanes for a wave the water does not support. Use the Niles signal to choose between Niles-area holding water and a lower-Michigan travel-water check; verify Indiana movement directly.",
+            "headline": "Niles water does not show a clear fresh-movement signal.",
+            "detail": "Niles flow is steady without a meaningful rise. Water temperature is favorable for fall migration and is relatively steady. Recent watershed weather shows little rain.",
+            "tip": "Keep Migration Stage’s section primary. Do not shift sections from this Niles read.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
@@ -2763,14 +2779,14 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 93,
             "label": "Excellent",
             "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river. This flow shape applies to the Niles mainstem reach only; verify the harbor, lower Michigan river, individual tailwaters, and Indiana water directly.",
-            "tip": "Begin on the primary travel lane feeding deep holding water. Work each hole from its head through the inside seam and tail, then keep moving until fish establish a pattern. Apply this recommendation at Niles; recheck water shape and safe access before carrying it to another St. Joseph section.",
+            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. This read applies only to the Niles mainstem reach.",
+            "tip": "Cover readable seams and holding water with a controlled presentation. Verify every other section directly.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band"
@@ -2781,15 +2797,15 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 77,
             "maximum": 100,
             "label": "Active",
-            "headline": "Today’s Coho activity outlook is active.",
-            "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. Broad seasonal presence can make fish easier to locate, but this score measures the responsiveness of Coho already present rather than their abundance. Measured river conditions describe the St. Joseph mainstem at Niles. Water temperature, clarity, hydraulic shape, and presentation conditions can differ in the harbor and lower Michigan river, at individual ladder tailwaters, and through South Bend, Mishawaka, and the Twin Branch reach. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
-            "tip": "Start with 5–9 AM. If the sky changes from the forecast, favor the darkest practical window. Apply this response window at Niles; verify temperature, clarity, flow shape, and legal access again before carrying it to another St. Joseph section.",
+            "headline": "Today’s Niles Coho responsiveness is active.",
+            "detail": "Conditions support a meaningful Coho response. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Flow and temperature represent only the Niles mainstem reach.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify other sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -2841,10 +2857,13 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 70,
+            "displayScore": 70,
+            "scoreIsApproximate": false,
             "stage": "peak",
             "maximum": 100,
             "riverCeiling": 70,
@@ -2853,14 +2872,14 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "curveDirection": "near_peak",
             "winterHoldingContext": false,
             "label": "Peak presence",
-            "headline": "Coho salmon are likely near their highest seasonal presence in the river.",
-            "detail": "This is the part of the season when in-river presence is usually strongest. Fish are most likely distributed through a broad part of the accessible river. The read does not place fish in a specific pool or confirm a live count. This seasonal presence applies to the accessible St. Joseph corridor as a whole; it does not claim equal fish numbers at the harbor, Niles, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Plan for a dependable but potentially uneven river opportunity near its seasonal high point. Confirm fish activity before committing the full day. Use Migration Stage to choose the specific St. Joseph section, then verify that water directly.",
+            "headline": "Seasonal Coho salmon presence is near its expected St. Joseph peak.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the St. Joseph Coho salmon ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_peak",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -3120,6 +3139,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "nextConditionRefreshAt": "2026-10-26T05:00:00.000Z",
           "runStage": {
             "stage": "peak",
+            "copyStrategy": "st_joseph_corridor",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -3142,14 +3162,14 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "peakToEndDays": 46
             },
             "label": "Peak",
-            "headline": "This is typically the strongest St. Joseph Coho salmon window across the five-ladder corridor.",
-            "detail": "Multiple waves have had time to spread from the lower river through Berrien Springs, Buchanan, Niles, South Bend, and Mishawaka, but each section still needs to be checked independently.",
-            "tip": "Choose a proven section and cover deep holding water from head to tail. Change sections only after a clean search, and leave shallow spawning fish undisturbed.",
-            "whereToStart": "Compare Berrien Springs, Buchanan, and Niles holding water with legal South Bend-Mishawaka water below Twin Branch; stay outside every posted dam and ladder boundary.",
+            "headline": "This is typically the strongest St. Joseph Coho salmon window.",
+            "detail": "Repeated entry periods support broad presence, not equal numbers in every section.",
+            "tip": "Choose one section and cover it completely before changing reaches. Leave shallow spawning fish undisturbed.",
+            "whereToStart": "Start in the Middle river (Berrien Springs–Niles). Compare the Upper river (Niles–Twin Branch Dam) for established fish.",
             "reasonCodes": [
               "stage_peak"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Timing complete",
@@ -3237,7 +3257,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "conditions_checkpoint_peak_complete",
               "conditions_timing_complete"
             ],
-            "copyVersion": "river-run-copy-v27",
+            "copyVersion": "river-run-copy-v34",
             "previousCheckpointId": "peak_start",
             "previousCheckpointDate": "2026-10-10",
             "previousTimingLabel": "Insufficient evidence"
@@ -3254,9 +3274,9 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "push": {
             "score": 30,
             "label": "No clear push",
-            "headline": "Today's water does not show a clear signal for a fresh wave of fish.",
-            "detail": "The river is holding steady with no meaningful rise yet. Water temperature is favorable for fall migration and is relatively steady. Recent weather estimates indicate very little rain around the river. This Push describes fresh-movement support at Niles only; it does not prove a new wave at the harbor, Berrien Springs, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Fish established holding water from the head through the inside seam and tail. Do not spend the day racing between lower travel lanes for a wave the water does not support. Use the Niles signal to choose between Niles-area holding water and a lower-Michigan travel-water check; verify Indiana movement directly.",
+            "headline": "Niles water does not show a clear fresh-movement signal.",
+            "detail": "Niles flow is steady without a meaningful rise. Water temperature is favorable for fall migration and is relatively steady. Recent watershed weather shows little rain.",
+            "tip": "Keep Migration Stage’s section primary. Do not shift sections from this Niles read.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
@@ -3275,14 +3295,14 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 93,
             "label": "Excellent",
             "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river. This flow shape applies to the Niles mainstem reach only; verify the harbor, lower Michigan river, individual tailwaters, and Indiana water directly.",
-            "tip": "Begin on the primary travel lane feeding deep holding water. Work each hole from its head through the inside seam and tail, then keep moving until fish establish a pattern. Apply this recommendation at Niles; recheck water shape and safe access before carrying it to another St. Joseph section.",
+            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. This read applies only to the Niles mainstem reach.",
+            "tip": "Cover readable seams and holding water with a controlled presentation. Verify every other section directly.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band"
@@ -3293,15 +3313,15 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 77,
             "maximum": 100,
             "label": "Active",
-            "headline": "Today’s Coho activity outlook is active.",
-            "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. Broad seasonal presence can make fish easier to locate, but this score measures the responsiveness of Coho already present rather than their abundance. Measured river conditions describe the St. Joseph mainstem at Niles. Water temperature, clarity, hydraulic shape, and presentation conditions can differ in the harbor and lower Michigan river, at individual ladder tailwaters, and through South Bend, Mishawaka, and the Twin Branch reach. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
-            "tip": "Start with 5–9 AM. If the sky changes from the forecast, favor the darkest practical window. Apply this response window at Niles; verify temperature, clarity, flow shape, and legal access again before carrying it to another St. Joseph section.",
+            "headline": "Today’s Niles Coho responsiveness is active.",
+            "detail": "Conditions support a meaningful Coho response. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Flow and temperature represent only the Niles mainstem reach.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify other sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -3353,10 +3373,13 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 64,
+            "displayScore": 65,
+            "scoreIsApproximate": true,
             "stage": "peak",
             "maximum": 100,
             "riverCeiling": 70,
@@ -3365,14 +3388,14 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "curveDirection": "falling",
             "winterHoldingContext": false,
             "label": "Peak presence",
-            "headline": "Seasonal timing still supports Coho salmon being near their strongest in-river presence, even if the migration may be just beyond its usual peak.",
-            "detail": "This point in the season may sit just beyond the usual peak while the seasonal pattern still supports fish through a broad part of the accessible river. This is a seasonal estimate, not a live fish count. This seasonal presence applies to the accessible St. Joseph corridor as a whole; it does not claim equal fish numbers at the harbor, Niles, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Plan around fish already likely to be in the river. Seasonal presence is still near its high point, but remember that this seasonal estimate cannot tell whether a fresh wave is entering today. Use Migration Stage to choose the specific St. Joseph section, then verify that water directly.",
+            "headline": "Seasonal Coho salmon presence is near its expected St. Joseph peak.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the St. Joseph Coho salmon ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_peak",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -3632,6 +3655,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "nextConditionRefreshAt": "2026-11-09T05:00:00.000Z",
           "runStage": {
             "stage": "tapering",
+            "copyStrategy": "st_joseph_corridor",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -3655,13 +3679,13 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             },
             "label": "Tapering",
             "headline": "This can remain a productive part of the Coho salmon season, even as fresh arrivals typically become less consistent.",
-            "detail": "Fresh passage is becoming less dependable, so established Niles, South Bend, and Mishawaka holding or spawning water matters more than racing the lower river for a new wave.",
-            "tip": "Start in proven deep holding water, check lower travel lanes only when Push supports new movement, and leave fish on shallow gravel alone.",
-            "whereToStart": "Prioritize established holding and spawning water near Niles, South Bend, and Mishawaka while checking the lower river only for a late fresh wave.",
+            "detail": "Fresh entry is slowing, so established holding water matters more than Lower-river travel lanes.",
+            "tip": "Start in proven holding water. Check the Lower river only when Push supports fresh movement.",
+            "whereToStart": "Start in established Middle river (Berrien Springs–Niles) or Upper river (Niles–Twin Branch Dam) holding water.",
             "reasonCodes": [
               "stage_tapering"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Timing complete",
@@ -3749,7 +3773,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "conditions_checkpoint_peak_complete",
               "conditions_timing_complete"
             ],
-            "copyVersion": "river-run-copy-v27",
+            "copyVersion": "river-run-copy-v34",
             "previousCheckpointId": "peak_start",
             "previousCheckpointDate": "2026-10-10",
             "previousTimingLabel": "Insufficient evidence"
@@ -3766,9 +3790,9 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "push": {
             "score": 30,
             "label": "No clear push",
-            "headline": "Today's water does not show a clear signal for a fresh wave of fish.",
-            "detail": "The river is holding steady with no meaningful rise yet. Water temperature is favorable for fall migration and is relatively steady. Recent weather estimates indicate very little rain around the river. This Push describes fresh-movement support at Niles only; it does not prove a new wave at the harbor, Berrien Springs, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Fish established holding water from the head through the inside seam and tail. Do not spend the day racing between lower travel lanes for a wave the water does not support. Use the Niles signal to choose between Niles-area holding water and a lower-Michigan travel-water check; verify Indiana movement directly.",
+            "headline": "Niles water does not show a clear fresh-movement signal.",
+            "detail": "Niles flow is steady without a meaningful rise. Water temperature is favorable for fall migration and is relatively steady. Recent watershed weather shows little rain.",
+            "tip": "Keep Migration Stage’s section primary. Do not shift sections from this Niles read.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
@@ -3787,14 +3811,14 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 93,
             "label": "Excellent",
             "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river. This flow shape applies to the Niles mainstem reach only; verify the harbor, lower Michigan river, individual tailwaters, and Indiana water directly.",
-            "tip": "Begin on the primary travel lane feeding deep holding water. Work each hole from its head through the inside seam and tail, then keep moving until fish establish a pattern. Apply this recommendation at Niles; recheck water shape and safe access before carrying it to another St. Joseph section.",
+            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. This read applies only to the Niles mainstem reach.",
+            "tip": "Cover readable seams and holding water with a controlled presentation. Verify every other section directly.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band"
@@ -3805,15 +3829,15 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 69,
             "maximum": 100,
             "label": "Active",
-            "headline": "Today’s Coho activity outlook is active.",
-            "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. This score represents a Coho of unknown condition at this point in the season. A newly arrived or fresher fish may be more active than this score, while a spawning or deteriorating fish may be less responsive. Measured river conditions describe the St. Joseph mainstem at Niles. Water temperature, clarity, hydraulic shape, and presentation conditions can differ in the harbor and lower Michigan river, at individual ladder tailwaters, and through South Bend, Mishawaka, and the Twin Branch reach. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
-            "tip": "Compare the four time windows, but treat every difference as conditional on finding a living Coho still capable of responding. Apply this response window at Niles; verify temperature, clarity, flow shape, and legal access again before carrying it to another St. Joseph section.",
+            "headline": "Today’s Niles Coho responsiveness is active.",
+            "detail": "Conditions support a meaningful Coho response. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Late-run Coho condition varies widely, so individual fish may respond above or below this outlook.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify other sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -3866,10 +3890,13 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 49,
+            "displayScore": 50,
+            "scoreIsApproximate": true,
             "stage": "tapering",
             "maximum": 100,
             "riverCeiling": 70,
@@ -3878,14 +3905,14 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "curveDirection": "falling",
             "winterHoldingContext": false,
             "label": "High presence",
-            "headline": "Seasonal timing still supports Coho salmon through dependable river sections, although fresh arrivals may be less consistent than near peak.",
-            "detail": "Seasonal presence is usually elevated relative to the rest of the season. Fish are still likely established through a broad part of the accessible river, while fresh arrivals often become less consistent later in the season. This is a seasonal estimate, not a live fish count. This seasonal presence applies to the accessible St. Joseph corridor as a whole; it does not claim equal fish numbers at the harbor, Niles, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Plan around fish already likely to be in the river. A meaningful seasonal presence may remain, but remember that this seasonal estimate cannot tell whether a fresh wave is entering today. Use Migration Stage to choose the specific St. Joseph section, then verify that water directly.",
+            "headline": "Seasonal Coho salmon presence is high and declining.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the St. Joseph Coho salmon ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_tapering",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -4139,6 +4166,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "nextConditionRefreshAt": "2026-11-21T05:00:00.000Z",
           "runStage": {
             "stage": "ending",
+            "copyStrategy": "st_joseph_corridor",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -4162,13 +4190,13 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             },
             "label": "Ending",
             "headline": "Coho salmon can still provide a worthwhile late-season opportunity across a broad part of the accessible river.",
-            "detail": "Most remaining fish have been in the system for some time. A fresh fish is possible, but the guide-level plan is a short, selective holding-water search—not a corridor-wide run.",
-            "tip": "Fish one or two proven deep holding areas, avoid shallow spawning fish, and stop searching if direct signs are absent.",
-            "whereToStart": "Focus on proven deep holding water near Niles, South Bend, or Mishawaka; treat fresh lower-river entry as secondary and leave shallow spawning fish alone.",
+            "detail": "Most remaining fish have been in the river for some time. A fresh fish is possible but not dependable.",
+            "tip": "Fish one proven holding section, avoid shallow spawning fish, and stop searching if direct signs are absent.",
+            "whereToStart": "Start in one proven Middle river (Berrien Springs–Niles) or Upper river (Niles–Twin Branch Dam) holding section.",
             "reasonCodes": [
               "stage_ending"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Timing complete",
@@ -4256,7 +4284,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "conditions_checkpoint_peak_complete",
               "conditions_timing_complete"
             ],
-            "copyVersion": "river-run-copy-v27",
+            "copyVersion": "river-run-copy-v34",
             "previousCheckpointId": "peak_start",
             "previousCheckpointDate": "2026-10-10",
             "previousTimingLabel": "Insufficient evidence"
@@ -4273,9 +4301,9 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "push": {
             "score": 30,
             "label": "No clear push",
-            "headline": "Today's water does not show a clear signal for a fresh wave of fish.",
-            "detail": "The river is holding steady with no meaningful rise yet. Water temperature is favorable for fall migration and is relatively steady. Recent weather estimates indicate very little rain around the river. This Push describes fresh-movement support at Niles only; it does not prove a new wave at the harbor, Berrien Springs, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Fish established holding water from the head through the inside seam and tail. Do not spend the day racing between lower travel lanes for a wave the water does not support. Use the Niles signal to choose between Niles-area holding water and a lower-Michigan travel-water check; verify Indiana movement directly.",
+            "headline": "Niles water does not show a clear fresh-movement signal.",
+            "detail": "Niles flow is steady without a meaningful rise. Water temperature is favorable for fall migration and is relatively steady. Recent watershed weather shows little rain.",
+            "tip": "Keep Migration Stage’s section primary. Do not shift sections from this Niles read.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
@@ -4294,14 +4322,14 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 93,
             "label": "Excellent",
             "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river. This flow shape applies to the Niles mainstem reach only; verify the harbor, lower Michigan river, individual tailwaters, and Indiana water directly.",
-            "tip": "Begin on the primary travel lane feeding deep holding water. Work each hole from its head through the inside seam and tail, then keep moving until fish establish a pattern. Apply this recommendation at Niles; recheck water shape and safe access before carrying it to another St. Joseph section.",
+            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. This read applies only to the Niles mainstem reach.",
+            "tip": "Cover readable seams and holding water with a controlled presentation. Verify every other section directly.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band"
@@ -4312,15 +4340,15 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 47,
             "maximum": 100,
             "label": "Moderate",
-            "headline": "Today’s Coho activity outlook is moderate.",
-            "detail": "Some useful factors are present, but the response window is mixed. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. This score represents a remaining Coho of unknown condition late in the season. A newly arrived or fresher fish may be more active than this score, while a spent or deteriorating fish may respond less or not at all. Measured river conditions describe the St. Joseph mainstem at Niles. Water temperature, clarity, hydraulic shape, and presentation conditions can differ in the harbor and lower Michigan river, at individual ladder tailwaters, and through South Bend, Mishawaka, and the Twin Branch reach. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
-            "tip": "No late-season window should be treated as broadly favorable; use the block scores only for a living Coho that is still capable of reacting. Apply this response window at Niles; verify temperature, clarity, flow shape, and legal access again before carrying it to another St. Joseph section.",
+            "headline": "Today’s Niles Coho responsiveness is moderate.",
+            "detail": "Conditions offer mixed support for Coho responsiveness. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Late-run Coho condition varies widely, so individual fish may respond above or below this outlook.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify other sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -4373,10 +4401,13 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 30,
+            "displayScore": 30,
+            "scoreIsApproximate": true,
             "stage": "ending",
             "maximum": 100,
             "riverCeiling": 70,
@@ -4385,14 +4416,14 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "curveDirection": "falling",
             "winterHoldingContext": false,
             "label": "Moderate presence",
-            "headline": "Seasonal timing still supports meaningful Coho salmon presence, especially in established holding water.",
-            "detail": "This part of the season usually supports moderate presence through a broad part of the accessible river, while fresh arrivals often become less consistent later in the season. This is a seasonal estimate, not a live fish count. This seasonal presence applies to the accessible St. Joseph corridor as a whole; it does not claim equal fish numbers at the harbor, Niles, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Plan for a worthwhile but less consistent river opportunity. Expect more searching than near the seasonal high, and let direct fish activity determine how long you stay. Use Migration Stage to choose the specific St. Joseph section, then verify that water directly.",
+            "headline": "Seasonal Coho salmon presence is moderate and declining.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the St. Joseph Coho salmon ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_ending",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -4646,6 +4677,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "nextConditionRefreshAt": "2026-12-02T05:00:00.000Z",
           "runStage": {
             "stage": "post_run",
+            "copyStrategy": "st_joseph_corridor",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -4669,13 +4701,13 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             },
             "label": "After migration",
             "headline": "The main Coho salmon migration is over.",
-            "detail": "A few late fish may remain below Twin Branch, but the main migration no longer supports a dependable St. Joseph trip.",
-            "tip": "Make only a selective established-water check, or shift to an active species. Do not chase isolated holdovers from ladder to ladder.",
-            "whereToStart": "Make only a selective check of established late holding water below Twin Branch; the main migration window has ended.",
+            "detail": "A few late fish may remain, but the main migration no longer supports a dependable trip.",
+            "tip": "Make one selective established-water check or shift to an active species.",
+            "whereToStart": "Make only a selective check in established Middle river (Berrien Springs–Niles) or Upper river (Niles–Twin Branch Dam) holding water.",
             "reasonCodes": [
               "stage_post_run"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Timing complete",
@@ -4763,7 +4795,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "conditions_checkpoint_peak_complete",
               "conditions_timing_complete"
             ],
-            "copyVersion": "river-run-copy-v27",
+            "copyVersion": "river-run-copy-v34",
             "previousCheckpointId": "peak_start",
             "previousCheckpointDate": "2026-10-10",
             "previousTimingLabel": "Insufficient evidence"
@@ -4787,14 +4819,14 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "push_tracking_complete"
             ],
             "rulesVersion": "st-joseph-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 93,
             "label": "Excellent",
             "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river. This flow shape applies to the Niles mainstem reach only; verify the harbor, lower Michigan river, individual tailwaters, and Indiana water directly.",
-            "tip": "Begin on the primary travel lane feeding deep holding water. Work each hole from its head through the inside seam and tail, then keep moving until fish establish a pattern. Apply this recommendation at Niles; recheck water shape and safe access before carrying it to another St. Joseph section.",
+            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. This read applies only to the Niles mainstem reach.",
+            "tip": "Cover readable seams and holding water with a controlled presentation. Verify every other section directly.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band"
@@ -4805,15 +4837,15 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 32,
             "maximum": 100,
             "label": "Reserved",
-            "headline": "Today’s Coho activity outlook is reserved.",
-            "detail": "Fish may respond selectively, with important environmental limitations. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. This score represents a remaining Coho of unknown condition late in the season. A newly arrived or fresher fish may be more active than this score, while a spent or deteriorating fish may respond less or not at all. Measured river conditions describe the St. Joseph mainstem at Niles. Water temperature, clarity, hydraulic shape, and presentation conditions can differ in the harbor and lower Michigan river, at individual ladder tailwaters, and through South Bend, Mishawaka, and the Twin Branch reach. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
-            "tip": "No late-season window should be treated as broadly favorable; use the block scores only for a living Coho that is still capable of reacting. Apply this response window at Niles; verify temperature, clarity, flow shape, and legal access again before carrying it to another St. Joseph section.",
+            "headline": "Today’s Niles Coho responsiveness is reserved.",
+            "detail": "Coho may respond selectively under current limitations. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Late-run Coho condition varies widely, so individual fish may respond above or below this outlook.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify other sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -4866,10 +4898,13 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 8,
+            "displayScore": 10,
+            "scoreIsApproximate": true,
             "stage": "post_run",
             "maximum": 100,
             "riverCeiling": 70,
@@ -4878,14 +4913,14 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "curveDirection": "falling",
             "winterHoldingContext": false,
             "label": "Low presence",
-            "headline": "Some Coho salmon may still be in the river, with seasonal presence more likely to be scattered.",
-            "detail": "This part of the season usually supports low presence through a broad part of the accessible river, while fresh arrivals often become less consistent later in the season. This is a seasonal estimate, not a live fish count. This seasonal presence applies to the accessible St. Joseph corridor as a whole; it does not claim equal fish numbers at the harbor, Niles, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Treat any remaining fish as a bonus rather than a dependable trip plan. Keep expectations narrow and be ready to shift to another seasonal species. Use Migration Stage to choose the specific St. Joseph section, then verify that water directly.",
+            "headline": "Seasonal Coho salmon presence is low and declining.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the St. Joseph Coho salmon ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_post_run",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -5146,6 +5181,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "nextConditionRefreshAt": "2026-12-07T05:00:00.000Z",
           "runStage": {
             "stage": "post_run",
+            "copyStrategy": "st_joseph_corridor",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -5169,13 +5205,13 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             },
             "label": "After migration",
             "headline": "The main Coho salmon migration is over.",
-            "detail": "A few late fish may remain below Twin Branch, but the main migration no longer supports a dependable St. Joseph trip.",
-            "tip": "Make only a selective established-water check, or shift to an active species. Do not chase isolated holdovers from ladder to ladder.",
-            "whereToStart": "Make only a selective check of established late holding water below Twin Branch; the main migration window has ended.",
+            "detail": "A few late fish may remain, but the main migration no longer supports a dependable trip.",
+            "tip": "Make one selective established-water check or shift to an active species.",
+            "whereToStart": "Make only a selective check in established Middle river (Berrien Springs–Niles) or Upper river (Niles–Twin Branch Dam) holding water.",
             "reasonCodes": [
               "stage_post_run"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Timing complete",
@@ -5263,7 +5299,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "conditions_checkpoint_peak_complete",
               "conditions_timing_complete"
             ],
-            "copyVersion": "river-run-copy-v27",
+            "copyVersion": "river-run-copy-v34",
             "previousCheckpointId": "peak_start",
             "previousCheckpointDate": "2026-10-10",
             "previousTimingLabel": "Insufficient evidence"
@@ -5287,14 +5323,14 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "push_tracking_complete"
             ],
             "rulesVersion": "st-joseph-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 93,
             "label": "Excellent",
             "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river. This flow shape applies to the Niles mainstem reach only; verify the harbor, lower Michigan river, individual tailwaters, and Indiana water directly.",
-            "tip": "Begin on the primary travel lane feeding deep holding water. Work each hole from its head through the inside seam and tail, then keep moving until fish establish a pattern. Apply this recommendation at Niles; recheck water shape and safe access before carrying it to another St. Joseph section.",
+            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. This read applies only to the Niles mainstem reach.",
+            "tip": "Cover readable seams and holding water with a controlled presentation. Verify every other section directly.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band"
@@ -5305,11 +5341,13 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": null,
           "fishInRiver": {
             "score": 0,
+            "displayScore": 0,
+            "scoreIsApproximate": false,
             "stage": "post_run",
             "maximum": 100,
             "riverCeiling": 70,
@@ -5318,14 +5356,14 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "curveDirection": "outside",
             "winterHoldingContext": false,
             "label": "Migration complete",
-            "headline": "The season no longer supports a dependable in-river migration.",
-            "detail": "A few Coho salmon may remain, but their presence is likely isolated rather than part of a consistent opportunity through the river's dependable sections. This seasonal presence applies to the accessible St. Joseph corridor as a whole; it does not claim equal fish numbers at the harbor, Niles, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Do not build a trip around scattered late fish. Shift to another seasonal species, and leave any actively spawning fish undisturbed. Use Migration Stage to choose the specific St. Joseph section, then verify that water directly.",
+            "headline": "The St. Joseph Coho salmon migration no longer has dependable seasonal presence.",
+            "detail": "The seasonal estimate has reached zero. Isolated late fish are not a dependable migration opportunity.",
+            "tip": "Do not build a three-section search around isolated late fish.",
             "reasonCodes": [
               "stage_post_run",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -5591,6 +5629,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "nextConditionRefreshAt": "2026-07-25T05:00:00.000Z",
           "runStage": {
             "stage": "post_run",
+            "copyStrategy": "st_joseph_corridor",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -5612,16 +5651,16 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "startToPeakDays": 39,
               "peakToEndDays": 46
             },
-            "label": "Offseason",
-            "headline": "Coho salmon are outside their St. Joseph River migration season.",
-            "detail": "This fall migration read is inactive and should not be used to recommend a harbor, Michigan, Niles, or Indiana starting reach.",
-            "tip": "Choose a species with an active St. Joseph seasonal window and return to this read when early monitoring begins.",
-            "whereToStart": "Shift to an in-season species and do not plan a St. Joseph Coho salmon migration trip from this inactive calendar.",
+            "label": "Fall run complete",
+            "headline": "The St. Joseph Coho salmon fall run is complete.",
+            "detail": "This seasonal run estimate is inactive until staging begins again.",
+            "tip": "Return when St. Joseph fall-run staging begins.",
+            "whereToStart": "There is no active St. Joseph starting section for this fall run.",
             "reasonCodes": [
               "stage_post_run",
               "stage_offseason"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Not monitoring yet",
@@ -5646,7 +5685,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "conditions_monitoring_inactive"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -5667,14 +5706,14 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "push_tracking_offseason"
             ],
             "rulesVersion": "st-joseph-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 93,
             "label": "Excellent",
             "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river. This flow shape applies to the Niles mainstem reach only; verify the harbor, lower Michigan river, individual tailwaters, and Indiana water directly.",
-            "tip": "Begin on the primary travel lane feeding deep holding water. Work each hole from its head through the inside seam and tail, then keep moving until fish establish a pattern. Apply this recommendation at Niles; recheck water shape and safe access before carrying it to another St. Joseph section.",
+            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. This read applies only to the Niles mainstem reach.",
+            "tip": "Cover readable seams and holding water with a controlled presentation. Verify every other section directly.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band"
@@ -5685,11 +5724,12 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": null,
           "fishInRiver": {
-            "score": 0,
+            "score": null,
+            "scoreIsApproximate": false,
             "stage": "post_run",
             "maximum": 100,
             "riverCeiling": 70,
@@ -5697,15 +5737,15 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "curveFraction": 0,
             "curveDirection": "outside",
             "winterHoldingContext": false,
-            "label": "Offseason",
-            "headline": "Coho salmon are outside their river migration season.",
-            "detail": "A dependable seasonal presence of Coho salmon is not expected in the river right now.",
-            "tip": "Do not build a river trip around this species right now. Target a species with an active seasonal window and return as the next migration approaches.",
+            "label": "Fall run complete",
+            "headline": "The St. Joseph Coho salmon fall run is complete.",
+            "detail": "Coho salmon staging typically begins in mid August. This seasonal estimate is inactive until then.",
+            "tip": "Check back in mid August when St. Joseph fall-run tracking resumes.",
             "reasonCodes": [
               "stage_post_run",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -5931,13 +5971,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "data_quality_fresh"
             ]
           },
-          "interpretationNote": {
-            "headline": "The river should fish well, but seasonal fish presence is still low.",
-            "detail": "Good flow makes presentations easier, but it does not put fish in the river. Begin in the deepest established holding water and skip broad searches through fast travel lanes as seasonal presence thins.",
-            "reasonCodes": [
-              "good_fishability_low_presence"
-            ]
-          },
+          "interpretationNote": null,
           "secondaryNote": "Based on the USGS gauge at Niles. It describes the Niles reach; the harbor, lower river, individual dam tailwaters, South Bend, Mishawaka, and Twin Branch may look different.",
           "safety": {
             "regulationReminder": "Select Michigan or Indiana for the correct jurisdiction. Always verify current official regulations, public access, posted closures, and dam safety boundaries.",
@@ -5964,6 +5998,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "nextConditionRefreshAt": "2026-08-06T05:00:00.000Z",
           "runStage": {
             "stage": "post_run",
+            "copyStrategy": "st_joseph_corridor",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -5985,16 +6020,16 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "startToPeakDays": 39,
               "peakToEndDays": 46
             },
-            "label": "Offseason",
-            "headline": "Coho salmon are outside their St. Joseph River migration season.",
-            "detail": "This fall migration read is inactive and should not be used to recommend a harbor, Michigan, Niles, or Indiana starting reach.",
-            "tip": "Choose a species with an active St. Joseph seasonal window and return to this read when early monitoring begins.",
-            "whereToStart": "Shift to an in-season species and do not plan a St. Joseph Coho salmon migration trip from this inactive calendar.",
+            "label": "Fall run complete",
+            "headline": "The St. Joseph Coho salmon fall run is complete.",
+            "detail": "This seasonal run estimate is inactive until staging begins again.",
+            "tip": "Return when St. Joseph fall-run staging begins.",
+            "whereToStart": "There is no active St. Joseph starting section for this fall run.",
             "reasonCodes": [
               "stage_post_run",
               "stage_offseason"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Not monitoring yet",
@@ -6019,7 +6054,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "conditions_monitoring_inactive"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -6040,14 +6075,14 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "push_tracking_offseason"
             ],
             "rulesVersion": "st-joseph-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 93,
             "label": "Excellent",
             "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river. This flow shape applies to the Niles mainstem reach only; verify the harbor, lower Michigan river, individual tailwaters, and Indiana water directly.",
-            "tip": "Begin on the primary travel lane feeding deep holding water. Work each hole from its head through the inside seam and tail, then keep moving until fish establish a pattern. Apply this recommendation at Niles; recheck water shape and safe access before carrying it to another St. Joseph section.",
+            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. This read applies only to the Niles mainstem reach.",
+            "tip": "Cover readable seams and holding water with a controlled presentation. Verify every other section directly.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band"
@@ -6058,11 +6093,12 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": null,
           "fishInRiver": {
-            "score": 0,
+            "score": null,
+            "scoreIsApproximate": false,
             "stage": "post_run",
             "maximum": 100,
             "riverCeiling": 70,
@@ -6070,15 +6106,15 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "curveFraction": 0,
             "curveDirection": "outside",
             "winterHoldingContext": false,
-            "label": "Offseason",
-            "headline": "Coho salmon are outside their river migration season.",
-            "detail": "A dependable seasonal presence of Coho salmon is not expected in the river right now.",
-            "tip": "Do not build a river trip around this species right now. Target a species with an active seasonal window and return as the next migration approaches.",
+            "label": "Fall run complete",
+            "headline": "The St. Joseph Coho salmon fall run is complete.",
+            "detail": "Coho salmon staging typically begins in mid August. This seasonal estimate is inactive until then.",
+            "tip": "Check back in mid August when St. Joseph fall-run tracking resumes.",
             "reasonCodes": [
               "stage_post_run",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -6304,13 +6340,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "data_quality_fresh"
             ]
           },
-          "interpretationNote": {
-            "headline": "The river should fish well, but seasonal fish presence is still low.",
-            "detail": "Good flow makes presentations easier, but it does not put fish in the river. Begin in the deepest established holding water and skip broad searches through fast travel lanes as seasonal presence thins.",
-            "reasonCodes": [
-              "good_fishability_low_presence"
-            ]
-          },
+          "interpretationNote": null,
           "secondaryNote": "Based on the USGS gauge at Niles. It describes the Niles reach; the harbor, lower river, individual dam tailwaters, South Bend, Mishawaka, and Twin Branch may look different.",
           "safety": {
             "regulationReminder": "Select Michigan or Indiana for the correct jurisdiction. Always verify current official regulations, public access, posted closures, and dam safety boundaries.",
@@ -6337,6 +6367,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "nextConditionRefreshAt": "2026-08-16T05:00:00.000Z",
           "runStage": {
             "stage": "pre_run",
+            "copyStrategy": "st_joseph_corridor",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -6359,14 +6390,14 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "peakToEndDays": 46
             },
             "label": "Before migration",
-            "headline": "Coho salmon have not begun their dependable St. Joseph River migration.",
-            "detail": "The seasonal calendar still points to Lake Michigan, the harbor, and the river mouth—not an established inland opportunity.",
-            "tip": "Keep the trip lakeward and return when staging monitoring begins. Do not let rain or one isolated river fish turn into a corridor-wide claim.",
-            "whereToStart": "Keep the search in Lake Michigan, the harbor, and river-mouth water until river staging begins.",
+            "headline": "Coho salmon have not started their main St. Joseph River run.",
+            "detail": "The river-entry window has not opened yet. An isolated river fish would be an early exception.",
+            "tip": "Keep the trip lakeward and return when staging monitoring begins.",
+            "whereToStart": "Stay with Lake Michigan, the St. Joseph harbor, and the river mouth.",
             "reasonCodes": [
               "stage_pre_run"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Not monitoring yet",
@@ -6391,7 +6422,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "conditions_monitoring_inactive"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -6412,14 +6443,14 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "push_tracking_not_started"
             ],
             "rulesVersion": "st-joseph-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 93,
             "label": "Excellent",
             "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river. This flow shape applies to the Niles mainstem reach only; verify the harbor, lower Michigan river, individual tailwaters, and Indiana water directly.",
-            "tip": "Begin on the primary travel lane feeding deep holding water. Work each hole from its head through the inside seam and tail, then keep moving until fish establish a pattern. Apply this recommendation at Niles; recheck water shape and safe access before carrying it to another St. Joseph section.",
+            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. This read applies only to the Niles mainstem reach.",
+            "tip": "Cover readable seams and holding water with a controlled presentation. Verify every other section directly.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band"
@@ -6430,11 +6461,13 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": null,
           "fishInRiver": {
             "score": 0,
+            "displayScore": 0,
+            "scoreIsApproximate": false,
             "stage": "pre_run",
             "maximum": 100,
             "riverCeiling": 70,
@@ -6443,14 +6476,14 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "curveDirection": "outside",
             "winterHoldingContext": false,
             "label": "Not expected yet",
-            "headline": "A dependable presence of Coho salmon is not expected in the river yet.",
-            "detail": "Most Coho salmon are not expected to have entered the river in dependable numbers. Any fish already present would be early exceptions. This seasonal presence applies to the accessible St. Joseph corridor as a whole; it does not claim equal fish numbers at the harbor, Niles, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Treat this as no dependable in-river opportunity yet. Keep expectations at zero, and do not interpret an isolated early fish as evidence of dependable river presence. Use Migration Stage to choose the specific St. Joseph section, then verify that water directly.",
+            "headline": "Dependable Coho salmon presence is not expected in the St. Joseph yet.",
+            "detail": "The seasonal estimate remains at zero. Any river fish would be an early exception.",
+            "tip": "Use Migration Stage for harbor and river-entry context.",
             "reasonCodes": [
               "stage_pre_run",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -6709,6 +6742,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "nextConditionRefreshAt": "2026-08-16T05:00:00.000Z",
           "runStage": {
             "stage": "pre_run",
+            "copyStrategy": "st_joseph_corridor",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -6731,14 +6765,14 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "peakToEndDays": 46
             },
             "label": "Before migration",
-            "headline": "Coho salmon have not begun their dependable St. Joseph River migration.",
-            "detail": "The seasonal calendar still points to Lake Michigan, the harbor, and the river mouth—not an established inland opportunity.",
-            "tip": "Keep the trip lakeward and return when staging monitoring begins. Do not let rain or one isolated river fish turn into a corridor-wide claim.",
-            "whereToStart": "Keep the search in Lake Michigan, the harbor, and river-mouth water until river staging begins.",
+            "headline": "Coho salmon have not started their main St. Joseph River run.",
+            "detail": "The river-entry window has not opened yet. An isolated river fish would be an early exception.",
+            "tip": "Keep the trip lakeward and return when staging monitoring begins.",
+            "whereToStart": "Stay with Lake Michigan, the St. Joseph harbor, and the river mouth.",
             "reasonCodes": [
               "stage_pre_run"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Not monitoring yet",
@@ -6763,7 +6797,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "conditions_monitoring_inactive"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -6784,14 +6818,14 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "push_tracking_not_started"
             ],
             "rulesVersion": "st-joseph-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 93,
             "label": "Excellent",
             "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river. This flow shape applies to the Niles mainstem reach only; verify the harbor, lower Michigan river, individual tailwaters, and Indiana water directly.",
-            "tip": "Begin on the primary travel lane feeding deep holding water. Work each hole from its head through the inside seam and tail, then keep moving until fish establish a pattern. Apply this recommendation at Niles; recheck water shape and safe access before carrying it to another St. Joseph section.",
+            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. This read applies only to the Niles mainstem reach.",
+            "tip": "Cover readable seams and holding water with a controlled presentation. Verify every other section directly.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band"
@@ -6802,11 +6836,13 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": null,
           "fishInRiver": {
             "score": 0,
+            "displayScore": 0,
+            "scoreIsApproximate": false,
             "stage": "pre_run",
             "maximum": 100,
             "riverCeiling": 70,
@@ -6815,14 +6851,14 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "curveDirection": "outside",
             "winterHoldingContext": false,
             "label": "Not expected yet",
-            "headline": "A dependable presence of Coho salmon is not expected in the river yet.",
-            "detail": "Most Coho salmon are not expected to have entered the river in dependable numbers. Any fish already present would be early exceptions. This seasonal presence applies to the accessible St. Joseph corridor as a whole; it does not claim equal fish numbers at the harbor, Niles, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Treat this as no dependable in-river opportunity yet. Keep expectations at zero, and do not interpret an isolated early fish as evidence of dependable river presence. Use Migration Stage to choose the specific St. Joseph section, then verify that water directly.",
+            "headline": "Dependable Coho salmon presence is not expected in the St. Joseph yet.",
+            "detail": "The seasonal estimate remains at zero. Any river fish would be an early exception.",
+            "tip": "Use Migration Stage for harbor and river-entry context.",
             "reasonCodes": [
               "stage_pre_run",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -7081,6 +7117,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "nextConditionRefreshAt": "2026-08-16T05:00:00.000Z",
           "runStage": {
             "stage": "pre_run",
+            "copyStrategy": "st_joseph_corridor",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -7103,14 +7140,14 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "peakToEndDays": 46
             },
             "label": "Before migration",
-            "headline": "Coho salmon have not begun their dependable St. Joseph River migration.",
-            "detail": "The seasonal calendar still points to Lake Michigan, the harbor, and the river mouth—not an established inland opportunity.",
-            "tip": "Keep the trip lakeward and return when staging monitoring begins. Do not let rain or one isolated river fish turn into a corridor-wide claim.",
-            "whereToStart": "Keep the search in Lake Michigan, the harbor, and river-mouth water until river staging begins.",
+            "headline": "Coho salmon have not started their main St. Joseph River run.",
+            "detail": "The river-entry window has not opened yet. An isolated river fish would be an early exception.",
+            "tip": "Keep the trip lakeward and return when staging monitoring begins.",
+            "whereToStart": "Stay with Lake Michigan, the St. Joseph harbor, and the river mouth.",
             "reasonCodes": [
               "stage_pre_run"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Not monitoring yet",
@@ -7135,7 +7172,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "conditions_monitoring_inactive"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -7156,14 +7193,14 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "push_tracking_not_started"
             ],
             "rulesVersion": "st-joseph-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 93,
             "label": "Excellent",
             "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river. This flow shape applies to the Niles mainstem reach only; verify the harbor, lower Michigan river, individual tailwaters, and Indiana water directly.",
-            "tip": "Begin on the primary travel lane feeding deep holding water. Work each hole from its head through the inside seam and tail, then keep moving until fish establish a pattern. Apply this recommendation at Niles; recheck water shape and safe access before carrying it to another St. Joseph section.",
+            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. This read applies only to the Niles mainstem reach.",
+            "tip": "Cover readable seams and holding water with a controlled presentation. Verify every other section directly.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band"
@@ -7174,11 +7211,13 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": null,
           "fishInRiver": {
             "score": 0,
+            "displayScore": 0,
+            "scoreIsApproximate": false,
             "stage": "pre_run",
             "maximum": 100,
             "riverCeiling": 70,
@@ -7187,14 +7226,14 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "curveDirection": "outside",
             "winterHoldingContext": false,
             "label": "Not expected yet",
-            "headline": "A dependable presence of Coho salmon is not expected in the river yet.",
-            "detail": "Most Coho salmon are not expected to have entered the river in dependable numbers. Any fish already present would be early exceptions. This seasonal presence applies to the accessible St. Joseph corridor as a whole; it does not claim equal fish numbers at the harbor, Niles, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Treat this as no dependable in-river opportunity yet. Keep expectations at zero, and do not interpret an isolated early fish as evidence of dependable river presence. Use Migration Stage to choose the specific St. Joseph section, then verify that water directly.",
+            "headline": "Dependable Coho salmon presence is not expected in the St. Joseph yet.",
+            "detail": "The seasonal estimate remains at zero. Any river fish would be an early exception.",
+            "tip": "Use Migration Stage for harbor and river-entry context.",
             "reasonCodes": [
               "stage_pre_run",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -7453,6 +7492,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "nextConditionRefreshAt": "2026-08-16T05:00:00.000Z",
           "runStage": {
             "stage": "pre_run",
+            "copyStrategy": "st_joseph_corridor",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -7475,14 +7515,14 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "peakToEndDays": 46
             },
             "label": "Before migration",
-            "headline": "Coho salmon have not begun their dependable St. Joseph River migration.",
-            "detail": "The seasonal calendar still points to Lake Michigan, the harbor, and the river mouth—not an established inland opportunity.",
-            "tip": "Keep the trip lakeward and return when staging monitoring begins. Do not let rain or one isolated river fish turn into a corridor-wide claim.",
-            "whereToStart": "Keep the search in Lake Michigan, the harbor, and river-mouth water until river staging begins.",
+            "headline": "Coho salmon have not started their main St. Joseph River run.",
+            "detail": "The river-entry window has not opened yet. An isolated river fish would be an early exception.",
+            "tip": "Keep the trip lakeward and return when staging monitoring begins.",
+            "whereToStart": "Stay with Lake Michigan, the St. Joseph harbor, and the river mouth.",
             "reasonCodes": [
               "stage_pre_run"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Not monitoring yet",
@@ -7507,7 +7547,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "conditions_monitoring_inactive"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -7528,14 +7568,14 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "push_tracking_not_started"
             ],
             "rulesVersion": "st-joseph-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 93,
             "label": "Excellent",
             "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river. This flow shape applies to the Niles mainstem reach only; verify the harbor, lower Michigan river, individual tailwaters, and Indiana water directly.",
-            "tip": "Begin on the primary travel lane feeding deep holding water. Work each hole from its head through the inside seam and tail, then keep moving until fish establish a pattern. Apply this recommendation at Niles; recheck water shape and safe access before carrying it to another St. Joseph section.",
+            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. This read applies only to the Niles mainstem reach.",
+            "tip": "Cover readable seams and holding water with a controlled presentation. Verify every other section directly.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band"
@@ -7546,11 +7586,13 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": null,
           "fishInRiver": {
             "score": 0,
+            "displayScore": 0,
+            "scoreIsApproximate": false,
             "stage": "pre_run",
             "maximum": 100,
             "riverCeiling": 70,
@@ -7559,14 +7601,14 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "curveDirection": "outside",
             "winterHoldingContext": false,
             "label": "Not expected yet",
-            "headline": "A dependable presence of Coho salmon is not expected in the river yet.",
-            "detail": "Most Coho salmon are not expected to have entered the river in dependable numbers. Any fish already present would be early exceptions. This seasonal presence applies to the accessible St. Joseph corridor as a whole; it does not claim equal fish numbers at the harbor, Niles, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Treat this as no dependable in-river opportunity yet. Keep expectations at zero, and do not interpret an isolated early fish as evidence of dependable river presence. Use Migration Stage to choose the specific St. Joseph section, then verify that water directly.",
+            "headline": "Dependable Coho salmon presence is not expected in the St. Joseph yet.",
+            "detail": "The seasonal estimate remains at zero. Any river fish would be an early exception.",
+            "tip": "Use Migration Stage for harbor and river-entry context.",
             "reasonCodes": [
               "stage_pre_run",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -7825,6 +7867,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "nextConditionRefreshAt": "2026-10-07T05:00:00.000Z",
           "runStage": {
             "stage": "building",
+            "copyStrategy": "st_joseph_corridor",
             "stagingContext": false,
             "broadBuildingContext": true,
             "winterHoldingContext": false,
@@ -7847,14 +7890,14 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "peakToEndDays": 46
             },
             "label": "Building",
-            "headline": "Coho salmon are now established through multiple sections of the interstate St. Joseph corridor.",
-            "detail": "Earlier arrivals have had time to pass Berrien Springs, Buchanan, and Niles while newer fish continue entering below. Distribution can be broad without being even between Michigan and Indiana sections.",
-            "tip": "Compare one Michigan section with one Indiana section, working deep travel lanes, current breaks, and resting water away from every ladder safety zone.",
-            "whereToStart": "Compare lower-Michigan holding water, Buchanan and Niles, then legal South Bend-Mishawaka water below Twin Branch; never infer every section from the Niles gauge.",
+            "headline": "Coho salmon are established through multiple St. Joseph sections.",
+            "detail": "Earlier arrivals may be farther upstream while newer fish continue entering below.",
+            "tip": "Compare two sections, then stay where direct fish activity is strongest.",
+            "whereToStart": "Start in the Middle river (Berrien Springs–Niles). Compare the Upper river (Niles–Twin Branch Dam) for earlier arrivals.",
             "reasonCodes": [
               "stage_building"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Typical",
@@ -7967,14 +8010,14 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             },
             "headline": "The migration appears to be progressing at a normal seasonal pace.",
             "detail": "River rises and cooling are close to what is usually seen by this point in the season.",
-            "tip": "Use the section named by Migration Stage. Compare established Niles-area holding water with lower travel lanes only when Push supports it; verify Indiana sections independently.",
+            "tip": "Use the section named by Migration Stage. Add a Lower-river fresh-entry check only when Push supports it.",
             "reasonCodes": [
               "gauge_fresh",
               "temperature_measured",
               "conditions_checkpoint_building_established",
               "conditions_typical"
             ],
-            "copyVersion": "river-run-copy-v27",
+            "copyVersion": "river-run-copy-v34",
             "previousCheckpointId": "building_start",
             "previousCheckpointDate": "2026-10-01",
             "previousTimingLabel": "Typical"
@@ -7991,9 +8034,9 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "push": {
             "score": 30,
             "label": "No clear push",
-            "headline": "Today's water does not show a clear signal for a fresh wave of fish.",
-            "detail": "The river is holding steady with no meaningful rise yet. Water temperature is favorable for fall migration and is relatively steady. Recent weather estimates indicate very little rain around the river. This Push describes fresh-movement support at Niles only; it does not prove a new wave at the harbor, Berrien Springs, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Fish established holding water from the head through the inside seam and tail. Do not spend the day racing between lower travel lanes for a wave the water does not support. Use the Niles signal to choose between Niles-area holding water and a lower-Michigan travel-water check; verify Indiana movement directly.",
+            "headline": "Niles water does not show a clear fresh-movement signal.",
+            "detail": "Niles flow is steady without a meaningful rise. Water temperature is favorable for fall migration and is relatively steady. Recent watershed weather shows little rain.",
+            "tip": "Keep Migration Stage’s section primary. Do not shift sections from this Niles read.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
@@ -8012,14 +8055,14 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 93,
             "label": "Excellent",
             "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river. This flow shape applies to the Niles mainstem reach only; verify the harbor, lower Michigan river, individual tailwaters, and Indiana water directly.",
-            "tip": "Begin on the primary travel lane feeding deep holding water. Work each hole from its head through the inside seam and tail, then keep moving until fish establish a pattern. Apply this recommendation at Niles; recheck water shape and safe access before carrying it to another St. Joseph section.",
+            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. This read applies only to the Niles mainstem reach.",
+            "tip": "Cover readable seams and holding water with a controlled presentation. Verify every other section directly.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band"
@@ -8030,15 +8073,15 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 77,
             "maximum": 100,
             "label": "Active",
-            "headline": "Today’s Coho activity outlook is active.",
-            "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. More Coho are entering and settling into the river; measured water temperature matters, but this score describes reaction conditions rather than movement or abundance. Measured river conditions describe the St. Joseph mainstem at Niles. Water temperature, clarity, hydraulic shape, and presentation conditions can differ in the harbor and lower Michigan river, at individual ladder tailwaters, and through South Bend, Mishawaka, and the Twin Branch reach. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
-            "tip": "Start with 5–9 AM. If the sky changes from the forecast, favor the darkest practical window. Apply this response window at Niles; verify temperature, clarity, flow shape, and legal access again before carrying it to another St. Joseph section.",
+            "headline": "Today’s Niles Coho responsiveness is active.",
+            "detail": "Conditions support a meaningful Coho response. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Flow and temperature represent only the Niles mainstem reach.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify other sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -8090,10 +8133,13 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 61,
+            "displayScore": 60,
+            "scoreIsApproximate": true,
             "stage": "building",
             "maximum": 100,
             "riverCeiling": 70,
@@ -8102,14 +8148,14 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "curveDirection": "rising",
             "winterHoldingContext": false,
             "label": "High presence",
-            "headline": "Coho salmon are likely present through more dependable river sections as seasonal presence builds toward its strongest point.",
-            "detail": "The migration is approaching its strongest seasonal point, and fish are likely distributed through a broad part of the accessible river. This is a seasonal estimate, not a live fish count. This seasonal presence applies to the accessible St. Joseph corridor as a whole; it does not claim equal fish numbers at the harbor, Niles, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Treat this as one of the stronger parts of this river's moderate seasonal opportunity. Give each stop a complete pass, but do not mistake this seasonal estimate for a live fish count. Use Migration Stage to choose the specific St. Joseph section, then verify that water directly.",
+            "headline": "Seasonal Coho salmon presence is high and building.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the St. Joseph Coho salmon ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_building",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -8369,6 +8415,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "nextConditionRefreshAt": "2026-10-01T05:00:00.000Z",
           "runStage": {
             "stage": "beginning",
+            "copyStrategy": "st_joseph_corridor",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -8391,14 +8438,14 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "peakToEndDays": 46
             },
             "label": "Beginning",
-            "headline": "The first Coho salmon are entering the St. Joseph and beginning to move beyond the lower river.",
-            "detail": "New fish should still be weighted toward lower Michigan travel water, while earlier arrivals may already be using Buchanan, Niles, and selective Indiana resting water.",
-            "tip": "Cover a lower-Michigan travel-and-holding sequence first. Move upriver only after direct fish activity, local observations, or established passage supports the change.",
-            "whereToStart": "Start in deep lower-Michigan travel water below Berrien Springs, then compare legal holding water around Buchanan and Niles before making a selective Indiana check.",
+            "headline": "The first Coho salmon are entering the St. Joseph River.",
+            "detail": "New fish remain weighted toward the Lower river; earlier arrivals may be farther upstream.",
+            "tip": "Cover travel water and the first substantial holding areas before moving upstream.",
+            "whereToStart": "Start in the Lower river (St. Joseph harbor–Berrien Springs). Add the Middle river (Berrien Springs–Niles) only after direct fish activity supports the move.",
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -8441,7 +8488,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -8455,9 +8502,9 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "push": {
             "score": 30,
             "label": "No clear push",
-            "headline": "Today's water does not show a clear signal for a fresh wave of fish.",
-            "detail": "The river is holding steady with no meaningful rise yet. Water temperature is favorable for fall migration and is relatively steady. Recent weather estimates indicate very little rain around the river. This Push describes fresh-movement support at Niles only; it does not prove a new wave at the harbor, Berrien Springs, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Fish established holding water from the head through the inside seam and tail. Do not spend the day racing between lower travel lanes for a wave the water does not support. Use the Niles signal to choose between Niles-area holding water and a lower-Michigan travel-water check; verify Indiana movement directly.",
+            "headline": "Niles water does not show a clear fresh-movement signal.",
+            "detail": "Niles flow is steady without a meaningful rise. Water temperature is favorable for fall migration and is relatively steady. Recent watershed weather shows little rain.",
+            "tip": "Keep Migration Stage’s section primary. Do not shift sections from this Niles read.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
@@ -8476,14 +8523,14 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 93,
             "label": "Excellent",
             "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river. This flow shape applies to the Niles mainstem reach only; verify the harbor, lower Michigan river, individual tailwaters, and Indiana water directly.",
-            "tip": "Begin on the primary travel lane feeding deep holding water. Work each hole from its head through the inside seam and tail, then keep moving until fish establish a pattern. Apply this recommendation at Niles; recheck water shape and safe access before carrying it to another St. Joseph section.",
+            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. This read applies only to the Niles mainstem reach.",
+            "tip": "Cover readable seams and holding water with a controlled presentation. Verify every other section directly.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band"
@@ -8494,15 +8541,15 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 77,
             "maximum": 100,
             "label": "Active",
-            "headline": "Today’s Coho activity outlook is active.",
-            "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. Early lake-fresh Coho can remain reactive when measured water temperatures are suitable; this score applies only to fish already in the river. Measured river conditions describe the St. Joseph mainstem at Niles. Water temperature, clarity, hydraulic shape, and presentation conditions can differ in the harbor and lower Michigan river, at individual ladder tailwaters, and through South Bend, Mishawaka, and the Twin Branch reach. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
-            "tip": "Start with 5–9 AM. If the sky changes from the forecast, favor the darkest practical window. Apply this response window at Niles; verify temperature, clarity, flow shape, and legal access again before carrying it to another St. Joseph section.",
+            "headline": "Today’s Niles Coho responsiveness is active.",
+            "detail": "Conditions support a meaningful Coho response. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Flow and temperature represent only the Niles mainstem reach.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify other sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -8554,10 +8601,13 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 47,
+            "displayScore": 45,
+            "scoreIsApproximate": true,
             "stage": "beginning",
             "maximum": 100,
             "riverCeiling": 70,
@@ -8566,14 +8616,14 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "curveDirection": "rising",
             "winterHoldingContext": false,
             "label": "High presence",
-            "headline": "Coho salmon are likely present through more dependable river sections as seasonal presence builds toward its strongest point.",
-            "detail": "Seasonal presence is usually elevated relative to the rest of the season, with more fish expected to enter and become established through a broad part of the accessible river. This is a seasonal estimate, not a live fish count. This seasonal presence applies to the accessible St. Joseph corridor as a whole; it does not claim equal fish numbers at the harbor, Niles, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Treat this as one of the stronger parts of this river's moderate seasonal opportunity. Give each stop a complete pass, but do not mistake this seasonal estimate for a live fish count. Use Migration Stage to choose the specific St. Joseph section, then verify that water directly.",
+            "headline": "Seasonal Coho salmon presence is high and building.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the St. Joseph Coho salmon ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -8827,6 +8877,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "nextConditionRefreshAt": "2026-10-01T05:00:00.000Z",
           "runStage": {
             "stage": "beginning",
+            "copyStrategy": "st_joseph_corridor",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -8849,14 +8900,14 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "peakToEndDays": 46
             },
             "label": "Beginning",
-            "headline": "The first Coho salmon are entering the St. Joseph and beginning to move beyond the lower river.",
-            "detail": "New fish should still be weighted toward lower Michigan travel water, while earlier arrivals may already be using Buchanan, Niles, and selective Indiana resting water.",
-            "tip": "Cover a lower-Michigan travel-and-holding sequence first. Move upriver only after direct fish activity, local observations, or established passage supports the change.",
-            "whereToStart": "Start in deep lower-Michigan travel water below Berrien Springs, then compare legal holding water around Buchanan and Niles before making a selective Indiana check.",
+            "headline": "The first Coho salmon are entering the St. Joseph River.",
+            "detail": "New fish remain weighted toward the Lower river; earlier arrivals may be farther upstream.",
+            "tip": "Cover travel water and the first substantial holding areas before moving upstream.",
+            "whereToStart": "Start in the Lower river (St. Joseph harbor–Berrien Springs). Add the Middle river (Berrien Springs–Niles) only after direct fish activity supports the move.",
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -8899,7 +8950,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -8913,9 +8964,9 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "push": {
             "score": 0,
             "label": "Weak",
-            "headline": "Today's water shows little support for a fresh wave of fish.",
-            "detail": "The river is falling instead of showing a fresh rise. Water temperature remains too warm to support a strong Push but is warming sharply. Recent weather estimates indicate very little rain around the river. This Push describes fresh-movement support at Niles only; it does not prove a new wave at the harbor, Berrien Springs, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Do not build the day around new arrivals while the river remains warm. Start in established holding water at first or last light and leave lower travel lanes secondary. Use the Niles signal to choose between Niles-area holding water and a lower-Michigan travel-water check; verify Indiana movement directly.",
+            "headline": "Niles water shows little support for fresh movement.",
+            "detail": "Niles flow is falling. Water temperature remains too warm to support a strong Push but is warming sharply. Recent watershed weather shows little rain.",
+            "tip": "Keep Migration Stage’s section primary. Do not shift sections from this Niles read.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
@@ -8935,14 +8986,14 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 57,
             "label": "Fishable",
             "headline": "The river is fishable, but lower water leaves less cover and less room for error.",
-            "detail": "Water is lower than ideal but still workable, with less depth and cover across the river. The river is still falling, so shallow lanes may lose depth while the deepest connected water becomes more important. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river. This flow shape applies to the Niles mainstem reach only; verify the harbor, lower Michigan river, individual tailwaters, and Indiana water directly.",
-            "tip": "Begin in the deepest connected holding water and fish its shaded edge first. Skip shallow travel lanes that are draining as the river falls. Apply this recommendation at Niles; recheck water shape and safe access before carrying it to another St. Joseph section.",
+            "detail": "Water is lower than ideal but still workable, with less depth and cover across the river. The river is still falling, so shallow lanes may lose depth while the deepest connected water becomes more important. This read applies only to the Niles mainstem reach.",
+            "tip": "Use the deepest connected water and keep disturbance low. Verify every other section directly.",
             "reasonCodes": [
               "gauge_fresh",
               "low_flow_band"
@@ -8953,15 +9004,15 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 24,
             "maximum": 100,
             "label": "Reserved",
-            "headline": "Today’s Coho activity outlook is reserved.",
-            "detail": "Fish may respond selectively, with important environmental limitations. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Water temperature limits responsiveness. Early lake-fresh Coho can remain reactive when measured water temperatures are suitable; this score applies only to fish already in the river. Measured river conditions describe the St. Joseph mainstem at Niles. Water temperature, clarity, hydraulic shape, and presentation conditions can differ in the harbor and lower Michigan river, at individual ladder tailwaters, and through South Bend, Mishawaka, and the Twin Branch reach. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
-            "tip": "Start with 5–9 AM. If the sky changes from the forecast, favor the darkest practical window. Apply this response window at Niles; verify temperature, clarity, flow shape, and legal access again before carrying it to another St. Joseph section.",
+            "headline": "Today’s Niles Coho responsiveness is reserved.",
+            "detail": "Coho may respond selectively under current limitations. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Flow and temperature represent only the Niles mainstem reach.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify other sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -9014,10 +9065,13 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 47,
+            "displayScore": 45,
+            "scoreIsApproximate": true,
             "stage": "beginning",
             "maximum": 100,
             "riverCeiling": 70,
@@ -9026,14 +9080,14 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "curveDirection": "rising",
             "winterHoldingContext": false,
             "label": "High presence",
-            "headline": "Coho salmon are likely present through more dependable river sections as seasonal presence builds toward its strongest point.",
-            "detail": "Seasonal presence is usually elevated relative to the rest of the season, with more fish expected to enter and become established through a broad part of the accessible river. This is a seasonal estimate, not a live fish count. This seasonal presence applies to the accessible St. Joseph corridor as a whole; it does not claim equal fish numbers at the harbor, Niles, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Treat this as one of the stronger parts of this river's moderate seasonal opportunity. Give each stop a complete pass, but do not mistake this seasonal estimate for a live fish count. Use Migration Stage to choose the specific St. Joseph section, then verify that water directly.",
+            "headline": "Seasonal Coho salmon presence is high and building.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the St. Joseph Coho salmon ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -9287,6 +9341,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "nextConditionRefreshAt": "2026-10-01T05:00:00.000Z",
           "runStage": {
             "stage": "beginning",
+            "copyStrategy": "st_joseph_corridor",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -9309,14 +9364,14 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "peakToEndDays": 46
             },
             "label": "Beginning",
-            "headline": "The first Coho salmon are entering the St. Joseph and beginning to move beyond the lower river.",
-            "detail": "New fish should still be weighted toward lower Michigan travel water, while earlier arrivals may already be using Buchanan, Niles, and selective Indiana resting water.",
-            "tip": "Cover a lower-Michigan travel-and-holding sequence first. Move upriver only after direct fish activity, local observations, or established passage supports the change.",
-            "whereToStart": "Start in deep lower-Michigan travel water below Berrien Springs, then compare legal holding water around Buchanan and Niles before making a selective Indiana check.",
+            "headline": "The first Coho salmon are entering the St. Joseph River.",
+            "detail": "New fish remain weighted toward the Lower river; earlier arrivals may be farther upstream.",
+            "tip": "Cover travel water and the first substantial holding areas before moving upstream.",
+            "whereToStart": "Start in the Lower river (St. Joseph harbor–Berrien Springs). Add the Middle river (Berrien Springs–Niles) only after direct fish activity supports the move.",
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -9359,7 +9414,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -9373,9 +9428,9 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "push": {
             "score": 61,
             "label": "Possible",
-            "headline": "Today's water offers some support for fresh fish moving into or through the river.",
-            "detail": "The river has started to rise since yesterday. Water temperature is favorable for fall migration and is cooling. Recent rain around the river adds some support while the river begins to rise. This Push describes fresh-movement support at Niles only; it does not prove a new wave at the harbor, Berrien Springs, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Start in lower-river travel lanes, then fish the first deep resting water immediately upstream. Move to established holding water if those entry routes stay quiet. Use the Niles signal to choose between Niles-area holding water and a lower-Michigan travel-water check; verify Indiana movement directly.",
+            "headline": "Niles water offers some support for fresh movement.",
+            "detail": "Niles flow has started to rise. Water temperature is favorable for fall migration and is cooling. Rain adds limited support while Niles begins to rise.",
+            "tip": "Keep Migration Stage’s section primary and add one Niles-area movement check.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
@@ -9393,14 +9448,14 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 55,
             "label": "Fishable",
             "headline": "The river is fishable, but lower water leaves less cover and less room for error.",
-            "detail": "Water is lower than ideal but still workable, with less depth and cover across the river. The early rise is adding depth and cover, but the best travel lanes are beginning to shift. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river. This flow shape applies to the Niles mainstem reach only; verify the harbor, lower Michigan river, individual tailwaters, and Indiana water directly.",
-            "tip": "Begin on newly covered inside seams that connect directly to deep holding water. Keep the presentation on the soft edge and avoid wading through the new lane. Apply this recommendation at Niles; recheck water shape and safe access before carrying it to another St. Joseph section.",
+            "detail": "Water is lower than ideal but still workable, with less depth and cover across the river. The early rise is adding depth and cover, but the best travel lanes are beginning to shift. This read applies only to the Niles mainstem reach.",
+            "tip": "Use the deepest connected water and keep disturbance low. Verify every other section directly.",
             "reasonCodes": [
               "gauge_fresh",
               "low_flow_band"
@@ -9411,15 +9466,15 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 73,
             "maximum": 100,
             "label": "Active",
-            "headline": "Today’s Coho activity outlook is active.",
-            "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. Early lake-fresh Coho can remain reactive when measured water temperatures are suitable; this score applies only to fish already in the river. Measured river conditions describe the St. Joseph mainstem at Niles. Water temperature, clarity, hydraulic shape, and presentation conditions can differ in the harbor and lower Michigan river, at individual ladder tailwaters, and through South Bend, Mishawaka, and the Twin Branch reach. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
-            "tip": "Start with 5–9 AM. If the sky changes from the forecast, favor the darkest practical window. Apply this response window at Niles; verify temperature, clarity, flow shape, and legal access again before carrying it to another St. Joseph section.",
+            "headline": "Today’s Niles Coho responsiveness is active.",
+            "detail": "Conditions support a meaningful Coho response. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Flow and temperature represent only the Niles mainstem reach.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify other sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -9471,10 +9526,13 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 47,
+            "displayScore": 45,
+            "scoreIsApproximate": true,
             "stage": "beginning",
             "maximum": 100,
             "riverCeiling": 70,
@@ -9483,14 +9541,14 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "curveDirection": "rising",
             "winterHoldingContext": false,
             "label": "High presence",
-            "headline": "Coho salmon are likely present through more dependable river sections as seasonal presence builds toward its strongest point.",
-            "detail": "Seasonal presence is usually elevated relative to the rest of the season, with more fish expected to enter and become established through a broad part of the accessible river. This is a seasonal estimate, not a live fish count. This seasonal presence applies to the accessible St. Joseph corridor as a whole; it does not claim equal fish numbers at the harbor, Niles, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Treat this as one of the stronger parts of this river's moderate seasonal opportunity. Give each stop a complete pass, but do not mistake this seasonal estimate for a live fish count. Use Migration Stage to choose the specific St. Joseph section, then verify that water directly.",
+            "headline": "Seasonal Coho salmon presence is high and building.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the St. Joseph Coho salmon ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -9744,6 +9802,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "nextConditionRefreshAt": "2026-10-01T05:00:00.000Z",
           "runStage": {
             "stage": "beginning",
+            "copyStrategy": "st_joseph_corridor",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -9766,14 +9825,14 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "peakToEndDays": 46
             },
             "label": "Beginning",
-            "headline": "The first Coho salmon are entering the St. Joseph and beginning to move beyond the lower river.",
-            "detail": "New fish should still be weighted toward lower Michigan travel water, while earlier arrivals may already be using Buchanan, Niles, and selective Indiana resting water.",
-            "tip": "Cover a lower-Michigan travel-and-holding sequence first. Move upriver only after direct fish activity, local observations, or established passage supports the change.",
-            "whereToStart": "Start in deep lower-Michigan travel water below Berrien Springs, then compare legal holding water around Buchanan and Niles before making a selective Indiana check.",
+            "headline": "The first Coho salmon are entering the St. Joseph River.",
+            "detail": "New fish remain weighted toward the Lower river; earlier arrivals may be farther upstream.",
+            "tip": "Cover travel water and the first substantial holding areas before moving upstream.",
+            "whereToStart": "Start in the Lower river (St. Joseph harbor–Berrien Springs). Add the Middle river (Berrien Springs–Niles) only after direct fish activity supports the move.",
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -9816,7 +9875,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -9830,9 +9889,9 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "push": {
             "score": 76,
             "label": "Strong",
-            "headline": "Today's river rise and water temperature strongly support the possibility of a fresh wave moving into the river.",
-            "detail": "The river has made a clear rise since yesterday. Water temperature is favorable for fall migration and is cooling. The river has already made a meaningful rise, so that measured response carries the useful movement signal and rainfall adds no separate weight. This Push describes fresh-movement support at Niles only; it does not prove a new wave at the harbor, Berrien Springs, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Begin on lower-river travel lanes and inside seams, then work the first resting holes along that route. Keep moving until fish establish a pattern; the signal still does not prove a wave entered. Use the Niles signal to choose between Niles-area holding water and a lower-Michigan travel-water check; verify Indiana movement directly.",
+            "headline": "Niles water strongly supports possible fresh movement.",
+            "detail": "Niles flow has made a clear rise. Water temperature is favorable for fall migration and is cooling. Niles already reflects the rain response, so rain adds no extra credit.",
+            "tip": "Use Niles as the movement check, then verify the Lower and Upper river directly.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
@@ -9850,14 +9909,14 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 80,
             "label": "Good",
             "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. Depth and current are changing enough to move the most controllable presentations toward inside seams and current breaks. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river. This flow shape applies to the Niles mainstem reach only; verify the harbor, lower Michigan river, individual tailwaters, and Indiana water directly.",
-            "tip": "Move off the center lane. Work inside seams, the downstream side of current breaks, and the first deep resting pocket with short controlled presentations. Apply this recommendation at Niles; recheck water shape and safe access before carrying it to another St. Joseph section.",
+            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. Depth and current are changing enough to move the most controllable presentations toward inside seams and current breaks. This read applies only to the Niles mainstem reach.",
+            "tip": "Cover readable seams and holding water with a controlled presentation. Verify every other section directly.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band"
@@ -9868,15 +9927,15 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 78,
             "maximum": 100,
             "label": "Active",
-            "headline": "Today’s Coho activity outlook is active.",
-            "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. Early lake-fresh Coho can remain reactive when measured water temperatures are suitable; this score applies only to fish already in the river. Measured river conditions describe the St. Joseph mainstem at Niles. Water temperature, clarity, hydraulic shape, and presentation conditions can differ in the harbor and lower Michigan river, at individual ladder tailwaters, and through South Bend, Mishawaka, and the Twin Branch reach. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
-            "tip": "Start with 5–9 AM. If the sky changes from the forecast, favor the darkest practical window. Apply this response window at Niles; verify temperature, clarity, flow shape, and legal access again before carrying it to another St. Joseph section.",
+            "headline": "Today’s Niles Coho responsiveness is active.",
+            "detail": "Conditions support a meaningful Coho response. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Flow and temperature represent only the Niles mainstem reach.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify other sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -9928,10 +9987,13 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 47,
+            "displayScore": 45,
+            "scoreIsApproximate": true,
             "stage": "beginning",
             "maximum": 100,
             "riverCeiling": 70,
@@ -9940,14 +10002,14 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "curveDirection": "rising",
             "winterHoldingContext": false,
             "label": "High presence",
-            "headline": "Coho salmon are likely present through more dependable river sections as seasonal presence builds toward its strongest point.",
-            "detail": "Seasonal presence is usually elevated relative to the rest of the season, with more fish expected to enter and become established through a broad part of the accessible river. This is a seasonal estimate, not a live fish count. This seasonal presence applies to the accessible St. Joseph corridor as a whole; it does not claim equal fish numbers at the harbor, Niles, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Treat this as one of the stronger parts of this river's moderate seasonal opportunity. Give each stop a complete pass, but do not mistake this seasonal estimate for a live fish count. Use Migration Stage to choose the specific St. Joseph section, then verify that water directly.",
+            "headline": "Seasonal Coho salmon presence is high and building.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the St. Joseph Coho salmon ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -10201,6 +10263,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "nextConditionRefreshAt": "2026-10-01T05:00:00.000Z",
           "runStage": {
             "stage": "beginning",
+            "copyStrategy": "st_joseph_corridor",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -10223,14 +10286,14 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "peakToEndDays": 46
             },
             "label": "Beginning",
-            "headline": "The first Coho salmon are entering the St. Joseph and beginning to move beyond the lower river.",
-            "detail": "New fish should still be weighted toward lower Michigan travel water, while earlier arrivals may already be using Buchanan, Niles, and selective Indiana resting water.",
-            "tip": "Cover a lower-Michigan travel-and-holding sequence first. Move upriver only after direct fish activity, local observations, or established passage supports the change.",
-            "whereToStart": "Start in deep lower-Michigan travel water below Berrien Springs, then compare legal holding water around Buchanan and Niles before making a selective Indiana check.",
+            "headline": "The first Coho salmon are entering the St. Joseph River.",
+            "detail": "New fish remain weighted toward the Lower river; earlier arrivals may be farther upstream.",
+            "tip": "Cover travel water and the first substantial holding areas before moving upstream.",
+            "whereToStart": "Start in the Lower river (St. Joseph harbor–Berrien Springs). Add the Middle river (Berrien Springs–Niles) only after direct fish activity supports the move.",
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -10273,7 +10336,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -10287,9 +10350,9 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "push": {
             "score": 90,
             "label": "Very strong",
-            "headline": "Today's water shows the strongest support for a fresh wave moving into the river.",
-            "detail": "The river is rising quickly, creating conditions fish often use to move. Water temperature is favorable for fall migration and is cooling sharply. The river has already made a meaningful rise, so that measured response carries the useful movement signal and rainfall adds no separate weight. This Push describes fresh-movement support at Niles only; it does not prove a new wave at the harbor, Berrien Springs, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Start low and fish softer travel lanes, newly formed inside seams, and the first resting water above them. Skip any lane Fishability says is too fast or difficult to control. Use the Niles signal to choose between Niles-area holding water and a lower-Michigan travel-water check; verify Indiana movement directly.",
+            "headline": "Niles water offers its strongest support for fresh movement.",
+            "detail": "Niles flow is rising quickly. Water temperature is favorable for fall migration and is cooling sharply. Niles already reflects the rain response, so rain adds no extra credit.",
+            "tip": "Use Niles as the movement check, then verify the Lower and Upper river directly.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
@@ -10307,14 +10370,14 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 68,
             "label": "Fishable",
             "headline": "The river is rising fast, and usable fishing water is shifting toward slower margins and current breaks.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The fast rise is quickly replacing settled lanes with heavier current and newly formed soft edges. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river. This flow shape applies to the Niles mainstem reach only; verify the harbor, lower Michigan river, individual tailwaters, and Indiana water directly.",
-            "tip": "Leave the main channel alone. Fish newly formed soft margins, inside bends, and the downstream side of current breaks with short controlled presentations. Apply this recommendation at Niles; recheck water shape and safe access before carrying it to another St. Joseph section.",
+            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The fast rise is quickly replacing settled lanes with heavier current and newly formed soft edges. This read applies only to the Niles mainstem reach.",
+            "tip": "Favor protected margins and short controlled presentations. Choose another day if control is not dependable. Verify every other section directly.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band"
@@ -10325,15 +10388,15 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 77,
             "maximum": 100,
             "label": "Active",
-            "headline": "Today’s Coho activity outlook is active.",
-            "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. Early lake-fresh Coho can remain reactive when measured water temperatures are suitable; this score applies only to fish already in the river. Measured river conditions describe the St. Joseph mainstem at Niles. Water temperature, clarity, hydraulic shape, and presentation conditions can differ in the harbor and lower Michigan river, at individual ladder tailwaters, and through South Bend, Mishawaka, and the Twin Branch reach. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
-            "tip": "Start with 5–9 AM. If the sky changes from the forecast, favor the darkest practical window. Apply this response window at Niles; verify temperature, clarity, flow shape, and legal access again before carrying it to another St. Joseph section.",
+            "headline": "Today’s Niles Coho responsiveness is active.",
+            "detail": "Conditions support a meaningful Coho response. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Flow and temperature represent only the Niles mainstem reach.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify other sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -10385,10 +10448,13 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 47,
+            "displayScore": 45,
+            "scoreIsApproximate": true,
             "stage": "beginning",
             "maximum": 100,
             "riverCeiling": 70,
@@ -10397,14 +10463,14 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "curveDirection": "rising",
             "winterHoldingContext": false,
             "label": "High presence",
-            "headline": "Coho salmon are likely present through more dependable river sections as seasonal presence builds toward its strongest point.",
-            "detail": "Seasonal presence is usually elevated relative to the rest of the season, with more fish expected to enter and become established through a broad part of the accessible river. This is a seasonal estimate, not a live fish count. This seasonal presence applies to the accessible St. Joseph corridor as a whole; it does not claim equal fish numbers at the harbor, Niles, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Treat this as one of the stronger parts of this river's moderate seasonal opportunity. Give each stop a complete pass, but do not mistake this seasonal estimate for a live fish count. Use Migration Stage to choose the specific St. Joseph section, then verify that water directly.",
+            "headline": "Seasonal Coho salmon presence is high and building.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the St. Joseph Coho salmon ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -10658,6 +10724,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "nextConditionRefreshAt": "2026-10-01T05:00:00.000Z",
           "runStage": {
             "stage": "beginning",
+            "copyStrategy": "st_joseph_corridor",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -10680,14 +10747,14 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "peakToEndDays": 46
             },
             "label": "Beginning",
-            "headline": "The first Coho salmon are entering the St. Joseph and beginning to move beyond the lower river.",
-            "detail": "New fish should still be weighted toward lower Michigan travel water, while earlier arrivals may already be using Buchanan, Niles, and selective Indiana resting water.",
-            "tip": "Cover a lower-Michigan travel-and-holding sequence first. Move upriver only after direct fish activity, local observations, or established passage supports the change.",
-            "whereToStart": "Start in deep lower-Michigan travel water below Berrien Springs, then compare legal holding water around Buchanan and Niles before making a selective Indiana check.",
+            "headline": "The first Coho salmon are entering the St. Joseph River.",
+            "detail": "New fish remain weighted toward the Lower river; earlier arrivals may be farther upstream.",
+            "tip": "Cover travel water and the first substantial holding areas before moving upstream.",
+            "whereToStart": "Start in the Lower river (St. Joseph harbor–Berrien Springs). Add the Middle river (Berrien Springs–Niles) only after direct fish activity supports the move.",
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -10730,7 +10797,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -10744,9 +10811,9 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "push": {
             "score": 51,
             "label": "Possible",
-            "headline": "Today's water offers some support for fresh fish moving into or through the river.",
-            "detail": "The river is holding steady with no meaningful rise yet. Water temperature is favorable for fall migration and is cooling. Recent rain around the river may help, but the river has not responded enough for rain alone to create a strong Push. This Push describes fresh-movement support at Niles only; it does not prove a new wave at the harbor, Berrien Springs, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Start in lower-river travel lanes, then fish the first deep resting water immediately upstream. Move to established holding water if those entry routes stay quiet. Use the Niles signal to choose between Niles-area holding water and a lower-Michigan travel-water check; verify Indiana movement directly.",
+            "headline": "Niles water offers some support for fresh movement.",
+            "detail": "Niles flow is steady without a meaningful rise. Water temperature is favorable for fall migration and is cooling. Rain is only a precursor because Niles has not responded.",
+            "tip": "Keep Migration Stage’s section primary and add one Niles-area movement check.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
@@ -10765,14 +10832,14 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 93,
             "label": "Excellent",
             "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river. This flow shape applies to the Niles mainstem reach only; verify the harbor, lower Michigan river, individual tailwaters, and Indiana water directly.",
-            "tip": "Begin on the primary travel lane feeding deep holding water. Work each hole from its head through the inside seam and tail, then keep moving until fish establish a pattern. Apply this recommendation at Niles; recheck water shape and safe access before carrying it to another St. Joseph section.",
+            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. This read applies only to the Niles mainstem reach.",
+            "tip": "Cover readable seams and holding water with a controlled presentation. Verify every other section directly.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band"
@@ -10783,15 +10850,15 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 78,
             "maximum": 100,
             "label": "Active",
-            "headline": "Today’s Coho activity outlook is active.",
-            "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. Early lake-fresh Coho can remain reactive when measured water temperatures are suitable; this score applies only to fish already in the river. Measured river conditions describe the St. Joseph mainstem at Niles. Water temperature, clarity, hydraulic shape, and presentation conditions can differ in the harbor and lower Michigan river, at individual ladder tailwaters, and through South Bend, Mishawaka, and the Twin Branch reach. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
-            "tip": "Start with 5–9 AM. If the sky changes from the forecast, favor the darkest practical window. Apply this response window at Niles; verify temperature, clarity, flow shape, and legal access again before carrying it to another St. Joseph section.",
+            "headline": "Today’s Niles Coho responsiveness is active.",
+            "detail": "Conditions support a meaningful Coho response. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Flow and temperature represent only the Niles mainstem reach.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify other sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -10843,10 +10910,13 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 47,
+            "displayScore": 45,
+            "scoreIsApproximate": true,
             "stage": "beginning",
             "maximum": 100,
             "riverCeiling": 70,
@@ -10855,14 +10925,14 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "curveDirection": "rising",
             "winterHoldingContext": false,
             "label": "High presence",
-            "headline": "Coho salmon are likely present through more dependable river sections as seasonal presence builds toward its strongest point.",
-            "detail": "Seasonal presence is usually elevated relative to the rest of the season, with more fish expected to enter and become established through a broad part of the accessible river. This is a seasonal estimate, not a live fish count. This seasonal presence applies to the accessible St. Joseph corridor as a whole; it does not claim equal fish numbers at the harbor, Niles, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Treat this as one of the stronger parts of this river's moderate seasonal opportunity. Give each stop a complete pass, but do not mistake this seasonal estimate for a live fish count. Use Migration Stage to choose the specific St. Joseph section, then verify that water directly.",
+            "headline": "Seasonal Coho salmon presence is high and building.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the St. Joseph Coho salmon ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -11116,6 +11186,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "nextConditionRefreshAt": "2026-10-01T05:00:00.000Z",
           "runStage": {
             "stage": "beginning",
+            "copyStrategy": "st_joseph_corridor",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -11138,14 +11209,14 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "peakToEndDays": 46
             },
             "label": "Beginning",
-            "headline": "The first Coho salmon are entering the St. Joseph and beginning to move beyond the lower river.",
-            "detail": "New fish should still be weighted toward lower Michigan travel water, while earlier arrivals may already be using Buchanan, Niles, and selective Indiana resting water.",
-            "tip": "Cover a lower-Michigan travel-and-holding sequence first. Move upriver only after direct fish activity, local observations, or established passage supports the change.",
-            "whereToStart": "Start in deep lower-Michigan travel water below Berrien Springs, then compare legal holding water around Buchanan and Niles before making a selective Indiana check.",
+            "headline": "The first Coho salmon are entering the St. Joseph River.",
+            "detail": "New fish remain weighted toward the Lower river; earlier arrivals may be farther upstream.",
+            "tip": "Cover travel water and the first substantial holding areas before moving upstream.",
+            "whereToStart": "Start in the Lower river (St. Joseph harbor–Berrien Springs). Add the Middle river (Berrien Springs–Niles) only after direct fish activity supports the move.",
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -11188,7 +11259,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -11202,9 +11273,9 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "push": {
             "score": 46,
             "label": "No clear push",
-            "headline": "Today's water does not show a clear signal for a fresh wave of fish.",
-            "detail": "There is not enough recent river-level history to tell whether the river is rising or falling. Water temperature is favorable for fall migration and is cooling. Recent rain around the river may help, but the river has not responded enough for rain alone to create a strong Push. Without a dependable river trend, there is no clear Push. This Push describes fresh-movement support at Niles only; it does not prove a new wave at the harbor, Berrien Springs, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Do not relocate the trip around this Push read. Begin in established holding water, verify the river at the first access, and add travel lanes only after confirming workable conditions. Use the Niles signal to choose between Niles-area holding water and a lower-Michigan travel-water check; verify Indiana movement directly.",
+            "headline": "Niles water does not show a clear fresh-movement signal.",
+            "detail": "Niles flow does not have a dependable recent trend. Water temperature is favorable for fall migration and is cooling. Without a dependable Niles trend, the read cannot show a clear Push.",
+            "tip": "Keep Migration Stage’s section primary. Do not shift sections from this Niles read.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
@@ -11224,14 +11295,14 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 69,
             "label": "Fishable",
             "headline": "The river appears fishable, but its direction is unclear, so confidence is limited.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. There is not enough recent information to tell whether the river is rising or falling, which lowers confidence in the read. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river. This flow shape applies to the Niles mainstem reach only; verify the harbor, lower Michigan river, individual tailwaters, and Indiana water directly.",
-            "tip": "Start at a bank-side inside bend or soft seam where the full presentation stays under control. Skip faster water until the river's direction is verified. Apply this recommendation at Niles; recheck water shape and safe access before carrying it to another St. Joseph section.",
+            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. There is not enough recent information to tell whether the river is rising or falling, which lowers confidence in the read. This read applies only to the Niles mainstem reach.",
+            "tip": "Verify the Niles reach directly before choosing presentation water. Verify every other section directly.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band",
@@ -11245,15 +11316,15 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               ]
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 78,
             "maximum": 100,
             "label": "Active",
-            "headline": "Today’s Coho activity outlook is active.",
-            "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. Early lake-fresh Coho can remain reactive when measured water temperatures are suitable; this score applies only to fish already in the river. Measured river conditions describe the St. Joseph mainstem at Niles. Water temperature, clarity, hydraulic shape, and presentation conditions can differ in the harbor and lower Michigan river, at individual ladder tailwaters, and through South Bend, Mishawaka, and the Twin Branch reach. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
-            "tip": "Start with 5–9 AM. If the sky changes from the forecast, favor the darkest practical window. Apply this response window at Niles; verify temperature, clarity, flow shape, and legal access again before carrying it to another St. Joseph section.",
+            "headline": "Today’s Niles Coho responsiveness is active.",
+            "detail": "Conditions support a meaningful Coho response. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Flow and temperature represent only the Niles mainstem reach.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify other sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -11305,10 +11376,13 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 47,
+            "displayScore": 45,
+            "scoreIsApproximate": true,
             "stage": "beginning",
             "maximum": 100,
             "riverCeiling": 70,
@@ -11317,14 +11391,14 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "curveDirection": "rising",
             "winterHoldingContext": false,
             "label": "High presence",
-            "headline": "Coho salmon are likely present through more dependable river sections as seasonal presence builds toward its strongest point.",
-            "detail": "Seasonal presence is usually elevated relative to the rest of the season, with more fish expected to enter and become established through a broad part of the accessible river. This is a seasonal estimate, not a live fish count. This seasonal presence applies to the accessible St. Joseph corridor as a whole; it does not claim equal fish numbers at the harbor, Niles, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Treat this as one of the stronger parts of this river's moderate seasonal opportunity. Give each stop a complete pass, but do not mistake this seasonal estimate for a live fish count. Use Migration Stage to choose the specific St. Joseph section, then verify that water directly.",
+            "headline": "Seasonal Coho salmon presence is high and building.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the St. Joseph Coho salmon ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -11578,6 +11652,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "nextConditionRefreshAt": "2026-10-01T05:00:00.000Z",
           "runStage": {
             "stage": "beginning",
+            "copyStrategy": "st_joseph_corridor",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -11600,14 +11675,14 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "peakToEndDays": 46
             },
             "label": "Beginning",
-            "headline": "The first Coho salmon are entering the St. Joseph and beginning to move beyond the lower river.",
-            "detail": "New fish should still be weighted toward lower Michigan travel water, while earlier arrivals may already be using Buchanan, Niles, and selective Indiana resting water.",
-            "tip": "Cover a lower-Michigan travel-and-holding sequence first. Move upriver only after direct fish activity, local observations, or established passage supports the change.",
-            "whereToStart": "Start in deep lower-Michigan travel water below Berrien Springs, then compare legal holding water around Buchanan and Niles before making a selective Indiana check.",
+            "headline": "The first Coho salmon are entering the St. Joseph River.",
+            "detail": "New fish remain weighted toward the Lower river; earlier arrivals may be farther upstream.",
+            "tip": "Cover travel water and the first substantial holding areas before moving upstream.",
+            "whereToStart": "Start in the Lower river (St. Joseph harbor–Berrien Springs). Add the Middle river (Berrien Springs–Niles) only after direct fish activity supports the move.",
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -11650,7 +11725,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -11664,9 +11739,9 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "push": {
             "score": 55,
             "label": "Possible",
-            "headline": "The water may support fresh movement, but an aging river reading limits confidence.",
-            "detail": "The river is rising quickly, creating conditions fish often use to move. Water temperature is favorable for fall migration and is cooling sharply. The river has already made a meaningful rise, so that measured response carries the useful movement signal and rainfall adds no separate weight. The latest river-level reading is aging, so confidence is reduced. This Push describes fresh-movement support at Niles only; it does not prove a new wave at the harbor, Berrien Springs, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Do not relocate the trip around this Push read. Begin in established holding water, verify the river at the first access, and add travel lanes only after confirming workable conditions. Use the Niles signal to choose between Niles-area holding water and a lower-Michigan travel-water check; verify Indiana movement directly.",
+            "headline": "Niles water offers some support for fresh movement.",
+            "detail": "Niles flow is rising quickly. Water temperature is favorable for fall migration and is cooling sharply. The Niles reading is aging, so confidence is reduced.",
+            "tip": "Keep Migration Stage’s section primary and add one Niles-area movement check.",
             "reasonCodes": [
               "gauge_stale",
               "push_normal_flow_context",
@@ -11687,14 +11762,14 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               ]
             },
             "rulesVersion": "st-joseph-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 55,
             "label": "Fishable",
             "headline": "The last river reading was fishable, but it is aging and may no longer describe the water accurately.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. Because the latest reading is aging, the river may have changed since it was reported. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river. This flow shape applies to the Niles mainstem reach only; verify the harbor, lower Michigan river, individual tailwaters, and Indiana water directly.",
-            "tip": "Do not choose a reach from this reading alone. Check the water at the first access, and begin only in bank-side water where you can control the entire presentation. Apply this recommendation at Niles; recheck water shape and safe access before carrying it to another St. Joseph section.",
+            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. Because the latest reading is aging, the river may have changed since it was reported. This read applies only to the Niles mainstem reach.",
+            "tip": "Verify the Niles reach directly before choosing presentation water. Verify every other section directly.",
             "reasonCodes": [
               "gauge_stale",
               "ideal_flow_band",
@@ -11708,15 +11783,15 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               ]
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 53,
             "maximum": 100,
             "label": "Moderate",
-            "headline": "Today’s Coho activity outlook is moderate.",
-            "detail": "Some useful factors are present, but the response window is mixed. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Current river behavior is unavailable. Early lake-fresh Coho can remain reactive when measured water temperatures are suitable; this score applies only to fish already in the river. Measured river conditions describe the St. Joseph mainstem at Niles. Water temperature, clarity, hydraulic shape, and presentation conditions can differ in the harbor and lower Michigan river, at individual ladder tailwaters, and through South Bend, Mishawaka, and the Twin Branch reach. One important reading is unavailable or comes from tomorrow’s forecast, so the outlook is kept conservative.",
-            "tip": "Start with 5–9 AM. If the sky changes from the forecast, favor the darkest practical window. Apply this response window at Niles; verify temperature, clarity, flow shape, and legal access again before carrying it to another St. Joseph section.",
+            "headline": "Today’s Niles Coho responsiveness is moderate.",
+            "detail": "Conditions offer mixed support for Coho responsiveness. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Moderate confidence reflects missing or forecast inputs; river measurements still represent only Niles.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify other sections directly.",
             "reasonCodes": [
               "activity_confidence_moderate",
               "activity_today",
@@ -11768,10 +11843,13 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 47,
+            "displayScore": 45,
+            "scoreIsApproximate": true,
             "stage": "beginning",
             "maximum": 100,
             "riverCeiling": 70,
@@ -11780,14 +11858,14 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "curveDirection": "rising",
             "winterHoldingContext": false,
             "label": "High presence",
-            "headline": "Coho salmon are likely present through more dependable river sections as seasonal presence builds toward its strongest point.",
-            "detail": "Seasonal presence is usually elevated relative to the rest of the season, with more fish expected to enter and become established through a broad part of the accessible river. This is a seasonal estimate, not a live fish count. This seasonal presence applies to the accessible St. Joseph corridor as a whole; it does not claim equal fish numbers at the harbor, Niles, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Treat this as one of the stronger parts of this river's moderate seasonal opportunity. Give each stop a complete pass, but do not mistake this seasonal estimate for a live fish count. Use Migration Stage to choose the specific St. Joseph section, then verify that water directly.",
+            "headline": "Seasonal Coho salmon presence is high and building.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the St. Joseph Coho salmon ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -12041,6 +12119,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "nextConditionRefreshAt": "2026-10-01T05:00:00.000Z",
           "runStage": {
             "stage": "beginning",
+            "copyStrategy": "st_joseph_corridor",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -12063,14 +12142,14 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "peakToEndDays": 46
             },
             "label": "Beginning",
-            "headline": "The first Coho salmon are entering the St. Joseph and beginning to move beyond the lower river.",
-            "detail": "New fish should still be weighted toward lower Michigan travel water, while earlier arrivals may already be using Buchanan, Niles, and selective Indiana resting water.",
-            "tip": "Cover a lower-Michigan travel-and-holding sequence first. Move upriver only after direct fish activity, local observations, or established passage supports the change.",
-            "whereToStart": "Start in deep lower-Michigan travel water below Berrien Springs, then compare legal holding water around Buchanan and Niles before making a selective Indiana check.",
+            "headline": "The first Coho salmon are entering the St. Joseph River.",
+            "detail": "New fish remain weighted toward the Lower river; earlier arrivals may be farther upstream.",
+            "tip": "Cover travel water and the first substantial holding areas before moving upstream.",
+            "whereToStart": "Start in the Lower river (St. Joseph harbor–Berrien Springs). Add the Middle river (Berrien Springs–Niles) only after direct fish activity supports the move.",
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -12113,7 +12192,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -12127,9 +12206,9 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "push": {
             "score": 49,
             "label": "No clear push",
-            "headline": "The river is rising hard, but extreme flow makes this an unreliable fresh-movement read.",
-            "detail": "The river is rising quickly, creating conditions fish often use to move. Overall flow is extremely high. Water temperature is favorable for fall migration and is cooling sharply. Additional rain does not improve the read while the river is already high. This Push describes fresh-movement support at Niles only; it does not prove a new wave at the harbor, Berrien Springs, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Do not chase movement in the main channel. If Fishability remains usable, fish only protected margins, inside turns, and soft current with short controlled presentations. Use the Niles signal to choose between Niles-area holding water and a lower-Michigan travel-water check; verify Indiana movement directly.",
+            "headline": "Extreme Niles flow prevents a dependable fresh-movement signal.",
+            "detail": "Niles flow is rising quickly, while overall flow is extreme. Water temperature is favorable for fall migration and is cooling sharply. Rain adds no support while Niles flow is already high.",
+            "tip": "Keep Migration Stage’s section primary. Do not shift sections from this Niles read.",
             "reasonCodes": [
               "gauge_fresh",
               "push_severe_high_flow_context",
@@ -12150,14 +12229,14 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               ]
             },
             "rulesVersion": "st-joseph-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 0,
             "label": "Poor",
             "headline": "The river is blown out and still rising fast, so normal fishing water is not dependable.",
-            "detail": "Excessive flow is overwhelming normal holding water and making access and presentation unreliable. The fast rise is forcing usable fishing water out of the main flow and into the slowest protected margins. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river. This flow shape applies to the Niles mainstem reach only; verify the harbor, lower Michigan river, individual tailwaters, and Indiana water directly.",
-            "tip": "Choose a lower-water day for the better fishing opportunity. If you fish now, stay tight to protected banks, slow inside turns, and the downstream side of major current breaks; keep presentations short and leave the main flow alone. Apply this recommendation at Niles; recheck water shape and safe access before carrying it to another St. Joseph section.",
+            "detail": "Excessive flow is overwhelming normal holding water and making access and presentation unreliable. The fast rise is forcing usable fishing water out of the main flow and into the slowest protected margins. This read applies only to the Niles mainstem reach.",
+            "tip": "Choose another day and verify current conditions through authoritative local sources. Verify every other section directly.",
             "reasonCodes": [
               "gauge_fresh",
               "blown_out_flow_band",
@@ -12170,15 +12249,15 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 20,
             "maximum": 100,
             "label": "Reserved",
-            "headline": "Today’s Coho activity outlook is reserved.",
-            "detail": "Fish may respond selectively, with important environmental limitations. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: The river level or its recent change is less favorable. Early lake-fresh Coho can remain reactive when measured water temperatures are suitable; this score applies only to fish already in the river. Measured river conditions describe the St. Joseph mainstem at Niles. Water temperature, clarity, hydraulic shape, and presentation conditions can differ in the harbor and lower Michigan river, at individual ladder tailwaters, and through South Bend, Mishawaka, and the Twin Branch reach. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
-            "tip": "Start with 5–9 AM. If the sky changes from the forecast, favor the darkest practical window. Apply this response window at Niles; verify temperature, clarity, flow shape, and legal access again before carrying it to another St. Joseph section.",
+            "headline": "Today’s Niles Coho responsiveness is reserved.",
+            "detail": "Coho may respond selectively under current limitations. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Flow and temperature represent only the Niles mainstem reach.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify other sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -12231,10 +12310,13 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 47,
+            "displayScore": 45,
+            "scoreIsApproximate": true,
             "stage": "beginning",
             "maximum": 100,
             "riverCeiling": 70,
@@ -12243,14 +12325,14 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "curveDirection": "rising",
             "winterHoldingContext": false,
             "label": "High presence",
-            "headline": "Coho salmon are likely present through more dependable river sections as seasonal presence builds toward its strongest point.",
-            "detail": "Seasonal presence is usually elevated relative to the rest of the season, with more fish expected to enter and become established through a broad part of the accessible river. This is a seasonal estimate, not a live fish count. This seasonal presence applies to the accessible St. Joseph corridor as a whole; it does not claim equal fish numbers at the harbor, Niles, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Treat this as one of the stronger parts of this river's moderate seasonal opportunity. Give each stop a complete pass, but do not mistake this seasonal estimate for a live fish count. Use Migration Stage to choose the specific St. Joseph section, then verify that water directly.",
+            "headline": "Seasonal Coho salmon presence is high and building.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the St. Joseph Coho salmon ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -12504,6 +12586,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "nextConditionRefreshAt": "2026-10-01T05:00:00.000Z",
           "runStage": {
             "stage": "beginning",
+            "copyStrategy": "st_joseph_corridor",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -12526,14 +12609,14 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "peakToEndDays": 46
             },
             "label": "Beginning",
-            "headline": "The first Coho salmon are entering the St. Joseph and beginning to move beyond the lower river.",
-            "detail": "New fish should still be weighted toward lower Michigan travel water, while earlier arrivals may already be using Buchanan, Niles, and selective Indiana resting water.",
-            "tip": "Cover a lower-Michigan travel-and-holding sequence first. Move upriver only after direct fish activity, local observations, or established passage supports the change.",
-            "whereToStart": "Start in deep lower-Michigan travel water below Berrien Springs, then compare legal holding water around Buchanan and Niles before making a selective Indiana check.",
+            "headline": "The first Coho salmon are entering the St. Joseph River.",
+            "detail": "New fish remain weighted toward the Lower river; earlier arrivals may be farther upstream.",
+            "tip": "Cover travel water and the first substantial holding areas before moving upstream.",
+            "whereToStart": "Start in the Lower river (St. Joseph harbor–Berrien Springs). Add the Middle river (Berrien Springs–Niles) only after direct fish activity supports the move.",
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -12576,7 +12659,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -12597,7 +12680,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "gauge_missing"
             ],
             "rulesVersion": "st-joseph-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": null,
@@ -12609,15 +12692,15 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "gauge_missing"
             ],
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 51,
             "maximum": 100,
             "label": "Moderate",
-            "headline": "Today’s Coho activity outlook is moderate.",
-            "detail": "Some useful factors are present, but the response window is mixed. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Current river behavior is unavailable. Early lake-fresh Coho can remain reactive when measured water temperatures are suitable; this score applies only to fish already in the river. Measured river conditions describe the St. Joseph mainstem at Niles. Water temperature, clarity, hydraulic shape, and presentation conditions can differ in the harbor and lower Michigan river, at individual ladder tailwaters, and through South Bend, Mishawaka, and the Twin Branch reach. One important reading is unavailable or comes from tomorrow’s forecast, so the outlook is kept conservative.",
-            "tip": "Start with 5–9 AM. If the sky changes from the forecast, favor the darkest practical window. Apply this response window at Niles; verify temperature, clarity, flow shape, and legal access again before carrying it to another St. Joseph section.",
+            "headline": "Today’s Niles Coho responsiveness is moderate.",
+            "detail": "Conditions offer mixed support for Coho responsiveness. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Moderate confidence reflects missing or forecast inputs; river measurements still represent only Niles.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify other sections directly.",
             "reasonCodes": [
               "activity_confidence_moderate",
               "activity_today",
@@ -12669,10 +12752,13 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 47,
+            "displayScore": 45,
+            "scoreIsApproximate": true,
             "stage": "beginning",
             "maximum": 100,
             "riverCeiling": 70,
@@ -12681,14 +12767,14 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "curveDirection": "rising",
             "winterHoldingContext": false,
             "label": "High presence",
-            "headline": "Coho salmon are likely present through more dependable river sections as seasonal presence builds toward its strongest point.",
-            "detail": "Seasonal presence is usually elevated relative to the rest of the season, with more fish expected to enter and become established through a broad part of the accessible river. This is a seasonal estimate, not a live fish count. This seasonal presence applies to the accessible St. Joseph corridor as a whole; it does not claim equal fish numbers at the harbor, Niles, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Treat this as one of the stronger parts of this river's moderate seasonal opportunity. Give each stop a complete pass, but do not mistake this seasonal estimate for a live fish count. Use Migration Stage to choose the specific St. Joseph section, then verify that water directly.",
+            "headline": "Seasonal Coho salmon presence is high and building.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the St. Joseph Coho salmon ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": null,
           "weather": {
@@ -12932,6 +13018,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "nextConditionRefreshAt": "2026-10-01T05:00:00.000Z",
           "runStage": {
             "stage": "beginning",
+            "copyStrategy": "st_joseph_corridor",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -12954,14 +13041,14 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "peakToEndDays": 46
             },
             "label": "Beginning",
-            "headline": "The first Coho salmon are entering the St. Joseph and beginning to move beyond the lower river.",
-            "detail": "New fish should still be weighted toward lower Michigan travel water, while earlier arrivals may already be using Buchanan, Niles, and selective Indiana resting water.",
-            "tip": "Cover a lower-Michigan travel-and-holding sequence first. Move upriver only after direct fish activity, local observations, or established passage supports the change.",
-            "whereToStart": "Start in deep lower-Michigan travel water below Berrien Springs, then compare legal holding water around Buchanan and Niles before making a selective Indiana check.",
+            "headline": "The first Coho salmon are entering the St. Joseph River.",
+            "detail": "New fish remain weighted toward the Lower river; earlier arrivals may be farther upstream.",
+            "tip": "Cover travel water and the first substantial holding areas before moving upstream.",
+            "whereToStart": "Start in the Lower river (St. Joseph harbor–Berrien Springs). Add the Middle river (Berrien Springs–Niles) only after direct fish activity supports the move.",
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -13004,7 +13091,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -13026,14 +13113,14 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "temperature_unavailable"
             ],
             "rulesVersion": "st-joseph-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 93,
             "label": "Excellent",
             "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river. This flow shape applies to the Niles mainstem reach only; verify the harbor, lower Michigan river, individual tailwaters, and Indiana water directly.",
-            "tip": "Begin on the primary travel lane feeding deep holding water. Work each hole from its head through the inside seam and tail, then keep moving until fish establish a pattern. Apply this recommendation at Niles; recheck water shape and safe access before carrying it to another St. Joseph section.",
+            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. This read applies only to the Niles mainstem reach.",
+            "tip": "Cover readable seams and holding water with a controlled presentation. Verify every other section directly.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band"
@@ -13044,15 +13131,15 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 53,
             "maximum": 100,
             "label": "Moderate",
-            "headline": "Today’s Coho activity outlook is moderate.",
-            "detail": "Some useful factors are present, but the response window is mixed. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Measured water temperature is unavailable. Early lake-fresh Coho can remain reactive when measured water temperatures are suitable; this score applies only to fish already in the river. Measured river conditions describe the St. Joseph mainstem at Niles. Water temperature, clarity, hydraulic shape, and presentation conditions can differ in the harbor and lower Michigan river, at individual ladder tailwaters, and through South Bend, Mishawaka, and the Twin Branch reach. One important reading is unavailable or comes from tomorrow’s forecast, so the outlook is kept conservative.",
-            "tip": "Start with 5–9 AM. If the sky changes from the forecast, favor the darkest practical window. Apply this response window at Niles; verify temperature, clarity, flow shape, and legal access again before carrying it to another St. Joseph section.",
+            "headline": "Today’s Niles Coho responsiveness is moderate.",
+            "detail": "Conditions offer mixed support for Coho responsiveness. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Moderate confidence reflects missing or forecast inputs; river measurements still represent only Niles.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify other sections directly.",
             "reasonCodes": [
               "activity_confidence_moderate",
               "activity_today",
@@ -13104,10 +13191,13 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 47,
+            "displayScore": 45,
+            "scoreIsApproximate": true,
             "stage": "beginning",
             "maximum": 100,
             "riverCeiling": 70,
@@ -13116,14 +13206,14 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "curveDirection": "rising",
             "winterHoldingContext": false,
             "label": "High presence",
-            "headline": "Coho salmon are likely present through more dependable river sections as seasonal presence builds toward its strongest point.",
-            "detail": "Seasonal presence is usually elevated relative to the rest of the season, with more fish expected to enter and become established through a broad part of the accessible river. This is a seasonal estimate, not a live fish count. This seasonal presence applies to the accessible St. Joseph corridor as a whole; it does not claim equal fish numbers at the harbor, Niles, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Treat this as one of the stronger parts of this river's moderate seasonal opportunity. Give each stop a complete pass, but do not mistake this seasonal estimate for a live fish count. Use Migration Stage to choose the specific St. Joseph section, then verify that water directly.",
+            "headline": "Seasonal Coho salmon presence is high and building.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the St. Joseph Coho salmon ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -13360,6 +13450,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "nextConditionRefreshAt": "2026-08-16T05:00:00.000Z",
           "runStage": {
             "stage": "pre_run",
+            "copyStrategy": "st_joseph_corridor",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -13382,14 +13473,14 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "peakToEndDays": 46
             },
             "label": "Before migration",
-            "headline": "Coho salmon have not begun their dependable St. Joseph River migration.",
-            "detail": "The seasonal calendar still points to Lake Michigan, the harbor, and the river mouth—not an established inland opportunity.",
-            "tip": "Keep the trip lakeward and return when staging monitoring begins. Do not let rain or one isolated river fish turn into a corridor-wide claim.",
-            "whereToStart": "Keep the search in Lake Michigan, the harbor, and river-mouth water until river staging begins.",
+            "headline": "Coho salmon have not started their main St. Joseph River run.",
+            "detail": "The river-entry window has not opened yet. An isolated river fish would be an early exception.",
+            "tip": "Keep the trip lakeward and return when staging monitoring begins.",
+            "whereToStart": "Stay with Lake Michigan, the St. Joseph harbor, and the river mouth.",
             "reasonCodes": [
               "stage_pre_run"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Not monitoring yet",
@@ -13414,7 +13505,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "conditions_monitoring_inactive"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -13435,14 +13526,14 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "push_tracking_not_started"
             ],
             "rulesVersion": "st-joseph-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 60,
             "label": "Fishable",
             "headline": "The river is fishable, but lower water leaves less cover and less room for error.",
-            "detail": "Water is lower than ideal but still workable, with less depth and cover across the river. The lower flow is holding steady, so its limited depth and cover should remain consistent. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river. This flow shape applies to the Niles mainstem reach only; verify the harbor, lower Michigan river, individual tailwaters, and Indiana water directly.",
-            "tip": "Start with the deepest connected holding water, then fish shaded outside bends and cover. Approach quietly and make the first pass count. Apply this recommendation at Niles; recheck water shape and safe access before carrying it to another St. Joseph section.",
+            "detail": "Water is lower than ideal but still workable, with less depth and cover across the river. The lower flow is holding steady, so its limited depth and cover should remain consistent. This read applies only to the Niles mainstem reach.",
+            "tip": "Use the deepest connected water and keep disturbance low. Verify every other section directly.",
             "reasonCodes": [
               "gauge_fresh",
               "low_flow_band"
@@ -13453,11 +13544,13 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": null,
           "fishInRiver": {
             "score": 0,
+            "displayScore": 0,
+            "scoreIsApproximate": false,
             "stage": "pre_run",
             "maximum": 100,
             "riverCeiling": 70,
@@ -13466,14 +13559,14 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "curveDirection": "outside",
             "winterHoldingContext": false,
             "label": "Not expected yet",
-            "headline": "A dependable presence of Coho salmon is not expected in the river yet.",
-            "detail": "Most Coho salmon are not expected to have entered the river in dependable numbers. Any fish already present would be early exceptions. This seasonal presence applies to the accessible St. Joseph corridor as a whole; it does not claim equal fish numbers at the harbor, Niles, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Treat this as no dependable in-river opportunity yet. Keep expectations at zero, and do not interpret an isolated early fish as evidence of dependable river presence. Use Migration Stage to choose the specific St. Joseph section, then verify that water directly.",
+            "headline": "Dependable Coho salmon presence is not expected in the St. Joseph yet.",
+            "detail": "The seasonal estimate remains at zero. Any river fish would be an early exception.",
+            "tip": "Use Migration Stage for harbor and river-entry context.",
             "reasonCodes": [
               "stage_pre_run",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -13726,6 +13819,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "nextConditionRefreshAt": "2026-08-16T05:00:00.000Z",
           "runStage": {
             "stage": "pre_run",
+            "copyStrategy": "st_joseph_corridor",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -13748,14 +13842,14 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "peakToEndDays": 46
             },
             "label": "Before migration",
-            "headline": "Coho salmon have not begun their dependable St. Joseph River migration.",
-            "detail": "The seasonal calendar still points to Lake Michigan, the harbor, and the river mouth—not an established inland opportunity.",
-            "tip": "Keep the trip lakeward and return when staging monitoring begins. Do not let rain or one isolated river fish turn into a corridor-wide claim.",
-            "whereToStart": "Keep the search in Lake Michigan, the harbor, and river-mouth water until river staging begins.",
+            "headline": "Coho salmon have not started their main St. Joseph River run.",
+            "detail": "The river-entry window has not opened yet. An isolated river fish would be an early exception.",
+            "tip": "Keep the trip lakeward and return when staging monitoring begins.",
+            "whereToStart": "Stay with Lake Michigan, the St. Joseph harbor, and the river mouth.",
             "reasonCodes": [
               "stage_pre_run"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Not monitoring yet",
@@ -13780,7 +13874,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "conditions_monitoring_inactive"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -13801,14 +13895,14 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "push_tracking_not_started"
             ],
             "rulesVersion": "st-joseph-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 80,
             "label": "Good",
             "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. Depth and current are changing enough to move the most controllable presentations toward inside seams and current breaks. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river. This flow shape applies to the Niles mainstem reach only; verify the harbor, lower Michigan river, individual tailwaters, and Indiana water directly.",
-            "tip": "Move off the center lane. Work inside seams, the downstream side of current breaks, and the first deep resting pocket with short controlled presentations. Apply this recommendation at Niles; recheck water shape and safe access before carrying it to another St. Joseph section.",
+            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. Depth and current are changing enough to move the most controllable presentations toward inside seams and current breaks. This read applies only to the Niles mainstem reach.",
+            "tip": "Cover readable seams and holding water with a controlled presentation. Verify every other section directly.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band"
@@ -13819,11 +13913,13 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": null,
           "fishInRiver": {
             "score": 0,
+            "displayScore": 0,
+            "scoreIsApproximate": false,
             "stage": "pre_run",
             "maximum": 100,
             "riverCeiling": 70,
@@ -13832,14 +13928,14 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "curveDirection": "outside",
             "winterHoldingContext": false,
             "label": "Not expected yet",
-            "headline": "A dependable presence of Coho salmon is not expected in the river yet.",
-            "detail": "Most Coho salmon are not expected to have entered the river in dependable numbers. Any fish already present would be early exceptions. This seasonal presence applies to the accessible St. Joseph corridor as a whole; it does not claim equal fish numbers at the harbor, Niles, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Treat this as no dependable in-river opportunity yet. Keep expectations at zero, and do not interpret an isolated early fish as evidence of dependable river presence. Use Migration Stage to choose the specific St. Joseph section, then verify that water directly.",
+            "headline": "Dependable Coho salmon presence is not expected in the St. Joseph yet.",
+            "detail": "The seasonal estimate remains at zero. Any river fish would be an early exception.",
+            "tip": "Use Migration Stage for harbor and river-entry context.",
             "reasonCodes": [
               "stage_pre_run",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -14098,6 +14194,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "nextConditionRefreshAt": "2026-08-16T05:00:00.000Z",
           "runStage": {
             "stage": "pre_run",
+            "copyStrategy": "st_joseph_corridor",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -14120,14 +14217,14 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "peakToEndDays": 46
             },
             "label": "Before migration",
-            "headline": "Coho salmon have not begun their dependable St. Joseph River migration.",
-            "detail": "The seasonal calendar still points to Lake Michigan, the harbor, and the river mouth—not an established inland opportunity.",
-            "tip": "Keep the trip lakeward and return when staging monitoring begins. Do not let rain or one isolated river fish turn into a corridor-wide claim.",
-            "whereToStart": "Keep the search in Lake Michigan, the harbor, and river-mouth water until river staging begins.",
+            "headline": "Coho salmon have not started their main St. Joseph River run.",
+            "detail": "The river-entry window has not opened yet. An isolated river fish would be an early exception.",
+            "tip": "Keep the trip lakeward and return when staging monitoring begins.",
+            "whereToStart": "Stay with Lake Michigan, the St. Joseph harbor, and the river mouth.",
             "reasonCodes": [
               "stage_pre_run"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Not monitoring yet",
@@ -14152,7 +14249,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "conditions_monitoring_inactive"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -14173,14 +14270,14 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "push_tracking_not_started"
             ],
             "rulesVersion": "st-joseph-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 80,
             "label": "Good",
             "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. Depth and current are changing enough to move the most controllable presentations toward inside seams and current breaks. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river. This flow shape applies to the Niles mainstem reach only; verify the harbor, lower Michigan river, individual tailwaters, and Indiana water directly.",
-            "tip": "Move off the center lane. Work inside seams, the downstream side of current breaks, and the first deep resting pocket with short controlled presentations. Apply this recommendation at Niles; recheck water shape and safe access before carrying it to another St. Joseph section.",
+            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. Depth and current are changing enough to move the most controllable presentations toward inside seams and current breaks. This read applies only to the Niles mainstem reach.",
+            "tip": "Cover readable seams and holding water with a controlled presentation. Verify every other section directly.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band"
@@ -14191,11 +14288,13 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": null,
           "fishInRiver": {
             "score": 0,
+            "displayScore": 0,
+            "scoreIsApproximate": false,
             "stage": "pre_run",
             "maximum": 100,
             "riverCeiling": 70,
@@ -14204,14 +14303,14 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "curveDirection": "outside",
             "winterHoldingContext": false,
             "label": "Not expected yet",
-            "headline": "A dependable presence of Coho salmon is not expected in the river yet.",
-            "detail": "Most Coho salmon are not expected to have entered the river in dependable numbers. Any fish already present would be early exceptions. This seasonal presence applies to the accessible St. Joseph corridor as a whole; it does not claim equal fish numbers at the harbor, Niles, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Treat this as no dependable in-river opportunity yet. Keep expectations at zero, and do not interpret an isolated early fish as evidence of dependable river presence. Use Migration Stage to choose the specific St. Joseph section, then verify that water directly.",
+            "headline": "Dependable Coho salmon presence is not expected in the St. Joseph yet.",
+            "detail": "The seasonal estimate remains at zero. Any river fish would be an early exception.",
+            "tip": "Use Migration Stage for harbor and river-entry context.",
             "reasonCodes": [
               "stage_pre_run",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -14470,6 +14569,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "nextConditionRefreshAt": "2026-10-01T05:00:00.000Z",
           "runStage": {
             "stage": "beginning",
+            "copyStrategy": "st_joseph_corridor",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -14492,14 +14592,14 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "peakToEndDays": 46
             },
             "label": "Beginning",
-            "headline": "The first Coho salmon are entering the St. Joseph and beginning to move beyond the lower river.",
-            "detail": "New fish should still be weighted toward lower Michigan travel water, while earlier arrivals may already be using Buchanan, Niles, and selective Indiana resting water.",
-            "tip": "Cover a lower-Michigan travel-and-holding sequence first. Move upriver only after direct fish activity, local observations, or established passage supports the change.",
-            "whereToStart": "Start in deep lower-Michigan travel water below Berrien Springs, then compare legal holding water around Buchanan and Niles before making a selective Indiana check.",
+            "headline": "The first Coho salmon are entering the St. Joseph River.",
+            "detail": "New fish remain weighted toward the Lower river; earlier arrivals may be farther upstream.",
+            "tip": "Cover travel water and the first substantial holding areas before moving upstream.",
+            "whereToStart": "Start in the Lower river (St. Joseph harbor–Berrien Springs). Add the Middle river (Berrien Springs–Niles) only after direct fish activity supports the move.",
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -14542,7 +14642,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -14556,9 +14656,9 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "push": {
             "score": 25,
             "label": "No clear push",
-            "headline": "Today's water does not show a clear signal for a fresh wave of fish.",
-            "detail": "The river is holding steady with no meaningful rise yet. Overall flow remains low. Water temperature is favorable for fall migration and is relatively steady. Recent weather estimates indicate very little rain around the river. This Push describes fresh-movement support at Niles only; it does not prove a new wave at the harbor, Berrien Springs, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Fish established holding water from the head through the inside seam and tail. Do not spend the day racing between lower travel lanes for a wave the water does not support. Use the Niles signal to choose between Niles-area holding water and a lower-Michigan travel-water check; verify Indiana movement directly.",
+            "headline": "Niles water does not show a clear fresh-movement signal.",
+            "detail": "Niles flow is steady without a meaningful rise, while overall flow remains low. Water temperature is favorable for fall migration and is relatively steady. Recent watershed weather shows little rain.",
+            "tip": "Keep Migration Stage’s section primary. Do not shift sections from this Niles read.",
             "reasonCodes": [
               "gauge_fresh",
               "push_low_flow_context",
@@ -14577,14 +14677,14 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 40,
             "label": "Tough",
             "headline": "The river is fishable, but very low water will make fish easier to disturb and productive water harder to find.",
-            "detail": "Water is unusually low, reducing cover and concentrating the best depth into fewer places. The low water is holding rather than refilling, so the few deeper slots should remain easy to identify. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river. This flow shape applies to the Niles mainstem reach only; verify the harbor, lower Michigan river, individual tailwaters, and Indiana water directly.",
-            "tip": "Fish first or last light. Begin at the deepest shaded holes and slots, approach quietly, and keep foot traffic out of shallow travel lanes. Apply this recommendation at Niles; recheck water shape and safe access before carrying it to another St. Joseph section.",
+            "detail": "Water is unusually low, reducing cover and concentrating the best depth into fewer places. The low water is holding rather than refilling, so the few deeper slots should remain easy to identify. This read applies only to the Niles mainstem reach.",
+            "tip": "Use the deepest connected water and keep disturbance low. Verify every other section directly.",
             "reasonCodes": [
               "gauge_fresh",
               "very_low_flow_band",
@@ -14596,15 +14696,15 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 68,
             "maximum": 100,
             "label": "Active",
-            "headline": "Today’s Coho activity outlook is active.",
-            "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: The river level or its recent change is less favorable. Early lake-fresh Coho can remain reactive when measured water temperatures are suitable; this score applies only to fish already in the river. Measured river conditions describe the St. Joseph mainstem at Niles. Water temperature, clarity, hydraulic shape, and presentation conditions can differ in the harbor and lower Michigan river, at individual ladder tailwaters, and through South Bend, Mishawaka, and the Twin Branch reach. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
-            "tip": "Start with 5–9 AM. If the sky changes from the forecast, favor the darkest practical window. Apply this response window at Niles; verify temperature, clarity, flow shape, and legal access again before carrying it to another St. Joseph section.",
+            "headline": "Today’s Niles Coho responsiveness is active.",
+            "detail": "Conditions support a meaningful Coho response. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Flow and temperature represent only the Niles mainstem reach.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify other sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -14656,10 +14756,13 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 47,
+            "displayScore": 45,
+            "scoreIsApproximate": true,
             "stage": "beginning",
             "maximum": 100,
             "riverCeiling": 70,
@@ -14668,14 +14771,14 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "curveDirection": "rising",
             "winterHoldingContext": false,
             "label": "High presence",
-            "headline": "Coho salmon are likely present through more dependable river sections as seasonal presence builds toward its strongest point.",
-            "detail": "Seasonal presence is usually elevated relative to the rest of the season, with more fish expected to enter and become established through a broad part of the accessible river. This is a seasonal estimate, not a live fish count. This seasonal presence applies to the accessible St. Joseph corridor as a whole; it does not claim equal fish numbers at the harbor, Niles, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Treat this as one of the stronger parts of this river's moderate seasonal opportunity. Give each stop a complete pass, but do not mistake this seasonal estimate for a live fish count. Use Migration Stage to choose the specific St. Joseph section, then verify that water directly.",
+            "headline": "Seasonal Coho salmon presence is high and building.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the St. Joseph Coho salmon ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -14935,6 +15038,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "nextConditionRefreshAt": "2026-10-01T05:00:00.000Z",
           "runStage": {
             "stage": "beginning",
+            "copyStrategy": "st_joseph_corridor",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -14957,14 +15061,14 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "peakToEndDays": 46
             },
             "label": "Beginning",
-            "headline": "The first Coho salmon are entering the St. Joseph and beginning to move beyond the lower river.",
-            "detail": "New fish should still be weighted toward lower Michigan travel water, while earlier arrivals may already be using Buchanan, Niles, and selective Indiana resting water.",
-            "tip": "Cover a lower-Michigan travel-and-holding sequence first. Move upriver only after direct fish activity, local observations, or established passage supports the change.",
-            "whereToStart": "Start in deep lower-Michigan travel water below Berrien Springs, then compare legal holding water around Buchanan and Niles before making a selective Indiana check.",
+            "headline": "The first Coho salmon are entering the St. Joseph River.",
+            "detail": "New fish remain weighted toward the Lower river; earlier arrivals may be farther upstream.",
+            "tip": "Cover travel water and the first substantial holding areas before moving upstream.",
+            "whereToStart": "Start in the Lower river (St. Joseph harbor–Berrien Springs). Add the Middle river (Berrien Springs–Niles) only after direct fish activity supports the move.",
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -15007,7 +15111,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -15021,9 +15125,9 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "push": {
             "score": 30,
             "label": "No clear push",
-            "headline": "Today's water does not show a clear signal for a fresh wave of fish.",
-            "detail": "The river is holding steady with no meaningful rise yet. Water temperature is favorable for fall migration and is relatively steady. Recent weather estimates indicate very little rain around the river. This Push describes fresh-movement support at Niles only; it does not prove a new wave at the harbor, Berrien Springs, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Fish established holding water from the head through the inside seam and tail. Do not spend the day racing between lower travel lanes for a wave the water does not support. Use the Niles signal to choose between Niles-area holding water and a lower-Michigan travel-water check; verify Indiana movement directly.",
+            "headline": "Niles water does not show a clear fresh-movement signal.",
+            "detail": "Niles flow is steady without a meaningful rise. Water temperature is favorable for fall migration and is relatively steady. Recent watershed weather shows little rain.",
+            "tip": "Keep Migration Stage’s section primary. Do not shift sections from this Niles read.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
@@ -15042,14 +15146,14 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 60,
             "label": "Fishable",
             "headline": "The river is fishable, but lower water leaves less cover and less room for error.",
-            "detail": "Water is lower than ideal but still workable, with less depth and cover across the river. The lower flow is holding steady, so its limited depth and cover should remain consistent. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river. This flow shape applies to the Niles mainstem reach only; verify the harbor, lower Michigan river, individual tailwaters, and Indiana water directly.",
-            "tip": "Start with the deepest connected holding water, then fish shaded outside bends and cover. Approach quietly and make the first pass count. Apply this recommendation at Niles; recheck water shape and safe access before carrying it to another St. Joseph section.",
+            "detail": "Water is lower than ideal but still workable, with less depth and cover across the river. The lower flow is holding steady, so its limited depth and cover should remain consistent. This read applies only to the Niles mainstem reach.",
+            "tip": "Use the deepest connected water and keep disturbance low. Verify every other section directly.",
             "reasonCodes": [
               "gauge_fresh",
               "low_flow_band"
@@ -15060,15 +15164,15 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 72,
             "maximum": 100,
             "label": "Active",
-            "headline": "Today’s Coho activity outlook is active.",
-            "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. Early lake-fresh Coho can remain reactive when measured water temperatures are suitable; this score applies only to fish already in the river. Measured river conditions describe the St. Joseph mainstem at Niles. Water temperature, clarity, hydraulic shape, and presentation conditions can differ in the harbor and lower Michigan river, at individual ladder tailwaters, and through South Bend, Mishawaka, and the Twin Branch reach. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
-            "tip": "Start with 5–9 AM. If the sky changes from the forecast, favor the darkest practical window. Apply this response window at Niles; verify temperature, clarity, flow shape, and legal access again before carrying it to another St. Joseph section.",
+            "headline": "Today’s Niles Coho responsiveness is active.",
+            "detail": "Conditions support a meaningful Coho response. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Flow and temperature represent only the Niles mainstem reach.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify other sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -15120,10 +15224,13 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 47,
+            "displayScore": 45,
+            "scoreIsApproximate": true,
             "stage": "beginning",
             "maximum": 100,
             "riverCeiling": 70,
@@ -15132,14 +15239,14 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "curveDirection": "rising",
             "winterHoldingContext": false,
             "label": "High presence",
-            "headline": "Coho salmon are likely present through more dependable river sections as seasonal presence builds toward its strongest point.",
-            "detail": "Seasonal presence is usually elevated relative to the rest of the season, with more fish expected to enter and become established through a broad part of the accessible river. This is a seasonal estimate, not a live fish count. This seasonal presence applies to the accessible St. Joseph corridor as a whole; it does not claim equal fish numbers at the harbor, Niles, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Treat this as one of the stronger parts of this river's moderate seasonal opportunity. Give each stop a complete pass, but do not mistake this seasonal estimate for a live fish count. Use Migration Stage to choose the specific St. Joseph section, then verify that water directly.",
+            "headline": "Seasonal Coho salmon presence is high and building.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the St. Joseph Coho salmon ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -15393,6 +15500,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "nextConditionRefreshAt": "2026-10-01T05:00:00.000Z",
           "runStage": {
             "stage": "beginning",
+            "copyStrategy": "st_joseph_corridor",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -15415,14 +15523,14 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "peakToEndDays": 46
             },
             "label": "Beginning",
-            "headline": "The first Coho salmon are entering the St. Joseph and beginning to move beyond the lower river.",
-            "detail": "New fish should still be weighted toward lower Michigan travel water, while earlier arrivals may already be using Buchanan, Niles, and selective Indiana resting water.",
-            "tip": "Cover a lower-Michigan travel-and-holding sequence first. Move upriver only after direct fish activity, local observations, or established passage supports the change.",
-            "whereToStart": "Start in deep lower-Michigan travel water below Berrien Springs, then compare legal holding water around Buchanan and Niles before making a selective Indiana check.",
+            "headline": "The first Coho salmon are entering the St. Joseph River.",
+            "detail": "New fish remain weighted toward the Lower river; earlier arrivals may be farther upstream.",
+            "tip": "Cover travel water and the first substantial holding areas before moving upstream.",
+            "whereToStart": "Start in the Lower river (St. Joseph harbor–Berrien Springs). Add the Middle river (Berrien Springs–Niles) only after direct fish activity supports the move.",
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -15465,7 +15573,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -15479,9 +15587,9 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "push": {
             "score": 25,
             "label": "No clear push",
-            "headline": "The river is rising hard, but extreme flow makes this an unreliable fresh-movement read.",
-            "detail": "The river is holding steady with no meaningful rise yet. Overall flow is extremely high. Water temperature is favorable for fall migration and is relatively steady. Recent weather estimates indicate very little rain around the river. This Push describes fresh-movement support at Niles only; it does not prove a new wave at the harbor, Berrien Springs, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Do not chase movement in the main channel. If Fishability remains usable, fish only protected margins, inside turns, and soft current with short controlled presentations. Use the Niles signal to choose between Niles-area holding water and a lower-Michigan travel-water check; verify Indiana movement directly.",
+            "headline": "Extreme Niles flow prevents a dependable fresh-movement signal.",
+            "detail": "Niles flow is steady without a meaningful rise, while overall flow is extreme. Water temperature is favorable for fall migration and is relatively steady. Recent watershed weather shows little rain.",
+            "tip": "Keep Migration Stage’s section primary. Do not shift sections from this Niles read.",
             "reasonCodes": [
               "gauge_fresh",
               "push_severe_high_flow_context",
@@ -15501,14 +15609,14 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 20,
             "label": "Poor",
             "headline": "The river is too high and unsettled for a dependable fishing recommendation.",
-            "detail": "Excessive flow is overwhelming normal holding water and making access and presentation unreliable. The river is not climbing quickly, but it must fall substantially before normal holding lanes and presentation control return. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river. This flow shape applies to the Niles mainstem reach only; verify the harbor, lower Michigan river, individual tailwaters, and Indiana water directly.",
-            "tip": "Choose a lower-water day for the better fishing opportunity. If you fish now, stay tight to protected banks, slow inside turns, and the downstream side of major current breaks; keep presentations short and leave the main flow alone. Apply this recommendation at Niles; recheck water shape and safe access before carrying it to another St. Joseph section.",
+            "detail": "Excessive flow is overwhelming normal holding water and making access and presentation unreliable. The river is not climbing quickly, but it must fall substantially before normal holding lanes and presentation control return. This read applies only to the Niles mainstem reach.",
+            "tip": "Choose another day and verify current conditions through authoritative local sources. Verify every other section directly.",
             "reasonCodes": [
               "gauge_fresh",
               "blown_out_flow_band",
@@ -15520,15 +15628,15 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 20,
             "maximum": 100,
             "label": "Reserved",
-            "headline": "Today’s Coho activity outlook is reserved.",
-            "detail": "Fish may respond selectively, with important environmental limitations. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: The river level or its recent change is less favorable. Early lake-fresh Coho can remain reactive when measured water temperatures are suitable; this score applies only to fish already in the river. Measured river conditions describe the St. Joseph mainstem at Niles. Water temperature, clarity, hydraulic shape, and presentation conditions can differ in the harbor and lower Michigan river, at individual ladder tailwaters, and through South Bend, Mishawaka, and the Twin Branch reach. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
-            "tip": "Start with 5–9 AM. If the sky changes from the forecast, favor the darkest practical window. Apply this response window at Niles; verify temperature, clarity, flow shape, and legal access again before carrying it to another St. Joseph section.",
+            "headline": "Today’s Niles Coho responsiveness is reserved.",
+            "detail": "Coho may respond selectively under current limitations. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Flow and temperature represent only the Niles mainstem reach.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify other sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -15581,10 +15689,13 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 47,
+            "displayScore": 45,
+            "scoreIsApproximate": true,
             "stage": "beginning",
             "maximum": 100,
             "riverCeiling": 70,
@@ -15593,14 +15704,14 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "curveDirection": "rising",
             "winterHoldingContext": false,
             "label": "High presence",
-            "headline": "Coho salmon are likely present through more dependable river sections as seasonal presence builds toward its strongest point.",
-            "detail": "Seasonal presence is usually elevated relative to the rest of the season, with more fish expected to enter and become established through a broad part of the accessible river. This is a seasonal estimate, not a live fish count. This seasonal presence applies to the accessible St. Joseph corridor as a whole; it does not claim equal fish numbers at the harbor, Niles, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Treat this as one of the stronger parts of this river's moderate seasonal opportunity. Give each stop a complete pass, but do not mistake this seasonal estimate for a live fish count. Use Migration Stage to choose the specific St. Joseph section, then verify that water directly.",
+            "headline": "Seasonal Coho salmon presence is high and building.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the St. Joseph Coho salmon ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -15854,6 +15965,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "nextConditionRefreshAt": "2026-10-01T05:00:00.000Z",
           "runStage": {
             "stage": "beginning",
+            "copyStrategy": "st_joseph_corridor",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -15876,14 +15988,14 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "peakToEndDays": 46
             },
             "label": "Beginning",
-            "headline": "The first Coho salmon are entering the St. Joseph and beginning to move beyond the lower river.",
-            "detail": "New fish should still be weighted toward lower Michigan travel water, while earlier arrivals may already be using Buchanan, Niles, and selective Indiana resting water.",
-            "tip": "Cover a lower-Michigan travel-and-holding sequence first. Move upriver only after direct fish activity, local observations, or established passage supports the change.",
-            "whereToStart": "Start in deep lower-Michigan travel water below Berrien Springs, then compare legal holding water around Buchanan and Niles before making a selective Indiana check.",
+            "headline": "The first Coho salmon are entering the St. Joseph River.",
+            "detail": "New fish remain weighted toward the Lower river; earlier arrivals may be farther upstream.",
+            "tip": "Cover travel water and the first substantial holding areas before moving upstream.",
+            "whereToStart": "Start in the Lower river (St. Joseph harbor–Berrien Springs). Add the Middle river (Berrien Springs–Niles) only after direct fish activity supports the move.",
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -15926,7 +16038,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -15940,9 +16052,9 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "push": {
             "score": 47,
             "label": "No clear push",
-            "headline": "Today's water does not show a clear signal for a fresh wave of fish.",
-            "detail": "The river has started to rise since yesterday. Water temperature is favorable for fall migration and is relatively steady. Recent weather estimates indicate very little rain around the river. This Push describes fresh-movement support at Niles only; it does not prove a new wave at the harbor, Berrien Springs, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Fish established holding water from the head through the inside seam and tail. Do not spend the day racing between lower travel lanes for a wave the water does not support. Use the Niles signal to choose between Niles-area holding water and a lower-Michigan travel-water check; verify Indiana movement directly.",
+            "headline": "Niles water does not show a clear fresh-movement signal.",
+            "detail": "Niles flow has started to rise. Water temperature is favorable for fall migration and is relatively steady. Recent watershed weather shows little rain.",
+            "tip": "Keep Migration Stage’s section primary. Do not shift sections from this Niles read.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
@@ -15960,14 +16072,14 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 88,
             "label": "Excellent",
             "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The early rise is adding pace and depth, with inside seams and the upstream edges of holes changing first. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river. This flow shape applies to the Niles mainstem reach only; verify the harbor, lower Michigan river, individual tailwaters, and Indiana water directly.",
-            "tip": "Begin on the soft inside edge of the primary travel lane, then fish the first deep resting hole above it. Recheck that edge as added depth changes the lane. Apply this recommendation at Niles; recheck water shape and safe access before carrying it to another St. Joseph section.",
+            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The early rise is adding pace and depth, with inside seams and the upstream edges of holes changing first. This read applies only to the Niles mainstem reach.",
+            "tip": "Cover readable seams and holding water with a controlled presentation. Verify every other section directly.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band"
@@ -15978,15 +16090,15 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 74,
             "maximum": 100,
             "label": "Active",
-            "headline": "Today’s Coho activity outlook is active.",
-            "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. Early lake-fresh Coho can remain reactive when measured water temperatures are suitable; this score applies only to fish already in the river. Measured river conditions describe the St. Joseph mainstem at Niles. Water temperature, clarity, hydraulic shape, and presentation conditions can differ in the harbor and lower Michigan river, at individual ladder tailwaters, and through South Bend, Mishawaka, and the Twin Branch reach. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
-            "tip": "Start with 5–9 AM. If the sky changes from the forecast, favor the darkest practical window. Apply this response window at Niles; verify temperature, clarity, flow shape, and legal access again before carrying it to another St. Joseph section.",
+            "headline": "Today’s Niles Coho responsiveness is active.",
+            "detail": "Conditions support a meaningful Coho response. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Flow and temperature represent only the Niles mainstem reach.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify other sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -16038,10 +16150,13 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 47,
+            "displayScore": 45,
+            "scoreIsApproximate": true,
             "stage": "beginning",
             "maximum": 100,
             "riverCeiling": 70,
@@ -16050,14 +16165,14 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "curveDirection": "rising",
             "winterHoldingContext": false,
             "label": "High presence",
-            "headline": "Coho salmon are likely present through more dependable river sections as seasonal presence builds toward its strongest point.",
-            "detail": "Seasonal presence is usually elevated relative to the rest of the season, with more fish expected to enter and become established through a broad part of the accessible river. This is a seasonal estimate, not a live fish count. This seasonal presence applies to the accessible St. Joseph corridor as a whole; it does not claim equal fish numbers at the harbor, Niles, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Treat this as one of the stronger parts of this river's moderate seasonal opportunity. Give each stop a complete pass, but do not mistake this seasonal estimate for a live fish count. Use Migration Stage to choose the specific St. Joseph section, then verify that water directly.",
+            "headline": "Seasonal Coho salmon presence is high and building.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the St. Joseph Coho salmon ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -16311,6 +16426,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "nextConditionRefreshAt": "2026-10-01T05:00:00.000Z",
           "runStage": {
             "stage": "beginning",
+            "copyStrategy": "st_joseph_corridor",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -16333,14 +16449,14 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "peakToEndDays": 46
             },
             "label": "Beginning",
-            "headline": "The first Coho salmon are entering the St. Joseph and beginning to move beyond the lower river.",
-            "detail": "New fish should still be weighted toward lower Michigan travel water, while earlier arrivals may already be using Buchanan, Niles, and selective Indiana resting water.",
-            "tip": "Cover a lower-Michigan travel-and-holding sequence first. Move upriver only after direct fish activity, local observations, or established passage supports the change.",
-            "whereToStart": "Start in deep lower-Michigan travel water below Berrien Springs, then compare legal holding water around Buchanan and Niles before making a selective Indiana check.",
+            "headline": "The first Coho salmon are entering the St. Joseph River.",
+            "detail": "New fish remain weighted toward the Lower river; earlier arrivals may be farther upstream.",
+            "tip": "Cover travel water and the first substantial holding areas before moving upstream.",
+            "whereToStart": "Start in the Lower river (St. Joseph harbor–Berrien Springs). Add the Middle river (Berrien Springs–Niles) only after direct fish activity supports the move.",
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -16383,7 +16499,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -16397,9 +16513,9 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "push": {
             "score": 80,
             "label": "Strong",
-            "headline": "Today's river rise and water temperature strongly support the possibility of a fresh wave moving into the river.",
-            "detail": "The river is rising quickly, creating conditions fish often use to move. Water temperature is favorable for fall migration and is relatively steady. The river has already made a meaningful rise, so that measured response carries the useful movement signal and rainfall adds no separate weight. This Push describes fresh-movement support at Niles only; it does not prove a new wave at the harbor, Berrien Springs, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Begin on lower-river travel lanes and inside seams, then work the first resting holes along that route. Keep moving until fish establish a pattern; the signal still does not prove a wave entered. Use the Niles signal to choose between Niles-area holding water and a lower-Michigan travel-water check; verify Indiana movement directly.",
+            "headline": "Niles water strongly supports possible fresh movement.",
+            "detail": "Niles flow is rising quickly. Water temperature is favorable for fall migration and is relatively steady. Niles already reflects the rain response, so rain adds no extra credit.",
+            "tip": "Use Niles as the movement check, then verify the Lower and Upper river directly.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
@@ -16417,14 +16533,14 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 40,
             "label": "Tough",
             "headline": "The river is rising fast, and usable fishing water is shifting toward slower margins and current breaks.",
-            "detail": "Higher flow is pushing more current through the main channel, but softer edges and protected lanes remain workable. The fast rise is forcing usable fishing water out of the main flow and into the slowest protected margins. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river. This flow shape applies to the Niles mainstem reach only; verify the harbor, lower Michigan river, individual tailwaters, and Indiana water directly.",
-            "tip": "Leave the main channel alone. Fish newly formed soft margins, inside bends, and the downstream side of current breaks with short controlled presentations. Apply this recommendation at Niles; recheck water shape and safe access before carrying it to another St. Joseph section.",
+            "detail": "Higher flow is pushing more current through the main channel, but softer edges and protected lanes remain workable. The fast rise is forcing usable fishing water out of the main flow and into the slowest protected margins. This read applies only to the Niles mainstem reach.",
+            "tip": "Favor protected margins and short controlled presentations. Choose another day if control is not dependable. Verify every other section directly.",
             "reasonCodes": [
               "gauge_fresh",
               "high_fishable_flow_band",
@@ -16438,15 +16554,15 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               ]
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 72,
             "maximum": 100,
             "label": "Active",
-            "headline": "Today’s Coho activity outlook is active.",
-            "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. Early lake-fresh Coho can remain reactive when measured water temperatures are suitable; this score applies only to fish already in the river. Measured river conditions describe the St. Joseph mainstem at Niles. Water temperature, clarity, hydraulic shape, and presentation conditions can differ in the harbor and lower Michigan river, at individual ladder tailwaters, and through South Bend, Mishawaka, and the Twin Branch reach. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
-            "tip": "Start with 5–9 AM. If the sky changes from the forecast, favor the darkest practical window. Apply this response window at Niles; verify temperature, clarity, flow shape, and legal access again before carrying it to another St. Joseph section.",
+            "headline": "Today’s Niles Coho responsiveness is active.",
+            "detail": "Conditions support a meaningful Coho response. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Flow and temperature represent only the Niles mainstem reach.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify other sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -16498,10 +16614,13 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 47,
+            "displayScore": 45,
+            "scoreIsApproximate": true,
             "stage": "beginning",
             "maximum": 100,
             "riverCeiling": 70,
@@ -16510,14 +16629,14 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "curveDirection": "rising",
             "winterHoldingContext": false,
             "label": "High presence",
-            "headline": "Coho salmon are likely present through more dependable river sections as seasonal presence builds toward its strongest point.",
-            "detail": "Seasonal presence is usually elevated relative to the rest of the season, with more fish expected to enter and become established through a broad part of the accessible river. This is a seasonal estimate, not a live fish count. This seasonal presence applies to the accessible St. Joseph corridor as a whole; it does not claim equal fish numbers at the harbor, Niles, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Treat this as one of the stronger parts of this river's moderate seasonal opportunity. Give each stop a complete pass, but do not mistake this seasonal estimate for a live fish count. Use Migration Stage to choose the specific St. Joseph section, then verify that water directly.",
+            "headline": "Seasonal Coho salmon presence is high and building.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the St. Joseph Coho salmon ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -16777,6 +16896,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "nextConditionRefreshAt": "2026-10-01T05:00:00.000Z",
           "runStage": {
             "stage": "beginning",
+            "copyStrategy": "st_joseph_corridor",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -16799,14 +16919,14 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "peakToEndDays": 46
             },
             "label": "Beginning",
-            "headline": "The first Coho salmon are entering the St. Joseph and beginning to move beyond the lower river.",
-            "detail": "New fish should still be weighted toward lower Michigan travel water, while earlier arrivals may already be using Buchanan, Niles, and selective Indiana resting water.",
-            "tip": "Cover a lower-Michigan travel-and-holding sequence first. Move upriver only after direct fish activity, local observations, or established passage supports the change.",
-            "whereToStart": "Start in deep lower-Michigan travel water below Berrien Springs, then compare legal holding water around Buchanan and Niles before making a selective Indiana check.",
+            "headline": "The first Coho salmon are entering the St. Joseph River.",
+            "detail": "New fish remain weighted toward the Lower river; earlier arrivals may be farther upstream.",
+            "tip": "Cover travel water and the first substantial holding areas before moving upstream.",
+            "whereToStart": "Start in the Lower river (St. Joseph harbor–Berrien Springs). Add the Middle river (Berrien Springs–Niles) only after direct fish activity supports the move.",
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -16849,7 +16969,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -16863,9 +16983,9 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "push": {
             "score": 25,
             "label": "No clear push",
-            "headline": "Today's water does not show a clear signal for a fresh wave of fish.",
-            "detail": "There is not enough recent river-level history to tell whether the river is rising or falling. Water temperature is favorable for fall migration and is relatively steady. Recent weather estimates indicate very little rain around the river. Without a dependable river trend, there is no clear Push. This Push describes fresh-movement support at Niles only; it does not prove a new wave at the harbor, Berrien Springs, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Do not relocate the trip around this Push read. Begin in established holding water, verify the river at the first access, and add travel lanes only after confirming workable conditions. Use the Niles signal to choose between Niles-area holding water and a lower-Michigan travel-water check; verify Indiana movement directly.",
+            "headline": "Niles water does not show a clear fresh-movement signal.",
+            "detail": "Niles flow does not have a dependable recent trend. Water temperature is favorable for fall migration and is relatively steady. Without a dependable Niles trend, the read cannot show a clear Push.",
+            "tip": "Keep Migration Stage’s section primary. Do not shift sections from this Niles read.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
@@ -16885,14 +17005,14 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 69,
             "label": "Fishable",
             "headline": "The river appears fishable, but its direction is unclear, so confidence is limited.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. There is not enough recent information to tell whether the river is rising or falling, which lowers confidence in the read. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river. This flow shape applies to the Niles mainstem reach only; verify the harbor, lower Michigan river, individual tailwaters, and Indiana water directly.",
-            "tip": "Start at a bank-side inside bend or soft seam where the full presentation stays under control. Skip faster water until the river's direction is verified. Apply this recommendation at Niles; recheck water shape and safe access before carrying it to another St. Joseph section.",
+            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. There is not enough recent information to tell whether the river is rising or falling, which lowers confidence in the read. This read applies only to the Niles mainstem reach.",
+            "tip": "Verify the Niles reach directly before choosing presentation water. Verify every other section directly.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band",
@@ -16906,15 +17026,15 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               ]
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 77,
             "maximum": 100,
             "label": "Active",
-            "headline": "Today’s Coho activity outlook is active.",
-            "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. Early lake-fresh Coho can remain reactive when measured water temperatures are suitable; this score applies only to fish already in the river. Measured river conditions describe the St. Joseph mainstem at Niles. Water temperature, clarity, hydraulic shape, and presentation conditions can differ in the harbor and lower Michigan river, at individual ladder tailwaters, and through South Bend, Mishawaka, and the Twin Branch reach. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
-            "tip": "Start with 5–9 AM. If the sky changes from the forecast, favor the darkest practical window. Apply this response window at Niles; verify temperature, clarity, flow shape, and legal access again before carrying it to another St. Joseph section.",
+            "headline": "Today’s Niles Coho responsiveness is active.",
+            "detail": "Conditions support a meaningful Coho response. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Flow and temperature represent only the Niles mainstem reach.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify other sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -16966,10 +17086,13 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 47,
+            "displayScore": 45,
+            "scoreIsApproximate": true,
             "stage": "beginning",
             "maximum": 100,
             "riverCeiling": 70,
@@ -16978,14 +17101,14 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "curveDirection": "rising",
             "winterHoldingContext": false,
             "label": "High presence",
-            "headline": "Coho salmon are likely present through more dependable river sections as seasonal presence builds toward its strongest point.",
-            "detail": "Seasonal presence is usually elevated relative to the rest of the season, with more fish expected to enter and become established through a broad part of the accessible river. This is a seasonal estimate, not a live fish count. This seasonal presence applies to the accessible St. Joseph corridor as a whole; it does not claim equal fish numbers at the harbor, Niles, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Treat this as one of the stronger parts of this river's moderate seasonal opportunity. Give each stop a complete pass, but do not mistake this seasonal estimate for a live fish count. Use Migration Stage to choose the specific St. Joseph section, then verify that water directly.",
+            "headline": "Seasonal Coho salmon presence is high and building.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the St. Joseph Coho salmon ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -17239,6 +17362,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "nextConditionRefreshAt": "2026-10-01T05:00:00.000Z",
           "runStage": {
             "stage": "beginning",
+            "copyStrategy": "st_joseph_corridor",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -17261,14 +17385,14 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "peakToEndDays": 46
             },
             "label": "Beginning",
-            "headline": "The first Coho salmon are entering the St. Joseph and beginning to move beyond the lower river.",
-            "detail": "New fish should still be weighted toward lower Michigan travel water, while earlier arrivals may already be using Buchanan, Niles, and selective Indiana resting water.",
-            "tip": "Cover a lower-Michigan travel-and-holding sequence first. Move upriver only after direct fish activity, local observations, or established passage supports the change.",
-            "whereToStart": "Start in deep lower-Michigan travel water below Berrien Springs, then compare legal holding water around Buchanan and Niles before making a selective Indiana check.",
+            "headline": "The first Coho salmon are entering the St. Joseph River.",
+            "detail": "New fish remain weighted toward the Lower river; earlier arrivals may be farther upstream.",
+            "tip": "Cover travel water and the first substantial holding areas before moving upstream.",
+            "whereToStart": "Start in the Lower river (St. Joseph harbor–Berrien Springs). Add the Middle river (Berrien Springs–Niles) only after direct fish activity supports the move.",
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -17311,7 +17435,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -17325,9 +17449,9 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "push": {
             "score": 20,
             "label": "Weak",
-            "headline": "The water may support fresh movement, but an aging river reading limits confidence.",
-            "detail": "The river is holding steady with no meaningful rise yet. Water temperature is favorable for fall migration and is relatively steady. Recent weather estimates indicate very little rain around the river. The latest river-level reading is aging, so confidence is reduced. This Push describes fresh-movement support at Niles only; it does not prove a new wave at the harbor, Berrien Springs, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Do not relocate the trip around this Push read. Begin in established holding water, verify the river at the first access, and add travel lanes only after confirming workable conditions. Use the Niles signal to choose between Niles-area holding water and a lower-Michigan travel-water check; verify Indiana movement directly.",
+            "headline": "Niles water shows little support for fresh movement.",
+            "detail": "Niles flow is steady without a meaningful rise. Water temperature is favorable for fall migration and is relatively steady. The Niles reading is aging, so confidence is reduced.",
+            "tip": "Keep Migration Stage’s section primary. Do not shift sections from this Niles read.",
             "reasonCodes": [
               "gauge_stale",
               "push_normal_flow_context",
@@ -17347,14 +17471,14 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 55,
             "label": "Fishable",
             "headline": "The last river reading was fishable, but it is aging and may no longer describe the water accurately.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. Because the latest reading is aging, the river may have changed since it was reported. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river. This flow shape applies to the Niles mainstem reach only; verify the harbor, lower Michigan river, individual tailwaters, and Indiana water directly.",
-            "tip": "Do not choose a reach from this reading alone. Check the water at the first access, and begin only in bank-side water where you can control the entire presentation. Apply this recommendation at Niles; recheck water shape and safe access before carrying it to another St. Joseph section.",
+            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. Because the latest reading is aging, the river may have changed since it was reported. This read applies only to the Niles mainstem reach.",
+            "tip": "Verify the Niles reach directly before choosing presentation water. Verify every other section directly.",
             "reasonCodes": [
               "gauge_stale",
               "ideal_flow_band",
@@ -17368,15 +17492,15 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               ]
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 51,
             "maximum": 100,
             "label": "Moderate",
-            "headline": "Today’s Coho activity outlook is moderate.",
-            "detail": "Some useful factors are present, but the response window is mixed. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Current river behavior is unavailable. Early lake-fresh Coho can remain reactive when measured water temperatures are suitable; this score applies only to fish already in the river. Measured river conditions describe the St. Joseph mainstem at Niles. Water temperature, clarity, hydraulic shape, and presentation conditions can differ in the harbor and lower Michigan river, at individual ladder tailwaters, and through South Bend, Mishawaka, and the Twin Branch reach. One important reading is unavailable or comes from tomorrow’s forecast, so the outlook is kept conservative.",
-            "tip": "Start with 5–9 AM. If the sky changes from the forecast, favor the darkest practical window. Apply this response window at Niles; verify temperature, clarity, flow shape, and legal access again before carrying it to another St. Joseph section.",
+            "headline": "Today’s Niles Coho responsiveness is moderate.",
+            "detail": "Conditions offer mixed support for Coho responsiveness. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Moderate confidence reflects missing or forecast inputs; river measurements still represent only Niles.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify other sections directly.",
             "reasonCodes": [
               "activity_confidence_moderate",
               "activity_today",
@@ -17428,10 +17552,13 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 47,
+            "displayScore": 45,
+            "scoreIsApproximate": true,
             "stage": "beginning",
             "maximum": 100,
             "riverCeiling": 70,
@@ -17440,14 +17567,14 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "curveDirection": "rising",
             "winterHoldingContext": false,
             "label": "High presence",
-            "headline": "Coho salmon are likely present through more dependable river sections as seasonal presence builds toward its strongest point.",
-            "detail": "Seasonal presence is usually elevated relative to the rest of the season, with more fish expected to enter and become established through a broad part of the accessible river. This is a seasonal estimate, not a live fish count. This seasonal presence applies to the accessible St. Joseph corridor as a whole; it does not claim equal fish numbers at the harbor, Niles, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Treat this as one of the stronger parts of this river's moderate seasonal opportunity. Give each stop a complete pass, but do not mistake this seasonal estimate for a live fish count. Use Migration Stage to choose the specific St. Joseph section, then verify that water directly.",
+            "headline": "Seasonal Coho salmon presence is high and building.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the St. Joseph Coho salmon ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -17701,6 +17828,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "nextConditionRefreshAt": "2026-10-01T05:00:00.000Z",
           "runStage": {
             "stage": "beginning",
+            "copyStrategy": "st_joseph_corridor",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -17723,14 +17851,14 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "peakToEndDays": 46
             },
             "label": "Beginning",
-            "headline": "The first Coho salmon are entering the St. Joseph and beginning to move beyond the lower river.",
-            "detail": "New fish should still be weighted toward lower Michigan travel water, while earlier arrivals may already be using Buchanan, Niles, and selective Indiana resting water.",
-            "tip": "Cover a lower-Michigan travel-and-holding sequence first. Move upriver only after direct fish activity, local observations, or established passage supports the change.",
-            "whereToStart": "Start in deep lower-Michigan travel water below Berrien Springs, then compare legal holding water around Buchanan and Niles before making a selective Indiana check.",
+            "headline": "The first Coho salmon are entering the St. Joseph River.",
+            "detail": "New fish remain weighted toward the Lower river; earlier arrivals may be farther upstream.",
+            "tip": "Cover travel water and the first substantial holding areas before moving upstream.",
+            "whereToStart": "Start in the Lower river (St. Joseph harbor–Berrien Springs). Add the Middle river (Berrien Springs–Niles) only after direct fish activity supports the move.",
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -17773,7 +17901,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -17794,7 +17922,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "gauge_missing"
             ],
             "rulesVersion": "st-joseph-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": null,
@@ -17806,15 +17934,15 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "gauge_missing"
             ],
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 51,
             "maximum": 100,
             "label": "Moderate",
-            "headline": "Today’s Coho activity outlook is moderate.",
-            "detail": "Some useful factors are present, but the response window is mixed. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Current river behavior is unavailable. Early lake-fresh Coho can remain reactive when measured water temperatures are suitable; this score applies only to fish already in the river. Measured river conditions describe the St. Joseph mainstem at Niles. Water temperature, clarity, hydraulic shape, and presentation conditions can differ in the harbor and lower Michigan river, at individual ladder tailwaters, and through South Bend, Mishawaka, and the Twin Branch reach. One important reading is unavailable or comes from tomorrow’s forecast, so the outlook is kept conservative.",
-            "tip": "Start with 5–9 AM. If the sky changes from the forecast, favor the darkest practical window. Apply this response window at Niles; verify temperature, clarity, flow shape, and legal access again before carrying it to another St. Joseph section.",
+            "headline": "Today’s Niles Coho responsiveness is moderate.",
+            "detail": "Conditions offer mixed support for Coho responsiveness. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Moderate confidence reflects missing or forecast inputs; river measurements still represent only Niles.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify other sections directly.",
             "reasonCodes": [
               "activity_confidence_moderate",
               "activity_today",
@@ -17866,10 +17994,13 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 47,
+            "displayScore": 45,
+            "scoreIsApproximate": true,
             "stage": "beginning",
             "maximum": 100,
             "riverCeiling": 70,
@@ -17878,14 +18009,14 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "curveDirection": "rising",
             "winterHoldingContext": false,
             "label": "High presence",
-            "headline": "Coho salmon are likely present through more dependable river sections as seasonal presence builds toward its strongest point.",
-            "detail": "Seasonal presence is usually elevated relative to the rest of the season, with more fish expected to enter and become established through a broad part of the accessible river. This is a seasonal estimate, not a live fish count. This seasonal presence applies to the accessible St. Joseph corridor as a whole; it does not claim equal fish numbers at the harbor, Niles, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Treat this as one of the stronger parts of this river's moderate seasonal opportunity. Give each stop a complete pass, but do not mistake this seasonal estimate for a live fish count. Use Migration Stage to choose the specific St. Joseph section, then verify that water directly.",
+            "headline": "Seasonal Coho salmon presence is high and building.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the St. Joseph Coho salmon ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": null,
           "weather": {
@@ -18129,6 +18260,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "nextConditionRefreshAt": "2026-10-01T05:00:00.000Z",
           "runStage": {
             "stage": "beginning",
+            "copyStrategy": "st_joseph_corridor",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -18151,14 +18283,14 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "peakToEndDays": 46
             },
             "label": "Beginning",
-            "headline": "The first Coho salmon are entering the St. Joseph and beginning to move beyond the lower river.",
-            "detail": "New fish should still be weighted toward lower Michigan travel water, while earlier arrivals may already be using Buchanan, Niles, and selective Indiana resting water.",
-            "tip": "Cover a lower-Michigan travel-and-holding sequence first. Move upriver only after direct fish activity, local observations, or established passage supports the change.",
-            "whereToStart": "Start in deep lower-Michigan travel water below Berrien Springs, then compare legal holding water around Buchanan and Niles before making a selective Indiana check.",
+            "headline": "The first Coho salmon are entering the St. Joseph River.",
+            "detail": "New fish remain weighted toward the Lower river; earlier arrivals may be farther upstream.",
+            "tip": "Cover travel water and the first substantial holding areas before moving upstream.",
+            "whereToStart": "Start in the Lower river (St. Joseph harbor–Berrien Springs). Add the Middle river (Berrien Springs–Niles) only after direct fish activity supports the move.",
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -18201,7 +18333,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -18215,9 +18347,9 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "push": {
             "score": 30,
             "label": "No clear push",
-            "headline": "Today's water does not show a clear signal for a fresh wave of fish.",
-            "detail": "The river is holding steady with no meaningful rise yet. Water temperature is favorable for fall migration and is relatively steady. Recent weather estimates indicate very little rain around the river. This Push describes fresh-movement support at Niles only; it does not prove a new wave at the harbor, Berrien Springs, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Fish established holding water from the head through the inside seam and tail. Do not spend the day racing between lower travel lanes for a wave the water does not support. Use the Niles signal to choose between Niles-area holding water and a lower-Michigan travel-water check; verify Indiana movement directly.",
+            "headline": "Niles water does not show a clear fresh-movement signal.",
+            "detail": "Niles flow is steady without a meaningful rise. Water temperature is favorable for fall migration and is relatively steady. Recent watershed weather shows little rain.",
+            "tip": "Keep Migration Stage’s section primary. Do not shift sections from this Niles read.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
@@ -18236,14 +18368,14 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 93,
             "label": "Excellent",
             "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river. This flow shape applies to the Niles mainstem reach only; verify the harbor, lower Michigan river, individual tailwaters, and Indiana water directly.",
-            "tip": "Begin on the primary travel lane feeding deep holding water. Work each hole from its head through the inside seam and tail, then keep moving until fish establish a pattern. Apply this recommendation at Niles; recheck water shape and safe access before carrying it to another St. Joseph section.",
+            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. This read applies only to the Niles mainstem reach.",
+            "tip": "Cover readable seams and holding water with a controlled presentation. Verify every other section directly.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band"
@@ -18254,15 +18386,15 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 77,
             "maximum": 100,
             "label": "Active",
-            "headline": "Today’s Coho activity outlook is active.",
-            "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. Early lake-fresh Coho can remain reactive when measured water temperatures are suitable; this score applies only to fish already in the river. Measured river conditions describe the St. Joseph mainstem at Niles. Water temperature, clarity, hydraulic shape, and presentation conditions can differ in the harbor and lower Michigan river, at individual ladder tailwaters, and through South Bend, Mishawaka, and the Twin Branch reach. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
-            "tip": "Start with 5–9 AM. If the sky changes from the forecast, favor the darkest practical window. Apply this response window at Niles; verify temperature, clarity, flow shape, and legal access again before carrying it to another St. Joseph section.",
+            "headline": "Today’s Niles Coho responsiveness is active.",
+            "detail": "Conditions support a meaningful Coho response. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Flow and temperature represent only the Niles mainstem reach.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify other sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -18314,10 +18446,13 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 47,
+            "displayScore": 45,
+            "scoreIsApproximate": true,
             "stage": "beginning",
             "maximum": 100,
             "riverCeiling": 70,
@@ -18326,14 +18461,14 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "curveDirection": "rising",
             "winterHoldingContext": false,
             "label": "High presence",
-            "headline": "Coho salmon are likely present through more dependable river sections as seasonal presence builds toward its strongest point.",
-            "detail": "Seasonal presence is usually elevated relative to the rest of the season, with more fish expected to enter and become established through a broad part of the accessible river. This is a seasonal estimate, not a live fish count. This seasonal presence applies to the accessible St. Joseph corridor as a whole; it does not claim equal fish numbers at the harbor, Niles, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Treat this as one of the stronger parts of this river's moderate seasonal opportunity. Give each stop a complete pass, but do not mistake this seasonal estimate for a live fish count. Use Migration Stage to choose the specific St. Joseph section, then verify that water directly.",
+            "headline": "Seasonal Coho salmon presence is high and building.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the St. Joseph Coho salmon ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -18587,6 +18722,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "nextConditionRefreshAt": "2026-10-01T05:00:00.000Z",
           "runStage": {
             "stage": "beginning",
+            "copyStrategy": "st_joseph_corridor",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -18609,14 +18745,14 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "peakToEndDays": 46
             },
             "label": "Beginning",
-            "headline": "The first Coho salmon are entering the St. Joseph and beginning to move beyond the lower river.",
-            "detail": "New fish should still be weighted toward lower Michigan travel water, while earlier arrivals may already be using Buchanan, Niles, and selective Indiana resting water.",
-            "tip": "Cover a lower-Michigan travel-and-holding sequence first. Move upriver only after direct fish activity, local observations, or established passage supports the change.",
-            "whereToStart": "Start in deep lower-Michigan travel water below Berrien Springs, then compare legal holding water around Buchanan and Niles before making a selective Indiana check.",
+            "headline": "The first Coho salmon are entering the St. Joseph River.",
+            "detail": "New fish remain weighted toward the Lower river; earlier arrivals may be farther upstream.",
+            "tip": "Cover travel water and the first substantial holding areas before moving upstream.",
+            "whereToStart": "Start in the Lower river (St. Joseph harbor–Berrien Springs). Add the Middle river (Berrien Springs–Niles) only after direct fish activity supports the move.",
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -18659,7 +18795,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -18673,9 +18809,9 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "push": {
             "score": 30,
             "label": "No clear push",
-            "headline": "Today's water does not show a clear signal for a fresh wave of fish.",
-            "detail": "The river is holding steady with no meaningful rise yet. Water temperature is favorable for fall migration and is relatively steady. Recent weather estimates indicate very little rain around the river. This Push describes fresh-movement support at Niles only; it does not prove a new wave at the harbor, Berrien Springs, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Fish established holding water from the head through the inside seam and tail. Do not spend the day racing between lower travel lanes for a wave the water does not support. Use the Niles signal to choose between Niles-area holding water and a lower-Michigan travel-water check; verify Indiana movement directly.",
+            "headline": "Niles water does not show a clear fresh-movement signal.",
+            "detail": "Niles flow is steady without a meaningful rise. Water temperature is favorable for fall migration and is relatively steady. Recent watershed weather shows little rain.",
+            "tip": "Keep Migration Stage’s section primary. Do not shift sections from this Niles read.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
@@ -18694,14 +18830,14 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 73,
             "label": "Good",
             "headline": "The river is fishable, but higher flow is moving at a faster pace and narrowing the easiest water.",
-            "detail": "Higher flow is pushing more current through the main channel, but softer edges and protected lanes remain workable. The higher flow is not climbing, so softer edges beside the main current should remain well defined. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river. This flow shape applies to the Niles mainstem reach only; verify the harbor, lower Michigan river, individual tailwaters, and Indiana water directly.",
-            "tip": "Start tight to the bank on inside bends and below current-breaking cover. Shorten the presentation and keep it in the slower edge instead of forcing the main flow. Apply this recommendation at Niles; recheck water shape and safe access before carrying it to another St. Joseph section.",
+            "detail": "Higher flow is pushing more current through the main channel, but softer edges and protected lanes remain workable. The higher flow is not climbing, so softer edges beside the main current should remain well defined. This read applies only to the Niles mainstem reach.",
+            "tip": "Prioritize inside seams, protected edges, and current breaks. Verify every other section directly.",
             "reasonCodes": [
               "gauge_fresh",
               "high_fishable_flow_band"
@@ -18712,15 +18848,15 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 73,
             "maximum": 100,
             "label": "Active",
-            "headline": "Today’s Coho activity outlook is active.",
-            "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. Early lake-fresh Coho can remain reactive when measured water temperatures are suitable; this score applies only to fish already in the river. Measured river conditions describe the St. Joseph mainstem at Niles. Water temperature, clarity, hydraulic shape, and presentation conditions can differ in the harbor and lower Michigan river, at individual ladder tailwaters, and through South Bend, Mishawaka, and the Twin Branch reach. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
-            "tip": "Start with 5–9 AM. If the sky changes from the forecast, favor the darkest practical window. Apply this response window at Niles; verify temperature, clarity, flow shape, and legal access again before carrying it to another St. Joseph section.",
+            "headline": "Today’s Niles Coho responsiveness is active.",
+            "detail": "Conditions support a meaningful Coho response. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Flow and temperature represent only the Niles mainstem reach.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify other sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -18772,10 +18908,13 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 47,
+            "displayScore": 45,
+            "scoreIsApproximate": true,
             "stage": "beginning",
             "maximum": 100,
             "riverCeiling": 70,
@@ -18784,14 +18923,14 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "curveDirection": "rising",
             "winterHoldingContext": false,
             "label": "High presence",
-            "headline": "Coho salmon are likely present through more dependable river sections as seasonal presence builds toward its strongest point.",
-            "detail": "Seasonal presence is usually elevated relative to the rest of the season, with more fish expected to enter and become established through a broad part of the accessible river. This is a seasonal estimate, not a live fish count. This seasonal presence applies to the accessible St. Joseph corridor as a whole; it does not claim equal fish numbers at the harbor, Niles, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Treat this as one of the stronger parts of this river's moderate seasonal opportunity. Give each stop a complete pass, but do not mistake this seasonal estimate for a live fish count. Use Migration Stage to choose the specific St. Joseph section, then verify that water directly.",
+            "headline": "Seasonal Coho salmon presence is high and building.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the St. Joseph Coho salmon ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -19045,6 +19184,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "nextConditionRefreshAt": "2026-10-01T05:00:00.000Z",
           "runStage": {
             "stage": "beginning",
+            "copyStrategy": "st_joseph_corridor",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -19067,14 +19207,14 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "peakToEndDays": 46
             },
             "label": "Beginning",
-            "headline": "The first Coho salmon are entering the St. Joseph and beginning to move beyond the lower river.",
-            "detail": "New fish should still be weighted toward lower Michigan travel water, while earlier arrivals may already be using Buchanan, Niles, and selective Indiana resting water.",
-            "tip": "Cover a lower-Michigan travel-and-holding sequence first. Move upriver only after direct fish activity, local observations, or established passage supports the change.",
-            "whereToStart": "Start in deep lower-Michigan travel water below Berrien Springs, then compare legal holding water around Buchanan and Niles before making a selective Indiana check.",
+            "headline": "The first Coho salmon are entering the St. Joseph River.",
+            "detail": "New fish remain weighted toward the Lower river; earlier arrivals may be farther upstream.",
+            "tip": "Cover travel water and the first substantial holding areas before moving upstream.",
+            "whereToStart": "Start in the Lower river (St. Joseph harbor–Berrien Springs). Add the Middle river (Berrien Springs–Niles) only after direct fish activity supports the move.",
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -19117,7 +19257,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -19131,9 +19271,9 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "push": {
             "score": 25,
             "label": "No clear push",
-            "headline": "Today's water does not show a clear signal for a fresh wave of fish.",
-            "detail": "The river is holding steady with no meaningful rise yet. Overall flow is already high. Water temperature is favorable for fall migration and is relatively steady. Recent weather estimates indicate very little rain around the river. This Push describes fresh-movement support at Niles only; it does not prove a new wave at the harbor, Berrien Springs, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Fish established holding water from the head through the inside seam and tail. Do not spend the day racing between lower travel lanes for a wave the water does not support. Use the Niles signal to choose between Niles-area holding water and a lower-Michigan travel-water check; verify Indiana movement directly.",
+            "headline": "Niles water does not show a clear fresh-movement signal.",
+            "detail": "Niles flow is steady without a meaningful rise, while overall flow is high. Water temperature is favorable for fall migration and is relatively steady. Recent watershed weather shows little rain.",
+            "tip": "Keep Migration Stage’s section primary. Do not shift sections from this Niles read.",
             "reasonCodes": [
               "gauge_fresh",
               "push_high_flow_context",
@@ -19152,14 +19292,14 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 45,
             "label": "Tough",
             "headline": "The river is running very high, leaving fewer practical places to fish effectively.",
-            "detail": "Very high flow is reducing access and the amount of water where a presentation can be controlled. The river is not climbing quickly, but practical fishing water remains compressed into the slowest edges. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river. This flow shape applies to the Niles mainstem reach only; verify the harbor, lower Michigan river, individual tailwaters, and Indiana water directly.",
-            "tip": "Fish only bank-side soft pockets, protected inside turns, and current breaks. Make short controlled presentations and skip every main-channel lane. Apply this recommendation at Niles; recheck water shape and safe access before carrying it to another St. Joseph section.",
+            "detail": "Very high flow is reducing access and the amount of water where a presentation can be controlled. The river is not climbing quickly, but practical fishing water remains compressed into the slowest edges. This read applies only to the Niles mainstem reach.",
+            "tip": "Favor protected margins and short controlled presentations. Choose another day if control is not dependable. Verify every other section directly.",
             "reasonCodes": [
               "gauge_fresh",
               "very_high_flow_band"
@@ -19170,15 +19310,15 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 69,
             "maximum": 100,
             "label": "Active",
-            "headline": "Today’s Coho activity outlook is active.",
-            "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: The river level or its recent change is less favorable. Early lake-fresh Coho can remain reactive when measured water temperatures are suitable; this score applies only to fish already in the river. Measured river conditions describe the St. Joseph mainstem at Niles. Water temperature, clarity, hydraulic shape, and presentation conditions can differ in the harbor and lower Michigan river, at individual ladder tailwaters, and through South Bend, Mishawaka, and the Twin Branch reach. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
-            "tip": "Start with 5–9 AM. If the sky changes from the forecast, favor the darkest practical window. Apply this response window at Niles; verify temperature, clarity, flow shape, and legal access again before carrying it to another St. Joseph section.",
+            "headline": "Today’s Niles Coho responsiveness is active.",
+            "detail": "Conditions support a meaningful Coho response. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Flow and temperature represent only the Niles mainstem reach.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify other sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -19230,10 +19370,13 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 47,
+            "displayScore": 45,
+            "scoreIsApproximate": true,
             "stage": "beginning",
             "maximum": 100,
             "riverCeiling": 70,
@@ -19242,14 +19385,14 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "curveDirection": "rising",
             "winterHoldingContext": false,
             "label": "High presence",
-            "headline": "Coho salmon are likely present through more dependable river sections as seasonal presence builds toward its strongest point.",
-            "detail": "Seasonal presence is usually elevated relative to the rest of the season, with more fish expected to enter and become established through a broad part of the accessible river. This is a seasonal estimate, not a live fish count. This seasonal presence applies to the accessible St. Joseph corridor as a whole; it does not claim equal fish numbers at the harbor, Niles, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Treat this as one of the stronger parts of this river's moderate seasonal opportunity. Give each stop a complete pass, but do not mistake this seasonal estimate for a live fish count. Use Migration Stage to choose the specific St. Joseph section, then verify that water directly.",
+            "headline": "Seasonal Coho salmon presence is high and building.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the St. Joseph Coho salmon ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -19509,6 +19652,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "nextConditionRefreshAt": "2026-08-21T05:00:00.000Z",
           "runStage": {
             "stage": "pre_run",
+            "copyStrategy": "st_joseph_corridor",
             "stagingContext": true,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -19531,15 +19675,15 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "peakToEndDays": 46
             },
             "label": "Before migration",
-            "headline": "Coho salmon may be staging around the St. Joseph harbor and mouth, but dependable inland passage has not begun.",
-            "detail": "An early Coho salmon can enter lower Michigan water, but harbor activity does not prove passage through Berrien Springs, Niles, or the Indiana ladders.",
-            "tip": "Fish the harbor-to-river transition and one deep lower-river travel lane. Skip an inland corridor run until Migration Stage and Fish In River show dependable entry.",
-            "whereToStart": "Start with the St. Joseph harbor, river mouth, and deep lower Michigan travel water; do not assume fish have passed Niles or reached South Bend.",
+            "headline": "Coho salmon may be staging near the St. Joseph River entrance.",
+            "detail": "Staging does not confirm dependable river entry or inland distribution.",
+            "tip": "Keep the inland check brief. Do not move upriver from calendar timing alone.",
+            "whereToStart": "Start at the St. Joseph harbor and river mouth. Add the Lower river (St. Joseph harbor–Berrien Springs) only for an early-fish check.",
             "reasonCodes": [
               "stage_pre_run",
               "stage_pre_run_staging"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Evaluating",
@@ -19564,7 +19708,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "conditions_checkpoint_evaluating"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -19585,14 +19729,14 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "push_tracking_not_started"
             ],
             "rulesVersion": "st-joseph-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 93,
             "label": "Excellent",
             "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river. This flow shape applies to the Niles mainstem reach only; verify the harbor, lower Michigan river, individual tailwaters, and Indiana water directly.",
-            "tip": "Begin on the primary travel lane feeding deep holding water. Work each hole from its head through the inside seam and tail, then keep moving until fish establish a pattern. Apply this recommendation at Niles; recheck water shape and safe access before carrying it to another St. Joseph section.",
+            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. This read applies only to the Niles mainstem reach.",
+            "tip": "Cover readable seams and holding water with a controlled presentation. Verify every other section directly.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band"
@@ -19603,15 +19747,15 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 27,
             "maximum": 100,
             "label": "Reserved",
-            "headline": "Today’s Coho activity outlook is reserved.",
-            "detail": "Fish may respond selectively, with important environmental limitations. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Water temperature limits responsiveness. Dependable river presence has not begun. The score applies only to a sparse early Coho that may already have entered. Measured river conditions describe the St. Joseph mainstem at Niles. Water temperature, clarity, hydraulic shape, and presentation conditions can differ in the harbor and lower Michigan river, at individual ladder tailwaters, and through South Bend, Mishawaka, and the Twin Branch reach. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
-            "tip": "Start with 5–9 AM. If the sky changes from the forecast, favor the darkest practical window. Apply this response window at Niles; verify temperature, clarity, flow shape, and legal access again before carrying it to another St. Joseph section.",
+            "headline": "Today’s Niles responsiveness is reserved, but dependable Coho presence has not begun.",
+            "detail": "Coho may respond selectively under current limitations. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. This applies only to an early Coho already near Niles.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify other sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -19664,10 +19808,13 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "cloudCoverPct": 85,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 0,
+            "displayScore": 0,
+            "scoreIsApproximate": false,
             "stage": "pre_run",
             "maximum": 100,
             "riverCeiling": 70,
@@ -19676,14 +19823,14 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "curveDirection": "outside",
             "winterHoldingContext": false,
             "label": "Not expected yet",
-            "headline": "A dependable presence of Coho salmon is not expected in the river yet.",
-            "detail": "Most Coho salmon are not expected to have entered the river in dependable numbers. Any fish already present would be early exceptions. This seasonal presence applies to the accessible St. Joseph corridor as a whole; it does not claim equal fish numbers at the harbor, Niles, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Treat this as no dependable in-river opportunity yet. Keep expectations at zero, and do not interpret an isolated early fish as evidence of dependable river presence. Use Migration Stage to choose the specific St. Joseph section, then verify that water directly.",
+            "headline": "Dependable Coho salmon presence is not expected in the St. Joseph yet.",
+            "detail": "The seasonal estimate remains at zero. Any river fish would be an early exception.",
+            "tip": "Use Migration Stage for harbor and river-entry context.",
             "reasonCodes": [
               "stage_pre_run",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -19942,6 +20089,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "nextConditionRefreshAt": "2026-09-21T05:00:00.000Z",
           "runStage": {
             "stage": "beginning",
+            "copyStrategy": "st_joseph_corridor",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -19964,14 +20112,14 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "peakToEndDays": 46
             },
             "label": "Beginning",
-            "headline": "The first Coho salmon are entering the St. Joseph and beginning to move beyond the lower river.",
-            "detail": "New fish should still be weighted toward lower Michigan travel water, while earlier arrivals may already be using Buchanan, Niles, and selective Indiana resting water.",
-            "tip": "Cover a lower-Michigan travel-and-holding sequence first. Move upriver only after direct fish activity, local observations, or established passage supports the change.",
-            "whereToStart": "Start in deep lower-Michigan travel water below Berrien Springs, then compare legal holding water around Buchanan and Niles before making a selective Indiana check.",
+            "headline": "The first Coho salmon are entering the St. Joseph River.",
+            "detail": "New fish remain weighted toward the Lower river; earlier arrivals may be farther upstream.",
+            "tip": "Cover travel water and the first substantial holding areas before moving upstream.",
+            "whereToStart": "Start in the Lower river (St. Joseph harbor–Berrien Springs). Add the Middle river (Berrien Springs–Niles) only after direct fish activity supports the move.",
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -20014,7 +20162,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -20028,9 +20176,9 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "push": {
             "score": 27,
             "label": "No clear push",
-            "headline": "Today's water does not show a clear signal for a fresh wave of fish.",
-            "detail": "The river is holding steady with no meaningful rise yet. Water is on the warm side for fall migration and is relatively steady. Recent weather estimates indicate very little rain around the river. This Push describes fresh-movement support at Niles only; it does not prove a new wave at the harbor, Berrien Springs, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Fish established holding water from the head through the inside seam and tail. Do not spend the day racing between lower travel lanes for a wave the water does not support. Use the Niles signal to choose between Niles-area holding water and a lower-Michigan travel-water check; verify Indiana movement directly.",
+            "headline": "Niles water does not show a clear fresh-movement signal.",
+            "detail": "Niles flow is steady without a meaningful rise. Water is on the warm side for fall migration and is relatively steady. Recent watershed weather shows little rain.",
+            "tip": "Keep Migration Stage’s section primary. Do not shift sections from this Niles read.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
@@ -20049,14 +20197,14 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 93,
             "label": "Excellent",
             "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river. This flow shape applies to the Niles mainstem reach only; verify the harbor, lower Michigan river, individual tailwaters, and Indiana water directly.",
-            "tip": "Begin on the primary travel lane feeding deep holding water. Work each hole from its head through the inside seam and tail, then keep moving until fish establish a pattern. Apply this recommendation at Niles; recheck water shape and safe access before carrying it to another St. Joseph section.",
+            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. This read applies only to the Niles mainstem reach.",
+            "tip": "Cover readable seams and holding water with a controlled presentation. Verify every other section directly.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band"
@@ -20067,15 +20215,15 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 85,
             "maximum": 100,
             "label": "Highly active",
-            "headline": "Today’s Coho activity outlook is highly active.",
-            "detail": "Conditions strongly favor a response from Coho that are present and capable of reacting. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. Early lake-fresh Coho can remain reactive when measured water temperatures are suitable; this score applies only to fish already in the river. Measured river conditions describe the St. Joseph mainstem at Niles. Water temperature, clarity, hydraulic shape, and presentation conditions can differ in the harbor and lower Michigan river, at individual ladder tailwaters, and through South Bend, Mishawaka, and the Twin Branch reach. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
-            "tip": "Start with 5–9 AM. If the sky changes from the forecast, favor the darkest practical window. Apply this response window at Niles; verify temperature, clarity, flow shape, and legal access again before carrying it to another St. Joseph section.",
+            "headline": "Today’s Niles Coho responsiveness is highly active.",
+            "detail": "Conditions strongly support Coho responsiveness. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Flow and temperature represent only the Niles mainstem reach.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify other sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -20127,10 +20275,13 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "cloudCoverPct": 100,
                 "precipitationIn": 0.08
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 28,
+            "displayScore": 25,
+            "scoreIsApproximate": true,
             "stage": "beginning",
             "maximum": 100,
             "riverCeiling": 70,
@@ -20139,14 +20290,14 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "curveDirection": "rising",
             "winterHoldingContext": false,
             "label": "Limited presence",
-            "headline": "Some Coho salmon are likely in the river, but seasonal presence is still developing.",
-            "detail": "This part of the season usually brings limited presence, with more fish expected to enter and become established through a broad part of the accessible river. This is a seasonal estimate, not a live fish count. This seasonal presence applies to the accessible St. Joseph corridor as a whole; it does not claim equal fish numbers at the harbor, Niles, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Plan for an emerging but uneven river opportunity. Cover water efficiently, and do not assume every promising stop holds fish. Use Migration Stage to choose the specific St. Joseph section, then verify that water directly.",
+            "headline": "Seasonal Coho salmon presence is limited and building.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the St. Joseph Coho salmon ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -20400,6 +20551,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "nextConditionRefreshAt": "2026-10-03T05:00:00.000Z",
           "runStage": {
             "stage": "building",
+            "copyStrategy": "st_joseph_corridor",
             "stagingContext": false,
             "broadBuildingContext": true,
             "winterHoldingContext": false,
@@ -20422,14 +20574,14 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "peakToEndDays": 46
             },
             "label": "Building",
-            "headline": "Coho salmon are now established through multiple sections of the interstate St. Joseph corridor.",
-            "detail": "Earlier arrivals have had time to pass Berrien Springs, Buchanan, and Niles while newer fish continue entering below. Distribution can be broad without being even between Michigan and Indiana sections.",
-            "tip": "Compare one Michigan section with one Indiana section, working deep travel lanes, current breaks, and resting water away from every ladder safety zone.",
-            "whereToStart": "Compare lower-Michigan holding water, Buchanan and Niles, then legal South Bend-Mishawaka water below Twin Branch; never infer every section from the Niles gauge.",
+            "headline": "Coho salmon are established through multiple St. Joseph sections.",
+            "detail": "Earlier arrivals may be farther upstream while newer fish continue entering below.",
+            "tip": "Compare two sections, then stay where direct fish activity is strongest.",
+            "whereToStart": "Start in the Middle river (Berrien Springs–Niles). Compare the Upper river (Niles–Twin Branch Dam) for earlier arrivals.",
             "reasonCodes": [
               "stage_building"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -20502,7 +20654,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "conditions_insufficient",
               "conditions_checkpoint_building_established"
             ],
-            "copyVersion": "river-run-copy-v27",
+            "copyVersion": "river-run-copy-v34",
             "previousCheckpointId": "building_start",
             "previousCheckpointDate": "2026-10-01",
             "previousTimingLabel": "Insufficient evidence"
@@ -20519,9 +20671,9 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "push": {
             "score": 30,
             "label": "No clear push",
-            "headline": "Today's water does not show a clear signal for a fresh wave of fish.",
-            "detail": "The river is holding steady with no meaningful rise yet. Water temperature is favorable for fall migration and is relatively steady. Recent weather estimates indicate very little rain around the river. This Push describes fresh-movement support at Niles only; it does not prove a new wave at the harbor, Berrien Springs, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Fish established holding water from the head through the inside seam and tail. Do not spend the day racing between lower travel lanes for a wave the water does not support. Use the Niles signal to choose between Niles-area holding water and a lower-Michigan travel-water check; verify Indiana movement directly.",
+            "headline": "Niles water does not show a clear fresh-movement signal.",
+            "detail": "Niles flow is steady without a meaningful rise. Water temperature is favorable for fall migration and is relatively steady. Recent watershed weather shows little rain.",
+            "tip": "Keep Migration Stage’s section primary. Do not shift sections from this Niles read.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
@@ -20540,14 +20692,14 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 93,
             "label": "Excellent",
             "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river. This flow shape applies to the Niles mainstem reach only; verify the harbor, lower Michigan river, individual tailwaters, and Indiana water directly.",
-            "tip": "Begin on the primary travel lane feeding deep holding water. Work each hole from its head through the inside seam and tail, then keep moving until fish establish a pattern. Apply this recommendation at Niles; recheck water shape and safe access before carrying it to another St. Joseph section.",
+            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. This read applies only to the Niles mainstem reach.",
+            "tip": "Cover readable seams and holding water with a controlled presentation. Verify every other section directly.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band"
@@ -20558,15 +20710,15 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 85,
             "maximum": 100,
             "label": "Highly active",
-            "headline": "Today’s Coho activity outlook is highly active.",
-            "detail": "Conditions strongly favor a response from Coho that are present and capable of reacting. The strongest window is 9 AM–1 PM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. More Coho are entering and settling into the river; measured water temperature matters, but this score describes reaction conditions rather than movement or abundance. Measured river conditions describe the St. Joseph mainstem at Niles. Water temperature, clarity, hydraulic shape, and presentation conditions can differ in the harbor and lower Michigan river, at individual ladder tailwaters, and through South Bend, Mishawaka, and the Twin Branch reach. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
-            "tip": "Start with 9 AM–1 PM. If the sky changes from the forecast, favor the darkest practical window. Apply this response window at Niles; verify temperature, clarity, flow shape, and legal access again before carrying it to another St. Joseph section.",
+            "headline": "Today’s Niles Coho responsiveness is highly active.",
+            "detail": "Conditions strongly support Coho responsiveness. 9 AM–1 PM and 1–5 PM are the leading windows, but neither has a clear advantage. Flow and temperature represent only the Niles mainstem reach.",
+            "tip": "Choose between 9 AM–1 PM and 1–5 PM using actual light. Verify other sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -20618,10 +20770,13 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "cloudCoverPct": 100,
                 "precipitationIn": 0.08
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 51,
+            "displayScore": 50,
+            "scoreIsApproximate": true,
             "stage": "building",
             "maximum": 100,
             "riverCeiling": 70,
@@ -20630,14 +20785,14 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "curveDirection": "rising",
             "winterHoldingContext": false,
             "label": "High presence",
-            "headline": "Coho salmon are likely present through more dependable river sections as seasonal presence builds toward its strongest point.",
-            "detail": "Seasonal presence is usually elevated relative to the rest of the season, with more fish expected to enter and become established through a broad part of the accessible river. This is a seasonal estimate, not a live fish count. This seasonal presence applies to the accessible St. Joseph corridor as a whole; it does not claim equal fish numbers at the harbor, Niles, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Treat this as one of the stronger parts of this river's moderate seasonal opportunity. Give each stop a complete pass, but do not mistake this seasonal estimate for a live fish count. Use Migration Stage to choose the specific St. Joseph section, then verify that water directly.",
+            "headline": "Seasonal Coho salmon presence is high and building.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the St. Joseph Coho salmon ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_building",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -20891,6 +21046,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "nextConditionRefreshAt": "2026-10-11T05:00:00.000Z",
           "runStage": {
             "stage": "peak",
+            "copyStrategy": "st_joseph_corridor",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -20913,14 +21069,14 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "peakToEndDays": 46
             },
             "label": "Peak",
-            "headline": "This is typically the strongest St. Joseph Coho salmon window across the five-ladder corridor.",
-            "detail": "Multiple waves have had time to spread from the lower river through Berrien Springs, Buchanan, Niles, South Bend, and Mishawaka, but each section still needs to be checked independently.",
-            "tip": "Choose a proven section and cover deep holding water from head to tail. Change sections only after a clean search, and leave shallow spawning fish undisturbed.",
-            "whereToStart": "Compare Berrien Springs, Buchanan, and Niles holding water with legal South Bend-Mishawaka water below Twin Branch; stay outside every posted dam and ladder boundary.",
+            "headline": "This is typically the strongest St. Joseph Coho salmon window.",
+            "detail": "Repeated entry periods support broad presence, not equal numbers in every section.",
+            "tip": "Choose one section and cover it completely before changing reaches. Leave shallow spawning fish undisturbed.",
+            "whereToStart": "Start in the Middle river (Berrien Springs–Niles). Compare the Upper river (Niles–Twin Branch Dam) for established fish.",
             "reasonCodes": [
               "stage_peak"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -21002,7 +21158,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "conditions_insufficient",
               "conditions_checkpoint_peak_start"
             ],
-            "copyVersion": "river-run-copy-v27",
+            "copyVersion": "river-run-copy-v34",
             "previousCheckpointId": "building_established",
             "previousCheckpointDate": "2026-10-01",
             "previousTimingLabel": "Insufficient evidence"
@@ -21019,9 +21175,9 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "push": {
             "score": 30,
             "label": "No clear push",
-            "headline": "Today's water does not show a clear signal for a fresh wave of fish.",
-            "detail": "The river is holding steady with no meaningful rise yet. Water temperature is favorable for fall migration and is relatively steady. Recent weather estimates indicate very little rain around the river. This Push describes fresh-movement support at Niles only; it does not prove a new wave at the harbor, Berrien Springs, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Fish established holding water from the head through the inside seam and tail. Do not spend the day racing between lower travel lanes for a wave the water does not support. Use the Niles signal to choose between Niles-area holding water and a lower-Michigan travel-water check; verify Indiana movement directly.",
+            "headline": "Niles water does not show a clear fresh-movement signal.",
+            "detail": "Niles flow is steady without a meaningful rise. Water temperature is favorable for fall migration and is relatively steady. Recent watershed weather shows little rain.",
+            "tip": "Keep Migration Stage’s section primary. Do not shift sections from this Niles read.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
@@ -21040,14 +21196,14 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 93,
             "label": "Excellent",
             "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river. This flow shape applies to the Niles mainstem reach only; verify the harbor, lower Michigan river, individual tailwaters, and Indiana water directly.",
-            "tip": "Begin on the primary travel lane feeding deep holding water. Work each hole from its head through the inside seam and tail, then keep moving until fish establish a pattern. Apply this recommendation at Niles; recheck water shape and safe access before carrying it to another St. Joseph section.",
+            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. This read applies only to the Niles mainstem reach.",
+            "tip": "Cover readable seams and holding water with a controlled presentation. Verify every other section directly.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band"
@@ -21058,15 +21214,15 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 79,
             "maximum": 100,
             "label": "Active",
-            "headline": "Today’s Coho activity outlook is active.",
-            "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. Broad seasonal presence can make fish easier to locate, but this score measures the responsiveness of Coho already present rather than their abundance. Measured river conditions describe the St. Joseph mainstem at Niles. Water temperature, clarity, hydraulic shape, and presentation conditions can differ in the harbor and lower Michigan river, at individual ladder tailwaters, and through South Bend, Mishawaka, and the Twin Branch reach. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
-            "tip": "Start with 5–9 AM. If the sky changes from the forecast, favor the darkest practical window. Apply this response window at Niles; verify temperature, clarity, flow shape, and legal access again before carrying it to another St. Joseph section.",
+            "headline": "Today’s Niles Coho responsiveness is active.",
+            "detail": "Conditions support a meaningful Coho response. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Flow and temperature represent only the Niles mainstem reach.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify other sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -21118,10 +21274,13 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "cloudCoverPct": 65,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 70,
+            "displayScore": 70,
+            "scoreIsApproximate": false,
             "stage": "peak",
             "maximum": 100,
             "riverCeiling": 70,
@@ -21130,14 +21289,14 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "curveDirection": "near_peak",
             "winterHoldingContext": false,
             "label": "Peak presence",
-            "headline": "Coho salmon are likely near their highest seasonal presence in the river.",
-            "detail": "This is the part of the season when in-river presence is usually strongest. Fish are most likely distributed through a broad part of the accessible river. The read does not place fish in a specific pool or confirm a live count. This seasonal presence applies to the accessible St. Joseph corridor as a whole; it does not claim equal fish numbers at the harbor, Niles, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Plan for a dependable but potentially uneven river opportunity near its seasonal high point. Confirm fish activity before committing the full day. Use Migration Stage to choose the specific St. Joseph section, then verify that water directly.",
+            "headline": "Seasonal Coho salmon presence is near its expected St. Joseph peak.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the St. Joseph Coho salmon ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_peak",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -21397,6 +21556,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "nextConditionRefreshAt": "2026-10-03T05:00:00.000Z",
           "runStage": {
             "stage": "building",
+            "copyStrategy": "st_joseph_corridor",
             "stagingContext": false,
             "broadBuildingContext": true,
             "winterHoldingContext": false,
@@ -21419,14 +21579,14 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "peakToEndDays": 46
             },
             "label": "Building",
-            "headline": "Coho salmon are now established through multiple sections of the interstate St. Joseph corridor.",
-            "detail": "Earlier arrivals have had time to pass Berrien Springs, Buchanan, and Niles while newer fish continue entering below. Distribution can be broad without being even between Michigan and Indiana sections.",
-            "tip": "Compare one Michigan section with one Indiana section, working deep travel lanes, current breaks, and resting water away from every ladder safety zone.",
-            "whereToStart": "Compare lower-Michigan holding water, Buchanan and Niles, then legal South Bend-Mishawaka water below Twin Branch; never infer every section from the Niles gauge.",
+            "headline": "Coho salmon are established through multiple St. Joseph sections.",
+            "detail": "Earlier arrivals may be farther upstream while newer fish continue entering below.",
+            "tip": "Compare two sections, then stay where direct fish activity is strongest.",
+            "whereToStart": "Start in the Middle river (Berrien Springs–Niles). Compare the Upper river (Niles–Twin Branch Dam) for earlier arrivals.",
             "reasonCodes": [
               "stage_building"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -21499,7 +21659,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "conditions_insufficient",
               "conditions_checkpoint_building_established"
             ],
-            "copyVersion": "river-run-copy-v27",
+            "copyVersion": "river-run-copy-v34",
             "previousCheckpointId": "building_start",
             "previousCheckpointDate": "2026-10-01",
             "previousTimingLabel": "Insufficient evidence"
@@ -21516,9 +21676,9 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "push": {
             "score": 13,
             "label": "Weak",
-            "headline": "Today's water shows little support for a fresh wave of fish.",
-            "detail": "The river is holding steady with no meaningful rise yet. Overall flow is already high. Water is on the warm side for fall migration but is warming sharply. Recent weather estimates indicate very little rain around the river. This Push describes fresh-movement support at Niles only; it does not prove a new wave at the harbor, Berrien Springs, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Skip the fresh-arrival hunt. Begin in established holding holes and fish each one thoroughly before moving; leave lower travel lanes as a secondary check. Use the Niles signal to choose between Niles-area holding water and a lower-Michigan travel-water check; verify Indiana movement directly.",
+            "headline": "Niles water shows little support for fresh movement.",
+            "detail": "Niles flow is steady without a meaningful rise, while overall flow is high. Water is on the warm side for fall migration but is warming sharply. Recent watershed weather shows little rain.",
+            "tip": "Keep Migration Stage’s section primary. Do not shift sections from this Niles read.",
             "reasonCodes": [
               "gauge_fresh",
               "push_high_flow_context",
@@ -21537,14 +21697,14 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 45,
             "label": "Tough",
             "headline": "The river is running very high, leaving fewer practical places to fish effectively.",
-            "detail": "Very high flow is reducing access and the amount of water where a presentation can be controlled. The river is not climbing quickly, but practical fishing water remains compressed into the slowest edges. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river. This flow shape applies to the Niles mainstem reach only; verify the harbor, lower Michigan river, individual tailwaters, and Indiana water directly.",
-            "tip": "Fish only bank-side soft pockets, protected inside turns, and current breaks. Make short controlled presentations and skip every main-channel lane. Apply this recommendation at Niles; recheck water shape and safe access before carrying it to another St. Joseph section.",
+            "detail": "Very high flow is reducing access and the amount of water where a presentation can be controlled. The river is not climbing quickly, but practical fishing water remains compressed into the slowest edges. This read applies only to the Niles mainstem reach.",
+            "tip": "Favor protected margins and short controlled presentations. Choose another day if control is not dependable. Verify every other section directly.",
             "reasonCodes": [
               "gauge_fresh",
               "very_high_flow_band"
@@ -21555,15 +21715,15 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 59,
             "maximum": 100,
             "label": "Moderate",
-            "headline": "Today’s Coho activity outlook is moderate.",
-            "detail": "Some useful factors are present, but the response window is mixed. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: The river level or its recent change is less favorable. More Coho are entering and settling into the river; measured water temperature matters, but this score describes reaction conditions rather than movement or abundance. Measured river conditions describe the St. Joseph mainstem at Niles. Water temperature, clarity, hydraulic shape, and presentation conditions can differ in the harbor and lower Michigan river, at individual ladder tailwaters, and through South Bend, Mishawaka, and the Twin Branch reach. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
-            "tip": "Start with 5–9 AM. If the sky changes from the forecast, favor the darkest practical window. Apply this response window at Niles; verify temperature, clarity, flow shape, and legal access again before carrying it to another St. Joseph section.",
+            "headline": "Today’s Niles Coho responsiveness is moderate.",
+            "detail": "Conditions offer mixed support for Coho responsiveness. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Flow and temperature represent only the Niles mainstem reach.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify other sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -21615,10 +21775,13 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "cloudCoverPct": 0,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 51,
+            "displayScore": 50,
+            "scoreIsApproximate": true,
             "stage": "building",
             "maximum": 100,
             "riverCeiling": 70,
@@ -21627,14 +21790,14 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "curveDirection": "rising",
             "winterHoldingContext": false,
             "label": "High presence",
-            "headline": "Coho salmon are likely present through more dependable river sections as seasonal presence builds toward its strongest point.",
-            "detail": "Seasonal presence is usually elevated relative to the rest of the season, with more fish expected to enter and become established through a broad part of the accessible river. This is a seasonal estimate, not a live fish count. This seasonal presence applies to the accessible St. Joseph corridor as a whole; it does not claim equal fish numbers at the harbor, Niles, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Treat this as one of the stronger parts of this river's moderate seasonal opportunity. Give each stop a complete pass, but do not mistake this seasonal estimate for a live fish count. Use Migration Stage to choose the specific St. Joseph section, then verify that water directly.",
+            "headline": "Seasonal Coho salmon presence is high and building.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the St. Joseph Coho salmon ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_building",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -21888,6 +22051,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "nextConditionRefreshAt": "2026-09-21T05:00:00.000Z",
           "runStage": {
             "stage": "beginning",
+            "copyStrategy": "st_joseph_corridor",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -21910,14 +22074,14 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "peakToEndDays": 46
             },
             "label": "Beginning",
-            "headline": "The first Coho salmon are entering the St. Joseph and beginning to move beyond the lower river.",
-            "detail": "New fish should still be weighted toward lower Michigan travel water, while earlier arrivals may already be using Buchanan, Niles, and selective Indiana resting water.",
-            "tip": "Cover a lower-Michigan travel-and-holding sequence first. Move upriver only after direct fish activity, local observations, or established passage supports the change.",
-            "whereToStart": "Start in deep lower-Michigan travel water below Berrien Springs, then compare legal holding water around Buchanan and Niles before making a selective Indiana check.",
+            "headline": "The first Coho salmon are entering the St. Joseph River.",
+            "detail": "New fish remain weighted toward the Lower river; earlier arrivals may be farther upstream.",
+            "tip": "Cover travel water and the first substantial holding areas before moving upstream.",
+            "whereToStart": "Start in the Lower river (St. Joseph harbor–Berrien Springs). Add the Middle river (Berrien Springs–Niles) only after direct fish activity supports the move.",
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -21960,7 +22124,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -21974,9 +22138,9 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "push": {
             "score": 27,
             "label": "No clear push",
-            "headline": "Today's water does not show a clear signal for a fresh wave of fish.",
-            "detail": "The river is holding steady with no meaningful rise yet. Water is on the warm side for fall migration and is relatively steady. Recent weather estimates indicate very little rain around the river. This Push describes fresh-movement support at Niles only; it does not prove a new wave at the harbor, Berrien Springs, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Fish established holding water from the head through the inside seam and tail. Do not spend the day racing between lower travel lanes for a wave the water does not support. Use the Niles signal to choose between Niles-area holding water and a lower-Michigan travel-water check; verify Indiana movement directly.",
+            "headline": "Niles water does not show a clear fresh-movement signal.",
+            "detail": "Niles flow is steady without a meaningful rise. Water is on the warm side for fall migration and is relatively steady. Recent watershed weather shows little rain.",
+            "tip": "Keep Migration Stage’s section primary. Do not shift sections from this Niles read.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
@@ -21995,14 +22159,14 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 93,
             "label": "Excellent",
             "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river. This flow shape applies to the Niles mainstem reach only; verify the harbor, lower Michigan river, individual tailwaters, and Indiana water directly.",
-            "tip": "Begin on the primary travel lane feeding deep holding water. Work each hole from its head through the inside seam and tail, then keep moving until fish establish a pattern. Apply this recommendation at Niles; recheck water shape and safe access before carrying it to another St. Joseph section.",
+            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. This read applies only to the Niles mainstem reach.",
+            "tip": "Cover readable seams and holding water with a controlled presentation. Verify every other section directly.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band"
@@ -22013,15 +22177,15 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 29,
             "maximum": 100,
             "label": "Reserved",
-            "headline": "Today’s Coho activity outlook is reserved.",
-            "detail": "Fish may respond selectively, with important environmental limitations. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Water temperature limits responsiveness. Early lake-fresh Coho can remain reactive when measured water temperatures are suitable; this score applies only to fish already in the river. Measured river conditions describe the St. Joseph mainstem at Niles. Water temperature, clarity, hydraulic shape, and presentation conditions can differ in the harbor and lower Michigan river, at individual ladder tailwaters, and through South Bend, Mishawaka, and the Twin Branch reach. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
-            "tip": "Start with 5–9 AM. If the sky changes from the forecast, favor the darkest practical window. Apply this response window at Niles; verify temperature, clarity, flow shape, and legal access again before carrying it to another St. Joseph section.",
+            "headline": "Today’s Niles Coho responsiveness is reserved.",
+            "detail": "Coho may respond selectively under current limitations. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Flow and temperature represent only the Niles mainstem reach.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify other sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -22074,10 +22238,13 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "cloudCoverPct": 100,
                 "precipitationIn": 0.08
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 28,
+            "displayScore": 25,
+            "scoreIsApproximate": true,
             "stage": "beginning",
             "maximum": 100,
             "riverCeiling": 70,
@@ -22086,14 +22253,14 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "curveDirection": "rising",
             "winterHoldingContext": false,
             "label": "Limited presence",
-            "headline": "Some Coho salmon are likely in the river, but seasonal presence is still developing.",
-            "detail": "This part of the season usually brings limited presence, with more fish expected to enter and become established through a broad part of the accessible river. This is a seasonal estimate, not a live fish count. This seasonal presence applies to the accessible St. Joseph corridor as a whole; it does not claim equal fish numbers at the harbor, Niles, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Plan for an emerging but uneven river opportunity. Cover water efficiently, and do not assume every promising stop holds fish. Use Migration Stage to choose the specific St. Joseph section, then verify that water directly.",
+            "headline": "Seasonal Coho salmon presence is limited and building.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the St. Joseph Coho salmon ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -22347,6 +22514,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "nextConditionRefreshAt": "2026-09-21T05:00:00.000Z",
           "runStage": {
             "stage": "beginning",
+            "copyStrategy": "st_joseph_corridor",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -22369,14 +22537,14 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "peakToEndDays": 46
             },
             "label": "Beginning",
-            "headline": "The first Coho salmon are entering the St. Joseph and beginning to move beyond the lower river.",
-            "detail": "New fish should still be weighted toward lower Michigan travel water, while earlier arrivals may already be using Buchanan, Niles, and selective Indiana resting water.",
-            "tip": "Cover a lower-Michigan travel-and-holding sequence first. Move upriver only after direct fish activity, local observations, or established passage supports the change.",
-            "whereToStart": "Start in deep lower-Michigan travel water below Berrien Springs, then compare legal holding water around Buchanan and Niles before making a selective Indiana check.",
+            "headline": "The first Coho salmon are entering the St. Joseph River.",
+            "detail": "New fish remain weighted toward the Lower river; earlier arrivals may be farther upstream.",
+            "tip": "Cover travel water and the first substantial holding areas before moving upstream.",
+            "whereToStart": "Start in the Lower river (St. Joseph harbor–Berrien Springs). Add the Middle river (Berrien Springs–Niles) only after direct fish activity supports the move.",
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -22419,7 +22587,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -22433,9 +22601,9 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "push": {
             "score": 10,
             "label": "Weak",
-            "headline": "The river is rising, but warm water prevents a dependable fresh-movement read.",
-            "detail": "The river is holding steady with no meaningful rise yet. Water temperature is warm enough to seriously limit confidence in fresh movement. Recent weather estimates indicate very little rain around the river. This Push describes fresh-movement support at Niles only; it does not prove a new wave at the harbor, Berrien Springs, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Do not build the day around new arrivals while the river remains warm. Start in established holding water at first or last light and leave lower travel lanes secondary. Use the Niles signal to choose between Niles-area holding water and a lower-Michigan travel-water check; verify Indiana movement directly.",
+            "headline": "Warm Niles water prevents a dependable fresh-movement signal.",
+            "detail": "Niles flow is steady without a meaningful rise. Water temperature is warm enough to seriously limit confidence in fresh movement. Recent watershed weather shows little rain.",
+            "tip": "Keep Migration Stage’s section primary. Do not shift sections from this Niles read.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
@@ -22455,14 +22623,14 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 93,
             "label": "Excellent",
             "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river. This flow shape applies to the Niles mainstem reach only; verify the harbor, lower Michigan river, individual tailwaters, and Indiana water directly.",
-            "tip": "Begin on the primary travel lane feeding deep holding water. Work each hole from its head through the inside seam and tail, then keep moving until fish establish a pattern. Apply this recommendation at Niles; recheck water shape and safe access before carrying it to another St. Joseph section.",
+            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. This read applies only to the Niles mainstem reach.",
+            "tip": "Cover readable seams and holding water with a controlled presentation. Verify every other section directly.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band"
@@ -22473,15 +22641,15 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 20,
             "maximum": 100,
             "label": "Reserved",
-            "headline": "Today’s Coho activity outlook is reserved.",
-            "detail": "Fish may respond selectively, with important environmental limitations. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Water temperature limits responsiveness. Early lake-fresh Coho can remain reactive when measured water temperatures are suitable; this score applies only to fish already in the river. Measured river conditions describe the St. Joseph mainstem at Niles. Water temperature, clarity, hydraulic shape, and presentation conditions can differ in the harbor and lower Michigan river, at individual ladder tailwaters, and through South Bend, Mishawaka, and the Twin Branch reach. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
-            "tip": "Start with 5–9 AM. If the sky changes from the forecast, favor the darkest practical window. Apply this response window at Niles; verify temperature, clarity, flow shape, and legal access again before carrying it to another St. Joseph section.",
+            "headline": "Today’s Niles Coho responsiveness is reserved.",
+            "detail": "Coho may respond selectively under current limitations. 5–9 AM and 9 AM–1 PM are the leading windows, but neither has a clear advantage. Flow and temperature represent only the Niles mainstem reach.",
+            "tip": "Choose between 5–9 AM and 9 AM–1 PM using actual light. Verify other sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -22534,10 +22702,13 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "cloudCoverPct": 100,
                 "precipitationIn": 0.08
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 28,
+            "displayScore": 25,
+            "scoreIsApproximate": true,
             "stage": "beginning",
             "maximum": 100,
             "riverCeiling": 70,
@@ -22546,14 +22717,14 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "curveDirection": "rising",
             "winterHoldingContext": false,
             "label": "Limited presence",
-            "headline": "Some Coho salmon are likely in the river, but seasonal presence is still developing.",
-            "detail": "This part of the season usually brings limited presence, with more fish expected to enter and become established through a broad part of the accessible river. This is a seasonal estimate, not a live fish count. This seasonal presence applies to the accessible St. Joseph corridor as a whole; it does not claim equal fish numbers at the harbor, Niles, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Plan for an emerging but uneven river opportunity. Cover water efficiently, and do not assume every promising stop holds fish. Use Migration Stage to choose the specific St. Joseph section, then verify that water directly.",
+            "headline": "Seasonal Coho salmon presence is limited and building.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the St. Joseph Coho salmon ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -22807,6 +22978,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "nextConditionRefreshAt": "2026-10-11T05:00:00.000Z",
           "runStage": {
             "stage": "peak",
+            "copyStrategy": "st_joseph_corridor",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -22829,14 +23001,14 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "peakToEndDays": 46
             },
             "label": "Peak",
-            "headline": "This is typically the strongest St. Joseph Coho salmon window across the five-ladder corridor.",
-            "detail": "Multiple waves have had time to spread from the lower river through Berrien Springs, Buchanan, Niles, South Bend, and Mishawaka, but each section still needs to be checked independently.",
-            "tip": "Choose a proven section and cover deep holding water from head to tail. Change sections only after a clean search, and leave shallow spawning fish undisturbed.",
-            "whereToStart": "Compare Berrien Springs, Buchanan, and Niles holding water with legal South Bend-Mishawaka water below Twin Branch; stay outside every posted dam and ladder boundary.",
+            "headline": "This is typically the strongest St. Joseph Coho salmon window.",
+            "detail": "Repeated entry periods support broad presence, not equal numbers in every section.",
+            "tip": "Choose one section and cover it completely before changing reaches. Leave shallow spawning fish undisturbed.",
+            "whereToStart": "Start in the Middle river (Berrien Springs–Niles). Compare the Upper river (Niles–Twin Branch Dam) for established fish.",
             "reasonCodes": [
               "stage_peak"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -22918,7 +23090,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "conditions_insufficient",
               "conditions_checkpoint_peak_start"
             ],
-            "copyVersion": "river-run-copy-v27",
+            "copyVersion": "river-run-copy-v34",
             "previousCheckpointId": "building_established",
             "previousCheckpointDate": "2026-10-01",
             "previousTimingLabel": "Insufficient evidence"
@@ -22935,9 +23107,9 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "push": {
             "score": 25,
             "label": "No clear push",
-            "headline": "The river is rising hard, but extreme flow makes this an unreliable fresh-movement read.",
-            "detail": "The river is holding steady with no meaningful rise yet. Overall flow is extremely high. Water temperature is favorable for fall migration and is relatively steady. Recent weather estimates indicate very little rain around the river. This Push describes fresh-movement support at Niles only; it does not prove a new wave at the harbor, Berrien Springs, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Do not chase movement in the main channel. If Fishability remains usable, fish only protected margins, inside turns, and soft current with short controlled presentations. Use the Niles signal to choose between Niles-area holding water and a lower-Michigan travel-water check; verify Indiana movement directly.",
+            "headline": "Extreme Niles flow prevents a dependable fresh-movement signal.",
+            "detail": "Niles flow is steady without a meaningful rise, while overall flow is extreme. Water temperature is favorable for fall migration and is relatively steady. Recent watershed weather shows little rain.",
+            "tip": "Keep Migration Stage’s section primary. Do not shift sections from this Niles read.",
             "reasonCodes": [
               "gauge_fresh",
               "push_severe_high_flow_context",
@@ -22957,14 +23129,14 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 20,
             "label": "Poor",
             "headline": "The river is too high and unsettled for a dependable fishing recommendation.",
-            "detail": "Excessive flow is overwhelming normal holding water and making access and presentation unreliable. The river is not climbing quickly, but it must fall substantially before normal holding lanes and presentation control return. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river. This flow shape applies to the Niles mainstem reach only; verify the harbor, lower Michigan river, individual tailwaters, and Indiana water directly.",
-            "tip": "Choose a lower-water day for the better fishing opportunity. If you fish now, stay tight to protected banks, slow inside turns, and the downstream side of major current breaks; keep presentations short and leave the main flow alone. Apply this recommendation at Niles; recheck water shape and safe access before carrying it to another St. Joseph section.",
+            "detail": "Excessive flow is overwhelming normal holding water and making access and presentation unreliable. The river is not climbing quickly, but it must fall substantially before normal holding lanes and presentation control return. This read applies only to the Niles mainstem reach.",
+            "tip": "Choose another day and verify current conditions through authoritative local sources. Verify every other section directly.",
             "reasonCodes": [
               "gauge_fresh",
               "blown_out_flow_band",
@@ -22976,15 +23148,15 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 21,
             "maximum": 100,
             "label": "Reserved",
-            "headline": "Today’s Coho activity outlook is reserved.",
-            "detail": "Fish may respond selectively, with important environmental limitations. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: The river level or its recent change is less favorable. Broad seasonal presence can make fish easier to locate, but this score measures the responsiveness of Coho already present rather than their abundance. Measured river conditions describe the St. Joseph mainstem at Niles. Water temperature, clarity, hydraulic shape, and presentation conditions can differ in the harbor and lower Michigan river, at individual ladder tailwaters, and through South Bend, Mishawaka, and the Twin Branch reach. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
-            "tip": "Start with 5–9 AM. If the sky changes from the forecast, favor the darkest practical window. Apply this response window at Niles; verify temperature, clarity, flow shape, and legal access again before carrying it to another St. Joseph section.",
+            "headline": "Today’s Niles Coho responsiveness is reserved.",
+            "detail": "Coho may respond selectively under current limitations. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Flow and temperature represent only the Niles mainstem reach.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify other sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -23037,10 +23209,13 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "cloudCoverPct": 100,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 70,
+            "displayScore": 70,
+            "scoreIsApproximate": false,
             "stage": "peak",
             "maximum": 100,
             "riverCeiling": 70,
@@ -23049,14 +23224,14 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "curveDirection": "near_peak",
             "winterHoldingContext": false,
             "label": "Peak presence",
-            "headline": "Coho salmon are likely near their highest seasonal presence in the river.",
-            "detail": "This is the part of the season when in-river presence is usually strongest. Fish are most likely distributed through a broad part of the accessible river. The read does not place fish in a specific pool or confirm a live count. This seasonal presence applies to the accessible St. Joseph corridor as a whole; it does not claim equal fish numbers at the harbor, Niles, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Plan for a dependable but potentially uneven river opportunity near its seasonal high point. Confirm fish activity before committing the full day. Use Migration Stage to choose the specific St. Joseph section, then verify that water directly.",
+            "headline": "Seasonal Coho salmon presence is near its expected St. Joseph peak.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the St. Joseph Coho salmon ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_peak",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -23316,6 +23491,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "nextConditionRefreshAt": "2026-11-09T05:00:00.000Z",
           "runStage": {
             "stage": "tapering",
+            "copyStrategy": "st_joseph_corridor",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -23339,13 +23515,13 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             },
             "label": "Tapering",
             "headline": "This can remain a productive part of the Coho salmon season, even as fresh arrivals typically become less consistent.",
-            "detail": "Fresh passage is becoming less dependable, so established Niles, South Bend, and Mishawaka holding or spawning water matters more than racing the lower river for a new wave.",
-            "tip": "Start in proven deep holding water, check lower travel lanes only when Push supports new movement, and leave fish on shallow gravel alone.",
-            "whereToStart": "Prioritize established holding and spawning water near Niles, South Bend, and Mishawaka while checking the lower river only for a late fresh wave.",
+            "detail": "Fresh entry is slowing, so established holding water matters more than Lower-river travel lanes.",
+            "tip": "Start in proven holding water. Check the Lower river only when Push supports fresh movement.",
+            "whereToStart": "Start in established Middle river (Berrien Springs–Niles) or Upper river (Niles–Twin Branch Dam) holding water.",
             "reasonCodes": [
               "stage_tapering"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Timing complete",
@@ -23433,7 +23609,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "conditions_checkpoint_peak_complete",
               "conditions_timing_complete"
             ],
-            "copyVersion": "river-run-copy-v27",
+            "copyVersion": "river-run-copy-v34",
             "previousCheckpointId": "peak_start",
             "previousCheckpointDate": "2026-10-10",
             "previousTimingLabel": "Insufficient evidence"
@@ -23450,9 +23626,9 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "push": {
             "score": 30,
             "label": "No clear push",
-            "headline": "Today's water does not show a clear signal for a fresh wave of fish.",
-            "detail": "The river is holding steady with no meaningful rise yet. Water temperature is favorable for fall migration and is relatively steady. Recent weather estimates indicate very little rain around the river. This Push describes fresh-movement support at Niles only; it does not prove a new wave at the harbor, Berrien Springs, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Fish established holding water from the head through the inside seam and tail. Do not spend the day racing between lower travel lanes for a wave the water does not support. Use the Niles signal to choose between Niles-area holding water and a lower-Michigan travel-water check; verify Indiana movement directly.",
+            "headline": "Niles water does not show a clear fresh-movement signal.",
+            "detail": "Niles flow is steady without a meaningful rise. Water temperature is favorable for fall migration and is relatively steady. Recent watershed weather shows little rain.",
+            "tip": "Keep Migration Stage’s section primary. Do not shift sections from this Niles read.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
@@ -23471,14 +23647,14 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 93,
             "label": "Excellent",
             "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river. This flow shape applies to the Niles mainstem reach only; verify the harbor, lower Michigan river, individual tailwaters, and Indiana water directly.",
-            "tip": "Begin on the primary travel lane feeding deep holding water. Work each hole from its head through the inside seam and tail, then keep moving until fish establish a pattern. Apply this recommendation at Niles; recheck water shape and safe access before carrying it to another St. Joseph section.",
+            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. This read applies only to the Niles mainstem reach.",
+            "tip": "Cover readable seams and holding water with a controlled presentation. Verify every other section directly.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band"
@@ -23489,15 +23665,15 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 80,
             "maximum": 100,
             "label": "Highly active",
-            "headline": "Today’s Coho activity outlook is highly active.",
-            "detail": "Conditions strongly favor a response from Coho that are present and capable of reacting. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. This score represents a Coho of unknown condition at this point in the season. A newly arrived or fresher fish may be more active than this score, while a spawning or deteriorating fish may be less responsive. Measured river conditions describe the St. Joseph mainstem at Niles. Water temperature, clarity, hydraulic shape, and presentation conditions can differ in the harbor and lower Michigan river, at individual ladder tailwaters, and through South Bend, Mishawaka, and the Twin Branch reach. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
-            "tip": "Compare the four time windows, but treat every difference as conditional on finding a living Coho still capable of responding. Apply this response window at Niles; verify temperature, clarity, flow shape, and legal access again before carrying it to another St. Joseph section.",
+            "headline": "Today’s Niles Coho responsiveness is highly active.",
+            "detail": "Conditions strongly support Coho responsiveness. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Late-run Coho condition varies widely, so individual fish may respond above or below this outlook.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify other sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -23550,10 +23726,13 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "cloudCoverPct": 100,
                 "precipitationIn": 0.08
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 49,
+            "displayScore": 50,
+            "scoreIsApproximate": true,
             "stage": "tapering",
             "maximum": 100,
             "riverCeiling": 70,
@@ -23562,14 +23741,14 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "curveDirection": "falling",
             "winterHoldingContext": false,
             "label": "High presence",
-            "headline": "Seasonal timing still supports Coho salmon through dependable river sections, although fresh arrivals may be less consistent than near peak.",
-            "detail": "Seasonal presence is usually elevated relative to the rest of the season. Fish are still likely established through a broad part of the accessible river, while fresh arrivals often become less consistent later in the season. This is a seasonal estimate, not a live fish count. This seasonal presence applies to the accessible St. Joseph corridor as a whole; it does not claim equal fish numbers at the harbor, Niles, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Plan around fish already likely to be in the river. A meaningful seasonal presence may remain, but remember that this seasonal estimate cannot tell whether a fresh wave is entering today. Use Migration Stage to choose the specific St. Joseph section, then verify that water directly.",
+            "headline": "Seasonal Coho salmon presence is high and declining.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the St. Joseph Coho salmon ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_tapering",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -23823,6 +24002,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "nextConditionRefreshAt": "2026-11-21T05:00:00.000Z",
           "runStage": {
             "stage": "ending",
+            "copyStrategy": "st_joseph_corridor",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -23846,13 +24026,13 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             },
             "label": "Ending",
             "headline": "Coho salmon can still provide a worthwhile late-season opportunity across a broad part of the accessible river.",
-            "detail": "Most remaining fish have been in the system for some time. A fresh fish is possible, but the guide-level plan is a short, selective holding-water search—not a corridor-wide run.",
-            "tip": "Fish one or two proven deep holding areas, avoid shallow spawning fish, and stop searching if direct signs are absent.",
-            "whereToStart": "Focus on proven deep holding water near Niles, South Bend, or Mishawaka; treat fresh lower-river entry as secondary and leave shallow spawning fish alone.",
+            "detail": "Most remaining fish have been in the river for some time. A fresh fish is possible but not dependable.",
+            "tip": "Fish one proven holding section, avoid shallow spawning fish, and stop searching if direct signs are absent.",
+            "whereToStart": "Start in one proven Middle river (Berrien Springs–Niles) or Upper river (Niles–Twin Branch Dam) holding section.",
             "reasonCodes": [
               "stage_ending"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Timing complete",
@@ -23940,7 +24120,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "conditions_checkpoint_peak_complete",
               "conditions_timing_complete"
             ],
-            "copyVersion": "river-run-copy-v27",
+            "copyVersion": "river-run-copy-v34",
             "previousCheckpointId": "peak_start",
             "previousCheckpointDate": "2026-10-10",
             "previousTimingLabel": "Insufficient evidence"
@@ -23957,9 +24137,9 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "push": {
             "score": 30,
             "label": "No clear push",
-            "headline": "Today's water does not show a clear signal for a fresh wave of fish.",
-            "detail": "The river is holding steady with no meaningful rise yet. Water temperature is favorable for fall migration and is relatively steady. Recent weather estimates indicate very little rain around the river. This Push describes fresh-movement support at Niles only; it does not prove a new wave at the harbor, Berrien Springs, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Fish established holding water from the head through the inside seam and tail. Do not spend the day racing between lower travel lanes for a wave the water does not support. Use the Niles signal to choose between Niles-area holding water and a lower-Michigan travel-water check; verify Indiana movement directly.",
+            "headline": "Niles water does not show a clear fresh-movement signal.",
+            "detail": "Niles flow is steady without a meaningful rise. Water temperature is favorable for fall migration and is relatively steady. Recent watershed weather shows little rain.",
+            "tip": "Keep Migration Stage’s section primary. Do not shift sections from this Niles read.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
@@ -23978,14 +24158,14 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 93,
             "label": "Excellent",
             "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river. This flow shape applies to the Niles mainstem reach only; verify the harbor, lower Michigan river, individual tailwaters, and Indiana water directly.",
-            "tip": "Begin on the primary travel lane feeding deep holding water. Work each hole from its head through the inside seam and tail, then keep moving until fish establish a pattern. Apply this recommendation at Niles; recheck water shape and safe access before carrying it to another St. Joseph section.",
+            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. This read applies only to the Niles mainstem reach.",
+            "tip": "Cover readable seams and holding water with a controlled presentation. Verify every other section directly.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band"
@@ -23996,15 +24176,15 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 55,
             "maximum": 100,
             "label": "Moderate",
-            "headline": "Today’s Coho activity outlook is moderate.",
-            "detail": "Some useful factors are present, but the response window is mixed. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. This score represents a remaining Coho of unknown condition late in the season. A newly arrived or fresher fish may be more active than this score, while a spent or deteriorating fish may respond less or not at all. Measured river conditions describe the St. Joseph mainstem at Niles. Water temperature, clarity, hydraulic shape, and presentation conditions can differ in the harbor and lower Michigan river, at individual ladder tailwaters, and through South Bend, Mishawaka, and the Twin Branch reach. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
-            "tip": "No late-season window should be treated as broadly favorable; use the block scores only for a living Coho that is still capable of reacting. Apply this response window at Niles; verify temperature, clarity, flow shape, and legal access again before carrying it to another St. Joseph section.",
+            "headline": "Today’s Niles Coho responsiveness is moderate.",
+            "detail": "Conditions offer mixed support for Coho responsiveness. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Late-run Coho condition varies widely, so individual fish may respond above or below this outlook.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify other sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -24057,10 +24237,13 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "cloudCoverPct": 100,
                 "precipitationIn": 0.08
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 30,
+            "displayScore": 30,
+            "scoreIsApproximate": true,
             "stage": "ending",
             "maximum": 100,
             "riverCeiling": 70,
@@ -24069,14 +24252,14 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "curveDirection": "falling",
             "winterHoldingContext": false,
             "label": "Moderate presence",
-            "headline": "Seasonal timing still supports meaningful Coho salmon presence, especially in established holding water.",
-            "detail": "This part of the season usually supports moderate presence through a broad part of the accessible river, while fresh arrivals often become less consistent later in the season. This is a seasonal estimate, not a live fish count. This seasonal presence applies to the accessible St. Joseph corridor as a whole; it does not claim equal fish numbers at the harbor, Niles, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Plan for a worthwhile but less consistent river opportunity. Expect more searching than near the seasonal high, and let direct fish activity determine how long you stay. Use Migration Stage to choose the specific St. Joseph section, then verify that water directly.",
+            "headline": "Seasonal Coho salmon presence is moderate and declining.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the St. Joseph Coho salmon ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_ending",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -24330,6 +24513,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "nextConditionRefreshAt": "2026-12-02T05:00:00.000Z",
           "runStage": {
             "stage": "post_run",
+            "copyStrategy": "st_joseph_corridor",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -24353,13 +24537,13 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             },
             "label": "After migration",
             "headline": "The main Coho salmon migration is over.",
-            "detail": "A few late fish may remain below Twin Branch, but the main migration no longer supports a dependable St. Joseph trip.",
-            "tip": "Make only a selective established-water check, or shift to an active species. Do not chase isolated holdovers from ladder to ladder.",
-            "whereToStart": "Make only a selective check of established late holding water below Twin Branch; the main migration window has ended.",
+            "detail": "A few late fish may remain, but the main migration no longer supports a dependable trip.",
+            "tip": "Make one selective established-water check or shift to an active species.",
+            "whereToStart": "Make only a selective check in established Middle river (Berrien Springs–Niles) or Upper river (Niles–Twin Branch Dam) holding water.",
             "reasonCodes": [
               "stage_post_run"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Timing complete",
@@ -24447,7 +24631,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "conditions_checkpoint_peak_complete",
               "conditions_timing_complete"
             ],
-            "copyVersion": "river-run-copy-v27",
+            "copyVersion": "river-run-copy-v34",
             "previousCheckpointId": "peak_start",
             "previousCheckpointDate": "2026-10-10",
             "previousTimingLabel": "Insufficient evidence"
@@ -24471,14 +24655,14 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "push_tracking_complete"
             ],
             "rulesVersion": "st-joseph-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 93,
             "label": "Excellent",
             "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river. This flow shape applies to the Niles mainstem reach only; verify the harbor, lower Michigan river, individual tailwaters, and Indiana water directly.",
-            "tip": "Begin on the primary travel lane feeding deep holding water. Work each hole from its head through the inside seam and tail, then keep moving until fish establish a pattern. Apply this recommendation at Niles; recheck water shape and safe access before carrying it to another St. Joseph section.",
+            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. This read applies only to the Niles mainstem reach.",
+            "tip": "Cover readable seams and holding water with a controlled presentation. Verify every other section directly.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band"
@@ -24489,15 +24673,15 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 37,
             "maximum": 100,
             "label": "Reserved",
-            "headline": "Today’s Coho activity outlook is reserved.",
-            "detail": "Fish may respond selectively, with important environmental limitations. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. This score represents a remaining Coho of unknown condition late in the season. A newly arrived or fresher fish may be more active than this score, while a spent or deteriorating fish may respond less or not at all. Measured river conditions describe the St. Joseph mainstem at Niles. Water temperature, clarity, hydraulic shape, and presentation conditions can differ in the harbor and lower Michigan river, at individual ladder tailwaters, and through South Bend, Mishawaka, and the Twin Branch reach. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
-            "tip": "No late-season window should be treated as broadly favorable; use the block scores only for a living Coho that is still capable of reacting. Apply this response window at Niles; verify temperature, clarity, flow shape, and legal access again before carrying it to another St. Joseph section.",
+            "headline": "Today’s Niles Coho responsiveness is reserved.",
+            "detail": "Coho may respond selectively under current limitations. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Late-run Coho condition varies widely, so individual fish may respond above or below this outlook.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify other sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -24550,10 +24734,13 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "cloudCoverPct": 100,
                 "precipitationIn": 0.08
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 8,
+            "displayScore": 10,
+            "scoreIsApproximate": true,
             "stage": "post_run",
             "maximum": 100,
             "riverCeiling": 70,
@@ -24562,14 +24749,14 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "curveDirection": "falling",
             "winterHoldingContext": false,
             "label": "Low presence",
-            "headline": "Some Coho salmon may still be in the river, with seasonal presence more likely to be scattered.",
-            "detail": "This part of the season usually supports low presence through a broad part of the accessible river, while fresh arrivals often become less consistent later in the season. This is a seasonal estimate, not a live fish count. This seasonal presence applies to the accessible St. Joseph corridor as a whole; it does not claim equal fish numbers at the harbor, Niles, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Treat any remaining fish as a bonus rather than a dependable trip plan. Keep expectations narrow and be ready to shift to another seasonal species. Use Migration Stage to choose the specific St. Joseph section, then verify that water directly.",
+            "headline": "Seasonal Coho salmon presence is low and declining.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the St. Joseph Coho salmon ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_post_run",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -24830,6 +25017,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "nextConditionRefreshAt": "2026-10-11T05:00:00.000Z",
           "runStage": {
             "stage": "peak",
+            "copyStrategy": "st_joseph_corridor",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -24852,14 +25040,14 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "peakToEndDays": 46
             },
             "label": "Peak",
-            "headline": "This is typically the strongest St. Joseph Coho salmon window across the five-ladder corridor.",
-            "detail": "Multiple waves have had time to spread from the lower river through Berrien Springs, Buchanan, Niles, South Bend, and Mishawaka, but each section still needs to be checked independently.",
-            "tip": "Choose a proven section and cover deep holding water from head to tail. Change sections only after a clean search, and leave shallow spawning fish undisturbed.",
-            "whereToStart": "Compare Berrien Springs, Buchanan, and Niles holding water with legal South Bend-Mishawaka water below Twin Branch; stay outside every posted dam and ladder boundary.",
+            "headline": "This is typically the strongest St. Joseph Coho salmon window.",
+            "detail": "Repeated entry periods support broad presence, not equal numbers in every section.",
+            "tip": "Choose one section and cover it completely before changing reaches. Leave shallow spawning fish undisturbed.",
+            "whereToStart": "Start in the Middle river (Berrien Springs–Niles). Compare the Upper river (Niles–Twin Branch Dam) for established fish.",
             "reasonCodes": [
               "stage_peak"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -24941,7 +25129,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "conditions_insufficient",
               "conditions_checkpoint_peak_start"
             ],
-            "copyVersion": "river-run-copy-v27",
+            "copyVersion": "river-run-copy-v34",
             "previousCheckpointId": "building_established",
             "previousCheckpointDate": "2026-10-01",
             "previousTimingLabel": "Insufficient evidence"
@@ -24966,14 +25154,14 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "temperature_unavailable"
             ],
             "rulesVersion": "st-joseph-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 93,
             "label": "Excellent",
             "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river. This flow shape applies to the Niles mainstem reach only; verify the harbor, lower Michigan river, individual tailwaters, and Indiana water directly.",
-            "tip": "Begin on the primary travel lane feeding deep holding water. Work each hole from its head through the inside seam and tail, then keep moving until fish establish a pattern. Apply this recommendation at Niles; recheck water shape and safe access before carrying it to another St. Joseph section.",
+            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. This read applies only to the Niles mainstem reach.",
+            "tip": "Cover readable seams and holding water with a controlled presentation. Verify every other section directly.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band"
@@ -24984,15 +25172,15 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 55,
             "maximum": 100,
             "label": "Moderate",
-            "headline": "Today’s Coho activity outlook is moderate.",
-            "detail": "Some useful factors are present, but the response window is mixed. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Measured water temperature is unavailable. Broad seasonal presence can make fish easier to locate, but this score measures the responsiveness of Coho already present rather than their abundance. Measured river conditions describe the St. Joseph mainstem at Niles. Water temperature, clarity, hydraulic shape, and presentation conditions can differ in the harbor and lower Michigan river, at individual ladder tailwaters, and through South Bend, Mishawaka, and the Twin Branch reach. One important reading is unavailable or comes from tomorrow’s forecast, so the outlook is kept conservative.",
-            "tip": "Start with 5–9 AM. If the sky changes from the forecast, favor the darkest practical window. Apply this response window at Niles; verify temperature, clarity, flow shape, and legal access again before carrying it to another St. Joseph section.",
+            "headline": "Today’s Niles Coho responsiveness is moderate.",
+            "detail": "Conditions offer mixed support for Coho responsiveness. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Moderate confidence reflects missing or forecast inputs; river measurements still represent only Niles.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify other sections directly.",
             "reasonCodes": [
               "activity_confidence_moderate",
               "activity_today",
@@ -25044,10 +25232,13 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "cloudCoverPct": 75,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 70,
+            "displayScore": 70,
+            "scoreIsApproximate": false,
             "stage": "peak",
             "maximum": 100,
             "riverCeiling": 70,
@@ -25056,14 +25247,14 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "curveDirection": "near_peak",
             "winterHoldingContext": false,
             "label": "Peak presence",
-            "headline": "Coho salmon are likely near their highest seasonal presence in the river.",
-            "detail": "This is the part of the season when in-river presence is usually strongest. Fish are most likely distributed through a broad part of the accessible river. The read does not place fish in a specific pool or confirm a live count. This seasonal presence applies to the accessible St. Joseph corridor as a whole; it does not claim equal fish numbers at the harbor, Niles, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Plan for a dependable but potentially uneven river opportunity near its seasonal high point. Confirm fish activity before committing the full day. Use Migration Stage to choose the specific St. Joseph section, then verify that water directly.",
+            "headline": "Seasonal Coho salmon presence is near its expected St. Joseph peak.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the St. Joseph Coho salmon ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_peak",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -25300,6 +25491,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "nextConditionRefreshAt": "2026-10-11T05:00:00.000Z",
           "runStage": {
             "stage": "peak",
+            "copyStrategy": "st_joseph_corridor",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -25322,14 +25514,14 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "peakToEndDays": 46
             },
             "label": "Peak",
-            "headline": "This is typically the strongest St. Joseph Coho salmon window across the five-ladder corridor.",
-            "detail": "Multiple waves have had time to spread from the lower river through Berrien Springs, Buchanan, Niles, South Bend, and Mishawaka, but each section still needs to be checked independently.",
-            "tip": "Choose a proven section and cover deep holding water from head to tail. Change sections only after a clean search, and leave shallow spawning fish undisturbed.",
-            "whereToStart": "Compare Berrien Springs, Buchanan, and Niles holding water with legal South Bend-Mishawaka water below Twin Branch; stay outside every posted dam and ladder boundary.",
+            "headline": "This is typically the strongest St. Joseph Coho salmon window.",
+            "detail": "Repeated entry periods support broad presence, not equal numbers in every section.",
+            "tip": "Choose one section and cover it completely before changing reaches. Leave shallow spawning fish undisturbed.",
+            "whereToStart": "Start in the Middle river (Berrien Springs–Niles). Compare the Upper river (Niles–Twin Branch Dam) for established fish.",
             "reasonCodes": [
               "stage_peak"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -25411,7 +25603,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "conditions_insufficient",
               "conditions_checkpoint_peak_start"
             ],
-            "copyVersion": "river-run-copy-v27",
+            "copyVersion": "river-run-copy-v34",
             "previousCheckpointId": "building_established",
             "previousCheckpointDate": "2026-10-01",
             "previousTimingLabel": "Insufficient evidence"
@@ -25435,7 +25627,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "gauge_missing"
             ],
             "rulesVersion": "st-joseph-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": null,
@@ -25447,15 +25639,15 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "gauge_missing"
             ],
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 53,
             "maximum": 100,
             "label": "Moderate",
-            "headline": "Today’s Coho activity outlook is moderate.",
-            "detail": "Some useful factors are present, but the response window is mixed. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Current river behavior is unavailable. Broad seasonal presence can make fish easier to locate, but this score measures the responsiveness of Coho already present rather than their abundance. Measured river conditions describe the St. Joseph mainstem at Niles. Water temperature, clarity, hydraulic shape, and presentation conditions can differ in the harbor and lower Michigan river, at individual ladder tailwaters, and through South Bend, Mishawaka, and the Twin Branch reach. One important reading is unavailable or comes from tomorrow’s forecast, so the outlook is kept conservative.",
-            "tip": "Start with 5–9 AM. If the sky changes from the forecast, favor the darkest practical window. Apply this response window at Niles; verify temperature, clarity, flow shape, and legal access again before carrying it to another St. Joseph section.",
+            "headline": "Today’s Niles Coho responsiveness is moderate.",
+            "detail": "Conditions offer mixed support for Coho responsiveness. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Moderate confidence reflects missing or forecast inputs; river measurements still represent only Niles.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify other sections directly.",
             "reasonCodes": [
               "activity_confidence_moderate",
               "activity_today",
@@ -25507,10 +25699,13 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "cloudCoverPct": 75,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 70,
+            "displayScore": 70,
+            "scoreIsApproximate": false,
             "stage": "peak",
             "maximum": 100,
             "riverCeiling": 70,
@@ -25519,14 +25714,14 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "curveDirection": "near_peak",
             "winterHoldingContext": false,
             "label": "Peak presence",
-            "headline": "Coho salmon are likely near their highest seasonal presence in the river.",
-            "detail": "This is the part of the season when in-river presence is usually strongest. Fish are most likely distributed through a broad part of the accessible river. The read does not place fish in a specific pool or confirm a live count. This seasonal presence applies to the accessible St. Joseph corridor as a whole; it does not claim equal fish numbers at the harbor, Niles, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Plan for a dependable but potentially uneven river opportunity near its seasonal high point. Confirm fish activity before committing the full day. Use Migration Stage to choose the specific St. Joseph section, then verify that water directly.",
+            "headline": "Seasonal Coho salmon presence is near its expected St. Joseph peak.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the St. Joseph Coho salmon ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_peak",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": null,
           "weather": {
@@ -25776,6 +25971,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "nextConditionRefreshAt": "2026-08-20T05:00:00.000Z",
           "runStage": {
             "stage": "pre_run",
+            "copyStrategy": "st_joseph_corridor",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -25798,14 +25994,14 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "peakToEndDays": 46
             },
             "label": "Before migration",
-            "headline": "Coho salmon have not begun their dependable St. Joseph River migration.",
-            "detail": "The seasonal calendar still points to Lake Michigan, the harbor, and the river mouth—not an established inland opportunity.",
-            "tip": "Keep the trip lakeward and return when staging monitoring begins. Do not let rain or one isolated river fish turn into a corridor-wide claim.",
-            "whereToStart": "Keep the search in Lake Michigan, the harbor, and river-mouth water until river staging begins.",
+            "headline": "Coho salmon have not started their main St. Joseph River run.",
+            "detail": "The river-entry window has not opened yet. An isolated river fish would be an early exception.",
+            "tip": "Keep the trip lakeward and return when staging monitoring begins.",
+            "whereToStart": "Stay with Lake Michigan, the St. Joseph harbor, and the river mouth.",
             "reasonCodes": [
               "stage_pre_run"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Not monitoring yet",
@@ -25830,7 +26026,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "conditions_monitoring_inactive"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -25851,14 +26047,14 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "push_tracking_not_started"
             ],
             "rulesVersion": "st-joseph-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 93,
             "label": "Excellent",
             "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river. This flow shape applies to the Niles mainstem reach only; verify the harbor, lower Michigan river, individual tailwaters, and Indiana water directly.",
-            "tip": "Begin on the primary travel lane feeding deep holding water. Work each hole from its head through the inside seam and tail, then keep moving until fish establish a pattern. Apply this recommendation at Niles; recheck water shape and safe access before carrying it to another St. Joseph section.",
+            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. This read applies only to the Niles mainstem reach.",
+            "tip": "Cover readable seams and holding water with a controlled presentation. Verify every other section directly.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band"
@@ -25869,11 +26065,13 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": null,
           "fishInRiver": {
             "score": 0,
+            "displayScore": 0,
+            "scoreIsApproximate": false,
             "stage": "pre_run",
             "maximum": 100,
             "riverCeiling": 70,
@@ -25882,14 +26080,14 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "curveDirection": "outside",
             "winterHoldingContext": false,
             "label": "Not expected yet",
-            "headline": "A dependable presence of Coho salmon is not expected in the river yet.",
-            "detail": "Most Coho salmon are not expected to have entered the river in dependable numbers. Any fish already present would be early exceptions. This seasonal presence applies to the accessible St. Joseph corridor as a whole; it does not claim equal fish numbers at the harbor, Niles, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Treat this as no dependable in-river opportunity yet. Keep expectations at zero, and do not interpret an isolated early fish as evidence of dependable river presence. Use Migration Stage to choose the specific St. Joseph section, then verify that water directly.",
+            "headline": "Dependable Coho salmon presence is not expected in the St. Joseph yet.",
+            "detail": "The seasonal estimate remains at zero. Any river fish would be an early exception.",
+            "tip": "Use Migration Stage for harbor and river-entry context.",
             "reasonCodes": [
               "stage_pre_run",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -26148,6 +26346,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "nextConditionRefreshAt": "2026-09-02T05:00:00.000Z",
           "runStage": {
             "stage": "beginning",
+            "copyStrategy": "st_joseph_corridor",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -26170,14 +26369,14 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "peakToEndDays": 46
             },
             "label": "Beginning",
-            "headline": "The first Coho salmon are entering the St. Joseph and beginning to move beyond the lower river.",
-            "detail": "New fish should still be weighted toward lower Michigan travel water, while earlier arrivals may already be using Buchanan, Niles, and selective Indiana resting water.",
-            "tip": "Cover a lower-Michigan travel-and-holding sequence first. Move upriver only after direct fish activity, local observations, or established passage supports the change.",
-            "whereToStart": "Start in deep lower-Michigan travel water below Berrien Springs, then compare legal holding water around Buchanan and Niles before making a selective Indiana check.",
+            "headline": "The first Coho salmon are entering the St. Joseph River.",
+            "detail": "New fish remain weighted toward the Lower river; earlier arrivals may be farther upstream.",
+            "tip": "Cover travel water and the first substantial holding areas before moving upstream.",
+            "whereToStart": "Start in the Lower river (St. Joseph harbor–Berrien Springs). Add the Middle river (Berrien Springs–Niles) only after direct fish activity supports the move.",
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -26220,7 +26419,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -26234,9 +26433,9 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "push": {
             "score": 30,
             "label": "No clear push",
-            "headline": "Today's water does not show a clear signal for a fresh wave of fish.",
-            "detail": "The river is holding steady with no meaningful rise yet. Water temperature is favorable for fall migration and is relatively steady. Recent weather estimates indicate very little rain around the river. This Push describes fresh-movement support at Niles only; it does not prove a new wave at the harbor, Berrien Springs, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Fish established holding water from the head through the inside seam and tail. Do not spend the day racing between lower travel lanes for a wave the water does not support. Use the Niles signal to choose between Niles-area holding water and a lower-Michigan travel-water check; verify Indiana movement directly.",
+            "headline": "Niles water does not show a clear fresh-movement signal.",
+            "detail": "Niles flow is steady without a meaningful rise. Water temperature is favorable for fall migration and is relatively steady. Recent watershed weather shows little rain.",
+            "tip": "Keep Migration Stage’s section primary. Do not shift sections from this Niles read.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
@@ -26255,14 +26454,14 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 93,
             "label": "Excellent",
             "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river. This flow shape applies to the Niles mainstem reach only; verify the harbor, lower Michigan river, individual tailwaters, and Indiana water directly.",
-            "tip": "Begin on the primary travel lane feeding deep holding water. Work each hole from its head through the inside seam and tail, then keep moving until fish establish a pattern. Apply this recommendation at Niles; recheck water shape and safe access before carrying it to another St. Joseph section.",
+            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. This read applies only to the Niles mainstem reach.",
+            "tip": "Cover readable seams and holding water with a controlled presentation. Verify every other section directly.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band"
@@ -26273,15 +26472,15 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 77,
             "maximum": 100,
             "label": "Active",
-            "headline": "Today’s Coho activity outlook is active.",
-            "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. Early lake-fresh Coho can remain reactive when measured water temperatures are suitable; this score applies only to fish already in the river. Measured river conditions describe the St. Joseph mainstem at Niles. Water temperature, clarity, hydraulic shape, and presentation conditions can differ in the harbor and lower Michigan river, at individual ladder tailwaters, and through South Bend, Mishawaka, and the Twin Branch reach. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
-            "tip": "Start with 5–9 AM. If the sky changes from the forecast, favor the darkest practical window. Apply this response window at Niles; verify temperature, clarity, flow shape, and legal access again before carrying it to another St. Joseph section.",
+            "headline": "Today’s Niles Coho responsiveness is active.",
+            "detail": "Conditions support a meaningful Coho response. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Flow and temperature represent only the Niles mainstem reach.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify other sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -26333,10 +26532,13 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 7,
+            "displayScore": 5,
+            "scoreIsApproximate": true,
             "stage": "beginning",
             "maximum": 100,
             "riverCeiling": 70,
@@ -26345,14 +26547,14 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "curveDirection": "rising",
             "winterHoldingContext": false,
             "label": "Low presence",
-            "headline": "A small number of Coho salmon may be in the river, and seasonal presence is still building.",
-            "detail": "This part of the season usually brings low presence, with more fish expected to enter and become established through a broad part of the accessible river. This is a seasonal estimate, not a live fish count. This seasonal presence applies to the accessible St. Joseph corridor as a whole; it does not claim equal fish numbers at the harbor, Niles, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Treat this as an early, low-odds river opportunity. Expect scattered results, and use direct fish activity before committing the full day. Use Migration Stage to choose the specific St. Joseph section, then verify that water directly.",
+            "headline": "Seasonal Coho salmon presence is low and building.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the St. Joseph Coho salmon ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -26612,6 +26814,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "nextConditionRefreshAt": "2026-09-12T05:00:00.000Z",
           "runStage": {
             "stage": "beginning",
+            "copyStrategy": "st_joseph_corridor",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -26634,14 +26837,14 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "peakToEndDays": 46
             },
             "label": "Beginning",
-            "headline": "The first Coho salmon are entering the St. Joseph and beginning to move beyond the lower river.",
-            "detail": "New fish should still be weighted toward lower Michigan travel water, while earlier arrivals may already be using Buchanan, Niles, and selective Indiana resting water.",
-            "tip": "Cover a lower-Michigan travel-and-holding sequence first. Move upriver only after direct fish activity, local observations, or established passage supports the change.",
-            "whereToStart": "Start in deep lower-Michigan travel water below Berrien Springs, then compare legal holding water around Buchanan and Niles before making a selective Indiana check.",
+            "headline": "The first Coho salmon are entering the St. Joseph River.",
+            "detail": "New fish remain weighted toward the Lower river; earlier arrivals may be farther upstream.",
+            "tip": "Cover travel water and the first substantial holding areas before moving upstream.",
+            "whereToStart": "Start in the Lower river (St. Joseph harbor–Berrien Springs). Add the Middle river (Berrien Springs–Niles) only after direct fish activity supports the move.",
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -26684,7 +26887,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -26698,9 +26901,9 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "push": {
             "score": 30,
             "label": "No clear push",
-            "headline": "Today's water does not show a clear signal for a fresh wave of fish.",
-            "detail": "The river is holding steady with no meaningful rise yet. Water temperature is favorable for fall migration and is relatively steady. Recent weather estimates indicate very little rain around the river. This Push describes fresh-movement support at Niles only; it does not prove a new wave at the harbor, Berrien Springs, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Fish established holding water from the head through the inside seam and tail. Do not spend the day racing between lower travel lanes for a wave the water does not support. Use the Niles signal to choose between Niles-area holding water and a lower-Michigan travel-water check; verify Indiana movement directly.",
+            "headline": "Niles water does not show a clear fresh-movement signal.",
+            "detail": "Niles flow is steady without a meaningful rise. Water temperature is favorable for fall migration and is relatively steady. Recent watershed weather shows little rain.",
+            "tip": "Keep Migration Stage’s section primary. Do not shift sections from this Niles read.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
@@ -26719,14 +26922,14 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 93,
             "label": "Excellent",
             "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river. This flow shape applies to the Niles mainstem reach only; verify the harbor, lower Michigan river, individual tailwaters, and Indiana water directly.",
-            "tip": "Begin on the primary travel lane feeding deep holding water. Work each hole from its head through the inside seam and tail, then keep moving until fish establish a pattern. Apply this recommendation at Niles; recheck water shape and safe access before carrying it to another St. Joseph section.",
+            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. This read applies only to the Niles mainstem reach.",
+            "tip": "Cover readable seams and holding water with a controlled presentation. Verify every other section directly.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band"
@@ -26737,15 +26940,15 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 77,
             "maximum": 100,
             "label": "Active",
-            "headline": "Today’s Coho activity outlook is active.",
-            "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. Early lake-fresh Coho can remain reactive when measured water temperatures are suitable; this score applies only to fish already in the river. Measured river conditions describe the St. Joseph mainstem at Niles. Water temperature, clarity, hydraulic shape, and presentation conditions can differ in the harbor and lower Michigan river, at individual ladder tailwaters, and through South Bend, Mishawaka, and the Twin Branch reach. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
-            "tip": "Start with 5–9 AM. If the sky changes from the forecast, favor the darkest practical window. Apply this response window at Niles; verify temperature, clarity, flow shape, and legal access again before carrying it to another St. Joseph section.",
+            "headline": "Today’s Niles Coho responsiveness is active.",
+            "detail": "Conditions support a meaningful Coho response. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Flow and temperature represent only the Niles mainstem reach.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify other sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -26797,10 +27000,13 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 14,
+            "displayScore": 15,
+            "scoreIsApproximate": true,
             "stage": "beginning",
             "maximum": 100,
             "riverCeiling": 70,
@@ -26809,14 +27015,14 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "curveDirection": "rising",
             "winterHoldingContext": false,
             "label": "Limited presence",
-            "headline": "Some Coho salmon are likely in the river, but seasonal presence is still developing.",
-            "detail": "This part of the season usually brings limited presence, with more fish expected to enter and become established through a broad part of the accessible river. This is a seasonal estimate, not a live fish count. This seasonal presence applies to the accessible St. Joseph corridor as a whole; it does not claim equal fish numbers at the harbor, Niles, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Plan for an emerging but uneven river opportunity. Cover water efficiently, and do not assume every promising stop holds fish. Use Migration Stage to choose the specific St. Joseph section, then verify that water directly.",
+            "headline": "Seasonal Coho salmon presence is limited and building.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the St. Joseph Coho salmon ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -27076,6 +27282,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "nextConditionRefreshAt": "2026-09-22T05:00:00.000Z",
           "runStage": {
             "stage": "beginning",
+            "copyStrategy": "st_joseph_corridor",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -27098,14 +27305,14 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "peakToEndDays": 46
             },
             "label": "Beginning",
-            "headline": "The first Coho salmon are entering the St. Joseph and beginning to move beyond the lower river.",
-            "detail": "New fish should still be weighted toward lower Michigan travel water, while earlier arrivals may already be using Buchanan, Niles, and selective Indiana resting water.",
-            "tip": "Cover a lower-Michigan travel-and-holding sequence first. Move upriver only after direct fish activity, local observations, or established passage supports the change.",
-            "whereToStart": "Start in deep lower-Michigan travel water below Berrien Springs, then compare legal holding water around Buchanan and Niles before making a selective Indiana check.",
+            "headline": "The first Coho salmon are entering the St. Joseph River.",
+            "detail": "New fish remain weighted toward the Lower river; earlier arrivals may be farther upstream.",
+            "tip": "Cover travel water and the first substantial holding areas before moving upstream.",
+            "whereToStart": "Start in the Lower river (St. Joseph harbor–Berrien Springs). Add the Middle river (Berrien Springs–Niles) only after direct fish activity supports the move.",
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -27148,7 +27355,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -27162,9 +27369,9 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "push": {
             "score": 30,
             "label": "No clear push",
-            "headline": "Today's water does not show a clear signal for a fresh wave of fish.",
-            "detail": "The river is holding steady with no meaningful rise yet. Water temperature is favorable for fall migration and is relatively steady. Recent weather estimates indicate very little rain around the river. This Push describes fresh-movement support at Niles only; it does not prove a new wave at the harbor, Berrien Springs, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Fish established holding water from the head through the inside seam and tail. Do not spend the day racing between lower travel lanes for a wave the water does not support. Use the Niles signal to choose between Niles-area holding water and a lower-Michigan travel-water check; verify Indiana movement directly.",
+            "headline": "Niles water does not show a clear fresh-movement signal.",
+            "detail": "Niles flow is steady without a meaningful rise. Water temperature is favorable for fall migration and is relatively steady. Recent watershed weather shows little rain.",
+            "tip": "Keep Migration Stage’s section primary. Do not shift sections from this Niles read.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
@@ -27183,14 +27390,14 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 93,
             "label": "Excellent",
             "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river. This flow shape applies to the Niles mainstem reach only; verify the harbor, lower Michigan river, individual tailwaters, and Indiana water directly.",
-            "tip": "Begin on the primary travel lane feeding deep holding water. Work each hole from its head through the inside seam and tail, then keep moving until fish establish a pattern. Apply this recommendation at Niles; recheck water shape and safe access before carrying it to another St. Joseph section.",
+            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. This read applies only to the Niles mainstem reach.",
+            "tip": "Cover readable seams and holding water with a controlled presentation. Verify every other section directly.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band"
@@ -27201,15 +27408,15 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 77,
             "maximum": 100,
             "label": "Active",
-            "headline": "Today’s Coho activity outlook is active.",
-            "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. Early lake-fresh Coho can remain reactive when measured water temperatures are suitable; this score applies only to fish already in the river. Measured river conditions describe the St. Joseph mainstem at Niles. Water temperature, clarity, hydraulic shape, and presentation conditions can differ in the harbor and lower Michigan river, at individual ladder tailwaters, and through South Bend, Mishawaka, and the Twin Branch reach. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
-            "tip": "Start with 5–9 AM. If the sky changes from the forecast, favor the darkest practical window. Apply this response window at Niles; verify temperature, clarity, flow shape, and legal access again before carrying it to another St. Joseph section.",
+            "headline": "Today’s Niles Coho responsiveness is active.",
+            "detail": "Conditions support a meaningful Coho response. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Flow and temperature represent only the Niles mainstem reach.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify other sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -27261,10 +27468,13 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 30,
+            "displayScore": 30,
+            "scoreIsApproximate": true,
             "stage": "beginning",
             "maximum": 100,
             "riverCeiling": 70,
@@ -27273,14 +27483,14 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "curveDirection": "rising",
             "winterHoldingContext": false,
             "label": "Moderate presence",
-            "headline": "A meaningful seasonal presence of Coho salmon is likely in the river and still building.",
-            "detail": "This part of the season usually brings moderate presence, with more fish expected to enter and become established through a broad part of the accessible river. This is a seasonal estimate, not a live fish count. This seasonal presence applies to the accessible St. Joseph corridor as a whole; it does not claim equal fish numbers at the harbor, Niles, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Plan for a credible river opportunity that is still improving. Stay mobile until direct fish activity gives you a reason to slow down. Use Migration Stage to choose the specific St. Joseph section, then verify that water directly.",
+            "headline": "Seasonal Coho salmon presence is moderate and building.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the St. Joseph Coho salmon ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -27534,6 +27744,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "nextConditionRefreshAt": "2026-09-29T05:00:00.000Z",
           "runStage": {
             "stage": "beginning",
+            "copyStrategy": "st_joseph_corridor",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -27556,14 +27767,14 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "peakToEndDays": 46
             },
             "label": "Beginning",
-            "headline": "The first Coho salmon are entering the St. Joseph and beginning to move beyond the lower river.",
-            "detail": "New fish should still be weighted toward lower Michigan travel water, while earlier arrivals may already be using Buchanan, Niles, and selective Indiana resting water.",
-            "tip": "Cover a lower-Michigan travel-and-holding sequence first. Move upriver only after direct fish activity, local observations, or established passage supports the change.",
-            "whereToStart": "Start in deep lower-Michigan travel water below Berrien Springs, then compare legal holding water around Buchanan and Niles before making a selective Indiana check.",
+            "headline": "The first Coho salmon are entering the St. Joseph River.",
+            "detail": "New fish remain weighted toward the Lower river; earlier arrivals may be farther upstream.",
+            "tip": "Cover travel water and the first substantial holding areas before moving upstream.",
+            "whereToStart": "Start in the Lower river (St. Joseph harbor–Berrien Springs). Add the Middle river (Berrien Springs–Niles) only after direct fish activity supports the move.",
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -27606,7 +27817,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -27620,9 +27831,9 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "push": {
             "score": 30,
             "label": "No clear push",
-            "headline": "Today's water does not show a clear signal for a fresh wave of fish.",
-            "detail": "The river is holding steady with no meaningful rise yet. Water temperature is favorable for fall migration and is relatively steady. Recent weather estimates indicate very little rain around the river. This Push describes fresh-movement support at Niles only; it does not prove a new wave at the harbor, Berrien Springs, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Fish established holding water from the head through the inside seam and tail. Do not spend the day racing between lower travel lanes for a wave the water does not support. Use the Niles signal to choose between Niles-area holding water and a lower-Michigan travel-water check; verify Indiana movement directly.",
+            "headline": "Niles water does not show a clear fresh-movement signal.",
+            "detail": "Niles flow is steady without a meaningful rise. Water temperature is favorable for fall migration and is relatively steady. Recent watershed weather shows little rain.",
+            "tip": "Keep Migration Stage’s section primary. Do not shift sections from this Niles read.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
@@ -27641,14 +27852,14 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 93,
             "label": "Excellent",
             "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river. This flow shape applies to the Niles mainstem reach only; verify the harbor, lower Michigan river, individual tailwaters, and Indiana water directly.",
-            "tip": "Begin on the primary travel lane feeding deep holding water. Work each hole from its head through the inside seam and tail, then keep moving until fish establish a pattern. Apply this recommendation at Niles; recheck water shape and safe access before carrying it to another St. Joseph section.",
+            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. This read applies only to the Niles mainstem reach.",
+            "tip": "Cover readable seams and holding water with a controlled presentation. Verify every other section directly.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band"
@@ -27659,15 +27870,15 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 77,
             "maximum": 100,
             "label": "Active",
-            "headline": "Today’s Coho activity outlook is active.",
-            "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. Early lake-fresh Coho can remain reactive when measured water temperatures are suitable; this score applies only to fish already in the river. Measured river conditions describe the St. Joseph mainstem at Niles. Water temperature, clarity, hydraulic shape, and presentation conditions can differ in the harbor and lower Michigan river, at individual ladder tailwaters, and through South Bend, Mishawaka, and the Twin Branch reach. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
-            "tip": "Start with 5–9 AM. If the sky changes from the forecast, favor the darkest practical window. Apply this response window at Niles; verify temperature, clarity, flow shape, and legal access again before carrying it to another St. Joseph section.",
+            "headline": "Today’s Niles Coho responsiveness is active.",
+            "detail": "Conditions support a meaningful Coho response. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Flow and temperature represent only the Niles mainstem reach.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify other sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -27719,10 +27930,13 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 43,
+            "displayScore": 45,
+            "scoreIsApproximate": true,
             "stage": "beginning",
             "maximum": 100,
             "riverCeiling": 70,
@@ -27731,14 +27945,14 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "curveDirection": "rising",
             "winterHoldingContext": false,
             "label": "High presence",
-            "headline": "Coho salmon are likely present through more dependable river sections as seasonal presence builds toward its strongest point.",
-            "detail": "Seasonal presence is usually elevated relative to the rest of the season, with more fish expected to enter and become established through a broad part of the accessible river. This is a seasonal estimate, not a live fish count. This seasonal presence applies to the accessible St. Joseph corridor as a whole; it does not claim equal fish numbers at the harbor, Niles, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Treat this as one of the stronger parts of this river's moderate seasonal opportunity. Give each stop a complete pass, but do not mistake this seasonal estimate for a live fish count. Use Migration Stage to choose the specific St. Joseph section, then verify that water directly.",
+            "headline": "Seasonal Coho salmon presence is high and building.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the St. Joseph Coho salmon ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -27992,6 +28206,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "nextConditionRefreshAt": "2026-10-06T05:00:00.000Z",
           "runStage": {
             "stage": "building",
+            "copyStrategy": "st_joseph_corridor",
             "stagingContext": false,
             "broadBuildingContext": true,
             "winterHoldingContext": false,
@@ -28014,14 +28229,14 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "peakToEndDays": 46
             },
             "label": "Building",
-            "headline": "Coho salmon are now established through multiple sections of the interstate St. Joseph corridor.",
-            "detail": "Earlier arrivals have had time to pass Berrien Springs, Buchanan, and Niles while newer fish continue entering below. Distribution can be broad without being even between Michigan and Indiana sections.",
-            "tip": "Compare one Michigan section with one Indiana section, working deep travel lanes, current breaks, and resting water away from every ladder safety zone.",
-            "whereToStart": "Compare lower-Michigan holding water, Buchanan and Niles, then legal South Bend-Mishawaka water below Twin Branch; never infer every section from the Niles gauge.",
+            "headline": "Coho salmon are established through multiple St. Joseph sections.",
+            "detail": "Earlier arrivals may be farther upstream while newer fish continue entering below.",
+            "tip": "Compare two sections, then stay where direct fish activity is strongest.",
+            "whereToStart": "Start in the Middle river (Berrien Springs–Niles). Compare the Upper river (Niles–Twin Branch Dam) for earlier arrivals.",
             "reasonCodes": [
               "stage_building"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -28094,7 +28309,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "conditions_insufficient",
               "conditions_checkpoint_building_established"
             ],
-            "copyVersion": "river-run-copy-v27",
+            "copyVersion": "river-run-copy-v34",
             "previousCheckpointId": "building_start",
             "previousCheckpointDate": "2026-10-01",
             "previousTimingLabel": "Insufficient evidence"
@@ -28111,9 +28326,9 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "push": {
             "score": 30,
             "label": "No clear push",
-            "headline": "Today's water does not show a clear signal for a fresh wave of fish.",
-            "detail": "The river is holding steady with no meaningful rise yet. Water temperature is favorable for fall migration and is relatively steady. Recent weather estimates indicate very little rain around the river. This Push describes fresh-movement support at Niles only; it does not prove a new wave at the harbor, Berrien Springs, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Fish established holding water from the head through the inside seam and tail. Do not spend the day racing between lower travel lanes for a wave the water does not support. Use the Niles signal to choose between Niles-area holding water and a lower-Michigan travel-water check; verify Indiana movement directly.",
+            "headline": "Niles water does not show a clear fresh-movement signal.",
+            "detail": "Niles flow is steady without a meaningful rise. Water temperature is favorable for fall migration and is relatively steady. Recent watershed weather shows little rain.",
+            "tip": "Keep Migration Stage’s section primary. Do not shift sections from this Niles read.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
@@ -28132,14 +28347,14 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 93,
             "label": "Excellent",
             "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river. This flow shape applies to the Niles mainstem reach only; verify the harbor, lower Michigan river, individual tailwaters, and Indiana water directly.",
-            "tip": "Begin on the primary travel lane feeding deep holding water. Work each hole from its head through the inside seam and tail, then keep moving until fish establish a pattern. Apply this recommendation at Niles; recheck water shape and safe access before carrying it to another St. Joseph section.",
+            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. This read applies only to the Niles mainstem reach.",
+            "tip": "Cover readable seams and holding water with a controlled presentation. Verify every other section directly.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band"
@@ -28150,15 +28365,15 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 77,
             "maximum": 100,
             "label": "Active",
-            "headline": "Today’s Coho activity outlook is active.",
-            "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. More Coho are entering and settling into the river; measured water temperature matters, but this score describes reaction conditions rather than movement or abundance. Measured river conditions describe the St. Joseph mainstem at Niles. Water temperature, clarity, hydraulic shape, and presentation conditions can differ in the harbor and lower Michigan river, at individual ladder tailwaters, and through South Bend, Mishawaka, and the Twin Branch reach. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
-            "tip": "Start with 5–9 AM. If the sky changes from the forecast, favor the darkest practical window. Apply this response window at Niles; verify temperature, clarity, flow shape, and legal access again before carrying it to another St. Joseph section.",
+            "headline": "Today’s Niles Coho responsiveness is active.",
+            "detail": "Conditions support a meaningful Coho response. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Flow and temperature represent only the Niles mainstem reach.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify other sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -28210,10 +28425,13 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 58,
+            "displayScore": 60,
+            "scoreIsApproximate": true,
             "stage": "building",
             "maximum": 100,
             "riverCeiling": 70,
@@ -28222,14 +28440,14 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "curveDirection": "rising",
             "winterHoldingContext": false,
             "label": "High presence",
-            "headline": "Coho salmon are likely present through more dependable river sections as seasonal presence builds toward its strongest point.",
-            "detail": "The migration is approaching its strongest seasonal point, and fish are likely distributed through a broad part of the accessible river. This is a seasonal estimate, not a live fish count. This seasonal presence applies to the accessible St. Joseph corridor as a whole; it does not claim equal fish numbers at the harbor, Niles, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Treat this as one of the stronger parts of this river's moderate seasonal opportunity. Give each stop a complete pass, but do not mistake this seasonal estimate for a live fish count. Use Migration Stage to choose the specific St. Joseph section, then verify that water directly.",
+            "headline": "Seasonal Coho salmon presence is high and building.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the St. Joseph Coho salmon ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_building",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -28483,6 +28701,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "nextConditionRefreshAt": "2026-10-09T05:00:00.000Z",
           "runStage": {
             "stage": "building",
+            "copyStrategy": "st_joseph_corridor",
             "stagingContext": false,
             "broadBuildingContext": true,
             "winterHoldingContext": false,
@@ -28505,14 +28724,14 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "peakToEndDays": 46
             },
             "label": "Building",
-            "headline": "Coho salmon are now established through multiple sections of the interstate St. Joseph corridor.",
-            "detail": "Earlier arrivals have had time to pass Berrien Springs, Buchanan, and Niles while newer fish continue entering below. Distribution can be broad without being even between Michigan and Indiana sections.",
-            "tip": "Compare one Michigan section with one Indiana section, working deep travel lanes, current breaks, and resting water away from every ladder safety zone.",
-            "whereToStart": "Compare lower-Michigan holding water, Buchanan and Niles, then legal South Bend-Mishawaka water below Twin Branch; never infer every section from the Niles gauge.",
+            "headline": "Coho salmon are established through multiple St. Joseph sections.",
+            "detail": "Earlier arrivals may be farther upstream while newer fish continue entering below.",
+            "tip": "Compare two sections, then stay where direct fish activity is strongest.",
+            "whereToStart": "Start in the Middle river (Berrien Springs–Niles). Compare the Upper river (Niles–Twin Branch Dam) for earlier arrivals.",
             "reasonCodes": [
               "stage_building"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -28585,7 +28804,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "conditions_insufficient",
               "conditions_checkpoint_building_established"
             ],
-            "copyVersion": "river-run-copy-v27",
+            "copyVersion": "river-run-copy-v34",
             "previousCheckpointId": "building_start",
             "previousCheckpointDate": "2026-10-01",
             "previousTimingLabel": "Insufficient evidence"
@@ -28602,9 +28821,9 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "push": {
             "score": 30,
             "label": "No clear push",
-            "headline": "Today's water does not show a clear signal for a fresh wave of fish.",
-            "detail": "The river is holding steady with no meaningful rise yet. Water temperature is favorable for fall migration and is relatively steady. Recent weather estimates indicate very little rain around the river. This Push describes fresh-movement support at Niles only; it does not prove a new wave at the harbor, Berrien Springs, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Fish established holding water from the head through the inside seam and tail. Do not spend the day racing between lower travel lanes for a wave the water does not support. Use the Niles signal to choose between Niles-area holding water and a lower-Michigan travel-water check; verify Indiana movement directly.",
+            "headline": "Niles water does not show a clear fresh-movement signal.",
+            "detail": "Niles flow is steady without a meaningful rise. Water temperature is favorable for fall migration and is relatively steady. Recent watershed weather shows little rain.",
+            "tip": "Keep Migration Stage’s section primary. Do not shift sections from this Niles read.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
@@ -28623,14 +28842,14 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 93,
             "label": "Excellent",
             "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river. This flow shape applies to the Niles mainstem reach only; verify the harbor, lower Michigan river, individual tailwaters, and Indiana water directly.",
-            "tip": "Begin on the primary travel lane feeding deep holding water. Work each hole from its head through the inside seam and tail, then keep moving until fish establish a pattern. Apply this recommendation at Niles; recheck water shape and safe access before carrying it to another St. Joseph section.",
+            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. This read applies only to the Niles mainstem reach.",
+            "tip": "Cover readable seams and holding water with a controlled presentation. Verify every other section directly.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band"
@@ -28641,15 +28860,15 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 77,
             "maximum": 100,
             "label": "Active",
-            "headline": "Today’s Coho activity outlook is active.",
-            "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. More Coho are entering and settling into the river; measured water temperature matters, but this score describes reaction conditions rather than movement or abundance. Measured river conditions describe the St. Joseph mainstem at Niles. Water temperature, clarity, hydraulic shape, and presentation conditions can differ in the harbor and lower Michigan river, at individual ladder tailwaters, and through South Bend, Mishawaka, and the Twin Branch reach. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
-            "tip": "Start with 5–9 AM. If the sky changes from the forecast, favor the darkest practical window. Apply this response window at Niles; verify temperature, clarity, flow shape, and legal access again before carrying it to another St. Joseph section.",
+            "headline": "Today’s Niles Coho responsiveness is active.",
+            "detail": "Conditions support a meaningful Coho response. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Flow and temperature represent only the Niles mainstem reach.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify other sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -28701,10 +28920,13 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 65,
+            "displayScore": 65,
+            "scoreIsApproximate": true,
             "stage": "building",
             "maximum": 100,
             "riverCeiling": 70,
@@ -28713,14 +28935,14 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "curveDirection": "rising",
             "winterHoldingContext": false,
             "label": "Peak presence",
-            "headline": "Coho salmon are likely present through more dependable river sections as seasonal presence builds toward its strongest point.",
-            "detail": "The migration is approaching its strongest seasonal point, and fish are likely distributed through a broad part of the accessible river. This is a seasonal estimate, not a live fish count. This seasonal presence applies to the accessible St. Joseph corridor as a whole; it does not claim equal fish numbers at the harbor, Niles, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Treat this as one of the stronger parts of this river's moderate seasonal opportunity. Give each stop a complete pass, but do not mistake this seasonal estimate for a live fish count. Use Migration Stage to choose the specific St. Joseph section, then verify that water directly.",
+            "headline": "Seasonal Coho salmon presence is near its expected St. Joseph peak.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the St. Joseph Coho salmon ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_building",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -28974,6 +29196,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "nextConditionRefreshAt": "2026-10-11T05:00:00.000Z",
           "runStage": {
             "stage": "peak",
+            "copyStrategy": "st_joseph_corridor",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -28996,14 +29219,14 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "peakToEndDays": 46
             },
             "label": "Peak",
-            "headline": "This is typically the strongest St. Joseph Coho salmon window across the five-ladder corridor.",
-            "detail": "Multiple waves have had time to spread from the lower river through Berrien Springs, Buchanan, Niles, South Bend, and Mishawaka, but each section still needs to be checked independently.",
-            "tip": "Choose a proven section and cover deep holding water from head to tail. Change sections only after a clean search, and leave shallow spawning fish undisturbed.",
-            "whereToStart": "Compare Berrien Springs, Buchanan, and Niles holding water with legal South Bend-Mishawaka water below Twin Branch; stay outside every posted dam and ladder boundary.",
+            "headline": "This is typically the strongest St. Joseph Coho salmon window.",
+            "detail": "Repeated entry periods support broad presence, not equal numbers in every section.",
+            "tip": "Choose one section and cover it completely before changing reaches. Leave shallow spawning fish undisturbed.",
+            "whereToStart": "Start in the Middle river (Berrien Springs–Niles). Compare the Upper river (Niles–Twin Branch Dam) for established fish.",
             "reasonCodes": [
               "stage_peak"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -29085,7 +29308,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "conditions_insufficient",
               "conditions_checkpoint_peak_start"
             ],
-            "copyVersion": "river-run-copy-v27",
+            "copyVersion": "river-run-copy-v34",
             "previousCheckpointId": "building_established",
             "previousCheckpointDate": "2026-10-01",
             "previousTimingLabel": "Insufficient evidence"
@@ -29102,9 +29325,9 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "push": {
             "score": 30,
             "label": "No clear push",
-            "headline": "Today's water does not show a clear signal for a fresh wave of fish.",
-            "detail": "The river is holding steady with no meaningful rise yet. Water temperature is favorable for fall migration and is relatively steady. Recent weather estimates indicate very little rain around the river. This Push describes fresh-movement support at Niles only; it does not prove a new wave at the harbor, Berrien Springs, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Fish established holding water from the head through the inside seam and tail. Do not spend the day racing between lower travel lanes for a wave the water does not support. Use the Niles signal to choose between Niles-area holding water and a lower-Michigan travel-water check; verify Indiana movement directly.",
+            "headline": "Niles water does not show a clear fresh-movement signal.",
+            "detail": "Niles flow is steady without a meaningful rise. Water temperature is favorable for fall migration and is relatively steady. Recent watershed weather shows little rain.",
+            "tip": "Keep Migration Stage’s section primary. Do not shift sections from this Niles read.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
@@ -29123,14 +29346,14 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 93,
             "label": "Excellent",
             "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river. This flow shape applies to the Niles mainstem reach only; verify the harbor, lower Michigan river, individual tailwaters, and Indiana water directly.",
-            "tip": "Begin on the primary travel lane feeding deep holding water. Work each hole from its head through the inside seam and tail, then keep moving until fish establish a pattern. Apply this recommendation at Niles; recheck water shape and safe access before carrying it to another St. Joseph section.",
+            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. This read applies only to the Niles mainstem reach.",
+            "tip": "Cover readable seams and holding water with a controlled presentation. Verify every other section directly.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band"
@@ -29141,15 +29364,15 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 77,
             "maximum": 100,
             "label": "Active",
-            "headline": "Today’s Coho activity outlook is active.",
-            "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. Broad seasonal presence can make fish easier to locate, but this score measures the responsiveness of Coho already present rather than their abundance. Measured river conditions describe the St. Joseph mainstem at Niles. Water temperature, clarity, hydraulic shape, and presentation conditions can differ in the harbor and lower Michigan river, at individual ladder tailwaters, and through South Bend, Mishawaka, and the Twin Branch reach. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
-            "tip": "Start with 5–9 AM. If the sky changes from the forecast, favor the darkest practical window. Apply this response window at Niles; verify temperature, clarity, flow shape, and legal access again before carrying it to another St. Joseph section.",
+            "headline": "Today’s Niles Coho responsiveness is active.",
+            "detail": "Conditions support a meaningful Coho response. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Flow and temperature represent only the Niles mainstem reach.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify other sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -29201,10 +29424,13 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 70,
+            "displayScore": 70,
+            "scoreIsApproximate": false,
             "stage": "peak",
             "maximum": 100,
             "riverCeiling": 70,
@@ -29213,14 +29439,14 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "curveDirection": "near_peak",
             "winterHoldingContext": false,
             "label": "Peak presence",
-            "headline": "Coho salmon are likely near their highest seasonal presence in the river.",
-            "detail": "This is the part of the season when in-river presence is usually strongest. Fish are most likely distributed through a broad part of the accessible river. The read does not place fish in a specific pool or confirm a live count. This seasonal presence applies to the accessible St. Joseph corridor as a whole; it does not claim equal fish numbers at the harbor, Niles, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Plan for a dependable but potentially uneven river opportunity near its seasonal high point. Confirm fish activity before committing the full day. Use Migration Stage to choose the specific St. Joseph section, then verify that water directly.",
+            "headline": "Seasonal Coho salmon presence is near its expected St. Joseph peak.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the St. Joseph Coho salmon ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_peak",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -29480,6 +29706,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "nextConditionRefreshAt": "2026-10-12T05:00:00.000Z",
           "runStage": {
             "stage": "peak",
+            "copyStrategy": "st_joseph_corridor",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -29502,14 +29729,14 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "peakToEndDays": 46
             },
             "label": "Peak",
-            "headline": "This is typically the strongest St. Joseph Coho salmon window across the five-ladder corridor.",
-            "detail": "Multiple waves have had time to spread from the lower river through Berrien Springs, Buchanan, Niles, South Bend, and Mishawaka, but each section still needs to be checked independently.",
-            "tip": "Choose a proven section and cover deep holding water from head to tail. Change sections only after a clean search, and leave shallow spawning fish undisturbed.",
-            "whereToStart": "Compare Berrien Springs, Buchanan, and Niles holding water with legal South Bend-Mishawaka water below Twin Branch; stay outside every posted dam and ladder boundary.",
+            "headline": "This is typically the strongest St. Joseph Coho salmon window.",
+            "detail": "Repeated entry periods support broad presence, not equal numbers in every section.",
+            "tip": "Choose one section and cover it completely before changing reaches. Leave shallow spawning fish undisturbed.",
+            "whereToStart": "Start in the Middle river (Berrien Springs–Niles). Compare the Upper river (Niles–Twin Branch Dam) for established fish.",
             "reasonCodes": [
               "stage_peak"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -29591,7 +29818,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "conditions_insufficient",
               "conditions_checkpoint_peak_start"
             ],
-            "copyVersion": "river-run-copy-v27",
+            "copyVersion": "river-run-copy-v34",
             "previousCheckpointId": "building_established",
             "previousCheckpointDate": "2026-10-01",
             "previousTimingLabel": "Insufficient evidence"
@@ -29608,9 +29835,9 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "push": {
             "score": 30,
             "label": "No clear push",
-            "headline": "Today's water does not show a clear signal for a fresh wave of fish.",
-            "detail": "The river is holding steady with no meaningful rise yet. Water temperature is favorable for fall migration and is relatively steady. Recent weather estimates indicate very little rain around the river. This Push describes fresh-movement support at Niles only; it does not prove a new wave at the harbor, Berrien Springs, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Fish established holding water from the head through the inside seam and tail. Do not spend the day racing between lower travel lanes for a wave the water does not support. Use the Niles signal to choose between Niles-area holding water and a lower-Michigan travel-water check; verify Indiana movement directly.",
+            "headline": "Niles water does not show a clear fresh-movement signal.",
+            "detail": "Niles flow is steady without a meaningful rise. Water temperature is favorable for fall migration and is relatively steady. Recent watershed weather shows little rain.",
+            "tip": "Keep Migration Stage’s section primary. Do not shift sections from this Niles read.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
@@ -29629,14 +29856,14 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 93,
             "label": "Excellent",
             "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river. This flow shape applies to the Niles mainstem reach only; verify the harbor, lower Michigan river, individual tailwaters, and Indiana water directly.",
-            "tip": "Begin on the primary travel lane feeding deep holding water. Work each hole from its head through the inside seam and tail, then keep moving until fish establish a pattern. Apply this recommendation at Niles; recheck water shape and safe access before carrying it to another St. Joseph section.",
+            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. This read applies only to the Niles mainstem reach.",
+            "tip": "Cover readable seams and holding water with a controlled presentation. Verify every other section directly.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band"
@@ -29647,15 +29874,15 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 77,
             "maximum": 100,
             "label": "Active",
-            "headline": "Today’s Coho activity outlook is active.",
-            "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. Broad seasonal presence can make fish easier to locate, but this score measures the responsiveness of Coho already present rather than their abundance. Measured river conditions describe the St. Joseph mainstem at Niles. Water temperature, clarity, hydraulic shape, and presentation conditions can differ in the harbor and lower Michigan river, at individual ladder tailwaters, and through South Bend, Mishawaka, and the Twin Branch reach. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
-            "tip": "Start with 5–9 AM. If the sky changes from the forecast, favor the darkest practical window. Apply this response window at Niles; verify temperature, clarity, flow shape, and legal access again before carrying it to another St. Joseph section.",
+            "headline": "Today’s Niles Coho responsiveness is active.",
+            "detail": "Conditions support a meaningful Coho response. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Flow and temperature represent only the Niles mainstem reach.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify other sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -29707,10 +29934,13 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 70,
+            "displayScore": 70,
+            "scoreIsApproximate": false,
             "stage": "peak",
             "maximum": 100,
             "riverCeiling": 70,
@@ -29719,14 +29949,14 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "curveDirection": "falling",
             "winterHoldingContext": false,
             "label": "Peak presence",
-            "headline": "Seasonal timing still supports Coho salmon being near their strongest in-river presence, even if the migration may be just beyond its usual peak.",
-            "detail": "This point in the season may sit just beyond the usual peak while the seasonal pattern still supports fish through a broad part of the accessible river. This is a seasonal estimate, not a live fish count. This seasonal presence applies to the accessible St. Joseph corridor as a whole; it does not claim equal fish numbers at the harbor, Niles, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Plan around fish already likely to be in the river. Seasonal presence is still near its high point, but remember that this seasonal estimate cannot tell whether a fresh wave is entering today. Use Migration Stage to choose the specific St. Joseph section, then verify that water directly.",
+            "headline": "Seasonal Coho salmon presence is near its expected St. Joseph peak.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the St. Joseph Coho salmon ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_peak",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -29986,6 +30216,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "nextConditionRefreshAt": "2026-10-29T05:00:00.000Z",
           "runStage": {
             "stage": "peak",
+            "copyStrategy": "st_joseph_corridor",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -30008,14 +30239,14 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "peakToEndDays": 46
             },
             "label": "Peak",
-            "headline": "This is typically the strongest St. Joseph Coho salmon window across the five-ladder corridor.",
-            "detail": "Multiple waves have had time to spread from the lower river through Berrien Springs, Buchanan, Niles, South Bend, and Mishawaka, but each section still needs to be checked independently.",
-            "tip": "Choose a proven section and cover deep holding water from head to tail. Change sections only after a clean search, and leave shallow spawning fish undisturbed.",
-            "whereToStart": "Compare Berrien Springs, Buchanan, and Niles holding water with legal South Bend-Mishawaka water below Twin Branch; stay outside every posted dam and ladder boundary.",
+            "headline": "This is typically the strongest St. Joseph Coho salmon window.",
+            "detail": "Repeated entry periods support broad presence, not equal numbers in every section.",
+            "tip": "Choose one section and cover it completely before changing reaches. Leave shallow spawning fish undisturbed.",
+            "whereToStart": "Start in the Middle river (Berrien Springs–Niles). Compare the Upper river (Niles–Twin Branch Dam) for established fish.",
             "reasonCodes": [
               "stage_peak"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Timing complete",
@@ -30103,7 +30334,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "conditions_checkpoint_peak_complete",
               "conditions_timing_complete"
             ],
-            "copyVersion": "river-run-copy-v27",
+            "copyVersion": "river-run-copy-v34",
             "previousCheckpointId": "peak_start",
             "previousCheckpointDate": "2026-10-10",
             "previousTimingLabel": "Insufficient evidence"
@@ -30120,9 +30351,9 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "push": {
             "score": 30,
             "label": "No clear push",
-            "headline": "Today's water does not show a clear signal for a fresh wave of fish.",
-            "detail": "The river is holding steady with no meaningful rise yet. Water temperature is favorable for fall migration and is relatively steady. Recent weather estimates indicate very little rain around the river. This Push describes fresh-movement support at Niles only; it does not prove a new wave at the harbor, Berrien Springs, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Fish established holding water from the head through the inside seam and tail. Do not spend the day racing between lower travel lanes for a wave the water does not support. Use the Niles signal to choose between Niles-area holding water and a lower-Michigan travel-water check; verify Indiana movement directly.",
+            "headline": "Niles water does not show a clear fresh-movement signal.",
+            "detail": "Niles flow is steady without a meaningful rise. Water temperature is favorable for fall migration and is relatively steady. Recent watershed weather shows little rain.",
+            "tip": "Keep Migration Stage’s section primary. Do not shift sections from this Niles read.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
@@ -30141,14 +30372,14 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 93,
             "label": "Excellent",
             "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river. This flow shape applies to the Niles mainstem reach only; verify the harbor, lower Michigan river, individual tailwaters, and Indiana water directly.",
-            "tip": "Begin on the primary travel lane feeding deep holding water. Work each hole from its head through the inside seam and tail, then keep moving until fish establish a pattern. Apply this recommendation at Niles; recheck water shape and safe access before carrying it to another St. Joseph section.",
+            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. This read applies only to the Niles mainstem reach.",
+            "tip": "Cover readable seams and holding water with a controlled presentation. Verify every other section directly.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band"
@@ -30159,15 +30390,15 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 77,
             "maximum": 100,
             "label": "Active",
-            "headline": "Today’s Coho activity outlook is active.",
-            "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. Broad seasonal presence can make fish easier to locate, but this score measures the responsiveness of Coho already present rather than their abundance. Measured river conditions describe the St. Joseph mainstem at Niles. Water temperature, clarity, hydraulic shape, and presentation conditions can differ in the harbor and lower Michigan river, at individual ladder tailwaters, and through South Bend, Mishawaka, and the Twin Branch reach. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
-            "tip": "Start with 5–9 AM. If the sky changes from the forecast, favor the darkest practical window. Apply this response window at Niles; verify temperature, clarity, flow shape, and legal access again before carrying it to another St. Joseph section.",
+            "headline": "Today’s Niles Coho responsiveness is active.",
+            "detail": "Conditions support a meaningful Coho response. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Flow and temperature represent only the Niles mainstem reach.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify other sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -30219,10 +30450,13 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 63,
+            "displayScore": 60,
+            "scoreIsApproximate": true,
             "stage": "peak",
             "maximum": 100,
             "riverCeiling": 70,
@@ -30231,14 +30465,14 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "curveDirection": "falling",
             "winterHoldingContext": false,
             "label": "High presence",
-            "headline": "Seasonal timing still supports meaningful Coho salmon presence through dependable river sections, even as the usual peak window may be easing.",
-            "detail": "Seasonal presence remains elevated relative to the rest of the season. Fish are still likely established through a broad part of the accessible river, but fresh arrivals may be less consistent than around the usual peak. This is a seasonal estimate, not a live fish count. This seasonal presence applies to the accessible St. Joseph corridor as a whole; it does not claim equal fish numbers at the harbor, Niles, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Plan around fish already likely to be in the river. Seasonal presence is still near its high point, but remember that this seasonal estimate cannot tell whether a fresh wave is entering today. Use Migration Stage to choose the specific St. Joseph section, then verify that water directly.",
+            "headline": "Seasonal Coho salmon presence is high and declining.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the St. Joseph Coho salmon ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_peak",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -30498,6 +30732,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "nextConditionRefreshAt": "2026-11-05T05:00:00.000Z",
           "runStage": {
             "stage": "tapering",
+            "copyStrategy": "st_joseph_corridor",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -30521,13 +30756,13 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             },
             "label": "Tapering",
             "headline": "This can remain a productive part of the Coho salmon season, even as fresh arrivals typically become less consistent.",
-            "detail": "Fresh passage is becoming less dependable, so established Niles, South Bend, and Mishawaka holding or spawning water matters more than racing the lower river for a new wave.",
-            "tip": "Start in proven deep holding water, check lower travel lanes only when Push supports new movement, and leave fish on shallow gravel alone.",
-            "whereToStart": "Prioritize established holding and spawning water near Niles, South Bend, and Mishawaka while checking the lower river only for a late fresh wave.",
+            "detail": "Fresh entry is slowing, so established holding water matters more than Lower-river travel lanes.",
+            "tip": "Start in proven holding water. Check the Lower river only when Push supports fresh movement.",
+            "whereToStart": "Start in established Middle river (Berrien Springs–Niles) or Upper river (Niles–Twin Branch Dam) holding water.",
             "reasonCodes": [
               "stage_tapering"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Timing complete",
@@ -30615,7 +30850,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "conditions_checkpoint_peak_complete",
               "conditions_timing_complete"
             ],
-            "copyVersion": "river-run-copy-v27",
+            "copyVersion": "river-run-copy-v34",
             "previousCheckpointId": "peak_start",
             "previousCheckpointDate": "2026-10-10",
             "previousTimingLabel": "Insufficient evidence"
@@ -30632,9 +30867,9 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "push": {
             "score": 30,
             "label": "No clear push",
-            "headline": "Today's water does not show a clear signal for a fresh wave of fish.",
-            "detail": "The river is holding steady with no meaningful rise yet. Water temperature is favorable for fall migration and is relatively steady. Recent weather estimates indicate very little rain around the river. This Push describes fresh-movement support at Niles only; it does not prove a new wave at the harbor, Berrien Springs, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Fish established holding water from the head through the inside seam and tail. Do not spend the day racing between lower travel lanes for a wave the water does not support. Use the Niles signal to choose between Niles-area holding water and a lower-Michigan travel-water check; verify Indiana movement directly.",
+            "headline": "Niles water does not show a clear fresh-movement signal.",
+            "detail": "Niles flow is steady without a meaningful rise. Water temperature is favorable for fall migration and is relatively steady. Recent watershed weather shows little rain.",
+            "tip": "Keep Migration Stage’s section primary. Do not shift sections from this Niles read.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
@@ -30653,14 +30888,14 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 93,
             "label": "Excellent",
             "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river. This flow shape applies to the Niles mainstem reach only; verify the harbor, lower Michigan river, individual tailwaters, and Indiana water directly.",
-            "tip": "Begin on the primary travel lane feeding deep holding water. Work each hole from its head through the inside seam and tail, then keep moving until fish establish a pattern. Apply this recommendation at Niles; recheck water shape and safe access before carrying it to another St. Joseph section.",
+            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. This read applies only to the Niles mainstem reach.",
+            "tip": "Cover readable seams and holding water with a controlled presentation. Verify every other section directly.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band"
@@ -30671,15 +30906,15 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 73,
             "maximum": 100,
             "label": "Active",
-            "headline": "Today’s Coho activity outlook is active.",
-            "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. This score represents a Coho of unknown condition at this point in the season. A newly arrived or fresher fish may be more active than this score, while a spawning or deteriorating fish may be less responsive. Measured river conditions describe the St. Joseph mainstem at Niles. Water temperature, clarity, hydraulic shape, and presentation conditions can differ in the harbor and lower Michigan river, at individual ladder tailwaters, and through South Bend, Mishawaka, and the Twin Branch reach. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
-            "tip": "Compare the four time windows, but treat every difference as conditional on finding a living Coho still capable of responding. Apply this response window at Niles; verify temperature, clarity, flow shape, and legal access again before carrying it to another St. Joseph section.",
+            "headline": "Today’s Niles Coho responsiveness is active.",
+            "detail": "Conditions support a meaningful Coho response. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Late-run Coho condition varies widely, so individual fish may respond above or below this outlook.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify other sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -30732,10 +30967,13 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 55,
+            "displayScore": 55,
+            "scoreIsApproximate": true,
             "stage": "tapering",
             "maximum": 100,
             "riverCeiling": 70,
@@ -30744,14 +30982,14 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "curveDirection": "falling",
             "winterHoldingContext": false,
             "label": "High presence",
-            "headline": "Seasonal timing still supports Coho salmon through dependable river sections, although fresh arrivals may be less consistent than near peak.",
-            "detail": "Seasonal presence is usually elevated relative to the rest of the season. Fish are still likely established through a broad part of the accessible river, while fresh arrivals often become less consistent later in the season. This is a seasonal estimate, not a live fish count. This seasonal presence applies to the accessible St. Joseph corridor as a whole; it does not claim equal fish numbers at the harbor, Niles, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Plan around fish already likely to be in the river. A meaningful seasonal presence may remain, but remember that this seasonal estimate cannot tell whether a fresh wave is entering today. Use Migration Stage to choose the specific St. Joseph section, then verify that water directly.",
+            "headline": "Seasonal Coho salmon presence is high and declining.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the St. Joseph Coho salmon ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_tapering",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -31005,6 +31243,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "nextConditionRefreshAt": "2026-11-14T05:00:00.000Z",
           "runStage": {
             "stage": "tapering",
+            "copyStrategy": "st_joseph_corridor",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -31028,13 +31267,13 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             },
             "label": "Tapering",
             "headline": "This can remain a productive part of the Coho salmon season, even as fresh arrivals typically become less consistent.",
-            "detail": "Fresh passage is becoming less dependable, so established Niles, South Bend, and Mishawaka holding or spawning water matters more than racing the lower river for a new wave.",
-            "tip": "Start in proven deep holding water, check lower travel lanes only when Push supports new movement, and leave fish on shallow gravel alone.",
-            "whereToStart": "Prioritize established holding and spawning water near Niles, South Bend, and Mishawaka while checking the lower river only for a late fresh wave.",
+            "detail": "Fresh entry is slowing, so established holding water matters more than Lower-river travel lanes.",
+            "tip": "Start in proven holding water. Check the Lower river only when Push supports fresh movement.",
+            "whereToStart": "Start in established Middle river (Berrien Springs–Niles) or Upper river (Niles–Twin Branch Dam) holding water.",
             "reasonCodes": [
               "stage_tapering"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Timing complete",
@@ -31122,7 +31361,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "conditions_checkpoint_peak_complete",
               "conditions_timing_complete"
             ],
-            "copyVersion": "river-run-copy-v27",
+            "copyVersion": "river-run-copy-v34",
             "previousCheckpointId": "peak_start",
             "previousCheckpointDate": "2026-10-10",
             "previousTimingLabel": "Insufficient evidence"
@@ -31139,9 +31378,9 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "push": {
             "score": 30,
             "label": "No clear push",
-            "headline": "Today's water does not show a clear signal for a fresh wave of fish.",
-            "detail": "The river is holding steady with no meaningful rise yet. Water temperature is favorable for fall migration and is relatively steady. Recent weather estimates indicate very little rain around the river. This Push describes fresh-movement support at Niles only; it does not prove a new wave at the harbor, Berrien Springs, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Fish established holding water from the head through the inside seam and tail. Do not spend the day racing between lower travel lanes for a wave the water does not support. Use the Niles signal to choose between Niles-area holding water and a lower-Michigan travel-water check; verify Indiana movement directly.",
+            "headline": "Niles water does not show a clear fresh-movement signal.",
+            "detail": "Niles flow is steady without a meaningful rise. Water temperature is favorable for fall migration and is relatively steady. Recent watershed weather shows little rain.",
+            "tip": "Keep Migration Stage’s section primary. Do not shift sections from this Niles read.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
@@ -31160,14 +31399,14 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 93,
             "label": "Excellent",
             "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river. This flow shape applies to the Niles mainstem reach only; verify the harbor, lower Michigan river, individual tailwaters, and Indiana water directly.",
-            "tip": "Begin on the primary travel lane feeding deep holding water. Work each hole from its head through the inside seam and tail, then keep moving until fish establish a pattern. Apply this recommendation at Niles; recheck water shape and safe access before carrying it to another St. Joseph section.",
+            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. This read applies only to the Niles mainstem reach.",
+            "tip": "Cover readable seams and holding water with a controlled presentation. Verify every other section directly.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band"
@@ -31178,15 +31417,15 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 64,
             "maximum": 100,
             "label": "Active",
-            "headline": "Today’s Coho activity outlook is active.",
-            "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. This score represents a Coho of unknown condition at this point in the season. A newly arrived or fresher fish may be more active than this score, while a spawning or deteriorating fish may be less responsive. Measured river conditions describe the St. Joseph mainstem at Niles. Water temperature, clarity, hydraulic shape, and presentation conditions can differ in the harbor and lower Michigan river, at individual ladder tailwaters, and through South Bend, Mishawaka, and the Twin Branch reach. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
-            "tip": "Compare the four time windows, but treat every difference as conditional on finding a living Coho still capable of responding. Apply this response window at Niles; verify temperature, clarity, flow shape, and legal access again before carrying it to another St. Joseph section.",
+            "headline": "Today’s Niles Coho responsiveness is active.",
+            "detail": "Conditions support a meaningful Coho response. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Late-run Coho condition varies widely, so individual fish may respond above or below this outlook.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify other sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -31239,10 +31478,13 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 42,
+            "displayScore": 40,
+            "scoreIsApproximate": true,
             "stage": "tapering",
             "maximum": 100,
             "riverCeiling": 70,
@@ -31251,14 +31493,14 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "curveDirection": "falling",
             "winterHoldingContext": false,
             "label": "Moderate presence",
-            "headline": "Seasonal timing still supports meaningful Coho salmon presence, especially in established holding water.",
-            "detail": "This part of the season usually supports moderate presence through a broad part of the accessible river, while fresh arrivals often become less consistent later in the season. This is a seasonal estimate, not a live fish count. This seasonal presence applies to the accessible St. Joseph corridor as a whole; it does not claim equal fish numbers at the harbor, Niles, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Plan for a worthwhile but less consistent river opportunity. Expect more searching than near the seasonal high, and let direct fish activity determine how long you stay. Use Migration Stage to choose the specific St. Joseph section, then verify that water directly.",
+            "headline": "Seasonal Coho salmon presence is moderate and declining.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the St. Joseph Coho salmon ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_tapering",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -31512,6 +31754,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "nextConditionRefreshAt": "2026-11-22T05:00:00.000Z",
           "runStage": {
             "stage": "ending",
+            "copyStrategy": "st_joseph_corridor",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -31535,13 +31778,13 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             },
             "label": "Ending",
             "headline": "Coho salmon can still provide a worthwhile late-season opportunity across a broad part of the accessible river.",
-            "detail": "Most remaining fish have been in the system for some time. A fresh fish is possible, but the guide-level plan is a short, selective holding-water search—not a corridor-wide run.",
-            "tip": "Fish one or two proven deep holding areas, avoid shallow spawning fish, and stop searching if direct signs are absent.",
-            "whereToStart": "Focus on proven deep holding water near Niles, South Bend, or Mishawaka; treat fresh lower-river entry as secondary and leave shallow spawning fish alone.",
+            "detail": "Most remaining fish have been in the river for some time. A fresh fish is possible but not dependable.",
+            "tip": "Fish one proven holding section, avoid shallow spawning fish, and stop searching if direct signs are absent.",
+            "whereToStart": "Start in one proven Middle river (Berrien Springs–Niles) or Upper river (Niles–Twin Branch Dam) holding section.",
             "reasonCodes": [
               "stage_ending"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Timing complete",
@@ -31629,7 +31872,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "conditions_checkpoint_peak_complete",
               "conditions_timing_complete"
             ],
-            "copyVersion": "river-run-copy-v27",
+            "copyVersion": "river-run-copy-v34",
             "previousCheckpointId": "peak_start",
             "previousCheckpointDate": "2026-10-10",
             "previousTimingLabel": "Insufficient evidence"
@@ -31646,9 +31889,9 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "push": {
             "score": 30,
             "label": "No clear push",
-            "headline": "Today's water does not show a clear signal for a fresh wave of fish.",
-            "detail": "The river is holding steady with no meaningful rise yet. Water temperature is favorable for fall migration and is relatively steady. Recent weather estimates indicate very little rain around the river. This Push describes fresh-movement support at Niles only; it does not prove a new wave at the harbor, Berrien Springs, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Fish established holding water from the head through the inside seam and tail. Do not spend the day racing between lower travel lanes for a wave the water does not support. Use the Niles signal to choose between Niles-area holding water and a lower-Michigan travel-water check; verify Indiana movement directly.",
+            "headline": "Niles water does not show a clear fresh-movement signal.",
+            "detail": "Niles flow is steady without a meaningful rise. Water temperature is favorable for fall migration and is relatively steady. Recent watershed weather shows little rain.",
+            "tip": "Keep Migration Stage’s section primary. Do not shift sections from this Niles read.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
@@ -31667,14 +31910,14 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 93,
             "label": "Excellent",
             "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river. This flow shape applies to the Niles mainstem reach only; verify the harbor, lower Michigan river, individual tailwaters, and Indiana water directly.",
-            "tip": "Begin on the primary travel lane feeding deep holding water. Work each hole from its head through the inside seam and tail, then keep moving until fish establish a pattern. Apply this recommendation at Niles; recheck water shape and safe access before carrying it to another St. Joseph section.",
+            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. This read applies only to the Niles mainstem reach.",
+            "tip": "Cover readable seams and holding water with a controlled presentation. Verify every other section directly.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band"
@@ -31685,15 +31928,15 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 44,
             "maximum": 100,
             "label": "Moderate",
-            "headline": "Today’s Coho activity outlook is moderate.",
-            "detail": "Some useful factors are present, but the response window is mixed. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. This score represents a remaining Coho of unknown condition late in the season. A newly arrived or fresher fish may be more active than this score, while a spent or deteriorating fish may respond less or not at all. Measured river conditions describe the St. Joseph mainstem at Niles. Water temperature, clarity, hydraulic shape, and presentation conditions can differ in the harbor and lower Michigan river, at individual ladder tailwaters, and through South Bend, Mishawaka, and the Twin Branch reach. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
-            "tip": "No late-season window should be treated as broadly favorable; use the block scores only for a living Coho that is still capable of reacting. Apply this response window at Niles; verify temperature, clarity, flow shape, and legal access again before carrying it to another St. Joseph section.",
+            "headline": "Today’s Niles Coho responsiveness is moderate.",
+            "detail": "Conditions offer mixed support for Coho responsiveness. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Late-run Coho condition varies widely, so individual fish may respond above or below this outlook.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify other sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -31746,10 +31989,13 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 28,
+            "displayScore": 25,
+            "scoreIsApproximate": true,
             "stage": "ending",
             "maximum": 100,
             "riverCeiling": 70,
@@ -31758,14 +32004,14 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "curveDirection": "falling",
             "winterHoldingContext": false,
             "label": "Limited presence",
-            "headline": "Seasonal timing still supports some Coho salmon in established holding water, but they are less likely to occupy every dependable section.",
-            "detail": "This part of the season usually supports limited presence concentrated in the river's most dependable holes and slower holding water. This is a seasonal estimate, not a live fish count. This seasonal presence applies to the accessible St. Joseph corridor as a whole; it does not claim equal fish numbers at the harbor, Niles, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Treat this as a lower-odds late-season opportunity. Keep the trip flexible, and require direct fish activity before committing more time. Use Migration Stage to choose the specific St. Joseph section, then verify that water directly.",
+            "headline": "Seasonal Coho salmon presence is limited and declining.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the St. Joseph Coho salmon ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_ending",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -32019,6 +32265,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "nextConditionRefreshAt": "2026-11-30T05:00:00.000Z",
           "runStage": {
             "stage": "post_run",
+            "copyStrategy": "st_joseph_corridor",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -32042,13 +32289,13 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             },
             "label": "After migration",
             "headline": "The main Coho salmon migration is over.",
-            "detail": "A few late fish may remain below Twin Branch, but the main migration no longer supports a dependable St. Joseph trip.",
-            "tip": "Make only a selective established-water check, or shift to an active species. Do not chase isolated holdovers from ladder to ladder.",
-            "whereToStart": "Make only a selective check of established late holding water below Twin Branch; the main migration window has ended.",
+            "detail": "A few late fish may remain, but the main migration no longer supports a dependable trip.",
+            "tip": "Make one selective established-water check or shift to an active species.",
+            "whereToStart": "Make only a selective check in established Middle river (Berrien Springs–Niles) or Upper river (Niles–Twin Branch Dam) holding water.",
             "reasonCodes": [
               "stage_post_run"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Timing complete",
@@ -32136,7 +32383,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "conditions_checkpoint_peak_complete",
               "conditions_timing_complete"
             ],
-            "copyVersion": "river-run-copy-v27",
+            "copyVersion": "river-run-copy-v34",
             "previousCheckpointId": "peak_start",
             "previousCheckpointDate": "2026-10-10",
             "previousTimingLabel": "Insufficient evidence"
@@ -32160,14 +32407,14 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "push_tracking_complete"
             ],
             "rulesVersion": "st-joseph-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 93,
             "label": "Excellent",
             "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river. This flow shape applies to the Niles mainstem reach only; verify the harbor, lower Michigan river, individual tailwaters, and Indiana water directly.",
-            "tip": "Begin on the primary travel lane feeding deep holding water. Work each hole from its head through the inside seam and tail, then keep moving until fish establish a pattern. Apply this recommendation at Niles; recheck water shape and safe access before carrying it to another St. Joseph section.",
+            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. This read applies only to the Niles mainstem reach.",
+            "tip": "Cover readable seams and holding water with a controlled presentation. Verify every other section directly.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band"
@@ -32178,15 +32425,15 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 32,
             "maximum": 100,
             "label": "Reserved",
-            "headline": "Today’s Coho activity outlook is reserved.",
-            "detail": "Fish may respond selectively, with important environmental limitations. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. This score represents a remaining Coho of unknown condition late in the season. A newly arrived or fresher fish may be more active than this score, while a spent or deteriorating fish may respond less or not at all. Measured river conditions describe the St. Joseph mainstem at Niles. Water temperature, clarity, hydraulic shape, and presentation conditions can differ in the harbor and lower Michigan river, at individual ladder tailwaters, and through South Bend, Mishawaka, and the Twin Branch reach. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
-            "tip": "No late-season window should be treated as broadly favorable; use the block scores only for a living Coho that is still capable of reacting. Apply this response window at Niles; verify temperature, clarity, flow shape, and legal access again before carrying it to another St. Joseph section.",
+            "headline": "Today’s Niles Coho responsiveness is reserved.",
+            "detail": "Coho may respond selectively under current limitations. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Late-run Coho condition varies widely, so individual fish may respond above or below this outlook.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify other sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -32239,10 +32486,13 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 13,
+            "displayScore": 10,
+            "scoreIsApproximate": true,
             "stage": "post_run",
             "maximum": 100,
             "riverCeiling": 70,
@@ -32251,14 +32501,14 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "curveDirection": "falling",
             "winterHoldingContext": false,
             "label": "Low presence",
-            "headline": "Some Coho salmon may still be in the river, with seasonal presence more likely to be scattered.",
-            "detail": "This part of the season usually supports low presence through a broad part of the accessible river, while fresh arrivals often become less consistent later in the season. This is a seasonal estimate, not a live fish count. This seasonal presence applies to the accessible St. Joseph corridor as a whole; it does not claim equal fish numbers at the harbor, Niles, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Treat any remaining fish as a bonus rather than a dependable trip plan. Keep expectations narrow and be ready to shift to another seasonal species. Use Migration Stage to choose the specific St. Joseph section, then verify that water directly.",
+            "headline": "Seasonal Coho salmon presence is low and declining.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the St. Joseph Coho salmon ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_post_run",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -32519,6 +32769,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "nextConditionRefreshAt": "2026-12-06T05:00:00.000Z",
           "runStage": {
             "stage": "post_run",
+            "copyStrategy": "st_joseph_corridor",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -32542,13 +32793,13 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             },
             "label": "After migration",
             "headline": "The main Coho salmon migration is over.",
-            "detail": "A few late fish may remain below Twin Branch, but the main migration no longer supports a dependable St. Joseph trip.",
-            "tip": "Make only a selective established-water check, or shift to an active species. Do not chase isolated holdovers from ladder to ladder.",
-            "whereToStart": "Make only a selective check of established late holding water below Twin Branch; the main migration window has ended.",
+            "detail": "A few late fish may remain, but the main migration no longer supports a dependable trip.",
+            "tip": "Make one selective established-water check or shift to an active species.",
+            "whereToStart": "Make only a selective check in established Middle river (Berrien Springs–Niles) or Upper river (Niles–Twin Branch Dam) holding water.",
             "reasonCodes": [
               "stage_post_run"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Timing complete",
@@ -32636,7 +32887,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "conditions_checkpoint_peak_complete",
               "conditions_timing_complete"
             ],
-            "copyVersion": "river-run-copy-v27",
+            "copyVersion": "river-run-copy-v34",
             "previousCheckpointId": "peak_start",
             "previousCheckpointDate": "2026-10-10",
             "previousTimingLabel": "Insufficient evidence"
@@ -32660,14 +32911,14 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "push_tracking_complete"
             ],
             "rulesVersion": "st-joseph-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 93,
             "label": "Excellent",
             "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river. This flow shape applies to the Niles mainstem reach only; verify the harbor, lower Michigan river, individual tailwaters, and Indiana water directly.",
-            "tip": "Begin on the primary travel lane feeding deep holding water. Work each hole from its head through the inside seam and tail, then keep moving until fish establish a pattern. Apply this recommendation at Niles; recheck water shape and safe access before carrying it to another St. Joseph section.",
+            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. This read applies only to the Niles mainstem reach.",
+            "tip": "Cover readable seams and holding water with a controlled presentation. Verify every other section directly.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band"
@@ -32678,15 +32929,15 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 32,
             "maximum": 100,
             "label": "Reserved",
-            "headline": "Today’s Coho activity outlook is reserved.",
-            "detail": "Fish may respond selectively, with important environmental limitations. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. This score represents a remaining Coho of unknown condition late in the season. A newly arrived or fresher fish may be more active than this score, while a spent or deteriorating fish may respond less or not at all. Measured river conditions describe the St. Joseph mainstem at Niles. Water temperature, clarity, hydraulic shape, and presentation conditions can differ in the harbor and lower Michigan river, at individual ladder tailwaters, and through South Bend, Mishawaka, and the Twin Branch reach. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
-            "tip": "No late-season window should be treated as broadly favorable; use the block scores only for a living Coho that is still capable of reacting. Apply this response window at Niles; verify temperature, clarity, flow shape, and legal access again before carrying it to another St. Joseph section.",
+            "headline": "Today’s Niles Coho responsiveness is reserved.",
+            "detail": "Coho may respond selectively under current limitations. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Late-run Coho condition varies widely, so individual fish may respond above or below this outlook.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify other sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -32739,10 +32990,13 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 0,
+            "displayScore": 0,
+            "scoreIsApproximate": false,
             "stage": "post_run",
             "maximum": 100,
             "riverCeiling": 70,
@@ -32751,14 +33005,14 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "curveDirection": "falling",
             "winterHoldingContext": false,
             "label": "Migration complete",
-            "headline": "The season no longer supports a dependable in-river migration.",
-            "detail": "A few Coho salmon may remain, but their presence is likely isolated rather than part of a consistent opportunity through the river's dependable sections. This seasonal presence applies to the accessible St. Joseph corridor as a whole; it does not claim equal fish numbers at the harbor, Niles, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Do not build a trip around scattered late fish. Shift to another seasonal species, and leave any actively spawning fish undisturbed. Use Migration Stage to choose the specific St. Joseph section, then verify that water directly.",
+            "headline": "The St. Joseph Coho salmon migration no longer has dependable seasonal presence.",
+            "detail": "The seasonal estimate has reached zero. Isolated late fish are not a dependable migration opportunity.",
+            "tip": "Do not build a three-section search around isolated late fish.",
             "reasonCodes": [
               "stage_post_run",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -33003,8 +33257,8 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
         }
       },
       {
-        "id": "presence_post_run_offseason",
-        "label": "0 / 100 · Offseason · outside",
+        "id": "presence_fall_run_complete_outside",
+        "label": "null / 100 · Fall run complete · outside",
         "note": "Canonical St. Joseph River Fall Coho production copy · owner audit",
         "snapshot": {
           "riverId": "st_joseph",
@@ -33018,6 +33272,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "nextConditionRefreshAt": "2026-12-09T05:00:00.000Z",
           "runStage": {
             "stage": "post_run",
+            "copyStrategy": "st_joseph_corridor",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -33039,16 +33294,16 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "startToPeakDays": 39,
               "peakToEndDays": 46
             },
-            "label": "Offseason",
-            "headline": "Coho salmon are outside their St. Joseph River migration season.",
-            "detail": "This fall migration read is inactive and should not be used to recommend a harbor, Michigan, Niles, or Indiana starting reach.",
-            "tip": "Choose a species with an active St. Joseph seasonal window and return to this read when early monitoring begins.",
-            "whereToStart": "Shift to an in-season species and do not plan a St. Joseph Coho salmon migration trip from this inactive calendar.",
+            "label": "Fall run complete",
+            "headline": "The St. Joseph Coho salmon fall run is complete.",
+            "detail": "This seasonal run estimate is inactive until staging begins again.",
+            "tip": "Return when St. Joseph fall-run staging begins.",
+            "whereToStart": "There is no active St. Joseph starting section for this fall run.",
             "reasonCodes": [
               "stage_post_run",
               "stage_offseason"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Not monitoring yet",
@@ -33072,7 +33327,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "conditions_monitoring_inactive"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -33093,14 +33348,14 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "push_tracking_offseason"
             ],
             "rulesVersion": "st-joseph-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 93,
             "label": "Excellent",
             "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river. This flow shape applies to the Niles mainstem reach only; verify the harbor, lower Michigan river, individual tailwaters, and Indiana water directly.",
-            "tip": "Begin on the primary travel lane feeding deep holding water. Work each hole from its head through the inside seam and tail, then keep moving until fish establish a pattern. Apply this recommendation at Niles; recheck water shape and safe access before carrying it to another St. Joseph section.",
+            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. This read applies only to the Niles mainstem reach.",
+            "tip": "Cover readable seams and holding water with a controlled presentation. Verify every other section directly.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band"
@@ -33111,11 +33366,12 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": null,
           "fishInRiver": {
-            "score": 0,
+            "score": null,
+            "scoreIsApproximate": false,
             "stage": "post_run",
             "maximum": 100,
             "riverCeiling": 70,
@@ -33123,15 +33379,15 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "curveFraction": 0,
             "curveDirection": "outside",
             "winterHoldingContext": false,
-            "label": "Offseason",
-            "headline": "Coho salmon are outside their river migration season.",
-            "detail": "A dependable seasonal presence of Coho salmon is not expected in the river right now.",
-            "tip": "Do not build a river trip around this species right now. Target a species with an active seasonal window and return as the next migration approaches.",
+            "label": "Fall run complete",
+            "headline": "The St. Joseph Coho salmon fall run is complete.",
+            "detail": "Coho salmon staging typically begins in mid August. This seasonal estimate is inactive until then.",
+            "tip": "Check back in mid August when St. Joseph fall-run tracking resumes.",
             "reasonCodes": [
               "stage_post_run",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -33357,13 +33613,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "data_quality_fresh"
             ]
           },
-          "interpretationNote": {
-            "headline": "The river should fish well, but seasonal fish presence is still low.",
-            "detail": "Good flow makes presentations easier, but it does not put fish in the river. Begin in the deepest established holding water and skip broad searches through fast travel lanes as seasonal presence thins.",
-            "reasonCodes": [
-              "good_fishability_low_presence"
-            ]
-          },
+          "interpretationNote": null,
           "secondaryNote": "Based on the USGS gauge at Niles. It describes the Niles reach; the harbor, lower river, individual dam tailwaters, South Bend, Mishawaka, and Twin Branch may look different.",
           "safety": {
             "regulationReminder": "Select Michigan or Indiana for the correct jurisdiction. Always verify current official regulations, public access, posted closures, and dam safety boundaries.",
@@ -33396,6 +33646,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "nextConditionRefreshAt": "2026-10-01T05:00:00.000Z",
           "runStage": {
             "stage": "beginning",
+            "copyStrategy": "st_joseph_corridor",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -33418,14 +33669,14 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "peakToEndDays": 46
             },
             "label": "Beginning",
-            "headline": "The first Coho salmon are entering the St. Joseph and beginning to move beyond the lower river.",
-            "detail": "New fish should still be weighted toward lower Michigan travel water, while earlier arrivals may already be using Buchanan, Niles, and selective Indiana resting water.",
-            "tip": "Cover a lower-Michigan travel-and-holding sequence first. Move upriver only after direct fish activity, local observations, or established passage supports the change.",
-            "whereToStart": "Start in deep lower-Michigan travel water below Berrien Springs, then compare legal holding water around Buchanan and Niles before making a selective Indiana check.",
+            "headline": "The first Coho salmon are entering the St. Joseph River.",
+            "detail": "New fish remain weighted toward the Lower river; earlier arrivals may be farther upstream.",
+            "tip": "Cover travel water and the first substantial holding areas before moving upstream.",
+            "whereToStart": "Start in the Lower river (St. Joseph harbor–Berrien Springs). Add the Middle river (Berrien Springs–Niles) only after direct fish activity supports the move.",
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -33468,7 +33719,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -33482,9 +33733,9 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "push": {
             "score": 71,
             "label": "Strong",
-            "headline": "Today's river rise and water temperature strongly support the possibility of a fresh wave moving into the river.",
-            "detail": "The river has made a clear rise since yesterday. Overall flow is already high. Water temperature is favorable for fall migration and is cooling. Additional rain does not improve the read while the river is already high. This Push describes fresh-movement support at Niles only; it does not prove a new wave at the harbor, Berrien Springs, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Begin on lower-river travel lanes and inside seams, then work the first resting holes along that route. Keep moving until fish establish a pattern; the signal still does not prove a wave entered. Use the Niles signal to choose between Niles-area holding water and a lower-Michigan travel-water check; verify Indiana movement directly.",
+            "headline": "Niles water strongly supports possible fresh movement.",
+            "detail": "Niles flow has made a clear rise, while overall flow is high. Water temperature is favorable for fall migration and is cooling. Rain adds no support while Niles flow is already high.",
+            "tip": "Use Niles as the movement check, then verify the Lower and Upper river directly.",
             "reasonCodes": [
               "gauge_fresh",
               "push_high_flow_context",
@@ -33502,14 +33753,14 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 32,
             "label": "Tough",
             "headline": "The river is running very high, leaving fewer practical places to fish effectively.",
-            "detail": "Very high flow is reducing access and the amount of water where a presentation can be controlled. The rising water is pushing hard through the main channel and compressing practical fishing water along protected edges. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river. This flow shape applies to the Niles mainstem reach only; verify the harbor, lower Michigan river, individual tailwaters, and Indiana water directly.",
-            "tip": "Fish only protected margins, inside bends, and the downstream side of major current breaks. Leave the main-channel current alone while the rise continues. Apply this recommendation at Niles; recheck water shape and safe access before carrying it to another St. Joseph section.",
+            "detail": "Very high flow is reducing access and the amount of water where a presentation can be controlled. The rising water is pushing hard through the main channel and compressing practical fishing water along protected edges. This read applies only to the Niles mainstem reach.",
+            "tip": "Favor protected margins and short controlled presentations. Choose another day if control is not dependable. Verify every other section directly.",
             "reasonCodes": [
               "gauge_fresh",
               "very_high_flow_band"
@@ -33520,15 +33771,15 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 72,
             "maximum": 100,
             "label": "Active",
-            "headline": "Today’s Coho activity outlook is active.",
-            "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: The river level or its recent change is less favorable. Early lake-fresh Coho can remain reactive when measured water temperatures are suitable; this score applies only to fish already in the river. Measured river conditions describe the St. Joseph mainstem at Niles. Water temperature, clarity, hydraulic shape, and presentation conditions can differ in the harbor and lower Michigan river, at individual ladder tailwaters, and through South Bend, Mishawaka, and the Twin Branch reach. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
-            "tip": "Start with 5–9 AM. If the sky changes from the forecast, favor the darkest practical window. Apply this response window at Niles; verify temperature, clarity, flow shape, and legal access again before carrying it to another St. Joseph section.",
+            "headline": "Today’s Niles Coho responsiveness is active.",
+            "detail": "Conditions support a meaningful Coho response. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Flow and temperature represent only the Niles mainstem reach.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify other sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -33580,10 +33831,13 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 47,
+            "displayScore": 45,
+            "scoreIsApproximate": true,
             "stage": "beginning",
             "maximum": 100,
             "riverCeiling": 70,
@@ -33592,14 +33846,14 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "curveDirection": "rising",
             "winterHoldingContext": false,
             "label": "High presence",
-            "headline": "Coho salmon are likely present through more dependable river sections as seasonal presence builds toward its strongest point.",
-            "detail": "Seasonal presence is usually elevated relative to the rest of the season, with more fish expected to enter and become established through a broad part of the accessible river. This is a seasonal estimate, not a live fish count. This seasonal presence applies to the accessible St. Joseph corridor as a whole; it does not claim equal fish numbers at the harbor, Niles, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Treat this as one of the stronger parts of this river's moderate seasonal opportunity. Give each stop a complete pass, but do not mistake this seasonal estimate for a live fish count. Use Migration Stage to choose the specific St. Joseph section, then verify that water directly.",
+            "headline": "Seasonal Coho salmon presence is high and building.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the St. Joseph Coho salmon ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -33859,6 +34113,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "nextConditionRefreshAt": "2026-10-01T05:00:00.000Z",
           "runStage": {
             "stage": "beginning",
+            "copyStrategy": "st_joseph_corridor",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -33881,14 +34136,14 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "peakToEndDays": 46
             },
             "label": "Beginning",
-            "headline": "The first Coho salmon are entering the St. Joseph and beginning to move beyond the lower river.",
-            "detail": "New fish should still be weighted toward lower Michigan travel water, while earlier arrivals may already be using Buchanan, Niles, and selective Indiana resting water.",
-            "tip": "Cover a lower-Michigan travel-and-holding sequence first. Move upriver only after direct fish activity, local observations, or established passage supports the change.",
-            "whereToStart": "Start in deep lower-Michigan travel water below Berrien Springs, then compare legal holding water around Buchanan and Niles before making a selective Indiana check.",
+            "headline": "The first Coho salmon are entering the St. Joseph River.",
+            "detail": "New fish remain weighted toward the Lower river; earlier arrivals may be farther upstream.",
+            "tip": "Cover travel water and the first substantial holding areas before moving upstream.",
+            "whereToStart": "Start in the Lower river (St. Joseph harbor–Berrien Springs). Add the Middle river (Berrien Springs–Niles) only after direct fish activity supports the move.",
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -33931,7 +34186,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -33945,9 +34200,9 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "push": {
             "score": 0,
             "label": "Weak",
-            "headline": "Today's water shows little support for a fresh wave of fish.",
-            "detail": "The river is falling instead of showing a fresh rise. Water temperature remains too warm to support a strong Push but is warming sharply. Recent weather estimates indicate very little rain around the river. This Push describes fresh-movement support at Niles only; it does not prove a new wave at the harbor, Berrien Springs, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Do not build the day around new arrivals while the river remains warm. Start in established holding water at first or last light and leave lower travel lanes secondary. Use the Niles signal to choose between Niles-area holding water and a lower-Michigan travel-water check; verify Indiana movement directly.",
+            "headline": "Niles water shows little support for fresh movement.",
+            "detail": "Niles flow is falling. Water temperature remains too warm to support a strong Push but is warming sharply. Recent watershed weather shows little rain.",
+            "tip": "Keep Migration Stage’s section primary. Do not shift sections from this Niles read.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
@@ -33967,14 +34222,14 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 57,
             "label": "Fishable",
             "headline": "The river is fishable, but lower water leaves less cover and less room for error.",
-            "detail": "Water is lower than ideal but still workable, with less depth and cover across the river. The river is still falling, so shallow lanes may lose depth while the deepest connected water becomes more important. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river. This flow shape applies to the Niles mainstem reach only; verify the harbor, lower Michigan river, individual tailwaters, and Indiana water directly.",
-            "tip": "Begin in the deepest connected holding water and fish its shaded edge first. Skip shallow travel lanes that are draining as the river falls. Apply this recommendation at Niles; recheck water shape and safe access before carrying it to another St. Joseph section.",
+            "detail": "Water is lower than ideal but still workable, with less depth and cover across the river. The river is still falling, so shallow lanes may lose depth while the deepest connected water becomes more important. This read applies only to the Niles mainstem reach.",
+            "tip": "Use the deepest connected water and keep disturbance low. Verify every other section directly.",
             "reasonCodes": [
               "gauge_fresh",
               "low_flow_band"
@@ -33985,15 +34240,15 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 24,
             "maximum": 100,
             "label": "Reserved",
-            "headline": "Today’s Coho activity outlook is reserved.",
-            "detail": "Fish may respond selectively, with important environmental limitations. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Water temperature limits responsiveness. Early lake-fresh Coho can remain reactive when measured water temperatures are suitable; this score applies only to fish already in the river. Measured river conditions describe the St. Joseph mainstem at Niles. Water temperature, clarity, hydraulic shape, and presentation conditions can differ in the harbor and lower Michigan river, at individual ladder tailwaters, and through South Bend, Mishawaka, and the Twin Branch reach. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
-            "tip": "Start with 5–9 AM. If the sky changes from the forecast, favor the darkest practical window. Apply this response window at Niles; verify temperature, clarity, flow shape, and legal access again before carrying it to another St. Joseph section.",
+            "headline": "Today’s Niles Coho responsiveness is reserved.",
+            "detail": "Coho may respond selectively under current limitations. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Flow and temperature represent only the Niles mainstem reach.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify other sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -34046,10 +34301,13 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 47,
+            "displayScore": 45,
+            "scoreIsApproximate": true,
             "stage": "beginning",
             "maximum": 100,
             "riverCeiling": 70,
@@ -34058,14 +34316,14 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "curveDirection": "rising",
             "winterHoldingContext": false,
             "label": "High presence",
-            "headline": "Coho salmon are likely present through more dependable river sections as seasonal presence builds toward its strongest point.",
-            "detail": "Seasonal presence is usually elevated relative to the rest of the season, with more fish expected to enter and become established through a broad part of the accessible river. This is a seasonal estimate, not a live fish count. This seasonal presence applies to the accessible St. Joseph corridor as a whole; it does not claim equal fish numbers at the harbor, Niles, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Treat this as one of the stronger parts of this river's moderate seasonal opportunity. Give each stop a complete pass, but do not mistake this seasonal estimate for a live fish count. Use Migration Stage to choose the specific St. Joseph section, then verify that water directly.",
+            "headline": "Seasonal Coho salmon presence is high and building.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the St. Joseph Coho salmon ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -34319,6 +34577,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "nextConditionRefreshAt": "2026-09-21T05:00:00.000Z",
           "runStage": {
             "stage": "beginning",
+            "copyStrategy": "st_joseph_corridor",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -34341,14 +34600,14 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "peakToEndDays": 46
             },
             "label": "Beginning",
-            "headline": "The first Coho salmon are entering the St. Joseph and beginning to move beyond the lower river.",
-            "detail": "New fish should still be weighted toward lower Michigan travel water, while earlier arrivals may already be using Buchanan, Niles, and selective Indiana resting water.",
-            "tip": "Cover a lower-Michigan travel-and-holding sequence first. Move upriver only after direct fish activity, local observations, or established passage supports the change.",
-            "whereToStart": "Start in deep lower-Michigan travel water below Berrien Springs, then compare legal holding water around Buchanan and Niles before making a selective Indiana check.",
+            "headline": "The first Coho salmon are entering the St. Joseph River.",
+            "detail": "New fish remain weighted toward the Lower river; earlier arrivals may be farther upstream.",
+            "tip": "Cover travel water and the first substantial holding areas before moving upstream.",
+            "whereToStart": "Start in the Lower river (St. Joseph harbor–Berrien Springs). Add the Middle river (Berrien Springs–Niles) only after direct fish activity supports the move.",
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -34391,7 +34650,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -34413,14 +34672,14 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "temperature_unavailable"
             ],
             "rulesVersion": "st-joseph-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 93,
             "label": "Excellent",
             "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river. This flow shape applies to the Niles mainstem reach only; verify the harbor, lower Michigan river, individual tailwaters, and Indiana water directly.",
-            "tip": "Begin on the primary travel lane feeding deep holding water. Work each hole from its head through the inside seam and tail, then keep moving until fish establish a pattern. Apply this recommendation at Niles; recheck water shape and safe access before carrying it to another St. Joseph section.",
+            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. This read applies only to the Niles mainstem reach.",
+            "tip": "Cover readable seams and holding water with a controlled presentation. Verify every other section directly.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band"
@@ -34431,15 +34690,15 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 53,
             "maximum": 100,
             "label": "Moderate",
-            "headline": "Today’s Coho activity outlook is moderate.",
-            "detail": "Some useful factors are present, but the response window is mixed. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Measured water temperature is unavailable. Early lake-fresh Coho can remain reactive when measured water temperatures are suitable; this score applies only to fish already in the river. Measured river conditions describe the St. Joseph mainstem at Niles. Water temperature, clarity, hydraulic shape, and presentation conditions can differ in the harbor and lower Michigan river, at individual ladder tailwaters, and through South Bend, Mishawaka, and the Twin Branch reach. One important reading is unavailable or comes from tomorrow’s forecast, so the outlook is kept conservative.",
-            "tip": "Start with 5–9 AM. If the sky changes from the forecast, favor the darkest practical window. Apply this response window at Niles; verify temperature, clarity, flow shape, and legal access again before carrying it to another St. Joseph section.",
+            "headline": "Today’s Niles Coho responsiveness is moderate.",
+            "detail": "Conditions offer mixed support for Coho responsiveness. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Moderate confidence reflects missing or forecast inputs; river measurements still represent only Niles.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify other sections directly.",
             "reasonCodes": [
               "activity_confidence_moderate",
               "activity_today",
@@ -34491,10 +34750,13 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 28,
+            "displayScore": 25,
+            "scoreIsApproximate": true,
             "stage": "beginning",
             "maximum": 100,
             "riverCeiling": 70,
@@ -34503,14 +34765,14 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "curveDirection": "rising",
             "winterHoldingContext": false,
             "label": "Limited presence",
-            "headline": "Some Coho salmon are likely in the river, but seasonal presence is still developing.",
-            "detail": "This part of the season usually brings limited presence, with more fish expected to enter and become established through a broad part of the accessible river. This is a seasonal estimate, not a live fish count. This seasonal presence applies to the accessible St. Joseph corridor as a whole; it does not claim equal fish numbers at the harbor, Niles, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Plan for an emerging but uneven river opportunity. Cover water efficiently, and do not assume every promising stop holds fish. Use Migration Stage to choose the specific St. Joseph section, then verify that water directly.",
+            "headline": "Seasonal Coho salmon presence is limited and building.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the St. Joseph Coho salmon ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -34747,6 +35009,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "nextConditionRefreshAt": "2026-08-16T05:00:00.000Z",
           "runStage": {
             "stage": "pre_run",
+            "copyStrategy": "st_joseph_corridor",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -34769,14 +35032,14 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "peakToEndDays": 46
             },
             "label": "Before migration",
-            "headline": "Coho salmon have not begun their dependable St. Joseph River migration.",
-            "detail": "The seasonal calendar still points to Lake Michigan, the harbor, and the river mouth—not an established inland opportunity.",
-            "tip": "Keep the trip lakeward and return when staging monitoring begins. Do not let rain or one isolated river fish turn into a corridor-wide claim.",
-            "whereToStart": "Keep the search in Lake Michigan, the harbor, and river-mouth water until river staging begins.",
+            "headline": "Coho salmon have not started their main St. Joseph River run.",
+            "detail": "The river-entry window has not opened yet. An isolated river fish would be an early exception.",
+            "tip": "Keep the trip lakeward and return when staging monitoring begins.",
+            "whereToStart": "Stay with Lake Michigan, the St. Joseph harbor, and the river mouth.",
             "reasonCodes": [
               "stage_pre_run"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Not monitoring yet",
@@ -34801,7 +35064,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "conditions_monitoring_inactive"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -34822,14 +35085,14 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "push_tracking_not_started"
             ],
             "rulesVersion": "st-joseph-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 93,
             "label": "Excellent",
             "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river. This flow shape applies to the Niles mainstem reach only; verify the harbor, lower Michigan river, individual tailwaters, and Indiana water directly.",
-            "tip": "Begin on the primary travel lane feeding deep holding water. Work each hole from its head through the inside seam and tail, then keep moving until fish establish a pattern. Apply this recommendation at Niles; recheck water shape and safe access before carrying it to another St. Joseph section.",
+            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. This read applies only to the Niles mainstem reach.",
+            "tip": "Cover readable seams and holding water with a controlled presentation. Verify every other section directly.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band"
@@ -34840,11 +35103,13 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": null,
           "fishInRiver": {
             "score": 0,
+            "displayScore": 0,
+            "scoreIsApproximate": false,
             "stage": "pre_run",
             "maximum": 100,
             "riverCeiling": 70,
@@ -34853,14 +35118,14 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "curveDirection": "outside",
             "winterHoldingContext": false,
             "label": "Not expected yet",
-            "headline": "A dependable presence of Coho salmon is not expected in the river yet.",
-            "detail": "Most Coho salmon are not expected to have entered the river in dependable numbers. Any fish already present would be early exceptions. This seasonal presence applies to the accessible St. Joseph corridor as a whole; it does not claim equal fish numbers at the harbor, Niles, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Treat this as no dependable in-river opportunity yet. Keep expectations at zero, and do not interpret an isolated early fish as evidence of dependable river presence. Use Migration Stage to choose the specific St. Joseph section, then verify that water directly.",
+            "headline": "Dependable Coho salmon presence is not expected in the St. Joseph yet.",
+            "detail": "The seasonal estimate remains at zero. Any river fish would be an early exception.",
+            "tip": "Use Migration Stage for harbor and river-entry context.",
             "reasonCodes": [
               "stage_pre_run",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -35125,6 +35390,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "nextConditionRefreshAt": "2026-10-01T05:00:00.000Z",
           "runStage": {
             "stage": "beginning",
+            "copyStrategy": "st_joseph_corridor",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -35147,14 +35413,14 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "peakToEndDays": 46
             },
             "label": "Beginning",
-            "headline": "The first Coho salmon are entering the St. Joseph and beginning to move beyond the lower river.",
-            "detail": "New fish should still be weighted toward lower Michigan travel water, while earlier arrivals may already be using Buchanan, Niles, and selective Indiana resting water.",
-            "tip": "Cover a lower-Michigan travel-and-holding sequence first. Move upriver only after direct fish activity, local observations, or established passage supports the change.",
-            "whereToStart": "Start in deep lower-Michigan travel water below Berrien Springs, then compare legal holding water around Buchanan and Niles before making a selective Indiana check.",
+            "headline": "The first Coho salmon are entering the St. Joseph River.",
+            "detail": "New fish remain weighted toward the Lower river; earlier arrivals may be farther upstream.",
+            "tip": "Cover travel water and the first substantial holding areas before moving upstream.",
+            "whereToStart": "Start in the Lower river (St. Joseph harbor–Berrien Springs). Add the Middle river (Berrien Springs–Niles) only after direct fish activity supports the move.",
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -35197,7 +35463,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -35211,9 +35477,9 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "push": {
             "score": 30,
             "label": "No clear push",
-            "headline": "Today's water does not show a clear signal for a fresh wave of fish.",
-            "detail": "The river is holding steady with no meaningful rise yet. Water temperature is favorable for fall migration and is relatively steady. Recent weather estimates indicate very little rain around the river. This Push describes fresh-movement support at Niles only; it does not prove a new wave at the harbor, Berrien Springs, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Fish established holding water from the head through the inside seam and tail. Do not spend the day racing between lower travel lanes for a wave the water does not support. Use the Niles signal to choose between Niles-area holding water and a lower-Michigan travel-water check; verify Indiana movement directly.",
+            "headline": "Niles water does not show a clear fresh-movement signal.",
+            "detail": "Niles flow is steady without a meaningful rise. Water temperature is favorable for fall migration and is relatively steady. Recent watershed weather shows little rain.",
+            "tip": "Keep Migration Stage’s section primary. Do not shift sections from this Niles read.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
@@ -35232,14 +35498,14 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 93,
             "label": "Excellent",
             "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river. This flow shape applies to the Niles mainstem reach only; verify the harbor, lower Michigan river, individual tailwaters, and Indiana water directly.",
-            "tip": "Begin on the primary travel lane feeding deep holding water. Work each hole from its head through the inside seam and tail, then keep moving until fish establish a pattern. Apply this recommendation at Niles; recheck water shape and safe access before carrying it to another St. Joseph section.",
+            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. This read applies only to the Niles mainstem reach.",
+            "tip": "Cover readable seams and holding water with a controlled presentation. Verify every other section directly.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band"
@@ -35250,15 +35516,15 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 77,
             "maximum": 100,
             "label": "Active",
-            "headline": "Today’s Coho activity outlook is active.",
-            "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. Early lake-fresh Coho can remain reactive when measured water temperatures are suitable; this score applies only to fish already in the river. Measured river conditions describe the St. Joseph mainstem at Niles. Water temperature, clarity, hydraulic shape, and presentation conditions can differ in the harbor and lower Michigan river, at individual ladder tailwaters, and through South Bend, Mishawaka, and the Twin Branch reach. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
-            "tip": "Start with 5–9 AM. If the sky changes from the forecast, favor the darkest practical window. Apply this response window at Niles; verify temperature, clarity, flow shape, and legal access again before carrying it to another St. Joseph section.",
+            "headline": "Today’s Niles Coho responsiveness is active.",
+            "detail": "Conditions support a meaningful Coho response. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Flow and temperature represent only the Niles mainstem reach.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify other sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -35310,10 +35576,13 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 47,
+            "displayScore": 45,
+            "scoreIsApproximate": true,
             "stage": "beginning",
             "maximum": 100,
             "riverCeiling": 70,
@@ -35322,14 +35591,14 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "curveDirection": "rising",
             "winterHoldingContext": false,
             "label": "High presence",
-            "headline": "Coho salmon are likely present through more dependable river sections as seasonal presence builds toward its strongest point.",
-            "detail": "Seasonal presence is usually elevated relative to the rest of the season, with more fish expected to enter and become established through a broad part of the accessible river. This is a seasonal estimate, not a live fish count. This seasonal presence applies to the accessible St. Joseph corridor as a whole; it does not claim equal fish numbers at the harbor, Niles, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Treat this as one of the stronger parts of this river's moderate seasonal opportunity. Give each stop a complete pass, but do not mistake this seasonal estimate for a live fish count. Use Migration Stage to choose the specific St. Joseph section, then verify that water directly.",
+            "headline": "Seasonal Coho salmon presence is high and building.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the St. Joseph Coho salmon ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -35583,6 +35852,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "nextConditionRefreshAt": "2026-10-01T05:00:00.000Z",
           "runStage": {
             "stage": "beginning",
+            "copyStrategy": "st_joseph_corridor",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -35605,14 +35875,14 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "peakToEndDays": 46
             },
             "label": "Beginning",
-            "headline": "The first Coho salmon are entering the St. Joseph and beginning to move beyond the lower river.",
-            "detail": "New fish should still be weighted toward lower Michigan travel water, while earlier arrivals may already be using Buchanan, Niles, and selective Indiana resting water.",
-            "tip": "Cover a lower-Michigan travel-and-holding sequence first. Move upriver only after direct fish activity, local observations, or established passage supports the change.",
-            "whereToStart": "Start in deep lower-Michigan travel water below Berrien Springs, then compare legal holding water around Buchanan and Niles before making a selective Indiana check.",
+            "headline": "The first Coho salmon are entering the St. Joseph River.",
+            "detail": "New fish remain weighted toward the Lower river; earlier arrivals may be farther upstream.",
+            "tip": "Cover travel water and the first substantial holding areas before moving upstream.",
+            "whereToStart": "Start in the Lower river (St. Joseph harbor–Berrien Springs). Add the Middle river (Berrien Springs–Niles) only after direct fish activity supports the move.",
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -35655,7 +35925,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -35669,9 +35939,9 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "push": {
             "score": 20,
             "label": "Weak",
-            "headline": "The water may support fresh movement, but an aging river reading limits confidence.",
-            "detail": "The river is holding steady with no meaningful rise yet. Water temperature is favorable for fall migration and is relatively steady. Recent weather estimates indicate very little rain around the river. The latest river-level reading is aging, so confidence is reduced. This Push describes fresh-movement support at Niles only; it does not prove a new wave at the harbor, Berrien Springs, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Do not relocate the trip around this Push read. Begin in established holding water, verify the river at the first access, and add travel lanes only after confirming workable conditions. Use the Niles signal to choose between Niles-area holding water and a lower-Michigan travel-water check; verify Indiana movement directly.",
+            "headline": "Niles water shows little support for fresh movement.",
+            "detail": "Niles flow is steady without a meaningful rise. Water temperature is favorable for fall migration and is relatively steady. The Niles reading is aging, so confidence is reduced.",
+            "tip": "Keep Migration Stage’s section primary. Do not shift sections from this Niles read.",
             "reasonCodes": [
               "gauge_stale",
               "push_normal_flow_context",
@@ -35691,14 +35961,14 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 55,
             "label": "Fishable",
             "headline": "The last river reading was fishable, but it is aging and may no longer describe the water accurately.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. Because the latest reading is aging, the river may have changed since it was reported. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river. This flow shape applies to the Niles mainstem reach only; verify the harbor, lower Michigan river, individual tailwaters, and Indiana water directly.",
-            "tip": "Do not choose a reach from this reading alone. Check the water at the first access, and begin only in bank-side water where you can control the entire presentation. Apply this recommendation at Niles; recheck water shape and safe access before carrying it to another St. Joseph section.",
+            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. Because the latest reading is aging, the river may have changed since it was reported. This read applies only to the Niles mainstem reach.",
+            "tip": "Verify the Niles reach directly before choosing presentation water. Verify every other section directly.",
             "reasonCodes": [
               "gauge_stale",
               "ideal_flow_band",
@@ -35712,15 +35982,15 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               ]
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 51,
             "maximum": 100,
             "label": "Moderate",
-            "headline": "Today’s Coho activity outlook is moderate.",
-            "detail": "Some useful factors are present, but the response window is mixed. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Current river behavior is unavailable. Early lake-fresh Coho can remain reactive when measured water temperatures are suitable; this score applies only to fish already in the river. Measured river conditions describe the St. Joseph mainstem at Niles. Water temperature, clarity, hydraulic shape, and presentation conditions can differ in the harbor and lower Michigan river, at individual ladder tailwaters, and through South Bend, Mishawaka, and the Twin Branch reach. One important reading is unavailable or comes from tomorrow’s forecast, so the outlook is kept conservative.",
-            "tip": "Start with 5–9 AM. If the sky changes from the forecast, favor the darkest practical window. Apply this response window at Niles; verify temperature, clarity, flow shape, and legal access again before carrying it to another St. Joseph section.",
+            "headline": "Today’s Niles Coho responsiveness is moderate.",
+            "detail": "Conditions offer mixed support for Coho responsiveness. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Moderate confidence reflects missing or forecast inputs; river measurements still represent only Niles.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify other sections directly.",
             "reasonCodes": [
               "activity_confidence_moderate",
               "activity_today",
@@ -35772,10 +36042,13 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 47,
+            "displayScore": 45,
+            "scoreIsApproximate": true,
             "stage": "beginning",
             "maximum": 100,
             "riverCeiling": 70,
@@ -35784,14 +36057,14 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "curveDirection": "rising",
             "winterHoldingContext": false,
             "label": "High presence",
-            "headline": "Coho salmon are likely present through more dependable river sections as seasonal presence builds toward its strongest point.",
-            "detail": "Seasonal presence is usually elevated relative to the rest of the season, with more fish expected to enter and become established through a broad part of the accessible river. This is a seasonal estimate, not a live fish count. This seasonal presence applies to the accessible St. Joseph corridor as a whole; it does not claim equal fish numbers at the harbor, Niles, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Treat this as one of the stronger parts of this river's moderate seasonal opportunity. Give each stop a complete pass, but do not mistake this seasonal estimate for a live fish count. Use Migration Stage to choose the specific St. Joseph section, then verify that water directly.",
+            "headline": "Seasonal Coho salmon presence is high and building.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the St. Joseph Coho salmon ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
@@ -36045,6 +36318,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "nextConditionRefreshAt": "2026-10-01T05:00:00.000Z",
           "runStage": {
             "stage": "beginning",
+            "copyStrategy": "st_joseph_corridor",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -36067,14 +36341,14 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "peakToEndDays": 46
             },
             "label": "Beginning",
-            "headline": "The first Coho salmon are entering the St. Joseph and beginning to move beyond the lower river.",
-            "detail": "New fish should still be weighted toward lower Michigan travel water, while earlier arrivals may already be using Buchanan, Niles, and selective Indiana resting water.",
-            "tip": "Cover a lower-Michigan travel-and-holding sequence first. Move upriver only after direct fish activity, local observations, or established passage supports the change.",
-            "whereToStart": "Start in deep lower-Michigan travel water below Berrien Springs, then compare legal holding water around Buchanan and Niles before making a selective Indiana check.",
+            "headline": "The first Coho salmon are entering the St. Joseph River.",
+            "detail": "New fish remain weighted toward the Lower river; earlier arrivals may be farther upstream.",
+            "tip": "Cover travel water and the first substantial holding areas before moving upstream.",
+            "whereToStart": "Start in the Lower river (St. Joseph harbor–Berrien Springs). Add the Middle river (Berrien Springs–Niles) only after direct fish activity supports the move.",
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -36117,7 +36391,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -36138,7 +36412,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "gauge_missing"
             ],
             "rulesVersion": "st-joseph-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": null,
@@ -36150,15 +36424,15 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "gauge_missing"
             ],
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 51,
             "maximum": 100,
             "label": "Moderate",
-            "headline": "Today’s Coho activity outlook is moderate.",
-            "detail": "Some useful factors are present, but the response window is mixed. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Current river behavior is unavailable. Early lake-fresh Coho can remain reactive when measured water temperatures are suitable; this score applies only to fish already in the river. Measured river conditions describe the St. Joseph mainstem at Niles. Water temperature, clarity, hydraulic shape, and presentation conditions can differ in the harbor and lower Michigan river, at individual ladder tailwaters, and through South Bend, Mishawaka, and the Twin Branch reach. One important reading is unavailable or comes from tomorrow’s forecast, so the outlook is kept conservative.",
-            "tip": "Start with 5–9 AM. If the sky changes from the forecast, favor the darkest practical window. Apply this response window at Niles; verify temperature, clarity, flow shape, and legal access again before carrying it to another St. Joseph section.",
+            "headline": "Today’s Niles Coho responsiveness is moderate.",
+            "detail": "Conditions offer mixed support for Coho responsiveness. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Moderate confidence reflects missing or forecast inputs; river measurements still represent only Niles.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify other sections directly.",
             "reasonCodes": [
               "activity_confidence_moderate",
               "activity_today",
@@ -36210,10 +36484,13 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 47,
+            "displayScore": 45,
+            "scoreIsApproximate": true,
             "stage": "beginning",
             "maximum": 100,
             "riverCeiling": 70,
@@ -36222,14 +36499,14 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "curveDirection": "rising",
             "winterHoldingContext": false,
             "label": "High presence",
-            "headline": "Coho salmon are likely present through more dependable river sections as seasonal presence builds toward its strongest point.",
-            "detail": "Seasonal presence is usually elevated relative to the rest of the season, with more fish expected to enter and become established through a broad part of the accessible river. This is a seasonal estimate, not a live fish count. This seasonal presence applies to the accessible St. Joseph corridor as a whole; it does not claim equal fish numbers at the harbor, Niles, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Treat this as one of the stronger parts of this river's moderate seasonal opportunity. Give each stop a complete pass, but do not mistake this seasonal estimate for a live fish count. Use Migration Stage to choose the specific St. Joseph section, then verify that water directly.",
+            "headline": "Seasonal Coho salmon presence is high and building.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the St. Joseph Coho salmon ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": null,
           "weather": {
@@ -36473,6 +36750,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "nextConditionRefreshAt": "2026-10-01T05:00:00.000Z",
           "runStage": {
             "stage": "beginning",
+            "copyStrategy": "st_joseph_corridor",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -36495,14 +36773,14 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "peakToEndDays": 46
             },
             "label": "Beginning",
-            "headline": "The first Coho salmon are entering the St. Joseph and beginning to move beyond the lower river.",
-            "detail": "New fish should still be weighted toward lower Michigan travel water, while earlier arrivals may already be using Buchanan, Niles, and selective Indiana resting water.",
-            "tip": "Cover a lower-Michigan travel-and-holding sequence first. Move upriver only after direct fish activity, local observations, or established passage supports the change.",
-            "whereToStart": "Start in deep lower-Michigan travel water below Berrien Springs, then compare legal holding water around Buchanan and Niles before making a selective Indiana check.",
+            "headline": "The first Coho salmon are entering the St. Joseph River.",
+            "detail": "New fish remain weighted toward the Lower river; earlier arrivals may be farther upstream.",
+            "tip": "Cover travel water and the first substantial holding areas before moving upstream.",
+            "whereToStart": "Start in the Lower river (St. Joseph harbor–Berrien Springs). Add the Middle river (Berrien Springs–Niles) only after direct fish activity supports the move.",
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -36545,7 +36823,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -36567,14 +36845,14 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "temperature_unavailable"
             ],
             "rulesVersion": "st-joseph-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "fishability": {
             "score": 93,
             "label": "Excellent",
             "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river. This flow shape applies to the Niles mainstem reach only; verify the harbor, lower Michigan river, individual tailwaters, and Indiana water directly.",
-            "tip": "Begin on the primary travel lane feeding deep holding water. Work each hole from its head through the inside seam and tail, then keep moving until fish establish a pattern. Apply this recommendation at Niles; recheck water shape and safe access before carrying it to another St. Joseph section.",
+            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. This read applies only to the Niles mainstem reach.",
+            "tip": "Cover readable seams and holding water with a controlled presentation. Verify every other section directly.",
             "reasonCodes": [
               "gauge_fresh",
               "ideal_flow_band"
@@ -36585,15 +36863,15 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "activity": {
             "score": 53,
             "maximum": 100,
             "label": "Moderate",
-            "headline": "Today’s Coho activity outlook is moderate.",
-            "detail": "Some useful factors are present, but the response window is mixed. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Measured water temperature is unavailable. Early lake-fresh Coho can remain reactive when measured water temperatures are suitable; this score applies only to fish already in the river. Measured river conditions describe the St. Joseph mainstem at Niles. Water temperature, clarity, hydraulic shape, and presentation conditions can differ in the harbor and lower Michigan river, at individual ladder tailwaters, and through South Bend, Mishawaka, and the Twin Branch reach. One important reading is unavailable or comes from tomorrow’s forecast, so the outlook is kept conservative.",
-            "tip": "Start with 5–9 AM. If the sky changes from the forecast, favor the darkest practical window. Apply this response window at Niles; verify temperature, clarity, flow shape, and legal access again before carrying it to another St. Joseph section.",
+            "headline": "Today’s Niles Coho responsiveness is moderate.",
+            "detail": "Conditions offer mixed support for Coho responsiveness. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Moderate confidence reflects missing or forecast inputs; river measurements still represent only Niles.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify other sections directly.",
             "reasonCodes": [
               "activity_confidence_moderate",
               "activity_today",
@@ -36645,10 +36923,13 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v34"
           },
           "fishInRiver": {
             "score": 47,
+            "displayScore": 45,
+            "scoreIsApproximate": true,
             "stage": "beginning",
             "maximum": 100,
             "riverCeiling": 70,
@@ -36657,14 +36938,14 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "curveDirection": "rising",
             "winterHoldingContext": false,
             "label": "High presence",
-            "headline": "Coho salmon are likely present through more dependable river sections as seasonal presence builds toward its strongest point.",
-            "detail": "Seasonal presence is usually elevated relative to the rest of the season, with more fish expected to enter and become established through a broad part of the accessible river. This is a seasonal estimate, not a live fish count. This seasonal presence applies to the accessible St. Joseph corridor as a whole; it does not claim equal fish numbers at the harbor, Niles, South Bend, Mishawaka, or Twin Branch.",
-            "tip": "Treat this as one of the stronger parts of this river's moderate seasonal opportunity. Give each stop a complete pass, but do not mistake this seasonal estimate for a live fish count. Use Migration Stage to choose the specific St. Joseph section, then verify that water directly.",
+            "headline": "Seasonal Coho salmon presence is high and building.",
+            "detail": "This is a whole-corridor seasonal estimate relative to the St. Joseph Coho salmon ceiling, not a fish count or equal distribution.",
+            "tip": "Use Migration Stage to choose a section, then verify that water directly.",
             "reasonCodes": [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v34"
           },
           "gauge": {
             "provider": "USGS",
