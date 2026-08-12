@@ -22,6 +22,10 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { useRouter } from 'expo-router';
 import * as AppleAuthentication from 'expo-apple-authentication';
 import * as Crypto from 'expo-crypto';
+import {
+  GoogleSignInButton,
+  type OneTapSuccessData,
+} from 'react-native-nitro-google-signin';
 import { Ionicons } from '@expo/vector-icons';
 import {
   paper,
@@ -31,9 +35,14 @@ import {
 import {
   signInWithEmail,
   signInWithApple,
+  signInWithGoogle,
   reportAppleSignInFailureIfStillSignedOut,
   getAppleSignInFailureNotice,
 } from '../../lib/auth';
+import {
+  getGoogleSignInFailureNotice,
+  isGoogleUserCancellation,
+} from '../../lib/googleAuth';
 import { useAuthStore } from '../../store/authStore';
 import { supabase } from '../../lib/supabase';
 import { useAuthScrollLayout } from '../../hooks/useAuthScrollLayout';
@@ -141,6 +150,27 @@ export default function SignInScreen() {
       appleSignInInFlight.current = false;
     }
   }, [fetchProfile, setSession]);
+
+  const handleGoogleSignInSuccess = useCallback(async (result: OneTapSuccessData) => {
+    setNotice(null);
+    const { data, error } = await signInWithGoogle(result.idToken);
+    if (error) {
+      const googleNotice = getGoogleSignInFailureNotice(error);
+      setNotice({ ...googleNotice, tone: 'error' });
+      return;
+    }
+    if (data.session) {
+      supabase.functions.setAuth(data.session.access_token);
+      setSession(data.session);
+      await fetchProfile(data.session.user.id);
+    }
+  }, [fetchProfile, setSession]);
+
+  const handleGoogleSignInError = useCallback((err: unknown) => {
+    if (isGoogleUserCancellation(err)) return;
+    const googleNotice = getGoogleSignInFailureNotice(err);
+    setNotice({ ...googleNotice, tone: 'error' });
+  }, []);
 
   return (
     <View style={styles.root}>
@@ -282,10 +312,22 @@ export default function SignInScreen() {
                 onPress={handleSignIn}
               />
 
+              <AuthDivider />
+
+              <GoogleSignInButton
+                size="wide"
+                colorScheme="light"
+                contentAlignment="center"
+                disabled={false}
+                style={styles.googleBtn}
+                onPress={() => setNotice(null)}
+                onSignInSuccess={handleGoogleSignInSuccess}
+                onSignInError={handleGoogleSignInError}
+                accessibilityLabel="Sign in with Google"
+              />
+
               {Platform.OS === 'ios' && (
                 <>
-                  <AuthDivider />
-
                   <AppleAuthentication.AppleAuthenticationButton
                     buttonType={
                       AppleAuthentication.AppleAuthenticationButtonType.SIGN_IN
@@ -496,5 +538,10 @@ const styles = StyleSheet.create({
   appleBtn: {
     height: 52,
     width: '100%',
+  },
+  googleBtn: {
+    height: 48,
+    width: '100%',
+    alignSelf: 'center',
   },
 });

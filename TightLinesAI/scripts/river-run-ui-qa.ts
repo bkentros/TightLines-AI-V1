@@ -138,6 +138,7 @@ const michiganFallRiverIds = [
   "betsie",
   "big_manistee",
   "muskegon",
+  "st_joseph",
   "grand",
   "platte",
   "white",
@@ -166,11 +167,7 @@ assert.deepEqual(
   riverRunRiverChoices(catalog, "MI", "fall", "steelhead").map((choice) =>
     choice.id
   ),
-  [
-    ...michiganFallRiverIds.slice(0, 4),
-    "st_joseph",
-    ...michiganFallRiverIds.slice(4),
-  ],
+  michiganFallRiverIds,
 );
 assert.deepEqual(
   riverRunRiverChoices(catalog, "MI", "fall", "atlantic_salmon"),
@@ -187,6 +184,66 @@ assert.deepEqual(
     (choice) => choice.id,
   ),
   ["root"],
+);
+
+const stJosephOrderingCatalog: RiverRunCatalogResponse = {
+  states: [
+    {
+      state: "MI",
+      displayName: "Michigan",
+      rivers: [{
+        riverId: "st_joseph",
+        displayName: "St. Joseph River",
+        state: "MI",
+        runs: [{
+          runId: "st_joseph_fall_coho",
+          displayName: "Fall Coho",
+          species: "coho_salmon",
+          season: "fall",
+        }],
+      }],
+    },
+    {
+      state: "IN",
+      displayName: "Indiana",
+      rivers: [{
+        riverId: "st_joseph",
+        displayName: "St. Joseph River",
+        state: "IN",
+        runs: [{
+          runId: "st_joseph_fall_coho",
+          displayName: "Fall Coho",
+          species: "coho_salmon",
+          season: "fall",
+        }],
+      }],
+    },
+  ],
+};
+const michiganStJosephChoices = riverRunRiverChoices(
+  stJosephOrderingCatalog,
+  "MI",
+  "fall",
+  "coho_salmon",
+);
+assert.equal(
+  michiganStJosephChoices.findIndex((choice) => choice.id === "st_joseph"),
+  michiganStJosephChoices.findIndex((choice) => choice.id === "muskegon") + 1,
+  "Michigan must place St. Joseph immediately below Muskegon",
+);
+assert.equal(
+  michiganStJosephChoices.find((choice) => choice.id === "st_joseph")?.disabled,
+  undefined,
+  "A supported Michigan St. Joseph read must remain selectable",
+);
+assert.deepEqual(
+  riverRunRiverChoices(stJosephOrderingCatalog, "IN", "fall", "coho_salmon"),
+  [{
+    id: "st_joseph",
+    label: "St. Joseph River",
+    subtitle: "Audited river migration",
+  }],
+  "Indiana must present St. Joseph first and as its only river",
 );
 assert.equal(formatRiverRunSpecies("chinook_salmon"), "Chinook Salmon");
 assert.equal(formatRiverRunSpecies("coho_salmon"), "Coho Salmon");

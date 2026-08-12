@@ -44,6 +44,12 @@
         }
       ],
       "expo-apple-authentication",
+      [
+        "react-native-nitro-google-signin",
+        {
+          "iosUrlScheme": "com.googleusercontent.apps.655199773804-0r0e6np654jqvtop64bdpg7fjrfs2i76"
+        }
+      ],
       "expo-local-authentication",
       "expo-asset",
       "expo-font",

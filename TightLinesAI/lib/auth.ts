@@ -218,6 +218,25 @@ export async function signInWithApple(
   return { data, error };
 }
 
+export async function signInWithGoogle(identityToken: string) {
+  const { data, error } = await withAuthTimeout(supabase.auth.signInWithIdToken({
+    provider: 'google',
+    token: identityToken,
+  })).catch((err) => authFailure({ user: null, session: null }, err));
+  if (__DEV__) {
+    if (error) {
+      console.warn(
+        '[auth] Supabase Google signInWithIdToken failed:',
+        getAuthErrorMessage(error),
+        error,
+      );
+    } else if (data.session) {
+      console.info('[auth] Supabase Google session created');
+    }
+  }
+  return { data, error };
+}
+
 export async function signOut() {
   const { error } = await supabase.auth.signOut();
   return { error };

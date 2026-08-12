@@ -2,6 +2,7 @@ import { useMemo, useState } from 'react';
 import {
   ActivityIndicator,
   KeyboardAvoidingView,
+  Linking,
   Platform,
   Pressable,
   ScrollView,
@@ -18,6 +19,7 @@ import { paper, paperFonts, paperRadius, paperShadows, paperSpacing } from '../l
 import { useAuthStore } from '../store/authStore';
 import { submitFeedback } from '../lib/feedback';
 import type { FeedbackSentiment, FeedbackTopic } from '../lib/feedback';
+import { buildSupportMailtoUrl, PUBLIC_SUPPORT_EMAIL } from '../lib/supportContact';
 
 const TOPIC_OPTIONS: { topic: FeedbackTopic; label: string; icon: keyof typeof Ionicons.glyphMap }[] = [
   { topic: 'general', label: 'Support', icon: 'chatbubble-ellipses-outline' },
@@ -83,7 +85,12 @@ export default function SupportScreen() {
   const [topic, setTopic] = useState<FeedbackTopic>(() => parseTopic(params.topic));
   const [message, setMessage] = useState('');
   const [submitting, setSubmitting] = useState(false);
-  const [notice, setNotice] = useState<{ title: string; message?: string; tone: 'success' | 'error' } | null>(null);
+  const [notice, setNotice] = useState<{
+    title: string;
+    message?: string;
+    tone: 'success' | 'error';
+    offerDirectEmail?: boolean;
+  } | null>(null);
 
   const featureName = typeof params.featureName === 'string' ? params.featureName : null;
   const requestMode = params.requestMode === 'true';
@@ -108,17 +115,20 @@ export default function SupportScreen() {
         featureName,
         contextLines,
       });
-      setMessage('');
+      if (result.email_sent) setMessage('');
       setNotice({
-        title: requestMode ? 'Request sent' : 'Sent',
+        title: result.email_sent
+          ? requestMode ? 'Request sent' : 'Sent'
+          : requestMode ? 'Request saved' : 'Message saved',
         message: result.email_sent
           ? requestMode
             ? 'Thanks. Your coverage request was emailed to FinFindr with your account and app context.'
             : 'Thanks. Your note was emailed to FinFindr support with your account and app context.'
           : requestMode
-            ? 'Thanks. Your coverage request is saved with your account and app context. Email delivery will be checked from the support queue.'
-            : 'Thanks. Your note is saved with your account and app context. Email delivery will be checked from the support queue.',
-        tone: 'success',
+            ? `Automated email is temporarily unavailable. Your request was saved; you can also email ${PUBLIC_SUPPORT_EMAIL} directly below.`
+            : `Automated email is temporarily unavailable. Your message was saved; you can also email ${PUBLIC_SUPPORT_EMAIL} directly below.`,
+        tone: result.email_sent ? 'success' : 'error',
+        offerDirectEmail: !result.email_sent,
       });
     } catch (err) {
       setNotice({
@@ -127,9 +137,24 @@ export default function SupportScreen() {
           ? err.message
           : 'Please check your connection and try again.',
         tone: 'error',
+        offerDirectEmail: true,
       });
     } finally {
       setSubmitting(false);
+    }
+  };
+
+  const handleDirectEmail = async () => {
+    const subject = requestMode ? `FinFindr coverage request: ${featureName ?? 'new coverage'}` : `FinFindr support: ${TOPIC_TITLE[topic]}`;
+    const body = message.trim() || undefined;
+    try {
+      await Linking.openURL(buildSupportMailtoUrl({ subject, body }));
+    } catch {
+      setNotice({
+        title: 'Could not open your email app',
+        message: `Email ${PUBLIC_SUPPORT_EMAIL} from any mail app.`,
+        tone: 'error',
+      });
     }
   };
 
@@ -189,6 +214,17 @@ export default function SupportScreen() {
                 <View style={styles.noticeCopy}>
                   <Text style={styles.noticeTitle}>{notice.title}</Text>
                   {notice.message ? <Text style={styles.noticeMessage}>{notice.message}</Text> : null}
+                  {notice.offerDirectEmail ? (
+                    <Pressable
+                      style={({ pressed }) => [styles.noticeEmailButton, pressed && styles.submitBtnPressed]}
+                      onPress={handleDirectEmail}
+                      accessibilityRole="button"
+                      accessibilityLabel={`Email ${PUBLIC_SUPPORT_EMAIL} directly`}
+                    >
+                      <Ionicons name="mail-outline" size={13} color="#FFFFFF" />
+                      <Text style={styles.noticeEmailButtonText}>EMAIL DIRECTLY</Text>
+                    </Pressable>
+                  ) : null}
                 </View>
               </View>
             ) : null}
@@ -294,6 +330,20 @@ export default function SupportScreen() {
                 </Text>
               ))}
             </View>
+
+            <Pressable
+              style={({ pressed }) => [styles.directEmailCard, pressed && styles.submitBtnPressed]}
+              onPress={handleDirectEmail}
+              accessibilityRole="button"
+              accessibilityLabel={`Email ${PUBLIC_SUPPORT_EMAIL}`}
+            >
+              <Ionicons name="mail-outline" size={16} color={paper.dashboardBlue} />
+              <View style={styles.directEmailCopy}>
+                <Text style={styles.directEmailLabel}>PREFER EMAIL?</Text>
+                <Text style={styles.directEmailAddress} selectable>{PUBLIC_SUPPORT_EMAIL}</Text>
+              </View>
+              <Ionicons name="open-outline" size={15} color={paper.dashboardBlue} />
+            </Pressable>
           </ScrollView>
         </KeyboardAvoidingView>
       </View>
@@ -401,6 +451,23 @@ const styles = StyleSheet.create({
     color: paper.dashboardInk,
     opacity: 0.72,
     lineHeight: 18,
+  },
+  noticeEmailButton: {
+    alignSelf: 'flex-start',
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 6,
+    marginTop: paperSpacing.sm,
+    borderRadius: 9,
+    backgroundColor: paper.dashboardInk,
+    paddingHorizontal: paperSpacing.sm + 2,
+    paddingVertical: paperSpacing.sm,
+  },
+  noticeEmailButtonText: {
+    fontFamily: paperFonts.bodyBold,
+    fontSize: 10,
+    color: '#FFFFFF',
+    letterSpacing: 1.3,
   },
   topicGrid: {
     flexDirection: 'row',
@@ -521,6 +588,30 @@ const styles = StyleSheet.create({
     borderRadius: paperRadius.card,
     padding: paperSpacing.md,
     gap: paperSpacing.xs,
+  },
+  directEmailCard: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: paperSpacing.sm,
+    borderWidth: 1,
+    borderColor: 'rgba(42,110,150,0.22)',
+    borderRadius: paperRadius.card,
+    backgroundColor: paper.dashboardWhite,
+    paddingHorizontal: paperSpacing.md,
+    paddingVertical: paperSpacing.sm + 2,
+  },
+  directEmailCopy: { flex: 1, minWidth: 0 },
+  directEmailLabel: {
+    fontFamily: paperFonts.metaMonoBold,
+    fontSize: 9,
+    color: paper.dashboardMuted,
+    letterSpacing: 1.5,
+  },
+  directEmailAddress: {
+    marginTop: 2,
+    fontFamily: paperFonts.bodyBold,
+    fontSize: 13,
+    color: paper.dashboardBlue,
   },
   contextHeadingRow: {
     flexDirection: 'row',

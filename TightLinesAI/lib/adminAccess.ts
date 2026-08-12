@@ -5,6 +5,7 @@ const ADMIN_EMAILS = [
 const COMPLIMENTARY_ANGLER_EMAILS = [
   'brandonkentros@icloud.com',
   'finfindr@hotmail.com',
+  'play-review@finfindr.app',
 ];
 
 export function isAdminEmail(email: string | undefined | null): boolean {

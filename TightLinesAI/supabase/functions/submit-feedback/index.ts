@@ -18,6 +18,7 @@ const VALID_TOPICS = [
 
 const VALID_SENTIMENTS = ["looks_right", "needs_work", "note"] as const;
 const SUPPORT_DAILY_LIMIT = 5;
+const SUPPORT_NOTIFICATION_INBOX = "finfindr@hotmail.com";
 
 type FeedbackTopic = typeof VALID_TOPICS[number];
 type FeedbackSentiment = typeof VALID_SENTIMENTS[number];
@@ -117,7 +118,9 @@ async function sendEmailNotification(input: {
   const apiKey = Deno.env.get("RESEND_API_KEY")?.trim();
   // Deliver directly to your inbox — not support@finfindr.app. Cloudflare forwarding
   // can strip Reply-To, so Outlook Reply would loop back to you instead of the user.
-  const to = Deno.env.get("FEEDBACK_EMAIL_TO")?.trim() || "finfindr@hotmail.com";
+  // This is intentionally fixed: a stale hosted secret must never silently route
+  // customer messages to an old inbox.
+  const to = SUPPORT_NOTIFICATION_INBOX;
   const from = Deno.env.get("FEEDBACK_EMAIL_FROM")?.trim() || "FinFindr <support@finfindr.app>";
   if (!apiKey) return false;
 

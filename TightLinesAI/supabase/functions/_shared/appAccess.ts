@@ -1,6 +1,7 @@
 const FULL_ACCESS_EMAILS = [
   "brandonkentros@icloud.com",
   "finfindr@hotmail.com",
+  "play-review@finfindr.app",
 ];
 
 function normalizeEmail(email: string | null | undefined): string | null {

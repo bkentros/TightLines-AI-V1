@@ -1,17 +1,17 @@
 # finfindr.app email — receive mail at support@finfindr.app
 
-## Why in-app works but external email does not
+## Current routing
 
 | Path | How it works |
 |------|----------------|
-| **In-app feedback** | Supabase `submit-feedback` → **Resend API** sends **outbound** mail **from** `support@finfindr.app` **to** `FEEDBACK_EMAIL_TO` (your Hotmail inbox). No inbox on `finfindr.app` is required. |
-| **Someone emails support@finfindr.app** | Requires **inbound MX records** on `finfindr.app`. **Currently none are set** — mail has nowhere to go. |
+| **In-app feedback** | Supabase `submit-feedback` → **Resend API** sends **outbound** mail **from** `support@finfindr.app` directly to `finfindr@hotmail.com`. The destination is fixed in code so a stale secret cannot redirect customer messages. |
+| **Someone emails support@finfindr.app** | Cloudflare Email Routing receives the message using the active Cloudflare MX records and forwards it to `finfindr@hotmail.com`. |
 
-This is DNS / Cloudflare configuration, not an app code bug.
+The public address and the private destination are deliberately separate: users see `support@finfindr.app`; you receive messages at Hotmail.
 
 ---
 
-## Fix: Cloudflare Email Routing (recommended — free)
+## Cloudflare Email Routing configuration
 
 Your domain `finfindr.app` is already on Cloudflare. Use **Email Routing** to forward `support@finfindr.app` → `finfindr@hotmail.com`.
 
@@ -56,13 +56,14 @@ Should arrive in `finfindr@hotmail.com` within a few minutes.
 
 ## What stays the same (in-app)
 
-Supabase secrets (already set for outbound feedback):
+Supabase configuration for outbound feedback:
 
 | Secret | Typical value |
 |--------|----------------|
 | `RESEND_API_KEY` | Resend API key |
-| `FEEDBACK_EMAIL_TO` | `finfindr@hotmail.com` |
 | `FEEDBACK_EMAIL_FROM` | `FinFindr <support@finfindr.app>` |
+
+`FEEDBACK_EMAIL_TO` is no longer used. The recipient is intentionally fixed to `finfindr@hotmail.com` in `submit-feedback`.
 
 In-app feedback continues to work as today. Email Routing only fixes **inbound** mail to `@finfindr.app`.
 
