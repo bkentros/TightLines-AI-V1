@@ -40,8 +40,11 @@ import {
   getAppleSignInFailureNotice,
 } from '../../lib/auth';
 import {
+  clearGoogleSignInNonce,
+  consumeGoogleSignInNonce,
   getGoogleSignInFailureNotice,
   isGoogleUserCancellation,
+  prepareGoogleSignIn,
 } from '../../lib/googleAuth';
 import { useAuthStore } from '../../store/authStore';
 import { supabase } from '../../lib/supabase';
@@ -153,7 +156,16 @@ export default function SignInScreen() {
 
   const handleGoogleSignInSuccess = useCallback(async (result: OneTapSuccessData) => {
     setNotice(null);
-    const { data, error } = await signInWithGoogle(result.idToken);
+    const nonce = consumeGoogleSignInNonce();
+    if (!nonce) {
+      setNotice({
+        title: 'Google Sign-In failed',
+        message: 'The secure sign-in request expired. Please try again.',
+        tone: 'error',
+      });
+      return;
+    }
+    const { data, error } = await signInWithGoogle(result.idToken, nonce);
     if (error) {
       const googleNotice = getGoogleSignInFailureNotice(error);
       setNotice({ ...googleNotice, tone: 'error' });
@@ -167,6 +179,7 @@ export default function SignInScreen() {
   }, [fetchProfile, setSession]);
 
   const handleGoogleSignInError = useCallback((err: unknown) => {
+    clearGoogleSignInNonce();
     if (isGoogleUserCancellation(err)) return;
     const googleNotice = getGoogleSignInFailureNotice(err);
     setNotice({ ...googleNotice, tone: 'error' });
@@ -314,17 +327,22 @@ export default function SignInScreen() {
 
               <AuthDivider />
 
-              <GoogleSignInButton
-                size="wide"
-                colorScheme="light"
-                contentAlignment="center"
-                disabled={false}
-                style={styles.googleBtn}
-                onPress={() => setNotice(null)}
-                onSignInSuccess={handleGoogleSignInSuccess}
-                onSignInError={handleGoogleSignInError}
-                accessibilityLabel="Sign in with Google"
-              />
+              <View style={styles.googleBtnShell}>
+                <GoogleSignInButton
+                  size="wide"
+                  colorScheme="light"
+                  contentAlignment="center"
+                  disabled={false}
+                  style={styles.googleBtn}
+                  onPress={async () => {
+                    setNotice(null);
+                    await prepareGoogleSignIn();
+                  }}
+                  onSignInSuccess={handleGoogleSignInSuccess}
+                  onSignInError={handleGoogleSignInError}
+                  accessibilityLabel="Sign in with Google"
+                />
+              </View>
 
               {Platform.OS === 'ios' && (
                 <>
@@ -539,8 +557,19 @@ const styles = StyleSheet.create({
     height: 52,
     width: '100%',
   },
+  googleBtnShell: {
+    height: 52,
+    width: '100%',
+    alignItems: 'center',
+    justifyContent: 'center',
+    overflow: 'hidden',
+    backgroundColor: '#FFFFFF',
+    borderWidth: 1,
+    borderColor: paper.dashboardLine,
+    borderRadius: 12,
+  },
   googleBtn: {
-    height: 48,
+    height: 52,
     width: '100%',
     alignSelf: 'center',
   },

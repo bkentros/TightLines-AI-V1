@@ -103,6 +103,7 @@
     "smoke:river-run:production": "deno run --allow-env --allow-net scripts/river-run-production-smoke.ts",
     "qa:water-reader-typecheck": "tsc --noEmit",
     "qa:responsive-auth-layout": "tsx scripts/qa-responsive-auth-layout.ts",
+    "qa:google-auth-nonce": "tsx scripts/google-auth-nonce-qa.ts",
     "qa:feature-guide": "tsx scripts/feature-guide-qa.ts",
     "qa:account-ui": "tsx scripts/account-ui-qa.ts",
     "qa:module-marks": "tsx scripts/module-marks-qa.ts",

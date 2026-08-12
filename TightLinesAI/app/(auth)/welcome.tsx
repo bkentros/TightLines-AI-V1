@@ -46,8 +46,11 @@ import {
   signInWithGoogle,
 } from "../../lib/auth";
 import {
+  clearGoogleSignInNonce,
+  consumeGoogleSignInNonce,
   getGoogleSignInFailureNotice,
   isGoogleUserCancellation,
+  prepareGoogleSignIn,
 } from "../../lib/googleAuth";
 import { useAuthStore } from "../../store/authStore";
 import { supabase } from "../../lib/supabase";
@@ -60,7 +63,6 @@ import {
 } from "../../components/paper/IntelligenceModuleIcons";
 import {
   AuthDivider,
-  AuthFooterStamp,
   AuthNotice,
   AuthPrimaryButton,
   AuthTextLink,
@@ -134,6 +136,11 @@ export default function WelcomeScreen() {
   const { contentContainerStyle: scrollLayout, layoutTier } =
     useAuthScrollLayout("spread");
   const scopeStage = authScopeStageSize(layoutTier);
+  const welcomeStage = layoutTier === "tall"
+    ? { stage: 92, emblem: 62 }
+    : layoutTier === "standard"
+    ? { stage: 78, emblem: 52 }
+    : scopeStage;
 
   // Live pulse on the eyebrow dot — same anatomy used everywhere in the
   // paper system. Native opacity loop.
@@ -244,7 +251,16 @@ export default function WelcomeScreen() {
 
   const handleGoogleSignInSuccess = useCallback(async (result: OneTapSuccessData) => {
     setNotice(null);
-    const { data, error } = await signInWithGoogle(result.idToken);
+    const nonce = consumeGoogleSignInNonce();
+    if (!nonce) {
+      setNotice({
+        title: "Google Sign-In failed",
+        message: "The secure sign-in request expired. Please try again.",
+        tone: "error",
+      });
+      return;
+    }
+    const { data, error } = await signInWithGoogle(result.idToken, nonce);
     if (error) {
       const googleNotice = getGoogleSignInFailureNotice(error);
       setNotice({ ...googleNotice, tone: "error" });
@@ -258,6 +274,7 @@ export default function WelcomeScreen() {
   }, [fetchProfile, setSession]);
 
   const handleGoogleSignInError = useCallback((err: unknown) => {
+    clearGoogleSignInNonce();
     if (isGoogleUserCancellation(err)) return;
     const googleNotice = getGoogleSignInFailureNotice(err);
     setNotice({ ...googleNotice, tone: "error" });
@@ -279,6 +296,7 @@ export default function WelcomeScreen() {
           contentContainerStyle={[styles.container, scrollLayout]}
           showsVerticalScrollIndicator={false}
           keyboardShouldPersistTaps="handled"
+          scrollEnabled={layoutTier === "compact" || notice != null}
         >
           {/* ─── Hero — issue cover ─────────────────────────────────────── */}
           <View style={styles.hero}>
@@ -324,8 +342,8 @@ export default function WelcomeScreen() {
             </View>
 
             <WelcomeBrandOrbit
-              size={scopeStage.stage}
-              logoSize={scopeStage.emblem}
+              size={welcomeStage.stage}
+              logoSize={welcomeStage.emblem}
               style={styles.stageWrap}
             />
 
@@ -369,7 +387,7 @@ export default function WelcomeScreen() {
             )
             : null}
 
-          {/* ─── Field-guide entries — I · II · III ────────────────────── */}
+          {/* ─── Field-guide entries — I · II · III · IV ───────────────── */}
           <View style={styles.valuePropsBlock}>
             <View style={styles.valuePropsHeader}>
               <Text
@@ -455,7 +473,7 @@ export default function WelcomeScreen() {
                       iconBg={item.iconBg}
                       iconBorder={item.iconBorder}
                       iconColor={item.iconColor}
-                      size={44}
+                      size={36}
                     />
                     <View style={styles.valueModuleTextCol}>
                       <View
@@ -509,17 +527,22 @@ export default function WelcomeScreen() {
 
             <AuthDivider />
 
-            <GoogleSignInButton
-              size="wide"
-              colorScheme="light"
-              contentAlignment="center"
-              disabled={false}
-              style={styles.googleBtn}
-              onPress={() => setNotice(null)}
-              onSignInSuccess={handleGoogleSignInSuccess}
-              onSignInError={handleGoogleSignInError}
-              accessibilityLabel="Sign in with Google"
-            />
+            <View style={styles.googleBtnShell}>
+              <GoogleSignInButton
+                size="wide"
+                colorScheme="light"
+                contentAlignment="center"
+                disabled={false}
+                style={styles.googleBtn}
+                onPress={async () => {
+                  setNotice(null);
+                  await prepareGoogleSignIn();
+                }}
+                onSignInSuccess={handleGoogleSignInSuccess}
+                onSignInError={handleGoogleSignInError}
+                accessibilityLabel="Sign in with Google"
+              />
+            </View>
 
             {Platform.OS === "ios" && (
               <>
@@ -542,7 +565,6 @@ export default function WelcomeScreen() {
               <Text style={styles.footerText}>FINFINDR</Text>
               <Text style={styles.footerMono}>MADE FOR THE WATER</Text>
             </View>
-            <AuthFooterStamp />
           </View>
         </ScrollView>
       </SafeAreaView>
@@ -719,15 +741,15 @@ const styles = StyleSheet.create({
     maxWidth: 520,
     alignSelf: "center",
     paddingHorizontal: paperSpacing.lg,
-    paddingBottom: paperSpacing.md,
-    paddingTop: paperSpacing.md + 6,
-    gap: 10,
+    paddingBottom: 6,
+    paddingTop: 6,
+    gap: 6,
   },
 
   // ── Hero / issue cover ────────────────────────────────────────────────
   hero: {
     position: "relative",
-    paddingVertical: paperSpacing.sm,
+    paddingVertical: 6,
     paddingHorizontal: paperSpacing.md,
     alignItems: "center",
     backgroundColor: paper.dashboardWhite,
@@ -763,7 +785,7 @@ const styles = StyleSheet.create({
     gap: 8,
     alignSelf: "stretch",
     paddingHorizontal: 4,
-    marginBottom: 4,
+    marginBottom: 2,
     zIndex: 1,
   },
   issueRubricRule: {
@@ -774,7 +796,7 @@ const styles = StyleSheet.create({
   },
   issueRubricText: {
     fontFamily: paperFonts.metaMonoBold,
-    fontSize: 11,
+    fontSize: 10,
     color: paper.dashboardInk,
     letterSpacing: 1.6,
     opacity: 0.78,
@@ -852,8 +874,8 @@ const styles = StyleSheet.create({
   liveRow: {
     flexDirection: "row",
     alignItems: "center",
-    gap: 8,
-    marginTop: 2,
+    gap: 6,
+    marginTop: 1,
     zIndex: 1,
   },
   livePulseWrap: {
@@ -879,19 +901,19 @@ const styles = StyleSheet.create({
   },
   liveLabel: {
     fontFamily: paperFonts.bodyBold,
-    fontSize: 11,
+    fontSize: 10,
     color: paper.dashboardBlue,
     letterSpacing: 1.8,
   },
 
   brandMark: {
     fontFamily: paperFonts.display,
-    fontSize: 30,
+    fontSize: 28,
     color: paper.dashboardInk,
     letterSpacing: -0.5,
     fontWeight: "700",
-    lineHeight: 34,
-    marginTop: 4,
+    lineHeight: 30,
+    marginTop: 2,
     zIndex: 1,
   },
   brandMarkDot: {
@@ -901,16 +923,16 @@ const styles = StyleSheet.create({
     width: 44,
     height: 2.5,
     backgroundColor: paper.dashboardBlue,
-    marginTop: 4,
+    marginTop: 2,
     borderRadius: 1,
     zIndex: 1,
   },
   tagline: {
     fontFamily: paperFonts.body,
-    fontSize: 12.5,
+    fontSize: 11.5,
     color: paper.dashboardInk,
     opacity: 0.78,
-    marginTop: 6,
+    marginTop: 3,
     textAlign: "center",
     zIndex: 1,
   },
@@ -921,17 +943,17 @@ const styles = StyleSheet.create({
 
   // ── Field-guide entries ───────────────────────────────────────────────
   valuePropsBlock: {
-    gap: 7,
+    gap: 4,
   },
   valuePropsHeader: {
     flexDirection: "row",
     alignItems: "center",
-    gap: 8,
+    gap: 6,
     paddingHorizontal: 2,
   },
   valuePropsEyebrow: {
     fontFamily: paperFonts.metaMonoBold,
-    fontSize: 11,
+    fontSize: 10,
     color: paper.dashboardInk,
     letterSpacing: 1.8,
     opacity: 0.78,
@@ -950,24 +972,25 @@ const styles = StyleSheet.create({
   },
 
   valueProps: {
-    gap: 8,
+    gap: 5,
   },
   valueModule: {
     flexDirection: "row",
     alignItems: "center",
-    gap: 10,
+    gap: 6,
     backgroundColor: paper.dashboardWhite,
     borderWidth: 1,
     borderColor: paper.dashboardLine,
     borderRadius: 8,
-    padding: 10,
+    paddingHorizontal: 7,
+    paddingVertical: 5,
     position: "relative",
   },
   valueModuleMain: {
     flex: 1,
     flexDirection: "row",
     alignItems: "center",
-    gap: 10,
+    gap: 7,
   },
   valueModuleMainSoon: {
     opacity: 0.5,
@@ -1003,9 +1026,9 @@ const styles = StyleSheet.create({
     borderRadius: 1.5,
   },
   valueModuleCode: {
-    width: 24,
+    width: 20,
     fontFamily: paperFonts.metaMonoBold,
-    fontSize: 10,
+    fontSize: 9,
     letterSpacing: 1,
     opacity: 0.85,
   },
@@ -1016,43 +1039,54 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     flexWrap: "wrap",
-    gap: 8,
-    marginBottom: 2,
+    gap: 6,
+    marginBottom: 0,
   },
   valueModuleTitle: {
     fontFamily: paperFonts.display,
-    fontSize: 15,
+    fontSize: 13.5,
     color: paper.dashboardInk,
     fontWeight: "600",
   },
   valueModuleTag: {
     fontFamily: paperFonts.metaMonoBold,
-    fontSize: 11,
+    fontSize: 9.5,
     letterSpacing: 1,
     color: paper.dashboardMuted,
   },
   valueModuleDesc: {
     fontFamily: paperFonts.bodyMedium,
-    fontSize: 11.8,
-    lineHeight: 15.5,
+    fontSize: 10.2,
+    lineHeight: 12.5,
     color: paper.dashboardInk,
     opacity: 0.72,
   },
 
   // ── Actions ───────────────────────────────────────────────────────────
   actions: {
-    gap: paperSpacing.xs + 2,
+    gap: 5,
+  },
+  googleBtnShell: {
+    height: 50,
+    width: "100%",
+    alignItems: "center",
+    justifyContent: "center",
+    overflow: "hidden",
+    backgroundColor: "#FFFFFF",
+    borderWidth: 1,
+    borderColor: paper.dashboardLine,
+    borderRadius: 12,
   },
   googleBtn: {
-    height: 48,
+    height: 50,
     width: "100%",
     alignSelf: "center",
   },
-  appleBtn: { height: 48, width: "100%" },
+  appleBtn: { height: 50, width: "100%" },
 
   // ── Footer ────────────────────────────────────────────────────────────
   footerCol: {
-    gap: 2,
+    gap: 0,
   },
   footerRow: {
     flexDirection: "row",
@@ -1060,7 +1094,7 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     borderTopWidth: 1.5,
     borderTopColor: paper.dashboardInk,
-    paddingTop: paperSpacing.xs + 2,
+    paddingTop: 4,
   },
   footerText: {
     fontFamily: paperFonts.bodyBold,
