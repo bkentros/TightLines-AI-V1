@@ -4,6 +4,7 @@ import {
   statusCodes,
 } from 'react-native-nitro-google-signin';
 import * as Crypto from 'expo-crypto';
+import { readGoogleIdTokenNonce } from './googleIdToken';
 
 export const GOOGLE_WEB_CLIENT_ID =
   '655199773804-mbrmk6l4ndce33iqo9bptogucqmgo8mq.apps.googleusercontent.com';
@@ -54,7 +55,7 @@ export async function consumeGoogleSignInNonce(
 
   if (!rawNonce || !hashedNonce) return null;
 
-  const tokenNonce = readJwtNonceClaim(idToken);
+  const tokenNonce = readGoogleIdTokenNonce(idToken);
   if (!tokenNonce || tokenNonce === hashedNonce) return rawNonce;
 
   // Google Sign-In for iOS can hash the configured nonce before writing the
@@ -73,22 +74,6 @@ export async function consumeGoogleSignInNonce(
 export function clearGoogleSignInNonce(): void {
   pendingGoogleRawNonce = null;
   pendingGoogleHashedNonce = null;
-}
-
-function readJwtNonceClaim(idToken: string): string | null {
-  try {
-    const payload = idToken.split('.')[1];
-    if (!payload) return null;
-    const normalized = payload.replace(/-/g, '+').replace(/_/g, '/');
-    const decoded = globalThis.atob(normalized.padEnd(
-      normalized.length + ((4 - normalized.length % 4) % 4),
-      '=',
-    ));
-    const claims = JSON.parse(decoded) as { nonce?: unknown };
-    return typeof claims.nonce === 'string' ? claims.nonce : null;
-  } catch {
-    return null;
-  }
 }
 
 export function isGoogleUserCancellation(err: unknown): boolean {

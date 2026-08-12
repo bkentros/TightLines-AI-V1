@@ -12,7 +12,6 @@ import Svg, { Path } from 'react-native-svg';
 import {
   GoogleOneTapSignIn,
   isCancelledResponse,
-  isNoSavedCredentialFoundResponse,
   isSuccessResponse,
   type OneTapSuccessData,
 } from 'react-native-nitro-google-signin';
@@ -47,10 +46,10 @@ export function GoogleAuthButton({
       await prepareGoogleSignIn();
       await GoogleOneTapSignIn.checkPlayServices();
 
-      let response = await GoogleOneTapSignIn.signIn();
-      if (isNoSavedCredentialFoundResponse(response)) {
-        response = await GoogleOneTapSignIn.createAccount();
-      }
+      // A visible button must use the explicit flow. On iOS, signIn() may
+      // restore a cached user and return an older token that was not minted
+      // with the nonce prepared immediately above.
+      const response = await GoogleOneTapSignIn.presentExplicitSignIn();
 
       if (isSuccessResponse(response)) {
         await onSignInSuccess(response.data);

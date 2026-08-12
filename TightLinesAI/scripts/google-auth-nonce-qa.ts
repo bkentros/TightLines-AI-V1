@@ -4,6 +4,7 @@
  */
 import fs from 'node:fs';
 import path from 'node:path';
+import { readGoogleIdTokenNonce } from '../lib/googleIdToken';
 
 const root = path.resolve(__dirname, '..');
 const googleAuth = fs.readFileSync(path.join(root, 'lib/googleAuth.ts'), 'utf8');
@@ -21,6 +22,17 @@ const screens = [
 }));
 
 const failures: string[] = [];
+
+const fixtureNonce = '7d70b52af06f1b313e49f39c835955de';
+const fixturePayload = Buffer.from(JSON.stringify({
+  sub: 'fixture-user',
+  name: 'Test Angler 🐟',
+  nonce: fixtureNonce,
+})).toString('base64url');
+const fixtureToken = `eyJhbGciOiJub25lIn0.${fixturePayload}.fixture`;
+if (readGoogleIdTokenNonce(fixtureToken) !== fixtureNonce) {
+  failures.push('React Native-safe Google ID-token nonce decoder failed');
+}
 
 if (!googleAuth.includes('Crypto.CryptoDigestAlgorithm.SHA256')) {
   failures.push('Google request nonce is not SHA-256 hashed');
@@ -54,6 +66,12 @@ if (!welcome.includes('scrollEnabled={layoutTier === "compact" || notice != null
 
 if (!googleButton.includes('await prepareGoogleSignIn()')) {
   failures.push('Google button does not prepare a nonce before native sign-in');
+}
+if (!googleButton.includes('GoogleOneTapSignIn.presentExplicitSignIn()')) {
+  failures.push('Google button does not mint a fresh token through the explicit flow');
+}
+if (googleButton.includes('GoogleOneTapSignIn.signIn()')) {
+  failures.push('Google button can reuse an iOS token from the silent restore flow');
 }
 if (!googleButton.includes('clearGoogleSignInNonce()')) {
   failures.push('Google button does not clear abandoned nonce state');

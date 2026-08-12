@@ -926,6 +926,7 @@ const styles = StyleSheet.create({
   // ── Field-guide entries ───────────────────────────────────────────────
   valuePropsBlock: {
     gap: 4,
+    marginVertical: 4,
   },
   valuePropsHeader: {
     flexDirection: "row",
