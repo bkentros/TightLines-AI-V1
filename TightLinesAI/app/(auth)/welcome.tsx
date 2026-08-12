@@ -246,7 +246,7 @@ export default function WelcomeScreen() {
 
   const handleGoogleSignInSuccess = useCallback(async (result: OneTapSuccessData) => {
     setNotice(null);
-    const nonce = consumeGoogleSignInNonce();
+    const nonce = await consumeGoogleSignInNonce(result.idToken);
     if (!nonce) {
       setNotice({
         title: "Google Sign-In failed",
@@ -466,7 +466,7 @@ export default function WelcomeScreen() {
                       iconBg={item.iconBg}
                       iconBorder={item.iconBorder}
                       iconColor={item.iconColor}
-                      size={36}
+                      size={40}
                     />
                     <View style={styles.valueModuleTextCol}>
                       <View
@@ -954,7 +954,7 @@ const styles = StyleSheet.create({
   },
 
   valueProps: {
-    gap: 5,
+    gap: 6,
   },
   valueModule: {
     flexDirection: "row",
@@ -964,15 +964,15 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: paper.dashboardLine,
     borderRadius: 8,
-    paddingHorizontal: 7,
-    paddingVertical: 5,
+    paddingHorizontal: 8,
+    paddingVertical: 7,
     position: "relative",
   },
   valueModuleMain: {
     flex: 1,
     flexDirection: "row",
     alignItems: "center",
-    gap: 7,
+    gap: 8,
   },
   valueModuleMainSoon: {
     opacity: 0.5,
@@ -1008,9 +1008,9 @@ const styles = StyleSheet.create({
     borderRadius: 1.5,
   },
   valueModuleCode: {
-    width: 20,
+    width: 22,
     fontFamily: paperFonts.metaMonoBold,
-    fontSize: 9,
+    fontSize: 9.5,
     letterSpacing: 1,
     opacity: 0.85,
   },
@@ -1021,25 +1021,25 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     flexWrap: "wrap",
-    gap: 6,
-    marginBottom: 0,
+    gap: 7,
+    marginBottom: 1,
   },
   valueModuleTitle: {
     fontFamily: paperFonts.display,
-    fontSize: 13.5,
+    fontSize: 14.5,
     color: paper.dashboardInk,
     fontWeight: "600",
   },
   valueModuleTag: {
     fontFamily: paperFonts.metaMonoBold,
-    fontSize: 9.5,
+    fontSize: 10,
     letterSpacing: 1,
     color: paper.dashboardMuted,
   },
   valueModuleDesc: {
     fontFamily: paperFonts.bodyMedium,
-    fontSize: 10.2,
-    lineHeight: 12.5,
+    fontSize: 11,
+    lineHeight: 14,
     color: paper.dashboardInk,
     opacity: 0.72,
   },

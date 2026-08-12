@@ -20,6 +20,7 @@ const GOOGLE_SIGN_IN_CONFIG = {
 GoogleOneTapSignIn.configure(GOOGLE_SIGN_IN_CONFIG);
 
 let pendingGoogleRawNonce: string | null = null;
+let pendingGoogleHashedNonce: string | null = null;
 
 /**
  * Configure the native Google request with a nonce whose original value is
@@ -35,6 +36,7 @@ export async function prepareGoogleSignIn(): Promise<void> {
   );
 
   pendingGoogleRawNonce = rawNonce;
+  pendingGoogleHashedNonce = hashedNonce;
   GoogleOneTapSignIn.configure({
     ...GOOGLE_SIGN_IN_CONFIG,
     nonce: hashedNonce,
@@ -42,14 +44,51 @@ export async function prepareGoogleSignIn(): Promise<void> {
 }
 
 /** A nonce is single-use and must be consumed by the matching token exchange. */
-export function consumeGoogleSignInNonce(): string | null {
-  const nonce = pendingGoogleRawNonce;
+export async function consumeGoogleSignInNonce(
+  idToken: string,
+): Promise<string | null> {
+  const rawNonce = pendingGoogleRawNonce;
+  const hashedNonce = pendingGoogleHashedNonce;
   pendingGoogleRawNonce = null;
-  return nonce;
+  pendingGoogleHashedNonce = null;
+
+  if (!rawNonce || !hashedNonce) return null;
+
+  const tokenNonce = readJwtNonceClaim(idToken);
+  if (!tokenNonce || tokenNonce === hashedNonce) return rawNonce;
+
+  // Google Sign-In for iOS can hash the configured nonce before writing the
+  // ID-token claim. Because the native API receives Supabase's already-hashed
+  // nonce, this produces SHA256(SHA256(raw)). Supabase must then receive the
+  // first hash so its own SHA-256 comparison reaches the token claim.
+  const doubleHashedNonce = await Crypto.digestStringAsync(
+    Crypto.CryptoDigestAlgorithm.SHA256,
+    hashedNonce,
+  );
+  if (tokenNonce === doubleHashedNonce) return hashedNonce;
+
+  return null;
 }
 
 export function clearGoogleSignInNonce(): void {
   pendingGoogleRawNonce = null;
+  pendingGoogleHashedNonce = null;
+}
+
+function readJwtNonceClaim(idToken: string): string | null {
+  try {
+    const payload = idToken.split('.')[1];
+    if (!payload) return null;
+    const normalized = payload.replace(/-/g, '+').replace(/_/g, '/');
+    const decoded = globalThis.atob(normalized.padEnd(
+      normalized.length + ((4 - normalized.length % 4) % 4),
+      '=',
+    ));
+    const claims = JSON.parse(decoded) as { nonce?: unknown };
+    return typeof claims.nonce === 'string' ? claims.nonce : null;
+  } catch {
+    return null;
+  }
 }
 
 export function isGoogleUserCancellation(err: unknown): boolean {

@@ -151,7 +151,7 @@ export default function SignInScreen() {
 
   const handleGoogleSignInSuccess = useCallback(async (result: OneTapSuccessData) => {
     setNotice(null);
-    const nonce = consumeGoogleSignInNonce();
+    const nonce = await consumeGoogleSignInNonce(result.idToken);
     if (!nonce) {
       setNotice({
         title: 'Google Sign-In failed',
