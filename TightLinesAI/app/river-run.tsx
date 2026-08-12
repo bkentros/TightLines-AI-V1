@@ -11,6 +11,7 @@ import {
   AppState,
   Easing,
   Image,
+  Platform,
   Pressable,
   RefreshControl,
   ScrollView,
@@ -2379,24 +2380,36 @@ function PrimitiveSection({
 }
 
 function PrimitiveHeadlineCopy({ value }: { value: string }) {
-  const words = value.trim().split(/\s+/);
+  if (Platform.OS !== "android") {
+    const words = value.trim().split(/\s+/);
+    return (
+      <View
+        style={styles.primitiveHeadlineFlow}
+        accessible
+        accessibilityRole="text"
+        accessibilityLabel={value}
+      >
+        {words.map((word, wordIndex) => (
+          <Text
+            key={`${wordIndex}:${word}`}
+            style={styles.primitiveHeadlineWord}
+            accessible={false}
+          >
+            {word}
+          </Text>
+        ))}
+      </View>
+    );
+  }
   return (
-    <View
-      style={styles.primitiveHeadlineFlow}
+    <Text
+      style={styles.primitiveHeadlineText}
       accessible
       accessibilityRole="text"
       accessibilityLabel={value}
     >
-      {words.map((word, wordIndex) => (
-        <Text
-          key={`${wordIndex}:${word}`}
-          style={styles.primitiveHeadlineWord}
-          accessible={false}
-        >
-          {word}
-        </Text>
-      ))}
-    </View>
+      {value.trim()}
+    </Text>
   );
 }
 
@@ -2424,42 +2437,62 @@ function PrimitiveDetailCopy({ value }: { value: string }) {
 }
 
 function PrimitiveDetailWordFlow({ value }: { value: string }) {
-  const words = value.trim().split(/\s+/);
+  if (Platform.OS !== "android") {
+    const words = value.trim().split(/\s+/);
+    return (
+      <View style={styles.primitiveDetailTextFlow}>
+        {words.map((word, wordIndex) => (
+          <Text
+            key={`${wordIndex}:${word}`}
+            style={styles.primitiveDetailWord}
+            accessible={false}
+          >
+            {word}
+          </Text>
+        ))}
+      </View>
+    );
+  }
   return (
-    <View style={styles.primitiveDetailTextFlow}>
-      {words.map((word, wordIndex) => (
-        <Text
-          key={`${wordIndex}:${word}`}
-          style={styles.primitiveDetailWord}
-          accessible={false}
-        >
-          {word}
-        </Text>
-      ))}
-    </View>
+    <Text style={styles.primitiveDetailText} accessible={false}>
+      {value.trim()}
+    </Text>
   );
 }
 
 function PrimitiveGuideReadCopy({ value }: { value: string }) {
-  const words = value.trim().split(/\s+/);
+  if (Platform.OS !== "android") {
+    const words = value.trim().split(/\s+/);
+    return (
+      <View
+        key={value}
+        style={styles.primitiveTipTextFlow}
+        accessible
+        accessibilityRole="text"
+        accessibilityLabel={value}
+      >
+        {words.map((word, wordIndex) => (
+          <Text
+            key={`${wordIndex}:${word}`}
+            style={styles.primitiveTipWord}
+            accessible={false}
+          >
+            {word}
+          </Text>
+        ))}
+      </View>
+    );
+  }
   return (
-    <View
+    <Text
       key={value}
-      style={styles.primitiveTipTextFlow}
+      style={styles.primitiveTipText}
       accessible
       accessibilityRole="text"
       accessibilityLabel={value}
     >
-      {words.map((word, wordIndex) => (
-        <Text
-          key={`${wordIndex}:${word}`}
-          style={styles.primitiveTipWord}
-          accessible={false}
-        >
-          {word}
-        </Text>
-      ))}
-    </View>
+      {value.trim()}
+    </Text>
   );
 }
 
@@ -3736,6 +3769,15 @@ const styles = StyleSheet.create({
     marginTop: 17,
     paddingBottom: 1,
   },
+  primitiveHeadlineText: {
+    alignSelf: "stretch",
+    minWidth: 0,
+    fontFamily: paperFonts.bodyBold,
+    fontSize: 16,
+    lineHeight: 23,
+    includeFontPadding: false,
+    color: paper.dashboardInk,
+  },
   primitiveHeadlineFlow: {
     alignSelf: "stretch",
     minWidth: 0,
@@ -3926,6 +3968,15 @@ const styles = StyleSheet.create({
     borderRadius: 3,
     backgroundColor: "rgba(15,99,176,0.55)",
   },
+  primitiveDetailText: {
+    minWidth: 0,
+    alignSelf: "stretch",
+    fontFamily: paperFonts.bodySemiBold,
+    fontSize: 14,
+    lineHeight: 21,
+    includeFontPadding: false,
+    color: "#52606A",
+  },
   primitiveDetailTextFlow: {
     alignSelf: "stretch",
     flexDirection: "row",
@@ -3954,6 +4005,16 @@ const styles = StyleSheet.create({
     fontSize: 8.5,
     letterSpacing: 1.5,
     color: paper.redDk,
+  },
+  primitiveTipText: {
+    alignSelf: "stretch",
+    minWidth: 0,
+    paddingBottom: 2,
+    fontFamily: paperFonts.bodyBold,
+    fontSize: 14,
+    lineHeight: 21,
+    includeFontPadding: false,
+    color: paper.dashboardInk,
   },
   primitiveTipTextFlow: {
     alignSelf: "stretch",

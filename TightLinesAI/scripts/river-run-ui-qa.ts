@@ -540,8 +540,18 @@ assert.equal(
 );
 assert.match(
   riverRunScreen,
-  /function PrimitiveDetailWordFlow\(\{ value \}: \{ value: string \}\)[\s\S]*?value\.trim\(\)\.split\(\/\\s\+\/\)[\s\S]*?words\.map\(\(word, wordIndex\) => \([\s\S]*?<Text[\s\S]*?\{word\}[\s\S]*?<\/Text>/,
-  "Why This Read must wrap independently measured words instead of one native paragraph",
+  /function PrimitiveDetailWordFlow\(\{ value \}: \{ value: string \}\)[\s\S]*?Platform\.OS !== "android"[\s\S]*?<Text style=\{styles\.primitiveDetailText\}[\s\S]*?\{value\.trim\(\)\}[\s\S]*?<\/Text>/,
+  "Why This Read must use native multiline text so Android preserves normal line height",
+);
+assert.match(
+  riverRunScreen,
+  /function PrimitiveHeadlineCopy\(\{ value \}: \{ value: string \}\)[\s\S]*?Platform\.OS !== "android"[\s\S]*?<Text[\s\S]*?style=\{styles\.primitiveHeadlineText\}[\s\S]*?\{value\.trim\(\)\}[\s\S]*?<\/Text>/,
+  "Primitive headlines must use native multiline text",
+);
+assert.match(
+  riverRunScreen,
+  /function PrimitiveGuideReadCopy\(\{ value \}: \{ value: string \}\)[\s\S]*?Platform\.OS !== "android"[\s\S]*?<Text[\s\S]*?style=\{styles\.primitiveTipText\}[\s\S]*?\{value\.trim\(\)\}[\s\S]*?<\/Text>/,
+  "Guide's Read must use native multiline text",
 );
 assert.match(
   riverRunScreen,
@@ -552,7 +562,7 @@ const detailCardStyle = riverRunScreen.match(
   /primitiveDetail:\s*\{([\s\S]*?)\n  \},/,
 );
 const detailTextStyle = riverRunScreen.match(
-  /primitiveDetailWord:\s*\{([\s\S]*?)\n  \},/,
+  /primitiveDetailText:\s*\{([\s\S]*?)\n  \},/,
 );
 assert(detailCardStyle, "Missing Why This Read card style");
 assert(detailTextStyle, "Missing Why This Read text style");
@@ -628,8 +638,8 @@ assert.match(
 );
 assert.match(
   riverRunScreen,
-  /function PrimitiveGuideReadCopy[\s\S]*?flexWrap:[\s\S]*?primitiveTipWord/,
-  "Guide's Read must use measured word-flow layout instead of a clipping-prone monolithic Text node",
+  /function PrimitiveGuideReadCopy[\s\S]*?style=\{styles\.primitiveTipText\}[\s\S]*?\{value\.trim\(\)\}/,
+  "Guide's Read must use native multiline text with stable Android line metrics",
 );
 assert.match(
   riverRunScreen,
@@ -643,8 +653,8 @@ assert.match(
 );
 assert.match(
   riverRunScreen,
-  /function PrimitiveHeadlineCopy[\s\S]*?primitiveHeadlineFlow:[\s\S]*?flexWrap:\s*"wrap"[\s\S]*?primitiveHeadlineWord/,
-  "Every primitive headline must use measured word-flow layout instead of a clipping-prone monolithic Text node",
+  /function PrimitiveHeadlineCopy[\s\S]*?style=\{styles\.primitiveHeadlineText\}[\s\S]*?\{value\.trim\(\)\}/,
+  "Every primitive headline must use native multiline text with stable Android line metrics",
 );
 assert.match(
   riverRunVisual,
@@ -735,13 +745,13 @@ assert.match(
   "Migration Stage must render one prominent Where To Start line",
 );
 const detailFlowStyle = riverRunScreen.match(
-  /primitiveDetailTextFlow:\s*\{([\s\S]*?)\n  \},/,
+  /primitiveDetailText:\s*\{([\s\S]*?)\n  \},/,
 );
-assert(detailFlowStyle, "Missing Why This Read word-flow style");
+assert(detailFlowStyle, "Missing Why This Read native text style");
 assert.match(
   detailFlowStyle[1],
-  /flexDirection:\s*"row"[\s\S]*?flexWrap:\s*"wrap"/,
-  "Why This Read must wrap word nodes inside the visible card width",
+  /lineHeight:\s*21[\s\S]*?includeFontPadding:\s*false/,
+  "Why This Read must use compact Android line metrics",
 );
 const detailBulletRowStyle = riverRunScreen.match(
   /primitiveDetailBulletRow:\s*\{([\s\S]*?)\n  \},/,

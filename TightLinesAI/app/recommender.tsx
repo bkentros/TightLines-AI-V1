@@ -1404,6 +1404,8 @@ export default function RecommenderScreen() {
           : wizardStep === 3
           ? clarity !== null
           : recommendationGoal !== null;
+        const continueEnabled = canContinue &&
+          (wizardStep !== 4 || isReady);
 
         const allowJumpToStep = (step: 1 | 2 | 3 | 4) => {
           if (step === 1) return true;
@@ -1615,33 +1617,31 @@ export default function RecommenderScreen() {
                 <Pressable
                   style={({ pressed }) => [
                     wizardStyles.continueButton,
-                    !canContinue && wizardStyles.continueButtonDisabled,
-                    wizardStep === 4 && canContinue && isReady &&
+                    !continueEnabled && wizardStyles.continueButtonDisabled,
+                    wizardStep === 4 && continueEnabled &&
                     wizardStyles.continueButtonFinal,
-                    Platform.OS === "ios" && pressed && canContinue &&
+                    Platform.OS === "ios" && pressed && continueEnabled &&
                     { opacity: 0.9 },
                   ]}
                   onPress={handleContinueOrSubmit}
-                  disabled={!canContinue || (wizardStep === 4 && !isReady)}
-                  android_ripple={canContinue
+                  disabled={!continueEnabled}
+                  accessibilityRole="button"
+                  accessibilityState={{ disabled: !continueEnabled }}
+                  android_ripple={continueEnabled
                     ? { color: "rgba(255,255,255,0.18)" }
                     : undefined}
                 >
                   <Text
                     style={[
                       wizardStyles.continueButtonText,
-                      !canContinue && wizardStyles.continueButtonTextDisabled,
+                      !continueEnabled &&
+                      wizardStyles.continueButtonTextDisabled,
                     ]}
                   >
-                    {wizardStep === 4 ? "GENERATE PICKS" : "CONTINUE"}
+                    {wizardStep === 4
+                      ? "GENERATE PICKS  >"
+                      : "CONTINUE  >"}
                   </Text>
-                  <Ionicons
-                    name="arrow-forward"
-                    size={16}
-                    color={canContinue
-                      ? paper.dashboardWhite
-                      : paper.dashboardInk}
-                  />
                 </Pressable>
               </View>
 
@@ -2806,8 +2806,11 @@ const wizardStyles = StyleSheet.create({
   continueButtonText: {
     fontFamily: paperFonts.bodyBold,
     fontSize: 12,
-    color: paper.dashboardWhite,
+    lineHeight: 18,
+    includeFontPadding: false,
+    color: "#FFFFFF",
     letterSpacing: 2.6,
+    textAlign: "center",
   },
   continueButtonTextDisabled: {
     color: paper.dashboardInk,
