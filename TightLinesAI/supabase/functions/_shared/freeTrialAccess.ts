@@ -1,4 +1,6 @@
-import type { SupabaseClient } from "https://esm.sh/@supabase/supabase-js@2.49.1";
+type SupabaseClient = {
+  from: (table: string) => any;
+};
 
 export const FREE_TRIAL_PROFILE_SELECT =
   "subscription_tier, free_recommender_trial_used_at, free_water_read_trial_used_at, free_today_bite_full_used_at, free_river_run_trial_used_at, free_river_run_trial_river_id, free_river_run_trial_run_id, free_river_run_trial_presentation_state, free_river_run_trial_local_date, free_river_run_trial_refresh_slot, free_river_run_trial_engine_version, free_river_run_trial_config_version";
@@ -21,25 +23,25 @@ export type FreeTrialProfileRow = {
 export function freeRecommenderTrialAvailable(
   profile: FreeTrialProfileRow | null | undefined,
 ): boolean {
-  return profile?.free_recommender_trial_used_at == null;
+  return profile != null && profile.free_recommender_trial_used_at == null;
 }
 
 export function freeWaterReadTrialAvailable(
   profile: FreeTrialProfileRow | null | undefined,
 ): boolean {
-  return profile?.free_water_read_trial_used_at == null;
+  return profile != null && profile.free_water_read_trial_used_at == null;
 }
 
 export function freeTodayBiteFullTrialAvailable(
   profile: FreeTrialProfileRow | null | undefined,
 ): boolean {
-  return profile?.free_today_bite_full_used_at == null;
+  return profile != null && profile.free_today_bite_full_used_at == null;
 }
 
 export function freeRiverRunTrialAvailable(
   profile: FreeTrialProfileRow | null | undefined,
 ): boolean {
-  return profile?.free_river_run_trial_used_at == null;
+  return profile != null && profile.free_river_run_trial_used_at == null;
 }
 
 export async function markFreeRecommenderTrialUsed(
@@ -52,7 +54,7 @@ export async function markFreeRecommenderTrialUsed(
     .eq("id", userId)
     .is("free_recommender_trial_used_at", null);
   if (error) {
-    console.error("[freeTrialAccess] mark recommender trial failed", error.message);
+    throw new Error(`mark_recommender_trial_failed:${error.message}`);
   }
 }
 
@@ -66,7 +68,7 @@ export async function markFreeWaterReadTrialUsed(
     .eq("id", userId)
     .is("free_water_read_trial_used_at", null);
   if (error) {
-    console.error("[freeTrialAccess] mark water read trial failed", error.message);
+    throw new Error(`mark_water_read_trial_failed:${error.message}`);
   }
 }
 
@@ -81,7 +83,7 @@ export async function markFreeTodayBiteFullUsed(
     .eq("id", userId)
     .is("free_today_bite_full_used_at", null)
     .select("free_today_bite_full_used_at")
-    .maybeSingle<{ free_today_bite_full_used_at: string | null }>();
+    .maybeSingle();
 
   if (error) {
     throw new Error(`mark_today_bite_trial_failed:${error.message}`);
@@ -96,7 +98,7 @@ export async function markFreeTodayBiteFullUsed(
     .from("profiles")
     .select("free_today_bite_full_used_at")
     .eq("id", userId)
-    .maybeSingle<{ free_today_bite_full_used_at: string | null }>();
+    .maybeSingle();
 
   if (readError) {
     throw new Error(`mark_today_bite_trial_verify_failed:${readError.message}`);
@@ -119,8 +121,7 @@ export async function userHasWaterReadHistoryForLake(
     .limit(1)
     .maybeSingle();
   if (error) {
-    console.error("[freeTrialAccess] water read history lookup failed", error.message);
-    return false;
+    throw new Error(`water_read_history_lookup_failed:${error.message}`);
   }
   return data != null;
 }
@@ -136,8 +137,7 @@ export async function userHasAnyWaterReadHistory(
     .limit(1)
     .maybeSingle();
   if (error) {
-    console.error("[freeTrialAccess] water read any-history lookup failed", error.message);
-    return false;
+    throw new Error(`water_read_any_history_lookup_failed:${error.message}`);
   }
   return data != null;
 }

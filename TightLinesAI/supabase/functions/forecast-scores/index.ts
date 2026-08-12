@@ -26,6 +26,11 @@ import {
   checkUserRateLimit,
   rateLimitExceededResponse,
 } from "../_shared/rateLimit.ts";
+import { resolveServerSubscriptionTier } from "../_shared/appAccess.ts";
+import {
+  maxForecastDayOffsetForTier,
+  type ServerSubscriptionTier,
+} from "../_shared/subscriptionAccessPolicy.ts";
 
 const CONTEXTS: EngineContext[] = [
   "freshwater_lake_pond",
@@ -150,9 +155,13 @@ function createServiceClient(): ReturnType<typeof createClient> | null {
   return createClient(supabaseUrl, supabaseServiceKey);
 }
 
-async function requireAuthenticatedUser(
+type ForecastAccess = {
+  tier: ServerSubscriptionTier;
+};
+
+async function requireForecastAccess(
   req: Request,
-): Promise<Response | null> {
+): Promise<Response | ForecastAccess> {
   const supabaseUrl = Deno.env.get("SUPABASE_URL");
   const supabaseServiceKey = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY");
   if (!supabaseUrl || !supabaseServiceKey) {
@@ -182,7 +191,18 @@ async function requireAuthenticatedUser(
     return rateLimitExceededResponse(rateLimit, corsHeaders());
   }
 
-  return null;
+  const { data: profile, error: profileError } = await supabase
+    .from("profiles")
+    .select("subscription_tier")
+    .eq("id", user.id)
+    .maybeSingle<{ subscription_tier: string | null }>();
+  if (profileError || !profile) {
+    return jsonError("Account access could not be verified", 503);
+  }
+
+  return {
+    tier: resolveServerSubscriptionTier(profile.subscription_tier, user.email),
+  };
 }
 
 function num(x: unknown): number | null {
@@ -1149,9 +1169,9 @@ Deno.serve(async (req: Request) => {
     return jsonError("Method not allowed", 405);
   }
 
-  const authFailure = await requireAuthenticatedUser(req);
-  if (authFailure) {
-    return authFailure;
+  const access = await requireForecastAccess(req);
+  if (access instanceof Response) {
+    return access;
   }
 
   let body: Record<string, unknown>;
@@ -1169,7 +1189,11 @@ Deno.serve(async (req: Request) => {
   if (longitude == null || longitude < -180 || longitude > 180) {
     return jsonError("Invalid longitude", 400);
   }
-  const maxDayOffset = intInRange(body.max_day_offset, 6, 0, 6);
+  const requestedMaxDayOffset = intInRange(body.max_day_offset, 6, 0, 6);
+  const maxDayOffset = Math.min(
+    requestedMaxDayOffset,
+    maxForecastDayOffsetForTier(access.tier),
+  );
   const includeSnapshotEnv = body.include_snapshot_env !== false;
 
   const supabase = createServiceClient();

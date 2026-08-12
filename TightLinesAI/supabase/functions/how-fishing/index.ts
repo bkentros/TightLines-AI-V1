@@ -109,7 +109,7 @@ function trialMarkFailedResponse(): Response {
 }
 
 async function finalizeFreeTodayBiteTrial(params: {
-  supabase: ReturnType<typeof createClient>;
+  supabase: { from: (table: string) => any };
   userId: string;
   tier: string;
   isTodayRead: boolean;
