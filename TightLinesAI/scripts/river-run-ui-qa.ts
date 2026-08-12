@@ -299,8 +299,13 @@ const riverRunScreen = readFileSync(
 
 assert.match(
   riverRunScreen,
-  /const RIVER_RUN_REVIEW_ENABLED = __DEV__;/,
-  "Generated fixture review must be reachable in every development build",
+  /const RIVER_RUN_REVIEW_ENABLED = __DEV__ &&[\s\S]*?process\.env\.EXPO_PUBLIC_RIVER_RUN_REVIEW_MODE === "true";/,
+  "Generated fixture review must require an explicit development-only environment flag",
+);
+assert.match(
+  riverRunScreen,
+  /const \[reviewMode, setReviewMode\] = useState\(RIVER_RUN_REVIEW_ENABLED\);/,
+  "Ordinary development sessions must initialize River Migration against the live API",
 );
 assert.match(
   riverRunScreen,
@@ -586,6 +591,20 @@ assert.match(
   riverRunScreen,
   /styles\.primitiveHeaderState[\s\S]*?\{visual\.stateLabel\}/,
   "Fish In River must render its clarified within-run state wording",
+);
+const primitiveHeaderStateStyle = riverRunScreen.match(
+  /primitiveHeaderState:\s*\{([\s\S]*?)\n  \},/,
+);
+assert(primitiveHeaderStateStyle, "Missing primitive header state style");
+assert.match(
+  primitiveHeaderStateStyle[1],
+  /includeFontPadding:\s*false/,
+  "Primitive state headings must disable Android font padding for vertical alignment",
+);
+assert.match(
+  primitiveHeaderStateStyle[1],
+  /textAlignVertical:\s*"center"/,
+  "Primitive state headings must remain vertically centered on Android",
 );
 assert.match(
   riverRunVisual,

@@ -159,10 +159,13 @@ const REVIEW_GROUP_TAB: Partial<Record<string, PrimitiveTabId>> = {
   activity: "activity",
 };
 
-// Generated review fixtures are compiled with development builds, so the
-// reviewer should always be reachable in development. Production builds keep
-// this entire surface disabled through __DEV__.
-const RIVER_RUN_REVIEW_ENABLED = __DEV__;
+// Generated review fixtures remain available only when a developer explicitly
+// starts Metro with the River Migration review-mode flag. Ordinary development
+// builds must exercise the live API and its server-authoritative free-tier
+// limits; silently defaulting every __DEV__ build to fixtures bypasses those
+// limits and makes subscription QA misleading.
+const RIVER_RUN_REVIEW_ENABLED = __DEV__ &&
+  process.env.EXPO_PUBLIC_RIVER_RUN_REVIEW_MODE === "true";
 const CHINOOK_IMAGE = getRiverRunSpeciesImage("chinook_salmon");
 const COHO_IMAGE = getRiverRunSpeciesImage("coho_salmon");
 const STEELHEAD_IMAGE = getRiverRunSpeciesImage("steelhead");
@@ -3709,7 +3712,9 @@ const styles = StyleSheet.create({
     flex: 1,
     fontFamily: paperFonts.display,
     fontSize: 20,
-    lineHeight: 23,
+    lineHeight: 22,
+    includeFontPadding: false,
+    textAlignVertical: "center",
     color: paper.dashboardInk,
   },
   primitiveNoScore: {

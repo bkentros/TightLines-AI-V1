@@ -12,7 +12,6 @@
         "simulator": false
       },
       "env": {
-        "EXPO_PUBLIC_RIVER_RUN_REVIEW_MODE": "true",
         "npm_config_legacy_peer_deps": "true"
       }
     },
