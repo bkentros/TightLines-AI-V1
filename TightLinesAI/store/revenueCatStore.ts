@@ -16,14 +16,15 @@ import { hasComplimentaryAnglerAccess } from "../lib/adminAccess";
 import { captureAnalytics } from "../lib/analytics";
 
 const ANGLER_ENTITLEMENT_ID = "angler";
+const STORE_NAME = Platform.OS === "android" ? "Google Play" : "App Store";
 const NATIVE_UNAVAILABLE_MESSAGE =
-  "This installed app does not include the subscription module yet. Create and install a fresh iOS development build, then reopen FinFindr.";
+  `This installed app does not include the subscription module yet. Create and install a fresh ${Platform.OS === "android" ? "Android" : "iOS"} development build, then reopen FinFindr.`;
 const PAYWALL_NATIVE_UNAVAILABLE_MESSAGE =
-  "This installed app does not include the subscription paywall module yet. Create and install a fresh iOS development build, then reopen FinFindr.";
+  `This installed app does not include the subscription paywall module yet. Create and install a fresh ${Platform.OS === "android" ? "Android" : "iOS"} development build, then reopen FinFindr.`;
 const OFFERINGS_UNAVAILABLE_MESSAGE =
-  "Angler plans are not available from the App Store yet. Your free access still works; please try upgrading again later.";
+  `Angler plans are not available from ${STORE_NAME} yet. Your free access still works; please try upgrading again later.`;
 const RECEIPT_ALREADY_OWNED_MESSAGE =
-  "This App Store subscription is already connected to another FinFindr account. Sign in to that original FinFindr account to restore access, or contact support if you need account recovery.";
+  `This ${STORE_NAME} subscription is already connected to another FinFindr account. Sign in to that original FinFindr account to restore access, or contact support if you need account recovery.`;
 
 type SyncSubscriptionTierResponse = {
   subscription_tier: SubscriptionTier;

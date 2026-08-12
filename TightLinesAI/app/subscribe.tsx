@@ -9,6 +9,7 @@
 import {
   ActivityIndicator,
   Image,
+  Platform,
   Pressable,
   ScrollView,
   StyleSheet,
@@ -36,6 +37,9 @@ import {
 import { hapticImpact, ImpactFeedbackStyle } from '../lib/safeHaptics';
 import { useRevenueCatStore } from '../store/revenueCatStore';
 import { showAnglerUnlockedCelebration, showSubscriptionNotice } from '../store/subscriptionCelebrationStore';
+
+const STORE_NAME = Platform.OS === 'android' ? 'Google Play' : 'App Store';
+const STORE_ACCOUNT_NAME = Platform.OS === 'android' ? 'Google account' : 'Apple ID';
 
 const ANGLER_FEATURES: Array<{
   module: IntelligenceModuleId;
@@ -120,7 +124,7 @@ export default function SubscribeScreen() {
       </>
     );
   const heroCopy = hasAngler
-    ? "Your App Store subscription is connected. Today's Bite, River Migration, Tackle Box, and Water Read are unlocked."
+    ? `Your ${STORE_NAME} subscription is connected. Today's Bite, River Migration, Tackle Box, and Water Read are unlocked.`
     : "One membership unlocks Today's Bite, River Migration, Tackle Box, and Water Read.";
 
   const handleRestore = async () => {
@@ -138,9 +142,9 @@ export default function SubscribeScreen() {
     showSubscriptionNotice({
       title: receiptBelongsToAnotherAccount
         ? 'Subscription linked elsewhere'
-        : 'No App Store subscription found',
+        : `No ${STORE_NAME} subscription found`,
       message: restoreError ||
-        'Restore Purchases only reconnects an active Angler subscription already purchased with this Apple ID. If that subscription is tied to another FinFindr account, sign in to that original account or contact support.',
+        `Restore Purchases only reconnects an active Angler subscription already purchased with this ${STORE_ACCOUNT_NAME}. If that subscription is tied to another FinFindr account, sign in to that original account or contact support.`,
       tone: receiptBelongsToAnotherAccount ? 'error' : 'info',
     });
   };
@@ -151,7 +155,7 @@ export default function SubscribeScreen() {
     } catch {
       showSubscriptionNotice({
         title: 'Could not open subscriptions',
-        message: 'Open your App Store account settings to manage or cancel your subscription.',
+        message: `Open your ${STORE_NAME} account settings to manage or cancel your subscription.`,
         tone: 'info',
       });
     }
@@ -215,7 +219,7 @@ export default function SubscribeScreen() {
               <View style={styles.statusBody}>
                 <Text style={styles.statusTitle}>Angler is active</Text>
                 <Text style={styles.statusCopy}>
-                  This FinFindr account is connected to an active App Store subscription.
+                  This FinFindr account is connected to an active {STORE_NAME} subscription.
                 </Text>
               </View>
             </View>
@@ -294,7 +298,7 @@ export default function SubscribeScreen() {
             <View style={styles.memberNote}>
               <Ionicons name="sparkles-outline" size={15} color={paper.dashboardBlue} />
               <Text style={styles.memberNoteText}>
-                Premium features are ready. Use the App Store controls below to restore,
+                Premium features are ready. Use the {STORE_NAME} controls below to restore,
                 manage, or cancel billing.
               </Text>
             </View>
@@ -318,9 +322,9 @@ export default function SubscribeScreen() {
               </View>
             </View>
             <Text style={styles.managementCopy}>
-              Purchases and cancellations are handled by the App Store. Restore
-              Purchases reconnects an active subscription from the Apple ID currently
-              signed into the App Store.
+              Purchases and cancellations are handled by {STORE_NAME}. Restore
+              Purchases reconnects an active subscription from the {STORE_ACCOUNT_NAME} currently
+              signed into {STORE_NAME}.
             </Text>
             <Pressable
               style={({ pressed }) => [
@@ -351,7 +355,7 @@ export default function SubscribeScreen() {
 
           <View style={styles.footerRow}>
             <Text style={styles.footerText}>
-              Subscriptions renew automatically unless canceled in your App Store
+              Subscriptions renew automatically unless canceled in your {STORE_NAME}
               account settings.
             </Text>
             <Text style={styles.footerText}>
