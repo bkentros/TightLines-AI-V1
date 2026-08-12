@@ -22,10 +22,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { useRouter } from 'expo-router';
 import * as AppleAuthentication from 'expo-apple-authentication';
 import * as Crypto from 'expo-crypto';
-import {
-  GoogleSignInButton,
-  type OneTapSuccessData,
-} from 'react-native-nitro-google-signin';
+import type { OneTapSuccessData } from 'react-native-nitro-google-signin';
 import { Ionicons } from '@expo/vector-icons';
 import {
   paper,
@@ -40,11 +37,8 @@ import {
   getAppleSignInFailureNotice,
 } from '../../lib/auth';
 import {
-  clearGoogleSignInNonce,
   consumeGoogleSignInNonce,
   getGoogleSignInFailureNotice,
-  isGoogleUserCancellation,
-  prepareGoogleSignIn,
 } from '../../lib/googleAuth';
 import { useAuthStore } from '../../store/authStore';
 import { supabase } from '../../lib/supabase';
@@ -60,6 +54,7 @@ import {
   AuthPrimaryButton,
   AuthTextLink,
 } from '../../components/paper/auth';
+import { GoogleAuthButton } from '../../components/auth/GoogleAuthButton';
 
 type Notice = { title: string; message?: string; tone?: 'info' | 'success' | 'error' };
 
@@ -179,8 +174,6 @@ export default function SignInScreen() {
   }, [fetchProfile, setSession]);
 
   const handleGoogleSignInError = useCallback((err: unknown) => {
-    clearGoogleSignInNonce();
-    if (isGoogleUserCancellation(err)) return;
     const googleNotice = getGoogleSignInFailureNotice(err);
     setNotice({ ...googleNotice, tone: 'error' });
   }, []);
@@ -327,22 +320,12 @@ export default function SignInScreen() {
 
               <AuthDivider />
 
-              <View style={styles.googleBtnShell}>
-                <GoogleSignInButton
-                  size="wide"
-                  colorScheme="light"
-                  contentAlignment="center"
-                  disabled={false}
-                  style={styles.googleBtn}
-                  onPress={async () => {
-                    setNotice(null);
-                    await prepareGoogleSignIn();
-                  }}
-                  onSignInSuccess={handleGoogleSignInSuccess}
-                  onSignInError={handleGoogleSignInError}
-                  accessibilityLabel="Sign in with Google"
-                />
-              </View>
+              <GoogleAuthButton
+                onSignInStart={() => setNotice(null)}
+                onSignInSuccess={handleGoogleSignInSuccess}
+                onSignInError={handleGoogleSignInError}
+                style={styles.googleBtn}
+              />
 
               {Platform.OS === 'ios' && (
                 <>
@@ -556,17 +539,6 @@ const styles = StyleSheet.create({
   appleBtn: {
     height: 52,
     width: '100%',
-  },
-  googleBtnShell: {
-    height: 52,
-    width: '100%',
-    alignItems: 'center',
-    justifyContent: 'center',
-    overflow: 'hidden',
-    backgroundColor: '#FFFFFF',
-    borderWidth: 1,
-    borderColor: paper.dashboardLine,
-    borderRadius: 12,
   },
   googleBtn: {
     height: 52,

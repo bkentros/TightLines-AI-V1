@@ -33,10 +33,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import * as Crypto from "expo-crypto";
 import { useRouter } from "expo-router";
 import * as AppleAuthentication from "expo-apple-authentication";
-import {
-  GoogleSignInButton,
-  type OneTapSuccessData,
-} from "react-native-nitro-google-signin";
+import type { OneTapSuccessData } from "react-native-nitro-google-signin";
 import { paper, paperFonts, paperSpacing } from "../../lib/theme";
 import {
   getAppleSignInFailureNotice,
@@ -46,11 +43,8 @@ import {
   signInWithGoogle,
 } from "../../lib/auth";
 import {
-  clearGoogleSignInNonce,
   consumeGoogleSignInNonce,
   getGoogleSignInFailureNotice,
-  isGoogleUserCancellation,
-  prepareGoogleSignIn,
 } from "../../lib/googleAuth";
 import { useAuthStore } from "../../store/authStore";
 import { supabase } from "../../lib/supabase";
@@ -67,6 +61,7 @@ import {
   AuthPrimaryButton,
   AuthTextLink,
 } from "../../components/paper/auth";
+import { GoogleAuthButton } from "../../components/auth/GoogleAuthButton";
 
 type Notice = {
   title: string;
@@ -134,7 +129,7 @@ export default function WelcomeScreen() {
   const { fetchProfile, setSession } = useAuthStore();
   const [notice, setNotice] = useState<Notice | null>(null);
   const { contentContainerStyle: scrollLayout, layoutTier } =
-    useAuthScrollLayout("spread");
+    useAuthScrollLayout("form");
   const scopeStage = authScopeStageSize(layoutTier);
   const welcomeStage = layoutTier === "tall"
     ? { stage: 92, emblem: 62 }
@@ -274,8 +269,6 @@ export default function WelcomeScreen() {
   }, [fetchProfile, setSession]);
 
   const handleGoogleSignInError = useCallback((err: unknown) => {
-    clearGoogleSignInNonce();
-    if (isGoogleUserCancellation(err)) return;
     const googleNotice = getGoogleSignInFailureNotice(err);
     setNotice({ ...googleNotice, tone: "error" });
   }, []);
@@ -527,22 +520,11 @@ export default function WelcomeScreen() {
 
             <AuthDivider />
 
-            <View style={styles.googleBtnShell}>
-              <GoogleSignInButton
-                size="wide"
-                colorScheme="light"
-                contentAlignment="center"
-                disabled={false}
-                style={styles.googleBtn}
-                onPress={async () => {
-                  setNotice(null);
-                  await prepareGoogleSignIn();
-                }}
-                onSignInSuccess={handleGoogleSignInSuccess}
-                onSignInError={handleGoogleSignInError}
-                accessibilityLabel="Sign in with Google"
-              />
-            </View>
+            <GoogleAuthButton
+              onSignInStart={() => setNotice(null)}
+              onSignInSuccess={handleGoogleSignInSuccess}
+              onSignInError={handleGoogleSignInError}
+            />
 
             {Platform.OS === "ios" && (
               <>
@@ -743,7 +725,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: paperSpacing.lg,
     paddingBottom: 6,
     paddingTop: 6,
-    gap: 6,
+    gap: 10,
   },
 
   // ── Hero / issue cover ────────────────────────────────────────────────
@@ -1064,23 +1046,7 @@ const styles = StyleSheet.create({
 
   // ── Actions ───────────────────────────────────────────────────────────
   actions: {
-    gap: 5,
-  },
-  googleBtnShell: {
-    height: 50,
-    width: "100%",
-    alignItems: "center",
-    justifyContent: "center",
-    overflow: "hidden",
-    backgroundColor: "#FFFFFF",
-    borderWidth: 1,
-    borderColor: paper.dashboardLine,
-    borderRadius: 12,
-  },
-  googleBtn: {
-    height: 50,
-    width: "100%",
-    alignSelf: "center",
+    gap: 8,
   },
   appleBtn: { height: 50, width: "100%" },
 

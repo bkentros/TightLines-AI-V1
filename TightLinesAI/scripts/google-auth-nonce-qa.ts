@@ -8,6 +8,10 @@ import path from 'node:path';
 const root = path.resolve(__dirname, '..');
 const googleAuth = fs.readFileSync(path.join(root, 'lib/googleAuth.ts'), 'utf8');
 const auth = fs.readFileSync(path.join(root, 'lib/auth.ts'), 'utf8');
+const googleButton = fs.readFileSync(
+  path.join(root, 'components/auth/GoogleAuthButton.tsx'),
+  'utf8',
+);
 const screens = [
   'app/(auth)/welcome.tsx',
   'app/(auth)/sign-in.tsx',
@@ -29,15 +33,30 @@ if (!auth.includes("provider: 'google'") || !auth.includes('nonce,')) {
 }
 
 for (const { file, source } of screens) {
-  if (!source.includes('await prepareGoogleSignIn()')) {
-    failures.push(`${file} does not prepare a nonce before native sign-in`);
+  if (!source.includes('<GoogleAuthButton')) {
+    failures.push(`${file} does not use the shared Google sign-in control`);
   }
   if (!source.includes('consumeGoogleSignInNonce()')) {
     failures.push(`${file} does not consume the matching nonce`);
   }
-  if (!source.includes('clearGoogleSignInNonce()')) {
-    failures.push(`${file} does not clear abandoned nonce state`);
-  }
+}
+
+const welcome = screens.find(({ file }) => file.endsWith('welcome.tsx'))?.source ?? '';
+if (!welcome.includes('useAuthScrollLayout("form")')) {
+  failures.push('Welcome layout can distribute oversized gaps on tall iPhones');
+}
+if (!welcome.includes('scrollEnabled={layoutTier === "compact" || notice != null}')) {
+  failures.push('Welcome layout does not preserve compact/error scrolling fallback');
+}
+
+if (!googleButton.includes('await prepareGoogleSignIn()')) {
+  failures.push('Google button does not prepare a nonce before native sign-in');
+}
+if (!googleButton.includes('clearGoogleSignInNonce()')) {
+  failures.push('Google button does not clear abandoned nonce state');
+}
+if (!googleButton.includes("width: '100%'")) {
+  failures.push('Google button is not a genuinely full-width control');
 }
 
 if (failures.length > 0) {
