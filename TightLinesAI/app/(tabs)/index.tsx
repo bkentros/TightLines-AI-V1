@@ -210,7 +210,7 @@ export default function HomeScreen() {
   const router = useRouter();
   const { width: windowWidth } = useWindowDimensions();
   const useNarrowLiveLayout = windowWidth <= 340;
-  const { profile, user } = useAuthStore();
+  const { profile, user, fetchProfile } = useAuthStore();
   const reportCacheOwnerKey = user?.id ?? user?.email ?? null;
   const {
     ignoreGps,
@@ -510,7 +510,7 @@ export default function HomeScreen() {
 
   // ── Forecast fetch ─────────────────────────────────────────────────────────
   const forecastFetchSeq = useRef(0);
-  const loadForecastScores = useCallback(async () => {
+  const loadForecastScores = useCallback(async (forceFullForecast = false) => {
     const lat = coords?.lat;
     const lon = coords?.lon;
     if (lat == null || lon == null) {
@@ -524,7 +524,7 @@ export default function HomeScreen() {
       const result = await getForecastScores(
         lat,
         lon,
-        hasSubscription
+        hasSubscription || forceFullForecast
           ? undefined
           : { maxDayOffset: 1, includeSnapshotEnv: true },
       );
@@ -1905,6 +1905,14 @@ export default function HomeScreen() {
         onDismiss={() => setShowSubscribePrompt(false)}
         onUnlocked={() => {
           setShowSubscribePrompt(false);
+          // Do not wait for React's profile subscription to propagate before
+          // replacing the free one-day cache. A purchase can otherwise leave
+          // the home screen showing only tomorrow until the next focus/reload.
+          setForecastDays(null);
+          setForecastHighs(null);
+          setForecastLows(null);
+          if (user?.id) void fetchProfile(user.id);
+          void loadForecastScores(true);
         }}
       />
       {/* GPS-permission gate (silent if granted; prompts if not) */}
