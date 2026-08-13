@@ -336,6 +336,7 @@ export default function WelcomeScreen() {
 
             <WelcomeBrandOrbit
               size={welcomeStage.stage}
+              shellSize={scopeStage.emblem}
               logoSize={welcomeStage.emblem}
               style={styles.stageWrap}
             />
@@ -556,10 +557,12 @@ export default function WelcomeScreen() {
 
 function WelcomeBrandOrbit({
   size,
+  shellSize,
   logoSize,
   style,
 }: {
   size: number;
+  shellSize: number;
   logoSize: number;
   style?: StyleProp<ViewStyle>;
 }) {
@@ -621,7 +624,7 @@ function WelcomeBrandOrbit({
   }, [breathe, orbit, shimmer]);
 
   const orbitInset = Math.max(5, Math.round(size * 0.05));
-  const logoRadius = Math.round(logoSize * 0.235);
+  const logoRadius = Math.round(shellSize * 0.235);
 
   return (
     <View
@@ -632,9 +635,9 @@ function WelcomeBrandOrbit({
         style={[
           styles.brandAura,
           {
-            width: logoSize + 28,
-            height: logoSize + 28,
-            borderRadius: (logoSize + 28) / 2,
+            width: shellSize + 28,
+            height: shellSize + 28,
+            borderRadius: (shellSize + 28) / 2,
             opacity: breathe.interpolate({
               inputRange: [0, 1],
               outputRange: [0.1, 0.24],
@@ -676,8 +679,8 @@ function WelcomeBrandOrbit({
         style={[
           styles.brandLogoShell,
           {
-            width: logoSize,
-            height: logoSize,
+            width: shellSize,
+            height: shellSize,
             borderRadius: logoRadius,
             transform: [{
               scale: breathe.interpolate({
@@ -689,9 +692,9 @@ function WelcomeBrandOrbit({
         ]}
       >
         <Image
-          source={require("../../assets/images/finfindr-dashboard-logo.png")}
-          style={styles.brandOrbitLogo}
-          resizeMode="cover"
+          source={require("../../assets/images/finfindr-dashboard-logo-transparent.png")}
+          style={[styles.brandOrbitLogo, { width: logoSize, height: logoSize }]}
+          resizeMode="contain"
         />
         <Animated.View
           style={[
@@ -701,7 +704,7 @@ function WelcomeBrandOrbit({
                 {
                   translateX: shimmer.interpolate({
                     inputRange: [0, 1],
-                    outputRange: [-logoSize * 1.2, logoSize * 1.2],
+                    outputRange: [-shellSize * 1.2, shellSize * 1.2],
                   }),
                 },
                 { rotate: "18deg" },
@@ -832,6 +835,8 @@ const styles = StyleSheet.create({
     backgroundColor: "#7CB8DA",
   },
   brandLogoShell: {
+    alignItems: "center",
+    justifyContent: "center",
     overflow: "hidden",
     backgroundColor: "#011842",
     borderWidth: 1,
@@ -842,8 +847,7 @@ const styles = StyleSheet.create({
     shadowOffset: { width: 0, height: 7 },
   },
   brandOrbitLogo: {
-    width: "100%",
-    height: "100%",
+    alignSelf: "center",
   },
   brandLogoShimmer: {
     position: "absolute",

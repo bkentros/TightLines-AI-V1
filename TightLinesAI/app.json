@@ -29,7 +29,8 @@
         "monochromeImage": "./assets/android-icon-monochrome.png",
         "backgroundColor": "#0a1628"
       },
-      "package": "com.finseekr.finfindr"
+      "package": "com.finseekr.finfindr",
+      "versionCode": 2
     },
     "web": {
       "favicon": "./assets/favicon.png"
