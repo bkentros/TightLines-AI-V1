@@ -53,7 +53,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "stage_pre_run"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "conditionsSuggest": {
             "score": null,
@@ -77,7 +77,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "primitive_migration_timing_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "push": {
             "score": null,
@@ -88,7 +88,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "primitive_push_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "pushHistory": {
             "status": "unavailable",
@@ -108,7 +108,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "primitive_fishability_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "activity": null,
           "fishInRiver": {
@@ -130,7 +130,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_pre_run",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "gauge": null,
           "weather": null,
@@ -209,7 +209,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_pre_run",
               "stage_pre_run_staging"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "conditionsSuggest": {
             "score": null,
@@ -233,7 +233,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "primitive_migration_timing_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "push": {
             "score": null,
@@ -244,7 +244,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "primitive_push_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "pushHistory": {
             "status": "unavailable",
@@ -264,7 +264,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "primitive_fishability_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "activity": {
             "score": 70,
@@ -326,7 +326,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "precipitationIn": 0
               }
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "fishInRiver": {
             "score": 0,
@@ -347,7 +347,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_pre_run",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "gauge": null,
           "weather": null,
@@ -425,7 +425,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "conditionsSuggest": {
             "score": null,
@@ -449,7 +449,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "primitive_migration_timing_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "push": {
             "score": null,
@@ -460,7 +460,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "primitive_push_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "pushHistory": {
             "status": "unavailable",
@@ -480,7 +480,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "primitive_fishability_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "activity": {
             "score": 70,
@@ -542,7 +542,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "precipitationIn": 0
               }
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "fishInRiver": {
             "score": 3,
@@ -563,7 +563,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "gauge": null,
           "weather": null,
@@ -641,7 +641,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "stage_building"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "conditionsSuggest": {
             "score": null,
@@ -665,7 +665,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "primitive_migration_timing_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "push": {
             "score": null,
@@ -676,7 +676,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "primitive_push_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "pushHistory": {
             "status": "unavailable",
@@ -696,7 +696,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "primitive_fishability_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "activity": {
             "score": 70,
@@ -758,7 +758,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "precipitationIn": 0
               }
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "fishInRiver": {
             "score": 9,
@@ -779,7 +779,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_building",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "gauge": null,
           "weather": null,
@@ -857,7 +857,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "stage_building"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "conditionsSuggest": {
             "score": null,
@@ -881,7 +881,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "primitive_migration_timing_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "push": {
             "score": null,
@@ -892,7 +892,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "primitive_push_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "pushHistory": {
             "status": "unavailable",
@@ -912,7 +912,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "primitive_fishability_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "activity": {
             "score": 70,
@@ -974,7 +974,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "precipitationIn": 0
               }
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "fishInRiver": {
             "score": 15,
@@ -995,7 +995,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_building",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "gauge": null,
           "weather": null,
@@ -1073,7 +1073,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "stage_peak"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "conditionsSuggest": {
             "score": null,
@@ -1097,7 +1097,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "primitive_migration_timing_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "push": {
             "score": null,
@@ -1108,7 +1108,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "primitive_push_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "pushHistory": {
             "status": "unavailable",
@@ -1128,7 +1128,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "primitive_fishability_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "activity": {
             "score": 70,
@@ -1190,7 +1190,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "precipitationIn": 0
               }
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "fishInRiver": {
             "score": 30,
@@ -1211,7 +1211,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_peak",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "gauge": null,
           "weather": null,
@@ -1289,7 +1289,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "stage_tapering"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "conditionsSuggest": {
             "score": null,
@@ -1313,7 +1313,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "primitive_migration_timing_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "push": {
             "score": null,
@@ -1324,7 +1324,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "primitive_push_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "pushHistory": {
             "status": "unavailable",
@@ -1344,7 +1344,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "primitive_fishability_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "activity": {
             "score": 69,
@@ -1407,7 +1407,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "precipitationIn": 0
               }
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "fishInRiver": {
             "score": 26,
@@ -1428,7 +1428,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_tapering",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "gauge": null,
           "weather": null,
@@ -1506,7 +1506,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "stage_ending"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "conditionsSuggest": {
             "score": null,
@@ -1530,7 +1530,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "primitive_migration_timing_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "push": {
             "score": null,
@@ -1541,7 +1541,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "primitive_push_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "pushHistory": {
             "status": "unavailable",
@@ -1561,7 +1561,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "primitive_fishability_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "activity": {
             "score": 55,
@@ -1624,7 +1624,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "precipitationIn": 0
               }
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "fishInRiver": {
             "score": 17,
@@ -1645,7 +1645,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_ending",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "gauge": null,
           "weather": null,
@@ -1723,7 +1723,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "stage_post_run"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "conditionsSuggest": {
             "score": null,
@@ -1747,7 +1747,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "primitive_migration_timing_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "push": {
             "score": null,
@@ -1758,7 +1758,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "primitive_push_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "pushHistory": {
             "status": "unavailable",
@@ -1778,7 +1778,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "primitive_fishability_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "activity": {
             "score": 48,
@@ -1841,7 +1841,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "precipitationIn": 0
               }
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "fishInRiver": {
             "score": 12,
@@ -1862,7 +1862,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_post_run",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "gauge": null,
           "weather": null,
@@ -1946,7 +1946,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_post_run",
               "stage_offseason"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "conditionsSuggest": {
             "score": null,
@@ -1970,7 +1970,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "primitive_migration_timing_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "push": {
             "score": null,
@@ -1981,7 +1981,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "primitive_push_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "pushHistory": {
             "status": "unavailable",
@@ -2001,7 +2001,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "primitive_fishability_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "activity": null,
           "fishInRiver": {
@@ -2022,7 +2022,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_post_run",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "gauge": null,
           "weather": null,
@@ -2106,7 +2106,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "stage_peak"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "conditionsSuggest": {
             "score": null,
@@ -2130,7 +2130,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "primitive_migration_timing_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "push": {
             "score": null,
@@ -2141,7 +2141,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "primitive_push_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "pushHistory": {
             "status": "unavailable",
@@ -2161,7 +2161,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "primitive_fishability_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "activity": {
             "score": 70,
@@ -2223,7 +2223,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "precipitationIn": 0
               }
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "fishInRiver": {
             "score": 30,
@@ -2244,7 +2244,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_peak",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "gauge": null,
           "weather": null,
@@ -2328,7 +2328,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "stage_peak"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "conditionsSuggest": {
             "score": null,
@@ -2352,7 +2352,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "primitive_migration_timing_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "push": {
             "score": null,
@@ -2363,7 +2363,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "primitive_push_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "pushHistory": {
             "status": "unavailable",
@@ -2383,7 +2383,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "primitive_fishability_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "activity": {
             "score": 70,
@@ -2445,7 +2445,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "precipitationIn": 0
               }
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "fishInRiver": {
             "score": 30,
@@ -2466,7 +2466,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_peak",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "gauge": null,
           "weather": null,
@@ -2550,7 +2550,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "stage_peak"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "conditionsSuggest": {
             "score": null,
@@ -2574,7 +2574,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "primitive_migration_timing_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "push": {
             "score": null,
@@ -2585,7 +2585,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "primitive_push_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "pushHistory": {
             "status": "unavailable",
@@ -2605,7 +2605,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "primitive_fishability_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "activity": {
             "score": 70,
@@ -2667,7 +2667,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "precipitationIn": 0
               }
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "fishInRiver": {
             "score": 30,
@@ -2688,7 +2688,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_peak",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "gauge": null,
           "weather": null,
@@ -2773,7 +2773,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_pre_run",
               "stage_pre_run_staging"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "conditionsSuggest": {
             "score": null,
@@ -2797,7 +2797,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "primitive_migration_timing_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "push": {
             "score": null,
@@ -2808,7 +2808,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "primitive_push_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "pushHistory": {
             "status": "unavailable",
@@ -2828,7 +2828,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "primitive_fishability_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "activity": {
             "score": 78,
@@ -2890,7 +2890,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "precipitationIn": 0
               }
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "fishInRiver": {
             "score": 0,
@@ -2911,7 +2911,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_pre_run",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "gauge": null,
           "weather": null,
@@ -2989,7 +2989,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "conditionsSuggest": {
             "score": null,
@@ -3013,7 +3013,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "primitive_migration_timing_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "push": {
             "score": null,
@@ -3024,7 +3024,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "primitive_push_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "pushHistory": {
             "status": "unavailable",
@@ -3044,7 +3044,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "primitive_fishability_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "activity": {
             "score": 62,
@@ -3106,7 +3106,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "precipitationIn": 0
               }
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "fishInRiver": {
             "score": 3,
@@ -3127,7 +3127,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "gauge": null,
           "weather": null,
@@ -3205,7 +3205,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "conditionsSuggest": {
             "score": null,
@@ -3229,7 +3229,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "primitive_migration_timing_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "push": {
             "score": null,
@@ -3240,7 +3240,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "primitive_push_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "pushHistory": {
             "status": "unavailable",
@@ -3260,7 +3260,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "primitive_fishability_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "activity": {
             "score": 68,
@@ -3322,7 +3322,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "precipitationIn": 0
               }
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "fishInRiver": {
             "score": 3,
@@ -3343,7 +3343,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "gauge": null,
           "weather": null,
@@ -3421,7 +3421,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "stage_building"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "conditionsSuggest": {
             "score": null,
@@ -3445,7 +3445,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "primitive_migration_timing_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "push": {
             "score": null,
@@ -3456,7 +3456,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "primitive_push_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "pushHistory": {
             "status": "unavailable",
@@ -3476,7 +3476,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "primitive_fishability_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "activity": {
             "score": 80,
@@ -3538,7 +3538,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "precipitationIn": 0
               }
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "fishInRiver": {
             "score": 15,
@@ -3559,7 +3559,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_building",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "gauge": null,
           "weather": null,
@@ -3637,7 +3637,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "stage_peak"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "conditionsSuggest": {
             "score": null,
@@ -3661,7 +3661,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "primitive_migration_timing_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "push": {
             "score": null,
@@ -3672,7 +3672,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "primitive_push_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "pushHistory": {
             "status": "unavailable",
@@ -3692,7 +3692,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "primitive_fishability_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "activity": {
             "score": 82,
@@ -3754,7 +3754,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "precipitationIn": 0
               }
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "fishInRiver": {
             "score": 30,
@@ -3775,7 +3775,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_peak",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "gauge": null,
           "weather": null,
@@ -3853,7 +3853,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "stage_peak"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "conditionsSuggest": {
             "score": null,
@@ -3877,7 +3877,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "primitive_migration_timing_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "push": {
             "score": null,
@@ -3888,7 +3888,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "primitive_push_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "pushHistory": {
             "status": "unavailable",
@@ -3908,7 +3908,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "primitive_fishability_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "activity": {
             "score": 79,
@@ -3970,7 +3970,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "precipitationIn": 0
               }
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "fishInRiver": {
             "score": 30,
@@ -3991,7 +3991,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_peak",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "gauge": null,
           "weather": null,
@@ -4069,7 +4069,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "stage_tapering"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "conditionsSuggest": {
             "score": null,
@@ -4093,7 +4093,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "primitive_migration_timing_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "push": {
             "score": null,
@@ -4104,7 +4104,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "primitive_push_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "pushHistory": {
             "status": "unavailable",
@@ -4124,7 +4124,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "primitive_fishability_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "activity": {
             "score": 81,
@@ -4187,7 +4187,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "precipitationIn": 0
               }
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "fishInRiver": {
             "score": 26,
@@ -4208,7 +4208,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_tapering",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "gauge": null,
           "weather": null,
@@ -4286,7 +4286,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "stage_tapering"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "conditionsSuggest": {
             "score": null,
@@ -4310,7 +4310,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "primitive_migration_timing_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "push": {
             "score": null,
@@ -4321,7 +4321,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "primitive_push_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "pushHistory": {
             "status": "unavailable",
@@ -4341,7 +4341,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "primitive_fishability_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "activity": {
             "score": 67,
@@ -4404,7 +4404,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "precipitationIn": 0
               }
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "fishInRiver": {
             "score": 18,
@@ -4425,7 +4425,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_tapering",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "gauge": null,
           "weather": null,
@@ -4503,7 +4503,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "stage_ending"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "conditionsSuggest": {
             "score": null,
@@ -4527,7 +4527,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "primitive_migration_timing_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "push": {
             "score": null,
@@ -4538,7 +4538,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "primitive_push_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "pushHistory": {
             "status": "unavailable",
@@ -4558,7 +4558,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "primitive_fishability_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "activity": {
             "score": 59,
@@ -4621,7 +4621,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "precipitationIn": 0
               }
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "fishInRiver": {
             "score": 12,
@@ -4642,7 +4642,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_ending",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "gauge": null,
           "weather": null,
@@ -4720,7 +4720,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "stage_post_run"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "conditionsSuggest": {
             "score": null,
@@ -4744,7 +4744,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "primitive_migration_timing_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "push": {
             "score": null,
@@ -4755,7 +4755,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "primitive_push_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "pushHistory": {
             "status": "unavailable",
@@ -4775,7 +4775,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "primitive_fishability_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "activity": {
             "score": 34,
@@ -4838,7 +4838,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "precipitationIn": 0
               }
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "fishInRiver": {
             "score": 0,
@@ -4859,7 +4859,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_post_run",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "gauge": null,
           "weather": null,
@@ -4944,7 +4944,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_pre_run",
               "stage_pre_run_staging"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "conditionsSuggest": {
             "score": null,
@@ -4968,7 +4968,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "primitive_migration_timing_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "push": {
             "score": null,
@@ -4979,7 +4979,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "primitive_push_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "pushHistory": {
             "status": "unavailable",
@@ -4999,7 +4999,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "primitive_fishability_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "activity": {
             "score": 70,
@@ -5061,7 +5061,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "precipitationIn": 0
               }
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "fishInRiver": {
             "score": 0,
@@ -5082,7 +5082,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_pre_run",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "gauge": null,
           "weather": null,
@@ -5160,7 +5160,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "conditionsSuggest": {
             "score": null,
@@ -5184,7 +5184,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "primitive_migration_timing_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "push": {
             "score": null,
@@ -5195,7 +5195,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "primitive_push_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "pushHistory": {
             "status": "unavailable",
@@ -5215,7 +5215,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "primitive_fishability_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "activity": {
             "score": 70,
@@ -5277,7 +5277,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "precipitationIn": 0
               }
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "fishInRiver": {
             "score": 3,
@@ -5298,7 +5298,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "gauge": null,
           "weather": null,
@@ -5376,7 +5376,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "conditionsSuggest": {
             "score": null,
@@ -5400,7 +5400,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "primitive_migration_timing_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "push": {
             "score": null,
@@ -5411,7 +5411,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "primitive_push_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "pushHistory": {
             "status": "unavailable",
@@ -5431,7 +5431,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "primitive_fishability_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "activity": {
             "score": 70,
@@ -5493,7 +5493,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "precipitationIn": 0
               }
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "fishInRiver": {
             "score": 6,
@@ -5514,7 +5514,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "gauge": null,
           "weather": null,
@@ -5592,7 +5592,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "stage_building"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "conditionsSuggest": {
             "score": null,
@@ -5616,7 +5616,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "primitive_migration_timing_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "push": {
             "score": null,
@@ -5627,7 +5627,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "primitive_push_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "pushHistory": {
             "status": "unavailable",
@@ -5647,7 +5647,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "primitive_fishability_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "activity": {
             "score": 70,
@@ -5709,7 +5709,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "precipitationIn": 0
               }
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "fishInRiver": {
             "score": 15,
@@ -5730,7 +5730,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_building",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "gauge": null,
           "weather": null,
@@ -5808,7 +5808,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "stage_peak"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "conditionsSuggest": {
             "score": null,
@@ -5832,7 +5832,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "primitive_migration_timing_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "push": {
             "score": null,
@@ -5843,7 +5843,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "primitive_push_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "pushHistory": {
             "status": "unavailable",
@@ -5863,7 +5863,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "primitive_fishability_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "activity": {
             "score": 70,
@@ -5925,7 +5925,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "precipitationIn": 0
               }
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "fishInRiver": {
             "score": 30,
@@ -5946,7 +5946,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_peak",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "gauge": null,
           "weather": null,
@@ -6024,7 +6024,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "stage_peak"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "conditionsSuggest": {
             "score": null,
@@ -6048,7 +6048,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "primitive_migration_timing_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "push": {
             "score": null,
@@ -6059,7 +6059,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "primitive_push_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "pushHistory": {
             "status": "unavailable",
@@ -6079,7 +6079,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "primitive_fishability_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "activity": {
             "score": 70,
@@ -6141,7 +6141,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "precipitationIn": 0
               }
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "fishInRiver": {
             "score": 27,
@@ -6162,7 +6162,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_peak",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "gauge": null,
           "weather": null,
@@ -6240,7 +6240,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "stage_tapering"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "conditionsSuggest": {
             "score": null,
@@ -6264,7 +6264,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "primitive_migration_timing_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "push": {
             "score": null,
@@ -6275,7 +6275,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "primitive_push_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "pushHistory": {
             "status": "unavailable",
@@ -6295,7 +6295,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "primitive_fishability_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "activity": {
             "score": 55,
@@ -6358,7 +6358,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "precipitationIn": 0
               }
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "fishInRiver": {
             "score": 18,
@@ -6379,7 +6379,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_tapering",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "gauge": null,
           "weather": null,
@@ -6457,7 +6457,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "stage_ending"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "conditionsSuggest": {
             "score": null,
@@ -6481,7 +6481,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "primitive_migration_timing_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "push": {
             "score": null,
@@ -6492,7 +6492,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "primitive_push_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "pushHistory": {
             "status": "unavailable",
@@ -6512,7 +6512,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "primitive_fishability_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "activity": {
             "score": 49,
@@ -6575,7 +6575,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "precipitationIn": 0
               }
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "fishInRiver": {
             "score": 12,
@@ -6596,7 +6596,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_ending",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "gauge": null,
           "weather": null,
@@ -6674,7 +6674,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "stage_post_run"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "conditionsSuggest": {
             "score": null,
@@ -6698,7 +6698,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "primitive_migration_timing_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "push": {
             "score": null,
@@ -6709,7 +6709,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "primitive_push_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "pushHistory": {
             "status": "unavailable",
@@ -6729,7 +6729,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "primitive_fishability_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "activity": {
             "score": 40,
@@ -6792,7 +6792,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "precipitationIn": 0
               }
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "fishInRiver": {
             "score": 6,
@@ -6813,7 +6813,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_post_run",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "gauge": null,
           "weather": null,
@@ -6897,7 +6897,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "stage_post_run"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "conditionsSuggest": {
             "score": null,
@@ -6921,7 +6921,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "primitive_migration_timing_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "push": {
             "score": null,
@@ -6932,7 +6932,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "primitive_push_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "pushHistory": {
             "status": "unavailable",
@@ -6952,7 +6952,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "primitive_fishability_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "activity": {
             "score": 30,
@@ -7015,7 +7015,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "precipitationIn": 0
               }
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "fishInRiver": {
             "score": 0,
@@ -7036,7 +7036,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_post_run",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "gauge": null,
           "weather": null,

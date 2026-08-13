@@ -45,7 +45,7 @@ const BASE_SNAPSHOT = {
     "reasonCodes": [
       "stage_building"
     ],
-    "copyVersion": "river-run-copy-v34"
+    "copyVersion": "river-run-copy-v35"
   },
   "conditionsSuggest": {
     "label": "Ahead",
@@ -155,7 +155,7 @@ const BASE_SNAPSHOT = {
       "conditions_checkpoint_building_established",
       "conditions_ahead"
     ],
-    "copyVersion": "river-run-copy-v34",
+    "copyVersion": "river-run-copy-v35",
     "previousCheckpointId": "building_start",
     "previousCheckpointDate": "2026-09-21",
     "previousTimingLabel": "Typical"
@@ -184,7 +184,7 @@ const BASE_SNAPSHOT = {
       "appliedCaps": []
     },
     "rulesVersion": "pm-fall-coho-push-v1",
-    "copyVersion": "river-run-copy-v34"
+    "copyVersion": "river-run-copy-v35"
   },
   "pushHistory": {
     "status": "none_recorded",
@@ -260,7 +260,7 @@ const BASE_SNAPSHOT = {
       "appliedCaps": []
     },
     "rulesVersion": "pm-scottville-fishability-v2",
-    "copyVersion": "river-run-copy-v34"
+    "copyVersion": "river-run-copy-v35"
   },
   "activity": null,
   "fishInRiver": {
@@ -282,7 +282,7 @@ const BASE_SNAPSHOT = {
       "stage_building",
       "historical_presence_curve"
     ],
-    "copyVersion": "river-run-copy-v34"
+    "copyVersion": "river-run-copy-v35"
   },
   "gauge": {
     "provider": "USGS",
@@ -395,7 +395,7 @@ const GROUP_SEEDS = [
               "stage_post_run",
               "stage_offseason"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "conditionsSuggest": {
             "label": "Not monitoring yet",
@@ -419,7 +419,7 @@ const GROUP_SEEDS = [
             "reasonCodes": [
               "conditions_monitoring_inactive"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "push": {
             "score": null,
@@ -431,7 +431,7 @@ const GROUP_SEEDS = [
               "push_tracking_offseason"
             ],
             "rulesVersion": "pm-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "pushHistory": {
             "status": "complete",
@@ -510,7 +510,7 @@ const GROUP_SEEDS = [
               "stage_post_run",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "gauge": {
             "provider": "USGS",
@@ -595,7 +595,7 @@ const GROUP_SEEDS = [
             "reasonCodes": [
               "stage_pre_run"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "conditionsSuggest": {
             "label": "Not monitoring yet",
@@ -620,7 +620,7 @@ const GROUP_SEEDS = [
             "reasonCodes": [
               "conditions_monitoring_inactive"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "push": {
             "score": null,
@@ -632,7 +632,7 @@ const GROUP_SEEDS = [
               "push_tracking_not_started"
             ],
             "rulesVersion": "pm-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "pushHistory": {
             "status": "not_started",
@@ -662,7 +662,7 @@ const GROUP_SEEDS = [
               "stage_pre_run",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "gauge": {
             "provider": "USGS",
@@ -748,7 +748,7 @@ const GROUP_SEEDS = [
               "stage_pre_run",
               "stage_pre_run_staging"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "conditionsSuggest": {
             "label": "Evaluating",
@@ -773,7 +773,7 @@ const GROUP_SEEDS = [
             "reasonCodes": [
               "conditions_checkpoint_evaluating"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "push": {
             "score": null,
@@ -785,7 +785,7 @@ const GROUP_SEEDS = [
               "push_tracking_not_started"
             ],
             "rulesVersion": "pm-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "pushHistory": {
             "status": "not_started",
@@ -815,7 +815,7 @@ const GROUP_SEEDS = [
               "stage_pre_run",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "gauge": {
             "provider": "USGS",
@@ -900,7 +900,7 @@ const GROUP_SEEDS = [
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "conditionsSuggest": {
             "label": "Delayed",
@@ -950,7 +950,7 @@ const GROUP_SEEDS = [
               "conditions_checkpoint_river_start",
               "conditions_delayed"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -980,7 +980,7 @@ const GROUP_SEEDS = [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "gauge": {
             "provider": "USGS",
@@ -1065,7 +1065,7 @@ const GROUP_SEEDS = [
             "reasonCodes": [
               "stage_building"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "conditionsSuggest": {
             "label": "Typical",
@@ -1155,7 +1155,7 @@ const GROUP_SEEDS = [
               "conditions_checkpoint_building_start",
               "conditions_typical"
             ],
-            "copyVersion": "river-run-copy-v34",
+            "copyVersion": "river-run-copy-v35",
             "previousCheckpointId": "river_start",
             "previousCheckpointDate": "2026-09-01",
             "previousTimingLabel": "Delayed"
@@ -1237,7 +1237,7 @@ const GROUP_SEEDS = [
               "stage_building",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "gauge": {
             "provider": "USGS",
@@ -1321,7 +1321,7 @@ const GROUP_SEEDS = [
             "reasonCodes": [
               "stage_peak"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "conditionsSuggest": {
             "label": "Ahead",
@@ -1449,7 +1449,7 @@ const GROUP_SEEDS = [
               "conditions_checkpoint_peak_start",
               "conditions_ahead"
             ],
-            "copyVersion": "river-run-copy-v34",
+            "copyVersion": "river-run-copy-v35",
             "previousCheckpointId": "building_established",
             "previousCheckpointDate": "2026-10-01",
             "previousTimingLabel": "Ahead"
@@ -1531,7 +1531,7 @@ const GROUP_SEEDS = [
               "stage_peak",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "gauge": {
             "provider": "USGS",
@@ -1616,7 +1616,7 @@ const GROUP_SEEDS = [
             "reasonCodes": [
               "stage_tapering"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "conditionsSuggest": {
             "label": "Timing complete",
@@ -1776,7 +1776,7 @@ const GROUP_SEEDS = [
               "conditions_ahead",
               "conditions_timing_complete"
             ],
-            "copyVersion": "river-run-copy-v34",
+            "copyVersion": "river-run-copy-v35",
             "previousCheckpointId": "peak_start",
             "previousCheckpointDate": "2026-10-10",
             "previousTimingLabel": "Ahead"
@@ -1858,7 +1858,7 @@ const GROUP_SEEDS = [
               "stage_tapering",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "gauge": {
             "provider": "USGS",
@@ -1936,7 +1936,7 @@ const GROUP_SEEDS = [
             "reasonCodes": [
               "stage_ending"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "conditionsSuggest": {
             "label": "Timing complete",
@@ -2096,7 +2096,7 @@ const GROUP_SEEDS = [
               "conditions_ahead",
               "conditions_timing_complete"
             ],
-            "copyVersion": "river-run-copy-v34",
+            "copyVersion": "river-run-copy-v35",
             "previousCheckpointId": "peak_start",
             "previousCheckpointDate": "2026-10-10",
             "previousTimingLabel": "Ahead"
@@ -2178,7 +2178,7 @@ const GROUP_SEEDS = [
               "stage_ending",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "gauge": {
             "provider": "USGS",
@@ -2256,7 +2256,7 @@ const GROUP_SEEDS = [
             "reasonCodes": [
               "stage_post_run"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "conditionsSuggest": {
             "label": "Timing complete",
@@ -2416,7 +2416,7 @@ const GROUP_SEEDS = [
               "conditions_ahead",
               "conditions_timing_complete"
             ],
-            "copyVersion": "river-run-copy-v34",
+            "copyVersion": "river-run-copy-v35",
             "previousCheckpointId": "peak_start",
             "previousCheckpointDate": "2026-10-10",
             "previousTimingLabel": "Ahead"
@@ -2431,7 +2431,7 @@ const GROUP_SEEDS = [
               "push_tracking_complete"
             ],
             "rulesVersion": "pm-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "pushHistory": {
             "status": "complete",
@@ -2510,7 +2510,7 @@ const GROUP_SEEDS = [
               "stage_post_run",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "gauge": {
             "provider": "USGS",
@@ -2601,7 +2601,7 @@ const GROUP_SEEDS = [
             "reasonCodes": [
               "stage_pre_run"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "conditionsSuggest": {
             "label": "Not monitoring yet",
@@ -2626,7 +2626,7 @@ const GROUP_SEEDS = [
             "reasonCodes": [
               "conditions_monitoring_inactive"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "push": {
             "score": null,
@@ -2638,7 +2638,7 @@ const GROUP_SEEDS = [
               "push_tracking_not_started"
             ],
             "rulesVersion": "pm-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "pushHistory": {
             "status": "not_started",
@@ -2668,7 +2668,7 @@ const GROUP_SEEDS = [
               "stage_pre_run",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "gauge": {
             "provider": "USGS",
@@ -2754,7 +2754,7 @@ const GROUP_SEEDS = [
               "stage_pre_run",
               "stage_pre_run_staging"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "conditionsSuggest": {
             "label": "Evaluating",
@@ -2779,7 +2779,7 @@ const GROUP_SEEDS = [
             "reasonCodes": [
               "conditions_checkpoint_evaluating"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "push": {
             "score": null,
@@ -2791,7 +2791,7 @@ const GROUP_SEEDS = [
               "push_tracking_not_started"
             ],
             "rulesVersion": "pm-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "pushHistory": {
             "status": "not_started",
@@ -2821,7 +2821,7 @@ const GROUP_SEEDS = [
               "stage_pre_run",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "gauge": {
             "provider": "USGS",
@@ -2906,7 +2906,7 @@ const GROUP_SEEDS = [
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "conditionsSuggest": {
             "label": "Ahead",
@@ -2956,7 +2956,7 @@ const GROUP_SEEDS = [
               "conditions_checkpoint_river_start",
               "conditions_ahead"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -2986,7 +2986,7 @@ const GROUP_SEEDS = [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "gauge": {
             "provider": "USGS",
@@ -3072,7 +3072,7 @@ const GROUP_SEEDS = [
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "conditionsSuggest": {
             "label": "Delayed",
@@ -3122,7 +3122,7 @@ const GROUP_SEEDS = [
               "conditions_checkpoint_river_start",
               "conditions_delayed"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -3152,7 +3152,7 @@ const GROUP_SEEDS = [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "gauge": {
             "provider": "USGS",
@@ -3237,7 +3237,7 @@ const GROUP_SEEDS = [
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "conditionsSuggest": {
             "label": "Delayed",
@@ -3287,7 +3287,7 @@ const GROUP_SEEDS = [
               "conditions_checkpoint_river_start",
               "conditions_delayed"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -3317,7 +3317,7 @@ const GROUP_SEEDS = [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "gauge": {
             "provider": "USGS",
@@ -3402,7 +3402,7 @@ const GROUP_SEEDS = [
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "conditionsSuggest": {
             "label": "Typical",
@@ -3453,7 +3453,7 @@ const GROUP_SEEDS = [
               "conditions_typical",
               "conditions_signals_mixed"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -3483,7 +3483,7 @@ const GROUP_SEEDS = [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "gauge": {
             "provider": "USGS",
@@ -3568,7 +3568,7 @@ const GROUP_SEEDS = [
             "reasonCodes": [
               "stage_building"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "conditionsSuggest": {
             "label": "Delayed",
@@ -3658,7 +3658,7 @@ const GROUP_SEEDS = [
               "conditions_checkpoint_building_start",
               "conditions_delayed"
             ],
-            "copyVersion": "river-run-copy-v34",
+            "copyVersion": "river-run-copy-v35",
             "previousCheckpointId": "river_start",
             "previousCheckpointDate": "2026-09-01",
             "previousTimingLabel": "Typical"
@@ -3740,7 +3740,7 @@ const GROUP_SEEDS = [
               "stage_building",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "gauge": {
             "provider": "USGS",
@@ -3818,7 +3818,7 @@ const GROUP_SEEDS = [
             "reasonCodes": [
               "stage_peak"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "conditionsSuggest": {
             "label": "Timing complete",
@@ -3978,7 +3978,7 @@ const GROUP_SEEDS = [
               "conditions_ahead",
               "conditions_timing_complete"
             ],
-            "copyVersion": "river-run-copy-v34",
+            "copyVersion": "river-run-copy-v35",
             "previousCheckpointId": "peak_start",
             "previousCheckpointDate": "2026-10-10",
             "previousTimingLabel": "Ahead"
@@ -4060,7 +4060,7 @@ const GROUP_SEEDS = [
               "stage_peak",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "gauge": {
             "provider": "USGS",
@@ -4145,7 +4145,7 @@ const GROUP_SEEDS = [
             "reasonCodes": [
               "stage_post_run"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "conditionsSuggest": {
             "label": "Timing complete",
@@ -4305,7 +4305,7 @@ const GROUP_SEEDS = [
               "conditions_ahead",
               "conditions_timing_complete"
             ],
-            "copyVersion": "river-run-copy-v34",
+            "copyVersion": "river-run-copy-v35",
             "previousCheckpointId": "peak_start",
             "previousCheckpointDate": "2026-10-10",
             "previousTimingLabel": "Ahead"
@@ -4320,7 +4320,7 @@ const GROUP_SEEDS = [
               "push_tracking_complete"
             ],
             "rulesVersion": "pm-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "pushHistory": {
             "status": "complete",
@@ -4399,7 +4399,7 @@ const GROUP_SEEDS = [
               "stage_post_run",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "gauge": {
             "provider": "USGS",
@@ -4484,7 +4484,7 @@ const GROUP_SEEDS = [
             "reasonCodes": [
               "stage_peak"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "conditionsSuggest": {
             "label": "Timing complete",
@@ -4640,7 +4640,7 @@ const GROUP_SEEDS = [
               "conditions_checkpoint_peak_complete",
               "conditions_timing_complete"
             ],
-            "copyVersion": "river-run-copy-v34",
+            "copyVersion": "river-run-copy-v35",
             "previousCheckpointId": "peak_start",
             "previousCheckpointDate": "2026-10-10",
             "previousTimingLabel": "Insufficient evidence"
@@ -4722,7 +4722,7 @@ const GROUP_SEEDS = [
               "stage_peak",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "gauge": {
             "provider": "USGS",
@@ -4807,7 +4807,7 @@ const GROUP_SEEDS = [
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -4853,7 +4853,7 @@ const GROUP_SEEDS = [
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -4883,7 +4883,7 @@ const GROUP_SEEDS = [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "gauge": {
             "provider": "USGS",
@@ -4968,7 +4968,7 @@ const GROUP_SEEDS = [
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -5019,7 +5019,7 @@ const GROUP_SEEDS = [
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -5049,7 +5049,7 @@ const GROUP_SEEDS = [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "gauge": {
             "provider": "USGS",
@@ -5134,7 +5134,7 @@ const GROUP_SEEDS = [
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -5185,7 +5185,7 @@ const GROUP_SEEDS = [
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -5215,7 +5215,7 @@ const GROUP_SEEDS = [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "gauge": {
             "provider": "USGS",
@@ -5300,7 +5300,7 @@ const GROUP_SEEDS = [
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -5351,7 +5351,7 @@ const GROUP_SEEDS = [
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -5381,7 +5381,7 @@ const GROUP_SEEDS = [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "gauge": {
             "provider": "USGS",
@@ -5466,7 +5466,7 @@ const GROUP_SEEDS = [
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -5517,7 +5517,7 @@ const GROUP_SEEDS = [
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -5547,7 +5547,7 @@ const GROUP_SEEDS = [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "gauge": {
             "provider": "USGS",
@@ -5632,7 +5632,7 @@ const GROUP_SEEDS = [
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -5683,7 +5683,7 @@ const GROUP_SEEDS = [
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -5713,7 +5713,7 @@ const GROUP_SEEDS = [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "gauge": {
             "provider": "USGS",
@@ -5798,7 +5798,7 @@ const GROUP_SEEDS = [
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -5849,7 +5849,7 @@ const GROUP_SEEDS = [
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -5879,7 +5879,7 @@ const GROUP_SEEDS = [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "gauge": {
             "provider": "USGS",
@@ -5964,7 +5964,7 @@ const GROUP_SEEDS = [
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -6012,7 +6012,7 @@ const GROUP_SEEDS = [
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -6042,7 +6042,7 @@ const GROUP_SEEDS = [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "gauge": {
             "provider": "USGS",
@@ -6122,7 +6122,7 @@ const GROUP_SEEDS = [
               "appliedCaps": []
             },
             "rulesVersion": "pm-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           }
         }
       },
@@ -6160,7 +6160,7 @@ const GROUP_SEEDS = [
               "appliedCaps": []
             },
             "rulesVersion": "pm-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "pushHistory": {
             "status": "active_now",
@@ -6257,7 +6257,7 @@ const GROUP_SEEDS = [
               "appliedCaps": []
             },
             "rulesVersion": "pm-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "pushHistory": {
             "status": "active_now",
@@ -6354,7 +6354,7 @@ const GROUP_SEEDS = [
               "appliedCaps": []
             },
             "rulesVersion": "pm-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "pushHistory": {
             "status": "active_now",
@@ -6452,7 +6452,7 @@ const GROUP_SEEDS = [
               "appliedCaps": []
             },
             "rulesVersion": "pm-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "pushHistory": {
             "status": "active_now",
@@ -6549,7 +6549,7 @@ const GROUP_SEEDS = [
               "appliedCaps": []
             },
             "rulesVersion": "pm-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "pushHistory": {
             "status": "active_now",
@@ -6646,7 +6646,7 @@ const GROUP_SEEDS = [
               "appliedCaps": []
             },
             "rulesVersion": "pm-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           }
         }
       },
@@ -6679,7 +6679,7 @@ const GROUP_SEEDS = [
               "appliedCaps": []
             },
             "rulesVersion": "pm-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           }
         }
       },
@@ -6711,7 +6711,7 @@ const GROUP_SEEDS = [
               "appliedCaps": []
             },
             "rulesVersion": "pm-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "pushHistory": {
             "status": "active_now",
@@ -6809,7 +6809,7 @@ const GROUP_SEEDS = [
               "appliedCaps": []
             },
             "rulesVersion": "pm-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "pushHistory": {
             "status": "active_now",
@@ -6909,7 +6909,7 @@ const GROUP_SEEDS = [
               ]
             },
             "rulesVersion": "pm-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           }
         }
       },
@@ -6941,7 +6941,7 @@ const GROUP_SEEDS = [
               "appliedCaps": []
             },
             "rulesVersion": "pm-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "pushHistory": {
             "status": "active_now",
@@ -7038,7 +7038,7 @@ const GROUP_SEEDS = [
               "appliedCaps": []
             },
             "rulesVersion": "pm-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "pushHistory": {
             "status": "active_now",
@@ -7137,7 +7137,7 @@ const GROUP_SEEDS = [
               "appliedCaps": []
             },
             "rulesVersion": "pm-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           }
         }
       },
@@ -7172,7 +7172,7 @@ const GROUP_SEEDS = [
               ]
             },
             "rulesVersion": "pm-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "pushHistory": {
             "status": "active_now",
@@ -7272,7 +7272,7 @@ const GROUP_SEEDS = [
               ]
             },
             "rulesVersion": "pm-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           }
         }
       },
@@ -7291,7 +7291,7 @@ const GROUP_SEEDS = [
               "gauge_missing"
             ],
             "rulesVersion": "pm-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           }
         }
       },
@@ -7311,7 +7311,7 @@ const GROUP_SEEDS = [
               "temperature_unavailable"
             ],
             "rulesVersion": "pm-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           }
         }
       },
@@ -7330,7 +7330,7 @@ const GROUP_SEEDS = [
               "gauge_fresh"
             ],
             "rulesVersion": "pm-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           }
         }
       },
@@ -7376,7 +7376,7 @@ const GROUP_SEEDS = [
               "stage_pre_run",
               "stage_pre_run_staging"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "conditionsSuggest": {
             "label": "Evaluating",
@@ -7401,7 +7401,7 @@ const GROUP_SEEDS = [
             "reasonCodes": [
               "conditions_checkpoint_evaluating"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "push": {
             "score": null,
@@ -7413,7 +7413,7 @@ const GROUP_SEEDS = [
               "push_tracking_not_started"
             ],
             "rulesVersion": "pm-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "pushHistory": {
             "status": "not_started",
@@ -7443,7 +7443,7 @@ const GROUP_SEEDS = [
               "stage_pre_run",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "gauge": {
             "provider": "USGS",
@@ -7529,7 +7529,7 @@ const GROUP_SEEDS = [
               "stage_post_run",
               "stage_offseason"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "conditionsSuggest": {
             "label": "Not monitoring yet",
@@ -7553,7 +7553,7 @@ const GROUP_SEEDS = [
             "reasonCodes": [
               "conditions_monitoring_inactive"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "push": {
             "score": null,
@@ -7565,7 +7565,7 @@ const GROUP_SEEDS = [
               "push_tracking_offseason"
             ],
             "rulesVersion": "pm-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "pushHistory": {
             "status": "complete",
@@ -7644,7 +7644,7 @@ const GROUP_SEEDS = [
               "stage_post_run",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "gauge": {
             "provider": "USGS",
@@ -7729,7 +7729,7 @@ const GROUP_SEEDS = [
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "conditionsSuggest": {
             "label": "Delayed",
@@ -7779,7 +7779,7 @@ const GROUP_SEEDS = [
               "conditions_checkpoint_river_start",
               "conditions_delayed"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -7809,7 +7809,7 @@ const GROUP_SEEDS = [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "gauge": {
             "provider": "USGS",
@@ -7894,7 +7894,7 @@ const GROUP_SEEDS = [
             "reasonCodes": [
               "stage_post_run"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "conditionsSuggest": {
             "label": "Timing complete",
@@ -8054,7 +8054,7 @@ const GROUP_SEEDS = [
               "conditions_ahead",
               "conditions_timing_complete"
             ],
-            "copyVersion": "river-run-copy-v34",
+            "copyVersion": "river-run-copy-v35",
             "previousCheckpointId": "peak_start",
             "previousCheckpointDate": "2026-10-10",
             "previousTimingLabel": "Ahead"
@@ -8069,7 +8069,7 @@ const GROUP_SEEDS = [
               "push_tracking_complete"
             ],
             "rulesVersion": "pm-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "pushHistory": {
             "status": "complete",
@@ -8148,7 +8148,7 @@ const GROUP_SEEDS = [
               "stage_post_run",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "gauge": {
             "provider": "USGS",
@@ -8220,7 +8220,7 @@ const GROUP_SEEDS = [
               "appliedCaps": []
             },
             "rulesVersion": "pm-scottville-fishability-v2",
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           }
         }
       },
@@ -8245,7 +8245,7 @@ const GROUP_SEEDS = [
               "appliedCaps": []
             },
             "rulesVersion": "pm-scottville-fishability-v2",
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           }
         }
       },
@@ -8270,7 +8270,7 @@ const GROUP_SEEDS = [
               "appliedCaps": []
             },
             "rulesVersion": "pm-scottville-fishability-v2",
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           }
         }
       },
@@ -8301,7 +8301,7 @@ const GROUP_SEEDS = [
               "appliedCaps": []
             },
             "rulesVersion": "pm-scottville-fishability-v2",
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           }
         }
       },
@@ -8326,7 +8326,7 @@ const GROUP_SEEDS = [
               "appliedCaps": []
             },
             "rulesVersion": "pm-scottville-fishability-v2",
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           }
         }
       },
@@ -8352,7 +8352,7 @@ const GROUP_SEEDS = [
               "appliedCaps": []
             },
             "rulesVersion": "pm-scottville-fishability-v2",
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           }
         }
       },
@@ -8377,7 +8377,7 @@ const GROUP_SEEDS = [
               "appliedCaps": []
             },
             "rulesVersion": "pm-scottville-fishability-v2",
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           }
         }
       },
@@ -8402,7 +8402,7 @@ const GROUP_SEEDS = [
               "appliedCaps": []
             },
             "rulesVersion": "pm-scottville-fishability-v2",
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           }
         }
       },
@@ -8427,7 +8427,7 @@ const GROUP_SEEDS = [
               "appliedCaps": []
             },
             "rulesVersion": "pm-scottville-fishability-v2",
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           }
         }
       },
@@ -8455,7 +8455,7 @@ const GROUP_SEEDS = [
               ]
             },
             "rulesVersion": "pm-scottville-fishability-v2",
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           }
         }
       },
@@ -8483,7 +8483,7 @@ const GROUP_SEEDS = [
               ]
             },
             "rulesVersion": "pm-scottville-fishability-v2",
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           }
         }
       },
@@ -8511,7 +8511,7 @@ const GROUP_SEEDS = [
               ]
             },
             "rulesVersion": "pm-scottville-fishability-v2",
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           }
         }
       },
@@ -8530,7 +8530,7 @@ const GROUP_SEEDS = [
               "gauge_missing"
             ],
             "rulesVersion": "pm-scottville-fishability-v2",
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           }
         }
       },
@@ -8550,7 +8550,7 @@ const GROUP_SEEDS = [
               "baseline_missing"
             ],
             "rulesVersion": "pm-scottville-fishability-v2",
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           }
         }
       }
@@ -8602,7 +8602,7 @@ const GROUP_SEEDS = [
               "stage_pre_run",
               "stage_pre_run_staging"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "conditionsSuggest": {
             "label": "Evaluating",
@@ -8627,7 +8627,7 @@ const GROUP_SEEDS = [
             "reasonCodes": [
               "conditions_checkpoint_evaluating"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "push": {
             "score": null,
@@ -8639,7 +8639,7 @@ const GROUP_SEEDS = [
               "push_tracking_not_started"
             ],
             "rulesVersion": "pm-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "pushHistory": {
             "status": "not_started",
@@ -8710,7 +8710,7 @@ const GROUP_SEEDS = [
                 "precipitationIn": 0
               }
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "fishInRiver": {
             "score": 0,
@@ -8731,7 +8731,7 @@ const GROUP_SEEDS = [
               "stage_pre_run",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "gauge": {
             "provider": "USGS",
@@ -8816,7 +8816,7 @@ const GROUP_SEEDS = [
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "conditionsSuggest": {
             "label": "Delayed",
@@ -8866,7 +8866,7 @@ const GROUP_SEEDS = [
               "conditions_checkpoint_river_start",
               "conditions_delayed"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -8937,7 +8937,7 @@ const GROUP_SEEDS = [
                 "precipitationIn": 0
               }
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "fishInRiver": {
             "score": 6,
@@ -8958,7 +8958,7 @@ const GROUP_SEEDS = [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "gauge": {
             "provider": "USGS",
@@ -9066,7 +9066,7 @@ const GROUP_SEEDS = [
                 "precipitationIn": 0.32
               }
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           }
         }
       },
@@ -9134,7 +9134,7 @@ const GROUP_SEEDS = [
                 "precipitationIn": 0
               }
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           }
         }
       },
@@ -9179,7 +9179,7 @@ const GROUP_SEEDS = [
             "reasonCodes": [
               "stage_peak"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "conditionsSuggest": {
             "label": "Ahead",
@@ -9307,7 +9307,7 @@ const GROUP_SEEDS = [
               "conditions_checkpoint_peak_start",
               "conditions_ahead"
             ],
-            "copyVersion": "river-run-copy-v34",
+            "copyVersion": "river-run-copy-v35",
             "previousCheckpointId": "building_established",
             "previousCheckpointDate": "2026-10-01",
             "previousTimingLabel": "Ahead"
@@ -9429,7 +9429,7 @@ const GROUP_SEEDS = [
                 "precipitationIn": 0
               }
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "fishInRiver": {
             "score": 60,
@@ -9450,7 +9450,7 @@ const GROUP_SEEDS = [
               "stage_peak",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "gauge": {
             "provider": "USGS",
@@ -9559,7 +9559,7 @@ const GROUP_SEEDS = [
                 "precipitationIn": 0
               }
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           }
         }
       },
@@ -9604,7 +9604,7 @@ const GROUP_SEEDS = [
             "reasonCodes": [
               "stage_peak"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "conditionsSuggest": {
             "label": "Ahead",
@@ -9732,7 +9732,7 @@ const GROUP_SEEDS = [
               "conditions_checkpoint_peak_start",
               "conditions_ahead"
             ],
-            "copyVersion": "river-run-copy-v34",
+            "copyVersion": "river-run-copy-v35",
             "previousCheckpointId": "building_established",
             "previousCheckpointDate": "2026-10-01",
             "previousTimingLabel": "Ahead"
@@ -9855,7 +9855,7 @@ const GROUP_SEEDS = [
                 "precipitationIn": 0
               }
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "fishInRiver": {
             "score": 60,
@@ -9876,7 +9876,7 @@ const GROUP_SEEDS = [
               "stage_peak",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "gauge": {
             "provider": "USGS",
@@ -9961,7 +9961,7 @@ const GROUP_SEEDS = [
             "reasonCodes": [
               "stage_peak"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "conditionsSuggest": {
             "label": "Ahead",
@@ -10089,7 +10089,7 @@ const GROUP_SEEDS = [
               "conditions_checkpoint_peak_start",
               "conditions_ahead"
             ],
-            "copyVersion": "river-run-copy-v34",
+            "copyVersion": "river-run-copy-v35",
             "previousCheckpointId": "building_established",
             "previousCheckpointDate": "2026-10-01",
             "previousTimingLabel": "Ahead"
@@ -10213,7 +10213,7 @@ const GROUP_SEEDS = [
                 "precipitationIn": 0
               }
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "fishInRiver": {
             "score": 60,
@@ -10234,7 +10234,7 @@ const GROUP_SEEDS = [
               "stage_peak",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "gauge": {
             "provider": "USGS",
@@ -10319,7 +10319,7 @@ const GROUP_SEEDS = [
             "reasonCodes": [
               "stage_tapering"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "conditionsSuggest": {
             "label": "Timing complete",
@@ -10479,7 +10479,7 @@ const GROUP_SEEDS = [
               "conditions_ahead",
               "conditions_timing_complete"
             ],
-            "copyVersion": "river-run-copy-v34",
+            "copyVersion": "river-run-copy-v35",
             "previousCheckpointId": "peak_start",
             "previousCheckpointDate": "2026-10-10",
             "previousTimingLabel": "Ahead"
@@ -10602,7 +10602,7 @@ const GROUP_SEEDS = [
                 "precipitationIn": 0
               }
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "fishInRiver": {
             "score": 53,
@@ -10623,7 +10623,7 @@ const GROUP_SEEDS = [
               "stage_tapering",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "gauge": {
             "provider": "USGS",
@@ -10701,7 +10701,7 @@ const GROUP_SEEDS = [
             "reasonCodes": [
               "stage_ending"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "conditionsSuggest": {
             "label": "Timing complete",
@@ -10861,7 +10861,7 @@ const GROUP_SEEDS = [
               "conditions_ahead",
               "conditions_timing_complete"
             ],
-            "copyVersion": "river-run-copy-v34",
+            "copyVersion": "river-run-copy-v35",
             "previousCheckpointId": "peak_start",
             "previousCheckpointDate": "2026-10-10",
             "previousTimingLabel": "Ahead"
@@ -10984,7 +10984,7 @@ const GROUP_SEEDS = [
                 "precipitationIn": 0
               }
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "fishInRiver": {
             "score": 35,
@@ -11005,7 +11005,7 @@ const GROUP_SEEDS = [
               "stage_ending",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "gauge": {
             "provider": "USGS",
@@ -11083,7 +11083,7 @@ const GROUP_SEEDS = [
             "reasonCodes": [
               "stage_post_run"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "conditionsSuggest": {
             "label": "Timing complete",
@@ -11243,7 +11243,7 @@ const GROUP_SEEDS = [
               "conditions_ahead",
               "conditions_timing_complete"
             ],
-            "copyVersion": "river-run-copy-v34",
+            "copyVersion": "river-run-copy-v35",
             "previousCheckpointId": "peak_start",
             "previousCheckpointDate": "2026-10-10",
             "previousTimingLabel": "Ahead"
@@ -11258,7 +11258,7 @@ const GROUP_SEEDS = [
               "push_tracking_complete"
             ],
             "rulesVersion": "pm-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "pushHistory": {
             "status": "complete",
@@ -11378,7 +11378,7 @@ const GROUP_SEEDS = [
                 "precipitationIn": 0
               }
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "fishInRiver": {
             "score": 23,
@@ -11399,7 +11399,7 @@ const GROUP_SEEDS = [
               "stage_post_run",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "gauge": {
             "provider": "USGS",
@@ -11507,7 +11507,7 @@ const GROUP_SEEDS = [
                 "precipitationIn": 0
               }
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           }
         }
       },
@@ -11575,7 +11575,7 @@ const GROUP_SEEDS = [
                 "precipitationIn": 0
               }
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           }
         }
       },
@@ -11643,7 +11643,7 @@ const GROUP_SEEDS = [
                 "precipitationIn": 0
               }
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           }
         }
       },
@@ -11711,7 +11711,7 @@ const GROUP_SEEDS = [
                 "precipitationIn": null
               }
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           }
         }
       },
@@ -11781,7 +11781,7 @@ const GROUP_SEEDS = [
                 "precipitationIn": null
               }
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           }
         }
       }
@@ -11792,7 +11792,7 @@ const GROUP_SEEDS = [
     "label": "Fish In River",
     "scenarios": [
       {
-        "id": "fish_in_river_post_run_fall_run_complete",
+        "id": "fish_in_river_pre_run_not_expected_yet",
         "label": "0 / 100 · Outside",
         "note": "Canonical production copy",
         "snapshotOverride": {
@@ -11802,7 +11802,7 @@ const GROUP_SEEDS = [
           "progressionExpiresAt": "2026-08-14T23:59:59.000Z",
           "nextConditionRefreshAt": "2026-08-14T22:00:00.000Z",
           "runStage": {
-            "stage": "post_run",
+            "stage": "pre_run",
             "copyStrategy": "pere_marquette",
             "stagingContext": false,
             "broadBuildingContext": false,
@@ -11824,16 +11824,15 @@ const GROUP_SEEDS = [
               "startToPeakDays": 49,
               "peakToEndDays": 41
             },
-            "label": "Fall run complete",
-            "headline": "The PM Coho salmon fall run is complete.",
-            "detail": "Coho salmon staging typically begins in late August.",
-            "tip": "Check back in late August when this fall-run model resumes.",
-            "whereToStart": "There is no dependable PM river starting section right now.",
+            "label": "Before migration",
+            "headline": "The PM Coho salmon fall run has not started.",
+            "detail": "Seasonal timing does not support dependable Coho salmon presence in the PM river yet.",
+            "tip": "Keep effort in the lake, harbor, and Pere Marquette Lake until staging begins.",
+            "whereToStart": "Stay in Lake Michigan, Ludington harbor, and Pere Marquette Lake. The PM river is not a dependable starting section yet.",
             "reasonCodes": [
-              "stage_post_run",
-              "stage_offseason"
+              "stage_pre_run"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "conditionsSuggest": {
             "label": "Not monitoring yet",
@@ -11858,19 +11857,19 @@ const GROUP_SEEDS = [
             "reasonCodes": [
               "conditions_monitoring_inactive"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "push": {
             "score": null,
-            "label": "Offseason",
-            "headline": "PM Push is outside its fall movement window.",
-            "detail": "Current rain, Scottville flow, and water temperature do not provide an in-season fresh-movement signal for this run.",
-            "tip": "Check back in late August when fall movement monitoring resumes.",
+            "label": "Waiting for migration",
+            "headline": "Dependable PM river entry has not started.",
+            "detail": "Rain, Scottville flow, and water temperature are not scored as an in-season movement signal yet.",
+            "tip": "Use Migration Stage. Do not move inland because offseason water resembles an in-season Push.",
             "reasonCodes": [
-              "push_tracking_offseason"
+              "push_tracking_not_started"
             ],
             "rulesVersion": "pm-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "pushHistory": {
             "status": "not_started",
@@ -11885,22 +11884,22 @@ const GROUP_SEEDS = [
             "score": 0,
             "displayScore": 0,
             "scoreIsApproximate": false,
-            "stage": "post_run",
+            "stage": "pre_run",
             "maximum": 100,
             "riverCeiling": 60,
             "historicalRunStrength": "moderate",
             "curveFraction": 0,
             "curveDirection": "outside",
             "winterHoldingContext": false,
-            "label": "Fall run complete",
-            "headline": "The PM Coho salmon fall run is complete.",
-            "detail": "Coho salmon staging typically begins in late August. This seasonal estimate is inactive until then.",
-            "tip": "Check back in late August when the PM fall-run model resumes.",
+            "label": "Not expected yet",
+            "headline": "Dependable Coho salmon presence is not expected in the PM river yet.",
+            "detail": "The seasonal estimate remains at zero. Any fish already in the river would be an early exception.",
+            "tip": "Use Migration Stage for nearby staging context. Do not treat one early fish as a dependable river opportunity.",
             "reasonCodes": [
-              "stage_post_run",
+              "stage_pre_run",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "gauge": {
             "provider": "USGS",
@@ -11930,158 +11929,6 @@ const GROUP_SEEDS = [
             "siteId": "PMTU-M37",
             "seriesId": "3201",
             "observedAt": "2026-08-14T19:30:00.000Z",
-            "waterTempF": 60,
-            "trend": "steady",
-            "sourceType": "same_gauge",
-            "attribution": "Measured water temperature"
-          },
-          "interpretationNote": {
-            "headline": "The river should fish well, but seasonal fish presence is still low.",
-            "detail": "Good flow makes presentations easier, but it does not put fish in the river. Begin in the deepest established holding water and skip broad searches through fast travel lanes as seasonal presence thins.",
-            "reasonCodes": [
-              "good_fishability_low_presence"
-            ]
-          }
-        }
-      },
-      {
-        "id": "fish_in_river_pre_run_not_expected_yet",
-        "label": "0 / 100 · Outside",
-        "note": "Canonical production copy",
-        "snapshotOverride": {
-          "localDate": "2026-08-15",
-          "progressionSnapshotAt": "2026-08-15T12:00:00.000Z",
-          "conditionRefreshAt": "2026-08-15T20:00:00.000Z",
-          "progressionExpiresAt": "2026-08-15T23:59:59.000Z",
-          "nextConditionRefreshAt": "2026-08-15T22:00:00.000Z",
-          "runStage": {
-            "stage": "pre_run",
-            "copyStrategy": "pere_marquette",
-            "stagingContext": false,
-            "broadBuildingContext": false,
-            "winterHoldingContext": false,
-            "window": {
-              "snapshotDate": "2026-08-15",
-              "preRunStartDate": "2026-08-15",
-              "stagingStartDate": "2026-08-25",
-              "startDate": "2026-09-01",
-              "beginningEndDate": "2026-09-20",
-              "buildingEstablishedStartDate": "2026-10-01",
-              "peakStartDate": "2026-10-10",
-              "peakDate": "2026-10-20",
-              "peakEndDate": "2026-11-05",
-              "taperingEndDate": "2026-11-20",
-              "endDate": "2026-11-30",
-              "lateEndDate": "2026-12-31",
-              "postRunLateCopyEndDate": "2027-01-02",
-              "startToPeakDays": 49,
-              "peakToEndDays": 41
-            },
-            "label": "Before migration",
-            "headline": "The PM Coho salmon fall run has not started.",
-            "detail": "Seasonal timing does not support dependable Coho salmon presence in the PM river yet.",
-            "tip": "Keep effort in the lake, harbor, and Pere Marquette Lake until staging begins.",
-            "whereToStart": "Stay in Lake Michigan, Ludington harbor, and Pere Marquette Lake. The PM river is not a dependable starting section yet.",
-            "reasonCodes": [
-              "stage_pre_run"
-            ],
-            "copyVersion": "river-run-copy-v34"
-          },
-          "conditionsSuggest": {
-            "label": "Not monitoring yet",
-            "timingLabel": null,
-            "candidateLabel": null,
-            "observationStartDate": "2026-08-25",
-            "nextCheckpointDate": "2026-09-01",
-            "completedCheckpointCount": 0,
-            "currentIndex": null,
-            "currentPercentile": null,
-            "gaugeResponsePercentile": null,
-            "waterTemperaturePercentile": null,
-            "usableDays": 0,
-            "expectedDays": 0,
-            "coveragePercent": 0,
-            "historicalYears": 0,
-            "sourceDates": [],
-            "sourceRefreshSlots": {},
-            "headline": "PM Migration Timing is not monitoring yet.",
-            "detail": "Season-to-date Scottville flow and M-37 temperature monitoring resumes in late August.",
-            "tip": "Check back in late August when PM timing monitoring resumes.",
-            "reasonCodes": [
-              "conditions_monitoring_inactive"
-            ],
-            "copyVersion": "river-run-copy-v34"
-          },
-          "push": {
-            "score": null,
-            "label": "Waiting for migration",
-            "headline": "Dependable PM river entry has not started.",
-            "detail": "Rain, Scottville flow, and water temperature are not scored as an in-season movement signal yet.",
-            "tip": "Use Migration Stage. Do not move inland because offseason water resembles an in-season Push.",
-            "reasonCodes": [
-              "push_tracking_not_started"
-            ],
-            "rulesVersion": "pm-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v34"
-          },
-          "pushHistory": {
-            "status": "not_started",
-            "minimumSupportiveScore": 50,
-            "trackingStartDate": "2026-09-01",
-            "trackingEndDate": "2026-11-30",
-            "throughDate": "2026-08-15",
-            "recentDailyReadsStatus": "available",
-            "recentDailyReads": []
-          },
-          "fishInRiver": {
-            "score": 0,
-            "displayScore": 0,
-            "scoreIsApproximate": false,
-            "stage": "pre_run",
-            "maximum": 100,
-            "riverCeiling": 60,
-            "historicalRunStrength": "moderate",
-            "curveFraction": 0,
-            "curveDirection": "outside",
-            "winterHoldingContext": false,
-            "label": "Not expected yet",
-            "headline": "Dependable Coho salmon presence is not expected in the PM river yet.",
-            "detail": "The seasonal estimate remains at zero. Any fish already in the river would be an early exception.",
-            "tip": "Use Migration Stage for nearby staging context. Do not treat one early fish as a dependable river opportunity.",
-            "reasonCodes": [
-              "stage_pre_run",
-              "historical_presence_curve"
-            ],
-            "copyVersion": "river-run-copy-v34"
-          },
-          "gauge": {
-            "provider": "USGS",
-            "siteId": "04122500",
-            "primaryMetric": "flow_cfs",
-            "observedAt": "2026-08-15T19:45:00.000Z",
-            "value": 600,
-            "band": "ideal",
-            "trend": "stable",
-            "absoluteChange24h": 0,
-            "percentChange24h": 0
-          },
-          "waterTemperature": {
-            "provider": "MONITOR_MY_WATERSHED",
-            "sourceId": "pmtu_maple_leaf",
-            "siteId": "PMTU-MapleLeaf",
-            "seriesId": "4939",
-            "observedAt": "2026-08-15T19:30:00.000Z",
-            "waterTempF": 60,
-            "trend": "steady",
-            "sourceType": "same_gauge",
-            "attribution": "Measured water temperature"
-          },
-          "conditionsWaterTemperature": {
-            "provider": "MONITOR_MY_WATERSHED",
-            "sourceId": "pmtu_m37",
-            "siteId": "PMTU-M37",
-            "seriesId": "3201",
-            "observedAt": "2026-08-15T19:30:00.000Z",
             "waterTempF": 60,
             "trend": "steady",
             "sourceType": "same_gauge",
@@ -12137,7 +11984,7 @@ const GROUP_SEEDS = [
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "conditionsSuggest": {
             "label": "Delayed",
@@ -12187,7 +12034,7 @@ const GROUP_SEEDS = [
               "conditions_checkpoint_river_start",
               "conditions_delayed"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -12217,7 +12064,7 @@ const GROUP_SEEDS = [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "gauge": {
             "provider": "USGS",
@@ -12302,7 +12149,7 @@ const GROUP_SEEDS = [
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "conditionsSuggest": {
             "label": "Delayed",
@@ -12352,7 +12199,7 @@ const GROUP_SEEDS = [
               "conditions_checkpoint_river_start",
               "conditions_delayed"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -12431,7 +12278,7 @@ const GROUP_SEEDS = [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "gauge": {
             "provider": "USGS",
@@ -12516,7 +12363,7 @@ const GROUP_SEEDS = [
             "reasonCodes": [
               "stage_building"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "conditionsSuggest": {
             "label": "Typical",
@@ -12606,7 +12453,7 @@ const GROUP_SEEDS = [
               "conditions_checkpoint_building_start",
               "conditions_typical"
             ],
-            "copyVersion": "river-run-copy-v34",
+            "copyVersion": "river-run-copy-v35",
             "previousCheckpointId": "river_start",
             "previousCheckpointDate": "2026-09-01",
             "previousTimingLabel": "Delayed"
@@ -12688,7 +12535,7 @@ const GROUP_SEEDS = [
               "stage_building",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "gauge": {
             "provider": "USGS",
@@ -12766,7 +12613,7 @@ const GROUP_SEEDS = [
             "reasonCodes": [
               "stage_building"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -12845,7 +12692,7 @@ const GROUP_SEEDS = [
               "stage_building",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "gauge": {
             "provider": "USGS",
@@ -12923,7 +12770,7 @@ const GROUP_SEEDS = [
             "reasonCodes": [
               "stage_peak"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "conditionsSuggest": {
             "label": "Ahead",
@@ -13051,7 +12898,7 @@ const GROUP_SEEDS = [
               "conditions_checkpoint_peak_start",
               "conditions_ahead"
             ],
-            "copyVersion": "river-run-copy-v34",
+            "copyVersion": "river-run-copy-v35",
             "previousCheckpointId": "building_established",
             "previousCheckpointDate": "2026-10-01",
             "previousTimingLabel": "Ahead"
@@ -13133,7 +12980,7 @@ const GROUP_SEEDS = [
               "stage_peak",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "gauge": {
             "provider": "USGS",
@@ -13218,7 +13065,7 @@ const GROUP_SEEDS = [
             "reasonCodes": [
               "stage_peak"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "conditionsSuggest": {
             "label": "Ahead",
@@ -13346,7 +13193,7 @@ const GROUP_SEEDS = [
               "conditions_checkpoint_peak_start",
               "conditions_ahead"
             ],
-            "copyVersion": "river-run-copy-v34",
+            "copyVersion": "river-run-copy-v35",
             "previousCheckpointId": "building_established",
             "previousCheckpointDate": "2026-10-01",
             "previousTimingLabel": "Ahead"
@@ -13428,7 +13275,7 @@ const GROUP_SEEDS = [
               "stage_peak",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "gauge": {
             "provider": "USGS",
@@ -13513,7 +13360,7 @@ const GROUP_SEEDS = [
             "reasonCodes": [
               "stage_peak"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "conditionsSuggest": {
             "label": "Ahead",
@@ -13641,7 +13488,7 @@ const GROUP_SEEDS = [
               "conditions_checkpoint_peak_start",
               "conditions_ahead"
             ],
-            "copyVersion": "river-run-copy-v34",
+            "copyVersion": "river-run-copy-v35",
             "previousCheckpointId": "building_established",
             "previousCheckpointDate": "2026-10-01",
             "previousTimingLabel": "Ahead"
@@ -13723,7 +13570,7 @@ const GROUP_SEEDS = [
               "stage_peak",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "gauge": {
             "provider": "USGS",
@@ -13808,7 +13655,7 @@ const GROUP_SEEDS = [
             "reasonCodes": [
               "stage_peak"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "conditionsSuggest": {
             "label": "Ahead",
@@ -13936,7 +13783,7 @@ const GROUP_SEEDS = [
               "conditions_checkpoint_peak_start",
               "conditions_ahead"
             ],
-            "copyVersion": "river-run-copy-v34",
+            "copyVersion": "river-run-copy-v35",
             "previousCheckpointId": "building_established",
             "previousCheckpointDate": "2026-10-01",
             "previousTimingLabel": "Ahead"
@@ -14018,7 +13865,7 @@ const GROUP_SEEDS = [
               "stage_peak",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "gauge": {
             "provider": "USGS",
@@ -14103,7 +13950,7 @@ const GROUP_SEEDS = [
             "reasonCodes": [
               "stage_tapering"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "conditionsSuggest": {
             "label": "Timing complete",
@@ -14263,7 +14110,7 @@ const GROUP_SEEDS = [
               "conditions_ahead",
               "conditions_timing_complete"
             ],
-            "copyVersion": "river-run-copy-v34",
+            "copyVersion": "river-run-copy-v35",
             "previousCheckpointId": "peak_start",
             "previousCheckpointDate": "2026-10-10",
             "previousTimingLabel": "Ahead"
@@ -14345,7 +14192,7 @@ const GROUP_SEEDS = [
               "stage_tapering",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "gauge": {
             "provider": "USGS",
@@ -14423,7 +14270,7 @@ const GROUP_SEEDS = [
             "reasonCodes": [
               "stage_tapering"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "conditionsSuggest": {
             "label": "Timing complete",
@@ -14583,7 +14430,7 @@ const GROUP_SEEDS = [
               "conditions_ahead",
               "conditions_timing_complete"
             ],
-            "copyVersion": "river-run-copy-v34",
+            "copyVersion": "river-run-copy-v35",
             "previousCheckpointId": "peak_start",
             "previousCheckpointDate": "2026-10-10",
             "previousTimingLabel": "Ahead"
@@ -14665,7 +14512,7 @@ const GROUP_SEEDS = [
               "stage_tapering",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "gauge": {
             "provider": "USGS",
@@ -14743,7 +14590,7 @@ const GROUP_SEEDS = [
             "reasonCodes": [
               "stage_tapering"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "conditionsSuggest": {
             "label": "Timing complete",
@@ -14903,7 +14750,7 @@ const GROUP_SEEDS = [
               "conditions_ahead",
               "conditions_timing_complete"
             ],
-            "copyVersion": "river-run-copy-v34",
+            "copyVersion": "river-run-copy-v35",
             "previousCheckpointId": "peak_start",
             "previousCheckpointDate": "2026-10-10",
             "previousTimingLabel": "Ahead"
@@ -14985,7 +14832,7 @@ const GROUP_SEEDS = [
               "stage_tapering",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "gauge": {
             "provider": "USGS",
@@ -15063,7 +14910,7 @@ const GROUP_SEEDS = [
             "reasonCodes": [
               "stage_ending"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "conditionsSuggest": {
             "label": "Timing complete",
@@ -15223,7 +15070,7 @@ const GROUP_SEEDS = [
               "conditions_ahead",
               "conditions_timing_complete"
             ],
-            "copyVersion": "river-run-copy-v34",
+            "copyVersion": "river-run-copy-v35",
             "previousCheckpointId": "peak_start",
             "previousCheckpointDate": "2026-10-10",
             "previousTimingLabel": "Ahead"
@@ -15305,7 +15152,7 @@ const GROUP_SEEDS = [
               "stage_ending",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "gauge": {
             "provider": "USGS",
@@ -15383,7 +15230,7 @@ const GROUP_SEEDS = [
             "reasonCodes": [
               "stage_post_run"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "conditionsSuggest": {
             "label": "Timing complete",
@@ -15543,7 +15390,7 @@ const GROUP_SEEDS = [
               "conditions_ahead",
               "conditions_timing_complete"
             ],
-            "copyVersion": "river-run-copy-v34",
+            "copyVersion": "river-run-copy-v35",
             "previousCheckpointId": "peak_start",
             "previousCheckpointDate": "2026-10-10",
             "previousTimingLabel": "Ahead"
@@ -15558,7 +15405,7 @@ const GROUP_SEEDS = [
               "push_tracking_complete"
             ],
             "rulesVersion": "pm-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "pushHistory": {
             "status": "complete",
@@ -15637,7 +15484,7 @@ const GROUP_SEEDS = [
               "stage_post_run",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "gauge": {
             "provider": "USGS",
@@ -15723,7 +15570,7 @@ const GROUP_SEEDS = [
             "reasonCodes": [
               "stage_post_run"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "conditionsSuggest": {
             "label": "Timing complete",
@@ -15883,7 +15730,7 @@ const GROUP_SEEDS = [
               "conditions_ahead",
               "conditions_timing_complete"
             ],
-            "copyVersion": "river-run-copy-v34",
+            "copyVersion": "river-run-copy-v35",
             "previousCheckpointId": "peak_start",
             "previousCheckpointDate": "2026-10-10",
             "previousTimingLabel": "Ahead"
@@ -15898,7 +15745,7 @@ const GROUP_SEEDS = [
               "push_tracking_complete"
             ],
             "rulesVersion": "pm-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "pushHistory": {
             "status": "complete",
@@ -15977,7 +15824,7 @@ const GROUP_SEEDS = [
               "stage_post_run",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "gauge": {
             "provider": "USGS",
@@ -16007,6 +15854,207 @@ const GROUP_SEEDS = [
             "siteId": "PMTU-M37",
             "seriesId": "3201",
             "observedAt": "2026-12-31T19:30:00.000Z",
+            "waterTempF": 60,
+            "trend": "steady",
+            "sourceType": "same_gauge",
+            "attribution": "Measured water temperature"
+          },
+          "interpretationNote": {
+            "headline": "The river should fish well, but seasonal fish presence is still low.",
+            "detail": "Good flow makes presentations easier, but it does not put fish in the river. Begin in the deepest established holding water and skip broad searches through fast travel lanes as seasonal presence thins.",
+            "reasonCodes": [
+              "good_fishability_low_presence"
+            ]
+          }
+        }
+      },
+      {
+        "id": "fish_in_river_post_run_fall_run_complete",
+        "label": "0 / 100 · Outside",
+        "note": "Canonical production copy",
+        "snapshotOverride": {
+          "localDate": "2027-01-03",
+          "progressionSnapshotAt": "2027-01-03T12:00:00.000Z",
+          "conditionRefreshAt": "2027-01-03T20:00:00.000Z",
+          "progressionExpiresAt": "2027-01-03T23:59:59.000Z",
+          "nextConditionRefreshAt": "2027-01-03T22:00:00.000Z",
+          "runStage": {
+            "stage": "post_run",
+            "copyStrategy": "pere_marquette",
+            "stagingContext": false,
+            "broadBuildingContext": false,
+            "winterHoldingContext": false,
+            "window": {
+              "snapshotDate": "2027-01-03",
+              "preRunStartDate": "2026-08-15",
+              "stagingStartDate": "2026-08-25",
+              "startDate": "2026-09-01",
+              "beginningEndDate": "2026-09-20",
+              "buildingEstablishedStartDate": "2026-10-01",
+              "peakStartDate": "2026-10-10",
+              "peakDate": "2026-10-20",
+              "peakEndDate": "2026-11-05",
+              "taperingEndDate": "2026-11-20",
+              "endDate": "2026-11-30",
+              "lateEndDate": "2026-12-31",
+              "postRunLateCopyEndDate": "2027-01-02",
+              "startToPeakDays": 49,
+              "peakToEndDays": 41
+            },
+            "label": "Fall run complete",
+            "headline": "The PM Coho salmon fall run is complete.",
+            "detail": "Coho salmon staging typically begins in late August.",
+            "tip": "Check back in late August when this fall-run model resumes.",
+            "whereToStart": "There is no dependable PM river starting section right now.",
+            "reasonCodes": [
+              "stage_post_run",
+              "stage_offseason"
+            ],
+            "copyVersion": "river-run-copy-v35"
+          },
+          "conditionsSuggest": {
+            "label": "Not monitoring yet",
+            "timingLabel": null,
+            "candidateLabel": null,
+            "observationStartDate": "2026-08-25",
+            "completedCheckpointCount": 0,
+            "currentIndex": null,
+            "currentPercentile": null,
+            "gaugeResponsePercentile": null,
+            "waterTemperaturePercentile": null,
+            "usableDays": 0,
+            "expectedDays": 0,
+            "coveragePercent": 0,
+            "historicalYears": 0,
+            "sourceDates": [],
+            "sourceRefreshSlots": {},
+            "headline": "PM Migration Timing is not monitoring yet.",
+            "detail": "Season-to-date Scottville flow and M-37 temperature monitoring resumes in late August.",
+            "tip": "Check back in late August when PM timing monitoring resumes.",
+            "reasonCodes": [
+              "conditions_monitoring_inactive"
+            ],
+            "copyVersion": "river-run-copy-v35"
+          },
+          "push": {
+            "score": null,
+            "label": "Offseason",
+            "headline": "PM Push is outside its fall movement window.",
+            "detail": "Current rain, Scottville flow, and water temperature do not provide an in-season fresh-movement signal for this run.",
+            "tip": "Check back in late August when fall movement monitoring resumes.",
+            "reasonCodes": [
+              "push_tracking_offseason"
+            ],
+            "rulesVersion": "pm-fall-coho-push-v1",
+            "copyVersion": "river-run-copy-v35"
+          },
+          "pushHistory": {
+            "status": "complete",
+            "minimumSupportiveScore": 50,
+            "trackingStartDate": "2026-09-01",
+            "trackingEndDate": "2026-11-30",
+            "throughDate": "2026-11-30",
+            "recentDailyReadsStatus": "available",
+            "recentDailyReads": [
+              {
+                "localDate": "2026-11-30",
+                "status": "no_supportive_window",
+                "score": null,
+                "label": "No supportive window"
+              },
+              {
+                "localDate": "2026-11-29",
+                "status": "no_supportive_window",
+                "score": null,
+                "label": "No supportive window"
+              },
+              {
+                "localDate": "2026-11-28",
+                "status": "supportive_window",
+                "refreshSlot": "08:00",
+                "conditionRefreshAt": "2026-11-28T23:59:00.000Z",
+                "score": 63,
+                "label": "Possible"
+              },
+              {
+                "localDate": "2026-11-27",
+                "status": "no_supportive_window",
+                "score": null,
+                "label": "No supportive window"
+              },
+              {
+                "localDate": "2026-11-26",
+                "status": "supportive_window",
+                "refreshSlot": "20:00",
+                "conditionRefreshAt": "2026-11-26T23:59:00.000Z",
+                "score": 81,
+                "label": "Strong"
+              },
+              {
+                "localDate": "2026-11-25",
+                "status": "supportive_window",
+                "refreshSlot": "16:00",
+                "conditionRefreshAt": "2026-11-25T23:59:00.000Z",
+                "score": 63,
+                "label": "Possible"
+              },
+              {
+                "localDate": "2026-11-24",
+                "status": "no_supportive_window",
+                "score": null,
+                "label": "No supportive window"
+              }
+            ]
+          },
+          "fishInRiver": {
+            "score": 0,
+            "displayScore": 0,
+            "scoreIsApproximate": false,
+            "stage": "post_run",
+            "maximum": 100,
+            "riverCeiling": 60,
+            "historicalRunStrength": "moderate",
+            "curveFraction": 0,
+            "curveDirection": "outside",
+            "winterHoldingContext": false,
+            "label": "Fall run complete",
+            "headline": "The PM Coho salmon fall run is complete.",
+            "detail": "Coho salmon staging typically begins in late August. This seasonal estimate is inactive until then.",
+            "tip": "Check back in late August when the PM fall-run model resumes.",
+            "reasonCodes": [
+              "stage_post_run",
+              "historical_presence_curve"
+            ],
+            "copyVersion": "river-run-copy-v35"
+          },
+          "gauge": {
+            "provider": "USGS",
+            "siteId": "04122500",
+            "primaryMetric": "flow_cfs",
+            "observedAt": "2027-01-03T19:45:00.000Z",
+            "value": 600,
+            "band": "ideal",
+            "trend": "stable",
+            "absoluteChange24h": 0,
+            "percentChange24h": 0
+          },
+          "waterTemperature": {
+            "provider": "MONITOR_MY_WATERSHED",
+            "sourceId": "pmtu_maple_leaf",
+            "siteId": "PMTU-MapleLeaf",
+            "seriesId": "4939",
+            "observedAt": "2027-01-03T19:30:00.000Z",
+            "waterTempF": 60,
+            "trend": "steady",
+            "sourceType": "same_gauge",
+            "attribution": "Measured water temperature"
+          },
+          "conditionsWaterTemperature": {
+            "provider": "MONITOR_MY_WATERSHED",
+            "sourceId": "pmtu_m37",
+            "siteId": "PMTU-M37",
+            "seriesId": "3201",
+            "observedAt": "2027-01-03T19:30:00.000Z",
             "waterTempF": 60,
             "trend": "steady",
             "sourceType": "same_gauge",
@@ -16062,7 +16110,7 @@ const GROUP_SEEDS = [
             "reasonCodes": [
               "stage_peak"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "conditionsSuggest": {
             "label": "Ahead",
@@ -16190,7 +16238,7 @@ const GROUP_SEEDS = [
               "conditions_checkpoint_peak_start",
               "conditions_ahead"
             ],
-            "copyVersion": "river-run-copy-v34",
+            "copyVersion": "river-run-copy-v35",
             "previousCheckpointId": "building_established",
             "previousCheckpointDate": "2026-10-01",
             "previousTimingLabel": "Ahead"
@@ -16272,7 +16320,7 @@ const GROUP_SEEDS = [
               "stage_peak",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "gauge": {
             "provider": "USGS",
@@ -16347,7 +16395,7 @@ const GROUP_SEEDS = [
               "stage_building",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           }
         }
       },
@@ -16393,7 +16441,7 @@ const GROUP_SEEDS = [
             "reasonCodes": [
               "stage_peak"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "conditionsSuggest": {
             "label": "Ahead",
@@ -16521,7 +16569,7 @@ const GROUP_SEEDS = [
               "conditions_checkpoint_peak_start",
               "conditions_ahead"
             ],
-            "copyVersion": "river-run-copy-v34",
+            "copyVersion": "river-run-copy-v35",
             "previousCheckpointId": "building_established",
             "previousCheckpointDate": "2026-10-01",
             "previousTimingLabel": "Ahead"
@@ -16603,7 +16651,7 @@ const GROUP_SEEDS = [
               "stage_peak",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "gauge": {
             "provider": "USGS",
@@ -16689,7 +16737,7 @@ const GROUP_SEEDS = [
             "reasonCodes": [
               "stage_tapering"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "conditionsSuggest": {
             "label": "Timing complete",
@@ -16849,7 +16897,7 @@ const GROUP_SEEDS = [
               "conditions_ahead",
               "conditions_timing_complete"
             ],
-            "copyVersion": "river-run-copy-v34",
+            "copyVersion": "river-run-copy-v35",
             "previousCheckpointId": "peak_start",
             "previousCheckpointDate": "2026-10-10",
             "previousTimingLabel": "Ahead"
@@ -16931,7 +16979,7 @@ const GROUP_SEEDS = [
               "stage_tapering",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "gauge": {
             "provider": "USGS",
@@ -17010,7 +17058,7 @@ const GROUP_SEEDS = [
             "reasonCodes": [
               "stage_ending"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "conditionsSuggest": {
             "label": "Timing complete",
@@ -17170,7 +17218,7 @@ const GROUP_SEEDS = [
               "conditions_ahead",
               "conditions_timing_complete"
             ],
-            "copyVersion": "river-run-copy-v34",
+            "copyVersion": "river-run-copy-v35",
             "previousCheckpointId": "peak_start",
             "previousCheckpointDate": "2026-10-10",
             "previousTimingLabel": "Ahead"
@@ -17252,7 +17300,7 @@ const GROUP_SEEDS = [
               "stage_ending",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "gauge": {
             "provider": "USGS",
@@ -17331,7 +17379,7 @@ const GROUP_SEEDS = [
             "reasonCodes": [
               "stage_building"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -17410,7 +17458,7 @@ const GROUP_SEEDS = [
               "stage_building",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "gauge": {
             "provider": "USGS",
@@ -17489,7 +17537,7 @@ const GROUP_SEEDS = [
             "reasonCodes": [
               "stage_peak"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "conditionsSuggest": {
             "label": "Ahead",
@@ -17617,7 +17665,7 @@ const GROUP_SEEDS = [
               "conditions_checkpoint_peak_start",
               "conditions_ahead"
             ],
-            "copyVersion": "river-run-copy-v34",
+            "copyVersion": "river-run-copy-v35",
             "previousCheckpointId": "building_established",
             "previousCheckpointDate": "2026-10-01",
             "previousTimingLabel": "Ahead"
@@ -17699,7 +17747,7 @@ const GROUP_SEEDS = [
               "stage_peak",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "gauge": {
             "provider": "USGS",
@@ -17785,7 +17833,7 @@ const GROUP_SEEDS = [
             "reasonCodes": [
               "stage_tapering"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "conditionsSuggest": {
             "label": "Timing complete",
@@ -17945,7 +17993,7 @@ const GROUP_SEEDS = [
               "conditions_ahead",
               "conditions_timing_complete"
             ],
-            "copyVersion": "river-run-copy-v34",
+            "copyVersion": "river-run-copy-v35",
             "previousCheckpointId": "peak_start",
             "previousCheckpointDate": "2026-10-10",
             "previousTimingLabel": "Ahead"
@@ -18027,7 +18075,7 @@ const GROUP_SEEDS = [
               "stage_tapering",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "gauge": {
             "provider": "USGS",
@@ -18089,7 +18137,7 @@ const GROUP_SEEDS = [
               "stage_building",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           }
         }
       },
@@ -18135,7 +18183,7 @@ const GROUP_SEEDS = [
             "reasonCodes": [
               "stage_peak"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "conditionsSuggest": {
             "label": "Ahead",
@@ -18263,7 +18311,7 @@ const GROUP_SEEDS = [
               "conditions_checkpoint_peak_start",
               "conditions_ahead"
             ],
-            "copyVersion": "river-run-copy-v34",
+            "copyVersion": "river-run-copy-v35",
             "previousCheckpointId": "building_established",
             "previousCheckpointDate": "2026-10-01",
             "previousTimingLabel": "Ahead"
@@ -18345,7 +18393,7 @@ const GROUP_SEEDS = [
               "stage_peak",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "gauge": {
             "provider": "USGS",
@@ -18431,7 +18479,7 @@ const GROUP_SEEDS = [
             "reasonCodes": [
               "stage_tapering"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "conditionsSuggest": {
             "label": "Timing complete",
@@ -18591,7 +18639,7 @@ const GROUP_SEEDS = [
               "conditions_ahead",
               "conditions_timing_complete"
             ],
-            "copyVersion": "river-run-copy-v34",
+            "copyVersion": "river-run-copy-v35",
             "previousCheckpointId": "peak_start",
             "previousCheckpointDate": "2026-10-10",
             "previousTimingLabel": "Ahead"
@@ -18673,7 +18721,7 @@ const GROUP_SEEDS = [
               "stage_tapering",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "gauge": {
             "provider": "USGS",
@@ -18752,7 +18800,7 @@ const GROUP_SEEDS = [
             "reasonCodes": [
               "stage_ending"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "conditionsSuggest": {
             "label": "Timing complete",
@@ -18912,7 +18960,7 @@ const GROUP_SEEDS = [
               "conditions_ahead",
               "conditions_timing_complete"
             ],
-            "copyVersion": "river-run-copy-v34",
+            "copyVersion": "river-run-copy-v35",
             "previousCheckpointId": "peak_start",
             "previousCheckpointDate": "2026-10-10",
             "previousTimingLabel": "Ahead"
@@ -18994,7 +19042,7 @@ const GROUP_SEEDS = [
               "stage_ending",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "gauge": {
             "provider": "USGS",
@@ -19073,7 +19121,7 @@ const GROUP_SEEDS = [
             "reasonCodes": [
               "stage_building"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -19152,7 +19200,7 @@ const GROUP_SEEDS = [
               "stage_building",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "gauge": {
             "provider": "USGS",
@@ -19231,7 +19279,7 @@ const GROUP_SEEDS = [
             "reasonCodes": [
               "stage_peak"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "conditionsSuggest": {
             "label": "Ahead",
@@ -19359,7 +19407,7 @@ const GROUP_SEEDS = [
               "conditions_checkpoint_peak_start",
               "conditions_ahead"
             ],
-            "copyVersion": "river-run-copy-v34",
+            "copyVersion": "river-run-copy-v35",
             "previousCheckpointId": "building_established",
             "previousCheckpointDate": "2026-10-01",
             "previousTimingLabel": "Ahead"
@@ -19441,7 +19489,7 @@ const GROUP_SEEDS = [
               "stage_peak",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "gauge": {
             "provider": "USGS",
@@ -19527,7 +19575,7 @@ const GROUP_SEEDS = [
             "reasonCodes": [
               "stage_tapering"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "conditionsSuggest": {
             "label": "Timing complete",
@@ -19687,7 +19735,7 @@ const GROUP_SEEDS = [
               "conditions_ahead",
               "conditions_timing_complete"
             ],
-            "copyVersion": "river-run-copy-v34",
+            "copyVersion": "river-run-copy-v35",
             "previousCheckpointId": "peak_start",
             "previousCheckpointDate": "2026-10-10",
             "previousTimingLabel": "Ahead"
@@ -19769,7 +19817,7 @@ const GROUP_SEEDS = [
               "stage_tapering",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "gauge": {
             "provider": "USGS",
@@ -19840,7 +19888,7 @@ const GROUP_SEEDS = [
               "appliedCaps": []
             },
             "rulesVersion": "pm-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "pushHistory": {
             "status": "active_now",
@@ -19923,7 +19971,7 @@ const GROUP_SEEDS = [
               "appliedCaps": []
             },
             "rulesVersion": "pm-scottville-fishability-v2",
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "interpretationNote": {
             "headline": "Fresh movement looks possible, but the river may be difficult to fish.",
@@ -19975,7 +20023,7 @@ const GROUP_SEEDS = [
             "reasonCodes": [
               "stage_peak"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "conditionsSuggest": {
             "label": "Ahead",
@@ -20103,7 +20151,7 @@ const GROUP_SEEDS = [
               "conditions_checkpoint_peak_start",
               "conditions_ahead"
             ],
-            "copyVersion": "river-run-copy-v34",
+            "copyVersion": "river-run-copy-v35",
             "previousCheckpointId": "building_established",
             "previousCheckpointDate": "2026-10-01",
             "previousTimingLabel": "Ahead"
@@ -20133,7 +20181,7 @@ const GROUP_SEEDS = [
               "appliedCaps": []
             },
             "rulesVersion": "pm-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -20212,7 +20260,7 @@ const GROUP_SEEDS = [
               "stage_peak",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "gauge": {
             "provider": "USGS",
@@ -20297,7 +20345,7 @@ const GROUP_SEEDS = [
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "conditionsSuggest": {
             "label": "Delayed",
@@ -20347,7 +20395,7 @@ const GROUP_SEEDS = [
               "conditions_checkpoint_river_start",
               "conditions_delayed"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -20374,7 +20422,7 @@ const GROUP_SEEDS = [
               "appliedCaps": []
             },
             "rulesVersion": "pm-scottville-fishability-v2",
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "fishInRiver": {
             "score": 6,
@@ -20395,7 +20443,7 @@ const GROUP_SEEDS = [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "gauge": {
             "provider": "USGS",
@@ -20480,7 +20528,7 @@ const GROUP_SEEDS = [
             "reasonCodes": [
               "stage_peak"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "conditionsSuggest": {
             "label": "Delayed",
@@ -20608,7 +20656,7 @@ const GROUP_SEEDS = [
               "conditions_checkpoint_peak_start",
               "conditions_delayed"
             ],
-            "copyVersion": "river-run-copy-v34",
+            "copyVersion": "river-run-copy-v35",
             "previousCheckpointId": "building_established",
             "previousCheckpointDate": "2026-10-01",
             "previousTimingLabel": "Delayed"
@@ -20636,7 +20684,7 @@ const GROUP_SEEDS = [
               "appliedCaps": []
             },
             "rulesVersion": "pm-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "pushHistory": {
             "status": "active_now",
@@ -20722,7 +20770,7 @@ const GROUP_SEEDS = [
               "stage_peak",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "gauge": {
             "provider": "USGS",
@@ -20794,7 +20842,7 @@ const GROUP_SEEDS = [
               "gauge_missing"
             ],
             "rulesVersion": "pm-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "fishability": {
             "score": null,
@@ -20806,7 +20854,7 @@ const GROUP_SEEDS = [
               "gauge_missing"
             ],
             "rulesVersion": "pm-scottville-fishability-v2",
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "gauge": null,
           "weather": null,

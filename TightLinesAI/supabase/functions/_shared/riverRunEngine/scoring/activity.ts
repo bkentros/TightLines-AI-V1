@@ -73,8 +73,44 @@ export function scoreActivity(input: {
   hourlyWeather: ActivityWeatherHour[];
   copyStrategy?: RunStageCopyStrategy;
   fallEntryComplete?: boolean;
+  seasonNotStarted?: boolean;
   monitoringStartDate?: string;
 }): ActivityResult {
+  if (input.seasonNotStarted) {
+    const river = input.copyStrategy === "betsie_homestead"
+      ? "Betsie"
+      : input.copyStrategy === "big_manistee_tailwater"
+      ? "Big Manistee"
+      : input.copyStrategy === "muskegon_croton_tailwater"
+      ? "Muskegon"
+      : input.copyStrategy === "st_joseph_corridor"
+      ? "St. Joseph"
+      : input.copyStrategy === "pere_marquette"
+      ? "PM"
+      : "Fall-run";
+    const returnTiming = input.monitoringStartDate
+      ? seasonalReturnPhrase(input.monitoringStartDate.slice(5))
+      : "when seasonal monitoring begins";
+    return {
+      score: null,
+      maximum: 100,
+      label: "Not active yet",
+      headline: `${river} Activity has not started for this year's run.`,
+      detail:
+        "The upcoming run is still outside its monitoring window, so current weather and water are not scored as an in-season responsiveness signal.",
+      tip: `Check back ${returnTiming} when fall monitoring begins.`,
+      reasonCodes: ["stage_pre_run"],
+      rulesVersion: input.rules.version,
+      targetDate: input.targetDate,
+      targetDayLabel: input.targetDate !== input.requestDate
+        ? "Tomorrow"
+        : "Today",
+      confidence: "Limited",
+      conditionalPresence: false,
+      blocks: [],
+      copyVersion: RIVER_RUN_COPY_VERSION,
+    };
+  }
   if (input.fallEntryComplete) {
     const river = input.copyStrategy === "betsie_homestead"
       ? "Betsie"

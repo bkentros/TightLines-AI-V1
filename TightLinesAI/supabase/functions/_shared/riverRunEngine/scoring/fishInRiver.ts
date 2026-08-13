@@ -227,7 +227,10 @@ export function scoreFishInRiver(
   const score = curveFraction > 0
     ? clamp(Math.max(1, roundedScore), 0, riverCeiling)
     : 0;
-  const offseason = compareLocalDates(localDate, window.preRunStartDate) < 0 ||
+  // A date before the selected cycle's watch window is pre-run. Keep the
+  // zero-presence state, but use "not expected yet" copy rather than claiming
+  // that the upcoming annual run is already complete.
+  const offseason = stage === "post_run" &&
     compareLocalDates(localDate, window.postRunLateCopyEndDate) > 0;
   const baseLabel = fishInRiverLabel(score, curveFraction, stage, offseason);
   const terminalCopyStrategy = run.runStageCopyStrategy === "pere_marquette" ||

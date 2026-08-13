@@ -100,7 +100,7 @@ Deno.test("PM Fall Coho reuses river hydraulics and not species timing", () => {
 
 Deno.test("PM Fall Coho stage boundaries cover September through December", () => {
   const expected = [
-    ["2026-08-14", "Fall run complete"],
+    ["2026-08-14", "Before migration"],
     ["2026-08-15", "Before migration"],
     ["2026-09-01", "Beginning"],
     ["2026-09-21", "Building"],
@@ -119,7 +119,7 @@ Deno.test("PM Fall Coho stage boundaries cover September through December", () =
 
 Deno.test("PM Fall Coho presence follows its 60-point river ceiling", () => {
   const expected = [
-    ["2026-08-14", 0, "Fall run complete"],
+    ["2026-08-14", 0, "Not expected yet"],
     ["2026-08-15", 0, "Not expected yet"],
     ["2026-09-01", 6, "Low presence"],
     ["2026-09-15", 12, "Low presence"],

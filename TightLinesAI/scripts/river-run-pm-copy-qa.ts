@@ -128,7 +128,7 @@ function auditDisplay(
   check(wordCount(tip) <= 36, `${id}: Guide's Read exceeds 36 words`);
   check(guideOpening.test(tip), `${id}: Guide's Read lacks a direct opening`);
   check(
-    display.copyVersion === "river-run-copy-v34",
+    display.copyVersion === "river-run-copy-v35",
     `${id}: stale copy version`,
   );
   check(!foreignCopy.test(publicCopy), `${id}: foreign river geography leaked`);

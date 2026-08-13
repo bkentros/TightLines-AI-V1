@@ -220,6 +220,10 @@ export function buildConditionRefresh(input: {
       copyStrategy: input.dailySnapshot.runStage.copyStrategy,
       fallEntryComplete:
         input.dailySnapshot.runStage.label === "Fall entry complete",
+      seasonNotStarted: compareLocalDates(
+          input.localDate,
+          input.dailySnapshot.runStage.window.preRunStartDate,
+        ) < 0,
       monitoringStartDate: input.dailySnapshot.runStage.window.stagingStartDate,
     })
     : null;

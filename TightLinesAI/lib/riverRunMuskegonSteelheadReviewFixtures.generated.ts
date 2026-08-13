@@ -23,7 +23,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
           "progressionExpiresAt": "2026-08-19T23:59:59.000Z",
           "nextConditionRefreshAt": "2026-08-20T05:00:00.000Z",
           "runStage": {
-            "stage": "post_run",
+            "stage": "pre_run",
             "copyStrategy": "muskegon_croton_tailwater",
             "stagingContext": false,
             "broadBuildingContext": false,
@@ -46,16 +46,15 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "startToPeakDays": 51,
               "peakToEndDays": 37
             },
-            "label": "Fall entry complete",
-            "headline": "Muskegon Steelhead fall entry is complete.",
-            "whereToStart": "There is no active Muskegon starting section in this fall-entry model.",
-            "detail": "Steelhead may remain in the river. This model no longer estimates current presence or activity.",
-            "tip": "Check back in early September when Muskegon fall-entry tracking resumes.",
+            "label": "Before migration",
+            "headline": "Dependable Muskegon Steelhead fall entry has not started.",
+            "whereToStart": "Stay with Muskegon Lake, the Lake Michigan channel, and the river entrance.",
+            "detail": "The fall-entry window has not opened yet. An isolated river fish would be an early exception.",
+            "tip": "Check again when early Steelhead begin appearing near the river entrance.",
             "reasonCodes": [
-              "stage_post_run",
-              "stage_offseason"
+              "stage_pre_run"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "conditionsSuggest": {
             "label": "Not monitoring yet",
@@ -80,7 +79,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
             "reasonCodes": [
               "conditions_monitoring_inactive"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -93,15 +92,15 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
           },
           "push": {
             "score": null,
-            "label": "Fall entry complete",
-            "headline": "Muskegon Steelhead fall-entry Push is complete.",
-            "detail": "Current water may affect Steelhead still in the river. This fall model no longer scores fresh-entry support.",
-            "tip": "Do not use a completed fall Push to infer current presence. Check back in early September.",
+            "label": "Waiting for migration",
+            "headline": "Dependable Muskegon Steelhead fall entry has not started.",
+            "detail": "Croton flow and measured temperature are not scored as an in-season fresh-movement signal yet.",
+            "tip": "Use Migration Stage. Do not move inland because offseason water resembles a Push.",
             "reasonCodes": [
-              "push_tracking_complete"
+              "push_tracking_not_started"
             ],
             "rulesVersion": "muskegon-fall-steelhead-push-v1",
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "fishability": {
             "score": 93,
@@ -119,28 +118,29 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "activity": null,
           "fishInRiver": {
-            "score": null,
+            "score": 0,
+            "displayScore": 0,
             "scoreIsApproximate": false,
-            "stage": "post_run",
+            "stage": "pre_run",
             "maximum": 100,
             "riverCeiling": 90,
             "historicalRunStrength": "strong",
             "curveFraction": 0,
             "curveDirection": "outside",
             "winterHoldingContext": false,
-            "label": "Fall entry complete",
-            "headline": "Muskegon Steelhead fall entry is complete.",
-            "detail": "Steelhead may remain in the river. This fall-entry model no longer estimates their current seasonal presence.",
-            "tip": "Check back in early September when Muskegon fall movement tracking resumes.",
+            "label": "Not expected yet",
+            "headline": "Dependable Steelhead presence is not expected in the Muskegon River yet.",
+            "detail": "The seasonal estimate remains at zero. Any river fish would be an early exception.",
+            "tip": "Use Migration Stage for Muskegon Lake, channel, and river-entrance context.",
             "reasonCodes": [
-              "stage_post_run",
+              "stage_pre_run",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "gauge": {
             "provider": "USGS",
@@ -366,7 +366,13 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "data_quality_fresh"
             ]
           },
-          "interpretationNote": null,
+          "interpretationNote": {
+            "headline": "The river should fish well, but seasonal fish presence is still low.",
+            "detail": "Good flow makes presentations easier, but it does not put fish in the river. Stay low, fish the first travel lane entering deep resting water, make one complete pass, and move instead of waiting for numbers that have not developed.",
+            "reasonCodes": [
+              "good_fishability_low_presence"
+            ]
+          },
           "secondaryNote": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
           "safety": {
             "regulationReminder": "Croton Dam is the hard upstream migration boundary. Fish only legal water below the dam, use established public access, respect private land and posted closures, and check current Michigan regulations and dam-safety notices.",
@@ -423,7 +429,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
             "reasonCodes": [
               "stage_pre_run"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "conditionsSuggest": {
             "label": "Not monitoring yet",
@@ -448,7 +454,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
             "reasonCodes": [
               "conditions_monitoring_inactive"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -469,7 +475,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "push_tracking_not_started"
             ],
             "rulesVersion": "muskegon-fall-steelhead-push-v1",
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "fishability": {
             "score": 93,
@@ -487,7 +493,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "activity": null,
           "fishInRiver": {
@@ -509,7 +515,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "stage_pre_run",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "gauge": {
             "provider": "USGS",
@@ -799,7 +805,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "stage_pre_run",
               "stage_pre_run_staging"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "conditionsSuggest": {
             "label": "Evaluating",
@@ -824,7 +830,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
             "reasonCodes": [
               "conditions_checkpoint_evaluating"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -845,7 +851,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "push_tracking_not_started"
             ],
             "rulesVersion": "muskegon-fall-steelhead-push-v1",
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "fishability": {
             "score": 93,
@@ -863,7 +869,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "activity": {
             "score": 65,
@@ -924,7 +930,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
                 "precipitationIn": 0
               }
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "fishInRiver": {
             "score": 0,
@@ -945,7 +951,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "stage_pre_run",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "gauge": {
             "provider": "USGS",
@@ -1234,7 +1240,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -1280,7 +1286,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -1316,7 +1322,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-fall-steelhead-push-v1",
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "fishability": {
             "score": 93,
@@ -1334,7 +1340,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "activity": {
             "score": 65,
@@ -1395,7 +1401,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
                 "precipitationIn": 0
               }
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "fishInRiver": {
             "score": 5,
@@ -1416,7 +1422,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "gauge": {
             "provider": "USGS",
@@ -1706,7 +1712,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -1752,7 +1758,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -1788,7 +1794,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-fall-steelhead-push-v1",
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "fishability": {
             "score": 93,
@@ -1806,7 +1812,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "activity": {
             "score": 65,
@@ -1867,7 +1873,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
                 "precipitationIn": 0
               }
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "fishInRiver": {
             "score": 14,
@@ -1888,7 +1894,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "gauge": {
             "provider": "USGS",
@@ -2178,7 +2184,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
             "reasonCodes": [
               "stage_building"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -2244,7 +2250,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "conditions_insufficient",
               "conditions_checkpoint_building_established"
             ],
-            "copyVersion": "river-run-copy-v34",
+            "copyVersion": "river-run-copy-v35",
             "previousCheckpointId": "building_start",
             "previousCheckpointDate": "2026-10-11",
             "previousTimingLabel": "Insufficient evidence"
@@ -2283,7 +2289,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-fall-steelhead-push-v1",
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "fishability": {
             "score": 93,
@@ -2301,7 +2307,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "activity": {
             "score": 65,
@@ -2362,7 +2368,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
                 "precipitationIn": 0
               }
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "fishInRiver": {
             "score": 31,
@@ -2383,7 +2389,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "stage_building",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "gauge": {
             "provider": "USGS",
@@ -2667,7 +2673,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
             "reasonCodes": [
               "stage_building"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -2733,7 +2739,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "conditions_insufficient",
               "conditions_checkpoint_building_established"
             ],
-            "copyVersion": "river-run-copy-v34",
+            "copyVersion": "river-run-copy-v35",
             "previousCheckpointId": "building_start",
             "previousCheckpointDate": "2026-10-11",
             "previousTimingLabel": "Insufficient evidence"
@@ -2772,7 +2778,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-fall-steelhead-push-v1",
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "fishability": {
             "score": 93,
@@ -2790,7 +2796,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "activity": {
             "score": 65,
@@ -2851,7 +2857,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
                 "precipitationIn": 0
               }
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "fishInRiver": {
             "score": 47,
@@ -2872,7 +2878,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "stage_building",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "gauge": {
             "provider": "USGS",
@@ -3156,7 +3162,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
             "reasonCodes": [
               "stage_building"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -3222,7 +3228,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "conditions_insufficient",
               "conditions_checkpoint_building_established"
             ],
-            "copyVersion": "river-run-copy-v34",
+            "copyVersion": "river-run-copy-v35",
             "previousCheckpointId": "building_start",
             "previousCheckpointDate": "2026-10-11",
             "previousTimingLabel": "Insufficient evidence"
@@ -3261,7 +3267,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-fall-steelhead-push-v1",
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "fishability": {
             "score": 93,
@@ -3279,7 +3285,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "activity": {
             "score": 65,
@@ -3340,7 +3346,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
                 "precipitationIn": 0
               }
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "fishInRiver": {
             "score": 59,
@@ -3361,7 +3367,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "stage_building",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "gauge": {
             "provider": "USGS",
@@ -3645,7 +3651,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
             "reasonCodes": [
               "stage_building"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -3737,7 +3743,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "conditions_insufficient",
               "conditions_checkpoint_peak_start"
             ],
-            "copyVersion": "river-run-copy-v34",
+            "copyVersion": "river-run-copy-v35",
             "previousCheckpointId": "building_established",
             "previousCheckpointDate": "2026-10-15",
             "previousTimingLabel": "Insufficient evidence"
@@ -3776,7 +3782,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-fall-steelhead-push-v1",
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "fishability": {
             "score": 93,
@@ -3794,7 +3800,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "activity": {
             "score": 65,
@@ -3855,7 +3861,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
                 "precipitationIn": 0
               }
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "fishInRiver": {
             "score": 75,
@@ -3876,7 +3882,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "stage_building",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "gauge": {
             "provider": "USGS",
@@ -4160,7 +4166,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
             "reasonCodes": [
               "stage_peak"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -4252,7 +4258,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "conditions_insufficient",
               "conditions_checkpoint_peak_start"
             ],
-            "copyVersion": "river-run-copy-v34",
+            "copyVersion": "river-run-copy-v35",
             "previousCheckpointId": "building_established",
             "previousCheckpointDate": "2026-10-15",
             "previousTimingLabel": "Insufficient evidence"
@@ -4291,7 +4297,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-fall-steelhead-push-v1",
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "fishability": {
             "score": 93,
@@ -4309,7 +4315,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "activity": {
             "score": 65,
@@ -4370,7 +4376,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
                 "precipitationIn": 0
               }
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "fishInRiver": {
             "score": 90,
@@ -4391,7 +4397,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "stage_peak",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "gauge": {
             "provider": "USGS",
@@ -4681,7 +4687,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
             "reasonCodes": [
               "stage_peak"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "conditionsSuggest": {
             "label": "Timing complete",
@@ -4784,7 +4790,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "conditions_checkpoint_peak_complete",
               "conditions_timing_complete"
             ],
-            "copyVersion": "river-run-copy-v34",
+            "copyVersion": "river-run-copy-v35",
             "previousCheckpointId": "peak_start",
             "previousCheckpointDate": "2026-11-10",
             "previousTimingLabel": "Insufficient evidence"
@@ -4823,7 +4829,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-fall-steelhead-push-v1",
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "fishability": {
             "score": 93,
@@ -4841,7 +4847,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "activity": {
             "score": 65,
@@ -4902,7 +4908,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
                 "precipitationIn": 0
               }
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "fishInRiver": {
             "score": 90,
@@ -4923,7 +4929,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "stage_peak",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "gauge": {
             "provider": "USGS",
@@ -5213,7 +5219,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
             "reasonCodes": [
               "stage_peak"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "conditionsSuggest": {
             "label": "Timing complete",
@@ -5316,7 +5322,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "conditions_checkpoint_peak_complete",
               "conditions_timing_complete"
             ],
-            "copyVersion": "river-run-copy-v34",
+            "copyVersion": "river-run-copy-v35",
             "previousCheckpointId": "peak_start",
             "previousCheckpointDate": "2026-11-10",
             "previousTimingLabel": "Insufficient evidence"
@@ -5355,7 +5361,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-fall-steelhead-push-v1",
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "fishability": {
             "score": 93,
@@ -5373,7 +5379,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "activity": {
             "score": 65,
@@ -5434,7 +5440,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
                 "precipitationIn": 0
               }
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "fishInRiver": {
             "score": 90,
@@ -5455,7 +5461,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "stage_peak",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "gauge": {
             "provider": "USGS",
@@ -5745,7 +5751,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
             "reasonCodes": [
               "stage_ending"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "conditionsSuggest": {
             "label": "Timing complete",
@@ -5848,7 +5854,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "conditions_checkpoint_peak_complete",
               "conditions_timing_complete"
             ],
-            "copyVersion": "river-run-copy-v34",
+            "copyVersion": "river-run-copy-v35",
             "previousCheckpointId": "peak_start",
             "previousCheckpointDate": "2026-11-10",
             "previousTimingLabel": "Insufficient evidence"
@@ -5887,7 +5893,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-fall-steelhead-push-v1",
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "fishability": {
             "score": 93,
@@ -5905,7 +5911,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "activity": {
             "score": 65,
@@ -5966,7 +5972,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
                 "precipitationIn": 0
               }
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "fishInRiver": {
             "score": 81,
@@ -5987,7 +5993,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "stage_ending",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "gauge": {
             "provider": "USGS",
@@ -6272,7 +6278,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "stage_post_run",
               "stage_offseason"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "conditionsSuggest": {
             "label": "Timing complete",
@@ -6375,7 +6381,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "conditions_checkpoint_peak_complete",
               "conditions_timing_complete"
             ],
-            "copyVersion": "river-run-copy-v34",
+            "copyVersion": "river-run-copy-v35",
             "previousCheckpointId": "peak_start",
             "previousCheckpointDate": "2026-11-10",
             "previousTimingLabel": "Insufficient evidence"
@@ -6399,7 +6405,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "push_tracking_complete"
             ],
             "rulesVersion": "muskegon-fall-steelhead-push-v1",
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "fishability": {
             "score": 93,
@@ -6417,7 +6423,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "activity": {
             "score": null,
@@ -6435,7 +6441,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
             "confidence": "Limited",
             "conditionalPresence": false,
             "blocks": [],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "fishInRiver": {
             "score": null,
@@ -6455,7 +6461,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "stage_post_run",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "gauge": {
             "provider": "USGS",
@@ -6714,7 +6720,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
           "progressionExpiresAt": "2026-07-24T23:59:59.000Z",
           "nextConditionRefreshAt": "2026-07-25T05:00:00.000Z",
           "runStage": {
-            "stage": "post_run",
+            "stage": "pre_run",
             "copyStrategy": "muskegon_croton_tailwater",
             "stagingContext": false,
             "broadBuildingContext": false,
@@ -6737,16 +6743,15 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "startToPeakDays": 51,
               "peakToEndDays": 37
             },
-            "label": "Fall entry complete",
-            "headline": "Muskegon Steelhead fall entry is complete.",
-            "whereToStart": "There is no active Muskegon starting section in this fall-entry model.",
-            "detail": "Steelhead may remain in the river. This model no longer estimates current presence or activity.",
-            "tip": "Check back in early September when Muskegon fall-entry tracking resumes.",
+            "label": "Before migration",
+            "headline": "Dependable Muskegon Steelhead fall entry has not started.",
+            "whereToStart": "Stay with Muskegon Lake, the Lake Michigan channel, and the river entrance.",
+            "detail": "The fall-entry window has not opened yet. An isolated river fish would be an early exception.",
+            "tip": "Check again when early Steelhead begin appearing near the river entrance.",
             "reasonCodes": [
-              "stage_post_run",
-              "stage_offseason"
+              "stage_pre_run"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "conditionsSuggest": {
             "label": "Not monitoring yet",
@@ -6771,7 +6776,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
             "reasonCodes": [
               "conditions_monitoring_inactive"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -6784,15 +6789,15 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
           },
           "push": {
             "score": null,
-            "label": "Fall entry complete",
-            "headline": "Muskegon Steelhead fall-entry Push is complete.",
-            "detail": "Current water may affect Steelhead still in the river. This fall model no longer scores fresh-entry support.",
-            "tip": "Do not use a completed fall Push to infer current presence. Check back in early September.",
+            "label": "Waiting for migration",
+            "headline": "Dependable Muskegon Steelhead fall entry has not started.",
+            "detail": "Croton flow and measured temperature are not scored as an in-season fresh-movement signal yet.",
+            "tip": "Use Migration Stage. Do not move inland because offseason water resembles a Push.",
             "reasonCodes": [
-              "push_tracking_complete"
+              "push_tracking_not_started"
             ],
             "rulesVersion": "muskegon-fall-steelhead-push-v1",
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "fishability": {
             "score": 93,
@@ -6810,28 +6815,29 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "activity": null,
           "fishInRiver": {
-            "score": null,
+            "score": 0,
+            "displayScore": 0,
             "scoreIsApproximate": false,
-            "stage": "post_run",
+            "stage": "pre_run",
             "maximum": 100,
             "riverCeiling": 90,
             "historicalRunStrength": "strong",
             "curveFraction": 0,
             "curveDirection": "outside",
             "winterHoldingContext": false,
-            "label": "Fall entry complete",
-            "headline": "Muskegon Steelhead fall entry is complete.",
-            "detail": "Steelhead may remain in the river. This fall-entry model no longer estimates their current seasonal presence.",
-            "tip": "Check back in early September when Muskegon fall movement tracking resumes.",
+            "label": "Not expected yet",
+            "headline": "Dependable Steelhead presence is not expected in the Muskegon River yet.",
+            "detail": "The seasonal estimate remains at zero. Any river fish would be an early exception.",
+            "tip": "Use Migration Stage for Muskegon Lake, channel, and river-entrance context.",
             "reasonCodes": [
-              "stage_post_run",
+              "stage_pre_run",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "gauge": {
             "provider": "USGS",
@@ -7057,7 +7063,13 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "data_quality_fresh"
             ]
           },
-          "interpretationNote": null,
+          "interpretationNote": {
+            "headline": "The river should fish well, but seasonal fish presence is still low.",
+            "detail": "Good flow makes presentations easier, but it does not put fish in the river. Stay low, fish the first travel lane entering deep resting water, make one complete pass, and move instead of waiting for numbers that have not developed.",
+            "reasonCodes": [
+              "good_fishability_low_presence"
+            ]
+          },
           "secondaryNote": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
           "safety": {
             "regulationReminder": "Croton Dam is the hard upstream migration boundary. Fish only legal water below the dam, use established public access, respect private land and posted closures, and check current Michigan regulations and dam-safety notices.",
@@ -7083,7 +7095,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
           "progressionExpiresAt": "2026-08-05T23:59:59.000Z",
           "nextConditionRefreshAt": "2026-08-06T05:00:00.000Z",
           "runStage": {
-            "stage": "post_run",
+            "stage": "pre_run",
             "copyStrategy": "muskegon_croton_tailwater",
             "stagingContext": false,
             "broadBuildingContext": false,
@@ -7106,16 +7118,15 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "startToPeakDays": 51,
               "peakToEndDays": 37
             },
-            "label": "Fall entry complete",
-            "headline": "Muskegon Steelhead fall entry is complete.",
-            "whereToStart": "There is no active Muskegon starting section in this fall-entry model.",
-            "detail": "Steelhead may remain in the river. This model no longer estimates current presence or activity.",
-            "tip": "Check back in early September when Muskegon fall-entry tracking resumes.",
+            "label": "Before migration",
+            "headline": "Dependable Muskegon Steelhead fall entry has not started.",
+            "whereToStart": "Stay with Muskegon Lake, the Lake Michigan channel, and the river entrance.",
+            "detail": "The fall-entry window has not opened yet. An isolated river fish would be an early exception.",
+            "tip": "Check again when early Steelhead begin appearing near the river entrance.",
             "reasonCodes": [
-              "stage_post_run",
-              "stage_offseason"
+              "stage_pre_run"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "conditionsSuggest": {
             "label": "Not monitoring yet",
@@ -7140,7 +7151,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
             "reasonCodes": [
               "conditions_monitoring_inactive"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -7153,15 +7164,15 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
           },
           "push": {
             "score": null,
-            "label": "Fall entry complete",
-            "headline": "Muskegon Steelhead fall-entry Push is complete.",
-            "detail": "Current water may affect Steelhead still in the river. This fall model no longer scores fresh-entry support.",
-            "tip": "Do not use a completed fall Push to infer current presence. Check back in early September.",
+            "label": "Waiting for migration",
+            "headline": "Dependable Muskegon Steelhead fall entry has not started.",
+            "detail": "Croton flow and measured temperature are not scored as an in-season fresh-movement signal yet.",
+            "tip": "Use Migration Stage. Do not move inland because offseason water resembles a Push.",
             "reasonCodes": [
-              "push_tracking_complete"
+              "push_tracking_not_started"
             ],
             "rulesVersion": "muskegon-fall-steelhead-push-v1",
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "fishability": {
             "score": 93,
@@ -7179,28 +7190,29 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "activity": null,
           "fishInRiver": {
-            "score": null,
+            "score": 0,
+            "displayScore": 0,
             "scoreIsApproximate": false,
-            "stage": "post_run",
+            "stage": "pre_run",
             "maximum": 100,
             "riverCeiling": 90,
             "historicalRunStrength": "strong",
             "curveFraction": 0,
             "curveDirection": "outside",
             "winterHoldingContext": false,
-            "label": "Fall entry complete",
-            "headline": "Muskegon Steelhead fall entry is complete.",
-            "detail": "Steelhead may remain in the river. This fall-entry model no longer estimates their current seasonal presence.",
-            "tip": "Check back in early September when Muskegon fall movement tracking resumes.",
+            "label": "Not expected yet",
+            "headline": "Dependable Steelhead presence is not expected in the Muskegon River yet.",
+            "detail": "The seasonal estimate remains at zero. Any river fish would be an early exception.",
+            "tip": "Use Migration Stage for Muskegon Lake, channel, and river-entrance context.",
             "reasonCodes": [
-              "stage_post_run",
+              "stage_pre_run",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "gauge": {
             "provider": "USGS",
@@ -7426,7 +7438,13 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "data_quality_fresh"
             ]
           },
-          "interpretationNote": null,
+          "interpretationNote": {
+            "headline": "The river should fish well, but seasonal fish presence is still low.",
+            "detail": "Good flow makes presentations easier, but it does not put fish in the river. Stay low, fish the first travel lane entering deep resting water, make one complete pass, and move instead of waiting for numbers that have not developed.",
+            "reasonCodes": [
+              "good_fishability_low_presence"
+            ]
+          },
           "secondaryNote": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
           "safety": {
             "regulationReminder": "Croton Dam is the hard upstream migration boundary. Fish only legal water below the dam, use established public access, respect private land and posted closures, and check current Michigan regulations and dam-safety notices.",
@@ -7452,7 +7470,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
           "progressionExpiresAt": "2026-08-15T23:59:59.000Z",
           "nextConditionRefreshAt": "2026-08-16T05:00:00.000Z",
           "runStage": {
-            "stage": "post_run",
+            "stage": "pre_run",
             "copyStrategy": "muskegon_croton_tailwater",
             "stagingContext": false,
             "broadBuildingContext": false,
@@ -7475,16 +7493,15 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "startToPeakDays": 51,
               "peakToEndDays": 37
             },
-            "label": "Fall entry complete",
-            "headline": "Muskegon Steelhead fall entry is complete.",
-            "whereToStart": "There is no active Muskegon starting section in this fall-entry model.",
-            "detail": "Steelhead may remain in the river. This model no longer estimates current presence or activity.",
-            "tip": "Check back in early September when Muskegon fall-entry tracking resumes.",
+            "label": "Before migration",
+            "headline": "Dependable Muskegon Steelhead fall entry has not started.",
+            "whereToStart": "Stay with Muskegon Lake, the Lake Michigan channel, and the river entrance.",
+            "detail": "The fall-entry window has not opened yet. An isolated river fish would be an early exception.",
+            "tip": "Check again when early Steelhead begin appearing near the river entrance.",
             "reasonCodes": [
-              "stage_post_run",
-              "stage_offseason"
+              "stage_pre_run"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "conditionsSuggest": {
             "label": "Not monitoring yet",
@@ -7509,7 +7526,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
             "reasonCodes": [
               "conditions_monitoring_inactive"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -7522,15 +7539,15 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
           },
           "push": {
             "score": null,
-            "label": "Fall entry complete",
-            "headline": "Muskegon Steelhead fall-entry Push is complete.",
-            "detail": "Current water may affect Steelhead still in the river. This fall model no longer scores fresh-entry support.",
-            "tip": "Do not use a completed fall Push to infer current presence. Check back in early September.",
+            "label": "Waiting for migration",
+            "headline": "Dependable Muskegon Steelhead fall entry has not started.",
+            "detail": "Croton flow and measured temperature are not scored as an in-season fresh-movement signal yet.",
+            "tip": "Use Migration Stage. Do not move inland because offseason water resembles a Push.",
             "reasonCodes": [
-              "push_tracking_complete"
+              "push_tracking_not_started"
             ],
             "rulesVersion": "muskegon-fall-steelhead-push-v1",
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "fishability": {
             "score": 93,
@@ -7548,28 +7565,29 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "activity": null,
           "fishInRiver": {
-            "score": null,
+            "score": 0,
+            "displayScore": 0,
             "scoreIsApproximate": false,
-            "stage": "post_run",
+            "stage": "pre_run",
             "maximum": 100,
             "riverCeiling": 90,
             "historicalRunStrength": "strong",
             "curveFraction": 0,
             "curveDirection": "outside",
             "winterHoldingContext": false,
-            "label": "Fall entry complete",
-            "headline": "Muskegon Steelhead fall entry is complete.",
-            "detail": "Steelhead may remain in the river. This fall-entry model no longer estimates their current seasonal presence.",
-            "tip": "Check back in early September when Muskegon fall movement tracking resumes.",
+            "label": "Not expected yet",
+            "headline": "Dependable Steelhead presence is not expected in the Muskegon River yet.",
+            "detail": "The seasonal estimate remains at zero. Any river fish would be an early exception.",
+            "tip": "Use Migration Stage for Muskegon Lake, channel, and river-entrance context.",
             "reasonCodes": [
-              "stage_post_run",
+              "stage_pre_run",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "gauge": {
             "provider": "USGS",
@@ -7795,7 +7813,13 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "data_quality_fresh"
             ]
           },
-          "interpretationNote": null,
+          "interpretationNote": {
+            "headline": "The river should fish well, but seasonal fish presence is still low.",
+            "detail": "Good flow makes presentations easier, but it does not put fish in the river. Stay low, fish the first travel lane entering deep resting water, make one complete pass, and move instead of waiting for numbers that have not developed.",
+            "reasonCodes": [
+              "good_fishability_low_presence"
+            ]
+          },
           "secondaryNote": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
           "safety": {
             "regulationReminder": "Croton Dam is the hard upstream migration boundary. Fish only legal water below the dam, use established public access, respect private land and posted closures, and check current Michigan regulations and dam-safety notices.",
@@ -7821,7 +7845,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
           "progressionExpiresAt": "2026-08-15T23:59:59.000Z",
           "nextConditionRefreshAt": "2026-08-16T05:00:00.000Z",
           "runStage": {
-            "stage": "post_run",
+            "stage": "pre_run",
             "copyStrategy": "muskegon_croton_tailwater",
             "stagingContext": false,
             "broadBuildingContext": false,
@@ -7844,16 +7868,15 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "startToPeakDays": 51,
               "peakToEndDays": 37
             },
-            "label": "Fall entry complete",
-            "headline": "Muskegon Steelhead fall entry is complete.",
-            "whereToStart": "There is no active Muskegon starting section in this fall-entry model.",
-            "detail": "Steelhead may remain in the river. This model no longer estimates current presence or activity.",
-            "tip": "Check back in early September when Muskegon fall-entry tracking resumes.",
+            "label": "Before migration",
+            "headline": "Dependable Muskegon Steelhead fall entry has not started.",
+            "whereToStart": "Stay with Muskegon Lake, the Lake Michigan channel, and the river entrance.",
+            "detail": "The fall-entry window has not opened yet. An isolated river fish would be an early exception.",
+            "tip": "Check again when early Steelhead begin appearing near the river entrance.",
             "reasonCodes": [
-              "stage_post_run",
-              "stage_offseason"
+              "stage_pre_run"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "conditionsSuggest": {
             "label": "Not monitoring yet",
@@ -7878,7 +7901,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
             "reasonCodes": [
               "conditions_monitoring_inactive"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -7891,15 +7914,15 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
           },
           "push": {
             "score": null,
-            "label": "Fall entry complete",
-            "headline": "Muskegon Steelhead fall-entry Push is complete.",
-            "detail": "Current water may affect Steelhead still in the river. This fall model no longer scores fresh-entry support.",
-            "tip": "Do not use a completed fall Push to infer current presence. Check back in early September.",
+            "label": "Waiting for migration",
+            "headline": "Dependable Muskegon Steelhead fall entry has not started.",
+            "detail": "Croton flow and measured temperature are not scored as an in-season fresh-movement signal yet.",
+            "tip": "Use Migration Stage. Do not move inland because offseason water resembles a Push.",
             "reasonCodes": [
-              "push_tracking_complete"
+              "push_tracking_not_started"
             ],
             "rulesVersion": "muskegon-fall-steelhead-push-v1",
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "fishability": {
             "score": 93,
@@ -7917,28 +7940,29 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "activity": null,
           "fishInRiver": {
-            "score": null,
+            "score": 0,
+            "displayScore": 0,
             "scoreIsApproximate": false,
-            "stage": "post_run",
+            "stage": "pre_run",
             "maximum": 100,
             "riverCeiling": 90,
             "historicalRunStrength": "strong",
             "curveFraction": 0,
             "curveDirection": "outside",
             "winterHoldingContext": false,
-            "label": "Fall entry complete",
-            "headline": "Muskegon Steelhead fall entry is complete.",
-            "detail": "Steelhead may remain in the river. This fall-entry model no longer estimates their current seasonal presence.",
-            "tip": "Check back in early September when Muskegon fall movement tracking resumes.",
+            "label": "Not expected yet",
+            "headline": "Dependable Steelhead presence is not expected in the Muskegon River yet.",
+            "detail": "The seasonal estimate remains at zero. Any river fish would be an early exception.",
+            "tip": "Use Migration Stage for Muskegon Lake, channel, and river-entrance context.",
             "reasonCodes": [
-              "stage_post_run",
+              "stage_pre_run",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "gauge": {
             "provider": "USGS",
@@ -8164,7 +8188,13 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "data_quality_fresh"
             ]
           },
-          "interpretationNote": null,
+          "interpretationNote": {
+            "headline": "The river should fish well, but seasonal fish presence is still low.",
+            "detail": "Good flow makes presentations easier, but it does not put fish in the river. Stay low, fish the first travel lane entering deep resting water, make one complete pass, and move instead of waiting for numbers that have not developed.",
+            "reasonCodes": [
+              "good_fishability_low_presence"
+            ]
+          },
           "secondaryNote": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
           "safety": {
             "regulationReminder": "Croton Dam is the hard upstream migration boundary. Fish only legal water below the dam, use established public access, respect private land and posted closures, and check current Michigan regulations and dam-safety notices.",
@@ -8190,7 +8220,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
           "progressionExpiresAt": "2026-08-15T23:59:59.000Z",
           "nextConditionRefreshAt": "2026-08-16T05:00:00.000Z",
           "runStage": {
-            "stage": "post_run",
+            "stage": "pre_run",
             "copyStrategy": "muskegon_croton_tailwater",
             "stagingContext": false,
             "broadBuildingContext": false,
@@ -8213,16 +8243,15 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "startToPeakDays": 51,
               "peakToEndDays": 37
             },
-            "label": "Fall entry complete",
-            "headline": "Muskegon Steelhead fall entry is complete.",
-            "whereToStart": "There is no active Muskegon starting section in this fall-entry model.",
-            "detail": "Steelhead may remain in the river. This model no longer estimates current presence or activity.",
-            "tip": "Check back in early September when Muskegon fall-entry tracking resumes.",
+            "label": "Before migration",
+            "headline": "Dependable Muskegon Steelhead fall entry has not started.",
+            "whereToStart": "Stay with Muskegon Lake, the Lake Michigan channel, and the river entrance.",
+            "detail": "The fall-entry window has not opened yet. An isolated river fish would be an early exception.",
+            "tip": "Check again when early Steelhead begin appearing near the river entrance.",
             "reasonCodes": [
-              "stage_post_run",
-              "stage_offseason"
+              "stage_pre_run"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "conditionsSuggest": {
             "label": "Not monitoring yet",
@@ -8247,7 +8276,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
             "reasonCodes": [
               "conditions_monitoring_inactive"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -8260,15 +8289,15 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
           },
           "push": {
             "score": null,
-            "label": "Fall entry complete",
-            "headline": "Muskegon Steelhead fall-entry Push is complete.",
-            "detail": "Current water may affect Steelhead still in the river. This fall model no longer scores fresh-entry support.",
-            "tip": "Do not use a completed fall Push to infer current presence. Check back in early September.",
+            "label": "Waiting for migration",
+            "headline": "Dependable Muskegon Steelhead fall entry has not started.",
+            "detail": "Croton flow and measured temperature are not scored as an in-season fresh-movement signal yet.",
+            "tip": "Use Migration Stage. Do not move inland because offseason water resembles a Push.",
             "reasonCodes": [
-              "push_tracking_complete"
+              "push_tracking_not_started"
             ],
             "rulesVersion": "muskegon-fall-steelhead-push-v1",
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "fishability": {
             "score": 93,
@@ -8286,28 +8315,29 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "activity": null,
           "fishInRiver": {
-            "score": null,
+            "score": 0,
+            "displayScore": 0,
             "scoreIsApproximate": false,
-            "stage": "post_run",
+            "stage": "pre_run",
             "maximum": 100,
             "riverCeiling": 90,
             "historicalRunStrength": "strong",
             "curveFraction": 0,
             "curveDirection": "outside",
             "winterHoldingContext": false,
-            "label": "Fall entry complete",
-            "headline": "Muskegon Steelhead fall entry is complete.",
-            "detail": "Steelhead may remain in the river. This fall-entry model no longer estimates their current seasonal presence.",
-            "tip": "Check back in early September when Muskegon fall movement tracking resumes.",
+            "label": "Not expected yet",
+            "headline": "Dependable Steelhead presence is not expected in the Muskegon River yet.",
+            "detail": "The seasonal estimate remains at zero. Any river fish would be an early exception.",
+            "tip": "Use Migration Stage for Muskegon Lake, channel, and river-entrance context.",
             "reasonCodes": [
-              "stage_post_run",
+              "stage_pre_run",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "gauge": {
             "provider": "USGS",
@@ -8533,7 +8563,13 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "data_quality_fresh"
             ]
           },
-          "interpretationNote": null,
+          "interpretationNote": {
+            "headline": "The river should fish well, but seasonal fish presence is still low.",
+            "detail": "Good flow makes presentations easier, but it does not put fish in the river. Stay low, fish the first travel lane entering deep resting water, make one complete pass, and move instead of waiting for numbers that have not developed.",
+            "reasonCodes": [
+              "good_fishability_low_presence"
+            ]
+          },
           "secondaryNote": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
           "safety": {
             "regulationReminder": "Croton Dam is the hard upstream migration boundary. Fish only legal water below the dam, use established public access, respect private land and posted closures, and check current Michigan regulations and dam-safety notices.",
@@ -8559,7 +8595,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
           "progressionExpiresAt": "2026-08-15T23:59:59.000Z",
           "nextConditionRefreshAt": "2026-08-16T05:00:00.000Z",
           "runStage": {
-            "stage": "post_run",
+            "stage": "pre_run",
             "copyStrategy": "muskegon_croton_tailwater",
             "stagingContext": false,
             "broadBuildingContext": false,
@@ -8582,16 +8618,15 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "startToPeakDays": 51,
               "peakToEndDays": 37
             },
-            "label": "Fall entry complete",
-            "headline": "Muskegon Steelhead fall entry is complete.",
-            "whereToStart": "There is no active Muskegon starting section in this fall-entry model.",
-            "detail": "Steelhead may remain in the river. This model no longer estimates current presence or activity.",
-            "tip": "Check back in early September when Muskegon fall-entry tracking resumes.",
+            "label": "Before migration",
+            "headline": "Dependable Muskegon Steelhead fall entry has not started.",
+            "whereToStart": "Stay with Muskegon Lake, the Lake Michigan channel, and the river entrance.",
+            "detail": "The fall-entry window has not opened yet. An isolated river fish would be an early exception.",
+            "tip": "Check again when early Steelhead begin appearing near the river entrance.",
             "reasonCodes": [
-              "stage_post_run",
-              "stage_offseason"
+              "stage_pre_run"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "conditionsSuggest": {
             "label": "Not monitoring yet",
@@ -8616,7 +8651,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
             "reasonCodes": [
               "conditions_monitoring_inactive"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -8629,15 +8664,15 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
           },
           "push": {
             "score": null,
-            "label": "Fall entry complete",
-            "headline": "Muskegon Steelhead fall-entry Push is complete.",
-            "detail": "Current water may affect Steelhead still in the river. This fall model no longer scores fresh-entry support.",
-            "tip": "Do not use a completed fall Push to infer current presence. Check back in early September.",
+            "label": "Waiting for migration",
+            "headline": "Dependable Muskegon Steelhead fall entry has not started.",
+            "detail": "Croton flow and measured temperature are not scored as an in-season fresh-movement signal yet.",
+            "tip": "Use Migration Stage. Do not move inland because offseason water resembles a Push.",
             "reasonCodes": [
-              "push_tracking_complete"
+              "push_tracking_not_started"
             ],
             "rulesVersion": "muskegon-fall-steelhead-push-v1",
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "fishability": {
             "score": 93,
@@ -8655,28 +8690,29 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "activity": null,
           "fishInRiver": {
-            "score": null,
+            "score": 0,
+            "displayScore": 0,
             "scoreIsApproximate": false,
-            "stage": "post_run",
+            "stage": "pre_run",
             "maximum": 100,
             "riverCeiling": 90,
             "historicalRunStrength": "strong",
             "curveFraction": 0,
             "curveDirection": "outside",
             "winterHoldingContext": false,
-            "label": "Fall entry complete",
-            "headline": "Muskegon Steelhead fall entry is complete.",
-            "detail": "Steelhead may remain in the river. This fall-entry model no longer estimates their current seasonal presence.",
-            "tip": "Check back in early September when Muskegon fall movement tracking resumes.",
+            "label": "Not expected yet",
+            "headline": "Dependable Steelhead presence is not expected in the Muskegon River yet.",
+            "detail": "The seasonal estimate remains at zero. Any river fish would be an early exception.",
+            "tip": "Use Migration Stage for Muskegon Lake, channel, and river-entrance context.",
             "reasonCodes": [
-              "stage_post_run",
+              "stage_pre_run",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "gauge": {
             "provider": "USGS",
@@ -8902,7 +8938,13 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "data_quality_fresh"
             ]
           },
-          "interpretationNote": null,
+          "interpretationNote": {
+            "headline": "The river should fish well, but seasonal fish presence is still low.",
+            "detail": "Good flow makes presentations easier, but it does not put fish in the river. Stay low, fish the first travel lane entering deep resting water, make one complete pass, and move instead of waiting for numbers that have not developed.",
+            "reasonCodes": [
+              "good_fishability_low_presence"
+            ]
+          },
           "secondaryNote": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
           "safety": {
             "regulationReminder": "Croton Dam is the hard upstream migration boundary. Fish only legal water below the dam, use established public access, respect private land and posted closures, and check current Michigan regulations and dam-safety notices.",
@@ -8959,7 +9001,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "conditionsSuggest": {
             "label": "Typical",
@@ -9025,7 +9067,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "conditions_checkpoint_river_start",
               "conditions_typical"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -9061,7 +9103,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-fall-steelhead-push-v1",
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "fishability": {
             "score": 93,
@@ -9079,7 +9121,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "activity": {
             "score": 65,
@@ -9140,7 +9182,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
                 "precipitationIn": 0
               }
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "fishInRiver": {
             "score": 15,
@@ -9161,7 +9203,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "gauge": {
             "provider": "USGS",
@@ -9457,7 +9499,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -9503,7 +9545,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -9539,7 +9581,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-fall-steelhead-push-v1",
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "fishability": {
             "score": 93,
@@ -9557,7 +9599,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "activity": {
             "score": 65,
@@ -9618,7 +9660,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
                 "precipitationIn": 0
               }
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "fishInRiver": {
             "score": 9,
@@ -9639,7 +9681,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "gauge": {
             "provider": "USGS",
@@ -9929,7 +9971,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -9975,7 +10017,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -10011,7 +10053,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-fall-steelhead-push-v1",
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "fishability": {
             "score": 90,
@@ -10029,7 +10071,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "activity": {
             "score": 7,
@@ -10091,7 +10133,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
                 "precipitationIn": 0
               }
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "fishInRiver": {
             "score": 9,
@@ -10112,7 +10154,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "gauge": {
             "provider": "USGS",
@@ -10402,7 +10444,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -10448,7 +10490,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -10483,7 +10525,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-fall-steelhead-push-v1",
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "fishability": {
             "score": 88,
@@ -10501,7 +10543,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "activity": {
             "score": 64,
@@ -10562,7 +10604,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
                 "precipitationIn": 0
               }
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "fishInRiver": {
             "score": 9,
@@ -10583,7 +10625,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "gauge": {
             "provider": "USGS",
@@ -10873,7 +10915,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -10919,7 +10961,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -10954,7 +10996,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-fall-steelhead-push-v1",
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "fishability": {
             "score": 80,
@@ -10972,7 +11014,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "activity": {
             "score": 67,
@@ -11033,7 +11075,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
                 "precipitationIn": 0
               }
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "fishInRiver": {
             "score": 9,
@@ -11054,7 +11096,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "gauge": {
             "provider": "USGS",
@@ -11344,7 +11386,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -11390,7 +11432,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -11424,7 +11466,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-fall-steelhead-push-v1",
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "fishability": {
             "score": 68,
@@ -11442,7 +11484,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "activity": {
             "score": 74,
@@ -11503,7 +11545,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
                 "precipitationIn": 0
               }
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "fishInRiver": {
             "score": 9,
@@ -11524,7 +11566,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "gauge": {
             "provider": "USGS",
@@ -11808,7 +11850,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -11854,7 +11896,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -11890,7 +11932,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-fall-steelhead-push-v1",
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "fishability": {
             "score": 93,
@@ -11908,7 +11950,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "activity": {
             "score": 67,
@@ -11969,7 +12011,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
                 "precipitationIn": 0
               }
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "fishInRiver": {
             "score": 9,
@@ -11990,7 +12032,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "gauge": {
             "provider": "USGS",
@@ -12280,7 +12322,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -12326,7 +12368,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -12363,7 +12405,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-fall-steelhead-push-v1",
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "fishability": {
             "score": 69,
@@ -12384,7 +12426,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               ]
             },
             "rulesVersion": "muskegon-croton-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "activity": {
             "score": 67,
@@ -12445,7 +12487,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
                 "precipitationIn": 0
               }
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "fishInRiver": {
             "score": 9,
@@ -12466,7 +12508,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "gauge": {
             "provider": "USGS",
@@ -12750,7 +12792,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -12796,7 +12838,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -12833,7 +12875,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               ]
             },
             "rulesVersion": "muskegon-fall-steelhead-push-v1",
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "fishability": {
             "score": 55,
@@ -12854,7 +12896,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               ]
             },
             "rulesVersion": "muskegon-croton-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "activity": {
             "score": 50,
@@ -12915,7 +12957,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
                 "precipitationIn": 0
               }
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "fishInRiver": {
             "score": 9,
@@ -12936,7 +12978,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "gauge": {
             "provider": "USGS",
@@ -13220,7 +13262,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -13266,7 +13308,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -13303,7 +13345,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               ]
             },
             "rulesVersion": "muskegon-fall-steelhead-push-v1",
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "fishability": {
             "score": 0,
@@ -13323,7 +13365,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "activity": {
             "score": 12,
@@ -13385,7 +13427,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
                 "precipitationIn": 0
               }
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "fishInRiver": {
             "score": 9,
@@ -13406,7 +13448,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "gauge": {
             "provider": "USGS",
@@ -13690,7 +13732,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -13736,7 +13778,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -13757,7 +13799,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "gauge_missing"
             ],
             "rulesVersion": "muskegon-fall-steelhead-push-v1",
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "fishability": {
             "score": null,
@@ -13769,7 +13811,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "gauge_missing"
             ],
             "rulesVersion": "muskegon-croton-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "activity": {
             "score": 42,
@@ -13830,7 +13872,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
                 "precipitationIn": 0
               }
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "fishInRiver": {
             "score": 9,
@@ -13851,7 +13893,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "gauge": null,
           "weather": {
@@ -14125,7 +14167,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -14171,7 +14213,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -14193,7 +14235,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "temperature_unavailable"
             ],
             "rulesVersion": "muskegon-fall-steelhead-push-v1",
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "fishability": {
             "score": 93,
@@ -14211,7 +14253,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "activity": {
             "score": 53,
@@ -14272,7 +14314,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
                 "precipitationIn": 0
               }
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "fishInRiver": {
             "score": 9,
@@ -14293,7 +14335,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "gauge": {
             "provider": "USGS",
@@ -14535,7 +14577,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
           "progressionExpiresAt": "2026-08-15T23:59:59.000Z",
           "nextConditionRefreshAt": "2026-08-16T05:00:00.000Z",
           "runStage": {
-            "stage": "post_run",
+            "stage": "pre_run",
             "copyStrategy": "muskegon_croton_tailwater",
             "stagingContext": false,
             "broadBuildingContext": false,
@@ -14558,16 +14600,15 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "startToPeakDays": 51,
               "peakToEndDays": 37
             },
-            "label": "Fall entry complete",
-            "headline": "Muskegon Steelhead fall entry is complete.",
-            "whereToStart": "There is no active Muskegon starting section in this fall-entry model.",
-            "detail": "Steelhead may remain in the river. This model no longer estimates current presence or activity.",
-            "tip": "Check back in early September when Muskegon fall-entry tracking resumes.",
+            "label": "Before migration",
+            "headline": "Dependable Muskegon Steelhead fall entry has not started.",
+            "whereToStart": "Stay with Muskegon Lake, the Lake Michigan channel, and the river entrance.",
+            "detail": "The fall-entry window has not opened yet. An isolated river fish would be an early exception.",
+            "tip": "Check again when early Steelhead begin appearing near the river entrance.",
             "reasonCodes": [
-              "stage_post_run",
-              "stage_offseason"
+              "stage_pre_run"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "conditionsSuggest": {
             "label": "Not monitoring yet",
@@ -14592,7 +14633,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
             "reasonCodes": [
               "conditions_monitoring_inactive"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -14605,15 +14646,15 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
           },
           "push": {
             "score": null,
-            "label": "Fall entry complete",
-            "headline": "Muskegon Steelhead fall-entry Push is complete.",
-            "detail": "Current water may affect Steelhead still in the river. This fall model no longer scores fresh-entry support.",
-            "tip": "Do not use a completed fall Push to infer current presence. Check back in early September.",
+            "label": "Waiting for migration",
+            "headline": "Dependable Muskegon Steelhead fall entry has not started.",
+            "detail": "Croton flow and measured temperature are not scored as an in-season fresh-movement signal yet.",
+            "tip": "Use Migration Stage. Do not move inland because offseason water resembles a Push.",
             "reasonCodes": [
-              "push_tracking_complete"
+              "push_tracking_not_started"
             ],
             "rulesVersion": "muskegon-fall-steelhead-push-v1",
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "fishability": {
             "score": 93,
@@ -14631,28 +14672,29 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "activity": null,
           "fishInRiver": {
-            "score": null,
+            "score": 0,
+            "displayScore": 0,
             "scoreIsApproximate": false,
-            "stage": "post_run",
+            "stage": "pre_run",
             "maximum": 100,
             "riverCeiling": 90,
             "historicalRunStrength": "strong",
             "curveFraction": 0,
             "curveDirection": "outside",
             "winterHoldingContext": false,
-            "label": "Fall entry complete",
-            "headline": "Muskegon Steelhead fall entry is complete.",
-            "detail": "Steelhead may remain in the river. This fall-entry model no longer estimates their current seasonal presence.",
-            "tip": "Check back in early September when Muskegon fall movement tracking resumes.",
+            "label": "Not expected yet",
+            "headline": "Dependable Steelhead presence is not expected in the Muskegon River yet.",
+            "detail": "The seasonal estimate remains at zero. Any river fish would be an early exception.",
+            "tip": "Use Migration Stage for Muskegon Lake, channel, and river-entrance context.",
             "reasonCodes": [
-              "stage_post_run",
+              "stage_pre_run",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "gauge": {
             "provider": "USGS",
@@ -14878,7 +14920,13 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "data_quality_fresh"
             ]
           },
-          "interpretationNote": null,
+          "interpretationNote": {
+            "headline": "The river should fish well, but seasonal fish presence is still low.",
+            "detail": "Good flow makes presentations easier, but it does not put fish in the river. Stay low, fish the first travel lane entering deep resting water, make one complete pass, and move instead of waiting for numbers that have not developed.",
+            "reasonCodes": [
+              "good_fishability_low_presence"
+            ]
+          },
           "secondaryNote": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
           "safety": {
             "regulationReminder": "Croton Dam is the hard upstream migration boundary. Fish only legal water below the dam, use established public access, respect private land and posted closures, and check current Michigan regulations and dam-safety notices.",
@@ -14904,7 +14952,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
           "progressionExpiresAt": "2026-08-15T23:59:59.000Z",
           "nextConditionRefreshAt": "2026-08-16T05:00:00.000Z",
           "runStage": {
-            "stage": "post_run",
+            "stage": "pre_run",
             "copyStrategy": "muskegon_croton_tailwater",
             "stagingContext": false,
             "broadBuildingContext": false,
@@ -14927,16 +14975,15 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "startToPeakDays": 51,
               "peakToEndDays": 37
             },
-            "label": "Fall entry complete",
-            "headline": "Muskegon Steelhead fall entry is complete.",
-            "whereToStart": "There is no active Muskegon starting section in this fall-entry model.",
-            "detail": "Steelhead may remain in the river. This model no longer estimates current presence or activity.",
-            "tip": "Check back in early September when Muskegon fall-entry tracking resumes.",
+            "label": "Before migration",
+            "headline": "Dependable Muskegon Steelhead fall entry has not started.",
+            "whereToStart": "Stay with Muskegon Lake, the Lake Michigan channel, and the river entrance.",
+            "detail": "The fall-entry window has not opened yet. An isolated river fish would be an early exception.",
+            "tip": "Check again when early Steelhead begin appearing near the river entrance.",
             "reasonCodes": [
-              "stage_post_run",
-              "stage_offseason"
+              "stage_pre_run"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "conditionsSuggest": {
             "label": "Not monitoring yet",
@@ -14961,7 +15008,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
             "reasonCodes": [
               "conditions_monitoring_inactive"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -14974,15 +15021,15 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
           },
           "push": {
             "score": null,
-            "label": "Fall entry complete",
-            "headline": "Muskegon Steelhead fall-entry Push is complete.",
-            "detail": "Current water may affect Steelhead still in the river. This fall model no longer scores fresh-entry support.",
-            "tip": "Do not use a completed fall Push to infer current presence. Check back in early September.",
+            "label": "Waiting for migration",
+            "headline": "Dependable Muskegon Steelhead fall entry has not started.",
+            "detail": "Croton flow and measured temperature are not scored as an in-season fresh-movement signal yet.",
+            "tip": "Use Migration Stage. Do not move inland because offseason water resembles a Push.",
             "reasonCodes": [
-              "push_tracking_complete"
+              "push_tracking_not_started"
             ],
             "rulesVersion": "muskegon-fall-steelhead-push-v1",
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "fishability": {
             "score": 80,
@@ -15000,28 +15047,29 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "activity": null,
           "fishInRiver": {
-            "score": null,
+            "score": 0,
+            "displayScore": 0,
             "scoreIsApproximate": false,
-            "stage": "post_run",
+            "stage": "pre_run",
             "maximum": 100,
             "riverCeiling": 90,
             "historicalRunStrength": "strong",
             "curveFraction": 0,
             "curveDirection": "outside",
             "winterHoldingContext": false,
-            "label": "Fall entry complete",
-            "headline": "Muskegon Steelhead fall entry is complete.",
-            "detail": "Steelhead may remain in the river. This fall-entry model no longer estimates their current seasonal presence.",
-            "tip": "Check back in early September when Muskegon fall movement tracking resumes.",
+            "label": "Not expected yet",
+            "headline": "Dependable Steelhead presence is not expected in the Muskegon River yet.",
+            "detail": "The seasonal estimate remains at zero. Any river fish would be an early exception.",
+            "tip": "Use Migration Stage for Muskegon Lake, channel, and river-entrance context.",
             "reasonCodes": [
-              "stage_post_run",
+              "stage_pre_run",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "gauge": {
             "provider": "USGS",
@@ -15247,7 +15295,13 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "data_quality_fresh"
             ]
           },
-          "interpretationNote": null,
+          "interpretationNote": {
+            "headline": "The river should fish well, but seasonal fish presence is still low.",
+            "detail": "Good flow makes presentations easier, but it does not put fish in the river. Stay low, fish the first travel lane entering deep resting water, make one complete pass, and move instead of waiting for numbers that have not developed.",
+            "reasonCodes": [
+              "good_fishability_low_presence"
+            ]
+          },
           "secondaryNote": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
           "safety": {
             "regulationReminder": "Croton Dam is the hard upstream migration boundary. Fish only legal water below the dam, use established public access, respect private land and posted closures, and check current Michigan regulations and dam-safety notices.",
@@ -15273,7 +15327,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
           "progressionExpiresAt": "2026-08-15T23:59:59.000Z",
           "nextConditionRefreshAt": "2026-08-16T05:00:00.000Z",
           "runStage": {
-            "stage": "post_run",
+            "stage": "pre_run",
             "copyStrategy": "muskegon_croton_tailwater",
             "stagingContext": false,
             "broadBuildingContext": false,
@@ -15296,16 +15350,15 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "startToPeakDays": 51,
               "peakToEndDays": 37
             },
-            "label": "Fall entry complete",
-            "headline": "Muskegon Steelhead fall entry is complete.",
-            "whereToStart": "There is no active Muskegon starting section in this fall-entry model.",
-            "detail": "Steelhead may remain in the river. This model no longer estimates current presence or activity.",
-            "tip": "Check back in early September when Muskegon fall-entry tracking resumes.",
+            "label": "Before migration",
+            "headline": "Dependable Muskegon Steelhead fall entry has not started.",
+            "whereToStart": "Stay with Muskegon Lake, the Lake Michigan channel, and the river entrance.",
+            "detail": "The fall-entry window has not opened yet. An isolated river fish would be an early exception.",
+            "tip": "Check again when early Steelhead begin appearing near the river entrance.",
             "reasonCodes": [
-              "stage_post_run",
-              "stage_offseason"
+              "stage_pre_run"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "conditionsSuggest": {
             "label": "Not monitoring yet",
@@ -15330,7 +15383,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
             "reasonCodes": [
               "conditions_monitoring_inactive"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -15343,15 +15396,15 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
           },
           "push": {
             "score": null,
-            "label": "Fall entry complete",
-            "headline": "Muskegon Steelhead fall-entry Push is complete.",
-            "detail": "Current water may affect Steelhead still in the river. This fall model no longer scores fresh-entry support.",
-            "tip": "Do not use a completed fall Push to infer current presence. Check back in early September.",
+            "label": "Waiting for migration",
+            "headline": "Dependable Muskegon Steelhead fall entry has not started.",
+            "detail": "Croton flow and measured temperature are not scored as an in-season fresh-movement signal yet.",
+            "tip": "Use Migration Stage. Do not move inland because offseason water resembles a Push.",
             "reasonCodes": [
-              "push_tracking_complete"
+              "push_tracking_not_started"
             ],
             "rulesVersion": "muskegon-fall-steelhead-push-v1",
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "fishability": {
             "score": 80,
@@ -15369,28 +15422,29 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "activity": null,
           "fishInRiver": {
-            "score": null,
+            "score": 0,
+            "displayScore": 0,
             "scoreIsApproximate": false,
-            "stage": "post_run",
+            "stage": "pre_run",
             "maximum": 100,
             "riverCeiling": 90,
             "historicalRunStrength": "strong",
             "curveFraction": 0,
             "curveDirection": "outside",
             "winterHoldingContext": false,
-            "label": "Fall entry complete",
-            "headline": "Muskegon Steelhead fall entry is complete.",
-            "detail": "Steelhead may remain in the river. This fall-entry model no longer estimates their current seasonal presence.",
-            "tip": "Check back in early September when Muskegon fall movement tracking resumes.",
+            "label": "Not expected yet",
+            "headline": "Dependable Steelhead presence is not expected in the Muskegon River yet.",
+            "detail": "The seasonal estimate remains at zero. Any river fish would be an early exception.",
+            "tip": "Use Migration Stage for Muskegon Lake, channel, and river-entrance context.",
             "reasonCodes": [
-              "stage_post_run",
+              "stage_pre_run",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "gauge": {
             "provider": "USGS",
@@ -15616,7 +15670,13 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "data_quality_fresh"
             ]
           },
-          "interpretationNote": null,
+          "interpretationNote": {
+            "headline": "The river should fish well, but seasonal fish presence is still low.",
+            "detail": "Good flow makes presentations easier, but it does not put fish in the river. Stay low, fish the first travel lane entering deep resting water, make one complete pass, and move instead of waiting for numbers that have not developed.",
+            "reasonCodes": [
+              "good_fishability_low_presence"
+            ]
+          },
           "secondaryNote": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
           "safety": {
             "regulationReminder": "Croton Dam is the hard upstream migration boundary. Fish only legal water below the dam, use established public access, respect private land and posted closures, and check current Michigan regulations and dam-safety notices.",
@@ -15673,7 +15733,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -15719,7 +15779,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -15755,7 +15815,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-fall-steelhead-push-v1",
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "fishability": {
             "score": 40,
@@ -15774,7 +15834,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "activity": {
             "score": 57,
@@ -15835,7 +15895,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
                 "precipitationIn": 0
               }
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "fishInRiver": {
             "score": 9,
@@ -15856,7 +15916,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "gauge": {
             "provider": "USGS",
@@ -16146,7 +16206,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -16192,7 +16252,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -16228,7 +16288,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-fall-steelhead-push-v1",
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "fishability": {
             "score": 60,
@@ -16246,7 +16306,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "activity": {
             "score": 60,
@@ -16307,7 +16367,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
                 "precipitationIn": 0
               }
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "fishInRiver": {
             "score": 9,
@@ -16328,7 +16388,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "gauge": {
             "provider": "USGS",
@@ -16612,7 +16672,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -16658,7 +16718,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -16695,7 +16755,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-fall-steelhead-push-v1",
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "fishability": {
             "score": 20,
@@ -16714,7 +16774,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "activity": {
             "score": 10,
@@ -16776,7 +16836,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
                 "precipitationIn": 0
               }
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "fishInRiver": {
             "score": 9,
@@ -16797,7 +16857,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "gauge": {
             "provider": "USGS",
@@ -17081,7 +17141,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -17127,7 +17187,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -17162,7 +17222,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-fall-steelhead-push-v1",
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "fishability": {
             "score": 88,
@@ -17180,7 +17240,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "activity": {
             "score": 65,
@@ -17241,7 +17301,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
                 "precipitationIn": 0
               }
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "fishInRiver": {
             "score": 9,
@@ -17262,7 +17322,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "gauge": {
             "provider": "USGS",
@@ -17552,7 +17612,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -17598,7 +17658,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -17633,7 +17693,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-fall-steelhead-push-v1",
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "fishability": {
             "score": 40,
@@ -17654,7 +17714,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               ]
             },
             "rulesVersion": "muskegon-croton-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "activity": {
             "score": 61,
@@ -17715,7 +17775,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
                 "precipitationIn": 0
               }
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "fishInRiver": {
             "score": 9,
@@ -17736,7 +17796,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "gauge": {
             "provider": "USGS",
@@ -18020,7 +18080,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -18066,7 +18126,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -18103,7 +18163,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-fall-steelhead-push-v1",
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "fishability": {
             "score": 69,
@@ -18124,7 +18184,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               ]
             },
             "rulesVersion": "muskegon-croton-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "activity": {
             "score": 65,
@@ -18185,7 +18245,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
                 "precipitationIn": 0
               }
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "fishInRiver": {
             "score": 9,
@@ -18206,7 +18266,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "gauge": {
             "provider": "USGS",
@@ -18490,7 +18550,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -18536,7 +18596,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -18573,7 +18633,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-fall-steelhead-push-v1",
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "fishability": {
             "score": 55,
@@ -18594,7 +18654,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               ]
             },
             "rulesVersion": "muskegon-croton-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "activity": {
             "score": 42,
@@ -18655,7 +18715,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
                 "precipitationIn": 0
               }
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "fishInRiver": {
             "score": 9,
@@ -18676,7 +18736,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "gauge": {
             "provider": "USGS",
@@ -18960,7 +19020,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -19006,7 +19066,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -19027,7 +19087,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "gauge_missing"
             ],
             "rulesVersion": "muskegon-fall-steelhead-push-v1",
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "fishability": {
             "score": null,
@@ -19039,7 +19099,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "gauge_missing"
             ],
             "rulesVersion": "muskegon-croton-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "activity": {
             "score": 42,
@@ -19100,7 +19160,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
                 "precipitationIn": 0
               }
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "fishInRiver": {
             "score": 9,
@@ -19121,7 +19181,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "gauge": null,
           "weather": {
@@ -19395,7 +19455,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -19441,7 +19501,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -19477,7 +19537,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-fall-steelhead-push-v1",
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "fishability": {
             "score": 93,
@@ -19495,7 +19555,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "activity": {
             "score": 65,
@@ -19556,7 +19616,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
                 "precipitationIn": 0
               }
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "fishInRiver": {
             "score": 9,
@@ -19577,7 +19637,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "gauge": {
             "provider": "USGS",
@@ -19867,7 +19927,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -19913,7 +19973,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -19949,7 +20009,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-fall-steelhead-push-v1",
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "fishability": {
             "score": 73,
@@ -19967,7 +20027,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "activity": {
             "score": 62,
@@ -20028,7 +20088,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
                 "precipitationIn": 0
               }
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "fishInRiver": {
             "score": 9,
@@ -20049,7 +20109,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "gauge": {
             "provider": "USGS",
@@ -20339,7 +20399,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -20385,7 +20445,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -20421,7 +20481,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-fall-steelhead-push-v1",
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "fishability": {
             "score": 45,
@@ -20439,7 +20499,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "activity": {
             "score": 57,
@@ -20500,7 +20560,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
                 "precipitationIn": 0
               }
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "fishInRiver": {
             "score": 9,
@@ -20521,7 +20581,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "gauge": {
             "provider": "USGS",
@@ -20812,7 +20872,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "stage_pre_run",
               "stage_pre_run_staging"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "conditionsSuggest": {
             "label": "Evaluating",
@@ -20837,7 +20897,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
             "reasonCodes": [
               "conditions_checkpoint_evaluating"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -20858,7 +20918,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "push_tracking_not_started"
             ],
             "rulesVersion": "muskegon-fall-steelhead-push-v1",
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "fishability": {
             "score": 93,
@@ -20876,7 +20936,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "activity": {
             "score": 8,
@@ -20938,7 +20998,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
                 "precipitationIn": 0
               }
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "fishInRiver": {
             "score": 0,
@@ -20959,7 +21019,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "stage_pre_run",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "gauge": {
             "provider": "USGS",
@@ -21248,7 +21308,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -21294,7 +21354,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -21329,7 +21389,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-fall-steelhead-push-v1",
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "fishability": {
             "score": 93,
@@ -21347,7 +21407,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "activity": {
             "score": 80,
@@ -21408,7 +21468,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
                 "precipitationIn": 0.08
               }
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "fishInRiver": {
             "score": 14,
@@ -21429,7 +21489,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "gauge": {
             "provider": "USGS",
@@ -21719,7 +21779,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
             "reasonCodes": [
               "stage_building"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -21785,7 +21845,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "conditions_insufficient",
               "conditions_checkpoint_building_established"
             ],
-            "copyVersion": "river-run-copy-v34",
+            "copyVersion": "river-run-copy-v35",
             "previousCheckpointId": "building_start",
             "previousCheckpointDate": "2026-10-11",
             "previousTimingLabel": "Insufficient evidence"
@@ -21823,7 +21883,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-fall-steelhead-push-v1",
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "fishability": {
             "score": 93,
@@ -21841,7 +21901,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "activity": {
             "score": 90,
@@ -21902,7 +21962,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
                 "precipitationIn": 0.08
               }
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "fishInRiver": {
             "score": 59,
@@ -21923,7 +21983,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "stage_building",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "gauge": {
             "provider": "USGS",
@@ -22207,7 +22267,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
             "reasonCodes": [
               "stage_peak"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -22299,7 +22359,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "conditions_insufficient",
               "conditions_checkpoint_peak_start"
             ],
-            "copyVersion": "river-run-copy-v34",
+            "copyVersion": "river-run-copy-v35",
             "previousCheckpointId": "building_established",
             "previousCheckpointDate": "2026-10-15",
             "previousTimingLabel": "Insufficient evidence"
@@ -22337,7 +22397,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-fall-steelhead-push-v1",
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "fishability": {
             "score": 93,
@@ -22355,7 +22415,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "activity": {
             "score": 74,
@@ -22416,7 +22476,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
                 "precipitationIn": 0
               }
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "fishInRiver": {
             "score": 90,
@@ -22437,7 +22497,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "stage_peak",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "gauge": {
             "provider": "USGS",
@@ -22727,7 +22787,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
             "reasonCodes": [
               "stage_building"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -22793,7 +22853,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "conditions_insufficient",
               "conditions_checkpoint_building_established"
             ],
-            "copyVersion": "river-run-copy-v34",
+            "copyVersion": "river-run-copy-v35",
             "previousCheckpointId": "building_start",
             "previousCheckpointDate": "2026-10-11",
             "previousTimingLabel": "Insufficient evidence"
@@ -22831,7 +22891,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-fall-steelhead-push-v1",
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "fishability": {
             "score": 45,
@@ -22849,7 +22909,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "activity": {
             "score": 60,
@@ -22910,7 +22970,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
                 "precipitationIn": 0
               }
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "fishInRiver": {
             "score": 59,
@@ -22931,7 +22991,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "stage_building",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "gauge": {
             "provider": "USGS",
@@ -23215,7 +23275,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -23261,7 +23321,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -23297,7 +23357,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-fall-steelhead-push-v1",
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "fishability": {
             "score": 93,
@@ -23315,7 +23375,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "activity": {
             "score": 23,
@@ -23377,7 +23437,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
                 "precipitationIn": 0.08
               }
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "fishInRiver": {
             "score": 14,
@@ -23398,7 +23458,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "gauge": {
             "provider": "USGS",
@@ -23688,7 +23748,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -23734,7 +23794,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -23770,7 +23830,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-fall-steelhead-push-v1",
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "fishability": {
             "score": 93,
@@ -23788,7 +23848,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "activity": {
             "score": 9,
@@ -23850,7 +23910,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
                 "precipitationIn": 0.08
               }
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "fishInRiver": {
             "score": 14,
@@ -23871,7 +23931,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "gauge": {
             "provider": "USGS",
@@ -24161,7 +24221,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
             "reasonCodes": [
               "stage_peak"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -24253,7 +24313,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "conditions_insufficient",
               "conditions_checkpoint_peak_start"
             ],
-            "copyVersion": "river-run-copy-v34",
+            "copyVersion": "river-run-copy-v35",
             "previousCheckpointId": "building_established",
             "previousCheckpointDate": "2026-10-15",
             "previousTimingLabel": "Insufficient evidence"
@@ -24293,7 +24353,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-fall-steelhead-push-v1",
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "fishability": {
             "score": 20,
@@ -24312,7 +24372,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "activity": {
             "score": 11,
@@ -24374,7 +24434,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
                 "precipitationIn": 0
               }
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "fishInRiver": {
             "score": 90,
@@ -24395,7 +24455,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "stage_peak",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "gauge": {
             "provider": "USGS",
@@ -24685,7 +24745,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
             "reasonCodes": [
               "stage_peak"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "conditionsSuggest": {
             "label": "Timing complete",
@@ -24788,7 +24848,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "conditions_checkpoint_peak_complete",
               "conditions_timing_complete"
             ],
-            "copyVersion": "river-run-copy-v34",
+            "copyVersion": "river-run-copy-v35",
             "previousCheckpointId": "peak_start",
             "previousCheckpointDate": "2026-11-10",
             "previousTimingLabel": "Insufficient evidence"
@@ -24826,7 +24886,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-fall-steelhead-push-v1",
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "fishability": {
             "score": 93,
@@ -24844,7 +24904,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "activity": {
             "score": 92,
@@ -24905,7 +24965,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
                 "precipitationIn": 0.08
               }
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "fishInRiver": {
             "score": 90,
@@ -24926,7 +24986,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "stage_peak",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "gauge": {
             "provider": "USGS",
@@ -25216,7 +25276,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
             "reasonCodes": [
               "stage_ending"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "conditionsSuggest": {
             "label": "Timing complete",
@@ -25319,7 +25379,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "conditions_checkpoint_peak_complete",
               "conditions_timing_complete"
             ],
-            "copyVersion": "river-run-copy-v34",
+            "copyVersion": "river-run-copy-v35",
             "previousCheckpointId": "peak_start",
             "previousCheckpointDate": "2026-11-10",
             "previousTimingLabel": "Insufficient evidence"
@@ -25357,7 +25417,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-fall-steelhead-push-v1",
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "fishability": {
             "score": 93,
@@ -25375,7 +25435,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "activity": {
             "score": 92,
@@ -25436,7 +25496,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
                 "precipitationIn": 0.08
               }
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "fishInRiver": {
             "score": 81,
@@ -25457,7 +25517,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "stage_ending",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "gauge": {
             "provider": "USGS",
@@ -25742,7 +25802,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "stage_post_run",
               "stage_offseason"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "conditionsSuggest": {
             "label": "Timing complete",
@@ -25845,7 +25905,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "conditions_checkpoint_peak_complete",
               "conditions_timing_complete"
             ],
-            "copyVersion": "river-run-copy-v34",
+            "copyVersion": "river-run-copy-v35",
             "previousCheckpointId": "peak_start",
             "previousCheckpointDate": "2026-11-10",
             "previousTimingLabel": "Insufficient evidence"
@@ -25869,7 +25929,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "push_tracking_complete"
             ],
             "rulesVersion": "muskegon-fall-steelhead-push-v1",
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "fishability": {
             "score": 93,
@@ -25887,7 +25947,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "activity": {
             "score": null,
@@ -25905,7 +25965,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
             "confidence": "Limited",
             "conditionalPresence": false,
             "blocks": [],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "fishInRiver": {
             "score": null,
@@ -25925,7 +25985,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "stage_post_run",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "gauge": {
             "provider": "USGS",
@@ -26209,7 +26269,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
             "reasonCodes": [
               "stage_peak"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -26301,7 +26361,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "conditions_insufficient",
               "conditions_checkpoint_peak_start"
             ],
-            "copyVersion": "river-run-copy-v34",
+            "copyVersion": "river-run-copy-v35",
             "previousCheckpointId": "building_established",
             "previousCheckpointDate": "2026-10-15",
             "previousTimingLabel": "Insufficient evidence"
@@ -26326,7 +26386,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "temperature_unavailable"
             ],
             "rulesVersion": "muskegon-fall-steelhead-push-v1",
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "fishability": {
             "score": 93,
@@ -26344,7 +26404,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "activity": {
             "score": 55,
@@ -26405,7 +26465,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
                 "precipitationIn": 0
               }
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "fishInRiver": {
             "score": 90,
@@ -26426,7 +26486,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "stage_peak",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "gauge": {
             "provider": "USGS",
@@ -26693,7 +26753,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
             "reasonCodes": [
               "stage_peak"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -26785,7 +26845,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "conditions_insufficient",
               "conditions_checkpoint_peak_start"
             ],
-            "copyVersion": "river-run-copy-v34",
+            "copyVersion": "river-run-copy-v35",
             "previousCheckpointId": "building_established",
             "previousCheckpointDate": "2026-10-15",
             "previousTimingLabel": "Insufficient evidence"
@@ -26809,7 +26869,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "gauge_missing"
             ],
             "rulesVersion": "muskegon-fall-steelhead-push-v1",
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "fishability": {
             "score": null,
@@ -26821,7 +26881,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "gauge_missing"
             ],
             "rulesVersion": "muskegon-croton-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "activity": {
             "score": 43,
@@ -26882,7 +26942,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
                 "precipitationIn": 0
               }
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "fishInRiver": {
             "score": 90,
@@ -26903,7 +26963,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "stage_peak",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "gauge": null,
           "weather": {
@@ -27138,8 +27198,8 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
     "label": "Fish In River",
     "scenarios": [
       {
-        "id": "presence_fall_entry_complete_outside",
-        "label": "null / 100 · Fall entry complete · outside",
+        "id": "presence_pre_run_not_expected_yet",
+        "label": "0 / 100 · Not expected yet · outside",
         "note": "Canonical Muskegon River Fall Steelhead production copy · owner audit",
         "snapshot": {
           "riverId": "muskegon",
@@ -27152,7 +27212,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
           "progressionExpiresAt": "2026-08-14T23:59:59.000Z",
           "nextConditionRefreshAt": "2026-08-15T05:00:00.000Z",
           "runStage": {
-            "stage": "post_run",
+            "stage": "pre_run",
             "copyStrategy": "muskegon_croton_tailwater",
             "stagingContext": false,
             "broadBuildingContext": false,
@@ -27175,16 +27235,15 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "startToPeakDays": 51,
               "peakToEndDays": 37
             },
-            "label": "Fall entry complete",
-            "headline": "Muskegon Steelhead fall entry is complete.",
-            "whereToStart": "There is no active Muskegon starting section in this fall-entry model.",
-            "detail": "Steelhead may remain in the river. This model no longer estimates current presence or activity.",
-            "tip": "Check back in early September when Muskegon fall-entry tracking resumes.",
+            "label": "Before migration",
+            "headline": "Dependable Muskegon Steelhead fall entry has not started.",
+            "whereToStart": "Stay with Muskegon Lake, the Lake Michigan channel, and the river entrance.",
+            "detail": "The fall-entry window has not opened yet. An isolated river fish would be an early exception.",
+            "tip": "Check again when early Steelhead begin appearing near the river entrance.",
             "reasonCodes": [
-              "stage_post_run",
-              "stage_offseason"
+              "stage_pre_run"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "conditionsSuggest": {
             "label": "Not monitoring yet",
@@ -27209,7 +27268,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
             "reasonCodes": [
               "conditions_monitoring_inactive"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -27222,15 +27281,15 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
           },
           "push": {
             "score": null,
-            "label": "Fall entry complete",
-            "headline": "Muskegon Steelhead fall-entry Push is complete.",
-            "detail": "Current water may affect Steelhead still in the river. This fall model no longer scores fresh-entry support.",
-            "tip": "Do not use a completed fall Push to infer current presence. Check back in early September.",
+            "label": "Waiting for migration",
+            "headline": "Dependable Muskegon Steelhead fall entry has not started.",
+            "detail": "Croton flow and measured temperature are not scored as an in-season fresh-movement signal yet.",
+            "tip": "Use Migration Stage. Do not move inland because offseason water resembles a Push.",
             "reasonCodes": [
-              "push_tracking_complete"
+              "push_tracking_not_started"
             ],
             "rulesVersion": "muskegon-fall-steelhead-push-v1",
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "fishability": {
             "score": 93,
@@ -27248,28 +27307,29 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "activity": null,
           "fishInRiver": {
-            "score": null,
+            "score": 0,
+            "displayScore": 0,
             "scoreIsApproximate": false,
-            "stage": "post_run",
+            "stage": "pre_run",
             "maximum": 100,
             "riverCeiling": 90,
             "historicalRunStrength": "strong",
             "curveFraction": 0,
             "curveDirection": "outside",
             "winterHoldingContext": false,
-            "label": "Fall entry complete",
-            "headline": "Muskegon Steelhead fall entry is complete.",
-            "detail": "Steelhead may remain in the river. This fall-entry model no longer estimates their current seasonal presence.",
-            "tip": "Check back in early September when Muskegon fall movement tracking resumes.",
+            "label": "Not expected yet",
+            "headline": "Dependable Steelhead presence is not expected in the Muskegon River yet.",
+            "detail": "The seasonal estimate remains at zero. Any river fish would be an early exception.",
+            "tip": "Use Migration Stage for Muskegon Lake, channel, and river-entrance context.",
             "reasonCodes": [
-              "stage_post_run",
+              "stage_pre_run",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "gauge": {
             "provider": "USGS",
@@ -27495,375 +27555,6 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "data_quality_fresh"
             ]
           },
-          "interpretationNote": null,
-          "secondaryNote": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
-          "safety": {
-            "regulationReminder": "Croton Dam is the hard upstream migration boundary. Fish only legal water below the dam, use established public access, respect private land and posted closures, and check current Michigan regulations and dam-safety notices.",
-            "gaugeBasis": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
-            "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
-          },
-          "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-11-muskegon-copy.1"
-        }
-      },
-      {
-        "id": "presence_pre_run_not_expected_yet",
-        "label": "0 / 100 · Not expected yet · outside",
-        "note": "Canonical Muskegon River Fall Steelhead production copy · owner audit",
-        "snapshot": {
-          "riverId": "muskegon",
-          "runId": "muskegon_fall_steelhead",
-          "localDate": "2026-08-20",
-          "timezone": "America/Detroit",
-          "progressionSnapshotAt": "2026-08-20T12:00:00.000Z",
-          "conditionRefreshAt": "2026-08-20T12:00:00.000Z",
-          "refreshSlot": "16:00",
-          "progressionExpiresAt": "2026-08-20T23:59:59.000Z",
-          "nextConditionRefreshAt": "2026-08-21T05:00:00.000Z",
-          "runStage": {
-            "stage": "pre_run",
-            "copyStrategy": "muskegon_croton_tailwater",
-            "stagingContext": false,
-            "broadBuildingContext": false,
-            "winterHoldingContext": false,
-            "window": {
-              "snapshotDate": "2026-08-20",
-              "preRunStartDate": "2026-08-20",
-              "stagingStartDate": "2026-09-10",
-              "startDate": "2026-09-25",
-              "beginningEndDate": "2026-10-10",
-              "buildingEstablishedStartDate": "2026-10-15",
-              "buildingBroadStartDate": "2026-11-01",
-              "peakStartDate": "2026-11-10",
-              "peakDate": "2026-11-15",
-              "peakEndDate": "2026-12-05",
-              "taperingEndDate": "2026-12-19",
-              "endDate": "2026-12-22",
-              "lateEndDate": "2026-12-23",
-              "postRunLateCopyEndDate": "2026-12-24",
-              "startToPeakDays": 51,
-              "peakToEndDays": 37
-            },
-            "label": "Before migration",
-            "headline": "Dependable Muskegon Steelhead fall entry has not started.",
-            "whereToStart": "Stay with Muskegon Lake, the Lake Michigan channel, and the river entrance.",
-            "detail": "The fall-entry window has not opened yet. An isolated river fish would be an early exception.",
-            "tip": "Check again when early Steelhead begin appearing near the river entrance.",
-            "reasonCodes": [
-              "stage_pre_run"
-            ],
-            "copyVersion": "river-run-copy-v34"
-          },
-          "conditionsSuggest": {
-            "label": "Not monitoring yet",
-            "timingLabel": null,
-            "candidateLabel": null,
-            "observationStartDate": "2026-09-10",
-            "nextCheckpointDate": "2026-09-25",
-            "completedCheckpointCount": 0,
-            "currentIndex": null,
-            "currentPercentile": null,
-            "gaugeResponsePercentile": null,
-            "waterTemperaturePercentile": null,
-            "usableDays": 0,
-            "expectedDays": 0,
-            "coveragePercent": 0,
-            "historicalYears": 0,
-            "sourceDates": [],
-            "sourceRefreshSlots": {},
-            "headline": "Muskegon Migration Timing is not monitoring yet.",
-            "detail": "Season-to-date Croton flow and measured-temperature monitoring resumes in early September.",
-            "tip": "Check back in early September when Muskegon timing monitoring resumes.",
-            "reasonCodes": [
-              "conditions_monitoring_inactive"
-            ],
-            "copyVersion": "river-run-copy-v34"
-          },
-          "pushHistory": {
-            "status": "none_recorded",
-            "minimumSupportiveScore": 50,
-            "trackingStartDate": "2026-09-25",
-            "trackingEndDate": "2026-12-22",
-            "throughDate": "2026-08-20",
-            "recentDailyReadsStatus": "available",
-            "recentDailyReads": []
-          },
-          "push": {
-            "score": null,
-            "label": "Waiting for migration",
-            "headline": "Dependable Muskegon Steelhead fall entry has not started.",
-            "detail": "Croton flow and measured temperature are not scored as an in-season fresh-movement signal yet.",
-            "tip": "Use Migration Stage. Do not move inland because offseason water resembles a Push.",
-            "reasonCodes": [
-              "push_tracking_not_started"
-            ],
-            "rulesVersion": "muskegon-fall-steelhead-push-v1",
-            "copyVersion": "river-run-copy-v34"
-          },
-          "fishability": {
-            "score": 93,
-            "label": "Excellent",
-            "headline": "Croton-area flow is in its best presentation range.",
-            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read applies only near Croton Dam within the Upper river (Newaygo–Croton Dam).",
-            "tip": "Cover readable seams and holding water with a controlled presentation.",
-            "reasonCodes": [
-              "gauge_fresh",
-              "ideal_flow_band"
-            ],
-            "components": {
-              "bandBase": 88,
-              "trendModifier": 5,
-              "appliedCaps": []
-            },
-            "rulesVersion": "muskegon-croton-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v34"
-          },
-          "activity": null,
-          "fishInRiver": {
-            "score": 0,
-            "displayScore": 0,
-            "scoreIsApproximate": false,
-            "stage": "pre_run",
-            "maximum": 100,
-            "riverCeiling": 90,
-            "historicalRunStrength": "strong",
-            "curveFraction": 0,
-            "curveDirection": "outside",
-            "winterHoldingContext": false,
-            "label": "Not expected yet",
-            "headline": "Dependable Steelhead presence is not expected in the Muskegon River yet.",
-            "detail": "The seasonal estimate remains at zero. Any river fish would be an early exception.",
-            "tip": "Use Migration Stage for Muskegon Lake, channel, and river-entrance context.",
-            "reasonCodes": [
-              "stage_pre_run",
-              "historical_presence_curve"
-            ],
-            "copyVersion": "river-run-copy-v34"
-          },
-          "gauge": {
-            "provider": "USGS",
-            "siteId": "04121970",
-            "observedAt": "2026-08-20T15:00:00.000Z",
-            "primaryMetric": "flow_cfs",
-            "value": 1500,
-            "band": "ideal",
-            "trend": "stable",
-            "absoluteChange24h": 0,
-            "percentChange24h": 0
-          },
-          "weather": {
-            "provider": "OPEN_METEO",
-            "evidenceType": "modeled_grid",
-            "weatherPointId": "muskegon_croton_weather",
-            "rain24hIn": 0,
-            "rain48hIn": 0,
-            "rain72hIn": 0,
-            "hourlyActivityWeather": [
-              {
-                "time_local": "2026-08-20T00:00",
-                "cloud_cover_pct": 60,
-                "shortwave_w_m2": 60.96,
-                "clear_sky_shortwave_w_m2": 120,
-                "precipitation_in": 0
-              },
-              {
-                "time_local": "2026-08-20T01:00",
-                "cloud_cover_pct": 60,
-                "shortwave_w_m2": 60.96,
-                "clear_sky_shortwave_w_m2": 120,
-                "precipitation_in": 0
-              },
-              {
-                "time_local": "2026-08-20T02:00",
-                "cloud_cover_pct": 60,
-                "shortwave_w_m2": 60.96,
-                "clear_sky_shortwave_w_m2": 120,
-                "precipitation_in": 0
-              },
-              {
-                "time_local": "2026-08-20T03:00",
-                "cloud_cover_pct": 60,
-                "shortwave_w_m2": 60.96,
-                "clear_sky_shortwave_w_m2": 120,
-                "precipitation_in": 0
-              },
-              {
-                "time_local": "2026-08-20T04:00",
-                "cloud_cover_pct": 60,
-                "shortwave_w_m2": 60.96,
-                "clear_sky_shortwave_w_m2": 120,
-                "precipitation_in": 0
-              },
-              {
-                "time_local": "2026-08-20T05:00",
-                "cloud_cover_pct": 60,
-                "shortwave_w_m2": 60.96,
-                "clear_sky_shortwave_w_m2": 120,
-                "precipitation_in": 0
-              },
-              {
-                "time_local": "2026-08-20T06:00",
-                "cloud_cover_pct": 60,
-                "shortwave_w_m2": 60.96,
-                "clear_sky_shortwave_w_m2": 120,
-                "precipitation_in": 0
-              },
-              {
-                "time_local": "2026-08-20T07:00",
-                "cloud_cover_pct": 60,
-                "shortwave_w_m2": 60.96,
-                "clear_sky_shortwave_w_m2": 120,
-                "precipitation_in": 0
-              },
-              {
-                "time_local": "2026-08-20T08:00",
-                "cloud_cover_pct": 60,
-                "shortwave_w_m2": 330.2,
-                "clear_sky_shortwave_w_m2": 650,
-                "precipitation_in": 0
-              },
-              {
-                "time_local": "2026-08-20T09:00",
-                "cloud_cover_pct": 60,
-                "shortwave_w_m2": 330.2,
-                "clear_sky_shortwave_w_m2": 650,
-                "precipitation_in": 0
-              },
-              {
-                "time_local": "2026-08-20T10:00",
-                "cloud_cover_pct": 60,
-                "shortwave_w_m2": 330.2,
-                "clear_sky_shortwave_w_m2": 650,
-                "precipitation_in": 0
-              },
-              {
-                "time_local": "2026-08-20T11:00",
-                "cloud_cover_pct": 60,
-                "shortwave_w_m2": 330.2,
-                "clear_sky_shortwave_w_m2": 650,
-                "precipitation_in": 0
-              },
-              {
-                "time_local": "2026-08-20T12:00",
-                "cloud_cover_pct": 60,
-                "shortwave_w_m2": 330.2,
-                "clear_sky_shortwave_w_m2": 650,
-                "precipitation_in": 0
-              },
-              {
-                "time_local": "2026-08-20T13:00",
-                "cloud_cover_pct": 60,
-                "shortwave_w_m2": 330.2,
-                "clear_sky_shortwave_w_m2": 650,
-                "precipitation_in": 0
-              },
-              {
-                "time_local": "2026-08-20T14:00",
-                "cloud_cover_pct": 60,
-                "shortwave_w_m2": 330.2,
-                "clear_sky_shortwave_w_m2": 650,
-                "precipitation_in": 0
-              },
-              {
-                "time_local": "2026-08-20T15:00",
-                "cloud_cover_pct": 60,
-                "shortwave_w_m2": 330.2,
-                "clear_sky_shortwave_w_m2": 650,
-                "precipitation_in": 0
-              },
-              {
-                "time_local": "2026-08-20T16:00",
-                "cloud_cover_pct": 60,
-                "shortwave_w_m2": 330.2,
-                "clear_sky_shortwave_w_m2": 650,
-                "precipitation_in": 0
-              },
-              {
-                "time_local": "2026-08-20T17:00",
-                "cloud_cover_pct": 60,
-                "shortwave_w_m2": 330.2,
-                "clear_sky_shortwave_w_m2": 650,
-                "precipitation_in": 0
-              },
-              {
-                "time_local": "2026-08-20T18:00",
-                "cloud_cover_pct": 60,
-                "shortwave_w_m2": 330.2,
-                "clear_sky_shortwave_w_m2": 650,
-                "precipitation_in": 0
-              },
-              {
-                "time_local": "2026-08-20T19:00",
-                "cloud_cover_pct": 60,
-                "shortwave_w_m2": 60.96,
-                "clear_sky_shortwave_w_m2": 120,
-                "precipitation_in": 0
-              },
-              {
-                "time_local": "2026-08-20T20:00",
-                "cloud_cover_pct": 60,
-                "shortwave_w_m2": 60.96,
-                "clear_sky_shortwave_w_m2": 120,
-                "precipitation_in": 0
-              },
-              {
-                "time_local": "2026-08-20T21:00",
-                "cloud_cover_pct": 60,
-                "shortwave_w_m2": 60.96,
-                "clear_sky_shortwave_w_m2": 120,
-                "precipitation_in": 0
-              },
-              {
-                "time_local": "2026-08-20T22:00",
-                "cloud_cover_pct": 60,
-                "shortwave_w_m2": 60.96,
-                "clear_sky_shortwave_w_m2": 120,
-                "precipitation_in": 0
-              },
-              {
-                "time_local": "2026-08-20T23:00",
-                "cloud_cover_pct": 60,
-                "shortwave_w_m2": 60.96,
-                "clear_sky_shortwave_w_m2": 120,
-                "precipitation_in": 0
-              }
-            ]
-          },
-          "waterTemperature": {
-            "provider": "USGS",
-            "sourceId": "muskegon_croton_temperature",
-            "siteId": "04121970",
-            "observedAt": "2026-08-20T15:00:00.000Z",
-            "waterTempF": 61,
-            "trend": "neutral",
-            "sourceType": "same_gauge",
-            "attribution": "U.S. Geological Survey Water Data for the Nation."
-          },
-          "conditionsWaterTemperature": {
-            "provider": "USGS",
-            "sourceId": "muskegon_croton_temperature",
-            "siteId": "04121970",
-            "observedAt": "2026-08-20T15:00:00.000Z",
-            "waterTempF": 61,
-            "trend": "neutral",
-            "sourceType": "same_gauge",
-            "attribution": "U.S. Geological Survey Water Data for the Nation."
-          },
-          "freshness": {
-            "gauge": "fresh",
-            "weather": "fresh",
-            "waterTemperature": "fresh",
-            "conditionsWaterTemperature": "fresh",
-            "conditionsSuggestDaysUsable": 0
-          },
-          "dataQuality": {
-            "label": "Fresh",
-            "reasonCodes": [
-              "gauge_fresh",
-              "weather_fresh",
-              "data_quality_fresh"
-            ]
-          },
           "interpretationNote": {
             "headline": "The river should fish well, but seasonal fish presence is still low.",
             "detail": "Good flow makes presentations easier, but it does not put fish in the river. Stay low, fish the first travel lane entering deep resting water, make one complete pass, and move instead of waiting for numbers that have not developed.",
@@ -27927,7 +27618,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -27973,7 +27664,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -28009,7 +27700,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-fall-steelhead-push-v1",
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "fishability": {
             "score": 93,
@@ -28027,7 +27718,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "activity": {
             "score": 65,
@@ -28088,7 +27779,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
                 "precipitationIn": 0
               }
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "fishInRiver": {
             "score": 5,
@@ -28109,7 +27800,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "gauge": {
             "provider": "USGS",
@@ -28399,7 +28090,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -28445,7 +28136,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -28481,7 +28172,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-fall-steelhead-push-v1",
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "fishability": {
             "score": 93,
@@ -28499,7 +28190,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "activity": {
             "score": 65,
@@ -28560,7 +28251,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
                 "precipitationIn": 0
               }
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "fishInRiver": {
             "score": 19,
@@ -28581,7 +28272,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "gauge": {
             "provider": "USGS",
@@ -28871,7 +28562,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
             "reasonCodes": [
               "stage_building"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -28937,7 +28628,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "conditions_insufficient",
               "conditions_checkpoint_building_established"
             ],
-            "copyVersion": "river-run-copy-v34",
+            "copyVersion": "river-run-copy-v35",
             "previousCheckpointId": "building_start",
             "previousCheckpointDate": "2026-10-11",
             "previousTimingLabel": "Insufficient evidence"
@@ -28976,7 +28667,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-fall-steelhead-push-v1",
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "fishability": {
             "score": 93,
@@ -28994,7 +28685,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "activity": {
             "score": 65,
@@ -29055,7 +28746,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
                 "precipitationIn": 0
               }
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "fishInRiver": {
             "score": 36,
@@ -29076,7 +28767,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "stage_building",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "gauge": {
             "provider": "USGS",
@@ -29360,7 +29051,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
             "reasonCodes": [
               "stage_building"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -29426,7 +29117,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "conditions_insufficient",
               "conditions_checkpoint_building_established"
             ],
-            "copyVersion": "river-run-copy-v34",
+            "copyVersion": "river-run-copy-v35",
             "previousCheckpointId": "building_start",
             "previousCheckpointDate": "2026-10-11",
             "previousTimingLabel": "Insufficient evidence"
@@ -29465,7 +29156,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-fall-steelhead-push-v1",
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "fishability": {
             "score": 93,
@@ -29483,7 +29174,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "activity": {
             "score": 65,
@@ -29544,7 +29235,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
                 "precipitationIn": 0
               }
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "fishInRiver": {
             "score": 55,
@@ -29565,7 +29256,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "stage_building",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "gauge": {
             "provider": "USGS",
@@ -29849,7 +29540,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
             "reasonCodes": [
               "stage_building"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -29915,7 +29606,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "conditions_insufficient",
               "conditions_checkpoint_building_established"
             ],
-            "copyVersion": "river-run-copy-v34",
+            "copyVersion": "river-run-copy-v35",
             "previousCheckpointId": "building_start",
             "previousCheckpointDate": "2026-10-11",
             "previousTimingLabel": "Insufficient evidence"
@@ -29954,7 +29645,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-fall-steelhead-push-v1",
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "fishability": {
             "score": 93,
@@ -29972,7 +29663,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "activity": {
             "score": 65,
@@ -30033,7 +29724,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
                 "precipitationIn": 0
               }
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "fishInRiver": {
             "score": 73,
@@ -30054,7 +29745,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "stage_building",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "gauge": {
             "provider": "USGS",
@@ -30338,7 +30029,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
             "reasonCodes": [
               "stage_building"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -30430,7 +30121,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "conditions_insufficient",
               "conditions_checkpoint_peak_start"
             ],
-            "copyVersion": "river-run-copy-v34",
+            "copyVersion": "river-run-copy-v35",
             "previousCheckpointId": "building_established",
             "previousCheckpointDate": "2026-10-15",
             "previousTimingLabel": "Insufficient evidence"
@@ -30469,7 +30160,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-fall-steelhead-push-v1",
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "fishability": {
             "score": 93,
@@ -30487,7 +30178,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "activity": {
             "score": 65,
@@ -30548,7 +30239,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
                 "precipitationIn": 0
               }
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "fishInRiver": {
             "score": 83,
@@ -30569,7 +30260,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "stage_building",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "gauge": {
             "provider": "USGS",
@@ -30853,7 +30544,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
             "reasonCodes": [
               "stage_peak"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -30945,7 +30636,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "conditions_insufficient",
               "conditions_checkpoint_peak_start"
             ],
-            "copyVersion": "river-run-copy-v34",
+            "copyVersion": "river-run-copy-v35",
             "previousCheckpointId": "building_established",
             "previousCheckpointDate": "2026-10-15",
             "previousTimingLabel": "Insufficient evidence"
@@ -30984,7 +30675,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-fall-steelhead-push-v1",
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "fishability": {
             "score": 93,
@@ -31002,7 +30693,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "activity": {
             "score": 65,
@@ -31063,7 +30754,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
                 "precipitationIn": 0
               }
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "fishInRiver": {
             "score": 90,
@@ -31084,7 +30775,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "stage_peak",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "gauge": {
             "provider": "USGS",
@@ -31374,7 +31065,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
             "reasonCodes": [
               "stage_tapering"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "conditionsSuggest": {
             "label": "Timing complete",
@@ -31477,7 +31168,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "conditions_checkpoint_peak_complete",
               "conditions_timing_complete"
             ],
-            "copyVersion": "river-run-copy-v34",
+            "copyVersion": "river-run-copy-v35",
             "previousCheckpointId": "peak_start",
             "previousCheckpointDate": "2026-11-10",
             "previousTimingLabel": "Insufficient evidence"
@@ -31516,7 +31207,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-fall-steelhead-push-v1",
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "fishability": {
             "score": 93,
@@ -31534,7 +31225,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "activity": {
             "score": 65,
@@ -31595,7 +31286,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
                 "precipitationIn": 0
               }
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "fishInRiver": {
             "score": 89,
@@ -31616,7 +31307,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "stage_tapering",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "gauge": {
             "provider": "USGS",
@@ -31900,7 +31591,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
             "reasonCodes": [
               "stage_ending"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "conditionsSuggest": {
             "label": "Timing complete",
@@ -32003,7 +31694,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "conditions_checkpoint_peak_complete",
               "conditions_timing_complete"
             ],
-            "copyVersion": "river-run-copy-v34",
+            "copyVersion": "river-run-copy-v35",
             "previousCheckpointId": "peak_start",
             "previousCheckpointDate": "2026-11-10",
             "previousTimingLabel": "Insufficient evidence"
@@ -32042,7 +31733,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-fall-steelhead-push-v1",
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "fishability": {
             "score": 93,
@@ -32060,7 +31751,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "activity": {
             "score": 65,
@@ -32121,7 +31812,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
                 "precipitationIn": 0
               }
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "fishInRiver": {
             "score": 81,
@@ -32142,7 +31833,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "stage_ending",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "gauge": {
             "provider": "USGS",
@@ -32379,6 +32070,474 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
           "engineVersion": "river-run-v1.5.3-review",
           "configVersion": "2026-08-11-muskegon-copy.1"
         }
+      },
+      {
+        "id": "presence_fall_entry_complete_outside",
+        "label": "null / 100 · Fall entry complete · outside",
+        "note": "Canonical Muskegon River Fall Steelhead production copy · owner audit",
+        "snapshot": {
+          "riverId": "muskegon",
+          "runId": "muskegon_fall_steelhead",
+          "localDate": "2026-12-23",
+          "timezone": "America/Detroit",
+          "progressionSnapshotAt": "2026-12-23T12:00:00.000Z",
+          "conditionRefreshAt": "2026-12-23T12:00:00.000Z",
+          "refreshSlot": "16:00",
+          "progressionExpiresAt": "2026-12-23T23:59:59.000Z",
+          "nextConditionRefreshAt": "2026-12-24T05:00:00.000Z",
+          "runStage": {
+            "stage": "post_run",
+            "copyStrategy": "muskegon_croton_tailwater",
+            "stagingContext": false,
+            "broadBuildingContext": false,
+            "winterHoldingContext": false,
+            "window": {
+              "snapshotDate": "2026-12-23",
+              "preRunStartDate": "2026-08-20",
+              "stagingStartDate": "2026-09-10",
+              "startDate": "2026-09-25",
+              "beginningEndDate": "2026-10-10",
+              "buildingEstablishedStartDate": "2026-10-15",
+              "buildingBroadStartDate": "2026-11-01",
+              "peakStartDate": "2026-11-10",
+              "peakDate": "2026-11-15",
+              "peakEndDate": "2026-12-05",
+              "taperingEndDate": "2026-12-19",
+              "endDate": "2026-12-22",
+              "lateEndDate": "2026-12-23",
+              "postRunLateCopyEndDate": "2026-12-24",
+              "startToPeakDays": 51,
+              "peakToEndDays": 37
+            },
+            "label": "Fall entry complete",
+            "headline": "Muskegon Steelhead fall entry is complete.",
+            "whereToStart": "There is no active Muskegon starting section in this fall-entry model.",
+            "detail": "Steelhead may remain in the river. This model no longer estimates current presence or activity.",
+            "tip": "Check back in early September when Muskegon fall-entry tracking resumes.",
+            "reasonCodes": [
+              "stage_post_run",
+              "stage_offseason"
+            ],
+            "copyVersion": "river-run-copy-v35"
+          },
+          "conditionsSuggest": {
+            "label": "Timing complete",
+            "timingLabel": "Insufficient evidence",
+            "candidateLabel": "Insufficient evidence",
+            "checkpointId": "peak_complete",
+            "checkpointDate": "2026-11-21",
+            "cutoffDate": "2026-11-20",
+            "observationStartDate": "2026-09-10",
+            "completedCheckpointCount": 5,
+            "currentIndex": null,
+            "currentPercentile": null,
+            "gaugeResponsePercentile": null,
+            "waterTemperaturePercentile": null,
+            "usableDays": 0,
+            "expectedDays": 72,
+            "coveragePercent": 0,
+            "historicalYears": 0,
+            "sourceDates": [
+              "2026-09-10",
+              "2026-09-11",
+              "2026-09-12",
+              "2026-09-13",
+              "2026-09-14",
+              "2026-09-15",
+              "2026-09-16",
+              "2026-09-17",
+              "2026-09-18",
+              "2026-09-19",
+              "2026-09-20",
+              "2026-09-21",
+              "2026-09-22",
+              "2026-09-23",
+              "2026-09-24",
+              "2026-09-25",
+              "2026-09-26",
+              "2026-09-27",
+              "2026-09-28",
+              "2026-09-29",
+              "2026-09-30",
+              "2026-10-01",
+              "2026-10-02",
+              "2026-10-03",
+              "2026-10-04",
+              "2026-10-05",
+              "2026-10-06",
+              "2026-10-07",
+              "2026-10-08",
+              "2026-10-09",
+              "2026-10-10",
+              "2026-10-11",
+              "2026-10-12",
+              "2026-10-13",
+              "2026-10-14",
+              "2026-10-15",
+              "2026-10-16",
+              "2026-10-17",
+              "2026-10-18",
+              "2026-10-19",
+              "2026-10-20",
+              "2026-10-21",
+              "2026-10-22",
+              "2026-10-23",
+              "2026-10-24",
+              "2026-10-25",
+              "2026-10-26",
+              "2026-10-27",
+              "2026-10-28",
+              "2026-10-29",
+              "2026-10-30",
+              "2026-10-31",
+              "2026-11-01",
+              "2026-11-02",
+              "2026-11-03",
+              "2026-11-04",
+              "2026-11-05",
+              "2026-11-06",
+              "2026-11-07",
+              "2026-11-08",
+              "2026-11-09",
+              "2026-11-10",
+              "2026-11-11",
+              "2026-11-12",
+              "2026-11-13",
+              "2026-11-14",
+              "2026-11-15",
+              "2026-11-16",
+              "2026-11-17",
+              "2026-11-18",
+              "2026-11-19",
+              "2026-11-20"
+            ],
+            "sourceRefreshSlots": {},
+            "headline": "Muskegon fall-entry Migration Timing is complete.",
+            "tip": "Do not use completed fall timing to infer current presence or activity. Muskegon fall monitoring resumes in early September.",
+            "detail": "The Muskegon fall-entry timing window closed without enough reliable evidence for an early, typical, or delayed call.",
+            "reasonCodes": [
+              "conditions_baseline_missing",
+              "conditions_insufficient",
+              "conditions_checkpoint_peak_complete",
+              "conditions_timing_complete"
+            ],
+            "copyVersion": "river-run-copy-v35",
+            "previousCheckpointId": "peak_start",
+            "previousCheckpointDate": "2026-11-10",
+            "previousTimingLabel": "Insufficient evidence"
+          },
+          "pushHistory": {
+            "status": "none_recorded",
+            "minimumSupportiveScore": 50,
+            "trackingStartDate": "2026-09-25",
+            "trackingEndDate": "2026-12-22",
+            "throughDate": "2026-12-23",
+            "recentDailyReadsStatus": "available",
+            "recentDailyReads": []
+          },
+          "push": {
+            "score": null,
+            "label": "Fall entry complete",
+            "headline": "Muskegon Steelhead fall-entry Push is complete.",
+            "detail": "Current water may affect Steelhead still in the river. This fall model no longer scores fresh-entry support.",
+            "tip": "Do not use a completed fall Push to infer current presence. Check back in early September.",
+            "reasonCodes": [
+              "push_tracking_complete"
+            ],
+            "rulesVersion": "muskegon-fall-steelhead-push-v1",
+            "copyVersion": "river-run-copy-v35"
+          },
+          "fishability": {
+            "score": 93,
+            "label": "Excellent",
+            "headline": "Croton-area flow is in its best presentation range.",
+            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read applies only near Croton Dam within the Upper river (Newaygo–Croton Dam).",
+            "tip": "Cover readable seams and holding water with a controlled presentation.",
+            "reasonCodes": [
+              "gauge_fresh",
+              "ideal_flow_band"
+            ],
+            "components": {
+              "bandBase": 88,
+              "trendModifier": 5,
+              "appliedCaps": []
+            },
+            "rulesVersion": "muskegon-croton-tailwater-fishability-v1",
+            "copyVersion": "river-run-copy-v35"
+          },
+          "activity": {
+            "score": null,
+            "maximum": 100,
+            "label": "Fall entry complete",
+            "headline": "Muskegon Steelhead fall-entry Activity is complete.",
+            "detail": "Steelhead may remain in the river. This fall-entry model no longer scores their current responsiveness.",
+            "tip": "Do not use this completed fall outlook to infer current activity. Check back in early September.",
+            "reasonCodes": [
+              "activity_fall_entry_complete"
+            ],
+            "rulesVersion": "muskegon-fall-steelhead-activity-v1",
+            "targetDate": "2026-12-23",
+            "targetDayLabel": "Today",
+            "confidence": "Limited",
+            "conditionalPresence": false,
+            "blocks": [],
+            "copyVersion": "river-run-copy-v35"
+          },
+          "fishInRiver": {
+            "score": null,
+            "scoreIsApproximate": false,
+            "stage": "post_run",
+            "maximum": 100,
+            "riverCeiling": 90,
+            "historicalRunStrength": "strong",
+            "curveFraction": 0,
+            "curveDirection": "outside",
+            "winterHoldingContext": false,
+            "label": "Fall entry complete",
+            "headline": "Muskegon Steelhead fall entry is complete.",
+            "detail": "Steelhead may remain in the river. This fall-entry model no longer estimates their current seasonal presence.",
+            "tip": "Check back in early September when Muskegon fall movement tracking resumes.",
+            "reasonCodes": [
+              "stage_post_run",
+              "historical_presence_curve"
+            ],
+            "copyVersion": "river-run-copy-v35"
+          },
+          "gauge": {
+            "provider": "USGS",
+            "siteId": "04121970",
+            "observedAt": "2026-12-23T15:00:00.000Z",
+            "primaryMetric": "flow_cfs",
+            "value": 1500,
+            "band": "ideal",
+            "trend": "stable",
+            "absoluteChange24h": 0,
+            "percentChange24h": 0
+          },
+          "weather": {
+            "provider": "OPEN_METEO",
+            "evidenceType": "modeled_grid",
+            "weatherPointId": "muskegon_croton_weather",
+            "rain24hIn": 0,
+            "rain48hIn": 0,
+            "rain72hIn": 0,
+            "hourlyActivityWeather": [
+              {
+                "time_local": "2026-12-23T00:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-12-23T01:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-12-23T02:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-12-23T03:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-12-23T04:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-12-23T05:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-12-23T06:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-12-23T07:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-12-23T08:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-12-23T09:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-12-23T10:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-12-23T11:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-12-23T12:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-12-23T13:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-12-23T14:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-12-23T15:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-12-23T16:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-12-23T17:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-12-23T18:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-12-23T19:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-12-23T20:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-12-23T21:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-12-23T22:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-12-23T23:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              }
+            ]
+          },
+          "waterTemperature": {
+            "provider": "USGS",
+            "sourceId": "muskegon_croton_temperature",
+            "siteId": "04121970",
+            "observedAt": "2026-12-23T15:00:00.000Z",
+            "waterTempF": 61,
+            "trend": "neutral",
+            "sourceType": "same_gauge",
+            "attribution": "U.S. Geological Survey Water Data for the Nation."
+          },
+          "conditionsWaterTemperature": {
+            "provider": "USGS",
+            "sourceId": "muskegon_croton_temperature",
+            "siteId": "04121970",
+            "observedAt": "2026-12-23T15:00:00.000Z",
+            "waterTempF": 61,
+            "trend": "neutral",
+            "sourceType": "same_gauge",
+            "attribution": "U.S. Geological Survey Water Data for the Nation."
+          },
+          "freshness": {
+            "gauge": "fresh",
+            "weather": "fresh",
+            "waterTemperature": "fresh",
+            "conditionsWaterTemperature": "fresh",
+            "conditionsSuggestDaysUsable": 0
+          },
+          "dataQuality": {
+            "label": "Limited",
+            "reasonCodes": [
+              "gauge_fresh",
+              "weather_fresh",
+              "conditions_limited_source_days",
+              "data_quality_limited"
+            ]
+          },
+          "interpretationNote": null,
+          "secondaryNote": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
+          "safety": {
+            "regulationReminder": "Croton Dam is the hard upstream migration boundary. Fish only legal water below the dam, use established public access, respect private land and posted closures, and check current Michigan regulations and dam-safety notices.",
+            "gaugeBasis": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
+            "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
+          },
+          "engineVersion": "river-run-v1.5.3-review",
+          "configVersion": "2026-08-11-muskegon-copy.1"
+        }
       }
     ]
   },
@@ -32432,7 +32591,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -32478,7 +32637,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -32512,7 +32671,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-fall-steelhead-push-v1",
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "fishability": {
             "score": 32,
@@ -32530,7 +32689,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "activity": {
             "score": 64,
@@ -32591,7 +32750,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
                 "precipitationIn": 0
               }
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "fishInRiver": {
             "score": 9,
@@ -32612,7 +32771,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "gauge": {
             "provider": "USGS",
@@ -32902,7 +33061,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -32948,7 +33107,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -32984,7 +33143,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-fall-steelhead-push-v1",
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "fishability": {
             "score": 90,
@@ -33002,7 +33161,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "activity": {
             "score": 7,
@@ -33064,7 +33223,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
                 "precipitationIn": 0
               }
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "fishInRiver": {
             "score": 9,
@@ -33085,7 +33244,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "gauge": {
             "provider": "USGS",
@@ -33376,7 +33535,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "stage_pre_run",
               "stage_pre_run_staging"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "conditionsSuggest": {
             "label": "Evaluating",
@@ -33401,7 +33560,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
             "reasonCodes": [
               "conditions_checkpoint_evaluating"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -33422,7 +33581,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "push_tracking_not_started"
             ],
             "rulesVersion": "muskegon-fall-steelhead-push-v1",
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "fishability": {
             "score": 93,
@@ -33440,7 +33599,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "activity": {
             "score": 53,
@@ -33501,7 +33660,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
                 "precipitationIn": 0
               }
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "fishInRiver": {
             "score": 0,
@@ -33522,7 +33681,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "stage_pre_run",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "gauge": {
             "provider": "USGS",
@@ -33763,7 +33922,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
           "progressionExpiresAt": "2026-08-15T23:59:59.000Z",
           "nextConditionRefreshAt": "2026-08-16T05:00:00.000Z",
           "runStage": {
-            "stage": "post_run",
+            "stage": "pre_run",
             "copyStrategy": "muskegon_croton_tailwater",
             "stagingContext": false,
             "broadBuildingContext": false,
@@ -33786,16 +33945,15 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "startToPeakDays": 51,
               "peakToEndDays": 37
             },
-            "label": "Fall entry complete",
-            "headline": "Muskegon Steelhead fall entry is complete.",
-            "whereToStart": "There is no active Muskegon starting section in this fall-entry model.",
-            "detail": "Steelhead may remain in the river. This model no longer estimates current presence or activity.",
-            "tip": "Check back in early September when Muskegon fall-entry tracking resumes.",
+            "label": "Before migration",
+            "headline": "Dependable Muskegon Steelhead fall entry has not started.",
+            "whereToStart": "Stay with Muskegon Lake, the Lake Michigan channel, and the river entrance.",
+            "detail": "The fall-entry window has not opened yet. An isolated river fish would be an early exception.",
+            "tip": "Check again when early Steelhead begin appearing near the river entrance.",
             "reasonCodes": [
-              "stage_post_run",
-              "stage_offseason"
+              "stage_pre_run"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "conditionsSuggest": {
             "label": "Not monitoring yet",
@@ -33820,7 +33978,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
             "reasonCodes": [
               "conditions_monitoring_inactive"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -33833,15 +33991,15 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
           },
           "push": {
             "score": null,
-            "label": "Fall entry complete",
-            "headline": "Muskegon Steelhead fall-entry Push is complete.",
-            "detail": "Current water may affect Steelhead still in the river. This fall model no longer scores fresh-entry support.",
-            "tip": "Do not use a completed fall Push to infer current presence. Check back in early September.",
+            "label": "Waiting for migration",
+            "headline": "Dependable Muskegon Steelhead fall entry has not started.",
+            "detail": "Croton flow and measured temperature are not scored as an in-season fresh-movement signal yet.",
+            "tip": "Use Migration Stage. Do not move inland because offseason water resembles a Push.",
             "reasonCodes": [
-              "push_tracking_complete"
+              "push_tracking_not_started"
             ],
             "rulesVersion": "muskegon-fall-steelhead-push-v1",
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "fishability": {
             "score": 93,
@@ -33859,28 +34017,29 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "activity": null,
           "fishInRiver": {
-            "score": null,
+            "score": 0,
+            "displayScore": 0,
             "scoreIsApproximate": false,
-            "stage": "post_run",
+            "stage": "pre_run",
             "maximum": 100,
             "riverCeiling": 90,
             "historicalRunStrength": "strong",
             "curveFraction": 0,
             "curveDirection": "outside",
             "winterHoldingContext": false,
-            "label": "Fall entry complete",
-            "headline": "Muskegon Steelhead fall entry is complete.",
-            "detail": "Steelhead may remain in the river. This fall-entry model no longer estimates their current seasonal presence.",
-            "tip": "Check back in early September when Muskegon fall movement tracking resumes.",
+            "label": "Not expected yet",
+            "headline": "Dependable Steelhead presence is not expected in the Muskegon River yet.",
+            "detail": "The seasonal estimate remains at zero. Any river fish would be an early exception.",
+            "tip": "Use Migration Stage for Muskegon Lake, channel, and river-entrance context.",
             "reasonCodes": [
-              "stage_post_run",
+              "stage_pre_run",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "gauge": {
             "provider": "USGS",
@@ -34106,7 +34265,13 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "data_quality_fresh"
             ]
           },
-          "interpretationNote": null,
+          "interpretationNote": {
+            "headline": "The river should fish well, but seasonal fish presence is still low.",
+            "detail": "Good flow makes presentations easier, but it does not put fish in the river. Stay low, fish the first travel lane entering deep resting water, make one complete pass, and move instead of waiting for numbers that have not developed.",
+            "reasonCodes": [
+              "good_fishability_low_presence"
+            ]
+          },
           "secondaryNote": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
           "safety": {
             "regulationReminder": "Croton Dam is the hard upstream migration boundary. Fish only legal water below the dam, use established public access, respect private land and posted closures, and check current Michigan regulations and dam-safety notices.",
@@ -34169,7 +34334,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -34215,7 +34380,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -34251,7 +34416,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-fall-steelhead-push-v1",
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "fishability": {
             "score": 93,
@@ -34269,7 +34434,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "activity": {
             "score": 65,
@@ -34330,7 +34495,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
                 "precipitationIn": 0
               }
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "fishInRiver": {
             "score": 10,
@@ -34351,7 +34516,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "gauge": {
             "provider": "USGS",
@@ -34641,7 +34806,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -34687,7 +34852,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -34724,7 +34889,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-fall-steelhead-push-v1",
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "fishability": {
             "score": 55,
@@ -34745,7 +34910,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               ]
             },
             "rulesVersion": "muskegon-croton-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "activity": {
             "score": 42,
@@ -34806,7 +34971,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
                 "precipitationIn": 0
               }
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "fishInRiver": {
             "score": 9,
@@ -34827,7 +34992,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "gauge": {
             "provider": "USGS",
@@ -35111,7 +35276,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -35157,7 +35322,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -35178,7 +35343,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "gauge_missing"
             ],
             "rulesVersion": "muskegon-fall-steelhead-push-v1",
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "fishability": {
             "score": null,
@@ -35190,7 +35355,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "gauge_missing"
             ],
             "rulesVersion": "muskegon-croton-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "activity": {
             "score": 42,
@@ -35251,7 +35416,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
                 "precipitationIn": 0
               }
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "fishInRiver": {
             "score": 9,
@@ -35272,7 +35437,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "gauge": null,
           "weather": {
@@ -35546,7 +35711,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -35592,7 +35757,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -35614,7 +35779,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "temperature_unavailable"
             ],
             "rulesVersion": "muskegon-fall-steelhead-push-v1",
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "fishability": {
             "score": 93,
@@ -35632,7 +35797,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "activity": {
             "score": 53,
@@ -35693,7 +35858,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
                 "precipitationIn": 0
               }
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "fishInRiver": {
             "score": 9,
@@ -35714,7 +35879,7 @@ export const RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] =
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v34"
+            "copyVersion": "river-run-copy-v35"
           },
           "gauge": {
             "provider": "USGS",

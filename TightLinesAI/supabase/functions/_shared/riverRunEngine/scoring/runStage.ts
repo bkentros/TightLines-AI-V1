@@ -1933,7 +1933,10 @@ function stJosephFallEntryTip(input: {
 
 export function stageForDate(localDate: string, window: DateWindow): RunStage {
   if (compareLocalDates(localDate, window.preRunStartDate) < 0) {
-    return "post_run";
+    // `resolveActiveRunWindow` selects the nearest annual cycle. Once the
+    // upcoming cycle is nearer than the previous one, dates before its watch
+    // window describe a run that has not started—not a run that is complete.
+    return "pre_run";
   }
   if (compareLocalDates(localDate, window.startDate) < 0) return "pre_run";
   if (compareLocalDates(localDate, window.beginningEndDate) <= 0) {

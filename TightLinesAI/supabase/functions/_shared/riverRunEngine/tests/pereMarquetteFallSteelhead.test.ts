@@ -82,7 +82,7 @@ Deno.test("PM Fall Steelhead binds reusable iteroparous biology and PM river hyd
 
 Deno.test("PM Fall Steelhead stages include late-September entry and a complete fall boundary", () => {
   const expected = [
-    ["2026-08-14", "Fall entry complete"],
+    ["2026-08-14", "Before migration"],
     ["2026-08-15", "Before migration"],
     ["2026-09-20", "Beginning"],
     ["2026-10-11", "Building"],

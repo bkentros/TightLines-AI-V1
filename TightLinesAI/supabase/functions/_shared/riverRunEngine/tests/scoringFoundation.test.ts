@@ -65,7 +65,7 @@ function fishabilityWith(
 }
 
 Deno.test("Run Stage scenarios cover pre-run through post-run", () => {
-  assertEquals(resolveRunStage(pmRun, "2026-06-30").stage, "post_run");
+  assertEquals(resolveRunStage(pmRun, "2026-06-30").stage, "pre_run");
   assertEquals(resolveRunStage(pmRun, "2026-07-01").stage, "pre_run");
   assertEquals(resolveRunStage(pmRun, "2026-07-27").stagingContext, false);
   assertEquals(resolveRunStage(pmRun, "2026-07-28").stagingContext, true);

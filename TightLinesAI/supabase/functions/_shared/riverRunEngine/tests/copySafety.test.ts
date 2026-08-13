@@ -428,7 +428,6 @@ Deno.test("primitive copy is complete for every reachable label", () => {
       "Moderate presence",
       "Peak presence",
       "Migration complete",
-      "Fall run complete",
     ]),
   );
 

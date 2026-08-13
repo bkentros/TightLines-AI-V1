@@ -1336,7 +1336,7 @@ Deno.test("Push and supportive history wait for the migration", async () => {
 
   assertEquals(body.push.score, null);
   assertEquals(body.push.label, "Waiting for migration");
-  assert(body.push.headline.includes("have not started entering the river"));
+  assert(body.push.headline.includes("river entry has not started"));
   assertEquals(body.push.headline.includes("August 15, 2026"), false);
   assertEquals(body.pushHistory.status, "not_started");
   assertEquals(body.pushHistory.lastSupportiveConditions, undefined);

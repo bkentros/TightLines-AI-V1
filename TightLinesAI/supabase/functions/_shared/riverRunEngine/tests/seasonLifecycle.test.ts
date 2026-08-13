@@ -6,6 +6,9 @@ import {
   PERE_MARQUETTE_FALL_COHO_RUN_PROFILE,
   PERE_MARQUETTE_FALL_STEELHEAD_RUN_PROFILE,
   PERE_MARQUETTE_RIVER_PROFILE,
+  RIVER_RUN_CONFIGURATION_DOCUMENTS,
+  addDays,
+  resolveActiveRunWindow,
   type RiverRunDailySnapshot,
   type RiverRunProfile,
 } from "../index.ts";
@@ -36,10 +39,10 @@ const lifecycleCases = [
 for (const testCase of lifecycleCases) {
   Deno.test(`${testCase.name} exposes honest states across the full seasonal lifecycle`, () => {
     const before = snapshotAndRefresh(testCase.run, testCase.offseasonBefore);
-    assertEquals(before.daily.runStage.label, "Fall run complete");
+    assertEquals(before.daily.runStage.label, "Before migration");
     assertEquals(before.daily.conditionsSuggest.label, "Not monitoring yet");
-    assertEquals(before.daily.fishInRiver.label, "Fall run complete");
-    assertEquals(before.refresh.push.label, "Offseason");
+    assertEquals(before.daily.fishInRiver.label, "Not expected yet");
+    assertEquals(before.refresh.push.label, "Waiting for migration");
 
     const early = snapshotAndRefresh(
       testCase.run,
@@ -86,6 +89,65 @@ for (const testCase of lifecycleCases) {
   });
 }
 
+Deno.test("all configured runs distinguish the upcoming cycle from the completed cycle", () => {
+  for (const document of RIVER_RUN_CONFIGURATION_DOCUMENTS) {
+    for (const run of document.runs) {
+      const referenceWindow = resolveActiveRunWindow(run, "2026-09-15");
+      const upcomingDate = addDays(referenceWindow.preRunStartDate, -1);
+      const upcoming = snapshotAndRefresh(run, upcomingDate);
+
+      assertEquals(
+        upcoming.daily.runStage.label,
+        "Before migration",
+        `${run.runId} upcoming Stage`,
+      );
+      assertEquals(
+        upcoming.daily.conditionsSuggest.label,
+        run.primitiveCapabilities.migrationTiming.status === "available"
+          ? "Not monitoring yet"
+          : "Unavailable",
+        `${run.runId} upcoming Timing`,
+      );
+      assertEquals(
+        upcoming.daily.fishInRiver.label,
+        "Not expected yet",
+        `${run.runId} upcoming Presence`,
+      );
+      assertEquals(
+        upcoming.refresh.push.label,
+        run.primitiveCapabilities.push.status === "available"
+          ? "Waiting for migration"
+          : "Unavailable",
+        `${run.runId} upcoming Push`,
+      );
+      assertEquals(
+        upcoming.refresh.activity?.label,
+        "Not active yet",
+        `${run.runId} upcoming Activity`,
+      );
+      const upcomingCopy = [
+        upcoming.daily.runStage.headline,
+        upcoming.daily.fishInRiver.headline,
+        upcoming.refresh.push.headline,
+        upcoming.refresh.activity?.headline ?? "",
+      ].join(" ");
+      assertEquals(
+        /run (?:is )?complete|entry (?:is )?complete/i.test(upcomingCopy),
+        false,
+        `${run.runId} upcoming copy must not describe a completed run`,
+      );
+
+      const completedDate = addDays(referenceWindow.postRunLateCopyEndDate, 1);
+      const completed = snapshotAndRefresh(run, completedDate);
+      assert(
+        completed.daily.runStage.label === "Fall run complete" ||
+          completed.daily.runStage.label === "Fall entry complete",
+        `${run.runId} post-run Stage must remain complete immediately after its terminal window`,
+      );
+    }
+  }
+});
+
 Deno.test("PM Fall Steelhead completes fall primitives without claiming fish left", () => {
   const run = PERE_MARQUETTE_FALL_STEELHEAD_RUN_PROFILE;
   const early = snapshotAndRefresh(run, "2026-09-01");
@@ -128,8 +190,13 @@ function snapshotAndRefresh(run: RiverRunProfile, localDate: string) {
     localDate,
     refreshSlot: "16:00",
     movementEngineId: run.movementEngineId,
+    primitiveCapabilities: run.primitiveCapabilities,
     pushRules: run.push,
     fishabilityBands: run.fishabilityBands,
+    activityRules: run.activity,
+    activityTargetDate: localDate,
+    activityTargetStage: daily.runStage.stage,
+    activityStaging: daily.runStage.stagingContext,
     gaugeFreshness: "fresh",
     weatherFreshness: "fresh",
     waterTemperatureFreshness: "fresh",
