@@ -43,7 +43,10 @@ export function FeedbackCard({
 }: FeedbackCardProps) {
   const router = useRouter();
   const { width } = useWindowDimensions();
-  const useCompactFeedbackActions = width <= 375;
+  // Three labeled actions are too dense on common Android phone widths,
+  // especially when the user increases system text size. Keep the two
+  // sentiment choices together and move Note to its own row through 430 dp.
+  const useCompactFeedbackActions = width <= 430;
   const handlePress = (sentiment: FeedbackSentiment) => {
     router.push({
       pathname: '/support',
@@ -185,8 +188,18 @@ function FeedbackButton({
       style={({ pressed }) => [styles.button, pressed && styles.buttonPressed]}
       onPress={onPress}
     >
-      <Ionicons name={icon} size={14} color={paper.dashboardInk} />
-      <Text style={styles.buttonText} numberOfLines={1} adjustsFontSizeToFit>
+      <Ionicons
+        name={icon}
+        size={14}
+        color={paper.dashboardInk}
+        style={styles.buttonIcon}
+      />
+      <Text
+        style={styles.buttonText}
+        numberOfLines={1}
+        adjustsFontSizeToFit
+        minimumFontScale={0.68}
+      >
         {label.toUpperCase()}
       </Text>
     </Pressable>
@@ -339,7 +352,11 @@ const styles = StyleSheet.create({
     backgroundColor: '#F6F9FB',
     opacity: 0.9,
   },
+  buttonIcon: {
+    flexShrink: 0,
+  },
   buttonText: {
+    flexShrink: 1,
     fontFamily: paperFonts.bodyBold,
     fontSize: 9,
     color: paper.dashboardInk,

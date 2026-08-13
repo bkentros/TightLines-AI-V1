@@ -9,14 +9,15 @@ import React, { useEffect, useRef } from 'react';
 import {
   Animated,
   Easing,
-  Image,
   Pressable,
   ScrollView,
   StyleSheet,
   Text,
+  useWindowDimensions,
   View,
   type ViewStyle,
 } from 'react-native';
+import { Image } from 'expo-image';
 import { Ionicons } from '@expo/vector-icons';
 import {
   paper,
@@ -400,8 +401,9 @@ function TopPickCard({ pick }: { pick: DailyPicksResponsePick }) {
         {image ? (
           <Image
             source={image}
-            style={styles.topPickImage}
-            resizeMode="contain"
+            style={[styles.topPickImage, styles.topPickImageInset]}
+            contentFit="contain"
+            transition={150}
           />
         ) : (
           <View style={[styles.topPickImage, styles.pickImageEmpty]}>
@@ -504,8 +506,9 @@ function HonorableMentionCard({ pick }: { pick: DailyPicksResponsePick }) {
           {image ? (
             <Image
               source={image}
-              style={styles.honorableImage}
-              resizeMode="contain"
+              style={[styles.honorableImage, styles.honorableImageInset]}
+              contentFit="contain"
+              transition={150}
             />
           ) : (
             <View style={[styles.honorableImage, styles.pickImageEmpty]}>
@@ -740,6 +743,8 @@ export function RecommenderView({
   isRefreshing = false,
 }: Props) {
   const scrollRef = useRef<ScrollView>(null);
+  const { width } = useWindowDimensions();
+  const useCompactArtwork = width <= 340;
   const { profile, user } = useAuthStore();
   const speciesImage = dailySpeciesImage(result.species);
   const canRefresh = result.recommendation_session.can_refresh && onRefresh != null;
@@ -788,8 +793,11 @@ export function RecommenderView({
               </View>
               <Image
                 source={speciesImage}
-                style={styles.heroPortraitImage}
-                resizeMode="contain"
+                style={[
+                  styles.heroPortraitImage,
+                  useCompactArtwork && styles.heroPortraitImageCompact,
+                ]}
+                contentFit="contain"
               />
             </View>
             <Text style={styles.heroPortraitPillText} numberOfLines={1}>
@@ -847,7 +855,14 @@ export function RecommenderView({
               <View style={styles.sectionFineRule} />
             </View>
             <View style={styles.sectionTitleRow}>
-              <Text style={styles.sectionTitle}>TWO LURES & TWO FLIES</Text>
+              <Text
+                style={styles.sectionTitle}
+                numberOfLines={1}
+                adjustsFontSizeToFit
+                minimumFontScale={0.65}
+              >
+                TWO LURES & TWO FLIES
+              </Text>
             </View>
             <Text
               style={styles.sectionContext}
@@ -992,6 +1007,9 @@ const styles = StyleSheet.create({
     width: '100%',
     height: '100%',
     transform: [{ scale: 1.54 }],
+  },
+  heroPortraitImageCompact: {
+    transform: [{ scale: 1.28 }],
   },
   heroPortraitPillText: {
     marginTop: 7,
@@ -1298,6 +1316,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   sectionTitle: {
+    flexShrink: 1,
     fontFamily: paperFonts.display,
     fontSize: 27,
     lineHeight: 34,
@@ -1500,6 +1519,10 @@ const styles = StyleSheet.create({
   topPickImage: {
     width: '100%',
     height: 168,
+  },
+  topPickImageInset: {
+    width: '94%',
+    height: 158,
   },
   pickImageEmpty: {
     alignItems: 'center',
@@ -1733,6 +1756,10 @@ const styles = StyleSheet.create({
   honorableImage: {
     width: '100%',
     height: '100%',
+  },
+  honorableImageInset: {
+    width: '92%',
+    height: '92%',
   },
   honorableContent: {
     flex: 1,

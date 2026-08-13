@@ -1742,7 +1742,14 @@ export default function HomeScreen() {
                 </View>
                 <View style={styles.howWorksTextCol}>
                   <Text style={styles.howWorksEyebrow}>NEW TO FINFINDR?</Text>
-                  <Text style={styles.howWorksTitle}>How to get started</Text>
+                  <Text
+                    style={styles.howWorksTitle}
+                    numberOfLines={1}
+                    adjustsFontSizeToFit
+                    minimumFontScale={0.78}
+                  >
+                    How to get started
+                  </Text>
                   <Text style={styles.howWorksSubtitle} numberOfLines={2}>
                     Match your fishing question to the right feature.
                   </Text>
@@ -2959,7 +2966,8 @@ const styles = StyleSheet.create({
   howWorksTitle: {
     fontFamily: SERIF_SEMI,
     fontSize: 16,
-    lineHeight: 19,
+    lineHeight: 22,
+    paddingBottom: 1,
     color: paper.dashboardInk,
   },
   howWorksSubtitle: {

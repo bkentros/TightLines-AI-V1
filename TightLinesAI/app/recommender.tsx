@@ -18,7 +18,6 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import {
   ActivityIndicator,
   Alert,
-  Image,
   Platform,
   Pressable,
   ScrollView,
@@ -27,6 +26,7 @@ import {
   useWindowDimensions,
   View,
 } from "react-native";
+import { Image } from "expo-image";
 import {
   hapticImpact,
   hapticSelection,
@@ -55,21 +55,9 @@ import {
   TopographicLines,
 } from "../components/paper";
 import { getSpeciesImage } from "../lib/speciesImages";
-import {
-  ALL_WATERTYPE_IMAGES,
-  getWatertypeImage,
-} from "../lib/watertypeImages";
-import {
-  ALL_WATERCLARITY_IMAGES,
-  getWaterclarityImage,
-} from "../lib/waterclarityImages";
-import {
-  ALL_RECOMMENDATION_GOAL_IMAGES,
-  getRecommendationGoalImage,
-} from "../lib/recommendationGoalImages";
-import { ALL_COLOR_PALETTE_IMAGES } from "../lib/colorPaletteImages";
-import { ALL_LURE_IMAGES } from "../lib/lureImages";
-import { ALL_FLY_IMAGES } from "../lib/flyImages";
+import { getWatertypeImage } from "../lib/watertypeImages";
+import { getWaterclarityImage } from "../lib/waterclarityImages";
+import { getRecommendationGoalImage } from "../lib/recommendationGoalImages";
 import { Asset } from "expo-asset";
 import { useAuthStore } from "../store/authStore";
 import { fetchRecommendation } from "../lib/recommender";
@@ -119,19 +107,6 @@ const DAILY_PICKS_SPECIES_IMAGE_KEY: Record<DailyPicksSpecies, SpeciesGroup> = {
 function getRecommenderResultSpeciesImage(result: RecommenderResponse) {
   return getSpeciesImage(DAILY_PICKS_SPECIES_IMAGE_KEY[result.species]);
 }
-
-// ─── Static preload list — rendered off-screen so images are decoded before page shows ──
-const ALL_PRELOAD_IMAGES: ReturnType<typeof require>[] = [
-  ...DAILY_PICKS_UI_SPECIES
-    .map((sp) => getSpeciesImage(sp))
-    .filter((img): img is ReturnType<typeof require> => img !== null),
-  ...ALL_WATERTYPE_IMAGES,
-  ...ALL_WATERCLARITY_IMAGES,
-  ...ALL_COLOR_PALETTE_IMAGES,
-  ...ALL_LURE_IMAGES,
-  ...ALL_FLY_IMAGES,
-  ...ALL_RECOMMENDATION_GOAL_IMAGES,
-];
 
 // ─── Context helpers ──────────────────────────────────────────────────────────
 
@@ -628,7 +603,7 @@ function SpeciesCard({
           <Image
             source={img}
             style={wizardStyles.speciesImage}
-            resizeMode="contain"
+            contentFit="contain"
           />
         )}
       </View>
@@ -636,14 +611,16 @@ function SpeciesCard({
         <Text
           style={wizardStyles.speciesTitle}
           numberOfLines={1}
-          ellipsizeMode="tail"
+          adjustsFontSizeToFit
+          minimumFontScale={0.62}
         >
           {SPECIES_DISPLAY[sp]}
         </Text>
         <Text
           style={wizardStyles.speciesSubtitle}
           numberOfLines={1}
-          ellipsizeMode="tail"
+          adjustsFontSizeToFit
+          minimumFontScale={0.68}
         >
           {SPECIES_SUBTITLE[sp]}
         </Text>
@@ -770,12 +747,17 @@ function ContextSelector({
             android_ripple={isDisabled ? undefined : RIPPLE}
             disabled={isDisabled}
           >
-            <View style={wizardStyles.contextImageArea}>
+            <View
+              style={[
+                wizardStyles.contextImageArea,
+                useNarrowCards && wizardStyles.contextImageAreaNarrow,
+              ]}
+            >
               {img && (
                 <Image
                   source={img}
                   style={wizardStyles.contextImage}
-                  resizeMode="contain"
+                  contentFit="contain"
                 />
               )}
             </View>
@@ -784,7 +766,7 @@ function ContextSelector({
                 style={wizardStyles.contextTitle}
                 numberOfLines={1}
                 adjustsFontSizeToFit
-                minimumFontScale={0.78}
+                minimumFontScale={useNarrowCards ? 0.9 : 0.78}
               >
                 {contextLabel(opt)}
               </Text>
@@ -864,7 +846,7 @@ function ClaritySelector({
               <Image
                 source={img}
                 style={wizardStyles.clarityImage}
-                resizeMode="cover"
+                contentFit="cover"
               />
             </View>
             <View style={useNarrowCards && wizardStyles.selectorCopyNarrow}>
@@ -937,7 +919,7 @@ function GoalSelector({
               <Image
                 source={img}
                 style={wizardStyles.goalImage}
-                resizeMode="contain"
+                contentFit="contain"
               />
             </View>
             <View style={useNarrowCards && wizardStyles.selectorCopyNarrow}>
@@ -1067,20 +1049,6 @@ export default function RecommenderScreen() {
       });
     }
   }, [screenState, species, context]);
-
-  // Each image in ALL_PRELOAD_IMAGES is rendered off-screen at 1×1px.
-  // onLoad / onError fires when the native image pipeline finishes decoding it.
-  // We count completions with a ref (avoids stale-closure issues) and only flip
-  // setupImagesReady to true once every image has settled — guaranteeing zero
-  // pop-in when the setup form appears.
-  const preloadCountRef = useRef(0);
-  const [setupImagesReady, setSetupImagesReady] = useState(false);
-  const handlePreloadImage = useCallback(() => {
-    preloadCountRef.current += 1;
-    if (preloadCountRef.current >= ALL_PRELOAD_IMAGES.length) {
-      setSetupImagesReady(true);
-    }
-  }, []);
 
   // Resolve state code as soon as we have coords
   useEffect(() => {
@@ -1326,23 +1294,6 @@ export default function RecommenderScreen() {
 
   return (
     <SafeAreaView style={styles.root} edges={["top"]}>
-      {
-        /* Off-screen image preloader — 1×1px, invisible.
-          Renders every setup image immediately so the native pipeline decodes them
-          before the form appears. onLoad/onError count up; page only shows once all settle. */
-      }
-      <View pointerEvents="none" style={styles.preloadContainer}>
-        {ALL_PRELOAD_IMAGES.map((img, i) => (
-          <Image
-            key={i}
-            source={img}
-            style={styles.preloadImage}
-            onLoadEnd={handlePreloadImage}
-            onError={handlePreloadImage}
-          />
-        ))}
-      </View>
-
       {/* Nav header — shared across every state. */}
       <View style={wizardStyles.navHeader}>
         <Pressable
@@ -1418,17 +1369,8 @@ export default function RecommenderScreen() {
         </View>
       </View>
 
-      {/* ── Setup: waiting for images ── */}
-      {screenState === "setup" && !setupImagesReady && (
-        <PaperBackground style={{ flex: 1 }}>
-          <View style={styles.centerState}>
-            <ActivityIndicator size="large" color={paper.bandPrime} />
-          </View>
-        </PaperBackground>
-      )}
-
       {/* ── Setup form (FinFindr tackle wizard) ── */}
-      {screenState === "setup" && setupImagesReady && (() => {
+      {screenState === "setup" && (() => {
         const stepConfig: {
           num: 1 | 2 | 3 | 4;
           question: string;
@@ -1955,19 +1897,6 @@ const styles = StyleSheet.create({
     fontSize: 13,
     color: paper.dashboardBlue,
     lineHeight: 18,
-  },
-
-  // Off-screen image preloader
-  preloadContainer: {
-    position: "absolute",
-    width: 1,
-    height: 1,
-    overflow: "hidden",
-    opacity: 0,
-  },
-  preloadImage: {
-    width: 1,
-    height: 1,
   },
 
   // Section card — calm white surface, matching Dashboard heroCard / How's Fishing card
@@ -2667,6 +2596,13 @@ const wizardStyles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     marginBottom: 12,
+  },
+  contextImageAreaNarrow: {
+    width: 82,
+    height: 82,
+    borderRadius: 41,
+    marginBottom: 0,
+    flexShrink: 0,
   },
   contextImage: {
     width: "100%",
