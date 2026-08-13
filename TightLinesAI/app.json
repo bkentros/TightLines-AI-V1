@@ -26,7 +26,6 @@
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/android-icon-foreground.png",
-        "monochromeImage": "./assets/android-icon-monochrome.png",
         "backgroundColor": "#0a1628"
       },
       "package": "com.finseekr.finfindr",
