@@ -72,6 +72,7 @@ import { ALL_FLY_IMAGES } from "../lib/flyImages";
 import { Asset } from "expo-asset";
 import { useAuthStore } from "../store/authStore";
 import { fetchRecommendation } from "../lib/recommender";
+import { nearestUsStateCode } from "../lib/locationSearch";
 import {
   getForecastScores,
   mergeMeasuredWaterTempFields,
@@ -970,7 +971,8 @@ export default function RecommenderScreen() {
     typeof params.state_code === "string" &&
       Object.values(STATE_NAME_TO_CODE).includes(params.state_code)
       ? params.state_code
-      : stateCodeFromLocationLabel(params.location_label);
+      : stateCodeFromLocationLabel(params.location_label) ??
+        (hasCoords ? nearestUsStateCode(lat, lon) : null);
 
   const initialSpecies =
     typeof params.species === "string" && isDailyPicksUiSpecies(params.species)
@@ -1641,6 +1643,7 @@ export default function RecommenderScreen() {
                 </Pressable>
 
                 <Pressable
+                  key={`wizard-action-${wizardStep}-${continueEnabled ? "ready" : "waiting"}`}
                   style={({ pressed }) => [
                     wizardStyles.continueButton,
                     !continueEnabled && wizardStyles.continueButtonDisabled,
@@ -1663,8 +1666,11 @@ export default function RecommenderScreen() {
                   <Text
                     style={[
                       wizardStyles.continueButtonText,
-                      !continueEnabled &&
-                      wizardStyles.continueButtonTextDisabled,
+                      continueEnabled
+                        ? wizardStep === 4
+                          ? wizardStyles.continueButtonTextFinal
+                          : wizardStyles.continueButtonTextEnabled
+                        : wizardStyles.continueButtonTextDisabled,
                     ]}
                   >
                     {wizardStep === 4
@@ -2846,6 +2852,16 @@ const wizardStyles = StyleSheet.create({
     // Keep the action label legible on Android. A partially transparent
     // Text style can be swallowed by the native disabled Pressable rendering,
     // leaving a blank button even though the label is mounted.
+    opacity: 1,
+  },
+  continueButtonTextEnabled: {
+    // Explicit color avoids Android retaining the disabled Text paint after
+    // the Pressable changes state during a card-selection frame.
+    color: paper.dashboardWhite,
+    opacity: 1,
+  },
+  continueButtonTextFinal: {
+    color: paper.dashboardWhite,
     opacity: 1,
   },
 

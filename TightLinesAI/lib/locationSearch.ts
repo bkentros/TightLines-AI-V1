@@ -13,6 +13,37 @@ export interface PlaceResult {
   label: string; // "City, ST"
 }
 
+/**
+ * Offline fallback for native reverse geocoding. Returns the state of the
+ * nearest Census place only when the coordinates are plausibly close to one;
+ * this deliberately does not turn overseas GPS coordinates into a U.S. state.
+ */
+export function nearestUsStateCode(
+  lat: number,
+  lon: number,
+  maxDistanceMiles = 175,
+): string | null {
+  if (!Number.isFinite(lat) || !Number.isFinite(lon)) return null;
+
+  const latitudeScale = Math.max(0.15, Math.cos(lat * Math.PI / 180));
+  let nearestState: string | null = null;
+  let nearestDistanceSquared = Number.POSITIVE_INFINITY;
+
+  for (const [, stateCode, cityLat, cityLon] of US_CITY_INDEX) {
+    const northMiles = (cityLat - lat) * 69;
+    const eastMiles = (cityLon - lon) * 69 * latitudeScale;
+    const distanceSquared = northMiles * northMiles + eastMiles * eastMiles;
+    if (distanceSquared < nearestDistanceSquared) {
+      nearestDistanceSquared = distanceSquared;
+      nearestState = stateCode;
+    }
+  }
+
+  return nearestDistanceSquared <= maxDistanceMiles * maxDistanceMiles
+    ? nearestState
+    : null;
+}
+
 const STATE_ABBR: Record<string, string> = {
   Alabama: 'AL', Alaska: 'AK', Arizona: 'AZ', Arkansas: 'AR',
   California: 'CA', Colorado: 'CO', Connecticut: 'CT', Delaware: 'DE',
