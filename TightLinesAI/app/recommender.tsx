@@ -257,6 +257,15 @@ async function resolveStateCode(lat: number, lon: number): Promise<string> {
   }
 }
 
+function stateCodeFromLocationLabel(label: string | undefined): string | null {
+  if (!label) return null;
+  const region = label.split(",").at(-1)?.trim() ?? "";
+  if (/^[A-Z]{2}$/.test(region) && Object.values(STATE_NAME_TO_CODE).includes(region)) {
+    return region;
+  }
+  return STATE_NAME_TO_CODE[region] ?? null;
+}
+
 function recommenderErrorMessage(
   error: unknown,
   species: SpeciesGroup,
@@ -932,6 +941,7 @@ export default function RecommenderScreen() {
     latitude?: string;
     longitude?: string;
     location_label?: string;
+    state_code?: string;
     species?: string;
     context?: string;
   }>();
@@ -956,6 +966,11 @@ export default function RecommenderScreen() {
       : hasCoords
       ? `${lat.toFixed(3)}, ${lon.toFixed(3)}`
       : "Current location";
+  const routeStateCode =
+    typeof params.state_code === "string" &&
+      Object.values(STATE_NAME_TO_CODE).includes(params.state_code)
+      ? params.state_code
+      : stateCodeFromLocationLabel(params.location_label);
 
   const initialSpecies =
     typeof params.species === "string" && isDailyPicksUiSpecies(params.species)
@@ -978,7 +993,7 @@ export default function RecommenderScreen() {
   >("all_purpose");
 
   // Resolved state code — drives chip filtering
-  const [stateCode, setStateCode] = useState<string | null>(null);
+  const [stateCode, setStateCode] = useState<string | null>(routeStateCode);
   const [resolvingRegion, setResolvingRegion] = useState(false);
 
   const [screenState, setScreenState] = useState<ScreenState>("setup");
@@ -1034,10 +1049,13 @@ export default function RecommenderScreen() {
     if (!hasCoords) return;
     setResolvingRegion(true);
     resolveStateCode(lat, lon).then((code) => {
-      setStateCode(code === "XX" ? null : code);
+      // Android's native reverse geocoder can be unavailable even when Home
+      // already resolved a valid US fishing location. Preserve the route/label
+      // state in that case so the final wizard action does not stay disabled.
+      setStateCode((current) => code === "XX" ? current : code);
       setResolvingRegion(false);
     });
-  }, [lat, lon, hasCoords]);
+  }, [lat, lon, hasCoords, routeStateCode]);
 
   // When state resolves, clear any selections that are no longer valid
   useEffect(() => {
@@ -1134,7 +1152,10 @@ export default function RecommenderScreen() {
       }
 
       try {
-        const state_code = await resolveStateCode(lat, lon);
+        const resolvedStateCode = await resolveStateCode(lat, lon);
+        const state_code = resolvedStateCode === "XX"
+          ? stateCode ?? "XX"
+          : resolvedStateCode;
         if (state_code === "XX") {
           throw new Error("state_resolution_failed");
         }
@@ -1222,6 +1243,7 @@ export default function RecommenderScreen() {
       recommendationGoal,
       lat,
       lon,
+      stateCode,
       result,
       screenState,
       canUseRecommenderActions,
@@ -1398,7 +1420,11 @@ export default function RecommenderScreen() {
         const current = stepConfig[wizardStep - 1];
 
         const canContinue = wizardStep === 1
-          ? species !== null && availableSpecies.includes(species)
+          // SpeciesCard only calls onSelect for an available option. Do not
+          // re-gate the selected card on the async region list here; while
+          // that list is resolving Android could show a selected species
+          // with a blank/disabled Continue CTA.
+          ? species !== null
           : wizardStep === 2
           ? context !== null && availableContexts.includes(context)
           : wizardStep === 3
@@ -1410,7 +1436,7 @@ export default function RecommenderScreen() {
         const allowJumpToStep = (step: 1 | 2 | 3 | 4) => {
           if (step === 1) return true;
           if (step === 2) {
-            return species !== null && availableSpecies.includes(species);
+            return species !== null;
           }
           if (step === 3) return species !== null && context !== null;
           return species !== null && context !== null && clarity !== null;
@@ -1623,8 +1649,11 @@ export default function RecommenderScreen() {
                     Platform.OS === "ios" && pressed && continueEnabled &&
                     { opacity: 0.9 },
                   ]}
-                  onPress={handleContinueOrSubmit}
-                  disabled={!continueEnabled}
+                  // Keep the native Pressable enabled so Android does not
+                  // suppress the child label. The handler still no-ops while
+                  // the CTA is unavailable, and accessibility exposes the
+                  // disabled state to screen readers.
+                  onPress={continueEnabled ? handleContinueOrSubmit : undefined}
                   accessibilityRole="button"
                   accessibilityState={{ disabled: !continueEnabled }}
                   android_ripple={continueEnabled
@@ -2814,7 +2843,10 @@ const wizardStyles = StyleSheet.create({
   },
   continueButtonTextDisabled: {
     color: paper.dashboardInk,
-    opacity: 0.45,
+    // Keep the action label legible on Android. A partially transparent
+    // Text style can be swallowed by the native disabled Pressable rendering,
+    // leaving a blank button even though the label is mounted.
+    opacity: 1,
   },
 
   disclaimer: {

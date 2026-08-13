@@ -25,6 +25,8 @@ const OFFERINGS_UNAVAILABLE_MESSAGE =
   `Angler plans are not available from ${STORE_NAME} yet. Your free access still works; please try upgrading again later.`;
 const RECEIPT_ALREADY_OWNED_MESSAGE =
   `This ${STORE_NAME} subscription is already connected to another FinFindr account. Sign in to that original FinFindr account to restore access, or contact support if you need account recovery.`;
+const REVENUECAT_DEBUG_ENABLED = __DEV__ ||
+  process.env.EXPO_PUBLIC_REVENUECAT_DEBUG === "true";
 
 type SyncSubscriptionTierResponse = {
   subscription_tier: SubscriptionTier;
@@ -68,6 +70,7 @@ function hasEffectiveAnglerAccess(info: CustomerInfo | null): boolean {
 function isOfferingsConfigurationError(message: string): boolean {
   return (
     message.includes("None of the products registered") ||
+    message.includes("could be fetched from the Play Store") ||
     message.includes("could be fetched from App Store Connect") ||
     message.includes("StoreKit Configuration file") ||
     message.includes("OfferingsManager.Error error 1") ||
@@ -77,10 +80,34 @@ function isOfferingsConfigurationError(message: string): boolean {
 
 function errorMessage(err: unknown): string {
   if (err && typeof err === "object") {
-    const maybe = err as { message?: string; userCancelled?: boolean | null };
+    const maybe = err as {
+      message?: unknown;
+      code?: unknown;
+      readableErrorCode?: unknown;
+      underlyingErrorMessage?: unknown;
+      userInfo?: { readableErrorCode?: unknown };
+      userCancelled?: boolean | null;
+    };
     if (maybe.userCancelled) return "";
-    if (typeof maybe.message === "string") {
-      const message = maybe.message;
+    const rawMessage = typeof maybe.message === "string"
+      ? maybe.message
+      : "";
+    const readableCode = typeof maybe.userInfo?.readableErrorCode === "string"
+      ? maybe.userInfo.readableErrorCode
+      : typeof maybe.readableErrorCode === "string"
+      ? maybe.readableErrorCode
+      : typeof maybe.code === "string" || typeof maybe.code === "number"
+      ? String(maybe.code)
+      : "";
+    const underlyingMessage = typeof maybe.underlyingErrorMessage === "string"
+      ? maybe.underlyingErrorMessage.trim()
+      : "";
+
+    if (rawMessage) {
+      const diagnostic = underlyingMessage || readableCode;
+      const message = diagnostic && !rawMessage.includes(diagnostic)
+        ? `${rawMessage} (${diagnostic.slice(0, 500)})`
+        : rawMessage;
       if (
         message.includes("no singleton instance") ||
         message.includes("configure Purchases")
@@ -102,7 +129,7 @@ function errorMessage(err: unknown): string {
       ) {
         return NATIVE_UNAVAILABLE_MESSAGE;
       }
-      if (isOfferingsConfigurationError(message)) {
+      if (isOfferingsConfigurationError(message) && !diagnostic) {
         return OFFERINGS_UNAVAILABLE_MESSAGE;
       }
       if (
@@ -114,6 +141,8 @@ function errorMessage(err: unknown): string {
       }
       return message;
     }
+
+    if (underlyingMessage) return underlyingMessage.slice(0, 500);
   }
   return "RevenueCat could not complete that request.";
 }
@@ -231,12 +260,14 @@ function configureRevenueCatLogs(): void {
 
   try {
     const logHandler: LogHandler = (level, message) => {
-      if (!__DEV__) return;
+      if (!REVENUECAT_DEBUG_ENABLED) return;
       console.log(`[RevenueCat:${level}] ${message}`);
     };
     Purchases.setLogHandler(logHandler);
     revenueCatLogsConfigured = true;
-    void Purchases.setLogLevel(__DEV__ ? LOG_LEVEL.WARN : LOG_LEVEL.ERROR)
+    void Purchases.setLogLevel(
+      REVENUECAT_DEBUG_ENABLED ? LOG_LEVEL.DEBUG : LOG_LEVEL.ERROR,
+    )
       .catch(() => undefined);
   } catch {
     revenueCatLogsConfigured = false;
@@ -447,7 +478,10 @@ export const useRevenueCatStore = create<RevenueCatState>((set, get) => ({
       }
 
       const configured = await Purchases.isConfigured().catch(() => false);
-      if (!configured) return false;
+      if (!configured) {
+        set({ error: "Purchases are still connecting. Close this panel, wait a moment, and try again." });
+        return false;
+      }
 
       const offerings = await Purchases.getOfferings();
       const offering = offerings.current ?? null;
@@ -459,6 +493,10 @@ export const useRevenueCatStore = create<RevenueCatState>((set, get) => ({
 
       const result = await RevenueCatUI.presentPaywallIfNeeded({
         requiredEntitlementIdentifier: ANGLER_ENTITLEMENT_ID,
+        // Use the exact offering whose packages were just fetched. Without
+        // this, the native paywall module resolves the current/default
+        // offering again, which can fail even after JS has a valid offering.
+        offering,
         displayCloseButton: true,
       });
 

@@ -734,6 +734,8 @@ export default function HomeScreen() {
       params.latitude = String(coords.lat);
       params.longitude = String(coords.lon);
       params.location_label = locationLabel;
+      const stateCode = regionStamp(locationLabel);
+      if (/^[A-Z]{2}$/.test(stateCode)) params.state_code = stateCode;
     }
     router.push({ pathname: "/recommender", params });
   }, [coords, locationLabel, router]);
