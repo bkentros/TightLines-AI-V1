@@ -163,8 +163,7 @@ function sleep(ms: number): Promise<void> {
 
 async function pullServerSubscriptionTier(): Promise<boolean> {
   const user = useAuthStore.getState().user;
-  const profile = useAuthStore.getState().profile;
-  if (!user || !profile) return false;
+  if (!user) return false;
 
   const accessToken = await getValidAccessToken();
   const result = await invokeEdgeFunction<SyncSubscriptionTierResponse>(

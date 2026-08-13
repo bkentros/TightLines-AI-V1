@@ -1,4 +1,10 @@
-import { Pressable, StyleSheet, Text, View } from 'react-native';
+import {
+  Pressable,
+  StyleSheet,
+  Text,
+  useWindowDimensions,
+  View,
+} from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
 import { paper, paperFonts, paperRadius, paperSpacing } from '../lib/theme';
@@ -36,6 +42,8 @@ export function FeedbackCard({
   actionLabel,
 }: FeedbackCardProps) {
   const router = useRouter();
+  const { width } = useWindowDimensions();
+  const useCompactFeedbackActions = width <= 375;
   const handlePress = (sentiment: FeedbackSentiment) => {
     router.push({
       pathname: '/support',
@@ -129,22 +137,35 @@ export function FeedbackCard({
           <Text style={styles.title}>How did this read?</Text>
         </View>
       </View>
-      <View style={styles.actionRow}>
-        <FeedbackButton
-          icon="checkmark-circle-outline"
-          label="Looks right"
-          onPress={() => handlePress('looks_right')}
-        />
-        <FeedbackButton
-          icon="alert-circle-outline"
-          label="Needs work"
-          onPress={() => handlePress('needs_work')}
-        />
-        <FeedbackButton
-          icon="create-outline"
-          label="Note"
-          onPress={() => handlePress('note')}
-        />
+      <View style={styles.feedbackActions}>
+        <View style={styles.actionRow}>
+          <FeedbackButton
+            icon="checkmark-circle-outline"
+            label="Looks right"
+            onPress={() => handlePress('looks_right')}
+          />
+          <FeedbackButton
+            icon="alert-circle-outline"
+            label="Needs work"
+            onPress={() => handlePress('needs_work')}
+          />
+          {!useCompactFeedbackActions ? (
+            <FeedbackButton
+              icon="create-outline"
+              label="Note"
+              onPress={() => handlePress('note')}
+            />
+          ) : null}
+        </View>
+        {useCompactFeedbackActions ? (
+          <View style={styles.actionRow}>
+            <FeedbackButton
+              icon="create-outline"
+              label="Note"
+              onPress={() => handlePress('note')}
+            />
+          </View>
+        ) : null}
       </View>
     </View>
   );
@@ -296,9 +317,13 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     gap: paperSpacing.xs,
   },
+  feedbackActions: {
+    gap: paperSpacing.xs,
+  },
   button: {
     flex: 1,
     minWidth: 0,
+    minHeight: 44,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',

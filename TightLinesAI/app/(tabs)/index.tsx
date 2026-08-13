@@ -36,6 +36,7 @@ import {
   ScrollView,
   StyleSheet,
   Text,
+  useWindowDimensions,
   View,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -207,6 +208,8 @@ const SANS_BOLD = "Inter_700Bold";
 
 export default function HomeScreen() {
   const router = useRouter();
+  const { width: windowWidth } = useWindowDimensions();
+  const useNarrowLiveLayout = windowWidth <= 340;
   const { profile, user } = useAuthStore();
   const reportCacheOwnerKey = user?.id ?? user?.email ?? null;
   const {
@@ -1250,7 +1253,7 @@ export default function HomeScreen() {
                 </Text>
               </View>
               <View style={styles.liveCardHeaderRight}>
-                {coords && (
+                {coords && !useNarrowLiveLayout && (
                   <Text style={styles.liveCardHeaderCoords}>
                     {coords.lat.toFixed(2)}°N ·{" "}
                     {Math.abs(coords.lon).toFixed(2)}°W
@@ -1267,7 +1270,12 @@ export default function HomeScreen() {
 
             {/* Body */}
             <View style={styles.liveCardBody}>
-              <View style={styles.liveCardTopRow}>
+              <View
+                style={[
+                  styles.liveCardTopRow,
+                  useNarrowLiveLayout && styles.liveCardTopRowNarrow,
+                ]}
+              >
                 {/* Optional score chip on the left */}
                 {hasReport && heroBandStyle && (
                   <View
@@ -1330,6 +1338,7 @@ export default function HomeScreen() {
                   style={[
                     styles.liveCardTempSparkCluster,
                     hasReport && styles.liveCardTempSparkClusterWithScore,
+                    useNarrowLiveLayout && styles.liveCardTempSparkClusterNarrow,
                   ]}
                 >
                   <View style={styles.liveCardTempCol}>
@@ -1351,30 +1360,57 @@ export default function HomeScreen() {
                     </Text>
                   </View>
 
-                  <View style={styles.liveCardSparkCol}>
+                  {!useNarrowLiveLayout ? (
+                    <View style={styles.liveCardSparkCol}>
+                      <Text style={styles.liveCardSparkEyebrow}>
+                        HOURLY TEMP · 6H
+                      </Text>
+                      <SparklineBars
+                        points={sparklinePoints}
+                        width={100}
+                        height={32}
+                      />
+                      {tempTrendDisplay && (
+                        <Text
+                          style={[
+                            styles.liveCardSparkTrend,
+                            {
+                              color: tempTrendDisplay.color,
+                            },
+                          ]}
+                        >
+                          {tempTrendDisplay.label}
+                        </Text>
+                      )}
+                    </View>
+                  ) : null}
+                </View>
+              </View>
+
+              {useNarrowLiveLayout ? (
+                <View style={styles.liveCardSparkRowNarrow}>
+                  <View style={styles.liveCardSparkMetaNarrow}>
                     <Text style={styles.liveCardSparkEyebrow}>
                       HOURLY TEMP · 6H
                     </Text>
-                    <SparklineBars
-                      points={sparklinePoints}
-                      width={100}
-                      height={32}
-                    />
-                    {tempTrendDisplay && (
+                    {tempTrendDisplay ? (
                       <Text
                         style={[
                           styles.liveCardSparkTrend,
-                          {
-                            color: tempTrendDisplay.color,
-                          },
+                          { color: tempTrendDisplay.color },
                         ]}
                       >
                         {tempTrendDisplay.label}
                       </Text>
-                    )}
+                    ) : null}
                   </View>
+                  <SparklineBars
+                    points={sparklinePoints}
+                    width={220}
+                    height={32}
+                  />
                 </View>
-              </View>
+              ) : null}
 
               {/* Today's bite CTA */}
               <Pressable
@@ -2150,35 +2186,53 @@ function ModuleRow({
   comingSoon?: boolean;
   descLines?: number;
 }) {
+  const { width, fontScale } = useWindowDimensions();
+  const compactModuleLayout = width <= 375;
+  const accessibleModuleLayout = fontScale >= 1.2;
   const inner = (
     <>
       <Text style={styles.moduleCode}>{code}</Text>
-      <IntelligenceModuleEmblem
-        module={moduleId}
-        iconBg={iconBg}
-        iconBorder={iconBorder}
-        iconColor={iconColor}
-        size={50}
-        animate={!comingSoon}
-      />
+      <View style={styles.moduleEmblemWrap}>
+        <IntelligenceModuleEmblem
+          module={moduleId}
+          iconBg={iconBg}
+          iconBorder={iconBorder}
+          iconColor={iconColor}
+          size={50}
+          animate={!comingSoon}
+        />
+        {comingSoon
+          ? (
+            <View
+              style={[
+                styles.moduleEmblemSoonBadge,
+                {
+                  backgroundColor: `${iconBorder}16`,
+                  borderColor: `${iconBorder}59`,
+                },
+              ]}
+            >
+              <Ionicons name="lock-closed" size={7} color={iconBorder} />
+              <Text style={[styles.moduleSoonText, { color: iconBorder }]}>SOON</Text>
+            </View>
+          )
+          : badge
+          ? (
+            <View style={styles.moduleNewBadge}>
+              <Text style={styles.moduleNewBadgeText}>{badge}</Text>
+            </View>
+          )
+          : null}
+      </View>
       <View style={styles.moduleTextCol}>
-        <View
-          style={[
-            styles.moduleTitleRow,
-            comingSoon && styles.moduleTitleRowSoon,
-          ]}
-        >
+        <View style={styles.moduleTitleRow}>
           <Text style={styles.moduleTitle}>{title}</Text>
           <Text style={styles.moduleTag}>{tag}</Text>
-          {badge
-            ? (
-              <View style={styles.moduleNewBadge}>
-                <Text style={styles.moduleNewBadgeText}>{badge}</Text>
-              </View>
-            )
-            : null}
         </View>
-        <Text style={styles.moduleDesc} numberOfLines={descLines}>
+        <Text
+          style={styles.moduleDesc}
+          numberOfLines={accessibleModuleLayout ? undefined : descLines}
+        >
           {desc}
         </Text>
       </View>
@@ -2190,6 +2244,8 @@ function ModuleRow({
       <View
         style={[
           styles.moduleRow,
+          compactModuleLayout && styles.moduleRowCompact,
+          accessibleModuleLayout && styles.moduleRowAccessible,
           styles.moduleRowSoon,
           { borderLeftWidth: 3, borderLeftColor: iconBorder },
         ]}
@@ -2197,22 +2253,6 @@ function ModuleRow({
         accessibilityLabel={`${title}. ${desc}. Coming soon.`}
       >
         <View style={styles.moduleSoonBody}>{inner}</View>
-        <View style={styles.moduleSoonVeil} pointerEvents="none" />
-        <View
-          style={[
-            styles.moduleSoonBadge,
-            {
-              backgroundColor: `${iconBorder}16`,
-              borderColor: `${iconBorder}59`,
-            },
-          ]}
-          pointerEvents="none"
-        >
-          <Ionicons name="lock-closed" size={9} color={iconBorder} />
-          <Text style={[styles.moduleSoonText, { color: iconBorder }]}>
-            SOON
-          </Text>
-        </View>
       </View>
     );
   }
@@ -2221,6 +2261,8 @@ function ModuleRow({
     <Pressable
       style={({ pressed }) => [
         styles.moduleRow,
+        compactModuleLayout && styles.moduleRowCompact,
+        accessibleModuleLayout && styles.moduleRowAccessible,
         { borderLeftWidth: 3, borderLeftColor: iconBorder },
         pressed && { opacity: 0.92, transform: [{ translateY: -1 }] },
       ]}
@@ -2657,6 +2699,10 @@ const styles = StyleSheet.create({
     alignItems: "flex-end",
     marginBottom: 10,
   },
+  liveCardTopRowNarrow: {
+    alignItems: "center",
+    marginBottom: 8,
+  },
   liveCardTempSparkCluster: {
     flex: 1,
     flexDirection: "row",
@@ -2667,6 +2713,10 @@ const styles = StyleSheet.create({
   },
   liveCardTempSparkClusterWithScore: {
     paddingLeft: 12,
+  },
+  liveCardTempSparkClusterNarrow: {
+    justifyContent: "center",
+    paddingLeft: 16,
   },
   liveCardScoreChip: {
     backgroundColor: "#FAF6E5",
@@ -2745,6 +2795,24 @@ const styles = StyleSheet.create({
     justifyContent: "flex-end",
     paddingBottom: 2,
     flexShrink: 0,
+  },
+  liveCardSparkRowNarrow: {
+    width: "100%",
+    minHeight: 62,
+    alignItems: "center",
+    gap: 6,
+    marginBottom: 10,
+    paddingHorizontal: 4,
+    paddingVertical: 6,
+    borderTopWidth: 1,
+    borderBottomWidth: 1,
+    borderColor: "rgba(42,110,150,0.12)",
+  },
+  liveCardSparkMetaNarrow: {
+    width: "100%",
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
   },
   liveCardSparkEyebrow: {
     fontFamily: MONO_BOLD,
@@ -3171,6 +3239,17 @@ const styles = StyleSheet.create({
     gap: 12,
     position: "relative",
   },
+  moduleRowCompact: {
+    // Keep live and locked modules aligned on compact phones without using a
+    // fixed height, so Dynamic Type can still expand a card when necessary.
+    minHeight: 114,
+  },
+  moduleRowAccessible: {
+    // At enlarged system text, River Migration and Color Match require a
+    // third description line. Give every module the same roomy baseline;
+    // content may still grow beyond it rather than being clipped.
+    minHeight: 150,
+  },
   moduleDots: {
     position: "absolute",
     top: 6,
@@ -3186,6 +3265,9 @@ const styles = StyleSheet.create({
     color: "#AAA",
   },
   moduleTextCol: { flex: 1 },
+  moduleEmblemWrap: {
+    position: "relative",
+  },
   moduleTitleRow: {
     flexDirection: "row",
     alignItems: "center",
@@ -3205,11 +3287,15 @@ const styles = StyleSheet.create({
     color: paper.dashboardMuted,
   },
   moduleNewBadge: {
+    position: "absolute",
+    right: -7,
+    bottom: -5,
     paddingHorizontal: 7,
     paddingVertical: 3,
     borderRadius: 999,
     backgroundColor: paper.red,
     ...paperShadows.lift,
+    zIndex: 2,
   },
   moduleNewBadgeText: {
     fontFamily: MONO_BOLD,
@@ -3217,6 +3303,21 @@ const styles = StyleSheet.create({
     lineHeight: 10,
     letterSpacing: 1.2,
     color: "#FFFFFF",
+  },
+  moduleEmblemSoonBadge: {
+    position: "absolute",
+    right: -2,
+    bottom: -5,
+    minWidth: 42,
+    minHeight: 18,
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
+    gap: 3,
+    paddingHorizontal: 5,
+    borderRadius: 999,
+    borderWidth: 1,
+    zIndex: 2,
   },
   moduleDesc: {
     fontFamily: SANS_MEDIUM,
@@ -3235,32 +3336,12 @@ const styles = StyleSheet.create({
     gap: 12,
     opacity: 0.5,
   },
-  moduleTitleRowSoon: {
-    paddingRight: 62,
-  },
-  moduleSoonVeil: {
-    ...StyleSheet.absoluteFillObject,
-    backgroundColor: "rgba(150,156,162,0.1)",
-    borderRadius: 8,
-    zIndex: 1,
-  },
-  moduleSoonBadge: {
-    position: "absolute",
-    top: 10,
-    right: 12,
-    flexDirection: "row",
-    alignItems: "center",
-    gap: 4,
-    paddingHorizontal: 8,
-    paddingVertical: 4,
-    borderRadius: 999,
-    borderWidth: 1,
-    zIndex: 2,
-  },
   moduleSoonText: {
     fontFamily: MONO_BOLD,
-    fontSize: 9,
-    letterSpacing: 1.4,
+    fontSize: 7,
+    lineHeight: 10,
+    letterSpacing: 1,
+    paddingRight: 1,
   },
 
   // ─── Footer ──────────────────────────────────────────────────────────────

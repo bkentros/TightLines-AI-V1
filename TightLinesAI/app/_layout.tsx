@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import {
   Animated,
+  AppState,
   Easing,
   LogBox,
   View,
@@ -208,10 +209,14 @@ function useProtectedRoute(passwordRecoveryInFlight: boolean) {
 
 export default function RootLayout() {
   const router = useRouter();
-  const { hydrate, setSession, setProfile, fetchProfile, user } =
+  const { hydrate, setSession, setProfile, fetchProfile, user, profile } =
     useAuthStore();
   const initializeRevenueCat = useRevenueCatStore((s) => s.initialize);
   const resetRevenueCat = useRevenueCatStore((s) => s.reset);
+  const syncSubscriptionTier = useRevenueCatStore(
+    (s) => s.syncSubscriptionTier,
+  );
+  const subscriptionAppStateRef = useRef(AppState.currentState);
   const [passwordRecoveryInFlight, setPasswordRecoveryInFlight] =
     useState(false);
 
@@ -262,6 +267,32 @@ export default function RootLayout() {
     }
     void initializeRevenueCat(user.id);
   }, [initializeRevenueCat, resetRevenueCat, user?.id]);
+
+  // Authentication and profile hydration finish independently. RevenueCat
+  // can identify the user before the profile row exists locally, so retry the
+  // authoritative server sync as soon as that row arrives. This prevents an
+  // active subscriber from temporarily inheriting a stale `free` profile on
+  // login or reinstall.
+  useEffect(() => {
+    if (!user?.id || profile?.id !== user.id) return;
+    void syncSubscriptionTier();
+  }, [profile?.id, syncSubscriptionTier, user?.id]);
+
+  // Purchases can renew, expire, restore, or change while FinFindr is in the
+  // background. Refresh when the app becomes active so feature gates do not
+  // rely on an old profile until the user manually opens the paywall.
+  useEffect(() => {
+    const subscription = AppState.addEventListener('change', (nextState) => {
+      const previousState = subscriptionAppStateRef.current;
+      subscriptionAppStateRef.current = nextState;
+      const wasBackgrounded =
+        previousState === 'background' || previousState === 'inactive';
+      if (wasBackgrounded && nextState === 'active' && user?.id) {
+        void syncSubscriptionTier();
+      }
+    });
+    return () => subscription.remove();
+  }, [syncSubscriptionTier, user?.id]);
 
   // Handle deep links — email verification & password reset tokens
   useEffect(() => {

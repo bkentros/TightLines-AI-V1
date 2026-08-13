@@ -10,6 +10,7 @@ import {
   ScrollView,
   StyleSheet,
   Text,
+  useWindowDimensions,
   View,
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
@@ -473,6 +474,8 @@ export function RebuildReportView({
   /** Called after an inline RevenueCat purchase succeeds so the parent can rebuild the full read. */
   onAnglerUnlocked?: () => void;
 }) {
+  const { width } = useWindowDimensions();
+  const useNarrowGuideLayout = width <= 340;
   const { presentingPaywall, presentPaywall } = useRevenueCatStore();
   const tier = tierForScore(report.score);
   const accent = accentForScore100(report.score);
@@ -850,7 +853,12 @@ export function RebuildReportView({
           )}
 
           {/* ── FIELD STRATEGY — editorial centerpiece ──────────────────────── */}
-          <View style={styles.guideCard}>
+          <View
+            style={[
+              styles.guideCard,
+              useNarrowGuideLayout && styles.guideCardNarrow,
+            ]}
+          >
             <TopographicLines
               style={styles.guideLines}
               color={paper.dashboardBlue}
@@ -865,7 +873,12 @@ export function RebuildReportView({
                 FIELD STRATEGY
               </SectionEyebrow>
             </View>
-            <View style={styles.guideRow}>
+            <View
+              style={[
+                styles.guideRow,
+                useNarrowGuideLayout && styles.guideRowNarrow,
+              ]}
+            >
               {
                 /* Editor's seal — concentric rings around the sparkles glyph
               give the badge a "pressed mark" feel rather than a plain
@@ -901,8 +914,20 @@ export function RebuildReportView({
                   style={[styles.guideBadgeAccentDot, styles.guideBadgeDotLeft]}
                 />
               </View>
-              <View style={styles.guideBody}>
-                <Text style={styles.guideText}>{report.actionable_tip}</Text>
+              <View
+                style={[
+                  styles.guideBody,
+                  useNarrowGuideLayout && styles.guideBodyNarrow,
+                ]}
+              >
+                <Text
+                  style={[
+                    styles.guideText,
+                    useNarrowGuideLayout && styles.guideTextNarrow,
+                  ]}
+                >
+                  {report.actionable_tip}
+                </Text>
                 <View style={styles.guideSignoffRow}>
                   <View style={styles.guideSignoffRule} />
                   <Text style={styles.guideSignoffOrnament}>◆</Text>
@@ -4242,6 +4267,9 @@ const styles = StyleSheet.create({
     paddingBottom: paperSpacing.lg,
     overflow: "hidden",
   },
+  guideCardNarrow: {
+    paddingHorizontal: paperSpacing.md,
+  },
   guideLines: {
     left: undefined,
     right: -30,
@@ -4257,6 +4285,11 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "flex-start",
     gap: paperSpacing.md + 4,
+  },
+  guideRowNarrow: {
+    flexDirection: "column",
+    alignItems: "center",
+    gap: paperSpacing.sm + 2,
   },
   guideBadgeWrap: {
     width: 80,
@@ -4299,12 +4332,22 @@ const styles = StyleSheet.create({
   guideBadgeDotLeft: { left: 0, top: "50%", marginTop: -2 },
   guideBadgeDotRight: { right: 0, top: "50%", marginTop: -2 },
   guideBody: { flex: 1 },
+  guideBodyNarrow: {
+    width: "100%",
+    flex: 0,
+  },
   guideText: {
     fontFamily: paperFonts.displayMedium,
     fontSize: 16,
     lineHeight: 24,
     color: paper.dashboardInk,
     marginTop: 2,
+  },
+  guideTextNarrow: {
+    width: "100%",
+    fontSize: 15,
+    lineHeight: 22,
+    textAlign: "left",
   },
   guideSignoffRow: {
     flexDirection: "row",

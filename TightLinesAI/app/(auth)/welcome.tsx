@@ -26,6 +26,7 @@ import {
   StyleSheet,
   Text,
   type StyleProp,
+  useWindowDimensions,
   View,
   type ViewStyle,
 } from "react-native";
@@ -130,6 +131,8 @@ export default function WelcomeScreen() {
   const [notice, setNotice] = useState<Notice | null>(null);
   const { contentContainerStyle: scrollLayout, layoutTier } =
     useAuthScrollLayout("form");
+  const { width, fontScale } = useWindowDimensions();
+  const useExpandedModuleCopy = fontScale >= 1.2 || width <= 340;
   const scopeStage = authScopeStageSize(layoutTier);
   const welcomeStage = layoutTier === "tall"
     ? { stage: 92, emblem: 62 }
@@ -401,6 +404,7 @@ export default function WelcomeScreen() {
                   key={item.numeral}
                   style={[
                     styles.valueModule,
+                    layoutTier === "compact" && styles.valueModuleCompact,
                     { borderLeftWidth: 3, borderLeftColor: item.iconBorder },
                   ]}
                 >
@@ -459,6 +463,9 @@ export default function WelcomeScreen() {
                         styles.valueModuleCode,
                         { color: item.iconBorder },
                       ]}
+                      numberOfLines={1}
+                      adjustsFontSizeToFit
+                      minimumFontScale={0.75}
                     >
                       {item.numeral}
                     </Text>
@@ -495,7 +502,13 @@ export default function WelcomeScreen() {
                       </View>
                       <Text
                         style={styles.valueModuleDesc}
-                        numberOfLines={item.comingSoon ? 3 : 2}
+                        numberOfLines={
+                          useExpandedModuleCopy
+                            ? undefined
+                            : item.comingSoon
+                            ? 3
+                            : 2
+                        }
                       >
                         {item.blurb}
                       </Text>
@@ -973,6 +986,12 @@ const styles = StyleSheet.create({
     paddingVertical: 7,
     position: "relative",
   },
+  valueModuleCompact: {
+    // Compact widths wrap the longer title/tag pairs while Water Read stays
+    // on one line. Keep the four modules visually equal without fixing their
+    // height, so larger text can still grow instead of clipping.
+    minHeight: 106,
+  },
   valueModuleMain: {
     flex: 1,
     flexDirection: "row",
@@ -1013,7 +1032,8 @@ const styles = StyleSheet.create({
     borderRadius: 1.5,
   },
   valueModuleCode: {
-    width: 22,
+    width: 30,
+    flexShrink: 0,
     fontFamily: paperFonts.metaMonoBold,
     fontSize: 9.5,
     letterSpacing: 1,

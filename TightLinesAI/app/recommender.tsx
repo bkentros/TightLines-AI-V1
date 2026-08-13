@@ -24,6 +24,7 @@ import {
   ScrollView,
   StyleSheet,
   Text,
+  useWindowDimensions,
   View,
 } from "react-native";
 import {
@@ -676,9 +677,13 @@ function SpeciesGrid({
   selected: SpeciesGroup | null;
   onSelect: (s: SpeciesGroup) => void;
 }) {
+  const { width } = useWindowDimensions();
+  const useNarrowCards = width <= 340;
   // Base the image-area height on the full `allOptions` count so cards never
   // resize when a selection greys some out — keeps the grid stable.
-  const cardHeight = speciesCardHeightForCount(allOptions.length);
+  const cardHeight = useNarrowCards
+    ? 104
+    : speciesCardHeightForCount(allOptions.length);
 
   if (allOptions.length === 1) {
     return (
@@ -695,8 +700,9 @@ function SpeciesGrid({
   }
 
   const rows: SpeciesGroup[][] = [];
-  for (let i = 0; i < allOptions.length; i += 2) {
-    rows.push(allOptions.slice(i, i + 2));
+  const rowSize = useNarrowCards ? 1 : 2;
+  for (let i = 0; i < allOptions.length; i += rowSize) {
+    rows.push(allOptions.slice(i, i + rowSize));
   }
 
   return (
@@ -713,7 +719,7 @@ function SpeciesGrid({
               cardHeight={cardHeight}
             />
           ))}
-          {row.length === 1 && <View style={{ flex: 1 }} />}
+          {row.length === 1 && !useNarrowCards && <View style={{ flex: 1 }} />}
         </View>
       ))}
     </View>
@@ -733,8 +739,15 @@ function ContextSelector({
   selected: EngineContext | null;
   onSelect: (v: EngineContext) => void;
 }) {
+  const { width } = useWindowDimensions();
+  const useNarrowCards = width <= 340;
   return (
-    <View style={wizardStyles.contextGrid}>
+    <View
+      style={[
+        wizardStyles.contextGrid,
+        useNarrowCards && wizardStyles.contextGridNarrow,
+      ]}
+    >
       {allOptions.map((opt) => {
         const isActive = selected === opt;
         const isDisabled = !availableOptions.includes(opt);
@@ -744,6 +757,7 @@ function ContextSelector({
             key={opt}
             style={({ pressed }) => [
               wizardStyles.contextCard,
+              useNarrowCards && wizardStyles.contextCardNarrow,
               isActive && wizardStyles.contextCardActive,
               Platform.OS === "ios" && pressed && !isDisabled && !isActive &&
               { opacity: 0.9 },
@@ -765,21 +779,23 @@ function ContextSelector({
                 />
               )}
             </View>
-            <Text
-              style={wizardStyles.contextTitle}
-              numberOfLines={1}
-              adjustsFontSizeToFit
-              minimumFontScale={0.78}
-            >
-              {contextLabel(opt)}
-            </Text>
-            <Text
-              style={wizardStyles.contextSubtitle}
-              numberOfLines={2}
-              ellipsizeMode="tail"
-            >
-              {contextSubtitle(opt)}
-            </Text>
+            <View style={useNarrowCards && wizardStyles.selectorCopyNarrow}>
+              <Text
+                style={wizardStyles.contextTitle}
+                numberOfLines={1}
+                adjustsFontSizeToFit
+                minimumFontScale={0.78}
+              >
+                {contextLabel(opt)}
+              </Text>
+              <Text
+                style={wizardStyles.contextSubtitle}
+                numberOfLines={useNarrowCards ? undefined : 2}
+                ellipsizeMode="tail"
+              >
+                {contextSubtitle(opt)}
+              </Text>
+            </View>
             {isActive && (
               <View style={wizardStyles.selectBadge}>
                 <Ionicons
@@ -811,6 +827,8 @@ function ClaritySelector({
   selected: WaterClarity | null;
   onSelect: (c: WaterClarity) => void;
 }) {
+  const { width } = useWindowDimensions();
+  const useNarrowCards = width <= 340;
   const options: { value: WaterClarity; label: string }[] = [
     { value: "clear", label: "Clear" },
     { value: "stained", label: "Stained" },
@@ -818,7 +836,12 @@ function ClaritySelector({
   ];
 
   return (
-    <View style={wizardStyles.clarityGrid}>
+    <View
+      style={[
+        wizardStyles.clarityGrid,
+        useNarrowCards && wizardStyles.clarityGridNarrow,
+      ]}
+    >
       {options.map(({ value, label }) => {
         const isActive = selected === value;
         const img = getWaterclarityImage(value);
@@ -827,6 +850,7 @@ function ClaritySelector({
             key={value}
             style={({ pressed }) => [
               wizardStyles.clarityCard,
+              useNarrowCards && wizardStyles.clarityCardNarrow,
               isActive && wizardStyles.clarityCardActive,
               Platform.OS === "ios" && pressed && !isActive && { opacity: 0.9 },
             ]}
@@ -843,16 +867,18 @@ function ClaritySelector({
                 resizeMode="cover"
               />
             </View>
-            <Text style={wizardStyles.clarityTitle} numberOfLines={1}>
-              {label}
-            </Text>
-            <Text
-              style={wizardStyles.claritySubtitle}
-              numberOfLines={2}
-              ellipsizeMode="tail"
-            >
-              {CLARITY_SUBTITLE[value]}
-            </Text>
+            <View style={useNarrowCards && wizardStyles.selectorCopyNarrow}>
+              <Text style={wizardStyles.clarityTitle} numberOfLines={1}>
+                {label}
+              </Text>
+              <Text
+                style={wizardStyles.claritySubtitle}
+                numberOfLines={useNarrowCards ? undefined : 2}
+                ellipsizeMode="tail"
+              >
+                {CLARITY_SUBTITLE[value]}
+              </Text>
+            </View>
             {isActive && (
               <View style={wizardStyles.selectBadge}>
                 <Ionicons
@@ -878,10 +904,17 @@ function GoalSelector({
   selected: RecommendationGoal;
   onSelect: (goal: RecommendationGoal) => void;
 }) {
+  const { width } = useWindowDimensions();
+  const useNarrowCards = width <= 340;
   const options: RecommendationGoal[] = ["all_purpose", "big_fish"];
 
   return (
-    <View style={wizardStyles.goalGrid}>
+    <View
+      style={[
+        wizardStyles.goalGrid,
+        useNarrowCards && wizardStyles.goalGridNarrow,
+      ]}
+    >
       {options.map((value) => {
         const isActive = selected === value;
         const img = getRecommendationGoalImage(value);
@@ -890,6 +923,7 @@ function GoalSelector({
             key={value}
             style={({ pressed }) => [
               wizardStyles.goalCard,
+              useNarrowCards && wizardStyles.goalCardNarrow,
               isActive && wizardStyles.goalCardActive,
               Platform.OS === "ios" && pressed && !isActive && { opacity: 0.9 },
             ]}
@@ -906,16 +940,18 @@ function GoalSelector({
                 resizeMode="contain"
               />
             </View>
-            <Text style={wizardStyles.goalTitle} numberOfLines={2}>
-              {GOAL_LABELS[value]}
-            </Text>
-            <Text
-              style={wizardStyles.goalSubtitle}
-              numberOfLines={2}
-              ellipsizeMode="tail"
-            >
-              {GOAL_SUBTITLE[value]}
-            </Text>
+            <View style={useNarrowCards && wizardStyles.selectorCopyNarrow}>
+              <Text style={wizardStyles.goalTitle} numberOfLines={2}>
+                {GOAL_LABELS[value]}
+              </Text>
+              <Text
+                style={wizardStyles.goalSubtitle}
+                numberOfLines={useNarrowCards ? undefined : 2}
+                ellipsizeMode="tail"
+              >
+                {GOAL_SUBTITLE[value]}
+              </Text>
+            </View>
             {isActive && (
               <View style={wizardStyles.selectBadge}>
                 <Ionicons
@@ -2588,6 +2624,11 @@ const wizardStyles = StyleSheet.create({
     gap: 14,
     flexWrap: "wrap",
   },
+  contextGridNarrow: {
+    flexDirection: "column",
+    flexWrap: "nowrap",
+    gap: 10,
+  },
   contextCard: {
     flex: 1,
     minWidth: "46%",
@@ -2601,6 +2642,16 @@ const wizardStyles = StyleSheet.create({
     alignItems: "center",
     position: "relative",
     ...paperShadows.hard,
+  },
+  contextCardNarrow: {
+    width: "100%",
+    minWidth: 0,
+    flex: 0,
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 12,
+    paddingHorizontal: 12,
+    paddingVertical: 10,
   },
   contextCardActive: {
     borderColor: paper.dashboardBlue,
@@ -2644,6 +2695,9 @@ const wizardStyles = StyleSheet.create({
     flexDirection: "row",
     gap: 10,
   },
+  clarityGridNarrow: {
+    flexDirection: "column",
+  },
   clarityCard: {
     flex: 1,
     backgroundColor: paper.dashboardWhite,
@@ -2656,6 +2710,15 @@ const wizardStyles = StyleSheet.create({
     alignItems: "center",
     position: "relative",
     ...paperShadows.hard,
+  },
+  clarityCardNarrow: {
+    width: "100%",
+    flex: 0,
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 12,
+    paddingHorizontal: 12,
+    paddingVertical: 10,
   },
   clarityCardActive: {
     borderColor: paper.dashboardBlue,
@@ -2696,6 +2759,10 @@ const wizardStyles = StyleSheet.create({
     flexDirection: "row",
     gap: 14,
   },
+  goalGridNarrow: {
+    flexDirection: "column",
+    gap: 10,
+  },
   goalCard: {
     flex: 1,
     minHeight: 148,
@@ -2710,6 +2777,16 @@ const wizardStyles = StyleSheet.create({
     justifyContent: "flex-start",
     position: "relative",
     ...paperShadows.hard,
+  },
+  goalCardNarrow: {
+    width: "100%",
+    minHeight: 112,
+    flex: 0,
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 12,
+    paddingHorizontal: 12,
+    paddingVertical: 10,
   },
   goalCardActive: {
     borderColor: paper.dashboardBlue,
@@ -2744,6 +2821,11 @@ const wizardStyles = StyleSheet.create({
     textAlign: "center",
     marginTop: 3,
     lineHeight: 13,
+  },
+  selectorCopyNarrow: {
+    flex: 1,
+    minWidth: 0,
+    alignItems: "flex-start",
   },
 
   // Shared select badge
