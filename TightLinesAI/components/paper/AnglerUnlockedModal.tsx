@@ -67,7 +67,7 @@ export function AnglerUnlockedModal() {
           <View style={styles.body}>
             <Text style={styles.copy}>
               {isSuccess
-                ? 'Angler is active on this account. Bite reports, Tackle Box, and Water Read are ready whenever you are.'
+                ? "Angler is active on this account. Today's Bite, River Migration, Tackle Box, and Water Read are ready whenever you are."
                 : message}
             </Text>
             {isSuccess && detail ? <Text style={styles.detail}>{detail}</Text> : null}

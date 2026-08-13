@@ -6,6 +6,10 @@ const projectRoot = fileURLToPath(new URL("../", import.meta.url));
 const tabs = readFileSync(`${projectRoot}app/(tabs)/_layout.tsx`, "utf8");
 const settings = readFileSync(`${projectRoot}app/(tabs)/settings.tsx`, "utf8");
 const membership = readFileSync(`${projectRoot}app/subscribe.tsx`, "utf8");
+const unlockedModal = readFileSync(
+  `${projectRoot}components/paper/AnglerUnlockedModal.tsx`,
+  "utf8",
+);
 
 assert.match(
   tabs,
@@ -58,6 +62,11 @@ assert.match(
   membership,
   /<IntelligenceModuleEmblem[\s\S]*?module=\{feature\.module\}/,
   "Membership benefits must use the premium feature artwork",
+);
+assert.match(
+  unlockedModal,
+  /Today's Bite, River Migration, Tackle Box, and Water Read/,
+  "The Angler unlock confirmation must name all four included features",
 );
 
 console.log(
