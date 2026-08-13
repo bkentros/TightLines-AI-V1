@@ -37,7 +37,6 @@ import {
   resolveTimingPeriods,
 } from "./TimingTiles";
 import type { HowsFishingReportV1 } from "../../lib/howFishing";
-import type { ActionableTipTag } from "../../lib/howFishingRebuildContracts";
 import { useRevenueCatStore } from "../../store/revenueCatStore";
 import { showAnglerUnlockedCelebration, showSubscriptionNotice } from "../../store/subscriptionCelebrationStore";
 
@@ -167,24 +166,6 @@ function parseLocalReportDate(localDate: string | null | undefined): Date {
   }
   return new Date();
 }
-
-/** ActionableTipTag -> human label for the Field Strategy chip. */
-const TIP_TAG_LABELS: Record<ActionableTipTag, string> = {
-  strategy_water_movement: "WATER MOVEMENT",
-  strategy_control: "CONTROL",
-  strategy_visibility: "VISIBILITY",
-  strategy_patient_plan: "PATIENT PLAN",
-  strategy_push_windows: "WINDOW PLAN",
-  strategy_field_plan: "FIELD PLAN",
-  strategy_data_limited: "DATA LIMITED",
-  // Legacy aliases accepted for old cached bundles.
-  presentation_current_sweep: "WATER MOVEMENT",
-  presentation_contact_control: "CONTROL",
-  presentation_visibility_profile: "VISIBILITY",
-  presentation_slow_subtle: "PATIENT PLAN",
-  presentation_active_cadence: "WINDOW PLAN",
-  presentation_general: "FIELD PLAN",
-};
 
 const LIMITED_FEATURE_PILLS: Array<{
   icon: keyof typeof Ionicons.glyphMap;
@@ -554,7 +535,6 @@ export function RebuildReportView({
     ? "Tough water ahead — keep it patient."
     : "Tough water today — keep it patient.";
 
-  const tipTagLabel = TIP_TAG_LABELS[report.actionable_tip_tag] ?? null;
 
   return (
     <View style={styles.wrap}>
@@ -884,13 +864,6 @@ export function RebuildReportView({
               >
                 FIELD STRATEGY
               </SectionEyebrow>
-              {tipTagLabel
-                ? (
-                  <View style={styles.tipTagChip}>
-                    <Text style={styles.tipTagChipText}>{tipTagLabel}</Text>
-                  </View>
-                )
-                : null}
             </View>
             <View style={styles.guideRow}>
               {
@@ -4277,26 +4250,8 @@ const styles = StyleSheet.create({
     height: 280,
   },
   guideEyebrowRow: {
-    flexDirection: "row",
     alignItems: "center",
-    justifyContent: "space-between",
     marginBottom: paperSpacing.sm + 2,
-    gap: paperSpacing.sm,
-  },
-  tipTagChip: {
-    paddingHorizontal: 8,
-    paddingVertical: 3,
-    borderWidth: 1,
-    borderColor: paper.dashboardLine,
-    borderRadius: 999,
-    backgroundColor: "#F6F9FB",
-  },
-  tipTagChipText: {
-    fontFamily: paperFonts.bodyBold,
-    fontSize: 8.5,
-    letterSpacing: 1.6,
-    color: paper.dashboardMuted,
-    fontWeight: "700",
   },
   guideRow: {
     flexDirection: "row",
