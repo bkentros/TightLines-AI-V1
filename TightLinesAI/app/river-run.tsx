@@ -48,6 +48,7 @@ import {
 import type {
   RiverRunCatalogResponse,
   RiverRunPrimitiveDisplay,
+  RiverRunPushWindowRead,
   RiverRunSeason,
   RiverRunSnapshotResponse,
 } from "../lib/riverRunContracts";
@@ -1927,14 +1928,22 @@ function SnapshotView({
       <ActivePrimitivePanel key={tab.id}>
         <PrimitiveSection
           index={tab.index}
-          title={tab.cardTitle}
+          title={tab.id === "push" ? "Current Push" : tab.cardTitle}
           visualKind={tab.id}
           primitive={primitive}
+          headerMeta={tab.id === "push"
+            ? formatCurrentPushWindow(snapshot)
+            : undefined}
           contextLine={tab.id === "run_timing"
             ? formatPreviousTimingRead(snapshot)
             : undefined}
           contextContent={tab.id === "push"
-            ? <PushHistoryDropdown history={snapshot.pushHistory} />
+            ? (
+              <PushHistoryDropdown
+                history={snapshot.pushHistory}
+                fallbackCurrentWindow={resolveCurrentPushWindow(snapshot)}
+              />
+            )
             : tab.id === "activity" && snapshot.activity
             ? <ActivityBreakdown activity={snapshot.activity} />
             : undefined}
@@ -2219,6 +2228,7 @@ function PrimitiveSection({
   title,
   visualKind,
   primitive,
+  headerMeta,
   contextLine,
   contextContent,
 }: {
@@ -2226,6 +2236,7 @@ function PrimitiveSection({
   title: string;
   visualKind: RiverRunVisualKind;
   primitive: RiverRunPrimitiveDisplay;
+  headerMeta?: string;
   contextLine?: string;
   contextContent?: ReactNode;
 }) {
@@ -2280,6 +2291,10 @@ function PrimitiveSection({
             <Text style={styles.primitiveNoScoreText}>CONTEXT</Text>
           </View>
         </View>
+
+        {headerMeta
+          ? <Text style={styles.primitiveHeaderMeta}>{headerMeta}</Text>
+          : null}
 
         <RiverRunVisual kind={visualKind} primitive={primitive} />
 
@@ -2728,23 +2743,39 @@ function MessageState({
 
 function PushHistoryDropdown({
   history,
+  fallbackCurrentWindow,
 }: {
   history: RiverRunSnapshotResponse["pushHistory"];
+  fallbackCurrentWindow?: RiverRunPushWindowRead;
 }) {
   const [expanded, setExpanded] = useState(false);
   if (!history) return null;
   if (history.status === "not_started") return null;
   const reads = history.recentDailyReads ?? [];
+  const todayReads = history.todayReads?.length
+    ? history.todayReads
+    : fallbackCurrentWindow
+    ? [fallbackCurrentWindow]
+    : [];
   const readsAvailable = history.recentDailyReadsStatus !== "unavailable";
+  const todayReadsAvailable = history.todayReadsStatus !== "unavailable";
   if (history.status === "complete" && reads.length === 0 && readsAvailable) {
     return null;
   }
-  const countLabel = reads.length === 1 ? "1 day" : `${reads.length} days`;
-  const summary = !readsAvailable
-    ? "Recent Push windows are temporarily unavailable"
-    : reads.length === 0
-    ? "No prior Push windows yet"
-    : `Recent Push windows · ${countLabel}`;
+  const countLabel = reads.length === 1
+    ? "1 prior day"
+    : `${reads.length} prior days`;
+  const summary = !todayReadsAvailable
+    ? "Current Push read · Earlier windows temporarily unavailable"
+    : `Today's Push reads · ${todayReads.length} ${
+      todayReads.length === 1 ? "window" : "windows"
+    }${
+      !readsAvailable
+        ? " · Prior days unavailable"
+        : reads.length > 0
+        ? ` · ${countLabel}`
+        : ""
+    }`;
   const supportiveSummary = formatLastSupportivePush(history);
 
   return (
@@ -2779,33 +2810,92 @@ function PushHistoryDropdown({
       {expanded
         ? (
           <View style={styles.pushHistoryExpanded}>
-            {readsAvailable && reads.length > 0
-              ? reads.map((read) => (
-                <View key={read.localDate} style={styles.pushHistoryRow}>
-                  <View
-                    style={[
-                      styles.pushHistoryDot,
-                      {
-                        backgroundColor: pushHistoryColor(
-                          read.label,
-                          read.status,
-                        ),
-                      },
-                    ]}
-                  />
-                  <Text style={styles.pushHistoryDate}>
-                    {formatLocalDate(read.localDate)}
+            {todayReads.length > 0
+              ? (
+                <>
+                  <Text style={styles.pushHistorySectionLabel}>
+                    TODAY&apos;S READS
                   </Text>
-                  <Text style={styles.pushHistoryLabel}>
-                    {formatPushHistoryWindow(read)}
-                  </Text>
-                </View>
-              ))
+                  {todayReads.map((read) => (
+                    <View
+                      key={`${read.localDate}-${read.refreshSlot}`}
+                      style={styles.pushHistoryRow}
+                    >
+                      <View
+                        style={[
+                          styles.pushHistoryDot,
+                          {
+                            backgroundColor: pushHistoryColor(
+                              read.label,
+                              "supportive_window",
+                            ),
+                          },
+                        ]}
+                      />
+                      <Text style={styles.pushHistoryDate}>
+                        {formatPushWindowTimes(read.startTime, read.endTime)}
+                      </Text>
+                      <Text style={styles.pushHistoryLabel}>
+                        {read.label}
+                        {read.isCurrent ? " · Current" : ""}
+                      </Text>
+                    </View>
+                  ))}
+                  {!todayReadsAvailable
+                    ? (
+                      <Text style={styles.pushHistoryEmpty}>
+                        Earlier Push windows are temporarily unavailable.
+                      </Text>
+                    )
+                    : null}
+                </>
+              )
               : (
                 <Text style={styles.pushHistoryEmpty}>
-                  {readsAvailable
-                    ? "The first completed daily read will appear tomorrow."
-                    : "Check again after the next successful refresh."}
+                  {history.todayReadsStatus === "unavailable"
+                    ? "Today's Push windows are temporarily unavailable."
+                    : "No numeric Push read is available today yet."}
+                </Text>
+              )}
+            {readsAvailable && reads.length > 0
+              ? (
+                <>
+                  <Text style={styles.pushHistorySectionLabel}>
+                    PREVIOUS DAYS · STRONGEST PUSH READ
+                  </Text>
+                  {reads.map((read) => (
+                    <View key={read.localDate} style={styles.pushHistoryRow}>
+                      <View
+                        style={[
+                          styles.pushHistoryDot,
+                          {
+                            backgroundColor: pushHistoryColor(
+                              read.label,
+                              read.status,
+                            ),
+                          },
+                        ]}
+                      />
+                      <Text style={styles.pushHistoryDate}>
+                        {formatLocalDate(read.localDate)}
+                      </Text>
+                      <Text style={styles.pushHistoryLabel}>
+                        {formatPushHistoryWindow(read)}
+                      </Text>
+                    </View>
+                  ))}
+                </>
+              )
+              : readsAvailable
+              ? (
+                <Text style={styles.pushHistoryEmpty}>
+                  Previous-day summaries will appear after the first tracking
+                  day.
+                </Text>
+              )
+              : (
+                <Text style={styles.pushHistoryEmpty}>
+                  Previous-day Push summaries are temporarily unavailable.
                 </Text>
               )}
             {supportiveSummary
@@ -2854,7 +2944,6 @@ function pushHistoryColor(
 ): string {
   if (
     status === "missing" ||
-    status === "no_supportive_window" ||
     label === "Unavailable"
   ) {
     return paper.dashboardMuted;
@@ -2880,10 +2969,13 @@ function formatPushHistoryWindow(
     RiverRunSnapshotResponse["pushHistory"]["recentDailyReads"]
   >[number],
 ): string {
-  if (read.status !== "supportive_window" || !read.refreshSlot) {
+  if (read.status === "missing" || !read.refreshSlot) {
     return read.label;
   }
-  return `${read.label} · peak ${formatRefreshSlotTime(read.refreshSlot)}`;
+  const window = pushWindowTimesForSlot(read.refreshSlot);
+  return `${read.label} · ${
+    formatPushWindowTimes(window.startTime, window.endTime)
+  }`;
 }
 
 function formatRefreshSlotTime(value: string): string {
@@ -2893,6 +2985,68 @@ function formatRefreshSlotTime(value: string): string {
   const suffix = hour >= 12 ? "PM" : "AM";
   const displayHour = hour % 12 || 12;
   return `${displayHour}:${rawMinute} ${suffix}`;
+}
+
+function pushWindowTimesForSlot(value: string): {
+  startTime: string;
+  endTime: string;
+} {
+  const effective = value === "21:00" ? "20:00" : value;
+  const [rawHour] = effective.split(":");
+  const hour = Number(rawHour);
+  if (!Number.isInteger(hour) || hour < 0 || hour > 23) {
+    return { startTime: effective, endTime: effective };
+  }
+  return {
+    startTime: `${String(hour).padStart(2, "0")}:00`,
+    endTime: `${String((hour + 4) % 24).padStart(2, "0")}:00`,
+  };
+}
+
+function formatPushWindowTimes(startTime: string, endTime: string): string {
+  return `${formatRefreshSlotTime(startTime)}–${
+    formatRefreshSlotTime(endTime)
+  }`;
+}
+
+function formatCurrentPushWindow(
+  snapshot: RiverRunSnapshotResponse,
+): string | undefined {
+  const current = resolveCurrentPushWindow(snapshot);
+  if (!current) return undefined;
+  const updated = new Intl.DateTimeFormat("en-US", {
+    timeZone: snapshot.timezone,
+    hour: "numeric",
+    minute: "2-digit",
+  }).format(new Date(current.conditionRefreshAt));
+  return `${formatLocalDate(current.localDate).toUpperCase()} · ${
+    formatPushWindowTimes(current.startTime, current.endTime).toUpperCase()
+  } · UPDATED ${updated.toUpperCase()}`;
+}
+
+function resolveCurrentPushWindow(
+  snapshot: RiverRunSnapshotResponse,
+): RiverRunPushWindowRead | undefined {
+  const stored = snapshot.pushHistory?.currentWindow;
+  if (stored) return stored;
+  if (
+    typeof snapshot.push?.score !== "number" ||
+    !Number.isFinite(snapshot.push.score) ||
+    !snapshot.refreshSlot ||
+    !snapshot.conditionRefreshAt
+  ) return undefined;
+  const refreshSlot = snapshot.refreshSlot === "21:00"
+    ? "20:00"
+    : snapshot.refreshSlot;
+  return {
+    localDate: snapshot.localDate,
+    refreshSlot,
+    conditionRefreshAt: snapshot.conditionRefreshAt,
+    ...pushWindowTimesForSlot(refreshSlot),
+    score: snapshot.push.score,
+    label: snapshot.push.label,
+    isCurrent: true,
+  };
 }
 
 function formatPreviousTimingRead(
@@ -3762,6 +3916,14 @@ const styles = StyleSheet.create({
     letterSpacing: 1.1,
     color: paper.dashboardMuted,
   },
+  primitiveHeaderMeta: {
+    marginTop: 4,
+    fontFamily: paperFonts.metaMonoBold,
+    fontSize: 8.5,
+    lineHeight: 13,
+    letterSpacing: 0.8,
+    color: paper.dashboardMuted,
+  },
   unavailable: { color: paper.dashboardMuted },
   primitiveResult: {
     alignSelf: "stretch",
@@ -3868,6 +4030,15 @@ const styles = StyleSheet.create({
     paddingBottom: 10,
     borderTopWidth: 1,
     borderTopColor: "rgba(15,99,176,0.12)",
+  },
+  pushHistorySectionLabel: {
+    paddingTop: 10,
+    paddingBottom: 4,
+    fontFamily: paperFonts.metaMonoBold,
+    fontSize: 8,
+    lineHeight: 12,
+    letterSpacing: 1,
+    color: paper.dashboardBlue,
   },
   pushHistoryRow: {
     minHeight: 33,

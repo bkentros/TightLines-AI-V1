@@ -259,8 +259,8 @@ function pushModel(
     : undefined;
   return baseModel({
     kind: "push",
-    kicker: "FRESH FISH MOVEMENT SIGNAL",
-    artLabel: "LAKE → RIVER",
+    kicker: "CURRENT PUSH SIGNAL",
+    artLabel: "FRESH MOVEMENT",
     icon: "pulse-outline",
     stops: QUALITY_FIVE,
     selectedIndex,

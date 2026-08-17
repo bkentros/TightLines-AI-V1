@@ -15,6 +15,7 @@ import {
   getLastSupportivePushConditions,
   getPrimaryHydraulicSource,
   getPrimaryWeatherPoint,
+  getPushConditionsForDate,
   getRecentDailyPushConditions,
   getRunTemperatureSources,
   type LastSupportivePushConditions,
@@ -30,18 +31,21 @@ import {
   parseUsgsWaterTemperature,
   PERE_MARQUETTE_CONFIGURATION_DOCUMENT,
   PUSH_SUPPORTIVE_SCORE_MINIMUM,
+  type PushWindowConditions,
   readConditionsSuggestBaselines,
   type RecentDailyPushConditions,
   type RefreshSlot,
   resolveConditionsSuggestCheckpointState,
   resolveLatestRefreshSlot,
   resolveNextConditionRefresh,
+  resolvePushReadWindow,
   resolveRunStage,
   resolveWaterTemperatureRead,
   RIVER_RUN_RIVER_PROFILES,
   RIVER_RUN_RUN_PROFILES,
   type RiverProfile,
   type RiverRunConditionRefresh,
+  type RiverRunConditionsSuggestBaseline,
   type RiverRunFetch,
   type RiverRunProfile,
   type RiverRunReasonCode,
@@ -60,13 +64,13 @@ import {
 import { resolveServerSubscriptionTier } from "../_shared/appAccess.ts";
 import {
   FREE_TRIAL_PROFILE_SELECT,
-  type FreeTrialProfileRow,
   freeRiverRunTrialAvailable,
+  type FreeTrialProfileRow,
 } from "../_shared/freeTrialAccess.ts";
 
 // Bump whenever response semantics change so hourly refresh rows built by an
 // older deployment cannot mask the corrected live behavior.
-const ENGINE_VERSION = "river-run-v1.9.4";
+const ENGINE_VERSION = "river-run-v1.9.5";
 const CONFIG_VERSION = PERE_MARQUETTE_CONFIGURATION_DOCUMENT.configVersion;
 const RIVER_RUN_SNAPSHOT_RATE_LIMITS = [
   { windowSeconds: 60, maxRequests: 60 },
@@ -120,6 +124,7 @@ type ConditionRefreshRow = {
   run_id: string;
   local_date: string;
   refresh_slot: RefreshSlot;
+  condition_refresh_at?: string;
   push: RiverRunConditionRefresh["push"];
   freshness: RiverRunConditionRefresh["freshness"];
   source_metrics?: RiverRunConditionRefresh["sourceMetrics"];
@@ -147,7 +152,16 @@ type PushHistoryContext = {
   throughDate: string;
   recentDailyReadsStatus: "available" | "unavailable";
   recentDailyReads: PushDailyHistoryRead[];
+  todayReadsStatus: "available" | "unavailable";
+  todayReads: PushWindowRead[];
+  currentWindow?: PushWindowRead;
   lastSupportiveConditions?: LastSupportivePushConditions;
+};
+
+type PushWindowRead = PushWindowConditions & {
+  startTime: string;
+  endTime: string;
+  isCurrent: boolean;
 };
 
 type PushDailyHistoryRead =
@@ -405,8 +419,7 @@ export async function handleRiverRunRequest(
       client,
       dailySnapshot: result.dailySnapshot,
       condition: result.condition,
-      engineVersion,
-      configVersion,
+      rulesVersion: run.push?.version ?? "",
     });
     if (tier === "free" && freeTrialUnused) {
       const claimed = await claimFreeRiverRunTrial(
@@ -424,12 +437,12 @@ export async function handleRiverRunRequest(
     }
     return jsonResponse({
       ...shapeSnapshotResponse({
-      ...result,
-      river,
-      run,
-      timing,
-      pushHistory,
-      presentation,
+        ...result,
+        river,
+        run,
+        timing,
+        pushHistory,
+        presentation,
       }),
       accessTier: tier === "free" ? "free_trial" : "angler",
     });
@@ -451,8 +464,7 @@ async function resolvePushHistoryContext(input: {
   client: SupabaseLikeClient;
   dailySnapshot: StoredDailySnapshot;
   condition: StoredConditionRefresh;
-  engineVersion: string;
-  configVersion: string;
+  rulesVersion: string;
 }): Promise<PushHistoryContext> {
   const window = input.dailySnapshot.runStage.window;
   const trackingStartDate = window.startDate;
@@ -471,6 +483,39 @@ async function resolvePushHistoryContext(input: {
     trackingEndDate,
     throughDate,
   };
+  const currentWindow = pushWindowRead({
+    localDate: input.condition.localDate,
+    refreshSlot: input.condition.refreshSlot,
+    conditionRefreshAt: input.condition.conditionRefreshAt,
+    score: input.condition.push.score,
+    label: input.condition.push.label,
+  }, true);
+  const todayResult = await getPushConditionsForDate(input.client, {
+    riverId: input.dailySnapshot.riverId,
+    runId: input.dailySnapshot.runId,
+    localDate: currentDate,
+    throughConditionRefreshAt: input.condition.conditionRefreshAt,
+    rulesVersion: input.rulesVersion,
+  });
+  const todayReadsStatus = todayResult.error
+    ? "unavailable" as const
+    : "available" as const;
+  const todayReads = (todayResult.data ?? []).flatMap((read) => {
+    const resolved = pushWindowRead(
+      read,
+      read.refreshSlot === currentWindow?.refreshSlot,
+    );
+    return resolved ? [resolved] : [];
+  });
+  const windowContext = {
+    todayReadsStatus,
+    todayReads: todayReads.length > 0
+      ? todayReads
+      : currentWindow
+      ? [currentWindow]
+      : [],
+    ...(currentWindow ? { currentWindow } : {}),
+  };
 
   if (
     input.condition.push.reasonCodes.includes(
@@ -482,6 +527,7 @@ async function resolvePushHistoryContext(input: {
       status: "unavailable",
       recentDailyReadsStatus: "unavailable",
       recentDailyReads: [],
+      ...windowContext,
     };
   }
 
@@ -491,6 +537,7 @@ async function resolvePushHistoryContext(input: {
       status: "not_started",
       recentDailyReadsStatus: "available",
       recentDailyReads: [],
+      ...windowContext,
     };
   }
 
@@ -500,8 +547,7 @@ async function resolvePushHistoryContext(input: {
     runId: input.dailySnapshot.runId,
     trackingStartDate,
     throughDate: beforeTrackingEnd ? addDays(currentDate, -1) : trackingEndDate,
-    engineVersion: input.engineVersion,
-    configVersion: input.configVersion,
+    rulesVersion: input.rulesVersion,
   });
 
   if (!beforeTrackingEnd) {
@@ -509,6 +555,7 @@ async function resolvePushHistoryContext(input: {
       ...base,
       status: "complete",
       ...recentDailyReads,
+      ...windowContext,
     };
   }
 
@@ -520,6 +567,7 @@ async function resolvePushHistoryContext(input: {
       ...base,
       status: "active_now",
       ...recentDailyReads,
+      ...windowContext,
       lastSupportiveConditions: {
         localDate: input.condition.localDate,
         refreshSlot: input.condition.refreshSlot,
@@ -536,8 +584,7 @@ async function resolvePushHistoryContext(input: {
     trackingStartDate,
     throughDate,
     minimumScore: PUSH_SUPPORTIVE_SCORE_MINIMUM,
-    engineVersion: input.engineVersion,
-    configVersion: input.configVersion,
+    rulesVersion: input.rulesVersion,
   });
   if (result.error) {
     console.error("[river-run] supportive Push history read failed", {
@@ -549,6 +596,7 @@ async function resolvePushHistoryContext(input: {
       ...base,
       status: "unavailable",
       ...recentDailyReads,
+      ...windowContext,
     };
   }
   if (!result.found || !result.data) {
@@ -556,12 +604,14 @@ async function resolvePushHistoryContext(input: {
       ...base,
       status: "none_recorded",
       ...recentDailyReads,
+      ...windowContext,
     };
   }
   return {
     ...base,
     status: "previously_recorded",
     ...recentDailyReads,
+    ...windowContext,
     lastSupportiveConditions: result.data,
   };
 }
@@ -572,8 +622,7 @@ async function resolveRecentDailyPushReads(input: {
   runId: string;
   trackingStartDate: string;
   throughDate: string;
-  engineVersion: string;
-  configVersion: string;
+  rulesVersion: string;
 }): Promise<
   Pick<
     PushHistoryContext,
@@ -625,6 +674,31 @@ async function resolveRecentDailyPushReads(input: {
   return {
     recentDailyReadsStatus: "available",
     recentDailyReads: reads,
+  };
+}
+
+function pushWindowRead(
+  read: {
+    localDate: string;
+    refreshSlot: string;
+    conditionRefreshAt: string;
+    score: number | null | undefined;
+    label: string;
+  },
+  isCurrent: boolean,
+): PushWindowRead | undefined {
+  if (typeof read.score !== "number" || !Number.isFinite(read.score)) {
+    return undefined;
+  }
+  const effectiveSlot = read.refreshSlot === "21:00"
+    ? "20:00"
+    : read.refreshSlot;
+  return {
+    ...read,
+    score: read.score,
+    refreshSlot: effectiveSlot,
+    ...resolvePushReadWindow(effectiveSlot),
+    isCurrent,
   };
 }
 
@@ -797,7 +871,7 @@ async function authenticateSnapshotRequest(
       getUser?: (
         token: string,
       ) => Promise<{
-          data: { user: { id?: string; email?: string | null } | null };
+        data: { user: { id?: string; email?: string | null } | null };
         error: unknown;
       }>;
     };
@@ -922,26 +996,22 @@ async function readOrBuildDailySnapshot(input: {
   let conditionsBaselines = null;
   if (timingCapability.status === "available") {
     const observedRun = requireObservedRun(input.run);
-    const [evidence, baselinesResult] = await Promise.all([
-      readConditionsSuggestEvidence(
-        input.client,
-        observedRun,
-        input.localDate,
-        input.engineVersion,
-        input.configVersion,
-      ),
-      readConditionsSuggestBaselines(input.client, {
-        riverId: observedRun.riverId,
-        runId: observedRun.runId,
-        baselineVersion: observedRun.conditionsSuggest.baselineVersion,
-      }),
-    ]);
+    const baselinesResult = await readConditionsSuggestBaselines(input.client, {
+      riverId: observedRun.riverId,
+      runId: observedRun.runId,
+      baselineVersion: observedRun.conditionsSuggest.baselineVersion,
+    });
     throwOnStorageError(
       "read Conditions Suggest baselines",
       baselinesResult.error,
     );
-    conditionsEvidenceByDate = evidence;
     conditionsBaselines = baselinesResult.data;
+    conditionsEvidenceByDate = await readConditionsSuggestEvidence(
+      input.client,
+      observedRun,
+      input.localDate,
+      baselinesResult.data ?? [],
+    );
   }
   const built = buildDailySnapshot({
     river: input.river,
@@ -1230,8 +1300,7 @@ async function readConditionsSuggestEvidence(
   client: SupabaseLikeClient,
   run: ObservedConditionRunProfile,
   localDate: string,
-  engineVersion: string,
-  configVersion: string,
+  baselines: RiverRunConditionsSuggestBaseline[],
 ): Promise<ConditionsSuggestEvidenceByDate> {
   const checkpointState = resolveConditionsSuggestCheckpointState(
     run,
@@ -1243,14 +1312,13 @@ async function readConditionsSuggestEvidence(
     .select()
     .eq("river_id", run.riverId)
     .eq("run_id", run.runId)
-    .eq("engine_version", engineVersion)
-    .eq("config_version", configVersion)
     .gte(
       "local_date",
       checkpointState.activeCheckpoint.observationStartDate,
     )
     .lte("local_date", checkpointState.activeCheckpoint.cutoffDate)
-    .order("local_date", { ascending: true });
+    .order("local_date", { ascending: true })
+    .order("condition_refresh_at", { ascending: true });
   if (response?.error) {
     throw new Error(
       `read Conditions Suggest evidence history: ${
@@ -1259,10 +1327,14 @@ async function readConditionsSuggestEvidence(
     );
   }
   const rows = (response?.data ?? []) as ConditionRefreshRow[];
+  const compatibleSources = new Set(
+    baselines.map((baseline) =>
+      `${baseline.gaugeMetric}|${baseline.gaugeSiteId}|${baseline.temperatureSourceId}`
+    ),
+  );
   const byDate: ConditionsSuggestEvidenceByDate = {};
   for (const row of rows) {
-    byDate[row.local_date] ??= {};
-    byDate[row.local_date][row.refresh_slot] = {
+    const evidence = {
       gaugeFreshness: row.freshness.gauge,
       gaugeValue: row.source_metrics?.gauge?.value,
       gaugeMetric: row.source_metrics?.gauge?.primaryMetric,
@@ -1273,6 +1345,18 @@ async function readConditionsSuggestEvidence(
         ?.sourceId,
       reasonCodes: row.reason_codes,
     };
+    const sourceKey =
+      `${evidence.gaugeMetric}|${evidence.gaugeSiteId}|${evidence.waterTemperatureSourceId}`;
+    const existing = byDate[row.local_date]?.[row.refresh_slot];
+    const existingKey = existing
+      ? `${existing.gaugeMetric}|${existing.gaugeSiteId}|${existing.waterTemperatureSourceId}`
+      : undefined;
+    if (
+      existing && compatibleSources.has(existingKey ?? "") &&
+      !compatibleSources.has(sourceKey)
+    ) continue;
+    byDate[row.local_date] ??= {};
+    byDate[row.local_date][row.refresh_slot] = evidence;
   }
   return byDate;
 }

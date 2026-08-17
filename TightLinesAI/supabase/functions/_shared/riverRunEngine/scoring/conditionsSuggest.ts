@@ -361,8 +361,8 @@ function scoreCheckpoint(input: {
       historicalYears: input.baseline?.distinctYears ?? 0,
       baseline: input.baseline,
       reasonCodes: [
-        ...evidenceReasonCodes,
         evidenceGate,
+        ...evidenceReasonCodes,
         "conditions_insufficient",
       ],
     });

@@ -249,6 +249,9 @@ export type RiverRunPushHistory = {
     score: number | null;
     label: string;
   }>;
+  todayReadsStatus?: "available" | "unavailable";
+  todayReads?: RiverRunPushWindowRead[];
+  currentWindow?: RiverRunPushWindowRead;
   lastSupportiveConditions?: {
     localDate: string;
     refreshSlot: string;
@@ -256,6 +259,17 @@ export type RiverRunPushHistory = {
     score: number;
     label: string;
   };
+};
+
+export type RiverRunPushWindowRead = {
+  localDate: string;
+  refreshSlot: string;
+  conditionRefreshAt: string;
+  startTime: string;
+  endTime: string;
+  score: number;
+  label: string;
+  isCurrent: boolean;
 };
 
 export type RiverRunSnapshotResponse = {

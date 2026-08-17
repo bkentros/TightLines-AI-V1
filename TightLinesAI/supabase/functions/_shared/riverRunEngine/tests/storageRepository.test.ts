@@ -8,6 +8,7 @@ import {
   getDailySnapshot,
   getLastSupportivePushConditions,
   getPublishedConfiguration,
+  getPushConditionsForDate,
   getRecentDailyPushConditions,
   PERE_MARQUETTE_CONFIGURATION_DOCUMENT,
   PERE_MARQUETTE_FALL_CHINOOK_RUN_PROFILE,
@@ -230,15 +231,21 @@ Deno.test("get condition refresh returns not-found cleanly", async () => {
   assertEquals(result, { data: null, found: false, error: null });
 });
 
-Deno.test("supportive Push history is scoped and returns stored condition evidence", async () => {
+Deno.test("supportive Push history survives engine and configuration changes when its rules are compatible", async () => {
   const client = new MockSupabaseClient();
-  client.singleResponse = {
-    data: {
+  client.listResponse = {
+    data: [{
       local_date: "2026-09-18",
       refresh_slot: "16:00",
       condition_refresh_at: "2026-09-18T20:10:00Z",
-      push: { score: 72, label: "Strong" },
-    },
+      engine_version: "older-engine",
+      config_version: "older-copy-config",
+      push: {
+        score: 72,
+        label: "Strong",
+        rulesVersion: "pm-fall-chinook-push-v5",
+      },
+    }],
     error: null,
   };
 
@@ -248,8 +255,7 @@ Deno.test("supportive Push history is scoped and returns stored condition eviden
     trackingStartDate: "2026-08-15",
     throughDate: "2026-09-20",
     minimumScore: 50,
-    engineVersion: "engine-test",
-    configVersion: "config-test",
+    rulesVersion: "pm-fall-chinook-push-v5",
   });
 
   assertEquals(result.data, {
@@ -264,8 +270,7 @@ Deno.test("supportive Push history is scoped and returns stored condition eviden
     [
       { column: "river_id", value: "pere_marquette" },
       { column: "run_id", value: "pere_marquette_fall_chinook" },
-      { column: "engine_version", value: "engine-test" },
-      { column: "config_version", value: "config-test" },
+      { column: "push->rulesVersion", value: "pm-fall-chinook-push-v5" },
       { column: "local_date", value: "2026-08-15" },
       { column: "local_date", value: "2026-09-20" },
       { column: "push->score", value: 50 },
@@ -286,31 +291,51 @@ Deno.test("recent Push history keeps each day's strongest supportive window", as
         local_date: "2026-09-19",
         refresh_slot: "20:00",
         condition_refresh_at: "2026-09-19T23:59:00Z",
-        push: { score: 42, label: "No clear push" },
+        push: {
+          score: 42,
+          label: "No clear push",
+          rulesVersion: "pm-fall-chinook-push-v5",
+        },
       },
       {
         local_date: "2026-09-19",
         refresh_slot: "16:00",
         condition_refresh_at: "2026-09-19T20:10:00Z",
-        push: { score: 81, label: "Strong" },
+        push: {
+          score: 81,
+          label: "Strong",
+          rulesVersion: "pm-fall-chinook-push-v5",
+        },
       },
       {
         local_date: "2026-09-19",
         refresh_slot: "12:00",
         condition_refresh_at: "2026-09-19T16:10:00Z",
-        push: { score: 81, label: "Strong" },
+        push: {
+          score: 81,
+          label: "Strong",
+          rulesVersion: "pm-fall-chinook-push-v5",
+        },
       },
       {
         local_date: "2026-09-18",
         refresh_slot: "20:00",
         condition_refresh_at: "2026-09-18T23:59:00Z",
-        push: { score: 21, label: "Weak" },
+        push: {
+          score: 21,
+          label: "Weak",
+          rulesVersion: "pm-fall-chinook-push-v5",
+        },
       },
       {
         local_date: "2026-09-17",
         refresh_slot: "20:00",
         condition_refresh_at: "2026-09-17T23:59:00Z",
-        push: { score: null, label: "Unavailable" },
+        push: {
+          score: null,
+          label: "Unavailable",
+          rulesVersion: "pm-fall-chinook-push-v5",
+        },
       },
     ],
     error: null,
@@ -323,8 +348,7 @@ Deno.test("recent Push history keeps each day's strongest supportive window", as
     throughDate: "2026-09-19",
     maximumDays: 7,
     minimumSupportiveScore: 50,
-    engineVersion: "engine-test",
-    configVersion: "config-test",
+    rulesVersion: "pm-fall-chinook-push-v5",
   });
 
   assertEquals(result.data, [
@@ -339,8 +363,10 @@ Deno.test("recent Push history keeps each day's strongest supportive window", as
     {
       localDate: "2026-09-18",
       status: "no_supportive_window",
-      score: null,
-      label: "No supportive window",
+      refreshSlot: "20:00",
+      conditionRefreshAt: "2026-09-18T23:59:00Z",
+      score: 21,
+      label: "Weak",
     },
   ]);
   assertEquals(result.found, true);
@@ -349,8 +375,7 @@ Deno.test("recent Push history keeps each day's strongest supportive window", as
     [
       { column: "river_id", value: "pere_marquette" },
       { column: "run_id", value: "pere_marquette_fall_chinook" },
-      { column: "engine_version", value: "engine-test" },
-      { column: "config_version", value: "config-test" },
+      { column: "push->rulesVersion", value: "pm-fall-chinook-push-v5" },
       { column: "local_date", value: "2026-08-15" },
       { column: "local_date", value: "2026-09-19" },
     ],
@@ -360,6 +385,80 @@ Deno.test("recent Push history keeps each day's strongest supportive window", as
     column: "condition_refresh_at",
     options: { ascending: false },
   });
+});
+
+Deno.test("today's Push reads retain each four-hour window and fold the Activity rollover into 8 PM", async () => {
+  const client = new MockSupabaseClient();
+  client.listResponse = {
+    data: [
+      {
+        local_date: "2026-09-20",
+        refresh_slot: "08:00",
+        condition_refresh_at: "2026-09-20T12:10:00Z",
+        push: {
+          score: 18,
+          label: "Weak",
+          rulesVersion: "pm-fall-chinook-push-v5",
+        },
+      },
+      {
+        local_date: "2026-09-20",
+        refresh_slot: "20:00",
+        condition_refresh_at: "2026-09-21T00:10:00Z",
+        push: {
+          score: 54,
+          label: "Possible",
+          rulesVersion: "pm-fall-chinook-push-v5",
+        },
+      },
+      {
+        local_date: "2026-09-20",
+        refresh_slot: "21:00",
+        condition_refresh_at: "2026-09-21T01:10:00Z",
+        push: {
+          score: 68,
+          label: "Strong",
+          rulesVersion: "pm-fall-chinook-push-v5",
+        },
+      },
+      {
+        local_date: "2026-09-20",
+        refresh_slot: "16:00",
+        condition_refresh_at: "2026-09-20T20:10:00Z",
+        push: {
+          score: 99,
+          label: "Very strong",
+          rulesVersion: "incompatible-rules",
+        },
+      },
+    ],
+    error: null,
+  };
+
+  const result = await getPushConditionsForDate(client, {
+    riverId: "pere_marquette",
+    runId: "pere_marquette_fall_chinook",
+    localDate: "2026-09-20",
+    throughConditionRefreshAt: "2026-09-21T01:10:00Z",
+    rulesVersion: "pm-fall-chinook-push-v5",
+  });
+
+  assertEquals(result.data, [
+    {
+      localDate: "2026-09-20",
+      refreshSlot: "08:00",
+      conditionRefreshAt: "2026-09-20T12:10:00Z",
+      score: 18,
+      label: "Weak",
+    },
+    {
+      localDate: "2026-09-20",
+      refreshSlot: "20:00",
+      conditionRefreshAt: "2026-09-21T01:10:00Z",
+      score: 68,
+      label: "Strong",
+    },
+  ]);
 });
 
 Deno.test("serialized/deserialized JSON preserves snapshot and refresh displays", () => {

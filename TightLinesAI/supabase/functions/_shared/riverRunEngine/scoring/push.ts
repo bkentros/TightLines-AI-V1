@@ -999,17 +999,17 @@ function pushHeadline(
   }
   switch (label) {
     case "Weak":
-      return "Today's water shows little support for a fresh wave of fish.";
+      return "The current window's water conditions show little support for fresh movement.";
     case "No clear push":
-      return "Today's water does not show a clear signal for a fresh wave of fish.";
+      return "The current window's water conditions do not show a clear fresh-movement signal.";
     case "Possible":
-      return "Today's water offers some support for fresh fish moving into or through the river.";
+      return "The current window's water conditions offer some support for fresh fish moving into or through the river.";
     case "Strong":
-      return "Today's river rise and water temperature strongly support the possibility of a fresh wave moving into the river.";
+      return "The current window's river rise and water temperature strongly support the possibility of fresh movement.";
     case "Very strong":
-      return "Today's water shows the strongest support for a fresh wave moving into the river.";
+      return "The current window's water conditions show the strongest support for fresh movement.";
     default:
-      return "A current read of fresh-wave potential is available.";
+      return "A current-window fresh-movement read is available.";
   }
 }
 

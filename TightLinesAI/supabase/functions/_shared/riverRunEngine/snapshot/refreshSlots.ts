@@ -80,6 +80,20 @@ export function isValidRefreshSlot(value: unknown): value is RefreshSlot {
   return hours >= 0 && hours <= 23 && minutes >= 0 && minutes <= 59;
 }
 
+export function resolvePushReadWindow(refreshSlot: RefreshSlot): {
+  startTime: string;
+  endTime: string;
+} {
+  const effectiveSlot = refreshSlot === "21:00" ? "20:00" : refreshSlot;
+  const minutes = parseLocalTimeMinutes(effectiveSlot);
+  const startHour = Math.floor(minutes / 60);
+  const endHour = (startHour + 4) % 24;
+  return {
+    startTime: `${String(startHour).padStart(2, "0")}:00`,
+    endTime: `${String(endHour).padStart(2, "0")}:00`,
+  };
+}
+
 function buildNext(
   localDate: string,
   refreshSlot: RefreshSlot,

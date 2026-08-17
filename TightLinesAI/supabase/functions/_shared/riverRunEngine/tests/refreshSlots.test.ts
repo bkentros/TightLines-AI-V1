@@ -5,6 +5,7 @@ import {
   refreshSlotsForDate,
   resolveLatestRefreshSlot,
   resolveNextConditionRefresh,
+  resolvePushReadWindow,
 } from "../index.ts";
 
 const run = PERE_MARQUETTE_FALL_CHINOOK_RUN_PROFILE;
@@ -51,6 +52,21 @@ Deno.test("PM resolves four-hour slots plus the Activity rollover", () => {
     }),
     { localDate: "2026-09-20", refreshSlot: "21:00" },
   );
+});
+
+Deno.test("Push read windows stay four hours and the Activity rollover updates the 8 PM window", () => {
+  assertEquals(resolvePushReadWindow("08:00"), {
+    startTime: "08:00",
+    endTime: "12:00",
+  });
+  assertEquals(resolvePushReadWindow("20:00"), {
+    startTime: "20:00",
+    endTime: "00:00",
+  });
+  assertEquals(resolvePushReadWindow("21:00"), {
+    startTime: "20:00",
+    endTime: "00:00",
+  });
 });
 
 Deno.test("PM drops to daily condition refreshes outside the active window", () => {

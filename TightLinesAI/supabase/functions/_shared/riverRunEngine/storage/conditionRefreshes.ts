@@ -30,9 +30,19 @@ export type RecentDailyPushConditions =
   | {
     localDate: string;
     status: "no_supportive_window";
-    score: null;
-    label: "No supportive window";
+    refreshSlot: string;
+    conditionRefreshAt: string;
+    score: number;
+    label: string;
   };
+
+export type PushWindowConditions = {
+  localDate: string;
+  refreshSlot: string;
+  conditionRefreshAt: string;
+  score: number;
+  label: string;
+};
 
 export function serializeConditionRefresh(
   refresh: StoredConditionRefresh,
@@ -144,28 +154,31 @@ export async function getLastSupportivePushConditions(
     trackingStartDate: string;
     throughDate: string;
     minimumScore: number;
-    engineVersion: string;
-    configVersion: string;
+    rulesVersion: string;
   },
 ): Promise<RiverRunStorageResult<LastSupportivePushConditions>> {
-  const response = await client
+  const query = client
     .from(CONDITION_REFRESH_TABLE)
     .select("local_date,refresh_slot,condition_refresh_at,push")
     .eq("river_id", key.riverId)
     .eq("run_id", key.runId)
-    .eq("engine_version", key.engineVersion)
-    .eq("config_version", key.configVersion)
+    .eq("push->rulesVersion", key.rulesVersion)
     .gte("local_date", key.trackingStartDate)
     .lte("local_date", key.throughDate)
     .gte("push->score", key.minimumScore)
     .order("condition_refresh_at", { ascending: false })
-    .limit(1)
-    .maybeSingle();
+    .limit(1000);
 
+  const response = await (query as unknown as Promise<{
+    data: Partial<RiverRunConditionRefreshRow>[] | null;
+    error: null | { message?: string; code?: string; details?: unknown };
+  }>);
   const error = storageError(response.error);
   if (error) return { data: null, found: false, error };
-  if (!response.data) return { data: null, found: false, error: null };
-  const row = response.data as Partial<RiverRunConditionRefreshRow>;
+  const row = (response.data ?? []).find((candidate) =>
+    candidate.push?.rulesVersion === key.rulesVersion
+  );
+  if (!row) return { data: null, found: false, error: null };
   const score = row.push?.score;
   if (
     typeof row.local_date !== "string" ||
@@ -205,8 +218,7 @@ export async function getRecentDailyPushConditions(
     throughDate: string;
     maximumDays: number;
     minimumSupportiveScore: number;
-    engineVersion: string;
-    configVersion: string;
+    rulesVersion: string;
   },
 ): Promise<RiverRunStorageResult<RecentDailyPushConditions[]>> {
   const query = client
@@ -214,8 +226,7 @@ export async function getRecentDailyPushConditions(
     .select("local_date,refresh_slot,condition_refresh_at,push")
     .eq("river_id", key.riverId)
     .eq("run_id", key.runId)
-    .eq("engine_version", key.engineVersion)
-    .eq("config_version", key.configVersion)
+    .eq("push->rulesVersion", key.rulesVersion)
     .gte("local_date", key.trackingStartDate)
     .lte("local_date", key.throughDate)
     .order("condition_refresh_at", { ascending: false })
@@ -235,14 +246,12 @@ export async function getRecentDailyPushConditions(
     string,
     {
       hasNumericRead: boolean;
-      strongest?: Extract<
-        RecentDailyPushConditions,
-        { status: "supportive_window" }
-      >;
+      strongest?: PushWindowConditions;
     }
   >();
   for (const row of rows) {
     const score = row.push?.score;
+    if (row.push?.rulesVersion !== key.rulesVersion) continue;
     if (
       typeof row.local_date !== "string" ||
       typeof row.refresh_slot !== "string" ||
@@ -263,12 +272,12 @@ export async function getRecentDailyPushConditions(
     if (typeof score === "number") {
       day.hasNumericRead = true;
       if (
-        score >= key.minimumSupportiveScore &&
-        (!day.strongest || score > day.strongest.score)
+        !day.strongest || score > day.strongest.score ||
+        score === day.strongest.score &&
+          row.condition_refresh_at > day.strongest.conditionRefreshAt
       ) {
         day.strongest = {
           localDate: row.local_date,
-          status: "supportive_window",
           refreshSlot: row.refresh_slot,
           conditionRefreshAt: row.condition_refresh_at,
           score,
@@ -280,15 +289,17 @@ export async function getRecentDailyPushConditions(
   }
   const dailyReads = [...days.entries()]
     .sort(([left], [right]) => right.localeCompare(left))
-    .flatMap<RecentDailyPushConditions>(([localDate, day]) => {
-      if (day.strongest) return [day.strongest];
+    .flatMap<RecentDailyPushConditions>(([_localDate, day]) => {
+      if (day.strongest) {
+        return [{
+          ...day.strongest,
+          status: day.strongest.score >= key.minimumSupportiveScore
+            ? "supportive_window" as const
+            : "no_supportive_window" as const,
+        }];
+      }
       if (!day.hasNumericRead) return [];
-      return [{
-        localDate,
-        status: "no_supportive_window",
-        score: null,
-        label: "No supportive window",
-      }];
+      return [];
     })
     .slice(0, key.maximumDays);
   return {
@@ -296,4 +307,66 @@ export async function getRecentDailyPushConditions(
     found: dailyReads.length > 0,
     error: null,
   };
+}
+
+export async function getPushConditionsForDate(
+  client: SupabaseLikeClient,
+  key: {
+    riverId: string;
+    runId: string;
+    localDate: string;
+    throughConditionRefreshAt: string;
+    rulesVersion: string;
+  },
+): Promise<RiverRunStorageResult<PushWindowConditions[]>> {
+  const query = client
+    .from(CONDITION_REFRESH_TABLE)
+    .select("local_date,refresh_slot,condition_refresh_at,push")
+    .eq("river_id", key.riverId)
+    .eq("run_id", key.runId)
+    .eq("push->rulesVersion", key.rulesVersion)
+    .eq("local_date", key.localDate)
+    .lte("condition_refresh_at", key.throughConditionRefreshAt)
+    .order("condition_refresh_at", { ascending: true })
+    .limit(24);
+  const result = await (query as unknown as Promise<{
+    data: Partial<RiverRunConditionRefreshRow>[] | null;
+    error: null | { message?: string; code?: string; details?: unknown };
+  }>);
+  const error = storageError(result.error);
+  if (error) return { data: null, found: false, error };
+
+  const latestByWindow = new Map<string, PushWindowConditions>();
+  for (const row of result.data ?? []) {
+    const score = row.push?.score;
+    if (row.push?.rulesVersion !== key.rulesVersion) continue;
+    if (
+      typeof row.local_date !== "string" ||
+      typeof row.refresh_slot !== "string" ||
+      typeof row.condition_refresh_at !== "string" ||
+      typeof score !== "number" ||
+      !Number.isFinite(score) ||
+      typeof row.push?.label !== "string"
+    ) continue;
+    const refreshSlot = row.refresh_slot === "21:00"
+      ? "20:00"
+      : row.refresh_slot;
+    const candidate = {
+      localDate: row.local_date,
+      refreshSlot,
+      conditionRefreshAt: row.condition_refresh_at,
+      score,
+      label: row.push.label,
+    };
+    const previous = latestByWindow.get(refreshSlot);
+    if (
+      !previous || candidate.conditionRefreshAt > previous.conditionRefreshAt
+    ) {
+      latestByWindow.set(refreshSlot, candidate);
+    }
+  }
+  const data = [...latestByWindow.values()].sort((left, right) =>
+    left.refreshSlot.localeCompare(right.refreshSlot)
+  );
+  return { data, found: data.length > 0, error: null };
 }

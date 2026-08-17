@@ -331,8 +331,8 @@ for (const scenario of pushGroup.scenarios) {
     kind: "push",
     primitive: scenario.snapshot.push,
   });
-  assert.equal(model.kicker, "FRESH FISH MOVEMENT SIGNAL");
-  assert.equal(model.artLabel, "LAKE → RIVER");
+  assert.equal(model.kicker, "CURRENT PUSH SIGNAL");
+  assert.equal(model.artLabel, "FRESH MOVEMENT");
   const label = scenario.snapshot.push.label;
   if (label === "Waiting for migration") {
     assert.equal(model.specialState, "waiting");

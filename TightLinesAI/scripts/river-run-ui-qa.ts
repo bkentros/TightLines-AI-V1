@@ -726,8 +726,23 @@ assert.match(
 );
 assert.match(
   riverRunScreen,
-  /function PushHistoryDropdown[\s\S]*?recentDailyReads[\s\S]*?Recent Push windows[\s\S]*?read\.localDate[\s\S]*?formatPushHistoryWindow/,
-  "Push must expose the dated recent daily-read dropdown",
+  /function PushHistoryDropdown[\s\S]*?todayReads[\s\S]*?TODAY&apos;S READS[\s\S]*?PREVIOUS DAYS · STRONGEST PUSH READ[\s\S]*?formatPushHistoryWindow/,
+  "Push must expose today's individual windows and prior-day strongest reads",
+);
+assert.match(
+  riverRunScreen,
+  /title=\{tab\.id === "push" \? "Current Push"[\s\S]*?formatCurrentPushWindow\(snapshot\)[\s\S]*?UPDATED/,
+  "Push must identify the current read with its local date, four-hour window, and update time",
+);
+assert.match(
+  riverRunScreen,
+  /value === "21:00" \? "20:00"[\s\S]*?\(hour \+ 4\) % 24/,
+  "The 9 PM Activity rollover must update the 8 PM-midnight Push window",
+);
+assert.equal(
+  /STRONGEST HIGH|HIGH PUSH|PEAK PUSH/i.test(riverRunScreen),
+  false,
+  "Push summaries must avoid ambiguous high or peak terminology",
 );
 assert.equal(
   /PushHistoryDropdown[\s\S]*?\{read\.score\}/.test(riverRunScreen),

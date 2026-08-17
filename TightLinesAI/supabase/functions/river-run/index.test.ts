@@ -150,11 +150,26 @@ class MockQuery {
       | ((reason: unknown) => TResult2 | PromiseLike<TResult2>)
       | null,
   ): Promise<TResult1 | TResult2> {
-    const response = this.client.recentHistoryReadError &&
-        this.tableName === "river_run_condition_refreshes"
+    const isConditionHistory =
+      this.tableName === "river_run_condition_refreshes";
+    const isSupportiveHistory = this.ranges.some((range) =>
+      range.column === "push->score"
+    );
+    const isRecentDailyHistory =
+      this.ranges.some((range) => range.column === "local_date") &&
+      !isSupportiveHistory &&
+      !this.ranges.some((range) => range.column === "condition_refresh_at");
+    const response = (this.client.historyReadError && isConditionHistory &&
+        isSupportiveHistory) ||
+        (this.client.recentHistoryReadError && isConditionHistory &&
+          isRecentDailyHistory)
       ? {
         data: [],
-        error: { message: "recent history offline" },
+        error: {
+          message: isSupportiveHistory
+            ? "history offline"
+            : "recent history offline",
+        },
       }
       : { data: this.matchingRows(), error: null };
     return Promise.resolve(response).then(onfulfilled ?? undefined);
@@ -266,15 +281,13 @@ class MockClient implements SupabaseLikeClient {
       free_recommender_trial_used_at: null,
       free_water_read_trial_used_at: null,
       free_today_bite_full_used_at: null,
-      free_river_run_trial_used_at:
-        options.freeRiverRunTrial?.usedAt ?? null,
-      free_river_run_trial_river_id:
-        options.freeRiverRunTrial?.riverId ?? null,
+      free_river_run_trial_used_at: options.freeRiverRunTrial?.usedAt ?? null,
+      free_river_run_trial_river_id: options.freeRiverRunTrial?.riverId ?? null,
       free_river_run_trial_run_id: options.freeRiverRunTrial?.runId ?? null,
       free_river_run_trial_presentation_state:
         options.freeRiverRunTrial?.presentationState ?? null,
-      free_river_run_trial_local_date:
-        options.freeRiverRunTrial?.localDate ?? null,
+      free_river_run_trial_local_date: options.freeRiverRunTrial?.localDate ??
+        null,
       free_river_run_trial_refresh_slot:
         options.freeRiverRunTrial?.refreshSlot ?? null,
       free_river_run_trial_engine_version:
@@ -737,7 +750,10 @@ Deno.test("free user gets one lifetime snapshot and same-refresh replay only", a
   assertEquals((await json(first)).accessTier, "free_trial");
   const claimed = client.rows.profiles[0];
   assertEquals(claimed.free_river_run_trial_river_id, "pere_marquette");
-  assertEquals(claimed.free_river_run_trial_run_id, "pere_marquette_fall_chinook");
+  assertEquals(
+    claimed.free_river_run_trial_run_id,
+    "pere_marquette_fall_chinook",
+  );
   assertEquals(claimed.free_river_run_trial_local_date, "2026-08-15");
   assertEquals(claimed.free_river_run_trial_refresh_slot, "16:00");
 
@@ -1212,6 +1228,27 @@ Deno.test("Push history reports supportive conditions active now", async () => {
     throughDate: "2026-09-20",
     recentDailyReadsStatus: "available",
     recentDailyReads: missingPushHistoryReads("2026-09-19"),
+    todayReadsStatus: "available",
+    todayReads: [{
+      localDate: "2026-09-20",
+      refreshSlot: "16:00",
+      conditionRefreshAt: "2026-09-20T20:10:00.000Z",
+      startTime: "16:00",
+      endTime: "20:00",
+      score: 74,
+      label: "Strong",
+      isCurrent: true,
+    }],
+    currentWindow: {
+      localDate: "2026-09-20",
+      refreshSlot: "16:00",
+      conditionRefreshAt: "2026-09-20T20:10:00.000Z",
+      startTime: "16:00",
+      endTime: "20:00",
+      score: 74,
+      label: "Strong",
+      isCurrent: true,
+    },
     lastSupportiveConditions: {
       localDate: "2026-09-20",
       refreshSlot: "16:00",
@@ -1222,7 +1259,7 @@ Deno.test("Push history reports supportive conditions active now", async () => {
   });
 });
 
-Deno.test("Push history finds the latest supportive conditions for only this run configuration", async () => {
+Deno.test("Push history survives engine and copy configuration changes when Push rules remain compatible", async () => {
   const client = new MockClient();
   const current = conditionRow();
   const validPrior = conditionRow("2026-09-16");
@@ -1267,18 +1304,20 @@ Deno.test("Push history finds the latest supportive conditions for only this run
 
   assertEquals(body.pushHistory.status, "previously_recorded");
   assertEquals(body.pushHistory.lastSupportiveConditions, {
-    localDate: "2026-09-16",
+    localDate: "2026-09-19",
     refreshSlot: "16:00",
-    conditionRefreshAt: "2026-09-16T20:10:00.000Z",
-    score: 63,
-    label: "Possible",
+    conditionRefreshAt: "2026-09-19T20:10:00.000Z",
+    score: 86,
+    label: "Very strong",
   });
   assertEquals(body.pushHistory.recentDailyReadsStatus, "available");
   assertEquals(body.pushHistory.recentDailyReads[0], {
     localDate: "2026-09-19",
-    status: "missing",
-    score: null,
-    label: "No recorded read",
+    status: "supportive_window",
+    refreshSlot: "16:00",
+    conditionRefreshAt: "2026-09-19T20:10:00.000Z",
+    score: 86,
+    label: "Very strong",
   });
   assertEquals(body.pushHistory.recentDailyReads[3], {
     localDate: "2026-09-16",
@@ -1393,8 +1432,10 @@ Deno.test("Push history starts empty on the first tracking date and adds that da
   assertEquals(secondDayBody.pushHistory.recentDailyReads, [{
     localDate: "2026-08-15",
     status: "no_supportive_window",
-    score: null,
-    label: "No supportive window",
+    refreshSlot: "16:00",
+    conditionRefreshAt: "2026-08-15T20:10:00.000Z",
+    score: 36,
+    label: "No clear push",
   }]);
 });
 
@@ -1567,8 +1608,10 @@ Deno.test("Push history exposes each completed day's strongest supportive window
   assertEquals(body.pushHistory.recentDailyReads[1], {
     localDate: "2026-08-28",
     status: "no_supportive_window",
-    score: null,
-    label: "No supportive window",
+    refreshSlot: "16:00",
+    conditionRefreshAt: "2026-08-28T20:10:00.000Z",
+    score: 21,
+    label: "Weak",
   });
   assertEquals(
     body.pushHistory.recentDailyReads.some(
@@ -1648,9 +1691,30 @@ function completedConditionsRows() {
   });
 }
 
-Deno.test("Conditions Suggest reads completed gauge and measured-water evidence", async () => {
+Deno.test("Conditions Suggest retains compatible prior-day evidence across engine and copy revisions", async () => {
   const client = new MockClient();
-  client.rows.river_run_condition_refreshes = completedConditionsRows();
+  const historicalRows = completedConditionsRows().map((row) => ({
+    ...row,
+    engine_version: "older-engine",
+    config_version: "older-copy-config",
+  }));
+  const incompatibleReplacement = {
+    ...historicalRows.at(-1)!,
+    condition_refresh_at: "2026-08-14T20:11:00.000Z",
+    engine_version: "newer-engine",
+    config_version: "newer-config",
+    source_metrics: {
+      ...historicalRows.at(-1)!.source_metrics,
+      conditionsWaterTemperature: {
+        ...historicalRows.at(-1)!.source_metrics.conditionsWaterTemperature,
+        sourceId: "different-temperature-source",
+      },
+    },
+  };
+  client.rows.river_run_condition_refreshes = [
+    ...historicalRows,
+    incompatibleReplacement,
+  ];
   client.rows.river_run_conditions_suggest_baselines = [
     conditionsBaselineRow(),
   ];
