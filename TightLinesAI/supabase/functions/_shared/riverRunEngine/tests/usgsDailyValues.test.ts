@@ -1,7 +1,9 @@
 import { assertEquals } from "jsr:@std/assert";
 import {
   fetchUsgsDailyFlowBaselineObservations,
+  fetchUsgsDailyWaterTemperatureObservations,
   parseUsgsDailyFlowValues,
+  parseUsgsDailyWaterTemperatureValues,
 } from "../index.ts";
 
 Deno.test("USGS daily-value parser normalizes flow observations and skips invalid values", () => {
@@ -23,6 +25,47 @@ Deno.test("USGS daily-value parser normalizes flow observations and skips invali
       value: 620.5,
     },
   ]);
+});
+
+Deno.test("USGS daily water-temperature parser converts daily Celsius means", async () => {
+  const payload = {
+    features: [{
+      properties: {
+        monitoring_location_id: "USGS-04125550",
+        parameter_code: "00010",
+        statistic_id: "00003",
+        time: "2026-08-01",
+        value: 20,
+        unit_of_measure: "degC",
+      },
+    }],
+  };
+  assertEquals(
+    parseUsgsDailyWaterTemperatureValues(payload, {
+      sourceId: "big_manistee_wellston_temperature",
+      siteId: "04125550",
+    }),
+    [{
+      sourceId: "big_manistee_wellston_temperature",
+      localDate: "2026-08-01",
+      waterTempF: 68,
+    }],
+  );
+
+  let requestedUrl = "";
+  await fetchUsgsDailyWaterTemperatureObservations({
+    fetchFn: async (url) => {
+      requestedUrl = String(url);
+      return { ok: true, json: async () => payload };
+    },
+    sourceId: "big_manistee_wellston_temperature",
+    siteId: "04125550",
+    startDate: "2026-08-01",
+    endDate: "2026-08-14",
+  });
+  const parsed = new URL(requestedUrl);
+  assertEquals(parsed.searchParams.get("parameter_code"), "00010");
+  assertEquals(parsed.searchParams.get("statistic_id"), "00003");
 });
 
 Deno.test("USGS daily-value fetcher builds deterministic daily-values request", async () => {

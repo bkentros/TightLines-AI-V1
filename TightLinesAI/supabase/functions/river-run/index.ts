@@ -33,6 +33,7 @@ import {
   PUSH_SUPPORTIVE_SCORE_MINIMUM,
   type PushWindowConditions,
   readConditionsSuggestBaselines,
+  readTimingObservations,
   type RecentDailyPushConditions,
   type RefreshSlot,
   resolveConditionsSuggestCheckpointState,
@@ -55,6 +56,7 @@ import {
   type SupabaseLikeClient,
   upsertConditionRefresh,
   upsertDailySnapshot,
+  upsertTimingObservationFromConditionRefresh,
   validateConfigurationRevision,
 } from "../_shared/riverRunEngine/index.ts";
 import {
@@ -1058,7 +1060,14 @@ async function readOrBuildConditionRefresh(input: {
     configVersion: input.configVersion,
   });
   throwOnStorageError("read condition refresh", cached.error);
-  if (cached.data) return cached.data;
+  if (cached.data) {
+    const timingObservation = await upsertTimingObservationFromConditionRefresh(
+      input.client,
+      cached.data,
+    );
+    throwOnStorageError("store Timing observation", timingObservation.error);
+    return cached.data;
+  }
 
   const allCurrentPrimitivesUnavailable =
     input.run.primitiveCapabilities.push.status === "unavailable" &&
@@ -1276,7 +1285,13 @@ async function storeConditionRefresh(
   };
   const upserted = await upsertConditionRefresh(input.client, stored);
   throwOnStorageError("store condition refresh", upserted.error);
-  return upserted.data ?? stored;
+  const resolved = upserted.data ?? stored;
+  const timingObservation = await upsertTimingObservationFromConditionRefresh(
+    input.client,
+    resolved,
+  );
+  throwOnStorageError("store Timing observation", timingObservation.error);
+  return resolved;
 }
 
 function requireObservedRun(
@@ -1307,7 +1322,7 @@ async function readConditionsSuggestEvidence(
     localDate,
   );
   if (!checkpointState.activeCheckpoint) return {};
-  const response = await (client as any)
+  const legacyQuery = (client as any)
     .from("river_run_condition_refreshes")
     .select()
     .eq("river_id", run.riverId)
@@ -1319,6 +1334,15 @@ async function readConditionsSuggestEvidence(
     .lte("local_date", checkpointState.activeCheckpoint.cutoffDate)
     .order("local_date", { ascending: true })
     .order("condition_refresh_at", { ascending: true });
+  const [response, canonicalResult] = await Promise.all([
+    legacyQuery,
+    readTimingObservations(client, {
+      riverId: run.riverId,
+      runId: run.runId,
+      startDate: checkpointState.activeCheckpoint.observationStartDate,
+      endDate: checkpointState.activeCheckpoint.cutoffDate,
+    }),
+  ]);
   if (response?.error) {
     throw new Error(
       `read Conditions Suggest evidence history: ${
@@ -1326,6 +1350,10 @@ async function readConditionsSuggestEvidence(
       }`,
     );
   }
+  throwOnStorageError(
+    "read canonical Timing observations",
+    canonicalResult.error,
+  );
   const rows = (response?.data ?? []) as ConditionRefreshRow[];
   const compatibleSources = new Set(
     baselines.map((baseline) =>
@@ -1357,6 +1385,26 @@ async function readConditionsSuggestEvidence(
     ) continue;
     byDate[row.local_date] ??= {};
     byDate[row.local_date][row.refresh_slot] = evidence;
+  }
+  for (const row of canonicalResult.data ?? []) {
+    const sourceKey =
+      `${row.gauge_metric}|${row.gauge_site_id}|${row.temperature_source_id}`;
+    if (!compatibleSources.has(sourceKey)) continue;
+    byDate[row.local_date] ??= {};
+    byDate[row.local_date][row.refresh_slot as RefreshSlot] = {
+      gaugeFreshness: row
+        .gauge_freshness as RiverRunConditionRefresh["freshness"]["gauge"],
+      gaugeValue: row.gauge_value,
+      gaugeMetric: row.gauge_metric,
+      gaugeSiteId: row.gauge_site_id,
+      waterTemperatureFreshness: row
+        .temperature_freshness as RiverRunConditionRefresh["freshness"][
+          "conditionsWaterTemperature"
+        ],
+      waterTempF: row.water_temp_f,
+      waterTemperatureSourceId: row.temperature_source_id,
+      reasonCodes: row.reason_codes,
+    };
   }
   return byDate;
 }

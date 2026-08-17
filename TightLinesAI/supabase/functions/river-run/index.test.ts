@@ -1754,6 +1754,50 @@ Deno.test("Conditions Suggest retains compatible prior-day evidence across engin
   );
 });
 
+Deno.test("Conditions Suggest reads canonical Timing observations without scored history rows", async () => {
+  const client = new MockClient();
+  client.rows.river_run_timing_observations = completedConditionsRows().map(
+    (row) => ({
+      river_id: row.river_id,
+      run_id: row.run_id,
+      local_date: row.local_date,
+      refresh_slot: row.refresh_slot,
+      observation_at: row.condition_refresh_at,
+      gauge_metric: row.source_metrics.gauge.primaryMetric,
+      gauge_site_id: row.source_metrics.gauge.siteId,
+      gauge_value: row.source_metrics.gauge.value,
+      gauge_freshness: "fresh",
+      temperature_source_id:
+        row.source_metrics.conditionsWaterTemperature.sourceId,
+      water_temp_f: row.source_metrics.conditionsWaterTemperature.waterTempF,
+      temperature_freshness: "fresh",
+      reason_codes: [],
+      provenance: { kind: "canonical_test" },
+    }),
+  );
+  client.rows.river_run_conditions_suggest_baselines = [
+    conditionsBaselineRow(),
+  ];
+
+  const response = await handleRiverRunRequest(
+    request(
+      "/snapshot?riverId=pere_marquette&runId=pere_marquette_fall_chinook&localDate=2026-08-15&localTime=16:30&refreshAtUtc=2026-08-15T20:30:00.000Z",
+    ),
+    {
+      createAdminClient: () => client,
+      runs: [enabledRun],
+      gaugeObservations: [gaugeObservation],
+      weatherSnapshot: envData,
+      engineVersion: "new-engine",
+      configVersion: "new-copy-config",
+    },
+  );
+  const body = await json(response);
+
+  assertEquals(body.conditionsSuggest.usableDays, 18);
+  assertEquals(body.conditionsSuggest.label, "Typical");
+});
+
 Deno.test("endpoint keeps the checkpoint locked between transition dates", async () => {
   const client = new MockClient();
   client.rows.river_run_condition_refreshes = completedConditionsRows();

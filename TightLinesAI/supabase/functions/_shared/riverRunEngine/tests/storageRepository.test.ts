@@ -15,6 +15,7 @@ import {
   PERE_MARQUETTE_RIVER_PROFILE,
   readConditionsSuggestBaselines,
   readGaugeBaselines,
+  readTimingObservations,
   type RiverRunConditionsSuggestBaselineRow,
   type RiverRunGaugeBaselineRow,
   serializeConditionRefresh,
@@ -24,6 +25,7 @@ import {
   upsertConditionRefresh,
   upsertDailySnapshot,
   upsertDraftConfiguration,
+  upsertTimingObservationFromConditionRefresh,
 } from "../index.ts";
 import type { SupabaseLikeClient } from "../storage/types.ts";
 
@@ -201,6 +203,79 @@ Deno.test("condition refresh upsert uses required unique-key columns", async () 
   assertEquals(
     client.upserts[0].options?.onConflict,
     "river_id,run_id,local_date,refresh_slot,engine_version,config_version",
+  );
+});
+
+Deno.test("Timing observations are stored independently of engine and copy versions", async () => {
+  const client = new MockSupabaseClient();
+  const refresh = storedConditionRefresh();
+  refresh.sourceMetrics.gauge = {
+    ...refresh.sourceMetrics.gauge!,
+    provider: "USGS",
+    siteId: "04122500",
+    value: 650,
+  };
+  refresh.sourceMetrics.conditionsWaterTemperature = {
+    provider: "MONITOR_MY_WATERSHED",
+    sourceId: "pm_m37_temperature",
+    siteId: "PMTU37-1",
+    seriesId: "3201",
+    waterTempF: 61,
+    sourceType: "nearby_gauge",
+  };
+  const result = await upsertTimingObservationFromConditionRefresh(
+    client,
+    refresh,
+  );
+
+  assertEquals(result.found, true);
+  assertEquals(client.upserts[0].table, "river_run_timing_observations");
+  assertEquals(
+    client.upserts[0].options?.onConflict,
+    "river_id,run_id,local_date,refresh_slot,gauge_site_id,temperature_source_id",
+  );
+  assertEquals(client.upserts[0].row.gauge_site_id, "04122500");
+  assertEquals(
+    client.upserts[0].row.temperature_source_id,
+    "pm_m37_temperature",
+  );
+});
+
+Deno.test("canonical Timing history reads by river, run, and date without engine filters", async () => {
+  const client = new MockSupabaseClient();
+  client.listResponse = {
+    data: [{
+      river_id: "pere_marquette",
+      run_id: "pere_marquette_fall_chinook",
+      local_date: "2026-08-01",
+      refresh_slot: "12:00",
+      observation_at: "2026-08-01T12:00:00Z",
+      gauge_metric: "flow_cfs",
+      gauge_site_id: "04122500",
+      gauge_value: 600,
+      gauge_freshness: "fresh",
+      temperature_source_id: "pm_m37_temperature",
+      water_temp_f: 63,
+      temperature_freshness: "fresh",
+      reason_codes: [],
+      provenance: { kind: "historical_daily_backfill" },
+    }],
+    error: null,
+  };
+  const result = await readTimingObservations(client, {
+    riverId: "pere_marquette",
+    runId: "pere_marquette_fall_chinook",
+    startDate: "2026-07-28",
+    endDate: "2026-08-14",
+  });
+
+  assertEquals(result.found, true);
+  assertEquals(result.data?.[0].local_date, "2026-08-01");
+  assertEquals(
+    client.filters.some(({ column }) =>
+      column === "engine_version" || column === "config_version"
+    ),
+    false,
   );
 });
 

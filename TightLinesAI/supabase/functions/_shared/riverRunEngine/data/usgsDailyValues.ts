@@ -1,10 +1,12 @@
 import type { NormalizedBaselineObservation } from "./baselineGeneration.ts";
+import type { NormalizedTemperatureBaselineObservation } from "./conditionsSuggestBaselineGeneration.ts";
 import type { RiverRunFetch } from "./usgs.ts";
 
 const USGS_DV_URL =
   "https://api.waterdata.usgs.gov/ogcapi/v0/collections/daily/items";
 const USGS_DAILY_FLOW_PARAMETER = "00060";
 const USGS_DAILY_MEAN_STATISTIC = "00003";
+const USGS_DAILY_TEMPERATURE_PARAMETER = "00010";
 
 export async function fetchUsgsDailyFlowBaselineObservations(input: {
   fetchFn: RiverRunFetch;
@@ -29,6 +31,62 @@ export async function fetchUsgsDailyFlowBaselineObservations(input: {
     riverId: input.riverId,
     siteId: input.siteId,
   });
+}
+
+export async function fetchUsgsDailyWaterTemperatureObservations(input: {
+  fetchFn: RiverRunFetch;
+  sourceId: string;
+  siteId: string;
+  startDate: string;
+  endDate: string;
+}): Promise<NormalizedTemperatureBaselineObservation[]> {
+  const params = new URLSearchParams({
+    f: "json",
+    monitoring_location_id: input.siteId.startsWith("USGS-")
+      ? input.siteId
+      : `USGS-${input.siteId}`,
+    parameter_code: USGS_DAILY_TEMPERATURE_PARAMETER,
+    statistic_id: USGS_DAILY_MEAN_STATISTIC,
+    datetime: `${input.startDate}/${input.endDate}`,
+    limit: "10000",
+  });
+  const response = await input.fetchFn(`${USGS_DV_URL}?${params.toString()}`);
+  if (!response.ok) return [];
+  return parseUsgsDailyWaterTemperatureValues(await response.json(), input);
+}
+
+export function parseUsgsDailyWaterTemperatureValues(
+  payload: unknown,
+  options: { sourceId: string; siteId: string },
+): NormalizedTemperatureBaselineObservation[] {
+  const expectedSiteId = options.siteId.startsWith("USGS-")
+    ? options.siteId
+    : `USGS-${options.siteId}`;
+  return asArray((payload as { features?: unknown[] } | null)?.features)
+    .flatMap<NormalizedTemperatureBaselineObservation>((feature) => {
+      const properties = (feature as {
+        properties?: Record<string, unknown>;
+      }).properties;
+      if (
+        !properties ||
+        properties.monitoring_location_id !== expectedSiteId ||
+        properties.parameter_code !== USGS_DAILY_TEMPERATURE_PARAMETER ||
+        properties.statistic_id !== USGS_DAILY_MEAN_STATISTIC
+      ) return [];
+      const localDate = normalizeLocalDate(properties.time);
+      const value = toFiniteNumber(properties.value);
+      const unit = String(properties.unit_of_measure ?? "").toLowerCase();
+      if (!localDate || value == null) return [];
+      const waterTempF = unit === "degc" || unit.includes("celsius")
+        ? value * 9 / 5 + 32
+        : unit === "degf" || unit.includes("fahrenheit")
+        ? value
+        : null;
+      return waterTempF == null
+        ? []
+        : [{ sourceId: options.sourceId, localDate, waterTempF }];
+    })
+    .toSorted((left, right) => left.localDate.localeCompare(right.localDate));
 }
 
 export function parseUsgsDailyFlowValues(
