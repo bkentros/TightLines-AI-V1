@@ -60,6 +60,13 @@ TightLinesAI/scripts/_tackle-gen-full.log
 # Generated local review artifacts
 TightLinesAI/tmp/
 
+# Local store-listing artwork and one-off render tooling. These are archived
+# outside Git and excluded from EAS builds; keep the mobile repository lean.
+/TightLinesAI/assets/store-listing/
+/FinFindr-Google-Play-*
+/FinFindr-Logo-Concept-Folded-Current.png
+/tmp/
+
 # Generated Cloudflare Pages upload bundles
 cloudflare-upload/
 finfindr-cloudflare-upload/
