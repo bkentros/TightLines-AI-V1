@@ -20,41 +20,41 @@ by/date:** required before public enablement
 
 ## Truth decision
 
-| Field                    | Decision                                                                                                           | Evidence IDs |
-| ------------------------ | ------------------------------------------------------------------------------------------------------------------ | ------------ |
-| Public catalog behavior  | Include in private review; do not publicly enable until corrected review gates pass                                | C-007, C-008 |
-| Species occurrence       | Historic Lower Platte collections exist, including records from 1991–2007; a 2022 record is only Benzie/HUC scoped | C-002        |
-| Current fall-run support | Not established. Current Michigan DNR Better Fishing Waters lists Platte for Coho and Steelhead but not Chinook    | C-001, C-003 |
-| Hatchery inference       | Platte Hatchery producing Chinook does not prove those fish are stocked into or support a current Platte river run | C-004        |
-| Barrier response         | Lower-weir Chinook handling/passage is unresolved; guidance may not cross the signed closure                       | C-005, C-006 |
-| Seasonal calendar        | None accepted; do not borrow Coho or another river's dates                                                         | C-001–C-006  |
-| Presence ceiling/curve   | None accepted                                                                                                      | C-001–C-006  |
-| Activity                 | Unavailable pending a lower-corridor species-specific calibration                                                  | C-007        |
-| Fishability              | Unavailable; lower corridor has no accepted local hydraulics, independent of species support                       | C-001        |
-| Terminal/handoff         | Static unavailable state only; no seasonal score or destination handoff                                            | C-001        |
+| Field                    | Decision                                                                                                                                                              | Evidence IDs        |
+| ------------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------- |
+| Public catalog behavior  | Include in private review; do not publicly enable until corrected review gates pass                                                                                   | C-007, C-008        |
+| Species occurrence       | Historic Lower Platte collections exist, including records from 1991–2007; a 2022 record is only Benzie/HUC scoped                                                    | C-002               |
+| Current fall-run support | Supported hidden-review calibration: recurring DNR lower-weir history plus a current-era Platte king observation; current strength remains lower-confidence than Coho | C-003, C-007, C-008 |
+| Hatchery inference       | Platte Hatchery producing Chinook does not prove those fish are stocked into or support a current Platte river run                                                    | C-004               |
+| Barrier response         | Lower-weir Chinook handling/passage is unresolved; guidance may not cross the signed closure                                                                          | C-005, C-006        |
+| Seasonal calendar        | Direct 1990 peak Sep. 23 and dominant Sep. 23–Oct. 17 interval support the corrected local calendar                                                                   | C-007               |
+| Presence ceiling/curve   | Conservative 4/10 concentrated profile; exact anchors are documented product calibration                                                                              | C-007               |
+| Activity                 | Unavailable pending a lower-corridor species-specific calibration                                                                                                     | C-007               |
+| Fishability              | Unavailable; lower corridor has no accepted local hydraulics, independent of species support                                                                          | C-001               |
+| Terminal/handoff         | Semelparous ending with no destination handoff                                                                                                                        | C-007               |
 
 ## Corrected hidden-review truth
 
-- Run window: monitor August 15; stage August 20; beginning September 10;
-  strongest historical window September 25 through October 17; tail through
-  November 30.
+- Run window: monitor August 15; stage August 20; sparse beginning September 15;
+  direct peak September 23 and strongest interval through October 17; tail
+  through November 30.
 - Presence ceiling: conservative `4/10`, concentrated below the seasonal lower
   weir closure; this expresses relative opportunity, not a fish count.
-- Why points: historic occurrence does not establish a current dependable run;
-  current DNR guidance does not list Platte Chinook; lower-weir handling is
-  unresolved.
+- Why points: this is a recurring secondary run, not the Platte's signature Coho
+  return; current DNR guidance omission and no direct stocking keep the ceiling
+  conservative; lower-weir handling is unresolved.
 - Guide's Read:
   `Choose a supported Platte species and check current Michigan
   DNR information.`
-- Scope: do not claim Chinook never enter the river. Do not show Stage,
-  Activity, Fish In River, or Fishability scores, dates, sections, or meter
-  markers. Do not expose internal research/approval wording in production.
+- Scope: show the hidden-review Stage and Fish In River states only below the
+  signed closure. Activity and Fishability remain unavailable. Do not expose
+  internal research/approval wording in production.
 
 ## Evidence ledger
 
 | ID    | Authority/title                                                                                         | URL/path                                                                                                                             | Published/updated               | Accessed   | Facts/limitations                                                                                                     |
 | ----- | ------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------- | ---------- | --------------------------------------------------------------------------------------------------------------------- |
-| C-001 | Corrected Platte foundation                                                                             | ../river-foundation.md                                                                                                               | 2026-08-24                      | 2026-08-24 | Corrected Chinook support decision; exact sections/capability limits                                                |
+| C-001 | Corrected Platte foundation                                                                             | ../river-foundation.md                                                                                                               | 2026-08-24                      | 2026-08-24 | Corrected Chinook support decision; exact sections/capability limits                                                  |
 | C-002 | USGS NAS/GLANSIS — Chinook collections, HUC 04060104                                                    | https://nas.er.usgs.gov/queries/CollectionInfo.aspx?HUCNumber=04060104&SpeciesID=920&State=MI                                        | Records through 2022            | 2026-08-24 | Proves occurrence only; records do not establish current abundance/run/calendar; 2022 locality is not Platte-specific |
 | C-003 | Michigan DNR — Better Fishing Waters                                                                    | https://www.michigan.gov/dnr/things-to-do/fishing/where/better-fishing-waters                                                        | Current 2026 page               | 2026-08-24 | Platte lists Coho/Steelhead, not Chinook; omission is conservative evidence, not proof of absence                     |
 | C-004 | Michigan DNR — Platte River Hatchery & Weir                                                             | https://www.michigan.gov/dnr/managing-resources/fisheries/hatcheries/platte                                                          | Current 2026 page               | 2026-08-24 | Hatchery produces Chinook, but page does not establish a Platte Chinook run/stocking destination                      |
@@ -64,9 +64,7 @@ by/date:** required before public enablement
 | C-008 | Michigan DNR — Conservation officer report, 9/15-9/28/2024                                              | https://www.michigan.gov/dnr/managing-resources/laws/cobiweekly/reports/2024/9-15-2024-9-28-2024                                     | 2024                            | 2026-08-24 | Direct current-era Platte king salmon occurrence                                                                      |
 
 **Run decision:** `supported_hidden_review`; the earlier unsupported decision is
-withdrawn. **Configuration/presence/Activity versions:** none **Disabled-state
-copy proposal:** `platte-fall-chinook-disabled-v1` **Replay:** not applicable
-until new direct evidence changes the truth decision **Owner acceptance:**
-disabled decision approved 2026-08-24 **Reopen trigger:** current river-specific
-DNR run/stocking/monitoring evidence and a documented species-specific
-lower-weir response.
+withdrawn. **Configuration version:** `platte-phase-c-draft.3` **Presence
+version:** `platte-fall-chinook-presence-v3-draft` **Activity:** unavailable
+pending local calibration **Owner acceptance:** corrected profile available for
+renewed hidden review 2026-08-24.

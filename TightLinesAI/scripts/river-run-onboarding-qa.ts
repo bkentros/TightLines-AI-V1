@@ -113,6 +113,8 @@ const requiredDocuments: Record<string, RegExp[]> = {
     /Live Conditions[\s\S]*unscored/,
     /Multi-agent operating protocol/,
     /Mandatory candidate capability audit/,
+    /Mandatory configuration-field inventory/,
+    /stage-by-four-hour-block score distributions/,
     /An `unsupported` decision requires affirmative exclusion evidence/,
     /Acceptance, deployment, and public enablement/,
   ],
@@ -124,6 +126,8 @@ const requiredDocuments: Record<string, RegExp[]> = {
   "docs/river_run_activity_onboarding_standard.md": [
     /Today\/tomorrow schedule contract/,
     /Historical replay protocol/,
+    /Stage-by-block acceptance table/,
+    /Calibration iteration ledger/,
     /Weather-only mode/,
   ],
   "docs/river_run_live_conditions_onboarding_standard.md": [
@@ -153,6 +157,34 @@ for (
   assert(
     /Historical|superseded/i.test(opening),
     `${path} must visibly identify its historical/superseded status.`,
+  );
+}
+const speciesTemplate = await Deno.readTextFile(
+  "docs/templates/river_run_species_run_template.md",
+);
+for (
+  const [label, contract] of [
+    [
+      "complete configuration inventory",
+      /Complete configuration-field inventory/,
+    ],
+    [
+      "code-to-packet reconciliation",
+      /Code-to-packet reconciliation reviewer\/date/,
+    ],
+    [
+      "stage-by-block table",
+      /^\|\s*Stage\s*\|\s*Block\s*\|\s*Usable days\s*\|\s*Samples\s*\|/m,
+    ],
+    [
+      "calibration iteration ledger",
+      /^\|\s*Iteration\s*\|\s*Fields changed\s*\|/m,
+    ],
+  ] as const
+) {
+  assert(
+    contract.test(speciesTemplate),
+    `Species run template is missing ${label}.`,
   );
 }
 for (

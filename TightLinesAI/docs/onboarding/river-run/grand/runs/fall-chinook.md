@@ -23,16 +23,16 @@ by/date:** required before public enablement
 
 ## 1. Species/run truth
 
-| Field                               | Researched value                                                                                                                                                                                      | Evidence IDs           | Status                                |
-| ----------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------- | ------------------------------------- |
-| Public species name                 | Chinook salmon                                                                                                                                                                                        | C-R001                 | verified                              |
-| Run type                            | Fall upstream spawning migration from Lake Michigan                                                                                                                                                   | C-R001, C-R002, E-003  | verified                              |
-| Migration purpose                   | Adult spawning migration; Stage describes seasonal expectation, not a live arrival report                                                                                                             | C-R001, C-R003         | verified                              |
-| Lifecycle after spawning            | Semelparous Pacific salmon: adults die after spawning; late Activity and Fish In River must fade rather than imply healthy winter holding fish                                                        | C-R003                 | verified                              |
-| Shared biology profile fit          | A Chinook fall-spawn profile is directionally appropriate; every exact Grand date, weight, threshold, cap, and curve point below is a local product proposal                                          | C-R001, C-R002, C-R004 | qualified                             |
-| Distribution scope                  | Sectional. Lower river is the dependable fail-closed start. Middle passage corridor is conditional on current route verification. Webber is the hard product endpoint.                                | E-003, E-004, E-006    | verified_with_current_passage_blocker |
-| Historical opportunity tier/ceiling | **Proposed Moderate ceiling, 6/10.** Webber counted 233 Chinook in fall 2008 (140 September, 52 October, 41 November); one historic ladder year cannot quantify the whole river or current abundance. | C-R002                 | owner_calibration_pending             |
-| Barrier response differences        | Historic Chinook reached Webber, but current DNR reach evidence does not support Chinook in Eaton/Ingham. Do not infer current unrestricted passage from a ladder asset or extend above Webber.       | E-003, E-004, E-006    | fail_closed                           |
+| Field                               | Researched value                                                                                                                                                                                                                                       | Evidence IDs           | Status                                |
+| ----------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ---------------------- | ------------------------------------- |
+| Public species name                 | Chinook salmon                                                                                                                                                                                                                                         | C-R001                 | verified                              |
+| Run type                            | Fall upstream spawning migration from Lake Michigan                                                                                                                                                                                                    | C-R001, C-R002, E-003  | verified                              |
+| Migration purpose                   | Adult spawning migration; Stage describes seasonal expectation, not a live arrival report                                                                                                                                                              | C-R001, C-R003         | verified                              |
+| Lifecycle after spawning            | Semelparous Pacific salmon: adults die after spawning; late Activity and Fish In River must fade rather than imply healthy winter holding fish                                                                                                         | C-R003                 | verified                              |
+| Shared biology profile fit          | A Chinook fall-spawn profile is directionally appropriate; every exact Grand date, weight, threshold, cap, and curve point below is a local product proposal                                                                                           | C-R001, C-R002, C-R004 | qualified                             |
+| Distribution scope                  | Sectional. Lower river is the dependable fail-closed start. Middle passage corridor is conditional on current route verification. Webber is the hard product endpoint.                                                                                 | E-003, E-004, E-006    | verified_with_current_passage_blocker |
+| Historical opportunity tier/ceiling | **Calibrated Moderate ceiling, 7/10.** Webber counted 233 Chinook in fall 2008, but it is 102 river miles upstream after multiple ladders. Current lower-river stocking and recurring-fishery evidence prevent treating that count as the whole Grand. | C-R002, C-CAL01        | hidden_review_calibrated              |
+| Barrier response differences        | Historic Chinook reached Webber, but current DNR reach evidence does not support Chinook in Eaton/Ingham. Do not infer current unrestricted passage from a ladder asset or extend above Webber.                                                        | E-003, E-004, E-006    | fail_closed                           |
 
 ## 2. Seasonal calendar proposal
 
@@ -84,10 +84,12 @@ the Middle passage corridor must be current before that section is shown.`
 
 ## 4. Fish In River proposal
 
-- Historical maximum: **6/10 proposal**, subject to owner review and replay.
+- Historical maximum: **7/10 hidden-review calibration**. This remains below
+  signature 8–10 portfolio runs because current adult-return quantification is
+  incomplete and passage declines at successive ladders.
 - Public opportunity tier: `Moderate` proposal; never present as a fish count.
 - Distribution scope: sectional, Lower-first; conditional Middle; never Upper.
-- Curve version candidate: `grand-chinook-presence-v1-proposed`.
+- Curve version: `grand-chinook-presence-v2-draft`.
 - Direction transitions: rising 08-20–09-19; peak 09-20; falling 09-21–11-15;
   complete from 11-16.
 - Terminal behavior: fade through the post-spawn tail; completed display must
@@ -214,16 +216,16 @@ daily-discharge percentiles as calibration scaffolding, not biological facts.
 | C-R003  | Michigan DNR, _Salmon in the Classroom Teacher Guide_                                     | https://www.michigan.gov/dnr/-/media/Project/Websites/dnr/Documents/Education/SIC/SIC-Teacher-Guide-2024.pdf                            | 2024               | Adult Chinook stage mid/late August, stop feeding in-river, and die after spawning                        | educational statewide biology; not a Grand calendar                                    |                                                   |
 | C-R004  | Strange, _Upper Thermal Limits to Migration in Adult Chinook Salmon_                      | https://doi.org/10.1577/T09-171.1                                                                                                       | 2010               | Warm water can inhibit adult upstream migration; reported initiation after inhibition around 21.8–24.0 °C | Klamath population/geography; does not define Grand Activity breakpoints               |                                                   |
 | C-R005  | USGS 04119000 daily discharge endpoint                                                    | https://waterservices.usgs.gov/nwis/dv/?format=json&sites=04119000&parameterCd=00060&startDT=1990-01-01&endDT=2025-12-31&siteStatus=all | queried 2026-08-24 | 4,392 daily observations in Aug. 1–Nov. 30 seasonal slices; percentile scaffolding                        | hydrology only; does not establish fishability                                         |                                                   |
-| C-CAL01 | FinFindr Grand Chinook Phase C proposal                                                   | this file                                                                                                                               | 2026-08-24         | Exact dates, curve, ceiling, weights, thresholds, caps, and copy intent                                   | owner/replay/QA pending                                                                |                                                   |
+| C-CAL01 | FinFindr Grand Chinook calibration decision                                               | `docs/audits/river-run-grand-platte-white-calendar-strength-audit-2026-08-24.md`                                                        | 2026-08-24         | Exact dates, cross-river comparison, current stocking context, and corrected 7/10 ceiling                 | hidden review; Activity and Fishability replay remain pending                          |                                                   |
 
 Foundation evidence used: E-002, E-003, E-004, E-006, E-009, E-010, E-018.
 
 ## 9. Run gate
 
 **Run decision:** `truth_profile_complete_configuration_blocked` **Configuration
-version:** `grand-chinook-config-v1-proposed` **Activity rules version:**
+version:** `grand-chinook-config-v2-draft` **Activity rules version:**
 `grand-chinook-activity-v1-proposed` **Presence curve version:**
-`grand-chinook-presence-v1-proposed` **Copy version:**
+`grand-chinook-presence-v2-draft` **Copy version:**
 `grand-chinook-copy-v1-proposed` **Replay artifact:** pending **Owner
 acceptance/date:** numeric/research candidate approved for hidden app review /
 2026-08-24

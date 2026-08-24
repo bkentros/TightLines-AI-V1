@@ -98,6 +98,12 @@ Run-level facts:
 - Fishability bands or deterministic unavailable behavior.
 - Four-primitive copy matrix and terminal behavior.
 
+Every configurable run field is a research or calibration decision. A run is not
+researched merely because occurrence, three headline dates, and a ceiling have
+citations. The packet must inventory every field that can change runtime
+behavior and trace it to direct river/species evidence, a documented cross-river
+comparison, or an explicitly identified owner calibration.
+
 Never repeat river geography research independently for each species. Never
 assume shared geography means shared calendar, presence, passage, Activity, or
 lifecycle.
@@ -296,6 +302,45 @@ For each species:
 9. Configure Fishability or deterministic unavailability.
 10. Complete the dedicated Activity track.
 
+### C0. Mandatory configuration-field inventory
+
+Before implementation, copy the current engine/profile schema into the run
+packet as a field inventory. Complete it for every species independently. The
+minimum inventory is:
+
+- Identity, biology profile, migration purpose, lifecycle, run type, movement
+  engine, and every primitive capability decision.
+- All 13 seasonal boundaries, optional handoff, and the meaning/evidence for
+  each boundary.
+- Presence maximum, absolute opportunity tier, distribution scope, curve
+  version, every anchor, endpoint/barrier behavior, and terminal semantics.
+- Activity mode, represented reaches, every source, component weight,
+  temperature breakpoint, hydraulic response, cap, lifecycle ramp, missing-data
+  rule, confidence rule, four-block behavior, and refresh rule.
+- Fishability metric/source/reach, every band boundary, trend behavior,
+  freshness behavior, and unavailable-state contract.
+- Baseline coverage, water-temperature priority/fallback, current-versus-
+  historical source limitations, copy strategy, version IDs, and audit gates.
+
+For every field record: proposed value, direct evidence IDs, comparison runs,
+why those comparisons are genuinely comparable, calibration owner, replay or
+test artifact, and status. `Inherited`, `default`, `same as River X`, or an
+uncited value is not a completed row. Shared species biology may support a
+breakpoint, but river observations and source reach still require independent
+validation.
+
+Comparison is a required reasonableness check, not a copying method. Compare
+calendars and ceilings with all accepted portfolio rivers and compare current
+stocking only where stocking is biologically relevant. Also compare weir or
+ladder returns, creel/catch evidence, natural reproduction, destination-fishery
+status, corridor length, passage attrition, spatial concentration, and recency.
+Stocking volume alone never determines adult run strength, and an upstream
+ladder count never represents the whole river without an explicit passage model.
+
+The independent verifier must reconcile the completed inventory against the
+actual configuration object. Any configured value missing from the packet, or
+any packet value not reflected in code, blocks review.
+
 Do not infer Coho dates from Chinook, Steelhead lifecycle from salmon, or run
 strength from river size or reputation.
 
@@ -355,6 +400,11 @@ Minimum deliverables per river/species:
 - Today/tomorrow schedule behavior.
 - Missing-data/confidence contract.
 - Multi-year replay with coverage and distribution statistics.
+- Stage-by-stage and stage-by-four-hour-block score distributions, including
+  sample count, mean, min, p10, median, p90, and max for Beginning, Building,
+  Peak, Tapering, Ending, and any residual/holding state.
+- A before/after calibration ledger for every scoring change made after replay,
+  with the biological/product reason and a full rerun after the change.
 - Controlled single-variable tests.
 - Warm/cold/extreme/missing boundary tests.
 - Lifecycle continuity tests.
@@ -440,6 +490,19 @@ Run the generic or accepted run-specific replay across the longest reliable
 fixed historical window. Record why the window begins and ends where it does. Do
 not select years after inspecting results solely to improve the distribution.
 
+The replay must evaluate all four blocks for every usable day. Report overall,
+per-stage, per-block, and stage-by-block counts and min/p10/mean/median/p90/max,
+plus label shares, cap frequency, confidence states, missing-input states,
+best-block frequency, and block spread. Review stage means as diagnostics: they
+must be biologically coherent, but they are not target scores to force. If a
+stage or block is too sparse to interpret, extend the fixed reliable record or
+leave calibration blocked.
+
+After any weight, breakpoint, cap, lifecycle, calendar, source, or scoring-code
+change, rerun the complete fixed interval and attach before/after results. A
+single attractive day, an overall mean, compile success, or fixture generation
+cannot accept Activity.
+
 ### G3. Fishability replay
 
 Replay every band and trend against accepted historical hydraulics. Confirm that
@@ -481,6 +544,10 @@ A river is onboarding-complete only when:
 - All four public primitives have complete reachable-state fixtures.
 - No hidden Timing/Push surface or language is exposed.
 - Activity replay coverage, distributions, boundaries, and copy invariants pass.
+- The configuration-field inventory matches code and every material value has
+  evidence/calibration provenance.
+- Activity stage-by-block replay tables and the calibration iteration ledger are
+  reviewed for every supported species.
 - Date-average ±3-day behavior and 24-hour trends pass where supported.
 - Catalog species/state behavior is correct, including intentionally disabled
   combinations.

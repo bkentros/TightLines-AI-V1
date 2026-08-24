@@ -36,7 +36,7 @@ enforcement report documents an 18-pound Platte king salmon. No stocking and
 omission from Better Fishing Waters limit the ceiling; they do not establish
 absence.
 
-Corrected draft: September 10 beginning, October 1 anchor, conservative 4/10
+Corrected draft: September 15 beginning, September 23 anchor, conservative 4/10
 ceiling, concentrated lower corridor, Activity/Fishability unavailable.
 
 ### Platte Fall Steelhead
@@ -47,7 +47,7 @@ records fish through November 30. Its 1980-90 table demonstrates recurring fall
 returns. DNR's 2026 emergency egg take separately confirms a substantial Platte
 population but is not used to infer fall timing.
 
-Corrected draft: September 3 beginning, October 17 anchor, conservative 6/10
+Corrected draft: September 3 beginning, October 17 anchor, calibrated 7/10
 ceiling, retained winter holding tail, Activity/Fishability unavailable.
 
 ### White Chinook

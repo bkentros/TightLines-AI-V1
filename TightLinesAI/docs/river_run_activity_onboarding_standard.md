@@ -1,17 +1,14 @@
 # River Run Activity Onboarding Standard
 
-**Status:** Normative
-**Version:** 1.0
-**Established:** 2026-08-24
-**Applies to:** Every river/species Activity configuration, replay, public copy,
-fixture, and acceptance decision
+**Status:** Normative **Version:** 1.1 **Established:** 2026-08-24 **Applies
+to:** Every river/species Activity configuration, replay, public copy, fixture,
+and acceptance decision
 
 ## 1. Product meaning
 
-Activity estimates the conditional responsiveness of a fish already present
-and compares the supported time blocks. It does not estimate abundance,
-migration, fresh entry, catch probability, exact location, fishability, or
-safety.
+Activity estimates the conditional responsiveness of a fish already present and
+compares the supported time blocks. It does not estimate abundance, migration,
+fresh entry, catch probability, exact location, fishability, or safety.
 
 Public labels are:
 
@@ -90,8 +87,8 @@ Requirements:
 - Light and weather have positive weights and the full set totals one.
 - Confidence remains Limited.
 - A true weather-only maximum constrains output.
-- Copy visibly says river level, clarity, and measured water temperature are
-  not evaluated.
+- Copy visibly says river level, clarity, and measured water temperature are not
+  evaluated.
 - Users are directed to verify actual river conditions.
 - No Fishability inference is generated.
 
@@ -107,8 +104,8 @@ The supported local blocks are:
 - 1–5 PM
 - 5–9 PM
 
-Effective light and precipitation are evaluated inside the same block. Rain
-from a previous block receives no inferred hydraulic or clarity effect.
+Effective light and precipitation are evaluated inside the same block. Rain from
+a previous block receives no inferred hydraulic or clarity effect.
 
 The day’s rollup must remain within the range of its block scores. A single
 block’s controlled weather change must not leak into another block.
@@ -157,8 +154,8 @@ The Activity specialist must record:
 - Missing-data behavior.
 - Every owner-calibrated value and why it was selected.
 
-Do not present a calibrated weight or exact breakpoint as a published
-biological constant unless a source truly establishes it.
+Do not present a calibrated weight or exact breakpoint as a published biological
+constant unless a source truly establishes it.
 
 ## 8. Calibration contract
 
@@ -169,8 +166,8 @@ The versioned rule set must include:
 - Scope copy and early-season scope copy when applicable.
 - Four component weights totaling one.
 - Cold transition, preferred band, warm constraint, and barrier constraint.
-- Missing-river, missing-temperature, late-run, ending, and weather-only caps
-  as applicable.
+- Missing-river, missing-temperature, late-run, ending, and weather-only caps as
+  applicable.
 - Lifecycle ramp or deduction/constraint behavior.
 - Evidence notes.
 
@@ -192,8 +189,8 @@ Calibration requirements:
 ## 9. Historical replay protocol
 
 Use the longest fixed interval with reliable coverage. Set the interval before
-judging the score distribution and record exclusions. A minimum five-year
-window is expected; longer reliable records are preferred.
+judging the score distribution and record exclusions. A minimum five-year window
+is expected; longer reliable records are preferred.
 
 Required report:
 
@@ -201,9 +198,13 @@ Required report:
 - Coverage percentage.
 - Missing counts for current/prior hydraulics, temperature/lookback, and
   weather.
-- Daily and block min, p10, median, p90, and max.
+- Daily and block min, p10, mean, median, p90, and max. Means never replace
+  quantiles or distributions.
 - Unique daily and block scores.
 - Label distribution overall and by run phase.
+- For Beginning, Building, Peak, Tapering, Ending, and every configured
+  residual/holding phase: day count, complete-block count, daily distribution,
+  pooled-block distribution, and the distribution for each named block.
 - Best-block frequency.
 - Block-spread median, p90, max, and useful thresholds.
 - Warm, cold, preferred-temperature, low/high/extreme-flow subsets.
@@ -223,8 +224,36 @@ Review questions:
 - Do Steelhead remain alive without being automatically active?
 - Does the represented reach appear in copy where material?
 
-Do not tune only to hit an attractive score distribution. Every change must
-have a product or biological rationale and pass controlled tests.
+Do not tune only to hit an attractive score distribution. Every change must have
+a product or biological rationale and pass controlled tests.
+
+### 9.1 Stage-by-block acceptance table
+
+Every replay artifact must contain one row per lifecycle stage and block with:
+
+| Stage | Block | Usable days | Samples | Min | p10 | Mean | Median | p90 | Max | Label shares | Cap/confidence notes |
+| ----- | ----- | ----------: | ------: | --: | --: | ---: | -----: | --: | --: | ------------ | -------------------- |
+
+Also include an `all blocks` row for each stage. Do not pool a sparse stage into
+an adjacent stage merely to make its results look stable. Stage means are a
+diagnostic for lifecycle behavior—not acceptance targets and not evidence of
+catch rates.
+
+### 9.2 Calibration iteration ledger
+
+Record the baseline ruleset before tuning. For every candidate change record:
+
+- Field and before/after values.
+- Direct evidence or product defect that motivated the change.
+- Expected stage/block effect before running the replay.
+- Actual before/after deltas in coverage, quantiles, means, labels, caps,
+  missing states, lifecycle continuity, and invariant failures.
+- Decision: accept, reject, or investigate.
+
+Rerun the complete predeclared interval after every accepted group of changes.
+Never retain a partial replay made with a different calendar, source contract,
+or scoring version as the final artifact. Acceptance requires the final
+ruleset's full replay and zero unexplained invariant failures.
 
 ## 10. Controlled acceptance tests
 
@@ -268,7 +297,8 @@ Copy structure:
   supported.
 - Why point 3: the most important limitation, confidence, or lifecycle fact.
 - Guide’s Read: one prioritized way to use the outlook.
-- Static note: `Responsiveness if fish are present—not abundance or catch probability.`
+- Static note:
+  `Responsiveness if fish are present—not abundance or catch probability.`
 
 ## 12. Activity definition of done
 
@@ -277,6 +307,10 @@ Activity is accepted only when:
 - Research and calibration decisions are versioned.
 - Data mode and source reach are correct.
 - Replay coverage and distributions are reviewed.
+- Every lifecycle stage and every four-hour block has the required distribution
+  table or an explicit insufficient-coverage blocker.
+- The calibration iteration ledger preserves baseline, rejected candidates,
+  accepted changes, and final full-replay results.
 - Controlled and boundary tests pass.
 - All public states have intended-state fixtures.
 - Copy contains no abundance, movement, catch, safety, internal, or foreign

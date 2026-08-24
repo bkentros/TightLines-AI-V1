@@ -39,43 +39,44 @@ either section today.
 
 ## 2. Seasonal calendar proposal
 
-All dates use `America/Detroit`. Direct evidence supports adult returns from
-mid-September through late October, the 2025 egg-take high-use window of October
-16–28, and the broader species-level September–November spawning window. Every
-exact boundary below is owner-calibrated inside those brackets and requires
-fixed multi-year replay/review; it is not telemetry.
+All dates use `America/Detroit`. The direct 1990 migration record—not the date
+of hatchery egg collection—controls the calendar: fish concentrated off Platte
+Bay in late August, moved upriver in September, peaked Sep. 15, and 71% of the
+harvest occurred Sep. 17–23. The 2025 Oct. 16–28 egg-take window is retained as
+maturation/operation context only. Exact product boundaries require replay; they
+are not telemetry.
 
-| Boundary                     | Date  | Meaning                                                                                                             | Evidence IDs | Owner calibration?                                            |
-| ---------------------------- | ----- | ------------------------------------------------------------------------------------------------------------------- | ------------ | ------------------------------------------------------------- |
-| Pre-run monitoring start     | 08-15 | Begin weather/source monitoring near the approximate seasonal lower-weir deployment period; no river presence score | R-004        | yes                                                           |
-| Staging start                | 09-01 | Lake/entry context may begin; Fish In River remains zero                                                            | R-001        | yes                                                           |
-| River-run start              | 09-15 | First restrained expected presence in the approved lower corridor                                                   | R-002, R-004 | yes; direct evidence says mid-September, not this exact day   |
-| Beginning end                | 09-30 | Early lower-entry phase ends                                                                                        | R-001, R-002 | yes                                                           |
-| Established building start   | 10-01 | Concentrated lower-river opportunity becomes more dependable                                                        | R-001–R-003  | yes                                                           |
-| Broad building start         | 10-10 | Strong build toward the egg-take window; `broad` describes timing strength, not geographic distribution             | R-003        | yes                                                           |
-| Peak start                   | 10-16 | Beginning of the documented 2025 egg-take window                                                                    | R-003        | no for observed 2025 date; yes for recurring product boundary |
-| Peak anchor                  | 10-22 | Midpoint calibration within the documented October 16–28 egg-take window                                            | R-003        | yes                                                           |
-| Peak end                     | 10-28 | End of the documented 2025 egg-take window                                                                          | R-003        | no for observed 2025 date; yes for recurring product boundary |
-| Tapering end                 | 11-10 | Meaningful post-peak decline                                                                                        | R-001        | yes                                                           |
-| Main run end                 | 11-20 | Dependable fall-run guidance ends; sparse seasonal presence may remain                                              | R-001        | yes                                                           |
-| Historical-presence tail end | 11-30 | Fish In River returns to no current score                                                                           | R-001        | yes                                                           |
-| Late-copy end                | 12-02 | Short scoreless completion explanation ends                                                                         | R-001, R-007 | yes                                                           |
+| Boundary                     | Date  | Meaning                                                                 | Evidence IDs | Owner calibration? |
+| ---------------------------- | ----- | ----------------------------------------------------------------------- | ------------ | ------------------ |
+| Pre-run monitoring start     | 08-10 | Begin monitoring before documented late-August Platte Bay concentration | R-002        | yes                |
+| Staging start                | 08-20 | Late-August Platte Bay staging context; river presence remains zero     | R-002        | yes                |
+| River-run start              | 09-02 | First counted lower-weir interval; restrained expected presence         | R-002        | yes                |
+| Beginning end                | 09-08 | Early lower-entry phase ends                                            | R-002        | yes                |
+| Established building start   | 09-09 | Build toward the direct mid-September peak                              | R-002        | yes                |
+| Broad building start         | 09-12 | Strong build in the concentrated public corridor                        | R-002        | yes                |
+| Peak start                   | 09-15 | Direct 1990 peak date                                                   | R-002        | no                 |
+| Peak anchor                  | 09-20 | Center of the interval containing 71% of harvested Coho, Sep. 17–23     | R-002        | yes                |
+| Peak end                     | 09-30 | End of the documented September upstream-migration month                | R-002        | yes                |
+| Tapering end                 | 10-31 | October maturation/egg-take shoulder ends                               | R-002, R-003 | yes                |
+| Main run end                 | 11-20 | Dependable fall-run guidance ends; sparse seasonal presence may remain  | R-001        | yes                |
+| Historical-presence tail end | 11-30 | Fish In River returns to no current score                               | R-001        | yes                |
+| Late-copy end                | 12-02 | Short scoreless completion explanation ends                             | R-001, R-007 | yes                |
 
 ## 3. Migration Stage copy truth
 
 Approved section IDs are `platte_lower_entry` and `platte_weir_approach`. Stage
 copy may orient users only below the current signed lower-weir closure.
 
-| State key   | Trigger                   | Label             | Primary section        | Conditional secondary                                                       | Headline truth                                                        | Why This Read truth                                                           | Guide's Read truth                                                                   | Required limitation                                                   |
-| ----------- | ------------------------- | ----------------- | ---------------------- | --------------------------------------------------------------------------- | --------------------------------------------------------------------- | ----------------------------------------------------------------------------- | ------------------------------------------------------------------------------------ | --------------------------------------------------------------------- |
-| `offseason` | Before 09-01; after 12-02 | Offseason         | none                   | none                                                                        | The configured fall Coho run is not active                            | Fixed calendar is outside the researched fall window                          | Use current regulations and another supported experience                             | No claim that no Coho exists anywhere                                 |
-| `staging`   | 09-01–09-14               | Staging           | `platte_lower_entry`   | none                                                                        | Seasonal entry is approaching; river presence remains sparse/unscored | DNR brackets adult returns from mid-September; staging is expectation only    | Begin with Platte River Point/El Dorado orientation and require direct fish evidence | Do not claim a fresh arrival                                          |
-| `beginning` | 09-15–09-30               | Beginning         | `platte_lower_entry`   | `platte_weir_approach` only with direct fish activity and open legal access | Early Coho are seasonally plausible in the lower corridor             | Mid-September return evidence; concentrated product reach                     | Start at the Lower river and expand only on direct activity                          | End below signed closure                                              |
-| `building`  | 10-01–10-15               | Building          | `platte_weir_approach` | `platte_lower_entry`                                                        | The short corridor is building toward its documented egg-take window  | Bulk Platte planting and approaching October egg take                         | Prioritize the Weir approach without entering the closure; fall back to Lower river  | A calendar does not confirm fish at the weir                          |
-| `peak`      | 10-16–10-28               | Peak              | `platte_weir_approach` | `platte_lower_entry`                                                        | This is the strongest researched part of Platte's Coho calendar       | 2025 egg take occurred Oct. 16–28; ceiling is relative historical opportunity | Work the legal corridor below the signed closure, then the Lower river               | No adult count or catch promise; harvest operations can change access |
-| `tapering`  | 10-29–11-10               | Tapering          | `platte_weir_approach` | `platte_lower_entry`                                                        | Strong timing is receding from the late-October high                  | Coho are semelparous and the egg-take window has ended                        | Require direct fish activity before committing to the approach                       | Avoid spawning fish and obey posted closure                           |
-| `ending`    | 11-11–11-30               | Ending            | `platte_lower_entry`   | `platte_weir_approach` only if legal and direct activity supports it        | The supported fall opportunity is ending                              | Statewide biology permits November fish, but Platte peak evidence is earlier  | Keep effort selective; do not chase the calendar above the closure                   | Sparse tail is not an active peak or winter handoff                   |
-| `terminal`  | 12-01–12-02               | Fall run complete | none                   | none                                                                        | The configured fall Coho run is complete                              | Semelparous lifecycle and accepted tail endpoint                              | Use current agency information; no destination handoff exists                        | No score, meter marker, or claim that every fish has left             |
+| State key   | Trigger                   | Label             | Primary section        | Conditional secondary                                                       | Headline truth                                                        | Why This Read truth                                                              | Guide's Read truth                                                                   | Required limitation                                                   |
+| ----------- | ------------------------- | ----------------- | ---------------------- | --------------------------------------------------------------------------- | --------------------------------------------------------------------- | -------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------ | --------------------------------------------------------------------- |
+| `offseason` | Before 08-20; after 12-02 | Offseason         | none                   | none                                                                        | The configured fall Coho run is not active                            | Fixed calendar is outside the researched fall window                             | Use current regulations and another supported experience                             | No claim that no Coho exists anywhere                                 |
+| `staging`   | 08-20–09-01               | Staging           | `platte_lower_entry`   | none                                                                        | Seasonal entry is approaching; river presence remains sparse/unscored | DNR documented late-August Platte Bay concentration; staging is expectation only | Begin with Platte River Point/El Dorado orientation and require direct fish evidence | Do not claim a fresh arrival                                          |
+| `beginning` | 09-02–09-08               | Beginning         | `platte_lower_entry`   | `platte_weir_approach` only with direct fish activity and open legal access | Early Coho are seasonally plausible in the lower corridor             | Direct lower-weir count interval; concentrated product reach                     | Start at the Lower river and expand only on direct activity                          | End below signed closure                                              |
+| `building`  | 09-09–09-14               | Building          | `platte_weir_approach` | `platte_lower_entry`                                                        | The short corridor is building toward the direct September high       | Direct 1990 migration evidence                                                   | Prioritize the Weir approach without entering the closure; fall back to Lower river  | A calendar does not confirm fish at the weir                          |
+| `peak`      | 09-15–09-30               | Peak              | `platte_weir_approach` | `platte_lower_entry`                                                        | This is the strongest researched part of Platte's Coho calendar       | Sep. 15 peak and dominant Sep. 17–23 harvest interval                            | Work the legal corridor below the signed closure, then the Lower river               | No adult count or catch promise; harvest operations can change access |
+| `tapering`  | 10-01–10-31               | Tapering          | `platte_weir_approach` | `platte_lower_entry`                                                        | Strong timing is receding from the September high                     | October egg take is later maturation context                                     | Require direct fish activity before committing to the approach                       | Avoid spawning fish and obey posted closure                           |
+| `ending`    | 11-01–11-30               | Ending            | `platte_lower_entry`   | `platte_weir_approach` only if legal and direct activity supports it        | The supported fall opportunity is ending                              | Statewide biology permits November fish, but Platte peak evidence is earlier     | Keep effort selective; do not chase the calendar above the closure                   | Sparse tail is not an active peak or winter handoff                   |
+| `terminal`  | 12-01–12-02               | Fall run complete | none                   | none                                                                        | The configured fall Coho run is complete                              | Semelparous lifecycle and accepted tail endpoint                                 | Use current agency information; no destination handoff exists                        | No score, meter marker, or claim that every fish has left             |
 
 Static Stage note:
 `Seasonal phase and starting reach—not live confirmation of
@@ -86,25 +87,25 @@ fish presence or movement.`
 - Historical maximum: `10/10` / `100/100`.
 - Public opportunity tier: `Strong`.
 - Distribution scope: `concentrated` in approved lower sections only.
-- Curve version proposal: `platte-fall-coho-presence-v1`.
-- Direction transitions: rising 09-15–10-21; near peak 10-22–10-28; falling
-  10-29–11-30.
+- Curve version: `platte-fall-coho-presence-v2-draft`.
+- Direction transitions: rising 09-02–09-19; near peak 09-20–09-30; falling
+  10-01–11-30.
 - Terminal behavior: `Fall run complete`, no score and no marker on/after 12-01;
   true offseason after the short 12-01–12-02 completion explanation.
 - Handoff behavior: none. No winter Coho experience is implemented.
 
-| Day offset from 09-15 | Date  | Fraction of 100 ceiling | Reason                                                                                   | Evidence IDs |
-| --------------------: | ----- | ----------------------: | ---------------------------------------------------------------------------------------- | ------------ |
-|                     0 | 09-15 |                    0.05 | Restrained first expected river presence at the documented mid-September return boundary | R-002, R-004 |
-|                    10 | 09-25 |                    0.20 | Early lower-corridor build remains well below the October egg-take high                  | R-001–R-003  |
-|                    20 | 10-05 |                    0.50 | Established October build                                                                | R-001–R-003  |
-|                    31 | 10-16 |                    0.90 | Documented 2025 egg take begins                                                          | R-003        |
-|                    37 | 10-22 |                    1.00 | Owner-calibrated high at the midpoint of the documented window                           | R-003        |
-|                    43 | 10-28 |                    0.95 | Documented 2025 egg take ends; still near peak                                           | R-003        |
-|                    47 | 11-01 |                    0.80 | Early taper after the egg-take window                                                    | R-001, R-003 |
-|                    56 | 11-10 |                    0.45 | Meaningful but declining November seasonal presence                                      | R-001        |
-|                    66 | 11-20 |                    0.15 | Main run complete; sparse historical tail only                                           | R-001        |
-|                    76 | 11-30 |                    0.00 | Tail ends; score becomes unavailable rather than remaining frozen                        | R-001, R-007 |
+| Day offset from 09-02 | Date  | Fraction of 100 ceiling | Reason                                                                | Evidence IDs |
+| --------------------: | ----- | ----------------------: | --------------------------------------------------------------------- | ------------ |
+|                     0 | 09-02 |                    0.05 | Restrained first expected presence in the counted lower-weir interval | R-002        |
+|                     6 | 09-08 |                    0.20 | Early lower-corridor build                                            | R-002        |
+|                    10 | 09-12 |                    0.50 | Strong build toward the direct peak                                   | R-002        |
+|                    13 | 09-15 |                    0.90 | Direct 1990 peak date                                                 | R-002        |
+|                    18 | 09-20 |                    1.00 | Center of the dominant Sep. 17–23 harvest interval                    | R-002        |
+|                    28 | 09-30 |                    0.90 | End of the principal upstream-migration month                         | R-002        |
+|                    45 | 10-17 |                    0.65 | October maturation/egg-take shoulder                                  | R-002, R-003 |
+|                    59 | 10-31 |                    0.40 | Meaningful but declining late-October presence                        | R-001–R-003  |
+|                    69 | 11-10 |                    0.15 | Main run ending; sparse historical tail only                          | R-001        |
+|                    79 | 11-20 |                    0.00 | Main profile ends; later completion state is scoreless                | R-001, R-007 |
 
 Daily interpolation must be monotonic between anchors except for the single high
 and documented decline. Public values use state-preserving five-point rounding
@@ -152,8 +153,8 @@ Proposed ruleset: `platte-fall-coho-weather-activity-v1`.
 | Hydraulic/extreme-flow controls | none / unknown                                                                                                              | Activity cannot classify unmeasured lower-corridor flow; copy directs users to verify conditions                             |
 | Barrier control                 | No geographic or score credit; every action plan ends below signed closure                                                  | A weir is a product/access boundary, not an Activity driver                                                                  |
 | Complete-input floor            | none proposed                                                                                                               | Weather availability must not force optimistic responsiveness                                                                |
-| Tapering lifecycle              | Linear 0–15 point deduction, 10-29 through 11-10                                                                            | Smooth semelparous decline; owner calibration                                                                                |
-| Ending lifecycle                | Continue from 15 to 35 points, 11-11 through 11-30; weather-only result also capped at 42% of pre-lifecycle result by 11-30 | Prevents favorable skies from overstating spent/late adults; continuous blend required                                       |
+| Tapering lifecycle              | Linear 0–15 point deduction, 10-01 through 10-31                                                                            | Smooth semelparous decline; owner calibration                                                                                |
+| Ending lifecycle                | Continue from 15 to 35 points, 11-01 through 11-30; weather-only result also capped at 42% of pre-lifecycle result by 11-30 | Prevents favorable skies from overstating spent/late adults; continuous blend required                                       |
 | Terminal                        | No Activity score from 12-01                                                                                                | No winter handoff; `Fall run complete`                                                                                       |
 
 Every 5–9 AM, 9 AM–1 PM, 1–5 PM, and 5–9 PM block uses only its own effective
@@ -186,7 +187,7 @@ The replay artifact must report:
 - Clear/cloud/light and dry/trace/moderate/heavy in-block precipitation subsets;
   there are no warm/cold/flow subsets because those inputs are absent.
 - Counts at the 90/85 caps and proof that tomorrow never exceeds its cap.
-- Identical-weather lifecycle trace from 10-28 through 12-01 with no unexplained
+- Identical-weather lifecycle trace from 09-30 through 12-01 with no unexplained
   one-day cliff.
 - Single-block cloud and rain isolation, daily-rollup bounds, missing-weather
   behavior, today/tomorrow rollover, DST, and completed-block freezing.

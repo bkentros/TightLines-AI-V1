@@ -43,6 +43,27 @@ the run unresolved and hidden.
 | Historical opportunity tier/ceiling |                  |              | unresolved |
 | Barrier response differences        |                  |              | unresolved |
 
+### 1.1 Complete configuration-field inventory
+
+Reconcile this table with the current `RiverRunProfile`, selected biology
+profile, river profile, and any run-specific scoring rules. Add rows until every
+runtime-affecting field is represented; this starter list is not a closed
+schema.
+
+| Config path/field                                                      | Proposed value | Direct evidence IDs | Comparison runs and comparability | Owner calibration | Replay/test artifact | Status     |
+| ---------------------------------------------------------------------- | -------------- | ------------------- | --------------------------------- | ----------------- | -------------------- | ---------- |
+| identity / biology / lifecycle / movement engine                       |                |                     |                                   |                   |                      | unresolved |
+| primitiveCapabilities.*                                                |                |                     |                                   |                   |                      | unresolved |
+| runWindow.* (all boundaries)                                           |                |                     |                                   |                   |                      | unresolved |
+| handoff.*                                                              |                |                     |                                   |                   |                      | unresolved |
+| historicalPresence.maximum / distributionScope / anchors               |                |                     |                                   |                   |                      | unresolved |
+| activity.* (every source, weight, breakpoint, cap, ramp, missing rule) |                |                     |                                   |                   |                      | unresolved |
+| fishabilityBands.* / baselineCoverage.*                                |                |                     |                                   |                   |                      | unresolved |
+| waterTemperature.* / conditionsSuggest.*                               |                |                     |                                   |                   |                      | unresolved |
+| runStageCopyStrategy / userCopyHints / version and audit gates         |                |                     |                                   |                   |                      | unresolved |
+
+**Code-to-packet reconciliation reviewer/date:**
+
 ## 2. Seasonal calendar
 
 All dates are month-day values in the river timezone. Explain each boundary; do
@@ -137,7 +158,10 @@ Read `docs/river_run_activity_onboarding_standard.md` completely.
 
 - Replay years and coverage percentage.
 - Missing flow, prior flow, temperature, lookback, and weather counts.
-- Daily and block min/p10/median/p90/max.
+- Daily and block min/p10/mean/median/p90/max.
+- Beginning, Building, Peak, Tapering, Ending, and residual/holding
+  stage-by-four-hour-block counts, min/p10/mean/median/p90/max, label shares,
+  cap frequency, and confidence/missing-state notes.
 - Label distribution by lifecycle phase.
 - Best-block distribution and block-spread distribution.
 - Warm, cold, extreme-flow, and missing-data distributions.
@@ -145,6 +169,21 @@ Read `docs/river_run_activity_onboarding_standard.md` completely.
 - Lifecycle boundary continuity tests.
 - Complete copy and reach-scope invariants.
 - Calibration changes made after replay and why.
+
+| Stage     | Block      | Usable days | Samples | Min | p10 | Mean | Median | p90 | Max | Label shares | Cap/confidence notes |
+| --------- | ---------- | ----------: | ------: | --: | --: | ---: | -----: | --: | --: | ------------ | -------------------- |
+| Beginning | all blocks |             |         |     |     |      |        |     |     |              |                      |
+| Building  | all blocks |             |         |     |     |      |        |     |     |              |                      |
+| Peak      | all blocks |             |         |     |     |      |        |     |     |              |                      |
+| Tapering  | all blocks |             |         |     |     |      |        |     |     |              |                      |
+| Ending    | all blocks |             |         |     |     |      |        |     |     |              |                      |
+
+Repeat each stage for all four named blocks and add residual/holding rows when
+configured.
+
+| Iteration | Fields changed | Evidence/product reason | Expected effect | Full replay artifact | Actual distribution/invariant delta | Decision   |
+| --------- | -------------- | ----------------------- | --------------- | -------------------- | ----------------------------------- | ---------- |
+| Baseline  |                |                         |                 |                      |                                     | unresolved |
 
 Activity remains blocked until the replay is reviewed. A plausible anecdotal day
 is not sufficient acceptance.

@@ -77,12 +77,29 @@ async function validatePacket(): Promise<void> {
     if (
       relative.startsWith("runs/") &&
       (!content.includes("## 0. Candidate capability audit") ||
+        !content.includes("### 1.1 Complete configuration-field inventory") ||
+        !content.includes("**Code-to-packet reconciliation reviewer/date:**") ||
+        !/^\|\s*Stage\s*\|\s*Block\s*\|\s*Usable days\s*\|\s*Samples\s*\|/m
+          .test(content) ||
+        !/^\|\s*Iteration\s*\|\s*Fields changed\s*\|/m.test(content) ||
         !/\*\*Capability decision:\*\*/.test(content) ||
         !/\*\*Contradiction search\s+completed by\/date:\*\*/.test(content) ||
         !/\*\*Independent falsification review\s+by\/date:\*\*/.test(content))
     ) {
       console.error(
-        `ERROR ${relative}: missing mandatory candidate capability/contradiction audit.`,
+        `ERROR ${relative}: missing mandatory capability, complete-config, Activity stage/block, calibration-ledger, or contradiction audit.`,
+      );
+      errors++;
+    }
+    if (
+      relative === "acceptance.md" &&
+      (!content.includes("Code-to-packet configuration-field reconciliation") ||
+        !content.includes(
+          "Activity stage-by-block distributions and iteration ledger",
+        ))
+    ) {
+      console.error(
+        `ERROR ${relative}: missing complete-config or Activity replay acceptance gate.`,
       );
       errors++;
     }

@@ -1,5 +1,7 @@
 {
   "runId": "platte_fall_coho",
+  "status": "superseded_by_2026-08-24_calendar_recalibration",
+  "notAcceptedReason": "This mechanical replay used the former October-centered lifecycle. It is preserved as a baseline artifact only and must be rerun across the full fixed interval with the corrected September peak and stage-by-block v1.1 reporting contract.",
   "rulesVersion": "platte-fall-coho-weather-activity-v1-draft",
   "replayYears": "2007-2025",
   "method": "Historical mechanical Platte River coho weather-only replay using each four-hour block's Open-Meteo shortwave radiation, clear-sky radiation, cloud cover, precipitation total, and wet-hour duration at platte_el_dorado_weather. No air temperature, river level, clarity, or water temperature is inferred. This validates scoring behavior and copy, not catch rates.",
