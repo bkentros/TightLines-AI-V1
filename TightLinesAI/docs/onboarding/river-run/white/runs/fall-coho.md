@@ -1,88 +1,107 @@
 # White River Fall Coho River Run Profile
 
-**River ID:** `white`
+## 0. Candidate capability audit
 
-**Species slug:** `coho`
+The 2026 DNR assessment establishes annual Coho migration and wild fish in most
+accessible tributaries. It also describes only occasional catch and a desire for
+a larger run. That combination supports a recurring but sparse profile—not an
+absent/unsupported row and not a strong opportunity claim.
 
-**Created / researched:** 2026-08-24
+**Capability decision:** `supported_sparse_hidden_review` **Contradiction search
+completed by/date:** Codex / 2026-08-24 **Independent falsification review
+by/date:** required before public enablement
 
-**Status:** `visible_disabled_owner_decision`
+**River ID:** `white`\
+**Species slug:** `coho`\
+**Status:** `supported_sparse_hidden_review_correction`
 
-## 1. Owner decision
+## 1. Species/run truth
 
-Coho remains visible in the White River species catalog but disabled for this
-pass. The owner approved this treatment on 2026-08-24.
+| Field        | Researched value                                                 | Evidence IDs      | Status                           |
+| ------------ | ---------------------------------------------------------------- | ----------------- | -------------------------------- |
+| Run          | Annual fall migration from White Lake/Lake Michigan              | CO-001, CO-003    | supported                        |
+| Opportunity  | Sparse/occasional relative to White Chinook and Steelhead        | CO-001, CO-002    | supported limitation             |
+| Distribution | Broad potential below Hesperia, including accessible tributaries | CO-001            | supported; broad is not abundant |
+| Ceiling      | Conservative 2/10                                                | CO-001, CAL-CO-01 | owner calibration                |
+| Barrier      | Hesperia Dam is the hard upstream endpoint                       | CO-001            | supported                        |
 
-Public label: `Not available`
+## 2. Seasonal calendar
 
-Public reason: `White River Coho are documented only occasionally, so a
-dependable fall run profile is not available.`
+DNR documents the annual White migration but not daily timing. Current DNR Coho
+biology supplies the early-September-through-November bracket; every exact White
+boundary below is intentionally conservative and remains hidden for review.
 
-This is not a claim that Coho are absent. Current MDNR evidence documents annual
-migration and wild fish in accessible tributaries, but says Coho are only
-occasionally caught. MDNR's current Better Fishing Waters list names White
-River Chinook and Steelhead but not Coho. That evidence is insufficient for a
-defensible public calendar, curve, opportunity ceiling, or section progression.
+| Boundary             | Date        | Meaning                                             | Evidence IDs      |
+| -------------------- | ----------- | --------------------------------------------------- | ----------------- |
+| Pre-run monitoring   | 08-20       | Begin watching before statewide Coho entry          | CO-004            |
+| Staging              | 08-27       | Nearby-water context only                           | CO-004            |
+| Beginning            | 09-05       | Low first river-presence anchor                     | CO-001, CO-004    |
+| Established building | 09-16       | Sparse run developing                               | CAL-CO-02         |
+| Broad building       | 10-01       | Possible broader below-dam distribution             | CO-001, CAL-CO-02 |
+| Peak window          | 10-08-10-25 | Conservative center of the documented statewide run | CO-004, CAL-CO-02 |
+| Tapering end         | 11-10       | Meaningful decline                                  | CO-004, CAL-CO-02 |
+| Main end             | 11-20       | Late sparse opportunity                             | CO-004, CAL-CO-02 |
+| Presence tail        | 11-30       | Final modeled value; not proof of absence afterward | CO-004, CAL-CO-02 |
 
-## 2. Disabled capability contract
+## 3. Migration Stage truth
 
-| Capability | Decision | Public/runtime requirement |
-| --- | --- | --- |
-| Species catalog row | visible-disabled | Show the public label and reason; do not route into a River Run detail surface |
-| Seasonal calendar | not applicable | No inferred dates or states |
-| Migration Stage | not applicable | No label, section recommendation, score, or marker |
-| Fish In River | not applicable | No ceiling, curve, value, direction, or marker |
-| Activity | not applicable | No score or time-block recommendation; do not reuse Chinook or Steelhead rules |
-| Fishability | not applicable for this disabled run | Do not expose a run-specific primitive |
-| Gauge Read | river-level capability only | If shown elsewhere, retain separate Fruitvale flow and below-Hesperia temperature attribution; never imply a Coho Activity score |
-| Barrier | hard endpoint | Any future run remains below the downstream face of Hesperia Dam |
-| Handoff | none | No destination experience exists |
+Stage copy must repeatedly preserve the sparse-run qualifier. Lower river is
+first during beginning; Forest corridor and Upper accessible corridor become
+conditional later. No guidance crosses Hesperia Dam. Seasonal expectation does
+not confirm live fish, access, catch, or safety.
 
-No foreign dates, rules, copy, curves, weights, caps, or thresholds may be
-borrowed to make the disabled row appear complete.
+## 4. Fish In River profile
 
-## 3. Required disabled-state acceptance
+- Maximum: **2/10**.
+- Distribution: broad but sparse below Hesperia.
+- Curve: `white-coho-presence-v2-draft`.
+- Terminal: salmon lifecycle; complete is scoreless, never zero.
 
-- [ ] White River species selection shows Coho as visible and disabled.
-- [ ] The exact public reason fits supported narrow-screen layouts.
-- [ ] Disabled control cannot be selected by tap, keyboard, deep link, saved
-      state, notification, or stale cache.
-- [ ] No Stage, Activity, Fish In River, Fishability, score, marker, section,
-      or best-time block is rendered.
-- [ ] No analytics event records a Coho run as enabled or viewed.
-- [ ] Public copy does not say Coho are absent, extinct, closed, unsafe, or
-      prohibited.
-- [ ] Hesperia Dam remains the hard upstream endpoint in any internal metadata.
-- [ ] Fresh, partial, delayed, stale, and missing Gauge Read states cannot
-      accidentally enable Coho or produce an Activity score.
-- [ ] Foreign river/species denylist and enabled-species registry tests pass.
+| Offset from 09-05 | Fraction | Reason                              |
+| ----------------: | -------: | ----------------------------------- |
+|                 0 |     0.05 | Conservative first presence         |
+|                10 |     0.15 | Beginning-to-building transition    |
+|                25 |     0.35 | Broad distribution becomes possible |
+|                33 |     0.60 | Peak window opens                   |
+|                40 |     1.00 | Conservative reference high         |
+|                50 |     0.90 | Peak window closes                  |
+|                66 |     0.55 | Tapering boundary                   |
+|                76 |     0.25 | Main-run end                        |
+|                86 |     0.05 | Final presence-tail day             |
 
-No historical Activity or Fishability replay is required for a disabled run.
-The acceptance artifact must instead prove the disabled contract above.
+## 5. Activity calibration
 
-## 4. Evidence ledger
+`unavailable`. Fruitvale hydraulics and Weaver Street temperature represent
+different reaches, and no White Coho weather-only calibration/replay is
+accepted. Do not borrow Chinook or Steelhead behavior.
 
-| ID | Authority / title | Published / accessed | Facts supported | Limitations |
-| --- | --- | --- | --- | --- |
-| CO-001 | Michigan DNR, [Lower White River Status Report 0460](https://www2.dnr.state.mi.us/publications/pdfs/DNRFishLibrary/StatusoftheFisheryResourceReports/0460_2026_Lower_White_River.pdf) | 2026 / 2026-08-24 | Annual Coho migration, wild tributary fish, occasional catch, desire for a larger run, corridor and Hesperia barrier | Presence evidence does not establish a dependable public opportunity profile |
-| CO-002 | Michigan DNR, [Better Fishing Waters](https://www.michigan.gov/dnr/things-to-do/fishing/where/better-fishing-waters) | current / 2026-08-24 | White River list includes Chinook and Steelhead but omits Coho | Curated list; omission is corroboration of sparse status, not proof of absence |
-| CO-003 | Michigan DNR, [White Lake Status Report](https://www.michigan.gov/dnr/-/media/Project/Websites/dnr/Documents/Fisheries/Status/2024/White-Lake-Muskegon-County-2024-360.pdf) | 2024 / 2026-08-24 | Migratory Coho use White Lake/White River system; Hesperia limits migration | System-level presence, no White River opportunity curve |
+## 6. Fishability
 
-## 5. Run gate
+Use the accepted Fruitvale discharge bands only, with the permanent represented-
+reach limitation. Fishability describes presentation shape, not Coho abundance.
 
-**Run decision:** `disabled_for_this_pass`
+## 7. Four-primitive acceptance
 
-**Configuration version:** `not_implemented`
+- [ ] Sparse-run wording survives every Stage and Fish In River state.
+- [ ] Activity is deterministically unavailable.
+- [ ] Fishability never implies that a 2/10 run is abundant.
+- [ ] No state recommends above Hesperia Dam.
+- [ ] Terminal copy matches Coho mortality and removes score/marker.
+- [ ] Narrow iOS/Android and foreign-geography checks pass.
 
-**Activity rules version:** `not_applicable`
+## 8. Evidence ledger
 
-**Presence curve version:** `not_applicable`
+| ID     | Authority / title                                                                                                                                                                     | Published / accessed | Facts supported                                                                                             | Limitations                                  |
+| ------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------- | ----------------------------------------------------------------------------------------------------------- | -------------------------------------------- |
+| CO-001 | Michigan DNR, [Lower White River Status Report 0460](https://www2.dnr.state.mi.us/publications/pdfs/DNRFishLibrary/StatusoftheFisheryResourceReports/0460_2026_Lower_White_River.pdf) | 2026 / 2026-08-24    | Annual Coho migration, wild fish in accessible tributaries, occasional catch, corridor and Hesperia barrier | No daily counts or exact calendar            |
+| CO-002 | Michigan DNR, [Better Fishing Waters](https://www.michigan.gov/dnr/things-to-do/fishing/where/better-fishing-waters)                                                                  | current / 2026-08-24 | White omits Coho while listing Chinook/Steelhead                                                            | Omission supports sparse status, not absence |
+| CO-003 | Michigan DNR, [White Lake Status Report 2024-360](https://www.michigan.gov/dnr/-/media/Project/Websites/dnr/Documents/Fisheries/Status/2024/White-Lake-Muskegon-County-2024-360.pdf)  | 2024 / 2026-08-24    | Migratory Coho use White Lake/White River system                                                            | No opportunity curve                         |
+| CO-004 | Michigan DNR, [Coho salmon](https://www.michigan.gov/dnr/education/michigan-species/fish-species/coho-salmon)                                                                         | current / 2026-08-24 | Early-September-through-November statewide run bracket and lifecycle                                        | Not White-specific daily timing              |
 
-**Copy version:** `white_coho_visible_disabled_v1_research`
+## 9. Run gate
 
-**Replay artifact:** `disabled_contract_fixture_not_generated`
-
-**Owner acceptance/date:** `approved_visible_disabled / 2026-08-24`
-
-Reconsideration requires new White-specific evidence, a defensible calendar and
-ceiling, full Phase C replay/copy acceptance, and a new explicit owner decision.
+**Run decision:** `supported_sparse_hidden_review`\
+**Configuration:** `white-fall-coho-phase-c-draft-v2`\
+**Presence curve:** `white-coho-presence-v2-draft`\
+**Owner acceptance:** required after regenerated fixture review\
+**Public enablement:** not authorized

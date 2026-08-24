@@ -9,7 +9,9 @@ import {
   GRAND_FALL_STEELHEAD_RUN_PROFILE,
   GRAND_RIVER_PROFILE,
   PLATTE_CONFIGURATION_DOCUMENT,
+  PLATTE_FALL_CHINOOK_RUN_PROFILE,
   PLATTE_FALL_COHO_RUN_PROFILE,
+  PLATTE_FALL_STEELHEAD_RUN_PROFILE,
   PLATTE_RIVER_PROFILE,
   resolveActiveRunWindow,
   resolveFlowBand,
@@ -17,6 +19,7 @@ import {
   type RiverRunConditionRefresh,
   WHITE_CONFIGURATION_DOCUMENT,
   WHITE_FALL_CHINOOK_RUN_PROFILE,
+  WHITE_FALL_COHO_RUN_PROFILE,
   WHITE_FALL_STEELHEAD_RUN_PROFILE,
   WHITE_RIVER_PROFILE,
 } from "../supabase/functions/_shared/riverRunEngine/index.ts";
@@ -68,13 +71,18 @@ const targets: DraftTarget[] = [
     run,
     configVersion: GRAND_CONFIGURATION_DOCUMENT.configVersion,
   })),
-  {
+  ...[
+    PLATTE_FALL_CHINOOK_RUN_PROFILE,
+    PLATTE_FALL_COHO_RUN_PROFILE,
+    PLATTE_FALL_STEELHEAD_RUN_PROFILE,
+  ].map((run) => ({
     river: PLATTE_RIVER_PROFILE,
-    run: PLATTE_FALL_COHO_RUN_PROFILE,
+    run,
     configVersion: PLATTE_CONFIGURATION_DOCUMENT.configVersion,
-  },
+  })),
   ...[
     WHITE_FALL_CHINOOK_RUN_PROFILE,
+    WHITE_FALL_COHO_RUN_PROFILE,
     WHITE_FALL_STEELHEAD_RUN_PROFILE,
   ].map((run) => ({
     river: WHITE_RIVER_PROFILE,

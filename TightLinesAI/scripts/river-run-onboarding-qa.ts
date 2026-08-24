@@ -85,8 +85,8 @@ assert(
   "Expected Grand, Platte, and White hidden draft foundations.",
 );
 assert(
-  RIVER_RUN_DRAFT_RUN_PROFILES.length === 6,
-  "Expected six supported hidden draft runs.",
+  RIVER_RUN_DRAFT_RUN_PROFILES.length === 9,
+  "Expected nine supported hidden draft runs.",
 );
 for (const river of RIVER_RUN_DRAFT_RIVER_PROFILES) {
   const result = validateRiverProfile(river);
@@ -112,6 +112,8 @@ const requiredDocuments: Record<string, RegExp[]> = {
     /Migration Stage[\s\S]*Activity[\s\S]*Fish In River[\s\S]*Fishability/,
     /Live Conditions[\s\S]*unscored/,
     /Multi-agent operating protocol/,
+    /Mandatory candidate capability audit/,
+    /An `unsupported` decision requires affirmative exclusion evidence/,
     /Acceptance, deployment, and public enablement/,
   ],
   "docs/river_run_copy_model.md": [

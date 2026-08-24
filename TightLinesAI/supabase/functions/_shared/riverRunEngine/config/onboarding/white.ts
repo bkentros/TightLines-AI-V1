@@ -7,6 +7,7 @@ import type {
 import { getMovementEngineDefinition } from "../movementEngines.ts";
 import {
   GREAT_LAKES_CHINOOK_BIOLOGY_PROFILE,
+  GREAT_LAKES_COHO_BIOLOGY_PROFILE,
   GREAT_LAKES_STEELHEAD_FALL_ENTRY_BIOLOGY_PROFILE,
 } from "../speciesBiology.ts";
 
@@ -66,7 +67,7 @@ export const WHITE_RIVER_PROFILE: RiverProfile = {
     downstreamTerminus:
       "Covell Park / Business US-31 White River bridge near White Lake",
     upstreamTerminus: "Downstream face of Hesperia Dam",
-    targetSpecies: ["chinook_salmon", "steelhead"],
+    targetSpecies: ["chinook_salmon", "coho_salmon", "steelhead"],
     reaches: [
       {
         reachId: "white_lower_river",
@@ -145,7 +146,7 @@ export const WHITE_RIVER_PROFILE: RiverProfile = {
         "Michigan DNR 2026 Fishing Regulations; recheck immediately before release.",
     }],
     evidenceNotes:
-      "Owner-approved foundation dated 2026-08-24. All configured migratory guidance ends below Hesperia Dam. Chinook and Fall Steelhead are supported Phase C candidates; Coho remains planned-catalog disabled this pass.",
+      "All configured migratory guidance ends below Hesperia Dam. DNR documents annual Chinook, Coho, and Steelhead migrations; Coho uses a deliberately sparse hidden-review profile rather than an unsupported state.",
   },
   conditionRefreshSchedule: {
     activeSlots: [
@@ -247,13 +248,13 @@ export const WHITE_FALL_CHINOOK_RUN_PROFILE: AuditedRiverRunProfile = {
     },
   },
   runWindow: {
-    preRunStart: "08-15",
-    stagingStart: "08-20",
-    start: "09-10",
-    beginningEnd: "09-20",
-    buildingEstablishedStart: "09-25",
-    buildingBroadStart: "10-01",
-    peakStart: "10-08",
+    preRunStart: "08-01",
+    stagingStart: "08-10",
+    start: "08-15",
+    beginningEnd: "08-31",
+    buildingEstablishedStart: "09-01",
+    buildingBroadStart: "09-15",
+    peakStart: "10-01",
     peak: "10-08",
     peakEnd: "10-15",
     taperingEnd: "10-31",
@@ -264,23 +265,23 @@ export const WHITE_FALL_CHINOOK_RUN_PROFILE: AuditedRiverRunProfile = {
   historicalPresence: {
     maximum: 7,
     distributionScope: "broad",
-    curveVersion: "white-chinook-presence-v1-draft",
+    curveVersion: "white-chinook-presence-v2-draft",
     evidenceNotes:
-      "Draft 7/10 broad below-Hesperia opportunity curve uses direct White River enforcement observations from mid-September through late October 2025 and the current DNR destination-fishery assessment. It is not a fish count.",
+      "Draft 7/10 broad below-Hesperia curve opens conservatively on August 15, when DNR statewide biology supports late-summer upstream migration and catchability. Direct White observations strengthen the curve from mid-September through late October. It is not a live fish count.",
     sourceNotes:
       "Michigan DNR Lower White River Status Report 0460, Chinook biology, 2025 conservation-officer reports, and Phase C owner calibrations.",
     anchors: [
       { dayOffsetFromStart: 0, fractionOfMaximum: 0.05 },
-      { dayOffsetFromStart: 5, fractionOfMaximum: 0.12 },
-      { dayOffsetFromStart: 10, fractionOfMaximum: 0.25 },
-      { dayOffsetFromStart: 15, fractionOfMaximum: 0.45 },
-      { dayOffsetFromStart: 21, fractionOfMaximum: 0.7 },
-      { dayOffsetFromStart: 28, fractionOfMaximum: 1 },
-      { dayOffsetFromStart: 35, fractionOfMaximum: 0.95 },
-      { dayOffsetFromStart: 42, fractionOfMaximum: 0.8 },
-      { dayOffsetFromStart: 51, fractionOfMaximum: 0.55 },
-      { dayOffsetFromStart: 61, fractionOfMaximum: 0.25 },
-      { dayOffsetFromStart: 66, fractionOfMaximum: 0.05 },
+      { dayOffsetFromStart: 7, fractionOfMaximum: 0.08 },
+      { dayOffsetFromStart: 17, fractionOfMaximum: 0.12 },
+      { dayOffsetFromStart: 31, fractionOfMaximum: 0.25 },
+      { dayOffsetFromStart: 47, fractionOfMaximum: 0.7 },
+      { dayOffsetFromStart: 54, fractionOfMaximum: 1 },
+      { dayOffsetFromStart: 61, fractionOfMaximum: 0.95 },
+      { dayOffsetFromStart: 68, fractionOfMaximum: 0.8 },
+      { dayOffsetFromStart: 77, fractionOfMaximum: 0.55 },
+      { dayOffsetFromStart: 87, fractionOfMaximum: 0.25 },
+      { dayOffsetFromStart: 92, fractionOfMaximum: 0.05 },
     ],
   },
   fishabilityBands: WHITE_FISHABILITY,
@@ -291,8 +292,75 @@ export const WHITE_FALL_CHINOOK_RUN_PROFILE: AuditedRiverRunProfile = {
     "docs/onboarding/river-run/white/runs/fall-chinook.md and its primary-source evidence ledger, completed 2026-08-24.",
   publicAudit: {
     isEnabled: false,
-    auditVersion: "white-fall-chinook-phase-c-draft-v1",
+    auditVersion: "white-fall-chinook-phase-c-draft-v2",
     notes: "Hidden until every Phase C acceptance gate passes.",
+  },
+};
+
+export const WHITE_FALL_COHO_RUN_PROFILE: AuditedRiverRunProfile = {
+  runId: "white_fall_coho",
+  riverId: "white",
+  biologyProfileId: "great_lakes_coho_v1",
+  displayName: "Fall Coho",
+  species: "coho_salmon",
+  season: "fall",
+  runType: "fall_spawn",
+  movementEngineId: "fall_cooling",
+  primitiveCapabilities: {
+    ...WHITE_FALL_CHINOOK_RUN_PROFILE.primitiveCapabilities,
+    activity: {
+      status: "unavailable",
+      reason: "no_accepted_activity_calibration",
+      notes:
+        "Fruitvale hydraulics and Weaver Street temperature represent different reaches; no cross-reach or Coho weather-only Activity model is accepted.",
+      publicCopy: WHITE_UNAVAILABLE_ACTIVITY_COPY,
+    },
+  },
+  runWindow: {
+    preRunStart: "08-20",
+    stagingStart: "08-27",
+    start: "09-05",
+    beginningEnd: "09-15",
+    buildingEstablishedStart: "09-16",
+    buildingBroadStart: "10-01",
+    peakStart: "10-08",
+    peak: "10-15",
+    peakEnd: "10-25",
+    taperingEnd: "11-10",
+    end: "11-20",
+    lateEnd: "11-30",
+    postRunLateCopyEnd: "12-02",
+  },
+  historicalPresence: {
+    maximum: 2,
+    distributionScope: "broad",
+    curveVersion: "white-coho-presence-v2-draft",
+    evidenceNotes:
+      "A deliberately low 2/10 curve represents the DNR-documented annual migration, wild fish in accessible tributaries, and occasional catches. Broad describes possible below-Hesperia distribution, not abundance or dependable fish at every section.",
+    sourceNotes:
+      "Michigan DNR Lower White River Status Report 0460, White Lake Status Report 2024-360, and current Coho biology; exact anchors are conservative owner calibration.",
+    anchors: [
+      { dayOffsetFromStart: 0, fractionOfMaximum: 0.05 },
+      { dayOffsetFromStart: 10, fractionOfMaximum: 0.15 },
+      { dayOffsetFromStart: 25, fractionOfMaximum: 0.35 },
+      { dayOffsetFromStart: 33, fractionOfMaximum: 0.6 },
+      { dayOffsetFromStart: 40, fractionOfMaximum: 1 },
+      { dayOffsetFromStart: 50, fractionOfMaximum: 0.9 },
+      { dayOffsetFromStart: 66, fractionOfMaximum: 0.55 },
+      { dayOffsetFromStart: 76, fractionOfMaximum: 0.25 },
+      { dayOffsetFromStart: 86, fractionOfMaximum: 0.05 },
+    ],
+  },
+  fishabilityBands: WHITE_FISHABILITY,
+  baselineCoverage: WHITE_BASELINE,
+  researchNotes:
+    "Hidden sparse-run correction candidate. Annual migration evidence supports a conservative profile; low ceiling and unavailable Activity preserve the documented uncertainty.",
+  sourceNotes:
+    "docs/onboarding/river-run/white/runs/fall-coho.md; research corrected 2026-08-24.",
+  publicAudit: {
+    isEnabled: false,
+    auditVersion: "white-fall-coho-phase-c-draft-v2",
+    notes: "Hidden until corrected fixtures and owner review pass.",
   },
 };
 
@@ -367,7 +435,7 @@ export const WHITE_FALL_STEELHEAD_RUN_PROFILE: AuditedRiverRunProfile = {
 
 export const WHITE_CONFIGURATION_DOCUMENT: RiverRunConfigurationDocument = {
   schemaVersion: "river-run-config-v1",
-  configVersion: "2026-08-24-white-phase-c-draft.1",
+  configVersion: "2026-08-24-white-phase-c-draft.3",
   movementEngineVersion: [
     getMovementEngineDefinition("fall_cooling").version,
     getMovementEngineDefinition("fall_entry_cooling").version,
@@ -375,7 +443,12 @@ export const WHITE_CONFIGURATION_DOCUMENT: RiverRunConfigurationDocument = {
   river: WHITE_RIVER_PROFILE,
   biologyProfiles: [
     GREAT_LAKES_CHINOOK_BIOLOGY_PROFILE,
+    GREAT_LAKES_COHO_BIOLOGY_PROFILE,
     GREAT_LAKES_STEELHEAD_FALL_ENTRY_BIOLOGY_PROFILE,
   ],
-  runs: [WHITE_FALL_CHINOOK_RUN_PROFILE, WHITE_FALL_STEELHEAD_RUN_PROFILE],
+  runs: [
+    WHITE_FALL_CHINOOK_RUN_PROFILE,
+    WHITE_FALL_COHO_RUN_PROFILE,
+    WHITE_FALL_STEELHEAD_RUN_PROFILE,
+  ],
 };

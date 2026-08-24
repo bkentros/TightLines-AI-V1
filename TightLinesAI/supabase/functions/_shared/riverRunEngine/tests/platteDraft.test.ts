@@ -1,7 +1,9 @@
 import { assert, assertEquals, assertMatch } from "jsr:@std/assert";
 import {
   PLATTE_CONFIGURATION_DOCUMENT,
+  PLATTE_FALL_CHINOOK_RUN_PROFILE,
   PLATTE_FALL_COHO_RUN_PROFILE,
+  PLATTE_FALL_STEELHEAD_RUN_PROFILE,
   PLATTE_RIVER_PROFILE,
   RIVER_RUN_DRAFT_RUN_PROFILES,
   RIVER_RUN_RUN_PROFILES,
@@ -25,6 +27,26 @@ Deno.test("Platte draft foundation keeps Honor Gauge Read separate from the lowe
     PLATTE_RIVER_PROFILE.gaugeLimitationCopy,
     /upstream of Platte Lake/i,
   );
+});
+
+Deno.test("Platte Chinook and Fall Steelhead are valid hidden seasonal drafts", () => {
+  for (
+    const run of [
+      PLATTE_FALL_CHINOOK_RUN_PROFILE,
+      PLATTE_FALL_STEELHEAD_RUN_PROFILE,
+    ]
+  ) {
+    const result = validateRunProfile(run, PLATTE_RIVER_PROFILE);
+    assertEquals(
+      result.valid,
+      true,
+      result.issues.map((issue) => issue.message).join("\n"),
+    );
+    assertEquals(result.publicVisible, false);
+    assertEquals(run.primitiveCapabilities.fishInRiver.status, "available");
+    assertEquals(run.primitiveCapabilities.activity.status, "unavailable");
+    assertEquals(run.primitiveCapabilities.fishability.status, "unavailable");
+  }
 });
 
 Deno.test("Platte Coho is a valid hidden weather-only draft with unavailable Fishability", () => {
@@ -60,6 +82,11 @@ Deno.test("Platte stays outside public registries while draft replay can discove
       run.runId === "platte_fall_coho"
     ),
     true,
+  );
+  assertEquals(
+    RIVER_RUN_DRAFT_RUN_PROFILES.filter((run) => run.riverId === "platte")
+      .map((run) => run.runId),
+    ["platte_fall_chinook", "platte_fall_coho", "platte_fall_steelhead"],
   );
   const issues = validateConfigurationRevision({
     configKey: "platte",

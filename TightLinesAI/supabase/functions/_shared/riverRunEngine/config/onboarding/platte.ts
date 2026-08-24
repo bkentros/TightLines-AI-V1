@@ -4,7 +4,11 @@ import type {
   RiverRunConfigurationDocument,
 } from "../../types.ts";
 import { getMovementEngineDefinition } from "../movementEngines.ts";
-import { GREAT_LAKES_COHO_BIOLOGY_PROFILE } from "../speciesBiology.ts";
+import {
+  GREAT_LAKES_CHINOOK_BIOLOGY_PROFILE,
+  GREAT_LAKES_COHO_BIOLOGY_PROFILE,
+  GREAT_LAKES_STEELHEAD_FALL_ENTRY_BIOLOGY_PROFILE,
+} from "../speciesBiology.ts";
 
 export const PLATTE_RIVER_PROFILE: RiverProfile = {
   riverId: "platte",
@@ -49,7 +53,7 @@ export const PLATTE_RIVER_PROFILE: RiverProfile = {
     downstreamTerminus: "Platte River Point at Platte Bay",
     upstreamTerminus:
       "The downstream edge of the signed 300-foot Lower Platte River Weir closure whenever the weir is installed",
-    targetSpecies: ["coho_salmon"],
+    targetSpecies: ["chinook_salmon", "coho_salmon", "steelhead"],
     reaches: [
       {
         reachId: "platte_lower_entry",
@@ -119,7 +123,7 @@ export const PLATTE_RIVER_PROFILE: RiverProfile = {
         "Michigan DNR 2026 Fishing Regulations and National Park Service fishing guidance; recheck before release.",
     }],
     evidenceNotes:
-      "Owner-approved foundation research dated 2026-08-24. The seasonal Lower Platte River Weir is the conservative product endpoint. Coho is the sole supported Phase C combination; Chinook and Fall Steelhead remain planned-catalog disabled.",
+      "The seasonal Lower Platte River Weir is the conservative product endpoint. Michigan DNR lower-weir records directly support fall Chinook, Coho, and Steelhead in this corridor; all three remain hidden Phase C candidates pending review.",
   },
   conditionRefreshSchedule: {
     activeSlots: [
@@ -148,6 +152,91 @@ export const PLATTE_RIVER_PROFILE: RiverProfile = {
     "USGS readings describe the Platte at US-31 near Honor, upstream of Platte Lake—not the lower river near the weir or mouth.",
   regulationReminderCopy:
     "Check current Michigan regulations and posted Lower Platte River Weir closures. River Run guidance ends below the signed closure.",
+};
+
+const PLATTE_SEASONAL_ONLY_CAPABILITIES:
+  AuditedRiverRunProfile["primitiveCapabilities"] = {
+    migrationStage: { status: "available" },
+    activity: {
+      status: "unavailable",
+      reason: "no_accepted_activity_calibration",
+      notes:
+        "No lower-corridor measured hydraulics or water temperature supports a species-specific Activity calibration.",
+    },
+    fishInRiver: { status: "available" },
+    fishability: {
+      status: "unavailable",
+      reason: "no_accepted_hydraulic_source",
+      notes:
+        "Honor hydraulics do not represent the lower corridor, so no local presentation bands are accepted.",
+    },
+    migrationTiming: {
+      status: "unavailable",
+      reason: "no_accepted_historical_baseline",
+      notes:
+        "No accepted paired lower-corridor history supports an early, typical, or delayed comparison.",
+    },
+    push: {
+      status: "unavailable",
+      reason: "no_accepted_hydraulic_or_water_temperature_source",
+      notes:
+        "The lower corridor has neither reach-representative hydraulics nor measured water temperature for a movement read.",
+    },
+  };
+
+export const PLATTE_FALL_CHINOOK_RUN_PROFILE: AuditedRiverRunProfile = {
+  runId: "platte_fall_chinook",
+  riverId: "platte",
+  biologyProfileId: "great_lakes_chinook_v1",
+  displayName: "Fall Chinook",
+  species: "chinook_salmon",
+  season: "fall",
+  runType: "fall_spawn",
+  movementEngineId: "fall_cooling",
+  primitiveCapabilities: PLATTE_SEASONAL_ONLY_CAPABILITIES,
+  runWindow: {
+    preRunStart: "08-15",
+    stagingStart: "08-20",
+    start: "09-10",
+    beginningEnd: "09-22",
+    buildingEstablishedStart: "09-23",
+    buildingBroadStart: "09-24",
+    peakStart: "09-25",
+    peak: "10-01",
+    peakEnd: "10-17",
+    taperingEnd: "10-31",
+    end: "11-21",
+    lateEnd: "11-30",
+    postRunLateCopyEnd: "12-02",
+  },
+  historicalPresence: {
+    maximum: 4,
+    distributionScope: "concentrated",
+    curveVersion: "platte-fall-chinook-presence-v2-draft",
+    evidenceNotes:
+      "A conservative 4/10 lower-corridor curve reflects a recurring but secondary Chinook run: DNR recorded annual lower-weir returns in 1979-1990, with the 1990 run spanning late September through November, plus a documented Platte king salmon in 2024. It is not a current fish count.",
+    sourceNotes:
+      "Michigan DNR Technical Report 91-1, current Platte hatchery/weir material, and 2024 conservation-officer reporting.",
+    anchors: [
+      { dayOffsetFromStart: 0, fractionOfMaximum: 0.05 },
+      { dayOffsetFromStart: 5, fractionOfMaximum: 0.15 },
+      { dayOffsetFromStart: 13, fractionOfMaximum: 0.55 },
+      { dayOffsetFromStart: 21, fractionOfMaximum: 1 },
+      { dayOffsetFromStart: 37, fractionOfMaximum: 0.8 },
+      { dayOffsetFromStart: 51, fractionOfMaximum: 0.35 },
+      { dayOffsetFromStart: 72, fractionOfMaximum: 0.08 },
+      { dayOffsetFromStart: 81, fractionOfMaximum: 0 },
+    ],
+  },
+  researchNotes:
+    "Hidden correction candidate. The earlier unsupported verdict was withdrawn after direct DNR lower-weir records were found.",
+  sourceNotes:
+    "docs/onboarding/river-run/platte/runs/fall-chinook.md; research corrected 2026-08-24.",
+  publicAudit: {
+    isEnabled: false,
+    auditVersion: "platte-fall-chinook-phase-c-draft-v2",
+    notes: "Hidden until corrected fixtures and owner review pass.",
+  },
 };
 
 export const PLATTE_FALL_COHO_RUN_PROFILE: AuditedRiverRunProfile = {
@@ -274,11 +363,79 @@ export const PLATTE_FALL_COHO_RUN_PROFILE: AuditedRiverRunProfile = {
   },
 };
 
+export const PLATTE_FALL_STEELHEAD_RUN_PROFILE: AuditedRiverRunProfile = {
+  runId: "platte_fall_steelhead",
+  riverId: "platte",
+  biologyProfileId: "great_lakes_steelhead_fall_entry_v1",
+  displayName: "Fall Steelhead",
+  species: "steelhead",
+  season: "fall",
+  runType: "fall_entry",
+  movementEngineId: "fall_entry_cooling",
+  primitiveCapabilities: PLATTE_SEASONAL_ONLY_CAPABILITIES,
+  runWindow: {
+    preRunStart: "08-15",
+    stagingStart: "08-25",
+    start: "09-03",
+    beginningEnd: "09-16",
+    buildingEstablishedStart: "09-17",
+    buildingBroadStart: "10-01",
+    peakStart: "10-08",
+    peak: "10-17",
+    peakEnd: "11-02",
+    taperingEnd: "11-21",
+    end: "12-15",
+    lateEnd: "01-15",
+    postRunLateCopyEnd: "01-31",
+  },
+  historicalPresence: {
+    maximum: 6,
+    distributionScope: "concentrated",
+    curveVersion: "platte-fall-steelhead-presence-v2-draft",
+    evidenceNotes:
+      "DNR lower-weir records show Steelhead from September 3 through November 30 in 1990, strong throughout fall and peaking the week of October 17. The retained tail represents overwinter holding potential, not a claim that entry continues at peak strength.",
+    sourceNotes:
+      "Michigan DNR Technical Report 91-1, current Steelhead biology, Better Fishing Waters, and the 2026 Platte egg-take response.",
+    anchors: [
+      { dayOffsetFromStart: 0, fractionOfMaximum: 0.08 },
+      { dayOffsetFromStart: 7, fractionOfMaximum: 0.18 },
+      { dayOffsetFromStart: 14, fractionOfMaximum: 0.3 },
+      { dayOffsetFromStart: 28, fractionOfMaximum: 0.55 },
+      { dayOffsetFromStart: 35, fractionOfMaximum: 0.72 },
+      { dayOffsetFromStart: 44, fractionOfMaximum: 1 },
+      { dayOffsetFromStart: 60, fractionOfMaximum: 0.82 },
+      { dayOffsetFromStart: 79, fractionOfMaximum: 0.62 },
+      { dayOffsetFromStart: 103, fractionOfMaximum: 0.55 },
+      { dayOffsetFromStart: 134, fractionOfMaximum: 0.45 },
+    ],
+  },
+  researchNotes:
+    "Hidden correction candidate. Terminal behavior ends the fall-entry model without saying Steelhead left or died.",
+  sourceNotes:
+    "docs/onboarding/river-run/platte/runs/fall-steelhead.md; research corrected 2026-08-24.",
+  publicAudit: {
+    isEnabled: false,
+    auditVersion: "platte-fall-steelhead-phase-c-draft-v2",
+    notes: "Hidden until corrected fixtures and owner review pass.",
+  },
+};
+
 export const PLATTE_CONFIGURATION_DOCUMENT: RiverRunConfigurationDocument = {
   schemaVersion: "river-run-config-v1",
-  configVersion: "2026-08-24-platte-phase-c-draft.1",
-  movementEngineVersion: getMovementEngineDefinition("fall_cooling").version,
+  configVersion: "2026-08-24-platte-phase-c-draft.2",
+  movementEngineVersion: [
+    getMovementEngineDefinition("fall_cooling").version,
+    getMovementEngineDefinition("fall_entry_cooling").version,
+  ].join("+"),
   river: PLATTE_RIVER_PROFILE,
-  biologyProfiles: [GREAT_LAKES_COHO_BIOLOGY_PROFILE],
-  runs: [PLATTE_FALL_COHO_RUN_PROFILE],
+  biologyProfiles: [
+    GREAT_LAKES_CHINOOK_BIOLOGY_PROFILE,
+    GREAT_LAKES_COHO_BIOLOGY_PROFILE,
+    GREAT_LAKES_STEELHEAD_FALL_ENTRY_BIOLOGY_PROFILE,
+  ],
+  runs: [
+    PLATTE_FALL_CHINOOK_RUN_PROFILE,
+    PLATTE_FALL_COHO_RUN_PROFILE,
+    PLATTE_FALL_STEELHEAD_RUN_PROFILE,
+  ],
 };

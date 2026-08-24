@@ -6,8 +6,11 @@ const expectedRuns = new Set([
   "grand_fall_chinook",
   "grand_fall_coho",
   "grand_fall_steelhead",
+  "platte_fall_chinook",
   "platte_fall_coho",
+  "platte_fall_steelhead",
   "white_fall_chinook",
+  "white_fall_coho",
   "white_fall_steelhead",
 ]);
 
@@ -84,7 +87,7 @@ for (
   }
 
   const fishability = groups.find((group) => group.id === "fishability")!;
-  if (runId === "platte_fall_coho") {
+  if (runId.startsWith("platte_")) {
     assert(
       fishability.scenarios.every((scenario) =>
         scenario.snapshot.fishability.label === "Unavailable" &&

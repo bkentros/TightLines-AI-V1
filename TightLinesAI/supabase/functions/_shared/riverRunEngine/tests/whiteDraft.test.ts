@@ -9,6 +9,7 @@ import {
   validateRunProfile,
   WHITE_CONFIGURATION_DOCUMENT,
   WHITE_FALL_CHINOOK_RUN_PROFILE,
+  WHITE_FALL_COHO_RUN_PROFILE,
   WHITE_FALL_STEELHEAD_RUN_PROFILE,
   WHITE_RIVER_PROFILE,
 } from "../index.ts";
@@ -30,6 +31,7 @@ Deno.test("White supported drafts expose seasonal primitives and fail Activity c
   for (
     const run of [
       WHITE_FALL_CHINOOK_RUN_PROFILE,
+      WHITE_FALL_COHO_RUN_PROFILE,
       WHITE_FALL_STEELHEAD_RUN_PROFILE,
     ]
   ) {
@@ -49,7 +51,13 @@ Deno.test("White supported drafts expose seasonal primitives and fail Activity c
 });
 
 Deno.test("White drafts validate but remain outside public registries", () => {
-  for (const runId of ["white_fall_chinook", "white_fall_steelhead"]) {
+  for (
+    const runId of [
+      "white_fall_chinook",
+      "white_fall_coho",
+      "white_fall_steelhead",
+    ]
+  ) {
     assertEquals(
       RIVER_RUN_RUN_PROFILES.some((run) => run.runId === runId),
       false,

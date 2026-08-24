@@ -1,11 +1,9 @@
 # FinFindr River Run Rapid Onboarding Playbook
 
-**Status:** Normative source of truth
-**Version:** 1.0
-**Established:** 2026-08-24
-**Branch family:** `develop/cross-platform-next`
-**Scope:** Researching, configuring, validating, reviewing, and handing off a
-new River Run river and its supported fall Chinook, Coho, and Steelhead runs
+**Status:** Normative source of truth **Version:** 1.0 **Established:**
+2026-08-24 **Branch family:** `develop/cross-platform-next` **Scope:**
+Researching, configuring, validating, reviewing, and handing off a new River Run
+river and its supported fall Chinook, Coho, and Steelhead runs
 
 ## 1. Authority
 
@@ -17,20 +15,19 @@ Supporting normative standards, in order:
 1. `docs/river_run_copy_model.md` — public copy and geography rules.
 2. `docs/river_run_activity_onboarding_standard.md` — Activity research,
    calibration, replay, copy, and acceptance.
-3. `docs/river_run_live_conditions_onboarding_standard.md` — Gauge Read
-   sources, date context, trends, provenance, and unavailable behavior.
-4. Current engine types, validation, scoring code, and tests — runtime
-   behavior.
+3. `docs/river_run_live_conditions_onboarding_standard.md` — Gauge Read sources,
+   date context, trends, provenance, and unavailable behavior.
+4. Current engine types, validation, scoring code, and tests — runtime behavior.
 5. The river’s versioned onboarding packet and accepted audit — researched
    river/run facts.
 
 Older six-primitive, five-primitive, release-branch, Push, or Migration Timing
 instructions are historical. Timing and Push may remain internal for backward
-compatibility, but they are hidden and are not part of public onboarding,
-public copy acceptance, navigation, or the visible primitive order.
+compatibility, but they are hidden and are not part of public onboarding, public
+copy acceptance, navigation, or the visible primitive order.
 
-When sources, code, or standards disagree, stop and record the contradiction.
-Do not silently select the convenient answer. A change to an accepted score,
+When sources, code, or standards disagree, stop and record the contradiction. Do
+not silently select the convenient answer. A change to an accepted score,
 calendar, public section, capability, or biological conclusion requires an
 explicit versioned decision.
 
@@ -43,22 +40,22 @@ The visible River Run order is fixed:
 3. Fish In River
 4. Fishability
 
-Live Conditions, presented as Gauge Read, appears above the primitives. It is
-an unscored measurement surface, not a fifth primitive.
+Live Conditions, presented as Gauge Read, appears above the primitives. It is an
+unscored measurement surface, not a fifth primitive.
 
 Primitive ownership:
 
-| Surface | Owns | Must not claim |
-| --- | --- | --- |
-| Migration Stage | Fixed researched seasonal phase and the seasonally appropriate section in which to begin | Live abundance, confirmed distribution, current movement, responsiveness, catch probability |
-| Activity | Conditional responsiveness of fish already present and differences among four supported time blocks | Abundance, migration, catch probability, exact fish location, proof of feeding |
-| Fish In River | Approximate historical seasonal presence relative to that river/species ceiling | Live fish count, current movement, bite quality, exact location |
-| Fishability | Presentation control and the shape of fishable water represented by the accepted hydraulic source | Abundance, responsiveness, access, wading/boating safety, the entire river unless audited |
+| Surface         | Owns                                                                                                                                        | Must not claim                                                                                                  |
+| --------------- | ------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------- |
+| Migration Stage | Fixed researched seasonal phase and the seasonally appropriate section in which to begin                                                    | Live abundance, confirmed distribution, current movement, responsiveness, catch probability                     |
+| Activity        | Conditional responsiveness of fish already present and differences among four supported time blocks                                         | Abundance, migration, catch probability, exact fish location, proof of feeding                                  |
+| Fish In River   | Approximate historical seasonal presence relative to that river/species ceiling                                                             | Live fish count, current movement, bite quality, exact location                                                 |
+| Fishability     | Presentation control and the shape of fishable water represented by the accepted hydraulic source                                           | Abundance, responsiveness, access, wading/boating safety, the entire river unless audited                       |
 | Live Conditions | Current measurements, source-appropriate precision, date-based historical context, 24-hour trend, freshness, station, and represented reach | A score, migration inference, clarity inference, safety, fish presence, whole-river conditions without evidence |
 
-Valid tension is expected. High seasonal presence can coexist with low
-Activity. Excellent Fishability can coexist with low Fish In River. Do not
-rewrite one surface to make independent conclusions superficially agree.
+Valid tension is expected. High seasonal presence can coexist with low Activity.
+Excellent Fishability can coexist with low Fish In River. Do not rewrite one
+surface to make independent conclusions superficially agree.
 
 ## 3. Non-negotiable safety and release boundaries
 
@@ -133,8 +130,13 @@ The scaffolder never overwrites an existing workspace. Do not rename packet
 files; automation and reviewers rely on the stable layout.
 
 The default three species files are research candidates, not an assertion that
-all combinations are supported. A combination becomes public only after its
-own evidence, configuration, replay, copy, and acceptance pass.
+all combinations are supported. A combination becomes public only after its own
+evidence, configuration, replay, copy, and acceptance pass.
+
+Absence of a result in one current summary page is never proof that a run does
+not exist. A disabled or unsupported decision has a higher evidence burden than
+a supported-but-conservative draft because a false negative removes a real
+fishery from the product.
 
 ## 6. Phase A — river foundation lock
 
@@ -163,9 +165,9 @@ Use current primary/authoritative sources first:
    metadata when they own the relevant monitoring network.
 5. Secondary sources only to locate primary material or document local names.
 
-Every material fact needs an evidence-ledger entry with title, authority, URL
-or repository path, publication/update date when available, access date,
-specific supported facts, geographic reach, and limitations.
+Every material fact needs an evidence-ledger entry with title, authority, URL or
+repository path, publication/update date when available, access date, specific
+supported facts, geographic reach, and limitations.
 
 Do not cite a search-results page. Do not turn a URL list into implied support.
 
@@ -254,8 +256,8 @@ series and needed live/history endpoints work.
 - Label fallbacks and constrain claims to their reach.
 - Weather is a modeled point, not measured river state.
 - If no gauge passes, configure an honest no-gauge state; the river can still
-  support Stage, Fish In River, and a separately accepted weather-only
-  Activity model.
+  support Stage, Fish In River, and a separately accepted weather-only Activity
+  model.
 
 ### B3. Date context and trend
 
@@ -263,9 +265,9 @@ Date averages use the same calendar date ±3 days across prior years. They are
 not broad seasonal averages. The product discloses record length and window.
 Missing days remain part of the freshness/coverage truth.
 
-Twenty-four-hour change uses an accepted prior observation near the target
-time. Missing prior evidence produces an unknown trend, never a fabricated
-stable result.
+Twenty-four-hour change uses an accepted prior observation near the target time.
+Missing prior evidence produces an unknown trend, never a fabricated stable
+result.
 
 ### B4. Live Conditions gate
 
@@ -280,7 +282,8 @@ truth.
 
 For each species:
 
-1. Confirm a real supported run and movement-engine fit.
+1. Complete the candidate capability audit below, then confirm the run and
+   movement-engine fit.
 2. Select or create an evidence-matched biology profile.
 3. Set staging, entry, building, peak, tapering, ending, tail, and return
    boundaries.
@@ -295,6 +298,42 @@ For each species:
 
 Do not infer Coho dates from Chinook, Steelhead lifecycle from salmon, or run
 strength from river size or reputation.
+
+### C1. Mandatory candidate capability audit
+
+Before either `supported` or `unsupported` is allowed, search each candidate
+independently using the scientific name and local aliases such as `king`,
+`silver`, `rainbow`, and `steelhead`. Record affirmative and contradictory
+findings from all applicable source classes:
+
+1. Current agency fishery assessments and destination/species lists.
+2. Current stocking database records, including the receiving water and life
+   stage; hatchery production alone is not river stocking evidence.
+3. Weir, ladder, harvest, egg-take, creel, and passage reports, including the
+   agency technical-report archive.
+4. Current agency field observations, conservation-officer reports, and advisory
+   minutes.
+5. Regulations and closures as context only; legal coverage does not prove a
+   biological run.
+
+Separate four questions in the packet: `occurs in system`, `recurring run`,
+`dependable public opportunity`, and `calibration quality`. A sparse, stray, or
+wild run may justify a lower ceiling and concentrated scope; it must not be
+rewritten as absent. Weak date or abundance calibration blocks precision, not
+the already-established existence of a run.
+
+An `unsupported` decision requires affirmative exclusion evidence or a logged
+contradiction search across every applicable source class. “Not found,” an
+omission from a curated list, no direct stocking, and evidence for a different
+season are insufficient individually or together. If existence evidence and
+calibration evidence conflict, mark the combination `research_unresolved`, keep
+it hidden, and escalate it for independent verification—never gray it as
+unsupported.
+
+The independent verifier must attempt to falsify every capability decision,
+including checking historic reports that predate current web summaries. A
+species/run cannot enter review fixtures until that contradiction search is
+recorded.
 
 ## 9. Phase D — dedicated Activity track
 
@@ -398,14 +437,14 @@ pending, blocked, or unrendered.
 ### G2. Activity replay
 
 Run the generic or accepted run-specific replay across the longest reliable
-fixed historical window. Record why the window begins and ends where it does.
-Do not select years after inspecting results solely to improve the distribution.
+fixed historical window. Record why the window begins and ends where it does. Do
+not select years after inspecting results solely to improve the distribution.
 
 ### G3. Fishability replay
 
-Replay every band and trend against accepted historical hydraulics. Confirm
-that rare/excessive states are reachable for defensible reasons and extreme
-states never become safety advice.
+Replay every band and trend against accepted historical hydraulics. Confirm that
+rare/excessive states are reachable for defensible reasons and extreme states
+never become safety advice.
 
 ### G4. State fixtures
 
@@ -441,13 +480,12 @@ A river is onboarding-complete only when:
   and copy acceptance.
 - All four public primitives have complete reachable-state fixtures.
 - No hidden Timing/Push surface or language is exposed.
-- Activity replay coverage, distributions, boundaries, and copy invariants
-  pass.
+- Activity replay coverage, distributions, boundaries, and copy invariants pass.
 - Date-average ±3-day behavior and 24-hour trends pass where supported.
 - Catalog species/state behavior is correct, including intentionally disabled
   combinations.
-- Portfolio validation, copy QA, UI QA, type checks, and production-shaped
-  smoke tests pass.
+- Portfolio validation, copy QA, UI QA, type checks, and production-shaped smoke
+  tests pass.
 - The product owner accepts public geography, copy, and visual output.
 - Deployment and enablement remain unperformed unless separately authorized.
 
@@ -455,14 +493,14 @@ A river is onboarding-complete only when:
 
 The preferred future team structure is:
 
-| Role | Owns | Must hand off |
-| --- | --- | --- |
-| River lead | Foundation, source reach, sections, barriers, regulations, decision log | Approved foundation version and unresolved list |
-| Species/run researcher | Calendar, presence, lifecycle, biology evidence | Completed run truth packet with evidence IDs |
-| Activity specialist | Calibration, replay, boundary tests, Activity copy states | Versioned rules and replay report |
-| Copy reviewer | Four-primitive state matrix and geography/certainty checks | State-by-state corrections and copy version |
-| Integration owner | Configuration, registries, fixtures, shared QA | Clean diff, commands, results, acceptance artifact |
-| Independent verifier | Re-runs gates and inspects claims against evidence | Pass/fail report; no silent fixes |
+| Role                   | Owns                                                                    | Must hand off                                      |
+| ---------------------- | ----------------------------------------------------------------------- | -------------------------------------------------- |
+| River lead             | Foundation, source reach, sections, barriers, regulations, decision log | Approved foundation version and unresolved list    |
+| Species/run researcher | Calendar, presence, lifecycle, biology evidence                         | Completed run truth packet with evidence IDs       |
+| Activity specialist    | Calibration, replay, boundary tests, Activity copy states               | Versioned rules and replay report                  |
+| Copy reviewer          | Four-primitive state matrix and geography/certainty checks              | State-by-state corrections and copy version        |
+| Integration owner      | Configuration, registries, fixtures, shared QA                          | Clean diff, commands, results, acceptance artifact |
+| Independent verifier   | Re-runs gates and inspects claims against evidence                      | Pass/fail report; no silent fixes                  |
 
 Parallel work begins only after the river foundation locks. Give each agent
 isolated files. Only the integration owner edits shared registries. A handoff

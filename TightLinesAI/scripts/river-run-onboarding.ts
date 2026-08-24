@@ -74,6 +74,18 @@ async function validatePacket(): Promise<void> {
       );
       errors++;
     }
+    if (
+      relative.startsWith("runs/") &&
+      (!content.includes("## 0. Candidate capability audit") ||
+        !/\*\*Capability decision:\*\*/.test(content) ||
+        !/\*\*Contradiction search\s+completed by\/date:\*\*/.test(content) ||
+        !/\*\*Independent falsification review\s+by\/date:\*\*/.test(content))
+    ) {
+      console.error(
+        `ERROR ${relative}: missing mandatory candidate capability/contradiction audit.`,
+      );
+      errors++;
+    }
   }
   if (errors > 0) {
     console.error(
