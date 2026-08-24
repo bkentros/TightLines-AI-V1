@@ -1,5 +1,10 @@
 # River Run V1.1 Rollout Plan
 
+> **Historical rollout plan.** Its public primitive model and implementation
+> sequence are superseded by
+> `docs/river_run_rapid_onboarding_playbook.md`. Retain this file as a record of
+> the original engine rollout, not as instructions for a future river.
+
 **Product:** FinFindr
 
 **Launch proof:** Michigan → Pere Marquette River → Fall → Fall Chinook

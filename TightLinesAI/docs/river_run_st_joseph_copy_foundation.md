@@ -1,5 +1,11 @@
 # St. Joseph River Run Copy Foundation
 
+> **Accepted river research record.** Geography, sources, barriers, species
+> evidence, and owner decisions remain useful. Its six-primitive implementation
+> sections are historical; future onboarding follows
+> `docs/river_run_rapid_onboarding_playbook.md` and the four-visible-primitive
+> copy model.
+
 **Status:** Research-led geography and terminology owner-approved; bundled copy renovation implemented; owner copy review pending
 **Version:** `st-joseph-copy-foundation-v1`
 **Researched and approved:** 2026-08-11

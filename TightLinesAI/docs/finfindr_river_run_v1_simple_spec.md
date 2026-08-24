@@ -1,5 +1,12 @@
 # FinFindr River Run — V1.1 Product And Engine Specification
 
+> **Historical engine specification — superseded for public product shape and
+> onboarding on 2026-08-24.** It is not the current single source of truth for
+> visible primitives, copy, or river onboarding. Use
+> `docs/river_run_rapid_onboarding_playbook.md` and its normative companion
+> standards. Timing/Push material below remains useful only for internal legacy
+> engine compatibility and regression history.
+
 **Product:** FinFindr
 
 **Feature:** River Run
@@ -10,8 +17,7 @@
 
 **Specification version:** 2026-07-28.4
 
-**Status:** Normative target contract; implementation reconciliation is required
-before public release.
+**Status:** Historical V1.1 target contract
 
 River Run gives migratory anglers five separate, deterministic reads for a
 configured river/run/species combination. It uses researched seasonal timing,
@@ -23,7 +29,7 @@ observation. When the available evidence cannot support a determination, the
 correct output is `Unavailable`, `Insufficient evidence`, or explicitly
 qualified copy.
 
-This document is the single source of truth for River Run V1.1. Existing code,
+This document was the single source of truth for River Run V1.1. Existing code,
 tests, API examples, or rollout notes that conflict with this document are
 implementation gaps and must not be treated as accepted behavior.
 

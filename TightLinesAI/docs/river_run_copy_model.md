@@ -1,10 +1,11 @@
 # River Run Copy Model and River Onboarding Standard
 
 **Status:** Normative product standard
-**Version:** 1.6
+**Version:** 2.0
 **Established:** 2026-08-09
+**Updated:** 2026-08-24
 **Applies to:** Every existing and future River Run river, species, run, state,
-and public copy surface
+the four visible primitives, Live Conditions, and every public copy surface
 
 ## 1. Purpose and authority
 
@@ -17,18 +18,20 @@ This document is the controlling standard for:
 
 - Public section definitions and geographic wording.
 - Dam, weir, falls, fish-passage, closure, and upstream-limit research.
-- The public meaning and copy ownership of all six primitives.
+- The public meaning and copy ownership of the four visible primitives and the
+  separate unscored Live Conditions surface.
 - Copy structure, length, tone, certainty, and required limitations.
 - State-by-state copy generation and review.
 - Copy QA, cross-primitive consistency, and river onboarding acceptance.
 
-`docs/river_run_onboarding_template.md` remains useful for provider,
-calibration, baseline, replay, and publication work. Engine specifications and
-accepted run research remain authoritative for scoring behavior. When older
-documentation conflicts with this document about public copy, geography, the
-number of primitives, or copy acceptance, this document controls. When code,
-research, and this standard disagree, an agent must stop, document the
-mismatch, and resolve it explicitly rather than silently choosing one.
+`docs/river_run_rapid_onboarding_playbook.md` controls the onboarding sequence.
+Its dedicated Activity and Live Conditions companion standards control those
+surfaces. Engine specifications and accepted run research remain authoritative
+for scoring behavior. Older five- or six-primitive documents are historical.
+Migration Timing and Push may remain internal for compatibility but are hidden
+and require no new public copy. When code, research, and this standard disagree,
+an agent must stop, document the mismatch, and resolve it explicitly rather
+than silently choosing one.
 
 This standard does **not** authorize an agent to change a determination merely
 to make copy easier. Copy must first explain the accepted engine result. A
@@ -93,9 +96,9 @@ be copied from another river and lightly renamed.
 
 ### Layer A: Primitive truth
 
-The invariant product meaning of the primitive and its state. `Strong Push`
-must mean the same kind of conclusion on every river even though its inputs and
-thresholds are river- and species-specific.
+The invariant product meaning of the primitive and its state. `Active` must
+mean the same kind of conditional responsiveness conclusion on every river even
+though inputs and calibration are river- and species-specific.
 
 ### Layer B: River geography and source coverage
 
@@ -274,7 +277,7 @@ Required fields:
 - Presence-curve anchors and direction.
 - Expected section progression through the run.
 - Species-specific response to every known barrier.
-- Push temperature behavior and movement constraints.
+- Activity temperature behavior, lifecycle constraints, and data mode.
 - Activity biology and lifecycle behavior.
 - Whether fish leave, spawn and die, remain, or hand off to another season.
 - Destination capability for any handoff. A configured future destination is
@@ -287,14 +290,17 @@ or copy strength.
 
 ## 6. Primitive ownership and public meaning
 
-Public naming in this standard is canonical:
+Public naming and left-to-right order are canonical:
 
 1. Migration Stage
-2. Migration Timing (`conditionsSuggest` may remain an internal identifier)
-3. Push
+2. Activity
+3. Fish In River
 4. Fishability
-5. Activity Outlook
-6. Fish In River
+
+Live Conditions (`Gauge Read`) appears above the primitives. It is an unscored
+measurement surface, not a fifth primitive. Migration Timing and Push are
+hidden legacy/internal capabilities and must not appear in navigation, public
+copy acceptance, or new-river onboarding.
 
 ### 6.1 Migration Stage
 
@@ -341,7 +347,7 @@ Canonical Stage state intents:
 | Building—established | Middle becomes primary; upper accessible water is conditional. |
 | Building—broad | Middle and upper accessible sections are both credible; state the primary order. |
 | Peak | Compare approved core sections; do not claim live fish everywhere. |
-| Tapering / Late fall | Favor established holding sections; fresh lower travel water requires a Push. |
+| Tapering / Late fall | Favor established holding sections; do not infer fresh lower travel from calendar stage alone. |
 | Ending / Holding transition | Narrow to the most dependable established sections and match species lifecycle. |
 | Late post-run tail | No dependable broad start; any recommendation must be explicitly low-confidence and narrow. |
 | Handoff | Name the destination only if implemented; otherwise state that this model is complete. |
@@ -359,7 +365,12 @@ tracking boundary rather than using one universal month:
 - The normal Staging or monitoring state replaces the return message on the
   configured boundary date.
 
-### 6.2 Migration Timing
+### 6.2 Hidden legacy Migration Timing
+
+Migration Timing is not a public primitive. The following ownership notes are
+retained only to prevent internal compatibility output from contaminating the
+four public primitives. New onboarding does not author or accept public Timing
+copy.
 
 **Owns:** Whether cumulative season-to-date river-rise response and cooling are
 developing ahead of, close to, or behind the accepted historical pattern.
@@ -399,7 +410,11 @@ Canonical Timing states and variants:
 - Timing complete after the run.
 - Timing complete at a valid implemented handoff.
 
-### 6.3 Push
+### 6.3 Hidden legacy Push
+
+Push is not a public primitive. The following ownership notes are retained only
+for internal compatibility and regression safety. New onboarding does not
+author or accept public Push copy.
 
 **Owns:** Whether current measured water supports a fresh movement event.
 
@@ -575,6 +590,29 @@ Public numeric standard:
 The static primitive note must say: `Seasonal estimate—not a live fish count or
 today's conditions.`
 
+### 6.7 Live Conditions / Gauge Read
+
+**Owns:** Accepted current measurements, source-appropriate precision,
+approximately 24-hour change, same-date historical context using the fixed ±3
+day window, freshness, station provenance, and represented reach.
+
+**Does not own:** A score, migration inference, fish presence, responsiveness,
+Fishability, clarity, access, or safety.
+
+Rules:
+
+- Render only accepted available metrics.
+- Date context is calendar-date specific, not a broad seasonal average.
+- Do not invent decimals beyond source or processing resolution.
+- Long station names wrap on their own line rather than truncating material
+  reach information.
+- Expanded details use friendly provider labels and contain no internal IDs or
+  adapter names.
+- An ungauged river has an honest compact unavailable state; this does not
+  disable Stage, Fish In River, or separately accepted weather-only Activity.
+- Follow `docs/river_run_live_conditions_onboarding_standard.md` for the full
+  source, trend, history, precision, copy, and QA contract.
+
 ## 7. Structured copy contract
 
 The target model is structured copy. Current string fields may remain as a
@@ -696,12 +734,11 @@ Avoid:
 
 Some combinations are valid and must not be “corrected” through copy:
 
-- Strong Push with Tough or Poor Fishability.
 - Good or Excellent Fishability with Low Fish In River.
-- Peak Migration Stage with Weak Push.
-- Delayed Migration Timing with a Strong current Push.
 - Highly Active conditions with Limited seasonal presence.
 - High Fish In River with Inactive responsiveness.
+- A normal Gauge Read with Tough Fishability after a material trend or local
+  band interpretation.
 
 When such a combination is material, use the shared interpretation surface to
 explain it. Do not weaken either primitive to make the page look simpler.
@@ -709,11 +746,10 @@ explain it. Do not weaken either primitive to make the page look simpler.
 Invalid copy contradictions include:
 
 - Stage claims fish are present everywhere while Fish In River is zero or low.
-- Timing sends the user past an inaccessible barrier.
 - Fishability claims the whole river from a reach-limited gauge.
 - Activity treats abundance as a reason for a high responsiveness score.
-- Push says fish moved rather than that conditions support movement.
 - A winter handoff tells the user to open an unavailable experience.
+- Gauge Read turns a station trend into a fish-movement or safety claim.
 
 ## 9. Required state matrix
 
@@ -722,13 +758,12 @@ Every river/species/run must have an auditable matrix containing:
 - Every canonical public label.
 - Every calendar substate that changes copy.
 - Rising, near-peak, and falling presence copy.
-- Every material Push cap and data-quality state.
 - Every Fishability band and trend variant.
 - Every Activity confidence, lifecycle, weather, and tie state.
-- Every Timing evidence, mixed-signal, reversal, insufficient, and complete
-  state.
 - Offseason, staging, late-tail, migration-complete, and handoff behavior.
 - Representative valid cross-primitive combinations.
+- Every Live Conditions fresh, partial, delayed, stale, missing, fallback,
+  trend, date-context, and no-gauge state applicable to the river.
 
 Each scenario must declare:
 
@@ -835,7 +870,8 @@ by the product owner.
 Implement all supported species for the river in one pass:
 
 1. Apply the canonical state registry and structured copy contract.
-2. Rewrite all six primitives and all reachable states.
+2. Write all four visible primitives and all reachable states; configure Live
+   Conditions once at river level.
 3. Preserve engine determinations and river/species differences.
 4. Add/update fixtures and automated gates in the same change.
 5. Remove stale, duplicated, leaked, or capability-invalid copy.
@@ -884,7 +920,9 @@ A river is copy-complete only when:
   as unresolved.
 - Every public section has unambiguous named boundaries.
 - All supported species use the same primitive and state model.
-- All six primitives and all reachable states have canonical copy.
+- All four visible primitives and all reachable states have canonical copy,
+  and Live Conditions has accepted public labels, provenance, and unavailable
+  behavior.
 - Copy is simple without changing any determination.
 - Why This Read never exceeds three meaningful points.
 - Stage owns starting geography; other primitives modify or inform it without
@@ -904,7 +942,8 @@ When asked to configure or renovate a River Run river:
 1. Read this file completely before changing code or copy.
 2. Inspect the current implementation and working tree; do not assume older
    audit documents match current behavior.
-3. Explain the six primitives and their ownership boundaries in your own words.
+3. Explain the four visible primitives, their ownership boundaries, and why
+   Live Conditions is separate and unscored in your own words.
 4. Produce or verify the River Geography Profile first.
 5. Explicitly report the dam/barrier research result, including a confirmed
    `none in the relevant corridor` conclusion when applicable. Silence is not a

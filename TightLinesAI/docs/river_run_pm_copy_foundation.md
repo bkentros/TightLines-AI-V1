@@ -1,5 +1,11 @@
 # Pere Marquette River Run Copy Foundation
 
+> **Accepted river research record.** Geography, sources, barriers, species
+> evidence, and owner decisions remain useful. Its six-primitive implementation
+> sections are historical; future onboarding follows
+> `docs/river_run_rapid_onboarding_playbook.md` and the four-visible-primitive
+> copy model.
+
 **Status:** Copy complete and owner accepted; public release not performed
 **Version:** `pere-marquette-copy-v3`
 **Researched:** 2026-08-09

@@ -1,5 +1,11 @@
 # River Run River/Run Onboarding Template
 
+> **Historical template — superseded 2026-08-24.** Do not use this file to
+> onboard a new river. Use `docs/river_run_rapid_onboarding_playbook.md`, the
+> Activity and Live Conditions standards, and the workbench-generated packet
+> under `docs/onboarding/river-run/<river-id>/`. Sections below document legacy
+> internal Timing/Push calibration and are retained only for regression history.
+
 > **Required companion standard:** Read
 > `docs/river_run_copy_model.md` completely before researching geography,
 > barriers, public river sections, or state copy. That document controls River
@@ -24,8 +30,9 @@ Enter:
   coordinates.
 - One or more `hydraulicSources`; exactly one is `primary`.
 - One primary weather point.
-- One or more audited measured-water sources. A river without a viable source is
-  not eligible for River Run.
+- One or more audited measured-water sources when observed-river Activity or
+  Fishability is enabled. An ungauged river may still support Stage, Fish In
+  River, and an independently accepted weather-only Activity model.
 - Reach-limitation copy.
 - Proposed public Lower/Middle/Upper section definitions and exact named
   endpoints. Review these with the product owner before copy implementation;

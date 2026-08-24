@@ -1,5 +1,12 @@
 # River Run Agent Handoff
 
+> **Historical handoff — superseded 2026-08-24.** Its branch checkpoint,
+> five-primitive UI, and immediate-task instructions are no longer current.
+> Future onboarding agents must use
+> `docs/river_run_rapid_onboarding_playbook.md`. This file remains only as an
+> implementation-history reference and must not override the current four
+> visible primitives or Live Conditions contract.
+
 This document is the durable engineering and product handoff for FinFindr's
 River Run feature. Read it before modifying River Run. The implementation is the
 ultimate source of truth when this document and code differ.

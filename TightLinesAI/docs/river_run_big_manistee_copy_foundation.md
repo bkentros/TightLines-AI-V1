@@ -1,5 +1,11 @@
 # Big Manistee River Run Copy Foundation
 
+> **Accepted river research record.** Geography, sources, barriers, species
+> evidence, and owner decisions remain useful. Its six-primitive implementation
+> sections are historical; future onboarding follows
+> `docs/river_run_rapid_onboarding_playbook.md` and the four-visible-primitive
+> copy model.
+
 **Status:** Geography and terminology owner-approved; bundled copy renovation implemented and mechanically accepted; owner copy review pending
 **Version:** `big-manistee-copy-foundation-v1`
 **Researched and approved:** 2026-08-10
