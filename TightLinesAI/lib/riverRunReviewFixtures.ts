@@ -17,3 +17,4 @@ export { RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS } from "./riverRunMuskegonSt
 export { RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS } from "./riverRunStJosephReviewFixtures.generated";
 export { RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS } from "./riverRunStJosephCohoReviewFixtures.generated";
 export { RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS } from "./riverRunStJosephSteelheadReviewFixtures.generated";
+export { RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID } from "./riverRunOnboardingReviewFixtures.generated";

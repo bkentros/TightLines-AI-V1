@@ -201,7 +201,7 @@ E-018.
 **Presence curve version:** `grand-steelhead-fall-presence-v1-proposed`
 **Copy version:** `grand-steelhead-fall-copy-v1-proposed`
 **Replay artifact:** pending
-**Owner acceptance/date:** pending
+**Owner acceptance/date:** numeric/research candidate approved for hidden app review / 2026-08-24
 
 Blocking items: current passage through every displayed section; weather
 clear-sky capability; numeric owner decisions; replays, controlled tests,

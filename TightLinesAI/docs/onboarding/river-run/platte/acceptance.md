@@ -3,7 +3,7 @@
 **River ID:** `platte`
 **Created/updated:** 2026-08-24
 **Foundation approval:** `approved_2026-08-24`
-**Current phase:** `phase_c_packet_complete_implementation_blocked`
+**Current phase:** `hidden_review_implemented_visual_acceptance_pending`
 **Deployment:** `not_authorized`
 **Public enablement:** `not_authorized`
 
@@ -16,13 +16,13 @@
 | Barrier/passage/closure audit | `river-foundation.md` | pass for approved corridor | product owner | 2026-08-24 | Species-qualified lower-weir boundary; annual operations/signs must be rechecked. |
 | Source probes and Live Conditions source decision | `live-conditions.md` | research pass; implementation QA pending | product owner | 2026-08-24 | Honor discharge/gage height accepted for Gauge Read only; no temperature; source was in `Eqp` outage. |
 | Chinook truth profile | `runs/fall-chinook.md` | pass as visible-disabled | product owner | 2026-08-24 | No dates, curve, score, Activity, or Fishability authorized. |
-| Coho Phase C truth/calibration proposal | `runs/fall-coho.md` | packet complete; owner calibration/replay pending | pending | 2026-08-24 | Sole supported candidate; exact calendar, 10/10 ceiling, concentrated scope, curve, and 75/25 weather-only rules await acceptance. |
+| Coho Phase C truth/calibration | `runs/fall-coho.md` | approved for hidden review | product owner | 2026-08-24 | Exact calendar, 10/10 ceiling, concentrated scope, curve, and 75/25 weather-only rules approved for private app review. |
 | Steelhead truth profile | `runs/fall-steelhead.md` | pass as visible-disabled | product owner | 2026-08-24 | Species present, but planned fall-entry run remains unsupported by direct seasonal evidence. |
 | Lower-reach weather endpoint probes | El Dorado NPS coordinates; Open-Meteo live/archive; NWS `/points` cross-check | structural pass with limitation | research agent | 2026-08-24 | Open-Meteo returns precipitation/cloud/shortwave but clear-sky series is null; fixed replay must validate engine fallback. |
-| Engine configuration validation | `npm run river-run:onboarding:validate` | not run for Phase C packet | integration owner |  | Runtime Platte config is intentionally out of this task. |
+| Engine configuration validation | `npm run qa:river-run:onboarding`; engine test suite | pass | integration owner | 2026-08-24 | Hidden Platte config validates; no public registry entry. |
 | Dedicated Coho Activity historical replay | `docs/audits/river-run-platte-coho-weather-activity-replay.json` | mechanical pass; calibration review pending | integration owner | 2026-08-24 | 1,729/1,729 dates usable; zero invariant failures. Distribution is top-heavy (820 Active, 591 Highly active, 262 Moderate, 56 Reserved, no Inactive), so exact calibration remains owner-review blocked. |
 | Fishability contract | Coho §6 and owner reach decision | truth accepted; runtime QA pending | product owner | 2026-08-24 | Deterministically unavailable for lower corridor; Honor recovery must never enable it. |
-| Four-primitive state fixtures | production-derived intended-state fixtures | pending |  |  | Coho only; disabled species need static-state fixtures. |
+| Four-primitive state fixtures | `npm run qa:river-run:review-mode` | pass for private review | integration owner | 2026-08-24 | Coho generated scenarios pass; Chinook and Steelhead remain disabled in the review catalog. |
 | Copy/geography/contradiction QA | run packet matrices / future audit | pending |  |  | Must enforce closure, approved labels, weather-only limitation, scoreless terminal, and disabled states. |
 | Gauge Read fresh/partial/stale/missing/recovery QA | future test artifact | pending |  |  | Must prove current `Eqp` suppression and automatic recovery on a valid fresh numeric observation. |
 | iOS and Android narrow-screen review | screenshots/device review | pending |  |  | Include long Honor station/reach limitation and unavailable states. |
@@ -36,7 +36,7 @@
 | Fall Coho | Sole supported implementation candidate; stays hidden/disabled until replay, fixtures, validation, copy, and owner review pass |
 | Fall Chinook | Visible-disabled unsupported combination; historic occurrence is not current run proof |
 | Fall Steelhead | Visible-disabled unresolved combination; species support is not Platte fall-entry timing proof |
-| Coho Migration Stage | Proposed deterministic calendar and two approved lower sections; exact run calibration pending owner acceptance |
+| Coho Migration Stage | Deterministic calendar and two approved lower sections accepted for hidden review |
 | Coho Activity | Dedicated lower-reach `weather_only`; Limited confidence; 75% effective light, 25% in-block precipitation, 0% hydraulics, 0% temperature; proposed 90 today/85 tomorrow caps; replay required |
 | Coho Fish In River | Proposed Strong 100/100 ceiling, concentrated distribution, October 22 reference high, November 30 zero; replay/owner review required |
 | Coho Fishability | Deterministically unavailable; no lower-reach source/bands; never borrow Honor |
@@ -85,8 +85,8 @@ must prove all of the following without a manual configuration toggle:
 
 - Foundation: `platte-foundation-research-v1` — owner approved 2026-08-24.
 - Live Conditions audit: `platte-live-conditions-research-v1` — source/capability approved; QA pending.
-- Proposed Coho config: `platte-fall-coho-v1` — not accepted/implemented.
-- Proposed presence curve: `platte-fall-coho-presence-v1` — not accepted/implemented.
+- Hidden Coho config: `platte-fall-coho-v1` — implemented and owner-approved for private review; not public.
+- Hidden presence curve: `platte-fall-coho-presence-v1` — implemented and owner-approved for private review.
 - Proposed Activity rules: `platte-fall-coho-weather-activity-v1-draft` — mechanical replay passed; top-heavy label distribution and exact 90/85 caps await owner review.
 - Proposed copy: `platte-fall-coho-copy-v1` — fixtures/owner review pending.
 - Fixture generation command/result: pending.

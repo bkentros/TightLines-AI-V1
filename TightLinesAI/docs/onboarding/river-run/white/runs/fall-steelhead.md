@@ -189,7 +189,7 @@ flow, not the full White River, and are not a safety determination.`
 
 **Run decision:** `blocked_pending_replay_fixtures_and_owner_acceptance`
 
-**Configuration version:** `not_implemented`
+**Configuration version:** `2026-08-24-white-phase-c-draft.1` (hidden review only)
 
 **Activity rules version:** `white_activity_unavailable_split_reach_v1_research`
 
@@ -199,7 +199,7 @@ flow, not the full White River, and are not a safety determination.`
 
 **Replay artifact:** `not_generated`
 
-**Owner acceptance/date:** `not_yet_accepted`
+**Owner acceptance/date:** `numeric/research candidate approved for hidden app review / 2026-08-24`
 
 Research is complete enough for fixture implementation. It does not authorize
 runtime registration, deployment, or public enablement.

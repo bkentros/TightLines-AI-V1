@@ -210,9 +210,9 @@ Foundation evidence used: E-002, E-003, E-004, E-006, E-009, E-010, E-018.
 **Presence curve version:** `grand-chinook-presence-v1-proposed`
 **Copy version:** `grand-chinook-copy-v1-proposed`
 **Replay artifact:** pending
-**Owner acceptance/date:** pending
+**Owner acceptance/date:** numeric/research candidate approved for hidden app review / 2026-08-24
 
 Blocking items: current Sixth/Ada/Wagar passage verification; weather
-clear-sky capability; owner acceptance of all numeric proposals; Activity and
-Fishability replay; fixtures, automated gates, device review, and post-dam-work
+clear-sky capability; Activity and Fishability replay; rendered fixtures,
+device review, and post-dam-work
 source/rating re-audit.

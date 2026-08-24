@@ -341,7 +341,7 @@ assert.equal(
 );
 assert.match(
   riverRunScreen,
-  /RIVER_RUN_REVIEW_GROUPS\)\.filter\(\(group\) =>[\s\S]*?group\.id !== "conditions" && group\.id !== "push"/,
+  /const reviewGroups =[\s\S]*?\.filter\(\(group\) =>[\s\S]*?group\.id !== "conditions" && group\.id !== "push"/,
   "Developer review navigation must also hide Timing and Push groups",
 );
 assert.match(

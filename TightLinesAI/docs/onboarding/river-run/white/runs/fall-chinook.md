@@ -202,7 +202,7 @@ it must not say the river is safe, unsafe, clear, muddy, open, or closed.
 
 **Run decision:** `blocked_pending_replay_fixtures_and_owner_acceptance`
 
-**Configuration version:** `not_implemented`
+**Configuration version:** `2026-08-24-white-phase-c-draft.1` (hidden review only)
 
 **Activity rules version:** `white_activity_unavailable_split_reach_v1_research`
 
@@ -212,7 +212,7 @@ it must not say the river is safe, unsafe, clear, muddy, open, or closed.
 
 **Replay artifact:** `not_generated`
 
-**Owner acceptance/date:** `not_yet_accepted`
+**Owner acceptance/date:** `numeric/research candidate approved for hidden app review / 2026-08-24`
 
 Phase C research is complete enough to implement fixtures, but it does not
 authorize runtime registration, deployment, or public enablement.

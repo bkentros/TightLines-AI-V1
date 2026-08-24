@@ -6,7 +6,7 @@
 
 **Research phase:** `phase_c_packets_complete`
 
-**Runtime acceptance:** `blocked`
+**Runtime acceptance:** `hidden_review_implemented`
 
 **Deployment authorization:** `not_authorized`
 
@@ -39,14 +39,14 @@
 | River foundation and section approval | `river-foundation.md` | passed | product owner | 2026-08-24 | Approved labels are locked |
 | Barrier/passage/closure audit | `river-foundation.md` | passed for Phase C | product owner | 2026-08-24 | Reverify Hesperia status, regulations, and posted notices before release |
 | Source probe and Live Conditions audit | `live-conditions.md` | source capability approved; QA blocked | product owner | 2026-08-24 | Runtime, DST, partial/stale/missing, attribution, and visual fixtures remain |
-| Chinook truth/copy research | `runs/fall-chinook.md` | Phase C packet complete; runtime blocked | — | 2026-08-24 | Exact dates, 7/10 ceiling, curve, and Fishability bands require replay and owner acceptance |
+| Chinook truth/copy research | `runs/fall-chinook.md` | approved for hidden review | product owner | 2026-08-24 | Exact dates, 7/10 ceiling, curve, and Fishability bands approved for private app review; replay/release gates remain |
 | Coho truth/copy | `runs/fall-coho.md` | owner-approved visible-disabled | product owner | 2026-08-24 | Disabled-state fixtures and registry/deep-link tests remain |
-| Steelhead truth/copy research | `runs/fall-steelhead.md` | Phase C packet complete; runtime blocked | — | 2026-08-24 | Exact fall-entry dates, 7/10 ceiling, curve, and Fishability bands require replay and owner acceptance |
-| Engine configuration validation | `npm run river-run:onboarding:validate` | not run | — | — | No runtime configuration was authorized or edited in this pass |
+| Steelhead truth/copy research | `runs/fall-steelhead.md` | approved for hidden review | product owner | 2026-08-24 | Exact fall-entry dates, 7/10 ceiling, curve, and Fishability bands approved for private app review; replay/release gates remain |
+| Engine configuration validation | `npm run qa:river-run:onboarding`; engine test suite | pass | integration owner | 2026-08-24 | Hidden White configuration validates; no public registry entry |
 | Activity unavailable contract | Chinook/Steelhead run packets | research contract complete; fixtures blocked | — | 2026-08-24 | Must prove no score, block, fallback, or cross-reach blend for every source state |
 | Activity historical replay | run-specific artifact | not applicable to current unavailable mode | — | 2026-08-24 | A future scored model requires a new predeclared replay and owner gate |
 | Fishability replay | proposed USGS 04122200 bands | blocked | — | — | Percentiles alone do not prove local presentation usability |
-| Four-primitive state fixtures | generated fixtures | blocked | — | — | Implement only after calibration approval; Coho uses disabled-state fixtures |
+| Four-primitive state fixtures | `npm run qa:river-run:review-mode` | pass for private review | integration owner | 2026-08-24 | Chinook and Steelhead are included in the 223-scenario onboarding bundle; Coho remains disabled in the review catalog |
 | Copy/geography/contradiction QA | onboarding audit | blocked | — | — | Must include terminal, permanent-limit, foreign-geography, and cross-primitive tension cases |
 | Live Conditions partial/stale/missing QA | test artifact | blocked | — | — | Separate source labels and automatic recovery must be proved |
 | iOS and Android narrow-screen review | screenshots/device review | blocked | — | — | Long station names, attribution, unavailable Activity, and disabled Coho need review |
@@ -135,7 +135,7 @@ invariants before replaying it.
 
 ## Release record
 
-- Configuration version: `not_implemented`
+- Hidden configuration version: `2026-08-24-white-phase-c-draft.1`
 - Copy versions: `white_chinook_copy_v1_research`;
   `white_coho_visible_disabled_v1_research`;
   `white_steelhead_copy_v1_research`
@@ -143,13 +143,14 @@ invariants before replaying it.
   `white_steelhead_fall_entry_v1_research`
 - Activity version: `white_activity_unavailable_split_reach_v1_research`
 - Replay artifacts: `not_generated`
-- Fixture generation command/result: `not_run`
-- Test commands/results: `not_run`
+- Fixture generation command/result: `npm run generate:river-run:onboarding-review-fixtures` — 223 shared private scenarios generated across six supported runs.
+- Test commands/results: `npm run qa:river-run:review-mode` — existing and onboarding review suites passed; `npx tsc --noEmit` passed.
 - Explicitly deferred: runtime registry/configuration, scored Activity model,
   temperature date averages, Fishability acceptance, winter/spring Steelhead,
   enabled Coho, deployment, and public enablement
 - Owner Phase A/B acceptance: 2026-08-24
-- Owner Phase C calibration/copy acceptance: `not_granted`
+- Owner Phase C numeric/research acceptance for private review: `granted_2026-08-24`
+- Owner rendered copy/visual acceptance: `pending`
 - Deployment authorization: `not_granted`
 - Public enablement authorization: `not_granted`
 

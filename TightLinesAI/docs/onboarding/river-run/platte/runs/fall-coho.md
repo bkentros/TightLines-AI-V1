@@ -267,8 +267,8 @@ foundation/live-condition ledgers.
 **Activity rules version proposal:** `platte-fall-coho-weather-activity-v1`
 **Presence curve version proposal:** `platte-fall-coho-presence-v1`
 **Copy version proposal:** `platte-fall-coho-copy-v1`
-**Replay artifact:** `docs/audits/river-run-platte-coho-weather-activity-replay.json` — 2007–2025 mechanical pass; calibration acceptance pending
-**Owner acceptance/date:** pending
+**Replay artifact:** `docs/audits/river-run-platte-coho-weather-activity-replay.json` — 2007–2025 mechanical pass; top-heavy distribution accepted as a private-review candidate
+**Owner acceptance/date:** numeric/research candidate approved for hidden app review / 2026-08-24
 
 Blocking before implementation acceptance:
 

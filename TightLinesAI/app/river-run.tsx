@@ -66,6 +66,7 @@ import {
   RIVER_RUN_MUSKEGON_COHO_REVIEW_GROUPS,
   RIVER_RUN_MUSKEGON_REVIEW_GROUPS,
   RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS,
+  RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID,
   RIVER_RUN_REVIEW_GROUPS,
   RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS,
   RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS,
@@ -385,6 +386,78 @@ const REVIEW_CATALOG: RiverRunCatalogResponse = {
             },
           ],
         },
+        {
+          riverId: "grand",
+          displayName: "Grand River",
+          state: "MI",
+          timezone: "America/Detroit",
+          runs: [
+            {
+              runId: "grand_fall_chinook",
+              displayName: "Fall Chinook",
+              species: "chinook_salmon",
+              season: "fall",
+              runType: "fall_spawn",
+              supportStatus: "beta",
+            },
+            {
+              runId: "grand_fall_coho",
+              displayName: "Fall Coho",
+              species: "coho_salmon",
+              season: "fall",
+              runType: "fall_spawn",
+              supportStatus: "beta",
+            },
+            {
+              runId: "grand_fall_steelhead",
+              displayName: "Fall Steelhead",
+              species: "steelhead",
+              season: "fall",
+              runType: "fall_entry",
+              supportStatus: "beta",
+            },
+          ],
+        },
+        {
+          riverId: "platte",
+          displayName: "Platte River",
+          state: "MI",
+          timezone: "America/Detroit",
+          runs: [
+            {
+              runId: "platte_fall_coho",
+              displayName: "Fall Coho",
+              species: "coho_salmon",
+              season: "fall",
+              runType: "fall_spawn",
+              supportStatus: "beta",
+            },
+          ],
+        },
+        {
+          riverId: "white",
+          displayName: "White River",
+          state: "MI",
+          timezone: "America/Detroit",
+          runs: [
+            {
+              runId: "white_fall_chinook",
+              displayName: "Fall Chinook",
+              species: "chinook_salmon",
+              season: "fall",
+              runType: "fall_spawn",
+              supportStatus: "beta",
+            },
+            {
+              runId: "white_fall_steelhead",
+              displayName: "Fall Steelhead",
+              species: "steelhead",
+              season: "fall",
+              runType: "fall_entry",
+              supportStatus: "beta",
+            },
+          ],
+        },
       ],
     },
     {
@@ -512,7 +585,18 @@ export default function RiverRunScreen() {
   const resultScrollRef = useRef<ScrollView>(null);
   const primitiveTabsYRef = useRef(0);
 
-  const reviewGroups = (selectedRiverId === "betsie" &&
+  const onboardingReviewRunId = selectedRiverId && selectedSpecies
+    ? `${selectedRiverId}_fall_${
+      selectedSpecies === "chinook_salmon"
+        ? "chinook"
+        : selectedSpecies === "coho_salmon"
+        ? "coho"
+        : selectedSpecies
+    }`
+    : "";
+  const reviewGroups = (RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID[
+    onboardingReviewRunId
+  ] ?? (selectedRiverId === "betsie" &&
       selectedSpecies === "steelhead"
     ? RIVER_RUN_BETSIE_STEELHEAD_REVIEW_GROUPS
     : selectedRiverId === "betsie" && selectedSpecies === "coho_salmon"
@@ -547,7 +631,7 @@ export default function RiverRunScreen() {
     ? RIVER_RUN_COHO_REVIEW_GROUPS
     : selectedSpecies === "steelhead"
     ? RIVER_RUN_STEELHEAD_REVIEW_GROUPS
-    : RIVER_RUN_REVIEW_GROUPS).filter((group) =>
+    : RIVER_RUN_REVIEW_GROUPS)).filter((group) =>
       group.id !== "conditions" && group.id !== "push"
     );
 

@@ -2,14 +2,15 @@
 
 **River ID:** `grand`
 **Created/updated:** 2026-08-24
-**Packet status:** `phase_c_truth_profiles_complete_acceptance_blocked`
+**Packet status:** `hidden_review_implemented_release_blocked`
 **Deployment:** `not_authorized`
 **Public enablement:** `not_authorized`
 
-The product owner approved the three public sections and species endpoints on
-2026-08-24. That decision does not approve unresolved passage, numeric run
-calibration, runtime configuration, copy implementation, deployment, or public
-enablement. Acceptance, deployment, and enablement remain separate decisions.
+The product owner approved the three public sections, species endpoints, and
+the current calendar/presence/Fishability research numbers for private app
+review on 2026-08-24. Hidden runtime configuration and generated review
+fixtures are implemented. Unresolved passage, replay evidence, rendered visual
+acceptance, deployment, and public enablement remain separate gates.
 
 ## Gate record
 
@@ -19,16 +20,16 @@ enablement. Acceptance, deployment, and enablement remain separate decisions.
 | River foundation and section approval | `river-foundation.md` | approved_with_fail_closed_limits | product owner | 2026-08-24 | Lower: mouth–Sixth; Middle: Sixth–Webber; Upper: Webber–below Moores. |
 | Barrier/passage/closure audit | `river-foundation.md` | blocked | agent | 2026-08-24 | Ada/Wagar current status and Portland/Grand Ledge operation unresolved; Sixth/current route qualified; North Lansing inefficient. No section can be recommended across an unresolved link. |
 | Source probe and Live Conditions audit | `live-conditions.md` | source_capability_approved_QA_pending | product owner | 2026-08-24 | USGS 04119000 hydraulics and 04118564 temperature accepted by reach; freshness/copy implementation and QA remain pending. |
-| Chinook truth profile | `runs/fall-chinook.md` | research_complete_configuration_blocked | agent | 2026-08-24 | Webber endpoint fixed; dates, 6/10 ceiling, curve, Activity/Fishability rules are proposals pending owner/replay. |
-| Coho truth profile | `runs/fall-coho.md` | research_complete_configuration_blocked | agent | 2026-08-24 | Below-Moores endpoint fixed, but full intermediate route must be current before Upper can appear; numeric proposals pending. |
-| Steelhead truth profile | `runs/fall-steelhead.md` | research_complete_configuration_blocked | agent | 2026-08-24 | Fall-entry lifecycle is distinct from salmon; full route and numeric proposals pending. |
-| Engine configuration validation | `npm run river-run:onboarding:validate` | not_run |  |  | No runtime/configuration work was authorized or performed. |
+| Chinook truth profile | `runs/fall-chinook.md` | approved_for_hidden_review | product owner | 2026-08-24 | Webber endpoint, dates, 6/10 ceiling, curve, and Fulton Fishability candidate approved for private review; replay/release gates remain. |
+| Coho truth profile | `runs/fall-coho.md` | approved_for_hidden_review | product owner | 2026-08-24 | Below-Moores endpoint and numeric candidate approved for private review; Upper still requires a current complete route. |
+| Steelhead truth profile | `runs/fall-steelhead.md` | approved_for_hidden_review | product owner | 2026-08-24 | Fall-entry candidate approved for private review; full passage route and release evidence remain. |
+| Engine configuration validation | `npm run qa:river-run:onboarding`; engine test suite | pass | integration owner | 2026-08-24 | Hidden drafts validate; 314 engine tests passed. No public registry entry. |
 | Activity source capability | foundation E-018 and all run packets | blocked | agent | 2026-08-24 | Production-shaped Open-Meteo probe returned all-null clear-sky radiation; observed-river Activity cannot run as specified. |
 | Activity historical replay | run-specific artifact | not_run |  |  | Requires provider resolution, fixed ≥5-year interval, coverage/distributions/subsets, controlled tests, and owner review. |
 | Fishability calibration/replay | run-specific artifact | not_run |  |  | Percentile-derived bands are scaffolding only; local presentation review and construction-aware replay required. |
-| Four-primitive state fixtures | generated fixtures | not_run |  |  | Must cover every label, calendar substate, direction, lifecycle, confidence, cap, missing source, leader/tie, and valid contradiction. |
+| Four-primitive state fixtures | `npm run qa:river-run:review-mode` | pass for private review | integration owner | 2026-08-24 | Shared onboarding bundle contains 223 generated scenarios across six supported runs; rendered owner review remains. |
 | Copy/geography/capability QA | onboarding audit | packet review only | agent | 2026-08-24 | Draft intents are novice-readable and reach-limited; production rendering and automated denylist/length/determination gates remain. |
-| Live Conditions partial/stale/missing QA | test artifact | not_run |  |  | Full matrix remains in `live-conditions.md`. |
+| Live Conditions partial/missing/recovery QA | generated review fixtures and provider normalization tests | pass for private review | integration owner | 2026-08-24 | Generated Gauge Read scenarios cover available, partial/missing, and recovered numeric states; rendered device review remains. |
 | Today/Tomorrow/timezone QA | Activity fixtures/tests | not_run |  |  | America/Detroit DST, 9 PM rollover, midnight/4 AM refresh, and completed-block freezing required. |
 | iOS/Android narrow-screen review | screenshots/device review | not_run |  |  | Required after implementation. |
 | Production-shaped hidden smoke | smoke artifact | not_run |  |  | Required after runtime implementation; does not authorize release. |
@@ -50,9 +51,9 @@ enablement. Acceptance, deployment, and enablement remain separate decisions.
 
 | Run | Calendar/curve | Presence ceiling | Activity proposal | Fishability proposal | Acceptance state |
 | --- | --- | ---: | --- | --- | --- |
-| Chinook | 08-20 start; 09-20 anchor; complete after 11-15 | 6/10 | observed-river candidate; warm/lifecycle/missing caps proposed | 1,200/1,600/3,800/6,400 CFS scaffold | owner/replay blocked |
-| Coho | 09-01 start; 09-22 anchor; complete after 12-15 | 8/10 | observed-river candidate; long taper/lifecycle/missing caps proposed | 1,300/1,700/4,200/7,200 CFS scaffold | owner/replay blocked |
-| Steelhead | 10-01 fall-entry start; 11-15 anchor; fall profile complete after 01-15 | 5/10 | observed-river candidate; persistence/holding caps, no mortality logic | 1,400/1,900/4,800/8,000 CFS scaffold | owner/replay blocked |
+| Chinook | 08-20 start; 09-20 anchor; complete after 11-15 | 6/10 | unavailable until a coherent accepted input contract exists | 1,200/1,600/3,800/6,400 CFS candidate | owner-approved for hidden review; replay pending |
+| Coho | 09-01 start; 09-22 anchor; complete after 12-15 | 8/10 | unavailable until a coherent accepted input contract exists | 1,300/1,700/4,200/7,200 CFS candidate | owner-approved for hidden review; replay pending |
+| Steelhead | 10-01 fall-entry start; 11-15 anchor; fall profile complete after 01-15 | 5/10 | unavailable until a coherent accepted input contract exists | 1,400/1,900/4,800/8,000 CFS candidate | owner-approved for hidden review; replay pending |
 
 Fishability values above mean too-low maximum / low-fishable boundary / high
 edge of proposed ideal / blown-out minimum. They are not safety or flood
@@ -88,10 +89,10 @@ For each run, record before acceptance:
    link.
 2. Resolve the missing Open-Meteo clear-sky-radiation capability or explicitly
    redesign and separately accept the Activity input contract.
-3. Obtain product-owner decisions for every proposed date, curve anchor,
-   ceiling, Activity weight/threshold/cap, Fishability band, freshness cap, and
-   draft public-copy intent.
-4. Implement no values until replay and controlled tests support them.
+3. Preserve the 2026-08-24 owner approval of the current hidden-review numbers;
+   revise only when replay or rendered review identifies a concrete problem.
+4. Keep Activity unavailable and public enablement off until their separate
+   evidence gates pass.
 5. Re-audit USGS 04119000 rating/datum/source meaning after material 2026/2027
    downtown dam-removal work.
 6. Reverify the current Michigan regulations, Grand Haven November gear rule,
@@ -116,4 +117,4 @@ For each run, record before acceptance:
 - Deployment authorization: not authorized.
 - Public enablement authorization: not authorized.
 
-**Acceptance decision:** `blocked_pending_passage_numeric_replay_and_QA`
+**Acceptance decision:** `approved_for_hidden_review_blocked_pending_passage_replay_visual_and_release_QA`

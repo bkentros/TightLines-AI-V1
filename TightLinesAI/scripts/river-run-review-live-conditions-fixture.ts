@@ -15,7 +15,7 @@ const REVIEW_VALUES: Record<
   {
     flowAverage: number;
     gageHeight: number;
-    waterTemperatureAverage: number;
+    waterTemperatureAverage: number | null;
   }
 > = {
   pere_marquette: {
@@ -37,6 +37,21 @@ const REVIEW_VALUES: Record<
     flowAverage: 2_600,
     gageHeight: 4.38,
     waterTemperatureAverage: 60.6,
+  },
+  grand: {
+    flowAverage: 2_700,
+    gageHeight: 1.25,
+    waterTemperatureAverage: 64.2,
+  },
+  platte: {
+    flowAverage: 165,
+    gageHeight: 1.43,
+    waterTemperatureAverage: null,
+  },
+  white: {
+    flowAverage: 341,
+    gageHeight: 0.91,
+    waterTemperatureAverage: null,
   },
 };
 
@@ -140,7 +155,8 @@ export function buildReviewLiveConditionsFixture(input: {
           ? undefined
           : shiftIsoHours(input.refreshedAt, -24),
       },
-      seasonalContext: value != null && values
+      seasonalContext: value != null &&
+          values?.waterTemperatureAverage != null
         ? seasonalContext({
           metric: "water_temp_f",
           localDate: input.localDate,
