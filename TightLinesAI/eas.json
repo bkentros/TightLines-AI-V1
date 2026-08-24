@@ -2,6 +2,7 @@
   "cli": {
     "version": ">= 18.0.0",
     "appVersionSource": "local",
+    "requireCommit": true,
     "promptToConfigurePushNotifications": false
   },
   "build": {
@@ -39,6 +40,12 @@
     }
   },
   "submit": {
+    "internal": {
+      "android": {
+        "track": "internal",
+        "releaseStatus": "completed"
+      }
+    },
     "production": {
       "ios": {
         "ascAppId": "6769178136",

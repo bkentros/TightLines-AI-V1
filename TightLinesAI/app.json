@@ -29,7 +29,7 @@
         "backgroundColor": "#0a1628"
       },
       "package": "com.finseekr.finfindr",
-      "versionCode": 7
+      "versionCode": 8
     },
     "web": {
       "favicon": "./assets/favicon.png"
